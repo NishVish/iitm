@@ -1,0 +1,383 @@
+CRITICAL - 2026-01-19 09:49:25 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "plan.php"
+[Method: GET, Route: plan]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('plan.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('plan', [], true)
+ 3 APPPATH\Controllers\Backend.php(30): view('plan')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Backend->plan()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Backend))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 09:51:00 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "plan.php"
+[Method: GET, Route: plan]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('plan.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('plan', [], true)
+ 3 APPPATH\Controllers\Backend.php(30): view('plan')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Backend->plan()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Backend))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 09:57:30 --> ErrorException: include(footer.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in APPPATH\Views\index.php on line 14.
+ 1 APPPATH\Views\index.php(14): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(footer.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\index.php', 14)
+ 2 APPPATH\Views\index.php(14): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('index', [], true)
+ 6 APPPATH\Controllers\Home.php(9): view('index')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:11:47 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: company]
+in APPPATH\Views\company\index.php on line 14.
+ 1 APPPATH\Views\company\index.php(14): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\company\\index.php', 14)
+ 2 APPPATH\Views\company\index.php(14): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\company\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('company/index', [], true)
+ 6 APPPATH\Controllers\Master.php(21): view('company/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Master->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Master))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:11:58 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: company]
+in APPPATH\Views\company\index.php on line 14.
+ 1 APPPATH\Views\company\index.php(14): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\company\\index.php', 14)
+ 2 APPPATH\Views\company\index.php(14): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\company\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('company/index', [], true)
+ 6 APPPATH\Controllers\Master.php(21): view('company/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Master->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Master))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:12:25 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\index.php on line 2.
+ 1 APPPATH\Views\dashboard\index.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php', 2)
+ 2 APPPATH\Views\dashboard\index.php(2): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('dashboard/index', [], true)
+ 6 APPPATH\Controllers\Dashboard.php(46): view('dashboard/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:12:35 --> ErrorException: include(\header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\index.php on line 2.
+ 1 APPPATH\Views\dashboard\index.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(\\header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php', 2)
+ 2 APPPATH\Views\dashboard\index.php(2): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('dashboard/index', [], true)
+ 6 APPPATH\Controllers\Dashboard.php(46): view('dashboard/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:14:59 --> ErrorException: include(/header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\index.php on line 2.
+ 1 APPPATH\Views\dashboard\index.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(/header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php', 2)
+ 2 APPPATH\Views\dashboard\index.php(2): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('dashboard/index', [], true)
+ 6 APPPATH\Controllers\Dashboard.php(46): view('dashboard/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:15:00 --> ErrorException: include(/header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\index.php on line 2.
+ 1 APPPATH\Views\dashboard\index.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(/header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php', 2)
+ 2 APPPATH\Views\dashboard\index.php(2): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('dashboard/index', [], true)
+ 6 APPPATH\Controllers\Dashboard.php(46): view('dashboard/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:20:11 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "footer.php"
+[Method: GET, Route: dashboard]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('footer.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('footer', [], true)
+ 3 APPPATH\Views\dashboard\index.php(12): view('footer')
+ 4 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php')
+ 5 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('dashboard/index', [], true)
+ 7 APPPATH\Controllers\Dashboard.php(46): view('dashboard/index', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:20:13 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "footer.php"
+[Method: GET, Route: dashboard]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('footer.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('footer', [], true)
+ 3 APPPATH\Views\dashboard\index.php(12): view('footer')
+ 4 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\dashboard\\index.php')
+ 5 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('dashboard/index', [], true)
+ 7 APPPATH\Controllers\Dashboard.php(46): view('dashboard/index', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:21:31 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: company]
+in APPPATH\Views\company\index.php on line 14.
+ 1 APPPATH\Views\company\index.php(14): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\company\\index.php', 14)
+ 2 APPPATH\Views\company\index.php(14): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\company\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('company/index', [], true)
+ 6 APPPATH\Controllers\Master.php(21): view('company/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Master->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Master))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:22:36 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: company/details/C005]
+in APPPATH\Views\company\details.php on line 3.
+ 1 APPPATH\Views\company\details.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\company\\details.php', 3)
+ 2 APPPATH\Views\company\details.php(3): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\company\\details.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('company/details', [], true)
+ 6 APPPATH\Controllers\Company.php(49): view('company/details', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->details('C005')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:23:37 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: backend]
+in APPPATH\Views\backend\index.php on line 2.
+ 1 APPPATH\Views\backend\index.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\backend\\index.php', 2)
+ 2 APPPATH\Views\backend\index.php(2): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\backend\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('backend/index', [], true)
+ 6 APPPATH\Controllers\Backend.php(25): view('backend/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Backend->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Backend))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:24:35 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: plan]
+in APPPATH\Views\backend\plan.php on line 2.
+ 1 APPPATH\Views\backend\plan.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\backend\\plan.php', 2)
+ 2 APPPATH\Views\backend\plan.php(2): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\backend\\plan.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('backend/plan', [], true)
+ 6 APPPATH\Controllers\Backend.php(30): view('backend/plan')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Backend->plan()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Backend))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:27:03 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: leads]
+in APPPATH\Views\leads\index.php on line 3.
+ 1 APPPATH\Views\leads\index.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\leads\\index.php', 3)
+ 2 APPPATH\Views\leads\index.php(3): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\leads\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('leads/index', [], true)
+ 6 APPPATH\Controllers\Leads.php(31): view('leads/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Leads->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Leads))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 10:28:04 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: leads]
+in APPPATH\Views\leads\index.php on line 2.
+ 1 APPPATH\Views\leads\index.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\central\\app\\Views\\leads\\index.php', 2)
+ 2 APPPATH\Views\leads\index.php(2): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\central\\app\\Views\\leads\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('leads/index', [], true)
+ 6 APPPATH\Controllers\Leads.php(31): view('leads/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Leads->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Leads))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-19 12:16:08 --> mysqli_sql_exception: Table 'central.exhibitions' doesn't exist in C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\central\app\Controllers\Exhibitor.php(67): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Exhibitor->exhibition('C001')
+#8 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Exhibitor))
+#9 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2026-01-19 12:16:08 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'central.exhibitions' doesn't exist
+[Method: GET, Route: exhibitor/exhibition/C001]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `exhibitions`', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Exhibitor.php(67): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Exhibitor->exhibition('C001')
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Exhibitor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 12:16:08 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'central.exhibitions' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `exhibitions`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `exhibitions`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `exhibitions`', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Exhibitor.php(67): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Exhibitor->exhibition('C001')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Exhibitor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 12:16:08 --> [Caused by] mysqli_sql_exception: Table 'central.exhibitions' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `exhibitions`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `exhibitions`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `exhibitions`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `exhibitions`', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Exhibitor.php(67): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Exhibitor->exhibition('C001')
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Exhibitor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-19 12:35:31 --> mysqli_sql_exception: Unknown column 'updated_at' in 'field list' in C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ev...', 0)
+#1 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ev...')
+#2 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ev...')
+#3 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ev...', Array, false)
+#4 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\BaseModel.php(751): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\central\app\Controllers\Events.php(33): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Events->store()
+#10 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Events))
+#11 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2026-01-19 12:35:31 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+[Method: POST, Route: events/store]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`b2b_constrain`, `year`, `name`, `venue_details`, `venue_booking_details`, `coordinator`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES (:b2b_constrain:, :year:, :name:, :venue_details:, :venue_booking_details:, :coordinator:, :start_date:, :end_date:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(751): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Events.php(33): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Events->store()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Events))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 12:35:31 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`b2b_constrain`, `year`, `name`, `venue_details`, `venue_booking_details`, `coordinator`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES (\'OPIJ\', \'987\', \'OIJ\', \'IJ\', \'JO\', \'jiopjOI\', \'\', \'\', \'2026-01-19 12:35:31\', \'2026-01-19 12:35:31\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`b2b_constrain`, `year`, `name`, `venue_details`, `venue_booking_details`, `coordinator`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES (\'OPIJ\', \'987\', \'OIJ\', \'IJ\', \'JO\', \'jiopjOI\', \'\', \'\', \'2026-01-19 12:35:31\', \'2026-01-19 12:35:31\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`b2b_constrain`, `year`, `name`, `venue_details`, `venue_booking_details`, `coordinator`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES (:b2b_constrain:, :year:, :name:, :venue_details:, :venue_booking_details:, :coordinator:, :start_date:, :end_date:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], false)
+ 7 SYSTEMPATH\BaseModel.php(751): CodeIgniter\Model->insert([...], false)
+ 8 APPPATH\Controllers\Events.php(33): CodeIgniter\BaseModel->save([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Events->store()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Events))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-19 12:35:31 --> [Caused by] mysqli_sql_exception: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `events` (`b2b_constrain`, `year`, `name`, `venue_details`, `venue_booking_details`, `coordinator`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES (\'OPIJ\', \'987\', \'OIJ\', \'IJ\', \'JO\', \'jiopjOI\', \'\', \'\', \'2026-01-19 12:35:31\', \'2026-01-19 12:35:31\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`b2b_constrain`, `year`, `name`, `venue_details`, `venue_booking_details`, `coordinator`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES (\'OPIJ\', \'987\', \'OIJ\', \'IJ\', \'JO\', \'jiopjOI\', \'\', \'\', \'2026-01-19 12:35:31\', \'2026-01-19 12:35:31\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`b2b_constrain`, `year`, `name`, `venue_details`, `venue_booking_details`, `coordinator`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES (\'OPIJ\', \'987\', \'OIJ\', \'IJ\', \'JO\', \'jiopjOI\', \'\', \'\', \'2026-01-19 12:35:31\', \'2026-01-19 12:35:31\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`b2b_constrain`, `year`, `name`, `venue_details`, `venue_booking_details`, `coordinator`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES (:b2b_constrain:, :year:, :name:, :venue_details:, :venue_booking_details:, :coordinator:, :start_date:, :end_date:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(751): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Events.php(33): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Events->store()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Events))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
