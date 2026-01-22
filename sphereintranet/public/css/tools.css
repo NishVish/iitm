@@ -1,0 +1,184 @@
+
+
+
+ /* Main container for image-to-text tool */
+        #imageToTextContainer {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        /* Left panel: image input and preview */
+        .imageInputPanel {
+            flex: 1;
+        }
+
+        .imageInputPanel input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        .imagePreview {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border: 1px solid #aaa;
+            display: none;
+        }
+
+        .convertButton {
+            margin-top: 12px;
+            padding: 10px 20px;
+            background-color: #2a7ae2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .convertButton:hover {
+            background-color: #195cc3;
+        }
+
+        /* Right panel: converted text display */
+        .textOutputPanel {
+            flex: 1;
+        }
+
+        .convertedTextArea {
+            width: 100%;
+            height: 400px;
+            resize: vertical;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+#toolbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 15px;
+background: transparent;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    border-radius: 20px;
+}
+
+#toolbox section {
+    background: rgb(116, 114, 114);
+    border: 1px solid #aaaaaa;
+    border-radius: 6px;
+    padding: 15px 20px;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+
+#toolbox section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.calc-btn {
+    padding: 10px 0;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    background: #797474;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.calc-btn:hover {
+    background: #ddd;
+}
+
+#calc-display {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea, input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 8px 10px;
+    margin: 6px 0 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+button {
+    padding: 8px 14px;
+    border: none;
+    background-color: #4285f4;
+    color: white;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #3367d6;
+}
+
+#timer-display {
+    font-size: 2rem;
+    text-align: center;
+    margin: 15px 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#todo-list {
+    list-style: none;
+    padding-left: 0;
+    max-height: 120px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#todo-list li {
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+#todo-list li:hover {
+    background-color: #f1f1f1;
+}
+
+.result {
+    margin-top: 8px;
+    font-weight: 600;
+    color: #333;
+}

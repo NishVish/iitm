@@ -1,0 +1,98 @@
+@ 159371666 - Exness-
+
+IT5Real20 - Hedge - Exness
+
+© file View Tools Window Help
+vey Bw AM ©) DBD @) GAgotrading (5) Neworder| ++ 00 | Q
+Market Watch: 05:53:19 x
+symbol Bid Ask Daily
+Y BICUSDe 111127... 111148. -120% |
+Symbols
+Navigator x
+¥- Accounts
+© Exness-MTSReal20 Passes sano
+
+=. 46419 791 1164 1536 1509 W261 2654 3026 3909 3771 A144 4516 4G6D S261 S694 6006 6379 G7S1 7124 7496 7069 E241 O6I4 GOGO _O559_O731 10I04 10476 10G49 11001 11504 11966)
+Common F 7 ; = r 7 i 7 7
+
+Bi Sclecterpert
+
+\View previous single testresuls
+
+Variable Value start step stop Steps
+Oi botsize 001
+© TradeOpentimit 0)
+© breakeven false
+D inpips 5000
+1 profit iimit 100
+DB boss timit 10
+BD autociose false
+© TotalProfitLimit true
+© TotaiLosstimit true
+© fixedst 3000
+OG fixeate 10000
+Sl Timetrame for MA 1 Minute
+© & other Settings
+BG rasta Periog 9
+i; Inputs 000021 /000021 Sta
+X subject From To Time
+® The List of Instruments Affected by High Importance News Administration ‘Standard Cent 00:04 | Today |
+. __& The List of instruments Affected by High Importance News Administration Standard Cent 00:03 | Yesterday
+S __©S The list of instruments Affected by Administration Standard Cent 2025.08.27 00:03
+& 9 Bi Market (9 Signals > VPs
+For Help, press F1 Default sill 62.56 ms
+
+vy G Chatc x Mahar x
+€ ic} chatgpt.com
+®© ChatGPt
+
+Linksc x | @& Datab: x Router x Proje: X | @& Datab) X | M Inbox x @ Check
+1. Add Required Includes & Globals
+
+Make sure these are declared at the top of your EA:
+mal
+#include <Trade\Trade.mgh>
+CTrade trade;
+
+2. Advanced Profit/Loss Limiter Function
+mal
+//| Checks total floating pnt and closes all trades if limits hit |
+[goosessoscssessosesssecesesesecescessscesesescsesesessseseseseseses +
+void CheckAndCloseAllIfFloatingPnLLimits(double maxProfit, double maxLoss)
+{
+
+double totalFloating = 0.0;
+
+// Sum all floating profits across open positions
+
+for (int i = Positionstotal() - 1; i >=
+
+A
+t
+if (PasitionGetTicket (id)
+
+@ attach  @sSearch (study
+
+T can make mistakes. Check important in
+
+x
+
+@ Edital
+
+x | @ Entre
+
+O Copy code
+
+O Copy code
+
+I!) Voice
+
+x
+
+@ mw
+
+x o+
+
+* a 9 @ Error
+
+Sign up for free @)

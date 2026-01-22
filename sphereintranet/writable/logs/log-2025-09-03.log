@@ -1,0 +1,869 @@
+ERROR - 2025-09-03 07:26:42 --> mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT \r\n      ...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 C:\xampp\htdocs\sphereintranet\app\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...')
+#4 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+#5 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-09-03 07:26:42 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+[Method: GET, Route: resource_data_center]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:26:42 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 3 APPPATH\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:26:42 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 4 APPPATH\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 07:26:53 --> mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT \r\n      ...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 C:\xampp\htdocs\sphereintranet\app\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...')
+#4 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+#5 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-09-03 07:26:53 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+[Method: GET, Route: resource_data_center]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:26:53 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 3 APPPATH\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:26:53 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 4 APPPATH\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 07:28:51 --> mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT \r\n      ...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 C:\xampp\htdocs\sphereintranet\app\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...')
+#4 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+#5 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-09-03 07:28:51 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+[Method: GET, Route: resource_data_center]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:28:51 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 3 APPPATH\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:28:51 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 4 APPPATH\Controllers\Database.php(33): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        state,
+                        COUNT(state) AS total_count_state,
+                        SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents,
+                        SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels,
+                        SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous,
+                        SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+                    FROM Company_Data
+                    GROUP BY state
+                    ORDER BY state')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 07:31:36 --> mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `state`,...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`,...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`,...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`,...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-09-03 07:31:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+[Method: GET, Route: resource_data_center]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 2 APPPATH\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:31:36 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 4 APPPATH\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:31:36 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 5 APPPATH\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 07:35:06 --> mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `state`,...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`,...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`,...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`,...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-09-03 07:35:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+[Method: GET, Route: resource_data_center]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 2 APPPATH\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:35:06 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 4 APPPATH\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:35:06 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 5 APPPATH\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 07:36:35 --> mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `state`,...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`,...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`,...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`,...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-09-03 07:36:35 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+[Method: GET, Route: resource_data_center]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `Company_Data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 2 APPPATH\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:36:35 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `Company_Data`
+GROUP BY `state`
+ORDER BY `state`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `Company_Data`
+GROUP BY `state`
+ORDER BY `state`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `Company_Data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 4 APPPATH\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:36:35 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `Company_Data`
+GROUP BY `state`
+ORDER BY `state`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `Company_Data`
+GROUP BY `state`
+ORDER BY `state`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `Company_Data`
+GROUP BY `state`
+ORDER BY `state`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(state) AS total_count_state, SUM(CASE WHEN category = \'TA\' THEN 1 ELSE 0 END) AS travel_agents, SUM(CASE WHEN category IN (\'Hotel\', \'HT\') THEN 1 ELSE 0 END) AS hotels, SUM(CASE WHEN category = \'Miscellaneous\' THEN 1 ELSE 0 END) AS miscellaneous, SUM(CASE WHEN category = \'General\' THEN 1 ELSE 0 END) AS general
+FROM `Company_Data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 5 APPPATH\Controllers\Database.php(32): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 07:37:42 --> mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `state`,...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`,...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`,...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`,...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Controllers\Database.php(27): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-09-03 07:37:42 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+[Method: GET, Route: resource_data_center]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(*) AS total_count_state
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 2 APPPATH\Controllers\Database.php(27): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:37:42 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`, COUNT(*) AS total_count_state
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`, COUNT(*) AS total_count_state
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(*) AS total_count_state
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 4 APPPATH\Controllers\Database.php(27): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:37:42 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.company_data' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `state`, COUNT(*) AS total_count_state
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `state`, COUNT(*) AS total_count_state
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `state`, COUNT(*) AS total_count_state
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `state`, COUNT(*) AS total_count_state
+FROM `company_data`
+GROUP BY `state`
+ORDER BY `state`', [], false)
+ 5 APPPATH\Controllers\Database.php(27): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 07:39:47 --> ErrorException: Undefined variable $model
+[Method: GET, Route: resource_data_center]
+in APPPATH\Controllers\Database.php on line 22.
+ 1 APPPATH\Controllers\Database.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $model', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Controllers\\Database.php', 22)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Database->summaryByState()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Database))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 11:07:14 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/hr/system .php"
+[Method: GET, Route: hr/system-details]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/hr/system .php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/hr/system ', [], true)
+ 3 APPPATH\Controllers\Hr.php(34): view('content/hr/system ', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->SystemDetails()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 11:12:24 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/hr/system .php"
+[Method: GET, Route: hr/system-details]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/hr/system .php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/hr/system ', [], true)
+ 3 APPPATH\Controllers\Hr.php(34): view('content/hr/system ', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->SystemDetails()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 11:16:33 --> ErrorException: Undefined array key "employee_id"
+[Method: GET, Route: hr/system-details]
+in APPPATH\Views\content\hr\system.php on line 74.
+ 1 APPPATH\Views\content\hr\system.php(74): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "employee_id"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\hr\\system.php', 74)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\hr\\system.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/hr/system', [], true)
+ 5 APPPATH\Controllers\Hr.php(32): view('content/hr/system', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->SystemDetails()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 11:16:46 --> ErrorException: Undefined array key "employee_id"
+[Method: GET, Route: hr/system-details]
+in APPPATH\Views\content\hr\system.php on line 74.
+ 1 APPPATH\Views\content\hr\system.php(74): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "employee_id"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\hr\\system.php', 74)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\hr\\system.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/hr/system', [], true)
+ 5 APPPATH\Controllers\Hr.php(32): view('content/hr/system', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->SystemDetails()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 11:23:16 --> mysqli_sql_exception: Unknown column 'system_details.id' in 'where clause' in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `system_...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `system_...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `system_...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `system_...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(1025): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(860): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\Hr.php(40): CodeIgniter\Model->update('1001', Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Hr->updateSystemDetails()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-09-03 11:23:16 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'system_details.id' in 'where clause'
+[Method: POST, Route: hr/update-system-details]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `system_details` SET `full_name` = :full_name:, `years_of_using` = :years_of_using:, `processor` = :processor:, `ram` = :ram:, `storage` = :storage:, `graphics` = :graphics:
+WHERE `system_details`.`id` IN :system_details.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\Hr.php(40): CodeIgniter\Model->update('1001', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->updateSystemDetails()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 11:23:16 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'system_details.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'d\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'d\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `system_details` SET `full_name` = :full_name:, `years_of_using` = :years_of_using:, `processor` = :processor:, `ram` = :ram:, `storage` = :storage:, `graphics` = :graphics:
+WHERE `system_details`.`id` IN :system_details.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\Hr.php(40): CodeIgniter\Model->update('1001', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->updateSystemDetails()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 11:23:16 --> [Caused by] mysqli_sql_exception: Unknown column 'system_details.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'d\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'d\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'d\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `system_details` SET `full_name` = :full_name:, `years_of_using` = :years_of_using:, `processor` = :processor:, `ram` = :ram:, `storage` = :storage:, `graphics` = :graphics:
+WHERE `system_details`.`id` IN :system_details.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\Hr.php(40): CodeIgniter\Model->update('1001', [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->updateSystemDetails()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 11:23:50 --> mysqli_sql_exception: Unknown column 'system_details.id' in 'where clause' in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `system_...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `system_...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `system_...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `system_...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(1025): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(860): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\Hr.php(40): CodeIgniter\Model->update('1001', Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Hr->updateSystemDetails()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-09-03 11:23:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'system_details.id' in 'where clause'
+[Method: POST, Route: hr/update-system-details]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `system_details` SET `full_name` = :full_name:, `years_of_using` = :years_of_using:, `processor` = :processor:, `ram` = :ram:, `storage` = :storage:, `graphics` = :graphics:
+WHERE `system_details`.`id` IN :system_details.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\Hr.php(40): CodeIgniter\Model->update('1001', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->updateSystemDetails()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 11:23:50 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'system_details.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'df\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'df\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `system_details` SET `full_name` = :full_name:, `years_of_using` = :years_of_using:, `processor` = :processor:, `ram` = :ram:, `storage` = :storage:, `graphics` = :graphics:
+WHERE `system_details`.`id` IN :system_details.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\Hr.php(40): CodeIgniter\Model->update('1001', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->updateSystemDetails()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 11:23:50 --> [Caused by] mysqli_sql_exception: Unknown column 'system_details.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'df\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'df\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `system_details` SET `full_name` = \'K RAMADASU\', `years_of_using` = \'6 Month\', `processor` = \'\', `ram` = \'\', `storage` = \'df\', `graphics` = \'\'
+WHERE `system_details`.`id` IN (\'1001\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `system_details` SET `full_name` = :full_name:, `years_of_using` = :years_of_using:, `processor` = :processor:, `ram` = :ram:, `storage` = :storage:, `graphics` = :graphics:
+WHERE `system_details`.`id` IN :system_details.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\Hr.php(40): CodeIgniter\Model->update('1001', [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->updateSystemDetails()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 11:24:51 --> mysqli_sql_exception: Unknown column 'system_details.id' in 'where clause' in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `system_...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `system_...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `system_...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `system_...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(1025): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(860): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\Hr.php(51): CodeIgniter\Model->update('1001', Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Hr->updateSystemDetails()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}

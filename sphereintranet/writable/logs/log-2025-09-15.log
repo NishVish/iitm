@@ -1,0 +1,75 @@
+CRITICAL - 2025-09-15 06:57:39 --> CodeIgniter\Format\Exceptions\FormatException: Failed to parse JSON string. Error: Malformed UTF-8 characters, possibly incorrectly encoded
+[Method: POST, Route: imagetotext]
+in SYSTEMPATH\Format\JSONFormatter.php on line 47.
+ 1 SYSTEMPATH\Format\JSONFormatter.php(47): CodeIgniter\Format\Exceptions\FormatException::forInvalidJSON('Malformed UTF-8 characters, possibly incorrectly encoded')
+ 2 SYSTEMPATH\HTTP\ResponseTrait.php(252): CodeIgniter\Format\JSONFormatter->format([...])
+ 3 SYSTEMPATH\HTTP\ResponseTrait.php(178): CodeIgniter\HTTP\Response->formatBody([...], 'json')
+ 4 APPPATH\Controllers\Tools.php(50): CodeIgniter\HTTP\Response->setJSON([...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Tools->convertImageToText()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tools))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-15 07:00:03 --> CodeIgniter\Format\Exceptions\FormatException: Failed to parse JSON string. Error: Malformed UTF-8 characters, possibly incorrectly encoded
+[Method: POST, Route: imagetotext]
+in SYSTEMPATH\Format\JSONFormatter.php on line 47.
+ 1 SYSTEMPATH\Format\JSONFormatter.php(47): CodeIgniter\Format\Exceptions\FormatException::forInvalidJSON('Malformed UTF-8 characters, possibly incorrectly encoded')
+ 2 SYSTEMPATH\HTTP\ResponseTrait.php(252): CodeIgniter\Format\JSONFormatter->format([...])
+ 3 SYSTEMPATH\HTTP\ResponseTrait.php(178): CodeIgniter\HTTP\Response->formatBody([...], 'json')
+ 4 APPPATH\Controllers\Tools.php(50): CodeIgniter\HTTP\Response->setJSON([...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Tools->convertImageToText()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tools))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-15 07:05:23 --> CodeIgniter\Format\Exceptions\FormatException: Failed to parse JSON string. Error: Malformed UTF-8 characters, possibly incorrectly encoded
+[Method: POST, Route: imagetotext]
+in SYSTEMPATH\Format\JSONFormatter.php on line 47.
+ 1 SYSTEMPATH\Format\JSONFormatter.php(47): CodeIgniter\Format\Exceptions\FormatException::forInvalidJSON('Malformed UTF-8 characters, possibly incorrectly encoded')
+ 2 SYSTEMPATH\HTTP\ResponseTrait.php(252): CodeIgniter\Format\JSONFormatter->format([...])
+ 3 SYSTEMPATH\HTTP\ResponseTrait.php(178): CodeIgniter\HTTP\Response->formatBody([...], 'json')
+ 4 APPPATH\Controllers\Tools.php(50): CodeIgniter\HTTP\Response->setJSON([...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Tools->convertImageToText()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tools))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-15 07:34:43 --> ParseError: syntax error, unexpected identifier "data"
+[Method: GET, Route: tools/upload]
+in APPPATH\Controllers\Tools.php on line 183.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\sphereintranet\\app\\Controllers\\Tools.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Tools')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Tools')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Tools', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-15 07:34:55 --> ParseError: syntax error, unexpected token "="
+[Method: GET, Route: tools/upload]
+in APPPATH\Controllers\Tools.php on line 146.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\sphereintranet\\app\\Controllers\\Tools.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Tools')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Tools')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Tools', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-15 07:35:06 --> ParseError: syntax error, unexpected identifier "data"
+[Method: GET, Route: tools/upload]
+in APPPATH\Controllers\Tools.php on line 173.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\sphereintranet\\app\\Controllers\\Tools.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Tools')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Tools')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Tools', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

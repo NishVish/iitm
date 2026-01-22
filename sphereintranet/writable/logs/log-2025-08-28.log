@@ -1,0 +1,69 @@
+CRITICAL - 2025-08-28 08:53:41 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "employee.php"
+[Method: GET, Route: hr/employee_details]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('employee.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('employee', [], true)
+ 3 APPPATH\Controllers\Hr.php(20): view('employee', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->HrfetchUsers()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-28 09:09:44 --> ErrorException: Undefined variable $reqForm
+[Method: POST, Route: users/updateProfile]
+in APPPATH\Controllers\Users.php on line 82.
+ 1 APPPATH\Controllers\Users.php(82): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reqForm', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Controllers\\Users.php', 82)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Users->updateProfile()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Users))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-28 09:11:30 --> ErrorException: Undefined variable $reqForm
+[Method: POST, Route: users/updateProfile]
+in APPPATH\Controllers\Users.php on line 82.
+ 1 APPPATH\Controllers\Users.php(82): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reqForm', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Controllers\\Users.php', 82)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Users->updateProfile()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Users))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-28 09:11:33 --> ErrorException: Undefined variable $reqForm
+[Method: POST, Route: users/updateProfile]
+in APPPATH\Controllers\Users.php on line 82.
+ 1 APPPATH\Controllers\Users.php(82): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reqForm', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Controllers\\Users.php', 82)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Users->updateProfile()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Users))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-28 09:27:56 --> ErrorException: Undefined array key "chat"
+[Method: GET, Route: home]
+in APPPATH\Views\header.php on line 145.
+ 1 APPPATH\Views\header.php(145): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "chat"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\header.php', 145)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\header.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('header', [], true)
+ 5 APPPATH\Views\home.php(2): view('header', [...])
+ 6 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\home.php')
+ 7 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('home', [], true)
+ 9 APPPATH\Controllers\Home.php(26): view('home', [...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->home()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-28 13:15:45 --> Error: Class "App\Models\CreativeModel" not found
+[Method: GET, Route: creative-chat]
+in APPPATH\Controllers\CreativeController.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CreativeController->index()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CreativeController))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

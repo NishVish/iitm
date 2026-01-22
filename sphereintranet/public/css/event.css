@@ -1,0 +1,46 @@
+.event-container {
+  width: 880px;
+  box-sizing: border-box; /* good practice */
+}
+
+
+.card-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 96%;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+
+
+.event-card {
+  background-color: #f9f9f9;
+  color: #000;
+  padding: 16px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 100%;
+}
+
+
+  #year-buttons {
+    margin-bottom: 1rem;
+  }
+
+  #year-buttons button {
+    padding: 6px 12px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #year-buttons button:hover {
+    background-color: #0056b3;
+  }
+
+  

@@ -1,0 +1,117 @@
+@ 159371666 - Exness-MT5Real20 - Hedge - Exness Technologies Ltd - [multiv7]
+© file View Tools
+
+Ble ameoe
+
+Window Help
+
+ve © Algo Trading NewOrder | + O00 | Q
+
+Market Watch: 05:53:30 x
+symbol Bid) Ask | Daily. “
+
+2 BICUSDc 111127... 111149... -1.28%
+
+symbols -- :
+
+Navigator X Wgaapkeylntat as =F 2 oo
+v-& Accounts res
+
+© Exness-MTSReal20 vases sano
+= 46419 791 1164 1596 1909 2261 2654 3026 GG9 G77] G14 A516 GOH S261 S654 6006 G37O G7SI TID 7406 TOGD GOA1 GIA GOS S559 _O7HI TOI04 10476 10040 11921 T1564 11566"
+Common >
+Bi] History Quality tox ]
+Bars 12960 Ticks 4932909 Symbols 1
+Initial Deposit 10
+Total Net Profit 21308 Balance Drawdown Absolute 0 Equity Drawdown Absolute °
+Gross Profit 21310 Balance Drawdown Maximal 2 (004%) Equity Drawdown Maximal 99 (1.25%)
+Gross Loss -2 Balance Drawdown Relative 0.04% (2) Equity Drawdown Relative 25.72% (98)
+Profit Factor 1065500 Expected Payot 0.11 Margin Level 178%
+Recovery Factor 21523 Sharpe Ratio 19915 Z-Score “19345 (99.74%)
+AHPR 110000 (0.00%) LR Correlation 1.00. OnTester result °
+GHPR 1.0000 (0.00%) LR Standard Error 8758
+Total Trades 199604 Short Trades (won %) 99920 (100.00%) Long Trades (won %) 99684 (100.00%)
+Total Deals 399208 Profit Trades % of total) 199602 (100.00%) Loss Trades (% of total) 2 0.00%)
+Largest profit trade 1 loss trade 4
+2 [More GRIMES 0 losstrade 4
+e Maximum consecutive wins ($) 159823 (16 139) consecutive losses ($) 2¢2)
+z Maximal__consecutve profit coun) 16139 159823) consecutive loss count 2)
+i; Baciest 00021 /000021 Start ll
+X Subject From To Time
+® The List of Instruments Affected by High Importance News Administration ‘Standard Cent 00:04 | Today
+. __& The List of instruments Affected by High Importance News Administration Standard Cent 00:03 | Yesterday
+3 __@ The List of Instruments Affected by Hiah Importance News Administration. Standard Cent 2025.08.27 00:03
+2 99 | Mailbox 19 1B Market (9 Signals & vps
+For Help, press F1 Default all 62.56 ms
+
+vy  @ Chatc x
+
+€ c
+
+® ChatGPt
+
+Mahar x
+
+chatgpt.com
+
+Links,
+
+x
+
+G Datab) x | GM Router x © Gi Projec' x | @& Datab’ x | M Inbox x @ Check x @ Editah x | @ Entre
+
+1. Add Required Includes & Globals
+
+Make sure these are declared at the top of your EA:
+
+mal5 O Copy code
+
+#include <Trade\Trade.mgh>
+CTrade trade;
+
+2. Advanced Profit/Loss Limiter Function
+
+malS O Copy code
+
+//+-
+//| Checks total floating Pnl and closes all trades if limits hit |
+//+-
+void CheckAndCloseAllIfFloatingPnLLimits (double maxProfit, double maxLoss)
+
+{
+
++
+
+“+
+
+double totalFloating = 0.0;
+
+// Sum all floating profits across open positions
+for (int i = Positionstotal() - 1; i >= 0; 4 -)
+
+a
+{
+
+if (PasitionGetTicket (id)
+
+O attach ® Search @W study ‘Ih Voice
+
+ChatGPT can make mistakes. CI
+
+k important i
+
+x
+
+@ mw
+
+x o+
+
+*y @8
+
+Log in
+
+@ Error
+
+Sign up for free
+
+®

@@ -1,0 +1,561 @@
+CRITICAL - 2025-08-26 07:58:28 --> Error: Call to undefined method App\Controllers\Chat::failForbidden()
+[Method: POST, Route: chat/add]
+in APPPATH\Controllers\Chat.php on line 49.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->add()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:03:51 --> ErrorException: Undefined variable $session
+[Method: GET, Route: home]
+in APPPATH\Views\content\chat.php on line 8.
+ 1 APPPATH\Views\content\chat.php(8): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $session', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\chat.php', 8)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\chat.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/chat', [], true)
+ 5 APPPATH\Views\home.php(16): view('content/chat')
+ 6 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\home.php')
+ 7 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('home', [], true)
+ 9 APPPATH\Controllers\Home.php(26): view('home', [...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->home()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:03:52 --> ErrorException: Undefined variable $session
+[Method: GET, Route: home]
+in APPPATH\Views\content\chat.php on line 8.
+ 1 APPPATH\Views\content\chat.php(8): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $session', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\chat.php', 8)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\chat.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/chat', [], true)
+ 5 APPPATH\Views\home.php(16): view('content/chat')
+ 6 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\home.php')
+ 7 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('home', [], true)
+ 9 APPPATH\Controllers\Home.php(26): view('home', [...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->home()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:04:23 --> ErrorException: Undefined variable $session
+[Method: GET, Route: home]
+in APPPATH\Views\content\chat.php on line 8.
+ 1 APPPATH\Views\content\chat.php(8): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $session', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\chat.php', 8)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\content\\chat.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/chat', [], true)
+ 5 APPPATH\Views\home.php(16): view('content/chat')
+ 6 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\home.php')
+ 7 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('home', [], true)
+ 9 APPPATH\Controllers\Home.php(26): view('home', [...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->home()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 08:18:31 --> mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`....', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`....')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`....')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`....', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\app\Controllers\Chat.php(43): App\Models\ChatModel->getAllChatsWithUser()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-26 08:18:31 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+[Method: GET, Route: fetch-chats]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 2 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Chat.php(43): App\Models\ChatModel->getAllChatsWithUser()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:18:31 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 4 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Chat.php(43): App\Models\ChatModel->getAllChatsWithUser()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:18:31 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 5 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Chat.php(43): App\Models\ChatModel->getAllChatsWithUser()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 08:18:39 --> mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`....', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`....')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`....')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`....', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\app\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-26 08:18:39 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+[Method: GET, Route: fetch-chats]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 2 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:18:39 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 4 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:18:39 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 5 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 08:18:56 --> mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`....', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`....')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`....')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`....', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\app\Controllers\Chat.php(41): App\Models\ChatModel->getAllChatsWithUser()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-26 08:18:56 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+[Method: GET, Route: fetch-chats]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 2 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Chat.php(41): App\Models\ChatModel->getAllChatsWithUser()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:18:56 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 4 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Chat.php(41): App\Models\ChatModel->getAllChatsWithUser()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:18:56 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 5 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Chat.php(41): App\Models\ChatModel->getAllChatsWithUser()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 08:19:47 --> mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`....', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`....')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`....')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`....', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\app\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-26 08:19:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+[Method: GET, Route: fetch-chats]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 2 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:19:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 4 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:19:47 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 5 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 08:19:48 --> mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`....', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`....')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`....')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`....', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\app\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-26 08:19:48 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+[Method: GET, Route: fetch-chats]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 2 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:19:48 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 4 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:19:48 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 5 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 08:20:24 --> mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`....', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`....')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`....')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`....', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\app\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\app\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-26 08:20:24 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+[Method: GET, Route: fetch-chats]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 2 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:20:24 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 4 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 08:20:24 --> [Caused by] mysqli_sql_exception: Table 'sphereintranet.chats' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `chats`.*, `users`.`username`, `users`.`user_type`
+FROM `chats`
+JOIN `users` ON `users`.`empid` = `chats`.`empid`
+ORDER BY `time` DESC', [], false)
+ 5 APPPATH\Models\ChatModel.php(18): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Chat.php(42): App\Models\ChatModel->getAllChatsWithUser()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Chat->fetchChats()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Chat))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 09:24:53 --> ErrorException: Undefined array key "announcement"
+[Method: GET, Route: home]
+in APPPATH\Views\header.php on line 143.
+ 1 APPPATH\Views\header.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "announcement"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\header.php', 143)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\header.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('header', [], true)
+ 5 APPPATH\Views\home.php(2): view('header', [...])
+ 6 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\home.php')
+ 7 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('home', [], true)
+ 9 APPPATH\Controllers\Home.php(26): view('home', [...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->home()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 11:27:08 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/hr/payslip.html"
+[Method: GET, Route: hr/payslip]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/hr/payslip.html')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/hr/payslip.html', [], true)
+ 3 APPPATH\Controllers\Hr.php(12): view('content/hr/payslip.html')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Hr->payslip()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Hr))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

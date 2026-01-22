@@ -1,0 +1,855 @@
+CRITICAL - 2025-09-16 06:12:05 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 06:12:52 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/main/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/main/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/main/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/main/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 06:12:53 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/main/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/main/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/main/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/main/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 06:13:04 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/major/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/major/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/major/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/major/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 06:13:57 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/major/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/major/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/major/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/major/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 06:14:46 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/major/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/major/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/major/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/major/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 06:14:47 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/major/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/major/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/major/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/major/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 06:14:47 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/major/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/major/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/major/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/major/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 06:14:47 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/major/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/major/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/major/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/major/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 06:45:57 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/major/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/major/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/major/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/major/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:31:04 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "content/major/card/upload_form.php"
+[Method: GET, Route: card-reader]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('content/major/card/upload_form.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('content/major/card/upload_form', [], true)
+ 3 APPPATH\Controllers\CardReader.php(126): view('content/major/card/upload_form')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-16 07:47:38 --> mysqli_sql_exception: MySQL server has gone away in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ca...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ca...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ca...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-09-16 07:47:38 --> mysqli_sql_exception: MySQL server has gone away in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ca...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ca...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ca...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-09-16 07:47:38 --> mysqli_sql_exception: MySQL server has gone away in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ca...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ca...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ca...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-09-16 07:47:38 --> CodeIgniter\Database\Exceptions\DatabaseException: MySQL server has gone away
+[Method: POST, Route: card-reader/convertImageToText]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:38 --> CodeIgniter\Database\Exceptions\DatabaseException: MySQL server has gone away
+[Method: POST, Route: card-reader/convertImageToText]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:38 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: MySQL server has gone away
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008856_0.jpg\', \'G Nivrenl, perneby oleciare at abl ee wees Sub eed ty wee ee\\nApplication forum Is larvieet tee arral valid 1 will preset the Suppanting\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: Not Found\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008856_0.jpg\', \'G Nivrenl, perneby oleciare at abl ee wees Sub eed ty wee ee\\nApplication forum Is larvieet tee arral valid 1 will preset the Suppanting\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: Not Found\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:38 --> CodeIgniter\Database\Exceptions\DatabaseException: MySQL server has gone away
+[Method: POST, Route: card-reader/convertImageToText]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:38 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: MySQL server has gone away
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008854_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008854_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:38 --> [Caused by] mysqli_sql_exception: MySQL server has gone away
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008856_0.jpg\', \'G Nivrenl, perneby oleciare at abl ee wees Sub eed ty wee ee\\nApplication forum Is larvieet tee arral valid 1 will preset the Suppanting\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: Not Found\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008856_0.jpg\', \'G Nivrenl, perneby oleciare at abl ee wees Sub eed ty wee ee\\nApplication forum Is larvieet tee arral valid 1 will preset the Suppanting\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: Not Found\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008856_0.jpg\', \'G Nivrenl, perneby oleciare at abl ee wees Sub eed ty wee ee\\nApplication forum Is larvieet tee arral valid 1 will preset the Suppanting\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: Not Found\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\', \'Not Found\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:38 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: MySQL server has gone away
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008852_5.jpg\', \'PA UeT/\\nS.No.SSE/2015\\n\\nwala areata faen ag, fecei aofare a.\\n0 7 7 4 9 7 6 Central Board of Secondary Education, Delhi Registration No.: P115/08238/0097\\n\\narate faenca olen (Ga : 2013-15)\\n\\nSECONDARY SCHOOL EXAMINATION (SESSION : 2013 - 15)\\nirs fe We Fae WAM! GI Grade Sheet cum Certificate of Performance\\n\\nug wafer frat sat 8 f& This is to certify that NISHANT VISHWAKARMA\\naren en aaG Hl AA\\n\\nMother’s/Father’s/Guardian’s Name\\nwira fa Date of Birth\\n\\nfaeieta School\\n\\nel Freq Para Yel has performed as follows :\\n\\nke Sarforas fasi@a Academic Performance :\\n\\nSONI DEVI / RAMESH KUMAR BISHWAKARMA\\n\\n30/01/1999 30TH JANUARY NINETEEN HUNDRED NINETY NINE\\n08238-DAV PUB SCHOOL BARORA(BCCL) NAWAGARH DHANBAD JH\\n\\nWr Part-1 fet a Scholastic Areas\\n\\napap RollNo.: 7204164\\n\\nfava wars cen AT bd ies\\nSubject Code and Name Grade Grade Overall Grade (FA+SA) Grade Grade\\n\\nFA Grade Grade Point (GP) FA SA\\n\\nel Class X\\n\\nUae, sera oh dor & sR, aRaa we iva wi visHx< wi asa 4\\n\\nOverall Grade (FA+SA) alti tes figait ar descr Fa mente oi afeneil aaa % aed We sia\\nGrade Grade Point (GP) __| faqa aad @ waar Vieinie 6 fasai Fa\\n\\nSCIENCE\\n\\nAdditional :\\n\\nENGLISH COMM. C1 C1 06 B2.|.¢1\\nHINDI COURSE-A B4 C1 06 BiftteD ON\\nMATHEMATICS C1 G2 05: / 4 BAT EZ\\nC1 06 f/f &) B24\\nSOCIAL SCIENCE C1 C2 05 | i\\" /| Bap\\n\\nC1 06 ae ee es ee ee\\n\\nC1 06 rs Aerale otal A Pierre soa = 98x fer ered\\n04 o dal a wan Peéoncae ufasam = 9.5 x Weitie\\n\\nC2 05 As per Scheme of Studies CGPA is the average of Grade Points obtained in all the\\n\\n4 C2 0 5 subjects excluding additional 6 subject. However, for candidates who have offered\\n\\none compulsory subject under NSQF, his/her CGPA is out of 6 subjects.\\nAn indicative equivalence of Grade Point and Percentage of Marks can be calculated\\nas follows :\\n\\ne Subject wise indicative percentage of marks = 9.5xGP of the subject\\n\\ne Overall indicative percentage of marks = 9.5xCGPA\\n\\niti as fry al area (sii) Cumulative Grade Point Average (CGPA) 2 ; ;\\n* Hw AS sau Hleieil (wea) % anpetr FS Grade in Assessment of Speaking and Listening Skills (ASL): IX-A1 X-A1\\n\\n2 (®) (A) Maa Bere Life Skills :\\n\\n5.2\\n\\nPT Part-2: : We-Sifares @ri a Co-Scholastic Areas\\n\\nwat whlerer\\n\\nLife Skills\\n\\nHal Class IX\\n\\n‘que Vera Descriptive indicators\\n\\nis\\n\\nGrade\\n\\nHeal Class X\\n\\nSe\\n\\nDAM Tera Descriptive Indicators\\n\\nfeiert arora\\nThinking Skills\\n\\nIdentifies personal strengths and weaknesses and uses them to arrive at\\nmeaningful decisions\\n\\nB\\n\\nIdentifies personal strengths and weaknesses, analyses a problem with\\nrelevant information and usually chooses appropriate alternatives and\\nmakes meaningful decisions.\\n\\nBarnes aDleret\\n\\nSocial Skills\\n\\nEmpathetic, shows sensitivity towards differently-abled students and appreciates\\n\\nother\\\'s points of view, has very good interpersonal and communicative skills, an\\nactive listener and effective speaker, accepts feedback.\\n\\nB\\n\\nInterpersonal and communicative skills are satisfactory and usually takes\\nfeedback and criticism positively.\\n\\nWMA BHT\\nEmotional Skills\\n\\nSelf-confident and optimistic, manages adverse situations and stress effectively.\\n\\nExpresses emotions appropriately..\\n\\nidentifies weaknesses, stress and negative emotions fairly well, manages\\nthem with self confidence and is empathetic.\\n\\n2 (@)(B) wr fen Work Education :\\n\\nwre. fai\\n\\nWork Education\\n\\nGrasps assigned tasks easily, self-motivated, helpful, guides others and is\\npunctual.\\n\\nInnovative and shows involvement in any assignment, helps and guides\\nothers readily, applies knowledge practically and is punctual.\\n\\n2 (™1)(C) Gea ae veel Hen Visual and Performing Arts :\\n\\ngea aie needa word\\n\\nVisual and\\nPerforming Arts :\\n\\nParticipates actively in artistic activities, creative, very observant, appreciates\\nand understands various art forms.\\n\\nParticipates actively in artistic activities, quite creative and aesthetic, takes\\ninitiatives actively to plan and conduct artistic events, appreciates and\\nunderstands various art forms.\\n\\n2 (a)(D) atari va\\n\\nWet Attitudes and Values :\\n\\n%& ufa towards\\n\\nPNT Bers Descriptive Indicators\\n\\nalae Beers Descriptive Indicators\\n\\nVery courteous towards teachers, observes school norms, ready to help and\\ncommunicates and confides in them.\\n\\nVery courteous towards teachers, follows school rules, has a positive\\nattitude and takes criticism in the right spirit.\\n\\nExpresses ideas and opinions with clarity, is sensitive towards peers and\\ndifferently abled schoolmates, and respects diversity, and is receptive to new\\nideas.\\n\\nHas a good rapport with peers and is sensitive towards differently-abled\\nschoolmates. Respects other gender.\\n\\nffenea @rina\\naie yalaevr\\n\\nSchool Programmes &\\nEnvironment\\n\\nAn enthusiastic participant in various school programmes and environmentai\\ninitiatives, possesses leadership skills. Usually takes in pride in the school and\\nrespects school property.\\n\\nParticipates in various school programmes and environmental initiatives B\\nregularly, possesses good leadership qualities and is punctual.\\n\\nyea wonferii\\n\\nValue Systems\\n\\nUnderstands value systems quite well and adheres to rules. Courteous towards\\npeers and elders. Respects the national flag and symbols, respects: school 5d:\\nproperty and is sensitive to diversity. ;\\n\\nUnderstands value systems quite well and adheres to school rules, See B\\nthe national flag and symbols. Honest, courteous and sensitive to diversity,\\n_ with a positive outlook.\\n\\n3 (®)(A) We Weawa Seis Co-Curricular Activities :\\n\\narian Activity\\n\\nWM Part-3 UE a sande Bas Activites\\n\\naes tes\\n\\nLiterary and Creative Skills 4\\n\\nRegularly participates in literary inter- and intra -mural events, appreciates rik\\nwritten and spoken literary forms, expresses ideas and opinions creatively, an\\navid reader and inspires others.\\n\\nSh Actively participates in inter- and intra-mural literary events, an avid reader\\n\\n4 and appreciates written and spoken literary forms, expresses ideas and\\nopinions clearly and appropriately.\\n\\nScientific Skills\\n\\nApplies science to everyday life, participates in scientific activities at inter- and\\nintra mural events, displays good laboratory skills and is very observant.\\n\\nActively participates in scientific activities at inter- and intra-mural events,\\nplans and coordinates science related events, very observant and has good\\nlaboratory skills.\\n\\n3 (@\\\\(B) aR vd areifeas fie Health and Physical Education :\\n\\n@RBaM Activity\\n\\nYoga\\n\\nUnderstands and demonstrates the techniques and postures correctly, agile and\\nflexible, good at breath regulation exercises, shows keen interest.\\n\\nB\\n\\nUnderstands and demonsirates the techniques and postures correctly, agile\\nand flexible, good at breath regulation exercises, shows keen interest.\\n\\nFirst Aid\\n\\nInterested in learning abcut first aid procedures, exhibits aptitude and patience\\nwhile handiing medical emergency.\\n\\nWell trained in first aid procedures, shows commitment to responding ina\\nmedical emergency, demonstrates aptitude and tenacity while handling\\nemergency situations.\\n\\nBAK\\n\\n## Upscaled Grade\\n\\nf@ee Delhi\\n\\nfraim Dated 28-05-2015 yo es Dist ia Samet\\n\\nGFT WS Upgraded Grade gforry Result: QUALIFIED FOR ADMISSION TO HIGHER CLASSES\\n\\nD.A.V. PUBUIC SCHOOL |\\n\\npine Seni ere ime\\n\\nAi D> va\\n\\n8)\\n\\nusien fers\\n\\nController of Examinations\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 2015\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'2015\', \'Not Found\', \'Not Found\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008852_5.jpg\', \'PA UeT/\\nS.No.SSE/2015\\n\\nwala areata faen ag, fecei aofare a.\\n0 7 7 4 9 7 6 Central Board of Secondary Education, Delhi Registration No.: P115/08238/0097\\n\\narate faenca olen (Ga : 2013-15)\\n\\nSECONDARY SCHOOL EXAMINATION (SESSION : 2013 - 15)\\nirs fe We Fae WAM! GI Grade Sheet cum Certificate of Performance\\n\\nug wafer frat sat 8 f& This is to certify that NISHANT VISHWAKARMA\\naren en aaG Hl AA\\n\\nMother’s/Father’s/Guardian’s Name\\nwira fa Date of Birth\\n\\nfaeieta School\\n\\nel Freq Para Yel has performed as follows :\\n\\nke Sarforas fasi@a Academic Performance :\\n\\nSONI DEVI / RAMESH KUMAR BISHWAKARMA\\n\\n30/01/1999 30TH JANUARY NINETEEN HUNDRED NINETY NINE\\n08238-DAV PUB SCHOOL BARORA(BCCL) NAWAGARH DHANBAD JH\\n\\nWr Part-1 fet a Scholastic Areas\\n\\napap RollNo.: 7204164\\n\\nfava wars cen AT bd ies\\nSubject Code and Name Grade Grade Overall Grade (FA+SA) Grade Grade\\n\\nFA Grade Grade Point (GP) FA SA\\n\\nel Class X\\n\\nUae, sera oh dor & sR, aRaa we iva wi visHx< wi asa 4\\n\\nOverall Grade (FA+SA) alti tes figait ar descr Fa mente oi afeneil aaa % aed We sia\\nGrade Grade Point (GP) __| faqa aad @ waar Vieinie 6 fasai Fa\\n\\nSCIENCE\\n\\nAdditional :\\n\\nENGLISH COMM. C1 C1 06 B2.|.¢1\\nHINDI COURSE-A B4 C1 06 BiftteD ON\\nMATHEMATICS C1 G2 05: / 4 BAT EZ\\nC1 06 f/f &) B24\\nSOCIAL SCIENCE C1 C2 05 | i\\" /| Bap\\n\\nC1 06 ae ee es ee ee\\n\\nC1 06 rs Aerale otal A Pierre soa = 98x fer ered\\n04 o dal a wan Peéoncae ufasam = 9.5 x Weitie\\n\\nC2 05 As per Scheme of Studies CGPA is the average of Grade Points obtained in all the\\n\\n4 C2 0 5 subjects excluding additional 6 subject. However, for candidates who have offered\\n\\none compulsory subject under NSQF, his/her CGPA is out of 6 subjects.\\nAn indicative equivalence of Grade Point and Percentage of Marks can be calculated\\nas follows :\\n\\ne Subject wise indicative percentage of marks = 9.5xGP of the subject\\n\\ne Overall indicative percentage of marks = 9.5xCGPA\\n\\niti as fry al area (sii) Cumulative Grade Point Average (CGPA) 2 ; ;\\n* Hw AS sau Hleieil (wea) % anpetr FS Grade in Assessment of Speaking and Listening Skills (ASL): IX-A1 X-A1\\n\\n2 (®) (A) Maa Bere Life Skills :\\n\\n5.2\\n\\nPT Part-2: : We-Sifares @ri a Co-Scholastic Areas\\n\\nwat whlerer\\n\\nLife Skills\\n\\nHal Class IX\\n\\n‘que Vera Descriptive indicators\\n\\nis\\n\\nGrade\\n\\nHeal Class X\\n\\nSe\\n\\nDAM Tera Descriptive Indicators\\n\\nfeiert arora\\nThinking Skills\\n\\nIdentifies personal strengths and weaknesses and uses them to arrive at\\nmeaningful decisions\\n\\nB\\n\\nIdentifies personal strengths and weaknesses, analyses a problem with\\nrelevant information and usually chooses appropriate alternatives and\\nmakes meaningful decisions.\\n\\nBarnes aDleret\\n\\nSocial Skills\\n\\nEmpathetic, shows sensitivity towards differently-abled students and appreciates\\n\\nother\\\'s points of view, has very good interpersonal and communicative skills, an\\nactive listener and effective speaker, accepts feedback.\\n\\nB\\n\\nInterpersonal and communicative skills are satisfactory and usually takes\\nfeedback and criticism positively.\\n\\nWMA BHT\\nEmotional Skills\\n\\nSelf-confident and optimistic, manages adverse situations and stress effectively.\\n\\nExpresses emotions appropriately..\\n\\nidentifies weaknesses, stress and negative emotions fairly well, manages\\nthem with self confidence and is empathetic.\\n\\n2 (@)(B) wr fen Work Education :\\n\\nwre. fai\\n\\nWork Education\\n\\nGrasps assigned tasks easily, self-motivated, helpful, guides others and is\\npunctual.\\n\\nInnovative and shows involvement in any assignment, helps and guides\\nothers readily, applies knowledge practically and is punctual.\\n\\n2 (™1)(C) Gea ae veel Hen Visual and Performing Arts :\\n\\ngea aie needa word\\n\\nVisual and\\nPerforming Arts :\\n\\nParticipates actively in artistic activities, creative, very observant, appreciates\\nand understands various art forms.\\n\\nParticipates actively in artistic activities, quite creative and aesthetic, takes\\ninitiatives actively to plan and conduct artistic events, appreciates and\\nunderstands various art forms.\\n\\n2 (a)(D) atari va\\n\\nWet Attitudes and Values :\\n\\n%& ufa towards\\n\\nPNT Bers Descriptive Indicators\\n\\nalae Beers Descriptive Indicators\\n\\nVery courteous towards teachers, observes school norms, ready to help and\\ncommunicates and confides in them.\\n\\nVery courteous towards teachers, follows school rules, has a positive\\nattitude and takes criticism in the right spirit.\\n\\nExpresses ideas and opinions with clarity, is sensitive towards peers and\\ndifferently abled schoolmates, and respects diversity, and is receptive to new\\nideas.\\n\\nHas a good rapport with peers and is sensitive towards differently-abled\\nschoolmates. Respects other gender.\\n\\nffenea @rina\\naie yalaevr\\n\\nSchool Programmes &\\nEnvironment\\n\\nAn enthusiastic participant in various school programmes and environmentai\\ninitiatives, possesses leadership skills. Usually takes in pride in the school and\\nrespects school property.\\n\\nParticipates in various school programmes and environmental initiatives B\\nregularly, possesses good leadership qualities and is punctual.\\n\\nyea wonferii\\n\\nValue Systems\\n\\nUnderstands value systems quite well and adheres to rules. Courteous towards\\npeers and elders. Respects the national flag and symbols, respects: school 5d:\\nproperty and is sensitive to diversity. ;\\n\\nUnderstands value systems quite well and adheres to school rules, See B\\nthe national flag and symbols. Honest, courteous and sensitive to diversity,\\n_ with a positive outlook.\\n\\n3 (®)(A) We Weawa Seis Co-Curricular Activities :\\n\\narian Activity\\n\\nWM Part-3 UE a sande Bas Activites\\n\\naes tes\\n\\nLiterary and Creative Skills 4\\n\\nRegularly participates in literary inter- and intra -mural events, appreciates rik\\nwritten and spoken literary forms, expresses ideas and opinions creatively, an\\navid reader and inspires others.\\n\\nSh Actively participates in inter- and intra-mural literary events, an avid reader\\n\\n4 and appreciates written and spoken literary forms, expresses ideas and\\nopinions clearly and appropriately.\\n\\nScientific Skills\\n\\nApplies science to everyday life, participates in scientific activities at inter- and\\nintra mural events, displays good laboratory skills and is very observant.\\n\\nActively participates in scientific activities at inter- and intra-mural events,\\nplans and coordinates science related events, very observant and has good\\nlaboratory skills.\\n\\n3 (@\\\\(B) aR vd areifeas fie Health and Physical Education :\\n\\n@RBaM Activity\\n\\nYoga\\n\\nUnderstands and demonstrates the techniques and postures correctly, agile and\\nflexible, good at breath regulation exercises, shows keen interest.\\n\\nB\\n\\nUnderstands and demonsirates the techniques and postures correctly, agile\\nand flexible, good at breath regulation exercises, shows keen interest.\\n\\nFirst Aid\\n\\nInterested in learning abcut first aid procedures, exhibits aptitude and patience\\nwhile handiing medical emergency.\\n\\nWell trained in first aid procedures, shows commitment to responding ina\\nmedical emergency, demonstrates aptitude and tenacity while handling\\nemergency situations.\\n\\nBAK\\n\\n## Upscaled Grade\\n\\nf@ee Delhi\\n\\nfraim Dated 28-05-2015 yo es Dist ia Samet\\n\\nGFT WS Upgraded Grade gforry Result: QUALIFIED FOR ADMISSION TO HIGHER CLASSES\\n\\nD.A.V. PUBUIC SCHOOL |\\n\\npine Seni ere ime\\n\\nAi D> va\\n\\n8)\\n\\nusien fers\\n\\nController of Examinations\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 2015\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'2015\', \'Not Found\', \'Not Found\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:38 --> [Caused by] mysqli_sql_exception: MySQL server has gone away
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008854_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008854_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008854_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:38 --> [Caused by] mysqli_sql_exception: MySQL server has gone away
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008852_5.jpg\', \'PA UeT/\\nS.No.SSE/2015\\n\\nwala areata faen ag, fecei aofare a.\\n0 7 7 4 9 7 6 Central Board of Secondary Education, Delhi Registration No.: P115/08238/0097\\n\\narate faenca olen (Ga : 2013-15)\\n\\nSECONDARY SCHOOL EXAMINATION (SESSION : 2013 - 15)\\nirs fe We Fae WAM! GI Grade Sheet cum Certificate of Performance\\n\\nug wafer frat sat 8 f& This is to certify that NISHANT VISHWAKARMA\\naren en aaG Hl AA\\n\\nMother’s/Father’s/Guardian’s Name\\nwira fa Date of Birth\\n\\nfaeieta School\\n\\nel Freq Para Yel has performed as follows :\\n\\nke Sarforas fasi@a Academic Performance :\\n\\nSONI DEVI / RAMESH KUMAR BISHWAKARMA\\n\\n30/01/1999 30TH JANUARY NINETEEN HUNDRED NINETY NINE\\n08238-DAV PUB SCHOOL BARORA(BCCL) NAWAGARH DHANBAD JH\\n\\nWr Part-1 fet a Scholastic Areas\\n\\napap RollNo.: 7204164\\n\\nfava wars cen AT bd ies\\nSubject Code and Name Grade Grade Overall Grade (FA+SA) Grade Grade\\n\\nFA Grade Grade Point (GP) FA SA\\n\\nel Class X\\n\\nUae, sera oh dor & sR, aRaa we iva wi visHx< wi asa 4\\n\\nOverall Grade (FA+SA) alti tes figait ar descr Fa mente oi afeneil aaa % aed We sia\\nGrade Grade Point (GP) __| faqa aad @ waar Vieinie 6 fasai Fa\\n\\nSCIENCE\\n\\nAdditional :\\n\\nENGLISH COMM. C1 C1 06 B2.|.¢1\\nHINDI COURSE-A B4 C1 06 BiftteD ON\\nMATHEMATICS C1 G2 05: / 4 BAT EZ\\nC1 06 f/f &) B24\\nSOCIAL SCIENCE C1 C2 05 | i\\" /| Bap\\n\\nC1 06 ae ee es ee ee\\n\\nC1 06 rs Aerale otal A Pierre soa = 98x fer ered\\n04 o dal a wan Peéoncae ufasam = 9.5 x Weitie\\n\\nC2 05 As per Scheme of Studies CGPA is the average of Grade Points obtained in all the\\n\\n4 C2 0 5 subjects excluding additional 6 subject. However, for candidates who have offered\\n\\none compulsory subject under NSQF, his/her CGPA is out of 6 subjects.\\nAn indicative equivalence of Grade Point and Percentage of Marks can be calculated\\nas follows :\\n\\ne Subject wise indicative percentage of marks = 9.5xGP of the subject\\n\\ne Overall indicative percentage of marks = 9.5xCGPA\\n\\niti as fry al area (sii) Cumulative Grade Point Average (CGPA) 2 ; ;\\n* Hw AS sau Hleieil (wea) % anpetr FS Grade in Assessment of Speaking and Listening Skills (ASL): IX-A1 X-A1\\n\\n2 (®) (A) Maa Bere Life Skills :\\n\\n5.2\\n\\nPT Part-2: : We-Sifares @ri a Co-Scholastic Areas\\n\\nwat whlerer\\n\\nLife Skills\\n\\nHal Class IX\\n\\n‘que Vera Descriptive indicators\\n\\nis\\n\\nGrade\\n\\nHeal Class X\\n\\nSe\\n\\nDAM Tera Descriptive Indicators\\n\\nfeiert arora\\nThinking Skills\\n\\nIdentifies personal strengths and weaknesses and uses them to arrive at\\nmeaningful decisions\\n\\nB\\n\\nIdentifies personal strengths and weaknesses, analyses a problem with\\nrelevant information and usually chooses appropriate alternatives and\\nmakes meaningful decisions.\\n\\nBarnes aDleret\\n\\nSocial Skills\\n\\nEmpathetic, shows sensitivity towards differently-abled students and appreciates\\n\\nother\\\'s points of view, has very good interpersonal and communicative skills, an\\nactive listener and effective speaker, accepts feedback.\\n\\nB\\n\\nInterpersonal and communicative skills are satisfactory and usually takes\\nfeedback and criticism positively.\\n\\nWMA BHT\\nEmotional Skills\\n\\nSelf-confident and optimistic, manages adverse situations and stress effectively.\\n\\nExpresses emotions appropriately..\\n\\nidentifies weaknesses, stress and negative emotions fairly well, manages\\nthem with self confidence and is empathetic.\\n\\n2 (@)(B) wr fen Work Education :\\n\\nwre. fai\\n\\nWork Education\\n\\nGrasps assigned tasks easily, self-motivated, helpful, guides others and is\\npunctual.\\n\\nInnovative and shows involvement in any assignment, helps and guides\\nothers readily, applies knowledge practically and is punctual.\\n\\n2 (™1)(C) Gea ae veel Hen Visual and Performing Arts :\\n\\ngea aie needa word\\n\\nVisual and\\nPerforming Arts :\\n\\nParticipates actively in artistic activities, creative, very observant, appreciates\\nand understands various art forms.\\n\\nParticipates actively in artistic activities, quite creative and aesthetic, takes\\ninitiatives actively to plan and conduct artistic events, appreciates and\\nunderstands various art forms.\\n\\n2 (a)(D) atari va\\n\\nWet Attitudes and Values :\\n\\n%& ufa towards\\n\\nPNT Bers Descriptive Indicators\\n\\nalae Beers Descriptive Indicators\\n\\nVery courteous towards teachers, observes school norms, ready to help and\\ncommunicates and confides in them.\\n\\nVery courteous towards teachers, follows school rules, has a positive\\nattitude and takes criticism in the right spirit.\\n\\nExpresses ideas and opinions with clarity, is sensitive towards peers and\\ndifferently abled schoolmates, and respects diversity, and is receptive to new\\nideas.\\n\\nHas a good rapport with peers and is sensitive towards differently-abled\\nschoolmates. Respects other gender.\\n\\nffenea @rina\\naie yalaevr\\n\\nSchool Programmes &\\nEnvironment\\n\\nAn enthusiastic participant in various school programmes and environmentai\\ninitiatives, possesses leadership skills. Usually takes in pride in the school and\\nrespects school property.\\n\\nParticipates in various school programmes and environmental initiatives B\\nregularly, possesses good leadership qualities and is punctual.\\n\\nyea wonferii\\n\\nValue Systems\\n\\nUnderstands value systems quite well and adheres to rules. Courteous towards\\npeers and elders. Respects the national flag and symbols, respects: school 5d:\\nproperty and is sensitive to diversity. ;\\n\\nUnderstands value systems quite well and adheres to school rules, See B\\nthe national flag and symbols. Honest, courteous and sensitive to diversity,\\n_ with a positive outlook.\\n\\n3 (®)(A) We Weawa Seis Co-Curricular Activities :\\n\\narian Activity\\n\\nWM Part-3 UE a sande Bas Activites\\n\\naes tes\\n\\nLiterary and Creative Skills 4\\n\\nRegularly participates in literary inter- and intra -mural events, appreciates rik\\nwritten and spoken literary forms, expresses ideas and opinions creatively, an\\navid reader and inspires others.\\n\\nSh Actively participates in inter- and intra-mural literary events, an avid reader\\n\\n4 and appreciates written and spoken literary forms, expresses ideas and\\nopinions clearly and appropriately.\\n\\nScientific Skills\\n\\nApplies science to everyday life, participates in scientific activities at inter- and\\nintra mural events, displays good laboratory skills and is very observant.\\n\\nActively participates in scientific activities at inter- and intra-mural events,\\nplans and coordinates science related events, very observant and has good\\nlaboratory skills.\\n\\n3 (@\\\\(B) aR vd areifeas fie Health and Physical Education :\\n\\n@RBaM Activity\\n\\nYoga\\n\\nUnderstands and demonstrates the techniques and postures correctly, agile and\\nflexible, good at breath regulation exercises, shows keen interest.\\n\\nB\\n\\nUnderstands and demonsirates the techniques and postures correctly, agile\\nand flexible, good at breath regulation exercises, shows keen interest.\\n\\nFirst Aid\\n\\nInterested in learning abcut first aid procedures, exhibits aptitude and patience\\nwhile handiing medical emergency.\\n\\nWell trained in first aid procedures, shows commitment to responding ina\\nmedical emergency, demonstrates aptitude and tenacity while handling\\nemergency situations.\\n\\nBAK\\n\\n## Upscaled Grade\\n\\nf@ee Delhi\\n\\nfraim Dated 28-05-2015 yo es Dist ia Samet\\n\\nGFT WS Upgraded Grade gforry Result: QUALIFIED FOR ADMISSION TO HIGHER CLASSES\\n\\nD.A.V. PUBUIC SCHOOL |\\n\\npine Seni ere ime\\n\\nAi D> va\\n\\n8)\\n\\nusien fers\\n\\nController of Examinations\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 2015\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'2015\', \'Not Found\', \'Not Found\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008852_5.jpg\', \'PA UeT/\\nS.No.SSE/2015\\n\\nwala areata faen ag, fecei aofare a.\\n0 7 7 4 9 7 6 Central Board of Secondary Education, Delhi Registration No.: P115/08238/0097\\n\\narate faenca olen (Ga : 2013-15)\\n\\nSECONDARY SCHOOL EXAMINATION (SESSION : 2013 - 15)\\nirs fe We Fae WAM! GI Grade Sheet cum Certificate of Performance\\n\\nug wafer frat sat 8 f& This is to certify that NISHANT VISHWAKARMA\\naren en aaG Hl AA\\n\\nMother’s/Father’s/Guardian’s Name\\nwira fa Date of Birth\\n\\nfaeieta School\\n\\nel Freq Para Yel has performed as follows :\\n\\nke Sarforas fasi@a Academic Performance :\\n\\nSONI DEVI / RAMESH KUMAR BISHWAKARMA\\n\\n30/01/1999 30TH JANUARY NINETEEN HUNDRED NINETY NINE\\n08238-DAV PUB SCHOOL BARORA(BCCL) NAWAGARH DHANBAD JH\\n\\nWr Part-1 fet a Scholastic Areas\\n\\napap RollNo.: 7204164\\n\\nfava wars cen AT bd ies\\nSubject Code and Name Grade Grade Overall Grade (FA+SA) Grade Grade\\n\\nFA Grade Grade Point (GP) FA SA\\n\\nel Class X\\n\\nUae, sera oh dor & sR, aRaa we iva wi visHx< wi asa 4\\n\\nOverall Grade (FA+SA) alti tes figait ar descr Fa mente oi afeneil aaa % aed We sia\\nGrade Grade Point (GP) __| faqa aad @ waar Vieinie 6 fasai Fa\\n\\nSCIENCE\\n\\nAdditional :\\n\\nENGLISH COMM. C1 C1 06 B2.|.¢1\\nHINDI COURSE-A B4 C1 06 BiftteD ON\\nMATHEMATICS C1 G2 05: / 4 BAT EZ\\nC1 06 f/f &) B24\\nSOCIAL SCIENCE C1 C2 05 | i\\" /| Bap\\n\\nC1 06 ae ee es ee ee\\n\\nC1 06 rs Aerale otal A Pierre soa = 98x fer ered\\n04 o dal a wan Peéoncae ufasam = 9.5 x Weitie\\n\\nC2 05 As per Scheme of Studies CGPA is the average of Grade Points obtained in all the\\n\\n4 C2 0 5 subjects excluding additional 6 subject. However, for candidates who have offered\\n\\none compulsory subject under NSQF, his/her CGPA is out of 6 subjects.\\nAn indicative equivalence of Grade Point and Percentage of Marks can be calculated\\nas follows :\\n\\ne Subject wise indicative percentage of marks = 9.5xGP of the subject\\n\\ne Overall indicative percentage of marks = 9.5xCGPA\\n\\niti as fry al area (sii) Cumulative Grade Point Average (CGPA) 2 ; ;\\n* Hw AS sau Hleieil (wea) % anpetr FS Grade in Assessment of Speaking and Listening Skills (ASL): IX-A1 X-A1\\n\\n2 (®) (A) Maa Bere Life Skills :\\n\\n5.2\\n\\nPT Part-2: : We-Sifares @ri a Co-Scholastic Areas\\n\\nwat whlerer\\n\\nLife Skills\\n\\nHal Class IX\\n\\n‘que Vera Descriptive indicators\\n\\nis\\n\\nGrade\\n\\nHeal Class X\\n\\nSe\\n\\nDAM Tera Descriptive Indicators\\n\\nfeiert arora\\nThinking Skills\\n\\nIdentifies personal strengths and weaknesses and uses them to arrive at\\nmeaningful decisions\\n\\nB\\n\\nIdentifies personal strengths and weaknesses, analyses a problem with\\nrelevant information and usually chooses appropriate alternatives and\\nmakes meaningful decisions.\\n\\nBarnes aDleret\\n\\nSocial Skills\\n\\nEmpathetic, shows sensitivity towards differently-abled students and appreciates\\n\\nother\\\'s points of view, has very good interpersonal and communicative skills, an\\nactive listener and effective speaker, accepts feedback.\\n\\nB\\n\\nInterpersonal and communicative skills are satisfactory and usually takes\\nfeedback and criticism positively.\\n\\nWMA BHT\\nEmotional Skills\\n\\nSelf-confident and optimistic, manages adverse situations and stress effectively.\\n\\nExpresses emotions appropriately..\\n\\nidentifies weaknesses, stress and negative emotions fairly well, manages\\nthem with self confidence and is empathetic.\\n\\n2 (@)(B) wr fen Work Education :\\n\\nwre. fai\\n\\nWork Education\\n\\nGrasps assigned tasks easily, self-motivated, helpful, guides others and is\\npunctual.\\n\\nInnovative and shows involvement in any assignment, helps and guides\\nothers readily, applies knowledge practically and is punctual.\\n\\n2 (™1)(C) Gea ae veel Hen Visual and Performing Arts :\\n\\ngea aie needa word\\n\\nVisual and\\nPerforming Arts :\\n\\nParticipates actively in artistic activities, creative, very observant, appreciates\\nand understands various art forms.\\n\\nParticipates actively in artistic activities, quite creative and aesthetic, takes\\ninitiatives actively to plan and conduct artistic events, appreciates and\\nunderstands various art forms.\\n\\n2 (a)(D) atari va\\n\\nWet Attitudes and Values :\\n\\n%& ufa towards\\n\\nPNT Bers Descriptive Indicators\\n\\nalae Beers Descriptive Indicators\\n\\nVery courteous towards teachers, observes school norms, ready to help and\\ncommunicates and confides in them.\\n\\nVery courteous towards teachers, follows school rules, has a positive\\nattitude and takes criticism in the right spirit.\\n\\nExpresses ideas and opinions with clarity, is sensitive towards peers and\\ndifferently abled schoolmates, and respects diversity, and is receptive to new\\nideas.\\n\\nHas a good rapport with peers and is sensitive towards differently-abled\\nschoolmates. Respects other gender.\\n\\nffenea @rina\\naie yalaevr\\n\\nSchool Programmes &\\nEnvironment\\n\\nAn enthusiastic participant in various school programmes and environmentai\\ninitiatives, possesses leadership skills. Usually takes in pride in the school and\\nrespects school property.\\n\\nParticipates in various school programmes and environmental initiatives B\\nregularly, possesses good leadership qualities and is punctual.\\n\\nyea wonferii\\n\\nValue Systems\\n\\nUnderstands value systems quite well and adheres to rules. Courteous towards\\npeers and elders. Respects the national flag and symbols, respects: school 5d:\\nproperty and is sensitive to diversity. ;\\n\\nUnderstands value systems quite well and adheres to school rules, See B\\nthe national flag and symbols. Honest, courteous and sensitive to diversity,\\n_ with a positive outlook.\\n\\n3 (®)(A) We Weawa Seis Co-Curricular Activities :\\n\\narian Activity\\n\\nWM Part-3 UE a sande Bas Activites\\n\\naes tes\\n\\nLiterary and Creative Skills 4\\n\\nRegularly participates in literary inter- and intra -mural events, appreciates rik\\nwritten and spoken literary forms, expresses ideas and opinions creatively, an\\navid reader and inspires others.\\n\\nSh Actively participates in inter- and intra-mural literary events, an avid reader\\n\\n4 and appreciates written and spoken literary forms, expresses ideas and\\nopinions clearly and appropriately.\\n\\nScientific Skills\\n\\nApplies science to everyday life, participates in scientific activities at inter- and\\nintra mural events, displays good laboratory skills and is very observant.\\n\\nActively participates in scientific activities at inter- and intra-mural events,\\nplans and coordinates science related events, very observant and has good\\nlaboratory skills.\\n\\n3 (@\\\\(B) aR vd areifeas fie Health and Physical Education :\\n\\n@RBaM Activity\\n\\nYoga\\n\\nUnderstands and demonstrates the techniques and postures correctly, agile and\\nflexible, good at breath regulation exercises, shows keen interest.\\n\\nB\\n\\nUnderstands and demonsirates the techniques and postures correctly, agile\\nand flexible, good at breath regulation exercises, shows keen interest.\\n\\nFirst Aid\\n\\nInterested in learning abcut first aid procedures, exhibits aptitude and patience\\nwhile handiing medical emergency.\\n\\nWell trained in first aid procedures, shows commitment to responding ina\\nmedical emergency, demonstrates aptitude and tenacity while handling\\nemergency situations.\\n\\nBAK\\n\\n## Upscaled Grade\\n\\nf@ee Delhi\\n\\nfraim Dated 28-05-2015 yo es Dist ia Samet\\n\\nGFT WS Upgraded Grade gforry Result: QUALIFIED FOR ADMISSION TO HIGHER CLASSES\\n\\nD.A.V. PUBUIC SCHOOL |\\n\\npine Seni ere ime\\n\\nAi D> va\\n\\n8)\\n\\nusien fers\\n\\nController of Examinations\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 2015\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'2015\', \'Not Found\', \'Not Found\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008852_5.jpg\', \'PA UeT/\\nS.No.SSE/2015\\n\\nwala areata faen ag, fecei aofare a.\\n0 7 7 4 9 7 6 Central Board of Secondary Education, Delhi Registration No.: P115/08238/0097\\n\\narate faenca olen (Ga : 2013-15)\\n\\nSECONDARY SCHOOL EXAMINATION (SESSION : 2013 - 15)\\nirs fe We Fae WAM! GI Grade Sheet cum Certificate of Performance\\n\\nug wafer frat sat 8 f& This is to certify that NISHANT VISHWAKARMA\\naren en aaG Hl AA\\n\\nMother’s/Father’s/Guardian’s Name\\nwira fa Date of Birth\\n\\nfaeieta School\\n\\nel Freq Para Yel has performed as follows :\\n\\nke Sarforas fasi@a Academic Performance :\\n\\nSONI DEVI / RAMESH KUMAR BISHWAKARMA\\n\\n30/01/1999 30TH JANUARY NINETEEN HUNDRED NINETY NINE\\n08238-DAV PUB SCHOOL BARORA(BCCL) NAWAGARH DHANBAD JH\\n\\nWr Part-1 fet a Scholastic Areas\\n\\napap RollNo.: 7204164\\n\\nfava wars cen AT bd ies\\nSubject Code and Name Grade Grade Overall Grade (FA+SA) Grade Grade\\n\\nFA Grade Grade Point (GP) FA SA\\n\\nel Class X\\n\\nUae, sera oh dor & sR, aRaa we iva wi visHx< wi asa 4\\n\\nOverall Grade (FA+SA) alti tes figait ar descr Fa mente oi afeneil aaa % aed We sia\\nGrade Grade Point (GP) __| faqa aad @ waar Vieinie 6 fasai Fa\\n\\nSCIENCE\\n\\nAdditional :\\n\\nENGLISH COMM. C1 C1 06 B2.|.¢1\\nHINDI COURSE-A B4 C1 06 BiftteD ON\\nMATHEMATICS C1 G2 05: / 4 BAT EZ\\nC1 06 f/f &) B24\\nSOCIAL SCIENCE C1 C2 05 | i\\" /| Bap\\n\\nC1 06 ae ee es ee ee\\n\\nC1 06 rs Aerale otal A Pierre soa = 98x fer ered\\n04 o dal a wan Peéoncae ufasam = 9.5 x Weitie\\n\\nC2 05 As per Scheme of Studies CGPA is the average of Grade Points obtained in all the\\n\\n4 C2 0 5 subjects excluding additional 6 subject. However, for candidates who have offered\\n\\none compulsory subject under NSQF, his/her CGPA is out of 6 subjects.\\nAn indicative equivalence of Grade Point and Percentage of Marks can be calculated\\nas follows :\\n\\ne Subject wise indicative percentage of marks = 9.5xGP of the subject\\n\\ne Overall indicative percentage of marks = 9.5xCGPA\\n\\niti as fry al area (sii) Cumulative Grade Point Average (CGPA) 2 ; ;\\n* Hw AS sau Hleieil (wea) % anpetr FS Grade in Assessment of Speaking and Listening Skills (ASL): IX-A1 X-A1\\n\\n2 (®) (A) Maa Bere Life Skills :\\n\\n5.2\\n\\nPT Part-2: : We-Sifares @ri a Co-Scholastic Areas\\n\\nwat whlerer\\n\\nLife Skills\\n\\nHal Class IX\\n\\n‘que Vera Descriptive indicators\\n\\nis\\n\\nGrade\\n\\nHeal Class X\\n\\nSe\\n\\nDAM Tera Descriptive Indicators\\n\\nfeiert arora\\nThinking Skills\\n\\nIdentifies personal strengths and weaknesses and uses them to arrive at\\nmeaningful decisions\\n\\nB\\n\\nIdentifies personal strengths and weaknesses, analyses a problem with\\nrelevant information and usually chooses appropriate alternatives and\\nmakes meaningful decisions.\\n\\nBarnes aDleret\\n\\nSocial Skills\\n\\nEmpathetic, shows sensitivity towards differently-abled students and appreciates\\n\\nother\\\'s points of view, has very good interpersonal and communicative skills, an\\nactive listener and effective speaker, accepts feedback.\\n\\nB\\n\\nInterpersonal and communicative skills are satisfactory and usually takes\\nfeedback and criticism positively.\\n\\nWMA BHT\\nEmotional Skills\\n\\nSelf-confident and optimistic, manages adverse situations and stress effectively.\\n\\nExpresses emotions appropriately..\\n\\nidentifies weaknesses, stress and negative emotions fairly well, manages\\nthem with self confidence and is empathetic.\\n\\n2 (@)(B) wr fen Work Education :\\n\\nwre. fai\\n\\nWork Education\\n\\nGrasps assigned tasks easily, self-motivated, helpful, guides others and is\\npunctual.\\n\\nInnovative and shows involvement in any assignment, helps and guides\\nothers readily, applies knowledge practically and is punctual.\\n\\n2 (™1)(C) Gea ae veel Hen Visual and Performing Arts :\\n\\ngea aie needa word\\n\\nVisual and\\nPerforming Arts :\\n\\nParticipates actively in artistic activities, creative, very observant, appreciates\\nand understands various art forms.\\n\\nParticipates actively in artistic activities, quite creative and aesthetic, takes\\ninitiatives actively to plan and conduct artistic events, appreciates and\\nunderstands various art forms.\\n\\n2 (a)(D) atari va\\n\\nWet Attitudes and Values :\\n\\n%& ufa towards\\n\\nPNT Bers Descriptive Indicators\\n\\nalae Beers Descriptive Indicators\\n\\nVery courteous towards teachers, observes school norms, ready to help and\\ncommunicates and confides in them.\\n\\nVery courteous towards teachers, follows school rules, has a positive\\nattitude and takes criticism in the right spirit.\\n\\nExpresses ideas and opinions with clarity, is sensitive towards peers and\\ndifferently abled schoolmates, and respects diversity, and is receptive to new\\nideas.\\n\\nHas a good rapport with peers and is sensitive towards differently-abled\\nschoolmates. Respects other gender.\\n\\nffenea @rina\\naie yalaevr\\n\\nSchool Programmes &\\nEnvironment\\n\\nAn enthusiastic participant in various school programmes and environmentai\\ninitiatives, possesses leadership skills. Usually takes in pride in the school and\\nrespects school property.\\n\\nParticipates in various school programmes and environmental initiatives B\\nregularly, possesses good leadership qualities and is punctual.\\n\\nyea wonferii\\n\\nValue Systems\\n\\nUnderstands value systems quite well and adheres to rules. Courteous towards\\npeers and elders. Respects the national flag and symbols, respects: school 5d:\\nproperty and is sensitive to diversity. ;\\n\\nUnderstands value systems quite well and adheres to school rules, See B\\nthe national flag and symbols. Honest, courteous and sensitive to diversity,\\n_ with a positive outlook.\\n\\n3 (®)(A) We Weawa Seis Co-Curricular Activities :\\n\\narian Activity\\n\\nWM Part-3 UE a sande Bas Activites\\n\\naes tes\\n\\nLiterary and Creative Skills 4\\n\\nRegularly participates in literary inter- and intra -mural events, appreciates rik\\nwritten and spoken literary forms, expresses ideas and opinions creatively, an\\navid reader and inspires others.\\n\\nSh Actively participates in inter- and intra-mural literary events, an avid reader\\n\\n4 and appreciates written and spoken literary forms, expresses ideas and\\nopinions clearly and appropriately.\\n\\nScientific Skills\\n\\nApplies science to everyday life, participates in scientific activities at inter- and\\nintra mural events, displays good laboratory skills and is very observant.\\n\\nActively participates in scientific activities at inter- and intra-mural events,\\nplans and coordinates science related events, very observant and has good\\nlaboratory skills.\\n\\n3 (@\\\\(B) aR vd areifeas fie Health and Physical Education :\\n\\n@RBaM Activity\\n\\nYoga\\n\\nUnderstands and demonstrates the techniques and postures correctly, agile and\\nflexible, good at breath regulation exercises, shows keen interest.\\n\\nB\\n\\nUnderstands and demonsirates the techniques and postures correctly, agile\\nand flexible, good at breath regulation exercises, shows keen interest.\\n\\nFirst Aid\\n\\nInterested in learning abcut first aid procedures, exhibits aptitude and patience\\nwhile handiing medical emergency.\\n\\nWell trained in first aid procedures, shows commitment to responding ina\\nmedical emergency, demonstrates aptitude and tenacity while handling\\nemergency situations.\\n\\nBAK\\n\\n## Upscaled Grade\\n\\nf@ee Delhi\\n\\nfraim Dated 28-05-2015 yo es Dist ia Samet\\n\\nGFT WS Upgraded Grade gforry Result: QUALIFIED FOR ADMISSION TO HIGHER CLASSES\\n\\nD.A.V. PUBUIC SCHOOL |\\n\\npine Seni ere ime\\n\\nAi D> va\\n\\n8)\\n\\nusien fers\\n\\nController of Examinations\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 2015\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'2015\', \'Not Found\', \'Not Found\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-16 07:47:41 --> mysqli_sql_exception: MySQL server has gone away in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ca...', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ca...')
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ca...')
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-09-16 07:47:41 --> CodeIgniter\Database\Exceptions\DatabaseException: MySQL server has gone away
+[Method: POST, Route: card-reader/convertImageToText]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:41 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: MySQL server has gone away
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008858_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008858_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 07:47:41 --> [Caused by] mysqli_sql_exception: MySQL server has gone away
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008858_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008858_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (\'writable/imagetoTextFile/ocr_image_1758008858_3.jpg\', \'i Sy Buywuopied pue [ENSIA de Lispk alle hsb: (o)(Ir) z\\n\\n’ uoneonpz WIOM\\nae ive ‘yenjyound si pue Ayjeajoe1d abpajmouy sarjdde ‘Ajipeas suayjo *yenjound alg} flee\\nq sepin6 pue sdjay ‘juawuBbisse Aue ul JUaWaA[OAU! SMOYsS puke aANeAOUU| q S] pue ssaujo sapinb ‘jnjdjay ‘payeanow-jjas ‘Ajisea sysey peubisse sdseip\\n( pares UORESNpA Y40M Leis] ple (a)(BE) Z\\n\\nS|IDIS |eUoHowy\\n\\n“oneujedwia SI pue BdUEPUOD Jas YJIM WU} “Ajayesdoidde suojjowisa sasseaidxg\\n\\n\\\' q sebeuew ‘jam Ajley Suonowsa aayebau pue ssaijs ‘sassauyeam salji}uap| q “AJQANIAYS SSO4js pue SUONeN}Is essaApe sebeuew ‘osiwj}do pue JUap!yUod-}]ag sa,\\n: “yoeqpaas sjdeooe ‘seyeeds aanoeye pue Joualsi| anoe SIDS 1eDeES\\n5 “AJAAIISOd WsIdI}LI9 pue yoeqpse q ue ‘S]JIMS BAIFEDIUNWIWOD puke jeUOSJadsajzU! POOH AuaA sey ‘MalA JO S}UIOd S,J94}0 Bleke sbinjlaib.\\nsoye} Ayjensn pue Aiojoejsijzes ase sijps SAeoluNWIWOD puke jeuosJedsaju} sayeloaidde pue sjuapnjs pajqe-Ajjussayip spsemoy AVIAQISUaS SMOYUS ‘OnEUJeEdWIy\\ni *suoisioen jnjbulueaw sayew : : SIPs BupjulyL\\npue seaneuie}e ajelidoidde sasooyo Ajjensn pue uonewojul JUeAg|a1 suoisioap jnjbulueow bse LPby\\ndq ujIM Waqoid e sashjeue ‘sassauyeam pue syu}buayjs jeuosied sayuep| q je BAle 0} Wa} Sasn pue sasseuyeem pue syu}Huss jeuosied saynuap]\\napelin SIO}BSIPUj] SAI}GHOSEq BApof didiblab apeisy a “Siojed|puy SAnAISEq BAROf cbhSiblab SHPIS OH\\nSt X SSEID lige BIL XI SSBID Lew Rise kBip\\ni k Seely DSE|OYIS-OD Kelp pled splgyig-Bb : Z- Hed Like : * SIIPIS 9317 Blsleb bbito (v) (#) (4\\ntv-X bW-XI ¢ (1sv) SHDIS eee 2 Rurieeds jo yUsWISSeSsy Ul epelD Skt kb bbolio ® (BABAR) (eis |ee lab alle bb ,\\n| | z\\\'s : ae : a : ‘ > : (WdOD) sGessay. UIOg epeinH aarejnwing (Alpiew) bale ib Bapy SE begs\\n\\\\ = As a ‘ ea 2 ‘ : jeUuORIppY\\nWaDOXG’6 = syseUL jo chevincned SABOIpUL He42A0 e ; j te fogsesee \\\\ ~ 3\\nolqns ay} JO dDxG\\"6 = syseUu jo id BA | SIM fey) i ¢ f i<e aed s es : i\\nt SMO{IJO} ae : H\\npozejnzje> eq ues syJeW jo oHejuss1eq pue ied @peiy Jo souajeaInbe sanesipul uy s L.. [7 + i\\nBe waged ee kacen ts saan Ck Ce ole SO ZG | iA} dso 4a) a LO FONAIOS IviI00s 280\\nSY} He Ul pourezqo squlog epeig jo abeieae @U2 SI YWd59 SoIpnys jo sweysS 13d sy S0 ZO i é 7 af } 90 web Dd a LO : JONaIOS 980\\nee te SbUspel Hbb. kb te : vo HH ; ASO 50) qd bo SOILVINAHLVIN, +0\\n| i slliaichebiioie Sigh 90 to 90 YO4 o@: + abe V-ASHNODIGNIH 200\\nIlo {> AIEIb) Hob [eb IDDISRIK feb [le Ue IDLIbIA Eds} ina 90 50) 90 xe) 50) xe) WINOS HSITSNA LOL\\nI2 Bk {pbb} 9 DlbYala bm 2 BE Rbb} (G5) jujog apeiD apeip (db) uo apesD apei5 WS V4\\npibbite ) pap & chop) jalan Uo billed [2 DENie kb UeSp) Sit Diolie (WS+¥4) spesy je1019 apeisy apeiy (WS-+¥a) apes esang apein apelin : auwieN pue apo? pafqns\\nkt IPbb} Ife AbS1@ Ib bbb) 28 HHAwIe ‘AllABie & Iblolb | bbehale ‘Dlpltal X S889 [de> XI S829 [pad> bib led Sib Phbl\\nSealy ONSE|OWDS ER Hie T-Hed Lik + SOURBUNO}Sd WWEpeoW bPime| Dlajiae *T\\n| : SMOJJOJ Se polu4oied sey 12n MIRE IY bpibsbt Ib\\nHf GVENVHG HYVOVMVN (1998) VYOUVE IOOHDS GNd AVG-8ez380 00U9S BblBby\\nANIN ALANIN GSYGNNH NSALSNIN AYVANVE HLO€ 6661L/L0/0€ UHId JO 9220 Keb} belo\\nVINYVAVMHSId YVINNY HSSIAVY / IASG INOS SHUN $,UPHDIEND (scaled ss Aotey\\nbib: Ie 2d} /IPbI/IDIb\\nVOLVOTL : ON lou winustie VINNVMVMHSIA LNVHSIN = 3243 43129 03 Ss} SIL a 2 [Dito bab) DiolibeK Bip\\nPUBULIOJIIg JO IVIFH.19) VND J9dYS ePPeAD Kh lolkkK bPihab| Bs Dis Ske\\n(SI - €10Z ? NOISSAS) NOLLVNIAVXa TOOHOS ANVGNODUS\\n\\n: LE00/BEZBOISbd = © ON YOHEsasibeu TPC ‘woHeonpA ee mn Jo pivog yexjue:) g LOVLLO AbSDES bes\\n\\n\\n\\nCompany Name: Not Found\\nEmail: Not Found\\nPhone: 9317\\nAddress: Not Found\\nWebsite: Not Found\', \'Not Found\', \'Not Found\', \'9317\', \'Not Found\', \'Not Found\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-16 07:47:42 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'sphereintranet', 3306, '', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#3 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#4 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#5 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#6 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-16 07:47:42 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: POST, Route: card-reader/convertImageToText]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 3 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 4 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 5 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 6 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-16 07:47:45 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'sphereintranet', 3306, '', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#3 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#4 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#5 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#6 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-16 07:47:45 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: POST, Route: card-reader/convertImageToText]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 3 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 4 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 5 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 6 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-16 07:47:57 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'sphereintranet', 3306, '', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#10 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#3 C:\xampp\htdocs\sphereintranet\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#4 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#5 C:\xampp\htdocs\sphereintranet\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#6 C:\xampp\htdocs\sphereintranet\app\Controllers\CardReader.php(109): CodeIgniter\Model->insert(Array)
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-16 07:47:57 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: POST, Route: card-reader/convertImageToText]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `card_data` (`image_path`, `ocr_text`, `company_name`, `email`, `phone`, `address`, `website`) VALUES (:image_path:, :ocr_text:, :company_name:, :email:, :phone:, :address:, :website:)', [...], false)
+ 3 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 4 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 5 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 6 APPPATH\Controllers\CardReader.php(109): CodeIgniter\Model->insert([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CardReader->convertImageToText()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CardReader))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-16 08:08:03 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'sphereintranet', 3306, '', 0)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\sphereintranet\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\sphereintranet\app\Controllers\ImagetoText.php(28): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\ImagetoText->allInOne()
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+#9 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\sphereintranet\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\sphereintranet\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\sphereintranet\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\sphereintranet\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\sphereintranet\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\sphereintranet\app\Controllers\ImagetoText.php(28): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(933): App\Controllers\ImagetoText->allInOne()
+#7 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+#8 C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\sphereintranet\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\sphereintranet\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\sphereintranet\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-09-16 08:08:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: GET, Route: imagetotext/allinone]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `card_data`
+ORDER BY `id` ASC', [], false)
+ 3 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH\Controllers\ImagetoText.php(28): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->allInOne()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 09:27:16 --> Error: Call to undefined method App\Controllers\ImagetoText::extractCompanyName()
+[Method: POST, Route: imagetotext/upload]
+in APPPATH\Controllers\ImagetoText.php on line 60.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadImages()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 09:49:50 --> ErrorException: Undefined variable $pager
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 60.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(60): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pager', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 60)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 09:51:37 --> ErrorException: Undefined variable $image
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 50.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(50): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $image', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 50)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:22:48 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:24:55 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:26:47 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:29:57 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:29:58 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:29:59 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:29:59 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:30:00 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:30:00 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:30:01 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:30:01 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:30:01 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:55:43 --> ErrorException: Undefined array key "filename"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 30.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(30): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "filename"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 30)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:57:26 --> ErrorException: Undefined array key "extracted_text"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 31.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(31): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "extracted_text"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 31)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 10:57:29 --> ErrorException: Undefined array key "extracted_text"
+[Method: GET, Route: imagetotext/upload]
+in APPPATH\Views\major\ImagetoText\imagetoform.php on line 31.
+ 1 APPPATH\Views\major\ImagetoText\imagetoform.php(31): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "extracted_text"', 'C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php', 31)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\sphereintranet\\app\\Views\\major\\ImagetoText\\imagetoform.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('major/ImagetoText/imagetoform', [], true)
+ 5 APPPATH\Controllers\ImagetoText.php(18): view('major/ImagetoText/imagetoform', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadForm()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 11:00:10 --> ArgumentCountError: Too few arguments to function App\Controllers\ImagetoText::updateData(), 0 passed in C:\xampp\htdocs\sphereintranet\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: imagetotext/upload]
+in APPPATH\Controllers\ImagetoText.php on line 29.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->updateData()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 11:39:41 --> ErrorException: ini_set(): Session ini settings cannot be changed after headers have already been sent
+[Method: POST, Route: imagetotext/upload]
+in SYSTEMPATH\Session\Handlers\FileHandler.php on line 74.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'ini_set(): Session ini settings cannot be changed after headers have already been sent', 'C:\\xampp\\htdocs\\sphereintranet\\system\\Session\\Handlers\\FileHandler.php', 74)
+ 2 SYSTEMPATH\Session\Handlers\FileHandler.php(74): ini_set('session.save_path', 'C:\\xampp\\htdocs\\sphereintranet\\writable\\session')
+ 3 SYSTEMPATH\Config\Services.php(702): CodeIgniter\Session\Handlers\FileHandler->__construct(Object(Config\Session), '192.168.1.167')
+ 4 SYSTEMPATH\Config\BaseService.php(312): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 5 SYSTEMPATH\Config\BaseService.php(251): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 6 SYSTEMPATH\Config\Services.php(668): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+ 7 SYSTEMPATH\Config\BaseService.php(321): CodeIgniter\Config\Services::session()
+ 8 SYSTEMPATH\Config\BaseService.php(202): CodeIgniter\Config\BaseService::__callStatic('session', [])
+ 9 SYSTEMPATH\Common.php(995): CodeIgniter\Config\BaseService::get('session')
+10 SYSTEMPATH\HTTP\RedirectResponse.php(134): service('session')
+11 APPPATH\Controllers\ImagetoText.php(123): CodeIgniter\HTTP\RedirectResponse->with('message', 'Images uploaded and OCR processed.')
+12 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ImagetoText->uploadImages()
+13 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ImagetoText))
+14 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+15 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+17 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

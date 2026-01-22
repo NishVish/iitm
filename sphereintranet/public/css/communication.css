@@ -1,0 +1,25 @@
+.communication-wrapper {
+  display: flex;
+  gap: 20px; /* space between the two panels */
+  align-items: flex-start; /* top-align both sections */
+}
+
+/* Optional: Control widths */
+#announcement {
+  flex: 1; /* take up equal space */
+  min-width: 300px;
+}
+
+#chat {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Optional: add scrollbars or max heights if needed */
+#announcement, #chat {
+  max-height: 600px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 15px;
+  box-sizing: border-box;
+}
