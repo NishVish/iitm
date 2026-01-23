@@ -31,6 +31,7 @@ class Database extends Config
         'password'     => 'gB)%gU}ocn?MCP=}',
 
         'database'     => 'iitminda_central',
+        
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
