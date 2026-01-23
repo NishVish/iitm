@@ -26,9 +26,9 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
-        'username'     => 'root',
-        'password'     => '',
+        'hostname'     => '21.157.66.148.host.secureserver.net',
+        'username'     => 'iitminda_master',
+        'password'     => 'gB)%gU}ocn?MCP=}',
         'database'     => 'central',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
@@ -164,9 +164,9 @@ class Database extends Config
      */
     public array $tests = [
         'DSN'         => '',
-        'hostname'    => '127.0.0.1',
-        'username'    => '',
-        'password'    => '',
+        'hostname'     => '21.157.66.148.host.secureserver.net',
+        'username'     => 'iitminda_master',
+        'password'     => 'gB)%gU}ocn?MCP=}',
         'database'    => ':memory:',
         'DBDriver'    => 'SQLite3',
         'DBPrefix'    => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
