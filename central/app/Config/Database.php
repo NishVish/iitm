@@ -26,12 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-                'hostname'     => '21.157.66.148.host.secureserver.net',
-        'username'     => 'iitminda_master',
-        'password'     => 'gB)%gU}ocn?MCP=}',
-
-        'database'     => 'iitminda_central',
-        
+        'hostname'     => 'localhost',
+        'username'     => 'root',
+        'password'     => '',
+        'database'     => 'central',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -166,13 +164,13 @@ class Database extends Config
      */
     public array $tests = [
         'DSN'         => '',
-        // 'hostname'    => '127.0.0.1',
-        // 'username'    => '',
-        // 'password'    => '',
+        'hostname'    => '127.0.0.1',
+        'username'    => '',
+        'password'    => '',
 
-                'hostname'     => '21.157.66.148.host.secureserver.net',
-        'username'     => 'iitminda_master',
-        'password'     => 'gB)%gU}ocn?MCP=}',
+        //         'hostname'     => '21.157.66.148.host.secureserver.net',
+        // 'username'     => 'iitminda_master',
+        // 'password'     => 'gB)%gU}ocn?MCP=}',
 
         'database'    => ':memory:',
         'DBDriver'    => 'SQLite3',
