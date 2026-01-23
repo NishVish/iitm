@@ -49,15 +49,14 @@ $label = $categoryMap[$category] ?? '';
 <h3></h3>
 <br><br>
 <?php if (!empty($contacts)): ?>
-    <?php foreach ($contacts as $c): ?>
-        <div>
-            <strong><?= esc($c['name']) ?></strong> | 
-            <?= esc($c['designation']) ?> | 
-            📞 <?= esc($c['mobile']) ?> | 
-            ✉️ <?= esc($c['email']) ?>
-        </div>
-        <hr>
-    <?php endforeach; ?>
+   <?php foreach($contacts as $contact): ?>
+    <p>id - <?= $contact['contact_id'] ?>
+        <?= $contact['name'] ?> (<?= $contact['designation'] ?>)<br>
+        Mobiles: <?= !empty($contact['mobiles']) ? implode(', ', $contact['mobiles']) : 'N/A' ?><br>
+        Emails: <?= !empty($contact['emails']) ? implode(', ', $contact['emails']) : 'N/A' ?>
+    </p>
+<?php endforeach; ?>
+
 <?php else: ?>
     <p>No contacts found.</p>
 <?php endif; ?>

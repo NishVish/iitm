@@ -101,17 +101,48 @@ public function filterCompanies()
 public function getCompanies($search = null)
 {
     $builder = $this->db->table('company_data c');
-    $builder->select('c.company_id, c.company_name, c.category, c.city, c.state, 
-                      GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\n") AS contacts', false);
+    $builder->select('
+        c.company_id,
+        c.company_name,
+        c.category,
+        c.city,
+        c.state,
+        GROUP_CONCAT(
+            DISTINCT CONCAT(
+                co.name, " (", co.designation, ")",
+                " | Mobiles: ", IFNULL(cm.mobiles, "N/A"),
+                " | Emails: ", IFNULL(ce.emails, "N/A")
+            )
+            SEPARATOR "\n"
+        ) AS contacts
+    ', false);
+
     $builder->join('contact co', 'co.company_id = c.company_id', 'left');
-    if($search){
-        $builder->like('c.company_name', $search);
-        $builder->orLike('c.category', $search);
+
+    $builder->join(
+        '(SELECT contact_id, GROUP_CONCAT(mobile) AS mobiles FROM contact_mobile GROUP BY contact_id) cm',
+        'cm.contact_id = co.contact_id',
+        'left'
+    );
+
+    $builder->join(
+        '(SELECT contact_id, GROUP_CONCAT(email) AS emails FROM contact_email GROUP BY contact_id) ce',
+        'ce.contact_id = co.contact_id',
+        'left'
+    );
+
+    if ($search) {
+        $builder->groupStart()
+                ->like('c.company_name', $search)
+                ->orLike('c.category', $search)
+                ->groupEnd();
     }
+
     $builder->groupBy('c.company_id');
-    $query = $builder->get();
-    return $query->getResultArray(); // array for view/JSON
+
+    return $builder->get()->getResultArray();
 }
+
 
 // 
 

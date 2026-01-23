@@ -7,6 +7,7 @@ class Backend extends BaseController
 {
     public function index()
     {
+        
         $db = \Config\Database::connect();
         $tables = $db->listTables();
 
@@ -21,6 +22,8 @@ class Backend extends BaseController
     public function sql()
     {
         return view('backend/sql');
+        log_message('error', 'THIS IS A TEST ERROR LOG');
+
     }
 
     public function runSql()
