@@ -47,4 +47,23 @@ class Migrations extends BaseConfig
      * - Y_m_d_His_
      */
     public string $timestampFormat = 'Y-m-d-His_';
+
+    public function up()
+    {
+        $db = \Config\Database::connect();
+
+        if (!$db->tableExists('contact_email')) {
+            $this->forge->addField([
+                'id'    => ['type' => 'INT', 'constraint' => 11, 'auto_increment' => true],
+                'email' => ['type' => 'VARCHAR', 'constraint' => 255],
+            ]);
+            $this->forge->addKey('id', true);
+            $this->forge->createTable('contact_email');
+        }
+    }
+
+    public function down()
+    {
+        $this->forge->dropTable('contact_email', true);
+    }
 }
