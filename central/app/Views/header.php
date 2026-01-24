@@ -26,7 +26,7 @@
         <a href="<?= base_url('backend') ?>">Backend</a>
         <a href="<?= base_url('plan') ?>">Plan</a>
         <a href="<?= base_url('company') ?>">Companies</a>
-        <a href="<?= base_url('dashboard') ?>">Dashboard</a>
+        <!-- <a href="<?= base_url('dashboard') ?>">Dashboard</a> -->
         <a href="<?= base_url('events') ?>">Events</a>
         <a href="<?= base_url('layout-info') ?>">Layout</a>
         <a href="<?= base_url('company/add') ?>">Add Companies</a>

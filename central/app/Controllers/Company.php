@@ -4,6 +4,7 @@ use App\Models\CompanyModel;
 use App\Models\ContactModel;
 use App\Models\UpdationModel;
 use App\Models\LeadModel;
+use App\Models\SourceModel;
 
 class Company extends BaseController
 {
@@ -146,50 +147,159 @@ public function getCompanies($search = null)
 
 // 
 
-    public function add()
-    {
-        $companyModel = new CompanyModel();
-        $contactModel = new ContactModel();
+    // public function add()
+    // {
+    //     $companyModel = new CompanyModel();
+    //     $contactModel = new ContactModel();
 
-        if ($this->request->getMethod() === 'post') {
-            $post = $this->request->getPost();
+    //     if ($this->request->getMethod() === 'post') {
+    //         $post = $this->request->getPost();
 
-            // Cross-validate with existing companies
-            $existing = $companyModel->where('company_name', $post['company_name'])
-                                     ->orWhere('gst_number', $post['gst_number'])
-                                     ->first();
+    //         // Cross-validate with existing companies
+    //         $existing = $companyModel->where('company_name', $post['company_name'])
+    //                                  ->orWhere('gst_number', $post['gst_number'])
+    //                                  ->first();
 
-            if ($existing) {
-                // Calculate match fields
-                $matches = [];
-                foreach ($post as $key => $value) {
-                    if (isset($existing[$key]) && $existing[$key] == $value) {
-                        $matches[] = $key;
-                    }
-                }
-                $data['conflict'] = $existing;
-                $data['matches'] = $matches;
-                $data['post'] = $post;
-                return view('company/add', $data);
-            } else {
-                // Insert new company
-                $company_id = $companyModel->insert($post);
+    //         if ($existing) {
+    //             // Calculate match fields
+    //             $matches = [];
+    //             foreach ($post as $key => $value) {
+    //                 if (isset($existing[$key]) && $existing[$key] == $value) {
+    //                     $matches[] = $key;
+    //                 }
+    //             }
+    //             $data['conflict'] = $existing;
+    //             $data['matches'] = $matches;
+    //             $data['post'] = $post;
+    //             return view('company/add', $data);
+    //         } else {
+    //             // Insert new company
+    //             $company_id = $companyModel->insert($post);
                 
-                // Insert contacts if any
-                if (!empty($post['contacts'])) {
-                    foreach ($post['contacts'] as $contact) {
-                        $contact['company_id'] = $company_id;
-                        $contactModel->insert($contact);
-                    }
-                }
-                return redirect()->to('/company/list')->with('success','Company added successfully');
-            }
-        }
+    //             // Insert contacts if any
+    //             if (!empty($post['contacts'])) {
+    //                 foreach ($post['contacts'] as $contact) {
+    //                     $contact['company_id'] = $company_id;
+    //                     $contactModel->insert($contact);
+    //                 }
+    //             }
+    //             return redirect()->to('/company/list')->with('success','Company added successfully');
+    //         }
+    //     }
 
-        return view('company/add'); // first load, show empty form
+    //     return view('company/add'); // first load, show empty form
+    // }
+
+
+    
+
+    //     $companies = $this->request->getPost('companies');
+
+    //     if (empty($companies)) {
+    //         return redirect()->back()->with('status', '⚠️ No company data found!');
+    //     }
+
+    //     // Pass all companies to the view for preview
+    //     return view('company/add_check', ['companies' => $companies]);
+    // }
+
+    // // If someone visits directly, redirect to add page
+    // return redirect()->to('company/add');
+public function add_check()
+{
+    // if ($this->request->getMethod() === 'post') {
+        // Get the first company from the POST array
+        $company = $this->request->getPost('companies')[0] ?? [];
+
+        // Create a fake company ID for preview
+        $company_id = strtoupper('C' . time() . rand(100, 999));
+
+        // Prepare data for the view
+        $data = [
+            'company_id'    => $company_id,
+            'company_name'  => $company['company_name'] ?? '',
+            'database_name' => $company['database_name'] ?? '',
+            'outbound'      => isset($company['outbound']) ? 1 : 0,
+        ];
+
+        // Pass to view
+        return view('company/add_check', $data);
+    // }
+
+    // // If accessed directly, just show empty form
+    // return view('company/add_check', [
+    //     'company_id' => 'none',
+    //     'company_name' => 'none',
+    //     'database_name' => 'none',
+    //     'outbound' => 0
+    // ]);
+}
+
+
+public function add()
+{
+     return view('company/add');}
+
+public function add_details()
+{
+    $companies = $this->request->getPost('companies');
+
+    if (empty($companies)) {
+        return redirect()->back()->with('status', '⚠️ No company data found!');
     }
 
-    // Optional: replace existing data
+    $sourceModel = new \App\Models\SourceModel(); // your source model
+    $success = 0;
+    $failed  = 0;
+
+    foreach ($companies as $company) {
+        try {
+            $company_id = strtoupper('C' . time() . rand(100, 999));
+
+            // Insert company
+            $this->companyModel->insert([
+                'company_id'    => $company_id,
+                'database_name' => $company['database_name'] ?? null,
+                'outbound'      => isset($company['outbound']) ? 1 : 0,
+                'company_name'  => $company['company_name'] ?? null,
+                'category'      => $company['category'] ?? null,
+                'address'       => $company['address'] ?? null,
+                'city'          => $company['city'] ?? null,
+                'pincode'       => $company['pincode'] ?? null,
+                'state'         => $company['state'] ?? null,
+                'country'       => $company['country'] ?? 'India',
+                'phone'         => $company['phone'] ?? null,
+            ]);
+
+            // Optional: Insert source
+            if (!empty($company['source'])) {
+                $sourceModel->insert([
+                    'company_id' => $company_id,
+                    'source_id'  => 0,
+                    'event_date' => date('Y-m-d'),
+                    'notes'      => $company['source'],
+                ]);
+            }
+
+            $success++;
+
+        } catch (\Throwable $e) {
+            log_message('error', $e->getMessage());
+            $failed++;
+        }
+    }
+
+    return redirect()->back()->with(
+        'status',
+        $failed === 0
+            ? "✅ Completed: {$success} companies added successfully"
+            : "⚠️ Partial: {$success} added, {$failed} failed"
+    );
+}
+
+
+
+// Optional: replace existing data
     public function replace($id)
     {
         $companyModel = new CompanyModel();

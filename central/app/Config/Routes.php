@@ -16,10 +16,6 @@ $routes->get('backend/sql', 'Backend::sql');
 $routes->post('backend/sql/run', 'Backend::runSql');
 
 
-$routes->get('company', 'Company::index');               // Main page
-$routes->post('company/getCities', 'Company::getCities');        // AJAX: get cities by state
-$routes->post('company/filterCompanies', 'Company::filterCompanies');
-
 // ===============================
 // Dashboard routes
 // ===============================
@@ -31,6 +27,11 @@ $routes->post('dashboard/search', 'Dashboard::search');
 // ===============================
 // Company management routes
 // ===============================
+
+$routes->get('company', 'Company::index');               // Main page
+$routes->post('company/getCities', 'Company::getCities');        // AJAX: get cities by state
+$routes->post('company/filterCompanies', 'Company::filterCompanies');
+
 $routes->get('company/details/(:any)', 'Company::details/$1');
 
 $routes->post('master/filterCompanies', 'Master::filterCompanies');
@@ -41,7 +42,13 @@ $routes->get('company', 'Company::index');
 $routes->get('companies', 'Company::index');
 
 // Add new company
-$routes->get('companies/add', 'Company::add');
+// Show add company form
+$routes->post('company/add_details', 'Company::add_details');
+$routes->get('company/add', 'Company::add'); // Show the form
+
+// Preview form data (POST only)
+$routes->post('company/add_check', 'Company::add_check'); 
+
 $routes->post('companies/store', 'Company::store');
 
 // Edit company
@@ -51,8 +58,6 @@ $routes->post('companies/update/(:segment)', 'Company::update/$1');
 // Delete company (optional)
 $routes->post('companies/delete/(:segment)', 'Company::delete/$1');
 
-$routes->get('company/add', 'Company::add');       // Show the add company form
-$routes->post('company/add', 'Company::add');      // Handle submission (insert / conflict check)
 
 // Optional: replace existing company if user chooses
 $routes->post('company/replace/(:num)', 'Company::replace/$1');

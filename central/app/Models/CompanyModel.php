@@ -6,7 +6,10 @@ class CompanyModel extends Model
 {
     protected $table = 'company_data';
     protected $primaryKey = 'company_id';
-        protected $allowedFields = ['company_name', 'category', 'city', 'state'];
+protected $allowedFields = [
+    'company_id', 'company_name', 'database_name', 'outbound', 'category',
+    'address', 'city', 'pincode', 'state', 'country', 'phone'
+];
 
 
     // Get companies with concatenated contacts
