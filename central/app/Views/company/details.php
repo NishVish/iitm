@@ -31,11 +31,23 @@ $label = $categoryMap[$category] ?? '';
 
   <div class="box left">
     <h2>
+            <?= esc($company['company_id']) ?> |
+
     (<?= $label ?>)
     <?= esc($company['company_name']) ?> |
     <?= esc($company['city']) ?> |
     <?= esc($company['state']) ?>
 </h2>
+<h3>Sources</h3>
+<ul>
+<?php foreach($sources as $source): ?>
+    <li>
+        Source ID: <?= $source['source_id'] ?>, 
+        Event Date: <?= $source['event_date'] ?>, 
+        Notes: <?= $source['notes'] ?>
+    </li>
+<?php endforeach; ?>
+</ul>
 <p><strong>Phone:</strong> <?= esc($company['phone']) ?> | <strong>GST:</strong> <?= esc($company['gst_number']) ?></p>
 
 <hr>

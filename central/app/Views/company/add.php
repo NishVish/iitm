@@ -96,6 +96,32 @@
 
     <button type="submit">Preview Company</button>
 </form>
+<h2>Add Company Source (Preview Only)</h2>
+
+<form action="<?= site_url('company/source_check') ?>" method="post"> 
+    <?= csrf_field() ?>
+
+    <!-- Company ID (optional if preview, or auto-generated) -->
+    <label>Company ID:</label><br>
+    <input type="text" name="companies[0][company_id]" placeholder="Optional for preview"><br><br>
+
+    <!-- Source ID -->
+    <label>Source ID:</label><br>
+    <input type="number" name="companies[0][source_id]" placeholder="Enter source ID"><br><br>
+
+    <!-- Event Date -->
+    <label>Event Date:</label><br>
+    <input type="date" name="companies[0][event_date]" value="<?= date('Y-m-d') ?>"><br><br>
+
+    <!-- Notes -->
+    <label>Notes:</label><br>
+    <input type="text" name="companies[0][notes]" placeholder="Optional notes"><br><br>
+
+    <!-- Created At (optional, default handled by DB) -->
+    <!-- We can skip created_at because DB sets current_timestamp() automatically -->
+
+    <button type="submit">Preview Source</button>
+</form>
 
 </h2>
 <script>

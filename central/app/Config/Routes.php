@@ -65,7 +65,7 @@ $routes->post('company/replace/(:num)', 'Company::replace/$1');
 // List page after adding
 $routes->get('company/list', 'Company::list');    // Optional: show all companies
 
-
+$routes->post('company/source_check', 'Company::source_check');
 
 
 // ===============================

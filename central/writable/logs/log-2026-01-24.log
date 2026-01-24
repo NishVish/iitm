@@ -1510,3 +1510,595 @@ in SYSTEMPATH\Session\Handlers\FileHandler.php on line 74.
 15 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
 16 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 17 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-24 11:30:35 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'iitminda_master'@'202.83.19.24' to database 'central' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('21.157.66.148.h...', 'iitminda_master', Object(SensitiveParameterValue), 'central', 3306, '', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `events`...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\iitm\central\app\Models\EventModel.php(51): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Events.php(20): App\Models\EventModel->getEventsWithLatestLayout()
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Events->index()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Events))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'202.83.19.24' to database 'central' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `events`...', Array, false)
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\iitm\central\app\Models\EventModel.php(51): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\iitm\central\app\Controllers\Events.php(20): App\Models\EventModel->getEventsWithLatestLayout()
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Events->index()
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Events))
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2026-01-24 11:30:35 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'202.83.19.24' to database 'central'
+[Method: GET, Route: events]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `events`.*, `layout_info`.`layout_id`, `layout_info`.`layout_date`, `layout_info`.`file_type`
+FROM `events`
+LEFT JOIN (SELECT `event_id`, MAX(layout_date) AS latest_date
+FROM `layout_info`
+GROUP BY `event_id`) latest_layout ON `latest_layout`.`event_id` = `events`.`event_id`
+LEFT JOIN `layout_info` ON `layout_info`.`event_id` = `latest_layout`.`event_id` AND `layout_info`.`layout_date` = `latest_layout`.`latest_date`
+ORDER BY `events`.`start_date` DESC', [], false)
+ 3 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH\Models\EventModel.php(51): CodeIgniter\BaseModel->findAll()
+ 6 APPPATH\Controllers\Events.php(20): App\Models\EventModel->getEventsWithLatestLayout()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Events->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Events))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-24 11:32:54 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'iitminda_master'@'202.83.19.24' to database 'central' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('21.157.66.148.h...', 'iitminda_master', Object(SensitiveParameterValue), 'central', 3306, '', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.compan...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\app\Models\CompanyModel.php(67): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(21): App\Models\CompanyModel->getCompaniesWithContacts()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->index()
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'202.83.19.24' to database 'central' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.compan...', Array, false)
+#3 C:\xampp\htdocs\iitm\central\app\Models\CompanyModel.php(67): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(21): App\Models\CompanyModel->getCompaniesWithContacts()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->index()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2026-01-24 11:32:54 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'202.83.19.24' to database 'central'
+[Method: GET, Route: company]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.company_id,
+        c.company_name,
+        c.category,
+        c.city,
+        c.state,
+        GROUP_CONCAT(
+            DISTINCT CONCAT(
+                co.name, " (", co.designation, ")",
+                " | Mobiles: ", IFNULL(cm.mobiles, "N/A"),
+                " | Emails: ", IFNULL(ce.emails, "N/A")
+            )
+            SEPARATOR "\\n"
+        ) AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+LEFT JOIN (SELECT contact_id, GROUP_CONCAT(mobile) AS mobiles
+          FROM contact_mobile
+          GROUP BY contact_id) cm ON `cm`.`contact_id` = `co`.`contact_id`
+LEFT JOIN (SELECT contact_id, GROUP_CONCAT(email) AS emails
+          FROM contact_email
+          GROUP BY contact_id) ce ON `ce`.`contact_id` = `co`.`contact_id`
+GROUP BY `c`.`company_id`', [], false)
+ 3 APPPATH\Models\CompanyModel.php(67): CodeIgniter\Database\BaseBuilder->get()
+ 4 APPPATH\Controllers\Company.php(21): App\Models\CompanyModel->getCompaniesWithContacts()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-24 11:33:01 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'iitminda_master'@'202.83.19.24' to database 'central' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('21.157.66.148.h...', 'iitminda_master', Object(SensitiveParameterValue), 'central', 3306, '', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.compan...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\app\Models\CompanyModel.php(67): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(21): App\Models\CompanyModel->getCompaniesWithContacts()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->index()
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'202.83.19.24' to database 'central' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.compan...', Array, false)
+#3 C:\xampp\htdocs\iitm\central\app\Models\CompanyModel.php(67): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(21): App\Models\CompanyModel->getCompaniesWithContacts()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->index()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2026-01-24 11:33:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'202.83.19.24' to database 'central'
+[Method: GET, Route: company]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.company_id,
+        c.company_name,
+        c.category,
+        c.city,
+        c.state,
+        GROUP_CONCAT(
+            DISTINCT CONCAT(
+                co.name, " (", co.designation, ")",
+                " | Mobiles: ", IFNULL(cm.mobiles, "N/A"),
+                " | Emails: ", IFNULL(ce.emails, "N/A")
+            )
+            SEPARATOR "\\n"
+        ) AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+LEFT JOIN (SELECT contact_id, GROUP_CONCAT(mobile) AS mobiles
+          FROM contact_mobile
+          GROUP BY contact_id) cm ON `cm`.`contact_id` = `co`.`contact_id`
+LEFT JOIN (SELECT contact_id, GROUP_CONCAT(email) AS emails
+          FROM contact_email
+          GROUP BY contact_id) ce ON `ce`.`contact_id` = `co`.`contact_id`
+GROUP BY `c`.`company_id`', [], false)
+ 3 APPPATH\Models\CompanyModel.php(67): CodeIgniter\Database\BaseBuilder->get()
+ 4 APPPATH\Controllers\Company.php(21): App\Models\CompanyModel->getCompaniesWithContacts()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-24 11:39:04 --> mysqli_sql_exception: Table 'central.company' doesn't exist in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('    select comp...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('    select comp...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('    select comp...')
+#3 C:\xampp\htdocs\iitm\central\app\Controllers\Backend.php(35): CodeIgniter\Database\BaseConnection->query('    select comp...')
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Backend->runSql()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Backend))
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2026-01-24 11:48:06 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(206): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-01-24 11:48:06 --> Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+ERROR - 2026-01-24 11:48:06 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(206): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-01-24 11:48:06 --> Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+ERROR - 2026-01-24 11:48:06 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(206): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-01-24 11:48:06 --> Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+CRITICAL - 2026-01-24 12:04:11 --> ErrorException: Undefined array key "company_id"
+[Method: POST, Route: company/source_check]
+in APPPATH\Controllers\Company.php on line 257.
+ 1 APPPATH\Controllers\Company.php(257): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "company_id"', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Controllers\\Company.php', 257)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:04:24 --> ErrorException: Undefined array key "company_id"
+[Method: POST, Route: company/source_check]
+in APPPATH\Controllers\Company.php on line 257.
+ 1 APPPATH\Controllers\Company.php(257): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "company_id"', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Controllers\\Company.php', 257)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-24 12:05:05 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company_data` (`company_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(242): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(269): App\Controllers\Company->addSource(Array)
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->source_check()
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2026-01-24 12:05:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company_data` (`company_id`))
+[Method: POST, Route: company/source_check]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Company.php(242): CodeIgniter\Model->insert([...])
+ 6 APPPATH\Controllers\Company.php(269): App\Controllers\Company->addSource([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:05:05 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company_data` (`company_id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'1\', \'34\', \'2026-01-24\', \'Super\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'1\', \'34\', \'2026-01-24\', \'Super\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Company.php(242): CodeIgniter\Model->insert([...])
+ 8 APPPATH\Controllers\Company.php(269): App\Controllers\Company->addSource([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:05:05 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company_data` (`company_id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'1\', \'34\', \'2026-01-24\', \'Super\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'1\', \'34\', \'2026-01-24\', \'Super\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'1\', \'34\', \'2026-01-24\', \'Super\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Company.php(242): CodeIgniter\Model->insert([...])
+ 9 APPPATH\Controllers\Company.php(269): App\Controllers\Company->addSource([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-24 12:06:22 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(242): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(269): App\Controllers\Company->addSource(Array)
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->source_check()
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2026-01-24 12:06:22 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+[Method: POST, Route: company/source_check]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Company.php(242): CodeIgniter\Model->insert([...])
+ 6 APPPATH\Controllers\Company.php(269): App\Controllers\Company->addSource([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:06:22 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001 \', \'434\', \'2026-01-24\', \'Super\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001 \', \'434\', \'2026-01-24\', \'Super\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Company.php(242): CodeIgniter\Model->insert([...])
+ 8 APPPATH\Controllers\Company.php(269): App\Controllers\Company->addSource([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:06:22 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001 \', \'434\', \'2026-01-24\', \'Super\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001 \', \'434\', \'2026-01-24\', \'Super\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001 \', \'434\', \'2026-01-24\', \'Super\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Company.php(242): CodeIgniter\Model->insert([...])
+ 9 APPPATH\Controllers\Company.php(269): App\Controllers\Company->addSource([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:07:50 --> ErrorException: Undefined property: App\Controllers\Company::$db
+[Method: POST, Route: company/source_check]
+in APPPATH\Controllers\Company.php on line 234.
+ 1 APPPATH\Controllers\Company.php(234): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Company::$db', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Controllers\\Company.php', 234)
+ 2 APPPATH\Controllers\Company.php(279): App\Controllers\Company->addSource([...])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-24 12:09:07 --> mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT id, name...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT id, name...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT id, name...')
+#3 C:\xampp\htdocs\iitm\central\app\Controllers\Backend.php(35): CodeIgniter\Database\BaseConnection->query('SELECT id, name...')
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Backend->runSql()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Backend))
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2026-01-24 12:11:53 --> ErrorException: Undefined array key "company_id"
+[Method: POST, Route: company/source_check]
+in APPPATH\Controllers\Company.php on line 256.
+ 1 APPPATH\Controllers\Company.php(256): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "company_id"', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Controllers\\Company.php', 256)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:13:53 --> ParseError: syntax error, unexpected token "public"
+[Method: POST, Route: company/source_check]
+in APPPATH\Controllers\Company.php on line 286.
+ 1 FCPATH\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\xampp\\htdocs\\iitm\\central\\vendor\\composer/../../app\\Controllers\\Company.php')
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controllers\\Company')
+ 3 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Company', true)
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-24 12:15:11 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(243): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(267): App\Controllers\Company->addSource(Array)
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->source_check()
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2026-01-24 12:15:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+[Method: POST, Route: company/source_check]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Company.php(243): CodeIgniter\Model->insert([...])
+ 6 APPPATH\Controllers\Company.php(267): App\Controllers\Company->addSource([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:15:11 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Company.php(243): CodeIgniter\Model->insert([...])
+ 8 APPPATH\Controllers\Company.php(267): App\Controllers\Company->addSource([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:15:11 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Company.php(243): CodeIgniter\Model->insert([...])
+ 9 APPPATH\Controllers\Company.php(267): App\Controllers\Company->addSource([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:15:29 --> ErrorException: Undefined variable $values
+[Method: POST, Route: company/source_check]
+in APPPATH\Controllers\Company.php on line 267.
+ 1 APPPATH\Controllers\Company.php(267): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $values', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Controllers\\Company.php', 267)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-24 12:22:30 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(238): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(265): App\Controllers\Company->addSource(Array)
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->source_check()
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2026-01-24 12:22:30 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+[Method: POST, Route: company/source_check]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Company.php(238): CodeIgniter\Model->insert([...])
+ 6 APPPATH\Controllers\Company.php(265): App\Controllers\Company->addSource([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:22:30 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Company.php(238): CodeIgniter\Model->insert([...])
+ 8 APPPATH\Controllers\Company.php(265): App\Controllers\Company->addSource([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-24 12:22:30 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`central`.`company_sources`, CONSTRAINT `company_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`) ON DELETE CASCADE)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (\'C001\', \'-1\', \'2026-01-24\', \'dfsf\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `company_sources` (`company_id`, `source_id`, `event_date`, `notes`) VALUES (:company_id:, :source_id:, :event_date:, :notes:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Company.php(238): CodeIgniter\Model->insert([...])
+ 9 APPPATH\Controllers\Company.php(265): App\Controllers\Company->addSource([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->source_check()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
