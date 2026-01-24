@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-                'hostname'     => '21.157.66.148.host.secureserver.net',
+        'hostname'     => '21.157.66.148.host.secureserver.net',
         'username'     => 'iitminda_master',
         'password'     => 'gB)%gU}ocn?MCP=}',
-        
+
         'database'     => 'central',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
@@ -51,7 +51,6 @@ class Database extends Config
             'time'     => 'H:i:s',
         ],
     ];
-
 
     //    /**
     //     * Sample database connection for SQLite3.
@@ -165,8 +164,8 @@ class Database extends Config
      * @var array<string, mixed>
      */
     public array $tests = [
-
-                'hostname'     => '21.157.66.148.host.secureserver.net',
+        'DSN'         => '',
+        'hostname'     => '21.157.66.148.host.secureserver.net',
         'username'     => 'iitminda_master',
         'password'     => 'gB)%gU}ocn?MCP=}',
 
@@ -192,8 +191,6 @@ class Database extends Config
             'time'     => 'H:i:s',
         ],
     ];
-
-    
 
     public function __construct()
     {
