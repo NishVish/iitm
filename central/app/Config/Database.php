@@ -191,7 +191,7 @@ class Database extends Config
      *
      * @var array<string, mixed>
      */
-    public array $tests = [
+    public array $testsx = [
         'DSN'         => '',
         'hostname'    => '127.0.0.1',
         'username'    => '',
@@ -224,7 +224,7 @@ class Database extends Config
         ],
     ];
 
-    public array $testss = [
+    public array $tests = [
         'DSN'         => '',
         // 'hostname'    => '127.0.0.1',
         // 'username'    => '',
