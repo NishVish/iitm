@@ -8,12 +8,21 @@ class ContactModel extends Model
     protected $table = 'contact';
     protected $primaryKey = 'contact_id';
 
+    // Add this:
+    protected $allowedFields = [
+        'company_id',
+        'priority',
+        'name',
+        'designation',
+        'created_at',
+        'updated_at'
+    ];
+
     // Get contacts for a company, with mobiles & emails
     public function getByCompanyId($companyId)
     {
         $contacts = $this->where('company_id', $companyId)->findAll();
 
-        // Load mobiles & emails for each contact
         foreach ($contacts as &$contact) {
             $contact['mobiles'] = $this->getMobiles($contact['contact_id']);
             $contact['emails']  = $this->getEmails($contact['contact_id']);
@@ -22,7 +31,6 @@ class ContactModel extends Model
         return $contacts;
     }
 
-    // Get mobiles for a contact
     public function getMobiles($contact_id)
     {
         return array_column(
@@ -35,7 +43,6 @@ class ContactModel extends Model
         );
     }
 
-    // Get emails for a contact
     public function getEmails($contact_id)
     {
         return array_column(

@@ -29,33 +29,58 @@ $label = $categoryMap[$category] ?? '';
 
   <!-- ================= COMPANY DETAILS ================= -->
 
-  <div class="box left">
-    <h2>
-            <?= esc($company['company_id']) ?> |
+<div class="box left">
 
-    (<?= $label ?>)
-    <?= esc($company['company_name']) ?> |
-    <?= esc($company['city']) ?> |
-    <?= esc($company['state']) ?>
-</h2>
-<h3>Sources</h3>
-<ul>
-<?php foreach($sources as $source): ?>
-    <li>
-        Source ID: <?= $source['source_id'] ?>, 
-        Event Date: <?= $source['event_date'] ?>, 
-        Notes: <?= $source['notes'] ?>
-    </li>
-<?php endforeach; ?>
-</ul>
-<p><strong>Phone:</strong> <?= esc($company['phone']) ?> | <strong>GST:</strong> <?= esc($company['gst_number']) ?></p>
+<form method="post" action="<?= site_url('company/update/' . $company['company_id']) ?>"
+>
+    <?= csrf_field() ?>
+
+    <h2>
+        <input type="text" name="company_id" value="<?= esc($company['company_id']) ?>" readonly style="width:120px;"> |
+        <input type="text" name="label" value="<?= esc($label ?? '') ?>" style="width:120px;"> |
+        <input type="text" name="company_name" value="<?= esc($company['company_name']) ?>">
+        |
+        <input type="text" name="city" value="<?= esc($company['city']) ?>" style="width:120px;">
+        |
+        <input type="text" name="state" value="<?= esc($company['state']) ?>" style="width:80px;">
+    </h2>
+
+    <h3>Sources</h3>
+
+    <ul>
+    <?php foreach ($sources as $i => $source): ?>
+        <li>
+            <input type="hidden" name="sources[<?= $i ?>][id]" value="<?= $source['id'] ?>">
+
+            Source ID:
+            <input type="number" name="sources[<?= $i ?>][source_id]"
+                   value="<?= esc($source['source_id']) ?>" style="width:80px;">
+
+            Event Date:
+            <input type="date" name="sources[<?= $i ?>][event_date]"
+                   value="<?= esc($source['event_date']) ?>">
+
+            Notes:
+            <input type="text" name="sources[<?= $i ?>][notes]"
+                   value="<?= esc($source['notes']) ?>" style="width:300px;">
+        </li>
+    <?php endforeach; ?>
+    </ul>
+
+    <p>
+        <strong>Phone:</strong>
+        <input type="text" name="phone" value="<?= esc($company['phone']) ?>">
+
+        | <strong>GST:</strong>
+        <input type="text" name="gst_number" value="<?= esc($company['gst_number']) ?>">
+    </p>
+
+    <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+</form>
 
 <hr>
+</div>
 
-
-
-
-  </div>
   <div class="box right">
 <!-- ================= CONTACT DETAILS ================= -->
 <h3></h3>

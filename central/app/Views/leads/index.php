@@ -71,9 +71,10 @@
                     <td><?= esc($lead['status']) ?></td>
                     <td><?= esc($lead['payment_status']) ?></td>
                     <td>
-                        <a href="<?= site_url('company/details/'.$lead['company_id']) ?>">
-                            View Company
-                        </a>
+                        <a href="<?= site_url('lead/details/' . esc($lead['lead_id'])) ?>">
+    View Company
+</a>
+
                          <!-- New Button: Open Exhibitor Registration -->
 <a href="<?= site_url('exhibitor/instructions/'.$lead['company_id']) ?>" class="btn btn-success btn-sm">
     Book Exhibitor

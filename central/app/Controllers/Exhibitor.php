@@ -32,28 +32,28 @@ public function instructions($companyId = null)
 
     return view('exhibitor/instructions', $data);
 }
-
-    // STEP 2: Company & Contact Details
-    public function company($companyId = null)
-    {
-        if (!$companyId) {
-            return redirect()->to('/exhibitor/instructions')->with('error','Select a company');
-        }
-
-        $company = $this->companyModel->where('company_id',$companyId)->first();
-        $contacts = $this->contactModel->where('company_id',$companyId)->findAll();
-
-        if (!$company) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Company not found');
-        }
-
-        $data = [
-            'company' => $company,
-            'contacts' => $contacts
-        ];
-
-        return view('exhibitor/company', $data);
+public function company($companyId = null)
+{
+    if (!$companyId) {
+        return redirect()->to('/exhibitor/instructions')->with('error','Select a company');
     }
+
+    // Fetch company & contacts
+    $company  = $this->companyModel->where('company_id', $companyId)->first();
+    $contacts = $this->contactModel->where('company_id', $companyId)->findAll();
+
+    if (!$company) {
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Company not found');
+    }
+
+    $data = [
+        'company'  => $company,
+        'contacts' => $contacts
+    ];
+
+    return view('exhibitor/company', $data);
+}
+
 
     // STEP 3: Exhibition Details + Calculation + Payment
     public function exhibition($companyId = null)
@@ -61,14 +61,14 @@ public function instructions($companyId = null)
         if (!$companyId) {
             return redirect()->to('/exhibitor/instructions')->with('error','Select a company');
         }
-
+        $contactModel  = new ContactModel();
         $company = $this->companyModel->where('company_id',$companyId)->first();
         $contacts = $this->contactModel->where('company_id',$companyId)->findAll();
         $exhibitions = $this->exhibitionModel->findAll(); // list of possible exhibitions
 
         $data = [
             'company' => $company,
-            'contacts' => $contacts,
+            'contacts' => $contactModel->getByCompanyId($companyId),
             'exhibitions' => $exhibitions
         ];
 

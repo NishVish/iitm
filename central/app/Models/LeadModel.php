@@ -98,4 +98,18 @@ public function getSalesPersons()
                 ->findAll();
 }
 
+
+public function getByLeadId($leadId)
+{
+    return $this->where('lead_id', $leadId)->first();
+}
+public function getCompanyIdByLeadId($leadID)
+{
+    return $this->select('company_id')
+                ->where('lead_id', $leadID)
+                ->first();
+}
+
+
+
 }

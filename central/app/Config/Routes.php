@@ -38,9 +38,6 @@ $routes->post('master/filterCompanies', 'Master::filterCompanies');
 
 $routes->get('company', 'Company::index');
 
-// List all companies
-$routes->get('companies', 'Company::index');
-
 // Add new company
 // Show add company form
 $routes->post('company/add_details', 'Company::add_details');
@@ -49,14 +46,14 @@ $routes->get('company/add', 'Company::add'); // Show the form
 // Preview form data (POST only)
 $routes->post('company/add_check', 'Company::add_check'); 
 
-$routes->post('companies/store', 'Company::store');
+$routes->post('company/store', 'Company::store');
 
 // Edit company
-$routes->get('companies/edit/(:segment)', 'Company::edit/$1');
-$routes->post('companies/update/(:segment)', 'Company::update/$1');
+$routes->get('company/edit/(:segment)', 'Company::edit/$1');
+$routes->post('company/update/(:segment)', 'Company::update/$1');
 
 // Delete company (optional)
-$routes->post('companies/delete/(:segment)', 'Company::delete/$1');
+$routes->post('company/delete/(:segment)', 'Company::delete/$1');
 
 
 // Optional: replace existing company if user chooses
@@ -67,14 +64,26 @@ $routes->get('company/list', 'Company::list');    // Optional: show all companie
 
 $routes->post('company/source_check', 'Company::source_check');
 
+// $routes->post('update/(:segment)', 'Company::update/$1');
+
+
+// Show the add contact form
+$routes->get('contacts/add/(:any)', 'Contacts::add/$1'); 
+// (:any) is for company_id
+
+// Handle the form submission
+$routes->post('contacts/savePerson', 'Company::savePerson');
+
 
 // ===============================
 // Leads / Booking routes
 // ===============================
 $routes->get('leads', 'Leads::index');
-$routes->get('leads/view/(:segment)', 'Leads::view/$1');
+$routes->get('lead/details/(:any)', 'Leads::details/$1');
+// $routes->get('leads/view/(:segment)', 'Leads::view/$1');
 $routes->post('leads/create', 'Leads::createLead');
 $routes->post('leads/store', 'Leads::store');
+$routes->post('discussion/add', 'Leads::add');
 
 
 // ===============================
@@ -93,7 +102,7 @@ $routes->group('layout-info', function ($routes) {
     $routes->get('create', 'LayoutInfo::create');    // show create form
     $routes->post('store', 'LayoutInfo::store');     // save layout
 });
-
+// Negotiation asking for 5000 Less if Booked for 3 Location
 
 // ===============================
 // Payments routes
