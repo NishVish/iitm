@@ -8,8 +8,38 @@ class CompanyModel extends Model
     protected $primaryKey = 'company_id';
 protected $allowedFields = [
     'company_id', 'company_name', 'database_name', 'outbound', 'category',
-    'address', 'city', 'pincode', 'state', 'country', 'phone'
+    'address', 'city', 'pincode', 'state', 'country', 'phone','session'
 ];
+
+
+public function get_lastSession()
+{
+    $builder = $this->db->table($this->table);
+
+    // Get the last entry's session and created_at
+    $builder->select('session, created_at');
+    $builder->orderBy('created_at', 'DESC');
+    $builder->limit(1);
+    $query = $builder->get();
+    $lastEntry = $query->getRow();
+
+    if ($lastEntry) {
+        $lastSession = $lastEntry->session;
+        $lastTime = strtotime($lastEntry->created_at);
+        $currentTime = time();
+
+        // If the last entry is within 1 minute, reuse the session
+        if (($currentTime - $lastTime) <= 60) {
+            return $lastSession;
+        }
+
+        // Otherwise, increment session
+        return $lastSession + 1;
+    }
+
+    // If no session exists, start from 1
+    return 1;
+}
 
 
     // Get companies with concatenated contacts
@@ -19,6 +49,8 @@ public function getCompaniesWithContacts($state = null, $city = null)
     $builder = $this->db->table('company_data c');
 
     $builder->select('
+            c.session,
+
         c.company_id,
         c.company_name,
         c.category,

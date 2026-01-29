@@ -34,6 +34,7 @@
 <table id="company-table" border="1" cellpadding="5">
     <thead>
         <tr>
+            <th>Session</th>
             <th>Company Name</th>
             <th>Category</th>
             <th>City</th>
@@ -44,6 +45,8 @@
     <tbody>
         <?php foreach($companies as $c): ?>
             <tr>
+                                <td><?= esc($c['session']) ?></td>
+
                 <td>
                     <a href="<?= site_url('company/details/'.$c['company_id']) ?>">
                         <?= esc($c['company_name']) ?>

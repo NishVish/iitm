@@ -94,6 +94,7 @@ public function getCompanies($search = null)
 {
     $builder = $this->db->table('company_data c');
     $builder->select('
+        c.session,
         c.company_id,
         c.company_name,
         c.category,
@@ -170,88 +171,6 @@ public function add()
 {
      return view('company/add');}
 
-public function add_detailsold()
-{
-    $companies = $this->request->getPost('companies');
-
-    if (empty($companies)) {
-        return redirect()->back()->with('status', '⚠️ No company data found!');
-    }
-
-    $success = 0;
-    $failed  = 0;
-    
-
-    foreach ($companies as $company) {
-        try {
-            $company_id = strtoupper('C' . time() . rand(100, 999));
-
-            // Insert company
-            $this->companyModel->insert([
-                'company_id'    => $company_id,
-                'database_name' => $company['database_name'] ?? null,
-                'outbound'      => isset($company['outbound']) ? 1 : 0,
-                'company_name'  => $company['company_name'] ?? null,
-                'category'      => $company['category'] ?? null,
-                'address'       => $company['address'] ?? null,
-                'city'          => $company['city'] ?? null,
-                'pincode'       => $company['pincode'] ?? null,
-                'state'         => $company['state'] ?? null,
-                'country'       => $company['country'] ?? 'India',
-                'phone'         => $company['phone'] ?? null,
-            ]);
-
-            // Prepare source data
-            $values = [
-                'company_id'    => $company_id,
-                'source_id'  => $company['source_id'] ?? 0,
-                'event_date' => $company['event_date'] ?? date('Y-m-d'),
-                'notes'      => $company['notes'] ?? $company['source'] ?? null,
-            ];
-            // Call the addSource method
-            $this->addSource($values);
-
-            if ($this->request->getMethod() === 'post') {
-    $contactData = [
-        'company_id'  => $this->request->getPost('company_id'),
-        'priority'    => $this->request->getPost('priority'),
-        'name'        => $this->request->getPost('name'),
-        'designation' => $this->request->getPost('designation'),
-        'mobiles'     => array_filter($this->request->getPost('mobiles') ?? []),
-        'emails'      => array_filter($this->request->getPost('emails') ?? [])
-    ];
-
-    $result = $this->savePerson($contactData);
-    return redirect()->back()->with('status', $result ? "✅ Contact added successfully" : "⚠️ Failed to add contact");
-}
-
-
-
-// Call the function to insert contacts
-    foreach ($contacts as $contact) {
-        $result = $this->savePerson($contact);
-        if ($result) {
-            $success++;
-        } else {
-            $failed++;
-        }
-    }
-
-
-        
-        } catch (\Throwable $e) {
-            log_message('error', $e->getMessage());
-            $failed++;
-        }
-    }
-
-    return redirect()->back()->with(
-        'status',
-        $failed === 0
-            ? "✅ Completed: {$success} companies added successfully"
-            : "⚠️ Partial: {$success} added, {$failed} failed"
-    );
-}
 
 public function add_details()
 {
@@ -268,9 +187,12 @@ public function add_details()
         try {
             // Generate a unique company ID
             $company_id = strtoupper('C' . time() . rand(100, 999));
+            $session_id = $this->companyModel->get_lastSession();
 
             // Insert company
             $this->companyModel->insert([
+                'session'    => $session_id,
+
                 'company_id'    => $company_id,
                 'database_name' => $company['database_name'] ?? null,
                 'outbound'      => isset($company['outbound']) ? 1 : 0,
@@ -283,6 +205,17 @@ public function add_details()
                 'country'       => $company['country'] ?? 'India',
                 'phone'         => $company['phone'] ?? null,
             ]);
+
+             // Prepare source data
+            $values = [
+                'company_id'    => $company_id,
+                'source_id'  => $company['source_id'] ?? 0,
+                'event_date' => $company['event_date'] ?? date('Y-m-d'),
+                'notes'      => $company['notes'] ?? $company['source'] ?? null,
+            ];
+            // Call the addSource method
+            $this->addSource($values);
+
 
             // Insert contacts dynamically (up to 3 contacts)
             for ($i = 1; $i <= 3; $i++) {
@@ -548,6 +481,16 @@ return redirect()
         ->to(site_url('company/details/' . $companyId))
         ->with('status', '✅ Updated successfully');
 }
+
+
+public function get_lastSession()
+    {
+        $companyModel = new CompanyModel();
+
+        $lastSession = $companyModel->get_lastSession();
+
+        return $lastSession; // or json_encode($lastSession) if you want JSON response
+    }
 
 
 }
