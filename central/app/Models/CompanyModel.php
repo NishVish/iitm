@@ -185,4 +185,18 @@ public function getByCompanyId($companyId)
     return $this->where('company_id', $companyId)->first();
 }
 
+public function findPotentialMatches($company)
+{
+    // Compare $company->company_name + address + city + pincode
+    // Use LIKE queries or pull all candidates and run PHP fuzzy matching
+}
+
+public function mergeCompanies($existingId, $newId)
+{
+    // Merge logic: 
+    // 1. Move contacts from new to existing
+    // 2. Update source table
+    // 3. Set new company as inactive
+}
+
 }

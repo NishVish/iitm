@@ -139,6 +139,37 @@ $routes->get('users/edit/(:segment)', 'Users::edit/$1');
 $routes->post('users/update/(:segment)', 'Users::update/$1');
 $routes->post('users/delete/(:segment)', 'Users::delete/$1');
 
+
 // ===============================
-// Exhibitions routes
-// ==
+// Crossvalidation routes
+// ===============================
+// Show the crossvalidation index page
+$routes->get('crossvalidation', 'CrossValidation::index');
+
+// Run the batch cross-validation
+$routes->get('crossvalidation/crossValidate', 'CrossValidation::companyCrossValidation');
+$routes->get('crossvalidation/crossValidateContact', 'CrossValidation::contactCrossValidation');
+$routes->get('crossvalidation/clear', 'CrossValidation::clearMatches');
+$routes->get('crossvalidation/clearcontact', 'CrossValidation::clearMatchesContact');
+
+// Optional: handle overwrite/merge actions
+$routes->post('crossvalidation/action', 'CrossValidation::handleAction');
+$routes->post('crossvalidation/actioncontact', 'CrossValidation::handleAction');
+
+
+
+// $routes->group('db', ['filter' => 'auth'], function ($routes) {
+
+    // Safe
+    $routes->get('clear-matching', 'DatabaseOperation::clearMatchingTables');
+
+    // Medium risk
+    $routes->get('clear-contacts', 'DatabaseOperation::clearContactTables');
+    $routes->get('clear-companies', 'DatabaseOperation::clearCompanyTables');
+
+    // High risk
+    $routes->get('clear-non-financial', 'DatabaseOperation::clearAllNonFinancial');
+
+    // EXTREME (comment this in production)
+     $routes->get('wipe-all', 'DatabaseOperation::clearEverything');
+// });

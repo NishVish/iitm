@@ -12,7 +12,11 @@
 <body> -->
 <?= view('header') ?>  <!-- loads app/Views/header.php -->
 
-<h1>All Companies</h1>
+<h1>All Companies <a href="<?= site_url('clear-matching') ?>">Clear Matching</a>
+<a href="<?= site_url('clear-contacts') ?>">Clear Contacts</a>
+<a href="<?= site_url('clear-companies') ?>">Clear Companies</a>
+<a href="<?= site_url('clear-non-financial') ?>">Clear Non-Financial</a>
+</h1>
 
 <h3>Filter by State</h3>
 <div id="states">

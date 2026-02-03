@@ -1,0 +1,483 @@
+CRITICAL - 2026-02-02 06:53:18 --> ErrorException: include(header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: crossvalidation]
+in APPPATH\Views\crossvalidation\index.php on line 1.
+ 1 APPPATH\Views\crossvalidation\index.php(1): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(header.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\crossvalidation\\index.php', 1)
+ 2 APPPATH\Views\crossvalidation\index.php(1): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\crossvalidation\\index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('crossvalidation/index', [], true)
+ 6 APPPATH\Controllers\CrossValidation.php(27): view('crossvalidation/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CrossValidation->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CrossValidation))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-02 06:54:15 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "layouts/header.php"
+[Method: GET, Route: crossvalidation]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('layouts/header.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('layouts/header', [], true)
+ 3 APPPATH\Views\crossvalidation\index.php(1): view('layouts/header')
+ 4 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\crossvalidation\\index.php')
+ 5 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('crossvalidation/index', [], true)
+ 7 APPPATH\Controllers\CrossValidation.php(27): view('crossvalidation/index', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CrossValidation->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CrossValidation))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-02 06:54:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "matching_session_view.php"
+[Method: GET, Route: crossvalidation/run]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('matching_session_view.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('matching_session_view', [], true)
+ 3 APPPATH\Controllers\CrossValidation.php(172): view('matching_session_view', [...])
+ 4 APPPATH\Controllers\CrossValidation.php(150): App\Controllers\CrossValidation->showMatchingResults()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CrossValidation->runBatch()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CrossValidation))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-02 07:00:19 --> CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+[Method: POST, Route: crossvalidation/action]
+in SYSTEMPATH\BaseModel.php on line 1842.
+ 1 SYSTEMPATH\BaseModel.php(1842): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH\BaseModel.php(979): CodeIgniter\BaseModel->transformDataToArray(null, 'update')
+ 3 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], null)
+ 4 APPPATH\Controllers\CrossValidation.php(212): CodeIgniter\Model->update('580', null)
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CrossValidation->handleAction()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CrossValidation))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-02 09:14:45 --> ErrorException: Cannot redeclare App\Controllers\CrossValidation::companyCrossValidation()
+[Method: GET, Route: crossvalidation/run]
+in APPPATH\Controllers\CrossValidation.php on line 185.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-02-02 10:11:37 --> CodeIgniter\Filters\Exceptions\FilterException: "auth" filter must have a matching alias defined.
+[Method: GET, Route: db/clear-matching]
+in SYSTEMPATH\Filters\Filters.php on line 590.
+ 1 SYSTEMPATH\Filters\Filters.php(590): CodeIgniter\Filters\Exceptions\FilterException::forNoAlias('auth')
+ 2 SYSTEMPATH\Filters\Filters.php(641): CodeIgniter\Filters\Filters->enableFilter('auth', 'before')
+ 3 SYSTEMPATH\CodeIgniter.php(467): CodeIgniter\Filters\Filters->enableFilters([...], 'before')
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-02 10:13:45 --> CodeIgniter\Filters\Exceptions\FilterException: "auth" filter must have a matching alias defined.
+[Method: GET, Route: db/clear-contacts]
+in SYSTEMPATH\Filters\Filters.php on line 590.
+ 1 SYSTEMPATH\Filters\Filters.php(590): CodeIgniter\Filters\Exceptions\FilterException::forNoAlias('auth')
+ 2 SYSTEMPATH\Filters\Filters.php(641): CodeIgniter\Filters\Filters->enableFilter('auth', 'before')
+ 3 SYSTEMPATH\CodeIgniter.php(467): CodeIgniter\Filters\Filters->enableFilters([...], 'before')
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-02-02 10:19:44 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(48): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2026-02-02 10:19:45 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`))
+[Method: GET, Route: clear-contacts]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `contact`', null, false)
+ 2 APPPATH\Controllers\DatabaseOperation.php(48): CodeIgniter\Database\BaseBuilder->truncate()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-02 10:19:45 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `contact`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `contact`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `contact`', null, false)
+ 4 APPPATH\Controllers\DatabaseOperation.php(48): CodeIgniter\Database\BaseBuilder->truncate()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-02 10:19:45 --> [Caused by] mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `contact`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `contact`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `contact`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `contact`', null, false)
+ 5 APPPATH\Controllers\DatabaseOperation.php(48): CodeIgniter\Database\BaseBuilder->truncate()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-02-02 10:20:49 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(45): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2026-02-02 10:21:18 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(45): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2026-02-02 10:22:34 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(45): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2026-02-02 10:23:00 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(45): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2026-02-02 10:24:33 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(45): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2026-02-02 10:27:27 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(51): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2026-02-02 10:30:32 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(51): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2026-02-02 10:30:33 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(51): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2026-02-02 10:30:33 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`central`.`contact_email`, CONSTRAINT `fk_contact_email` FOREIGN KEY (`contact_id`) REFERENCES `central`.`contact` (`contact_id`)) in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `conta...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `conta...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `conta...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `conta...', NULL, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\DatabaseOperation.php(51): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\DatabaseOperation->clearContactTables()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DatabaseOperation))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453313' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company Eden  Group Of Hotels failed: Duplicate entry 'C1770028453313' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453121' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company Hotel Fortune failed: Duplicate entry 'C1770028453121' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453320' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company Hotel Sri Devi failed: Duplicate entry 'C1770028453320' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453633' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company Mango Meadows Agriculture Theme Park failed: Duplicate entry 'C1770028453633' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453880' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company Ravine Trek failed: Duplicate entry 'C1770028453880' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453789' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company Sab Dekho Kashmir failed: Duplicate entry 'C1770028453789' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453880' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company Sri Varthini Mahaal & Residency failed: Duplicate entry 'C1770028453880' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453470' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company The Birchwood Retreat failed: Duplicate entry 'C1770028453470' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453493' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company The Holidayz Travel failed: Duplicate entry 'C1770028453493' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453706' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company Wellness By Heartfulness failed: Duplicate entry 'C1770028453706' for key 'company_id'
+ERROR - 2026-02-02 10:34:13 --> mysqli_sql_exception: Duplicate entry 'C1770028453973' for key 'company_id' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->add_details()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-02-02 10:34:13 --> Company Yamato India failed: Duplicate entry 'C1770028453973' for key 'company_id'
+CRITICAL - 2026-02-02 11:14:50 --> ErrorException: Undefined variable $company_matches
+[Method: GET, Route: crossvalidation/crossValidateContact]
+in APPPATH\Views\crossvalidation\index.php on line 31.
+ 1 APPPATH\Views\crossvalidation\index.php(31): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $company_matches', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\crossvalidation\\index.php', 31)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\crossvalidation\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('crossvalidation/index', [], true)
+ 5 APPPATH\Controllers\CrossValidation.php(53): view('crossvalidation/index', [...])
+ 6 APPPATH\Controllers\CrossValidation.php(265): App\Controllers\CrossValidation->index()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CrossValidation->contactCrossValidation()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CrossValidation))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-02 11:27:26 --> CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+[Method: POST, Route: crossvalidation/action]
+in SYSTEMPATH\BaseModel.php on line 1842.
+ 1 SYSTEMPATH\BaseModel.php(1842): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH\BaseModel.php(979): CodeIgniter\BaseModel->transformDataToArray(null, 'update')
+ 3 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], null)
+ 4 APPPATH\Controllers\CrossValidation.php(327): CodeIgniter\Model->update('7', null)
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CrossValidation->handleAction()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CrossValidation))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

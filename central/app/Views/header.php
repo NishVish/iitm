@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>Company Management System</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; }
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #e5e5e5 }
         nav { background-color: #2c3e50; padding: 10px; color: white; display: flex; align-items: center; justify-content: space-between; }
         nav a { color: white; margin-right: 15px; text-decoration: none; }
         nav a:hover { text-decoration: underline; }
@@ -32,6 +32,7 @@
         <a href="<?= base_url('company/add') ?>">Add Companies</a>
 
         <a href="<?= base_url('leads') ?>">Leads</a>
+        <a href="<?= base_url('crossvalidation') ?>">Crossvalidation</a>
     </div>
 
     <!-- Search box -->
