@@ -27,32 +27,32 @@ public function instructions($companyId = null)
     $data = [];
 
     if ($companyId) {
-        $data['company'] = $this->companyModel->where('company_id', $companyId)->first();
+        $data['company'] = $this->companyModel
+            ->where('company_id', $companyId)
+            ->first();
     }
 
     return view('exhibitor/instructions', $data);
 }
-public function company($companyId = null)
+
+
+public function company($companyId)
 {
-    if (!$companyId) {
-        return redirect()->to('/exhibitor/instructions')->with('error','Select a company');
+    $data['company'] = $this->companyModel
+        ->where('company_id', $companyId)
+        ->first();
+
+    if (!$data['company']) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('Company not found');
     }
 
-    // Fetch company & contacts
-    $company  = $this->companyModel->where('company_id', $companyId)->first();
-    $contacts = $this->contactModel->where('company_id', $companyId)->findAll();
-
-    if (!$company) {
-        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Company not found');
-    }
-
-    $data = [
-        'company'  => $company,
-        'contacts' => $contacts
-    ];
+    $data['contacts'] = $this->contactModel
+        ->where('company_id', $companyId)
+        ->findAll();
 
     return view('exhibitor/company', $data);
 }
+
 
 
     // STEP 3: Exhibition Details + Calculation + Payment

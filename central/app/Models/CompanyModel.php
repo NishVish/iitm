@@ -8,7 +8,7 @@ class CompanyModel extends Model
     protected $primaryKey = 'company_id';
 protected $allowedFields = [
     'company_id', 'company_name', 'database_name', 'outbound', 'category',
-    'address', 'city', 'pincode', 'state', 'country', 'phone','session'
+    'address', 'city', 'pincode', 'state', 'country', 'phone','session','cross_validation'
 ];
 
 
@@ -93,8 +93,10 @@ public function getCompaniesWithContacts($state = null, $city = null)
     if ($city) {
         $builder->where('c.city', $city);
     }
+        $builder->where('c.cross_validation', 0);
 
     $builder->groupBy('c.company_id');
+    $builder->orderBy('c.company_name', 'ASC');
 
     return $builder->get()->getResultArray();
 }

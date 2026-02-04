@@ -109,20 +109,20 @@ $routes->group('layout-info', function ($routes) {
 // ===============================
 $routes->group('exhibitor', function($routes) {
 
-    // Step 1: Instructions (optional companyId)
-    $routes->get('instructions/(:any)', 'Exhibitor::instructions/$1'); // Accept company ID
-    $routes->get('instructions', 'Exhibitor::instructions'); // fallback if no ID
+    // Step 1
+    $routes->get('instructions', 'Exhibitor::instructions');
+    $routes->get('instructions/(:num)', 'Exhibitor::instructions/$1');
 
-    // Step 2: Company & Contact Details
-    $routes->get('company/(:any)', 'Exhibitor::company/$1');
+    // Step 2
+    $routes->get('company/(:num)', 'Exhibitor::company/$1');
 
-    // Step 3: Exhibition Details + Price
-    $routes->get('exhibition/(:any)', 'Exhibitor::exhibition/$1');
+    // Step 3
+    $routes->get('exhibition/(:num)', 'Exhibitor::exhibition/$1');
 
-    // POST: Process Payment
+    // Payment
     $routes->post('processPayment', 'Exhibitor::processPayment');
-
 });
+
 
 // ===============================
 // Search routes

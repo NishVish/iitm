@@ -54,6 +54,7 @@ $companyMatches = $db->table('matching_session as ms')
               c1.updated_at as original_updated_at,
               c1.last_confirmed_at as original_last_confirmed_at,
               c1.session as original_session,
+              c1.cross_validation as orignal_cross_validation,
               
               c2.company_id as matched_company_id,
               c2.database_name as matched_database_name,
@@ -72,6 +73,7 @@ $companyMatches = $db->table('matching_session as ms')
               c2.created_at as matched_created_at,
               c2.updated_at as matched_updated_at,
               c2.last_confirmed_at as matched_last_confirmed_at,
+              c2.cross_validation as matched_cross_validation,
               c2.session as matched_session')
     ->join('company_data c1', 'ms.company_id = c1.company_id')
     ->join('company_data c2', 'ms.matching_company_id = c2.company_id')
@@ -223,26 +225,48 @@ public function clearMatchesContact(){
                 } else {
                     $matchingType = 'no match';
                 }
-                if ($nameScore >= 0 && $addressScore >= 0 && ($pinScore != 100 || $pinScore == 0)) {
-                if ($matchingType !== 'no match') {
+                // echo $newId. "sss" . $dbId;
+                
+            $companyOverwrite = true;
+
+            // -------------------- Step 1: Minimum eligibility --------------------
+            $passesMinimum =
+                $companyOverwrite &&
+                $nameScore >= 70 &&
+                $addressScore >= 50 &&
+                $pinScore >= 50;
+
+            if ($passesMinimum) {
+
+                // -------------------- Step 2: Strong match → overwrite --------------------
+                $isStrongMatch =
+                    $nameScore >= 80 &&
+                    $addressScore >= 60 &&
+                    $pinScore === 100;
+
+                if ($isStrongMatch) {
+                    $this->overwriteCompany($newId, $dbId);
+                } 
+                // -------------------- Step 3: Weak/medium match → store for manual validation --------------------
+                elseif ($matchingType !== 'no match' && !$dbRow['cross_validation']) {
                     $db->table('matching_session')->insert([
-                        'company_id' => $newId,
-                        'matching_company_id' => $dbId,
-                        'matching_type' => $matchingType,
-                        'name' => $nameScore,
-                        'address' => $addressScore,
-                        'city' => $addressScore,
-                        'pin' => $pinScore
+                        'company_id'           => $newId,
+                        'matching_company_id'  => $dbId,
+                        'matching_type'        => $matchingType,
+                        'name'                 => $nameScore,
+                        'address'              => $addressScore,
+                        'city'                 => $addressScore,
+                        'pin'                  => $pinScore,
                     ]);
                 }
-                }
-            }
-        }
 
-        
-        // -------------------- 3. Return results --------------------
-    return $this->index(); // show the index page with all results
+            } // end passesMinimum check
+        }
     }
+
+    // -------------------- 3. Return results --------------------
+    return $this->index(); // show the index page with all results
+}
 
 
 
@@ -396,6 +420,14 @@ public function handleAction()
     $matchId = $request['match_id'] ?? null;    // matching company/contact ID
     $action = $request['action'] ?? null;       // overwrite / merge / skip
 
+if ($type === 'all') {
+    echo "TYPE OK<br>";
+
+    if ($action === 'overwrite') {
+    $this->overwriteCompany($id, $matchId);
+    }
+
+
     // // Validate required parameters
     // if (!$type || !$id || !$matchId || !$action) {
     //     return redirect()->back()->with('error', 'Missing required request parameters.');
@@ -413,64 +445,70 @@ public function handleAction()
     // }
 
     // -----------------------------
-if ($type === 'company_name') {
+// if ($type === 'all') {
 
-if($action === 'overwrite'){
-    // Start transaction using one of the models
-    $this->companyModel->db->transStart();
+// if($action === 'overwrite'){
+//     // echo "hello";
+//     // exit;
+//     // Start transaction using one of the models
+//     $this->companyModel->db->transStart();
 
-    // 1️⃣ Update related tables
-    $this->sourceModel
-        ->where('company_id', $matchId)
-        ->set('company_id', $id)
-        ->update();
-    // Then, insert a new record with custom notes
-    // $this->sourceModel->insert([
-    //     'company_id'  => $id,
-    //     'source_id'   => 55,         // set this to your relevant source_id
-    //     'event_date'  => date('Y-m-d'),     // or your custom date
-    //     'notes'       => 'Custom text here' // your custom message
-    // ]);
+//     // 1️⃣ Update related tables
+//     $this->sourceModel
+//         ->where('company_id', $matchId)
+//         ->set('company_id', $id)
+//         ->update();
+//     // Then, insert a new record with custom notes
+//     // $this->sourceModel->insert([
+//     //     'company_id'  => $id,
+//     //     'source_id'   => 55,         // set this to your relevant source_id
+//     //     'event_date'  => date('Y-m-d'),     // or your custom date
+//     //     'notes'       => 'Custom text here' // your custom message
+//     // ]);
 
 
-    $this->updationModel
-        ->where('company_id', $matchId)
-        ->set('company_id', $id)
-        ->update();
+//     $this->updationModel
+//         ->where('company_id', $matchId)
+//         ->set('company_id', $id)
+//         ->update();
 
-    // 2️⃣ Get current company data
-    $before = $this->companyModel->find($id);
-    if (!$before) throw new \Exception("Company ID {$id} not found");
+//     // 2️⃣ Get current company data
+//     $before = $this->companyModel->find($id);
+//     if (!$before) throw new \Exception("Company ID {$id} not found");
 
-    // 3️⃣ Update target company
-    $updateData = [
-        'company_name' => $matchingCompany['company_name'] ?? $before['company_name'],
-        'category'     => $matchingCompany['category'] ?? $before['category'],
-        'address'      => $matchingCompany['address'] ?? $before['address'],
-        'city'         => $matchingCompany['city'] ?? $before['city'],
-        'pincode'      => $matchingCompany['pincode'] ?? $before['pincode'],
-        'state'        => $matchingCompany['state'] ?? $before['state'],
-        'updated_at'   => date('Y-m-d H:i:s')
-    ];
-    $this->companyModel->update($id, $updateData);
+//     // 3️⃣ Update target company
+//     $updateData = [
+//         'company_name' => $matchingCompany['company_name'] ?? $before['company_name'],
+//         'category'     => $matchingCompany['category'] ?? $before['category'],
+//         'address'      => $matchingCompany['address'] ?? $before['address'],
+//         'city'         => $matchingCompany['city'] ?? $before['city'],
+//         'pincode'      => $matchingCompany['pincode'] ?? $before['pincode'],
+//         'state'        => $matchingCompany['state'] ?? $before['state'],
+//         'updated_at'   => date('Y-m-d H:i:s')
+//     ];
+//     $this->companyModel->update($id, $updateData);
+//     // echo $updateData;
+//     // exit;
 
-    $after = $this->companyModel->find($id);
+//     $after = $this->companyModel->find($id);
 
-    // 4️⃣ Delete matching session
-    $this->matchingSessionModel
-        ->where('company_id', $id)
-        ->where('matching_company_id', $matchId)
-        ->delete();
+//     // 4️⃣ Delete matching session
+//     $this->matchingSessionModel
+//         ->where('company_id', $id)
+//         ->where('matching_company_id', $matchId)
+//         ->delete();
 
-    // Complete transaction
-    $this->companyModel->db->transComplete();
+//     // Complete transaction
+//     $this->companyModel->db->transComplete();
 
-    if ($this->companyModel->db->transStatus() === false) {
-        throw new \Exception("Company overwrite transaction failed");
-    }
+//     if ($this->companyModel->db->transStatus() === false) {
+//         throw new \Exception("Company overwrite transaction failed");
+//     }
 
-    log_message('info', "Company ID {$id} updated successfully. Before: " . json_encode($before) . " | After: " . json_encode($after));
-}
+//     log_message('info', "Company ID {$id} updated successfully. Before: " . json_encode($before) . " | After: " . json_encode($after));
+
+
+//     }
 
 
     // -----------------------------
@@ -638,5 +676,113 @@ if($action === 'overwrite'){
 // If Contact and Company Match Exhactly Merge Them
 // Update that is has Merged
 
+public function overwriteCompany(string $id, string $matchId): void
+{
+    echo "TYPE OK<br>";
+
+
+
+    echo "ACTION OVERWRITE OK<br>";
+
+    $this->companyModel->db->transStart();
+    echo "TRANSACTION STARTED<br><hr>";
+
+    // 1️⃣ Update source table
+    $this->sourceModel
+        ->where('company_id', $matchId)
+        ->set('company_id', $id)
+        ->update();
+    echo "SOURCE UPDATED (company_id: $matchId → $id)<br>";
+
+    // 2️⃣ Update updation table
+    $this->updationModel
+        ->where('company_id', $matchId)
+        ->set('company_id', $id)
+        ->update();
+    echo "UPDATION UPDATED (company_id: $matchId → $id)<br><hr>";
+
+    // 3️⃣ Fetch BEFORE data
+    $before = $this->companyModel->find($id);
+    echo "<strong>BEFORE DATA:</strong><br><pre>";
+    print_r($before);
+    echo "</pre><hr>";
+
+    if (!$before) {
+        echo "❌ COMPANY NOT FOUND<br>";
+        exit;
+    }
+
+    $matchingCompany = $this->companyModel->find($matchId);
+
+    // 4️⃣ Prepare update data (debug)
+    echo "<strong>UPDATE DATA USED:</strong><br><pre>";
+    print_r([
+        'company_name' => $matchingCompany['company_name'] ?? $before['company_name'],
+        'category'     => $matchingCompany['category'] ?? $before['category'],
+        'address'      => $matchingCompany['address'] ?? $before['address'],
+        'city'         => $matchingCompany['city'] ?? $before['city'],
+        'pincode'      => $matchingCompany['pincode'] ?? $before['pincode'],
+        'state'        => $matchingCompany['state'] ?? $before['state'],
+        'Cross'        => $matchingCompany['cross_validation'] ?? $before['cross_validation'],
+    ]);
+    echo "</pre><hr>";
+
+    $newData = $this->companyModel->find($matchId);
+    echo $id;
+    echo $matchId;
+
+    // 5️⃣ Update main company
+    $this->companyModel->update($id, [
+        'company_name'      => $newData['company_name'] ?? $before['company_name'],
+        'category'          => $newData['category'] ?? $before['category'],
+        'address'           => $newData['address'] ?? $before['address'],
+        'city'              => $newData['city'] ?? $before['city'],
+        'pincode'           => $newData['pincode'] ?? $before['pincode'],
+        'state'             => $newData['state'] ?? $before['state'],
+        'updated_at'        => date('Y-m-d H:i:s'),
+        'cross_validation'  => "0",
+    ]);
+
+    echo "COMPANY UPDATED<br><hr>";
+
+    // 6️⃣ Update matching company
+    $this->companyModel->update($matchId, [
+        'company_name'      => "Bhosda",
+        'category'          => $newData['category'] ?? $before['category'],
+        'address'           => $newData['address'] ?? $before['address'],
+        'city'              => $newData['city'] ?? $before['city'],
+        'pincode'           => $newData['pincode'] ?? $before['pincode'],
+        'state'             => $newData['state'] ?? $before['state'],
+        'updated_at'        => date('Y-m-d H:i:s'),
+        'cross_validation'  => true,
+    ]);
+
+    // 7️⃣ Fetch AFTER data
+    $after = $this->companyModel->find($id);
+    echo "<strong>AFTER DATA:</strong><br><pre>";
+    print_r($after);
+    echo "</pre><hr>";
+
+    $newData = $this->companyModel->find($matchId);
+    print_r($newData);
+
+    // 8️⃣ Delete matching session
+    $this->matchingSessionModel
+        ->where('company_id', $id)
+        ->where('matching_company_id', $matchId)
+        ->delete();
+    echo "MATCHING SESSION DELETED<br><hr>";
+
+    // 9️⃣ Complete transaction
+    $this->companyModel->db->transComplete();
+    echo "TRANSACTION COMPLETED<br>";
+
+    if ($this->companyModel->db->transStatus() === false) {
+        echo "❌ TRANSACTION FAILED<br>";
+        exit;
+    }
+
+    echo "<strong>✅ OVERWRITE FLOW FINISHED SUCCESSFULLY</strong><br>";
+}
 
 }

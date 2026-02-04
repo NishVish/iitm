@@ -262,6 +262,7 @@ public function add_details()
         }
     }
 
+    // $this->companyModel;
     return redirect()->back()->with(
         'status',
         $failed === 0

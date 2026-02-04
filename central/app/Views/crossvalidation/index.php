@@ -37,12 +37,14 @@
     <input type="hidden" name="type" value="company_id">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
     <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
-<button type="submit" name="action" value="overwrite" disabled>Overwrite</button>
-    <button type="submit" name="action" value="merge" disabled>Merge</button>
+    <button type="submit" name="action" value="overwrite">Overwrite</button>
+
 </form>
 </td>
 <td>
- <?= $match['matched_company_id'] ?>
+<span style="color: <?= ($match['matched_company_id'] == $match['company_id']) ? 'green' : 'red' ?>">
+    <?= $match['matched_company_id'] ?>
+</span>
 </td>
 </tr>
 <tr>
@@ -52,9 +54,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="company_name">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_company_name'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -70,9 +72,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="database_name">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_database_name'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -88,9 +90,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="category">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_category'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -106,9 +108,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="address">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_address'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -124,9 +126,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="city">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_city'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -142,9 +144,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="pincode">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_pincode'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -160,9 +162,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="state">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_state'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -178,9 +180,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="country">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_country'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -196,9 +198,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="phone">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_phone'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -214,9 +216,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="gst_number">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_gst_number'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -232,9 +234,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="sales_person">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_sales_person'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -250,9 +252,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="active_inactive">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_active_inactive'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -268,9 +270,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="created_at">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_created_at'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -286,9 +288,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="updated_at">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_updated_at'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -304,9 +306,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="last_confirmed_at">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_last_confirmed_at'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -322,9 +324,9 @@
 <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="session">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_session'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="overwrite">Overwrite</button>
-    <button type="submit" name="action" value="merge">Merge</button>
+
 </form>
 </td>
 <td>
@@ -332,7 +334,19 @@
     <?= $match['matched_session'] ?>
 </span>
 </td>
+</tr><tr>
+<td>Cross Validation</td>
+<td><?= $match['orignal_cross_validation'] ?></td>
+<td>
+
+</td>
+<td>
+<span style="color: <?= ($match['matched_cross_validation'] == $match['matched_cross_validation']) ? 'green' : 'red' ?>">
+    <?= $match['matched_cross_validation'] ?>
+</span>
+</td>
 </tr>
+
 <tr>
     <td>1 </td>
 <td>
@@ -341,9 +355,12 @@
 <td>
     <form method="post" action="<?= site_url('crossvalidation/action') ?>">
     <input type="hidden" name="type" value="no_action">
+    <input type="hidden" name="type" value="all">
     <input type="hidden" name="id" value="<?= $match['company_id'] ?>">
-    <input type="hidden" name="match_id" value="<?= $match['matched_session'] ?>">
+    <input type="hidden" name="match_id" value="<?= $match['matched_company_id'] ?>">
     <button type="submit" name="action" value="no_action">No Action
+    <button type="submit" name="action" value="overwrite">Overwrite all</button>
+
 </button>
 </form>
 
