@@ -37,6 +37,7 @@ $routes->get('company/details/(:any)', 'Company::details/$1');
 $routes->post('master/filterCompanies', 'Master::filterCompanies');
 
 $routes->get('company', 'Company::index');
+$routes->post('company/compare_popup', 'Company::compare_popup');
 
 // Add new company
 // Show add company form
@@ -107,20 +108,24 @@ $routes->group('layout-info', function ($routes) {
 // ===============================
 // Payments routes
 // ===============================
-$routes->group('exhibitor', function($routes) {
+$routes->group('booking', function($routes) {
 
     // Step 1
-    $routes->get('instructions', 'Exhibitor::instructions');
-    $routes->get('instructions/(:num)', 'Exhibitor::instructions/$1');
+    // $routes->get('instructions', 'Exhibitor::instructions');
+$routes->get('instructions/(:segment)', 'Booking::instructions/$1');
 
     // Step 2
-    $routes->get('company/(:num)', 'Exhibitor::company/$1');
+    $routes->get('company/(:segment)', 'Booking::company/$1');
+
+    // $routes->get('company/(:num)', 'Exhibitor::company/$1');
 
     // Step 3
-    $routes->get('exhibition/(:num)', 'Exhibitor::exhibition/$1');
+    // $routes->get('exhibition/(:num)', 'Exhibitor::exhibition/$1');
+    $routes->get('booking_details/(:segment)', 'Booking::booking_details/$1');
 
     // Payment
-    $routes->post('processPayment', 'Exhibitor::processPayment');
+    $routes->post('processPayment', 'Booking::processPayment');
+
 });
 
 

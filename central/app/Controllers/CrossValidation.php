@@ -265,7 +265,7 @@ public function clearMatchesContact(){
     }
 
     // -------------------- 3. Return results --------------------
-    return $this->index(); // show the index page with all results
+return redirect()->back();
 }
 
 
@@ -585,7 +585,7 @@ if ($type === 'all') {
         // Do nothing
     }
     // $this->companyCrossValidation();
-    return redirect()->to('crossvalidation')->with('success', 'Action completed successfully.');
+return redirect()->back();
 }
 
 

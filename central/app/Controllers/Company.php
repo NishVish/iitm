@@ -87,6 +87,7 @@ public function details($companyId = null)
 }
 
 
+
 /**
  * Get companies, optionally filtered by search term
  */
@@ -492,6 +493,100 @@ public function get_lastSession()
 
         return $lastSession; // or json_encode($lastSession) if you want JSON response
     }
+public function compare_popup()
+{
+    $data = $this->request->getJSON(true);
+
+    if (!$data || !isset($data['main_id'], $data['compare_id'])) {
+        return 'Invalid request';
+    }
+
+    $main = $this->companyModel->find($data['main_id']);
+    $matched = $this->companyModel->find($data['compare_id']);
+
+    if (!$main || !$matched) {
+        return 'Company not found';
+    }
+
+    // Build EXACT structure your existing view expects
+    $company_matches = [[
+        'company_id' => $main['company_id'],
+        'matched_company_id' => $matched['company_id'],
+
+        'original_company_name' => $main['company_name'],
+        'matched_company_name'  => $matched['company_name'],
+
+        'original_database_name' => $main['database_name'] ?? '',
+        'matched_database_name'  => $matched['database_name'] ?? '',
+
+        'original_category' => $main['category'],
+        'matched_category'  => $matched['category'],
+
+        'original_address' => $main['address'],
+        'matched_address'  => $matched['address'],
+
+        'original_city' => $main['city'],
+        'matched_city'  => $matched['city'],
+
+        'original_pincode' => $main['pincode'],
+        'matched_pincode'  => $matched['pincode'],
+
+        'original_state' => $main['state'],
+        'matched_state'  => $matched['state'],
+
+        'original_country' => $main['country'],
+        'matched_country'  => $matched['country'],
+
+        'original_phone' => $main['phone'],
+        'matched_phone'  => $matched['phone'],
+
+        'original_gst_number' => $main['gst_number'],
+        'matched_gst_number'  => $matched['gst_number'],
+
+        'original_sales_person' => $main['sales_person'],
+        'matched_sales_person'  => $matched['sales_person'],
+
+        'original_active_inactive' => $main['active_inactive'],
+        'matched_active_inactive'  => $matched['active_inactive'],
+
+        'original_created_at' => $main['created_at'],
+        'matched_created_at'  => $matched['created_at'],
+
+        'original_updated_at' => $main['updated_at'],
+        'matched_updated_at'  => $matched['updated_at'],
+
+        'original_last_confirmed_at' => $main['last_confirmed_at'],
+        'matched_last_confirmed_at'  => $matched['last_confirmed_at'],
+
+        'original_session' => $main['session'],
+        'matched_session'  => $matched['session'],
+
+        'orignal_cross_validation' => $main['cross_validation'] ?? '',
+        'matched_cross_validation' => $matched['cross_validation'] ?? '',
+    ]];
+
+    return view('crossvalidation/compare_view', [
+        'company_matches' => $company_matches
+    ]);
+}
+
+// public function compare_popup()
+// {
+//     $data = $this->request->getJSON(true);
+
+//     if (!$data || !isset($data['main_id'], $data['compare_id'])) {
+//         return $this->response->setStatusCode(400)->setBody('Invalid data');
+//     }
+
+//     $mainCompany = $this->companyModel->find($data['main_id']);
+//     $compareCompany = $this->companyModel->find($data['compare_id']);
+
+//     return view('crossvalidation/compare_view', [
+//         'mainCompany' => $mainCompany,
+//         'compareCompany' => $compareCompany
+//     ]);
+// }
+
 
 
 }

@@ -10,6 +10,6 @@ include 'header.php';
     <li>Step 3: Choose exhibition details and calculate total including GST.</li>
     <li>Step 4: Payment Mode at Least 25% to Book your Space</li>
 </ul>
-<a href="<?= site_url('exhibitor/company/'.$company['company_id']) ?>">
+<a href="<?= site_url('booking/company/'.$lead['lead_id']) ?>">
     Proceed to Step 2
 </a>

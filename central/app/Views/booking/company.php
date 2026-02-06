@@ -34,7 +34,7 @@
 </div>
 
 <div style="margin-top:20px;">
-    <a href="<?= site_url('exhibitor/exhibition/'.$company['company_id']) ?>" 
+    <a href="<?= site_url('booking/booking_details/'.$lead['lead_id']) ?>" 
        style="padding:10px 20px; background:#4CAF50; color:white; border-radius:5px; text-decoration:none;">
        Proceed to Step 3
     </a>

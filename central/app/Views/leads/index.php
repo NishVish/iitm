@@ -76,7 +76,7 @@
 </a>
 
                          <!-- New Button: Open Exhibitor Registration -->
-<a href="<?= site_url('exhibitor/instructions/'.$lead['company_id']) ?>" class="btn btn-success btn-sm">
+<a href="<?= site_url('booking/instructions/'.$lead['lead_id']) ?>" class="btn btn-success btn-sm">
     Book Exhibitor
 </a>
 

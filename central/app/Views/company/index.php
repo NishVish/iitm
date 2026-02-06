@@ -35,38 +35,139 @@
 </div>
 
 <h3>Companies</h3>
-<table id="company-table" border="1" cellpadding="5">
-    <thead>
-        <tr>
-            <th>Session</th>
-            <th>Company Name</th>
-            <th>Category</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Contacts</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($companies as $c): ?>
+<form id="compareForm">     <button type="button" id="compareBtn">Compare Selected</button>
+
+    <table border="1">
+        <thead>
             <tr>
-                                <td><?= esc($c['session']) ?></td>
-
-                <td>
-                    <a href="<?= site_url('company/details/'.$c['company_id']) ?>">
-                        <?= esc($c['company_name']) ?>
-                    </a>
-                </td>
-                <td><?= esc($c['category']) ?></td>
-                <td><?= esc($c['city']) ?></td>
-                <td><?= esc($c['state']) ?></td>
-                <td style="white-space: pre-line;">
-                    <?= esc($c['contacts'] ?? 'No contacts') ?>
-                </td>
+                <th>Main</th>
+                <th>Compare</th>
+                <th>Session</th>
+                <th>Company Name</th>
+                <th>Category</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Contacts</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php foreach($companies as $c): ?>
+                <tr>
+                    <td><input type="radio" name="main_id" value="<?= esc($c['company_id']) ?>"></td>
+                    <td><input type="radio" name="compare_id" value="<?= esc($c['company_id']) ?>"></td>
+                    <td><?= esc($c['session']) ?></td>
+                    <td>
+                        <a href="<?= site_url('company/details/'.$c['company_id']) ?>">
+                            <?= esc($c['company_name']) ?>
+                        </a>
+                    </td>
+                    <td><?= esc($c['category']) ?></td>
+                    <td><?= esc($c['city']) ?></td>
+                    <td><?= esc($c['state']) ?></td>
+                    <td style="white-space: pre-line;"><?= esc($c['contacts'] ?? 'No contacts') ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
+    <button type="button" id="compareBtn">Compare Selected</button>
+</form>
+
+
+
+<div id="modalBackdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:9998;"></div>
+
+<div id="compareModal" style="display:none; position:fixed; top:50%; left:50%;
+transform:translate(-50%,-50%); background:#fff; padding:20px; z-index:9999; max-width:90%; max-height:80%; overflow:auto;">
+    <button id="closeModal" style="float:right;">X</button>
+    <div id="compareContent"></div>
+</div>
+
+<button type="button" id="compareBtn">Compare Selected</button>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.getElementById('compareBtn').addEventListener('click', function () {
+
+        const mainId = document.querySelector('input[name="main_id"]:checked');
+        const compareId = document.querySelector('input[name="compare_id"]:checked');
+
+        if (!mainId || !compareId) {
+            alert('Please select both a Main and a Compare company.');
+            return;
+        }
+
+        document.getElementById('compareContent').innerHTML = 'Loading...';
+
+fetch('<?= site_url('company/compare_popup') ?>', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        main_id: mainId.value,
+        compare_id: compareId.value
+    })
+})
+.then(res => res.text())
+.then(html => {
+    document.getElementById('compareContent').innerHTML = html;
+});
+
+
+        document.getElementById('compareModal').style.display = 'block';
+        document.getElementById('modalBackdrop').style.display = 'block';
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function () {
+        document.getElementById('compareModal').style.display = 'none';
+        document.getElementById('modalBackdrop').style.display = 'none';
+    });
+
+});
+</script>
+<!-- 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.getElementById('compareBtn').addEventListener('click', function () {
+
+        const mainId = document.querySelector('input[name="main_id"]:checked');
+        const compareId = document.querySelector('input[name="compare_id"]:checked');
+
+        if (!mainId || !compareId) {
+            alert('Please select both a Main and a Compare company.');
+            return;
+        }
+
+        if (mainId.value === compareId.value) {
+            alert('Please select two different companies.');
+            return;
+        }
+
+        fetch('<?= site_url('company/compare_popup') ?>', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                main_id: mainId.value,
+                compare_id: compareId.value
+            })
+        })
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('compareContent').innerHTML = html;
+            document.getElementById('compareModal').style.display = 'block';
+            document.getElementById('modalBackdrop').style.display = 'block';
+        });
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function () {
+        document.getElementById('compareModal').style.display = 'none';
+        document.getElementById('modalBackdrop').style.display = 'none';
+    });
+
+});
+</script> -->
 
 
 <script>
