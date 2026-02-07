@@ -33,6 +33,8 @@
 
         <a href="<?= base_url('leads') ?>">Leads</a>
         <a href="<?= base_url('crossvalidation') ?>">Crossvalidation</a>
+
+        <a href="<?= site_url('booking/exhibitor_booking') ?>">exhibitor_booking</a>
     </div>
 
     <!-- Search box -->

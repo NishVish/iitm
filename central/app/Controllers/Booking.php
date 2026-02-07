@@ -118,4 +118,35 @@ class Booking extends BaseController
 
         return view('booking/payment', $data);
     }
+
+public function exhibitor_bookinginstructions()
+{
+    // You can pass any default data to the view if needed
+
+    // echo "hello";
+    // exit;
+    // Load the form view
+    return view('booking/exhibitor/instructions');
+}
+public function stallinfo()
+{
+    // You can pass any default data to the view if needed
+
+    // echo "hello";
+    // exit;
+    // Load the form view
+    return view('booking/exhibitor/stallinfo');
+}    
+// $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
+
+public function exhibitor_details()
+{
+    // You can pass any default data to the view if needed
+
+    // echo "hello";
+    // exit;
+    // Load the form view
+    return view('booking/exhibitor/exhibitor_form');
+}
+
 }

@@ -24,5 +24,6 @@ include 'header.php';
     <label>Price</label>
     <input type="number" step="0.01" name="price" value="<?= esc($lead['price'] ?? '') ?>" required><br><br>
 
-    <button type="submit">Calculate & Proceed to Payment</button>
+    <button type="submit"        style="padding:10px 20px; background:#4CAF50; color:white; border-radius:5px; text-decoration:none;">
+Calculate & Proceed to Payment</button>
 </form>

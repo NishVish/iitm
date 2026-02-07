@@ -1253,3 +1253,149 @@ in APPPATH\Views\booking\booking_details.php on line 13.
  8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
  9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-02-06 18:39:05 --> mysqli_sql_exception: Unknown column 'co.mobile' in 'field list' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT c.compan...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT c.compan...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT c.compan...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.compan...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\Search.php(33): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Search->index()
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Search))
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2026-02-06 18:39:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'co.mobile' in 'field list'
+[Method: GET, Route: search]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.company_id, c.company_name, c.category, c.city, c.state, 
+            GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\\n") AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+WHERE `c`.`company_name` LIKE :c.company_name: ESCAPE \'!\'
+OR  `c`.`category` LIKE :c.category: ESCAPE \'!\'
+OR  `c`.`city` LIKE :c.city: ESCAPE \'!\'
+OR  `c`.`state` LIKE :c.state: ESCAPE \'!\'
+OR  `co`.`name` LIKE :co.name: ESCAPE \'!\'
+OR  `co`.`designation` LIKE :co.designation: ESCAPE \'!\'
+OR  `co`.`email` LIKE :co.email: ESCAPE \'!\'
+OR  `co`.`mobile` LIKE :co.mobile: ESCAPE \'!\'
+GROUP BY `c`.`company_id`', [...], false)
+ 2 APPPATH\Controllers\Search.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Search->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Search))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-06 18:39:05 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'co.mobile' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT c.company_id, c.company_name, c.category, c.city, c.state, 
+            GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\\n") AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+WHERE `c`.`company_name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`category` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`city` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`state` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`designation` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`email` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`mobile` LIKE \'%super%\' ESCAPE \'!\'
+GROUP BY `c`.`company_id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT c.company_id, c.company_name, c.category, c.city, c.state, 
+            GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\\n") AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+WHERE `c`.`company_name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`category` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`city` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`state` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`designation` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`email` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`mobile` LIKE \'%super%\' ESCAPE \'!\'
+GROUP BY `c`.`company_id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.company_id, c.company_name, c.category, c.city, c.state, 
+            GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\\n") AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+WHERE `c`.`company_name` LIKE :c.company_name: ESCAPE \'!\'
+OR  `c`.`category` LIKE :c.category: ESCAPE \'!\'
+OR  `c`.`city` LIKE :c.city: ESCAPE \'!\'
+OR  `c`.`state` LIKE :c.state: ESCAPE \'!\'
+OR  `co`.`name` LIKE :co.name: ESCAPE \'!\'
+OR  `co`.`designation` LIKE :co.designation: ESCAPE \'!\'
+OR  `co`.`email` LIKE :co.email: ESCAPE \'!\'
+OR  `co`.`mobile` LIKE :co.mobile: ESCAPE \'!\'
+GROUP BY `c`.`company_id`', [...], false)
+ 4 APPPATH\Controllers\Search.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Search->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Search))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-06 18:39:05 --> [Caused by] mysqli_sql_exception: Unknown column 'co.mobile' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT c.company_id, c.company_name, c.category, c.city, c.state, 
+            GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\\n") AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+WHERE `c`.`company_name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`category` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`city` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`state` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`designation` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`email` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`mobile` LIKE \'%super%\' ESCAPE \'!\'
+GROUP BY `c`.`company_id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT c.company_id, c.company_name, c.category, c.city, c.state, 
+            GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\\n") AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+WHERE `c`.`company_name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`category` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`city` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`state` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`designation` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`email` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`mobile` LIKE \'%super%\' ESCAPE \'!\'
+GROUP BY `c`.`company_id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT c.company_id, c.company_name, c.category, c.city, c.state, 
+            GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\\n") AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+WHERE `c`.`company_name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`category` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`city` LIKE \'%super%\' ESCAPE \'!\'
+OR  `c`.`state` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`name` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`designation` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`email` LIKE \'%super%\' ESCAPE \'!\'
+OR  `co`.`mobile` LIKE \'%super%\' ESCAPE \'!\'
+GROUP BY `c`.`company_id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT c.company_id, c.company_name, c.category, c.city, c.state, 
+            GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\\n") AS contacts
+FROM `company_data` `c`
+LEFT JOIN `contact` `co` ON `co`.`company_id` = `c`.`company_id`
+WHERE `c`.`company_name` LIKE :c.company_name: ESCAPE \'!\'
+OR  `c`.`category` LIKE :c.category: ESCAPE \'!\'
+OR  `c`.`city` LIKE :c.city: ESCAPE \'!\'
+OR  `c`.`state` LIKE :c.state: ESCAPE \'!\'
+OR  `co`.`name` LIKE :co.name: ESCAPE \'!\'
+OR  `co`.`designation` LIKE :co.designation: ESCAPE \'!\'
+OR  `co`.`email` LIKE :co.email: ESCAPE \'!\'
+OR  `co`.`mobile` LIKE :co.mobile: ESCAPE \'!\'
+GROUP BY `c`.`company_id`', [...], false)
+ 5 APPPATH\Controllers\Search.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Search->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Search))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

@@ -1,0 +1,70 @@
+CRITICAL - 2026-02-07 05:48:20 --> ErrorException: Undefined variable $lead
+[Method: GET, Route: leads]
+in APPPATH\Views\header.php on line 36.
+ 1 APPPATH\Views\header.php(36): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lead', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\header.php', 36)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\header.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('header', [], true)
+ 5 APPPATH\Views\leads\index.php(1): view('header')
+ 6 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\leads\\index.php')
+ 7 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('leads/index', [], true)
+ 9 APPPATH\Controllers\Leads.php(36): view('leads/index', [...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Leads->index()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Leads))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-07 05:51:12 --> ErrorException: Undefined variable $title
+[Method: GET, Route: booking/exhibitor_booking]
+in APPPATH\Views\booking\exhibitor\exhibitor_form.php on line 2.
+ 1 APPPATH\Views\booking\exhibitor\exhibitor_form.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $title', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\exhibitor\\exhibitor_form.php', 2)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\exhibitor\\exhibitor_form.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/exhibitor/exhibitor_form', [], true)
+ 5 APPPATH\Controllers\Booking.php(129): view('booking/exhibitor/exhibitor_form')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->exhibitor_booking()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-07 05:58:43 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "booking/exhibitor/instruction.php"
+[Method: GET, Route: booking/exhibitor_booking]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('booking/exhibitor/instruction.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/exhibitor/instruction', [], true)
+ 3 APPPATH\Controllers\Booking.php(129): view('booking/exhibitor/instruction')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->exhibitor_bookinginstructions()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-07 05:58:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "booking/exhibitor/instruction.php"
+[Method: GET, Route: booking/exhibitor_booking]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('booking/exhibitor/instruction.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/exhibitor/instruction', [], true)
+ 3 APPPATH\Controllers\Booking.php(129): view('booking/exhibitor/instruction')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->exhibitor_bookinginstructions()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-07 06:12:48 --> ErrorException: Undefined variable $lead
+[Method: GET, Route: booking/exhibitor_booking/stallinfo]
+in APPPATH\Views\booking\exhibitor\stallinfo.php on line 7.
+ 1 APPPATH\Views\booking\exhibitor\stallinfo.php(7): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lead', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\exhibitor\\stallinfo.php', 7)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\exhibitor\\stallinfo.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/exhibitor/stallinfo', [], true)
+ 5 APPPATH\Controllers\Booking.php(138): view('booking/exhibitor/stallinfo')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->stallinfo()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
