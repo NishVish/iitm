@@ -1,0 +1,89 @@
+CRITICAL - 2026-02-09 06:34:03 --> ErrorException: Trying to access array offset on value of type null
+[Method: GET, Route: booking/company/1]
+in APPPATH\Views\booking\company.php on line 9.
+ 1 APPPATH\Views\booking\company.php(9): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\company.php', 9)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\company.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/company', [], true)
+ 5 APPPATH\Controllers\Booking.php(68): view('booking/company', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->company('1')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-09 06:54:59 --> ErrorException: Undefined variable $bookingId
+[Method: GET, Route: booking/instructions/8]
+in APPPATH\Views\booking\header3.php on line 180.
+ 1 APPPATH\Views\booking\header3.php(180): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $bookingId', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php', 180)
+ 2 APPPATH\Views\booking\instructions.php(4): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\instructions.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/instructions', [], true)
+ 6 APPPATH\Controllers\Booking.php(48): view('booking/instructions', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->instructions('8')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-09 06:57:57 --> ErrorException: Undefined variable $lead
+[Method: POST, Route: booking/processPayment]
+in APPPATH\Views\booking\header3.php on line 180.
+ 1 APPPATH\Views\booking\header3.php(180): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lead', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php', 180)
+ 2 APPPATH\Views\booking\payment.php(6): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\payment.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/payment', [], true)
+ 6 APPPATH\Controllers\Booking.php(119): view('booking/payment', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->processPayment()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-09 06:58:08 --> ErrorException: Undefined variable $lead
+[Method: POST, Route: booking/processPayment]
+in APPPATH\Views\booking\header3.php on line 180.
+ 1 APPPATH\Views\booking\header3.php(180): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lead', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php', 180)
+ 2 APPPATH\Views\booking\payment.php(6): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\payment.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/payment', [], true)
+ 6 APPPATH\Controllers\Booking.php(119): view('booking/payment', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->processPayment()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-09 06:58:55 --> ErrorException: Undefined variable $lead
+[Method: POST, Route: booking/processPayment]
+in APPPATH\Views\booking\header3.php on line 180.
+ 1 APPPATH\Views\booking\header3.php(180): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lead', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php', 180)
+ 2 APPPATH\Views\booking\payment.php(6): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\payment.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/payment', [], true)
+ 6 APPPATH\Controllers\Booking.php(119): view('booking/payment', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->processPayment()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-09 07:05:23 --> ErrorException: Undefined variable $lead
+[Method: POST, Route: booking/processPayment]
+in APPPATH\Views\booking\header3.php on line 180.
+ 1 APPPATH\Views\booking\header3.php(180): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lead', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php', 180)
+ 2 APPPATH\Views\booking\payment.php(6): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\header3.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\payment.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/payment', [], true)
+ 6 APPPATH\Controllers\Booking.php(119): view('booking/payment', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->processPayment()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

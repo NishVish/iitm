@@ -39,24 +39,27 @@
   }
 
   /* Header/logo */
-  .header-bg {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1; /* Above overlay */
-  }
+.header-bg {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
+}
 
-  .logo-wrapper {
-  width: 100%;       /* allows responsive scaling */
-    background: rgba(201, 201, 201, 0.85);
-    padding: 15px 25px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(183, 183, 183, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-  }
+
+.logo-wrapper {
+  width: 100%;
+  background: #fff;
+  padding: 15px 25px;
+  border-radius: 15px;
+  box-shadow: 0 7px 5px rgba(16, 16, 16, 0.1);
+
+  display: flex;
+  align-items: center;          /* vertical center */
+  gap: 10%;
+}
+
 
   .logo-wrapper img {
     max-width: 110px;
@@ -152,6 +155,14 @@
       flex-direction: column;
     }
   }
+
+      .container {
+        width: 100%;
+        padding: 30px;
+        background-color: #fff;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        border-radius: 10px;
+    }
 </style>
 </head>
 <body>
@@ -161,22 +172,102 @@
     
     <!-- Logo/Header -->
     <div class="header-bg">
-      <div class="logo-wrapper">
-        <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Company Logo">
-      </div>
+<div class="logo-wrapper">
+  <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Company Logo">
+
+<div class="steps">
+
+  <a href="<?= site_url('booking/instructions/'.$lead['lead_id']) ?>"
+     class="step <?= ($step >= 1) ? 'active' : '' ?>">
+     Instructions
+  </a>
+
+  <a href="<?= site_url('booking/company/'.$lead['lead_id']) ?>"
+     class="step <?= ($step >= 2) ? 'active' : '' ?>">
+     Company
+  </a>
+
+  <a href="<?= site_url('booking/booking_details/'.$lead['lead_id']) ?>"
+     class="step <?= ($step >= 3) ? 'active' : '' ?>">
+     Booking Details
+  </a>
+
+  <!-- Payment should NOT be clickable yet -->
+  <span class="step <?= ($step >= 4) ? 'active' : '' ?>">
+     Payment
+  </span>
+
+</div>
+
+</div>
+
     </div>
 
     <!-- Two-column layout -->
     <div class="content-row">
-<div class="left-container">
+<!-- <div class="left-container">
   <div class="image-wrapper">
     <img src="https://iitmindia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-12-at-3.18.08-PM-1400x1536.jpeg" alt="Image 1">
     <img src="https://iitmindia.com/wp-content/uploads/2026/01/IITM-Ahmedabad-2024-1.jpeg" alt="Image 2">
     <img src="https://iitmindia.com/wp-content/uploads/2023/05/1-1-1.jpg" alt="Image 3">
   </div>
-</div>
+</div> -->
 
 <style>
+
+.steps {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 100px;
+  padding: 20px 0;
+}
+
+/* background line */
+.steps::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #d6d6d6;
+  border-radius: 2px;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+/* step pill */
+.step {
+  position: relative;
+  z-index: 1;                 /* ABOVE the line */
+  padding: 10px 24px;
+  border-radius: 30px;
+  background: #ededed;
+  color: #444;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+/* active step */
+.step.active {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.35);
+}
+
+/* hover */
+a.step:hover {
+  transform: translateY(-1px);
+}
+
+
+
+
 .image-wrapper {
   position: relative; /* important for stacking images */
   width: 100%;
@@ -217,6 +308,47 @@ setInterval(() => {
 }, 4000); // change image every 4 seconds
 </script>
 
+<style>
 
-      <div class="right-container">
 
+  /* Standard button for all actions */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 25px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+/* Hover effect */
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.35);
+}
+
+/* Active/click effect */
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(46, 204, 113, 0.25);
+}
+
+/* Optional full width button */
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+
+
+</style>
+      <!-- <div class="right-container"> -->
+<div class="container">

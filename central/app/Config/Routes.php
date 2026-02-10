@@ -127,12 +127,12 @@ $routes->get('instructions/(:segment)', 'Booking::instructions/$1');
     $routes->post('processPayment', 'Booking::processPayment');
 
 
-    // ===============================
-    // Exhibitor Booking
-    // ===============================
-    $routes->get('exhibitor_booking', 'Booking::exhibitor_bookinginstructions');
-    $routes->get('exhibitor_booking/stallinfo', 'Booking::stallinfo');
-    $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
+    // // ===============================
+    // // Exhibitor Booking
+    // // ===============================
+    // $routes->get('exhibitor_booking', 'Booking::exhibitor_bookinginstructions');
+    // $routes->get('exhibitor_booking/stallinfo', 'Booking::stallinfo');
+    // $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
 // <a href="<?= site_url('booking/exhibitor_booking/stallinfo') 
 
 });

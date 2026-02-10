@@ -454,7 +454,7 @@ public function source_check()
 
 
 // 
-public function update($companyId)
+public function update($companyId,$ledID = Null)
 {
     $companyModel = new CompanyModel();
     $sourceModel  = new \App\Models\SourceModel();
@@ -467,6 +467,18 @@ public function update($companyId)
         'phone'        => $this->request->getPost('phone'),
         'gst_number'   => $this->request->getPost('gst_number'),
     ]);
+    
+    $contacts = $this->request->getPost('contacts');
+    if ($contacts) {
+        $contactModel = new \App\Models\ContactModel();
+
+        foreach ($contacts as $c) {
+            $contactModel->update($c['contact_id'], [
+                'name'        => $c['name'],
+                'designation' => $c['designation'],
+            ]);
+        }
+    }
 
     // Update sources
     $sources = $this->request->getPost('sources');
@@ -479,9 +491,17 @@ public function update($companyId)
             ]);
         }
     }
-return redirect()
-        ->to(site_url('company/details/' . $companyId))
-        ->with('status', '✅ Updated successfully');
+    // Assume you have code here to update the company details
+
+    if ($leadID) {
+        // Redirect to the booking company page for this lead
+        return redirect()->to(site_url('booking/company/' . $leadID));
+    } else {
+        // Redirect to company details page if no lead ID
+        return redirect()
+            ->to(site_url('company/details/' . $companyId))
+            ->with('status', '✅ Updated successfully');
+    }
 }
 
 

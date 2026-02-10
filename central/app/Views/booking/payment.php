@@ -1,5 +1,9 @@
 <?php
-include 'header.php';
+
+
+$step = 4;
+
+include 'header3.php';
 ?>
 
 <h2>Payment Summary</h2>

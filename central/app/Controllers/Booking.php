@@ -96,28 +96,66 @@ class Booking extends BaseController
 
         return view('booking/booking_details', $data);
     }
+// POST: Process payment
+public function processPayment()
+{
+    // $post = $this->request->getPost();
 
-    // POST: Process payment
-    public function processPayment()
-    {
-        $post = $this->request->getPost();
+    // // Validate required fields
+    // if (empty($post['lead_id']) || empty($post['company_id']) || empty($post['price'])) {
+    //     return redirect()->back()->with('error', 'Missing required information.');
+    // }
 
-        // Calculate totals
-        $price = (float)$post['price'];
-        $gst = $price * 0.18; // 18% GST
-        $grandTotal = $price + $gst;
+    // // Calculate totals
+    // $price = (float)$post['price'];
+    // $gst = $price * 0.18; // 18% GST
+    // $grandTotal = $price + $gst;
 
-        // Save to DB (example)
-        $data = [
-            'lead_id' => $post['lead_id'],
-            'company_id' => $post['company_id'],
-            'price' => $price,
-            'gst' => $gst,
-            'grand_total' => $grandTotal
-        ];
+    // Prepare data for DB / view
+    // $data = [
+    //     'lead_id' => $post['lead_id'],         // pass lead id
+    //     'company_id' => $post['company_id'],
+    //     'price' => $price,
+    //     'gst' => $gst,
+    //     'grand_total' => $grandTotal
+    // ];
+// Random test data
+// Random test data
+$price = rand(50000, 200000);                // Random price between ₹50,000 - ₹2,00,000
+$discount = rand(0, 20000);                  // Random discount up to ₹20,000
+$priceAfterDiscount = max($price - $discount, 0);
+$gst = round($priceAfterDiscount * 0.18, 2); // 18% GST
+$grandTotal = round($priceAfterDiscount + $gst, 2);
 
-        return view('booking/payment', $data);
-    }
+// Prepare data for DB / view (no POST at all)
+$data = [
+    'lead_id' => 'LEAD' . rand(1000, 9999),       // random lead_id
+    'company_id' => 'COMP' . rand(100, 999),      // random company_id
+    'price' => $priceAfterDiscount,
+    'discount' => $discount,
+    'gst' => $gst,
+    'grand_total' => $grandTotal
+];
+
+// Make $lead available for header3.php
+$lead = [
+    'lead_id' => $data['lead_id'],
+    'company_id' => $data['company_id']
+];
+
+// Pass all info to payment view
+return view('booking/payment', array_merge($data, ['lead' => $lead]));
+
+// Example output to verify
+// print_r($data);
+
+    // Optionally, save payment info to DB here
+    // $this->paymentModel->insert($data);
+
+    // Pass all info to payment page
+    return view('booking/payment', $data);
+}
+
 
 public function exhibitor_bookinginstructions()
 {

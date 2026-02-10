@@ -18,6 +18,9 @@ class LeadModel extends Model
         'fascia',
         'stall_location',
         'price',
+        'gst_amount',        // new
+        'grand_total',       // new
+        'discount_amount',   // new
         'sales_person',
         'exhibitor',
         'status',
