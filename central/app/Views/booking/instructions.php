@@ -2,6 +2,7 @@
 $step = 1;
 include 'header3.php';
 ?>
+<title>Instructions Page</title>
 
 <h2>Step 1: Instructions to Participate as an Exhibitor in IITM</h2>
 
@@ -45,26 +46,6 @@ and agree to continue with the exhibitor registration process.
 </a>
 
 <style>
-    .btn-next {
-  display: inline-block;
-  padding: 10px 25px;
-  background: linear-gradient(135deg, #27ae60, #2ecc71);
-  color: #fff;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
-  transition: all 0.25s ease;
-}
 
-.btn-next:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.35);
-}
-
-.btn-next:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 8px rgba(46, 204, 113, 0.25);
-}
 
 </style>

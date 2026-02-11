@@ -2,233 +2,177 @@
 $step = 3;
 include 'header3.php';
 ?>
+
+<title>Stall Details</title>
+
 <style>
+h2 { margin-bottom: 20px; color: #2c3e50; }
+h3 { margin: 20px 0 10px; color: #34495e; }
+label { font-weight: 600; margin-bottom: 6px; display: inline-block; }
+select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+table thead { background: #f0f3f7; }
+table th, table td { padding: 12px; text-align: center; border: 1px solid #e0e0e0; }
+table tbody tr:hover { background: #f9fbff; }
+.summary-box { background: #f8f9fb; border-radius: 10px; padding: 20px; margin-top: 25px; font-size: 16px; }
+.summary-box span { float: right; font-weight: 600; }
+.summary-box .grand { font-size: 18px; color: #aa1313; }
+.add-location { margin-top: 15px; cursor: pointer; color: #007bff; text-decoration: underline; }
+.remove-location { cursor: pointer; color: #aa1313; text-decoration: underline; }
 
+/* Container holds columns horizontally */
+.location-container {
+    display: flex;
+    flex-wrap: wrap; /* allows multiple columns to wrap */
+    gap: 20px;       /* space between columns */
+}
 
-    h2 {
-        margin-bottom: 20px;
-        color: #2c3e50;
-    }
+/* Each location is a column */
+.location-column {
+    display: flex;
+    flex-direction: column; /* stack label + select vertically */
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    min-width: 200px;
+}
 
-    h3 {
-        margin: 30px 0 10px;
-        color: #34495e;
-    }
-
-
-    label {
-        font-weight: 600;
-        margin-bottom: 6px;
-        display: inline-block;
-    }
-
-    select {
-        width: 100%;
-        padding: 10px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        font-size: 14px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-    }
-
-    table thead {
-        background: #f0f3f7;
-    }
-
-    table th, table td {
-        padding: 12px;
-        text-align: center;
-        border: 1px solid #e0e0e0;
-    }
-
-    table tbody tr:hover {
-        background: #f9fbff;
-    }
-
-    input[type="radio"] {
-        transform: scale(1.2);
-        cursor: pointer;
-    }
-
-    .price {
-        font-weight: 600;
-        color: #2c3e50;
-    }
-
-    .summary-box {
-        background: #f8f9fb;
-        border-radius: 10px;
-        padding: 20px;
-        margin-top: 25px;
-        font-size: 16px;
-    }
-
-    .summary-box span {
-        float: right;
-        font-weight: 600;
-    }
-
-    .summary-box div {
-        margin-bottom: 8px;
-    }
-
-    .summary-box .grand {
-        font-size: 18px;
-        color: #27ae60;
-    }
-
-    .pay-btn {
-        margin-top: 25px;
-        width: 100%;
-        padding: 14px;
-        background: linear-gradient(135deg, #27ae60, #2ecc71);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .pay-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
-    }
+/* Optional: style remove button */
+.remove-location {
+    cursor: pointer;
+    color: red;
+    margin-top: 10px;
+}
 </style>
 
+<h2>Step 3: Exhibition Details & Payment</h2>
 
-    <h2>Step 3: Exhibition Details & Payment</h2>
+<form method="post" action="<?= site_url('booking/processPayment') ?>">
 
-    <form method="post" action="<?= site_url('booking/processPayment') ?>">
+    <!-- Hidden fields -->
+    <input type="hidden" name="lead_id" value="<?= esc($lead['lead_id']) ?>">
+    <input type="hidden" name="company_id" value="<?= esc($lead['company_id']) ?>">
 
-        <!-- Hidden fields -->
-        <input type="hidden" name="lead_id" value="<?= esc($lead['lead_id']) ?>">
-        <input type="hidden" name="company_id" value="<?= esc($company['company_id']) ?>">
+    <div id="locationsContainer" class="location-container">
+        <div class="location-column">
+            <label>Exhibition Location</label>
+            <select name="locations[]" class="location-select" required>
+                <option value="">-- Select Location --</option>
+                <option value="Chennai">IITM Chennai</option>
+                <option value="Bengaluru">IITM Bengaluru</option>
+                <option value="Pune">IITM Pune</option>
+                <option value="Hyderabad">IITM Hyderabad</option>
+                <option value="Kolkata">IITM Kolkata</option>
+                <option value="Ahmedabad">IITM Ahmedabad</option>
+            </select>
 
-        <!-- Location -->
-        <label>Exhibition Location</label>
-        <select name="location" required>
-            <option value="">-- Select Location --</option>
-            <option value="Chennai">IITM Chennai</option>
-            <option value="Bengaluru">IITM Bengaluru</option>
-            <option value="Pune">IITM Pune</option>
-            <option value="Hyderabad">IITM Hyderabad</option>
-            <option value="Kolkata">IITM Kolkata</option>
-            <option value="Ahmedabad">IITM Ahmedabad</option>
-        </select>
-
-        <!-- Pricing Table -->
-        <h3>Stall Space & Pricing</h3>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>Space (Sq. M)</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
+            <label>Stall Size (Sq. M)</label>
+            <select name="sizes[]" class="size-select" required>
+                <option value="">-- Select Size --</option>
                 <?php foreach ([4,6,9,12,18,24] as $size): ?>
-                <tr>
-                    <td><input type="radio" name="stall_option" value="<?= $size ?>" required></td>
-                    <td><?= $size ?> sqm</td>
-                    <td class="price">-</td>
-                </tr>
+                    <option value="<?= $size ?>"><?= $size ?> sqm</option>
                 <?php endforeach; ?>
-            </tbody>
-        </table>
+            </select>
+            <input type="hidden" name="price[]" class="price-input">
 
-        <!-- Hidden auto fields -->
-        <input type="hidden" name="size" id="size">
-        <input type="hidden" name="price" id="price">
-
-        <!-- Summary -->
-        <div class="summary-box">
-            <div>Total Amount <span>₹<span id="totalAmount">0</span></span></div>
-            <div>GST (18%) <span>₹<span id="gstAmount">0</span></span></div>
-            <div class="grand">Grand Total <span>₹<span id="grandTotal">0</span></span></div>
+            <span class="remove-location" style="display:none;">Remove</span>
         </div>
+    </div>
 
-        <button type="submit" class="pay-btn">
-            Proceed to Secure Payment
-        </button>
+    <div class="add-location">+ Add Another Location</div>
 
-    </form>
-</div>
+    <h3>Selected Locations & Pricing</h3>
+    <table id="pricingTable">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Size (Sq. M)</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
+    <!-- Summary -->
+    <div class="summary-box">
+        <div>Total Amount <span>₹<span id="totalAmount">0</span></span></div>
+        <div>GST (18%) <span>₹<span id="gstAmount">0</span></span></div>
+        <div class="grand">Grand Total <span>₹<span id="grandTotal">0</span></span></div>
+    </div>
 
-<!-- JS to populate hidden fields and calculate GST -->
+    <button type="submit" class="pay-btn">Proceed to Secure Payment</button>
+</form>
+
 <script>
 const gstRate = 0.18;
-
 const locationRates = {
     "Chennai": 32000,
     "Bengaluru": 35000,
-    "Delhi": 35000,
-    "Mumbai": 35000,
     "Pune": 32000,
     "Hyderabad": 32000,
-    "Kochi": 32000,
     "Kolkata": 32000,
     "Ahmedabad": 32000
 };
 
-const locationSelect = document.querySelector('select[name="location"]');
-const stallRadios = document.querySelectorAll('input[name="stall_option"]');
+const container = document.getElementById('locationsContainer');
+const addBtn = document.querySelector('.add-location');
+const pricingTableBody = document.querySelector('#pricingTable tbody');
 
-function resetTotals() {
-    document.getElementById('totalAmount').innerText = '0';
-    document.getElementById('gstAmount').innerText = '0';
-    document.getElementById('grandTotal').innerText = '0';
-    document.getElementById('size').value = '';
-    document.getElementById('price').value = '';
-}
+function updatePricingTable() {
+    const locations = document.querySelectorAll('.location-select');
+    const sizes = document.querySelectorAll('.size-select');
+    const priceInputs = document.querySelectorAll('.price-input');
 
-locationSelect.addEventListener('change', function () {
-    const location = this.value;
-    if (!location) return;
+    pricingTableBody.innerHTML = '';
+    let total = 0;
 
-    const rate = locationRates[location];
+    locations.forEach((loc, i) => {
+        const size = sizes[i].value;
+        if (!loc.value || !size) return;
 
-    document.querySelectorAll('tbody tr').forEach(row => {
-        const size = row.querySelector('input').value;
-        const price = size * rate;
-        row.querySelector('.price').innerText = `₹${price.toLocaleString('en-IN')}`;
-    });
+        const price = size * locationRates[loc.value];
+        total += price;
 
-    stallRadios.forEach(r => r.checked = false);
-    resetTotals();
-});
-
-stallRadios.forEach(radio => {
-    radio.addEventListener('change', function () {
-        const location = locationSelect.value;
-        if (!location) {
-            alert('Please select location first');
-            this.checked = false;
-            return;
+        // Update hidden input
+        if(priceInputs[i]){
+            priceInputs[i].value = price;
         }
 
-        const size = parseInt(this.value);
-        const rate = locationRates[location];
-        const price = size * rate;
-
-        document.getElementById('size').value = size;
-        document.getElementById('price').value = price;
-
-        const gst = price * gstRate;
-        const grandTotal = price + gst;
-
-        document.getElementById('totalAmount').innerText = price.toLocaleString('en-IN');
-        document.getElementById('gstAmount').innerText = gst.toLocaleString('en-IN', { maximumFractionDigits: 2 });
-        document.getElementById('grandTotal').innerText = grandTotal.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${loc.value}</td>
+                        <td>${size} sqm</td>
+                        <td>₹${price.toLocaleString('en-IN')}</td>`;
+        pricingTableBody.appendChild(tr);
     });
+
+    const gst = total * gstRate;
+    const grand = total + gst;
+
+    document.getElementById('totalAmount').innerText = total.toLocaleString('en-IN');
+    document.getElementById('gstAmount').innerText = gst.toLocaleString('en-IN', {maximumFractionDigits:2});
+    document.getElementById('grandTotal').innerText = grand.toLocaleString('en-IN', {maximumFractionDigits:2});
+}
+
+// Update pricing on any change
+container.addEventListener('change', updatePricingTable);
+
+// Add new location column
+addBtn.addEventListener('click', function() {
+    const newColumn = container.querySelector('.location-column').cloneNode(true);
+    newColumn.querySelectorAll('select').forEach(s => s.value = '');
+    newColumn.querySelector('.remove-location').style.display = 'inline';
+    container.appendChild(newColumn);
+    updatePricingTable();
+});
+
+// Remove location column
+container.addEventListener('click', function(e) {
+    if(e.target.classList.contains('remove-location')){
+        const columns = container.querySelectorAll('.location-column');
+        if(columns.length > 1){ // prevent removing last row
+            e.target.parentElement.remove();
+            updatePricingTable();
+        }
+    }
 });
 </script>

@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Payment Page</title>
 <style>
   body {
     margin: 0;
@@ -197,6 +196,9 @@
      Payment
   </span>
 
+  <a href="<?= site_url('booking/summary/'.$lead['lead_id']) ?>"
+     class="step <?= ($step >= 5) ? 'active' : '' ?>">
+Summary  </a>
 </div>
 
 </div>
@@ -220,7 +222,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 100px;
+  gap: 60px;
   padding: 20px 0;
 }
 
@@ -244,8 +246,8 @@
   z-index: 1;                 /* ABOVE the line */
   padding: 10px 24px;
   border-radius: 30px;
-  background: #ededed;
-  color: #444;
+  background: #b49393;
+  color: #ffffff;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
@@ -255,9 +257,9 @@
 
 /* active step */
 .step.active {
-  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  background: linear-gradient(135deg, #c03b31, #bd3b08);
   color: #fff;
-  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.35);
+  box-shadow: 0 6px 15px rgba(172, 64, 31, 0.35);
 }
 
 /* hover */
@@ -310,44 +312,75 @@ setInterval(() => {
 
 <style>
 
+    .btn-next,.btn-primary ,.btn-secondary {
 
-  /* Standard button for all actions */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
   padding: 10px 25px;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
+  background: linear-gradient(135deg, #c03b31, #bd3b08);
   color: #fff;
-  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
   transition: all 0.25s ease;
-  user-select: none;
 }
 
-/* Hover effect */
-.btn:hover {
+.btn-next:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.35);
+  box-shadow: 0 6px 15px rgba(172, 64, 31, 0.35);
 }
 
-/* Active/click effect */
-.btn:active {
+.btn-next:active {
   transform: translateY(0);
-  box-shadow: 0 3px 8px rgba(46, 204, 113, 0.25);
-}
-
-/* Optional full width button */
-.btn-block {
-  width: 100%;
-  justify-content: center;
+  box-shadow: 0 6px 15px rgba(172, 64, 31, 0.35);
 }
 
 
+/* Buttons */
+/* .btn-primary {
+  padding: 10px 20px;
+  background: #c03b31;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+} */
+
+  /* padding: 10px 20px;
+  background: #c03b31;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 10px;
+  display: inline-block;
+} */
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  opacity: 0.9;
+}
+
+
+.pay-btn {
+        margin-top: 25px;
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #c03b31, #bd3b08);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pay-btn:hover {
+        transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(172, 64, 31, 0.35);
+    }
 
 </style>
       <!-- <div class="right-container"> -->

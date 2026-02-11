@@ -96,95 +96,145 @@ class Booking extends BaseController
 
         return view('booking/booking_details', $data);
     }
-// POST: Process payment
-public function processPayment()
+
+    
+
+
+
+
+    public function processPayment()
 {
-    // $post = $this->request->getPost();
+    $post = $this->request->getPost();
 
-    // // Validate required fields
-    // if (empty($post['lead_id']) || empty($post['company_id']) || empty($post['price'])) {
-    //     return redirect()->back()->with('error', 'Missing required information.');
-    // }
+    if (!$post) {
+        return redirect()->back()->with('error', 'Invalid Request');
+    }
 
-    // // Calculate totals
-    // $price = (float)$post['price'];
-    // $gst = $price * 0.18; // 18% GST
-    // $grandTotal = $price + $gst;
+  $leadId = $post['lead_id'];
+$companyId = $post['company_id'];
+$location = $post['locations'][0] ?? null; // First location, or null if not set
+$size = $post['sizes'][0] ?? null;         // First size, or null if not set
+$price = $post['price'][0] ?? null;
 
-    // Prepare data for DB / view
-    // $data = [
-    //     'lead_id' => $post['lead_id'],         // pass lead id
-    //     'company_id' => $post['company_id'],
-    //     'price' => $price,
-    //     'gst' => $gst,
-    //     'grand_total' => $grandTotal
-    // ];
-// Random test data
-// Random test data
-$price = rand(50000, 200000);                // Random price between ₹50,000 - ₹2,00,000
-$discount = rand(0, 20000);                  // Random discount up to ₹20,000
-$priceAfterDiscount = max($price - $discount, 0);
-$gst = round($priceAfterDiscount * 0.18, 2); // 18% GST
-$grandTotal = round($priceAfterDiscount + $gst, 2);
+// Calculate
+$gst = round($price * 0.18, 2);
+$grandTotal = round($price + $gst, 2);
 
-// Prepare data for DB / view (no POST at all)
+// Debug output and stop
+// echo "<pre>";
+// echo "leadId: "; var_dump($leadId);
+// echo "companyId: "; var_dump($companyId);
+// echo "location: "; var_dump($location);
+// echo "size: "; var_dump($size);
+// echo "price: "; var_dump($price);
+// echo "gst: "; var_dump($gst);
+// echo "grandTotal: "; var_dump($grandTotal);
+// echo "</pre>";
+// exit;
+
+
+    // Update lead in database
+    $db = \Config\Database::connect();
+
+    $builder = $db->table('leads');
+
+$updated = $builder->where('lead_id', $leadId)->update([
+    'location' => $location ?: '',
+    'size' => $size ?: '',
+    'price' => $price ?: 0,
+    'gst_amount' => $gst ?: 0,
+    'grand_total' => $grandTotal ?: 0,
+    'status' => 'payment_pending'
+]);
+
+if (!$updated) {
+    return redirect()->back()->with('error', 'Failed to update lead. Please check lead ID.');
+}
+
+
 $data = [
-    'lead_id' => 'LEAD' . rand(1000, 9999),       // random lead_id
-    'company_id' => 'COMP' . rand(100, 999),      // random company_id
-    'price' => $priceAfterDiscount,
-    'discount' => $discount,
-    'gst' => $gst,
-    'grand_total' => $grandTotal
+    'lead_id'     => $leadId,
+    'company_id'  => $companyId,
+    'price'       => $price,
+    'gst'         => $gst,
+    'grand_total' => $grandTotal, // Make sure the key matches the view
 ];
 
-// Make $lead available for header3.php
-$lead = [
-    'lead_id' => $data['lead_id'],
-    'company_id' => $data['company_id']
-];
-
-// Pass all info to payment view
-return view('booking/payment', array_merge($data, ['lead' => $lead]));
-
-// Example output to verify
-// print_r($data);
-
-    // Optionally, save payment info to DB here
-    // $this->paymentModel->insert($data);
-
-    // Pass all info to payment page
     return view('booking/payment', $data);
 }
 
 
-public function exhibitor_bookinginstructions()
-{
-    // You can pass any default data to the view if needed
 
-    // echo "hello";
-    // exit;
-    // Load the form view
-    return view('booking/exhibitor/instructions');
+
+
+
+public function summary($leadId)
+{
+    $db = \Config\Database::connect();
+
+    // Get lead details
+    $lead = $db->table('leads')
+        ->where('lead_id', $leadId)
+        ->get()
+        ->getRowArray();
+
+    if (!$lead) {
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Lead not found");
+    }
+
+    // Get company details
+    $company = $db->table('company_data')
+        ->where('company_id', $lead['company_id'])
+        ->get()
+        ->getRowArray();
+
+    // Get payments
+    $payments = $db->table('payments')
+        ->where('lead_id', $leadId)
+        ->get()
+        ->getResultArray();
+
+    $data = [
+        'lead' => $lead,
+        'company' => $company,
+        'payments' => $payments
+    ];
+
+    return view('booking/summary', $data);
 }
-public function stallinfo()
-{
-    // You can pass any default data to the view if needed
 
-    // echo "hello";
-    // exit;
-    // Load the form view
-    return view('booking/exhibitor/stallinfo');
-}    
-// $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
 
-public function exhibitor_details()
-{
-    // You can pass any default data to the view if needed
+// public function exhibitor_bookinginstructions()
+// {
+//     // You can pass any default data to the view if needed
 
-    // echo "hello";
-    // exit;
-    // Load the form view
-    return view('booking/exhibitor/exhibitor_form');
-}
+//     // echo "hello";
+//     // exit;
+//     // Load the form view
+//     return view('booking/exhibitor/instructions');
+// }
+// public function stallinfo()
+// {
+//     // You can pass any default data to the view if needed
+
+//     // echo "hello";
+//     // exit;
+//     // Load the form view
+//     return view('booking/exhibitor/stallinfo');
+// }    
+// // $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
+
+// public function exhibitor_details()
+// {
+//     // You can pass any default data to the view if needed
+
+//     // echo "hello";
+//     // exit;
+//     // Load the form view
+//     return view('booking/exhibitor/exhibitor_form');
+// }
+
+
+
 
 }

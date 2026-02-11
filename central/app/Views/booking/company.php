@@ -2,6 +2,9 @@
 $step = 2;
 include 'header3.php'; 
 ?>
+
+<title>General Details</title>
+
 <style>
 /* Layout */
 .form-row {
@@ -43,32 +46,7 @@ include 'header3.php';
   border-radius: 4px;
 }
 
-/* Buttons */
-.btn-primary {
-  padding: 10px 20px;
-  background: #2196F3;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
-}
 
-.btn-secondary {
-  padding: 10px 20px;
-  background: #4CAF50;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 600;
-  margin-left: 10px;
-  display: inline-block;
-}
-
-.btn-primary:hover,
-.btn-secondary:hover {
-  opacity: 0.9;
-}
 </style>
 
 <h2>Step 2: Confirm Company & Contact Details</h2>
@@ -80,7 +58,7 @@ include 'header3.php';
 
     <!-- Contacts Card -->
     <div class="card">
-
+person icon
         <?php if (!empty($contacts)): ?>
             <?php foreach ($contacts as $i => $c): ?>
                 <div class="contact-item">
@@ -90,7 +68,7 @@ include 'header3.php';
                            value="<?= esc($c['contact_id']) ?>">
 
                     <p>
-                        <strong>Name:</strong><br>
+                        <strong>Name:</strong>
                         <input type="text"
                                class="input-full"
                                name="contacts[<?= $i ?>][name]"
@@ -98,7 +76,7 @@ include 'header3.php';
                     </p>
 
                     <p>
-                        <strong>Designation:</strong><br>
+                        <strong>Designation:</strong>
                         <input type="text"
                                class="input-full"
                                name="contacts[<?= $i ?>][designation]"
@@ -106,7 +84,7 @@ include 'header3.php';
                     </p>
 
                     <p>
-                        <strong>Mobile:</strong><br>
+                        <strong>Mobile:</strong>
                         <input type="text"
                                class="input-full"
                                name="contacts[<?= $i ?>][mobile]"
@@ -114,7 +92,7 @@ include 'header3.php';
                     </p>
 
                     <p>
-                        <strong>Email:</strong><br>
+                        <strong>Email:</strong>
                         <input type="email"
                                class="input-full"
                                name="contacts[<?= $i ?>][email]"
@@ -131,6 +109,8 @@ include 'header3.php';
 
     <!-- Company Card -->
     <div class="card">
+             company icon
+
         <h3>
             <input type="text"
                    class="company-title"
@@ -139,7 +119,7 @@ include 'header3.php';
         </h3>
 
         <p>
-            <strong>Category:</strong><br>
+            <strong>Category:</strong>
             <input type="text"
                    class="input-full"
                    name="category"
@@ -147,7 +127,7 @@ include 'header3.php';
         </p>
 
         <p>
-            <strong>City:</strong><br>
+            <strong>City:</strong>
             <input type="text"
                    class="input-full"
                    name="city"
@@ -155,7 +135,7 @@ include 'header3.php';
         </p>
 
         <p>
-            <strong>State:</strong><br>
+            <strong>State:</strong>
             <input type="text"
                    class="input-full"
                    name="state"
@@ -163,7 +143,7 @@ include 'header3.php';
         </p>
 
         <p>
-            <strong>Phone:</strong><br>
+            <strong>Phone:</strong>
             <input type="text"
                    class="input-full"
                    name="phone"
@@ -171,22 +151,38 @@ include 'header3.php';
         </p>
 
         <p>
-            <strong>GST:</strong><br>
+            <strong>GST:</strong>
             <input type="text"
                    class="input-full"
                    name="gst_number"
                    value="<?= esc($company['gst_number'] ?? '') ?>">
         </p>
+
+          <p>
+    <strong>Fascia</strong>
+<input type="text"
+       class="input-full"
+       name="fascia"
+       value="<?= esc(strtoupper($company['fascia'] ?? '')) ?>">
+
+
+    <small style="color:#666; display:block; margin-top:6px;">
+        * The Fascia name will be printed exactly as entered above on the stall name board. 
+        Please ensure correct spelling, spacing, and capitalization.
+    </small>
+</p>
+
     </div>
 
 </div>
 
 <!-- Buttons -->
 <div style="margin-top:20px;">
-    <button type="submit" class="btn-primary">
+    <a href="<?= site_url('company/update/'.$company['company_id']) ?>"
+       class="btn-primary"
+       >
         Save & Continue
-    </button>
-
+    </a>
     <a href="<?= site_url('booking/booking_details/'.$lead['lead_id']) ?>"
        class="btn-secondary">
         Skip to Step 3

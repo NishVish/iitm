@@ -126,6 +126,9 @@ $routes->get('instructions/(:segment)', 'Booking::instructions/$1');
     // Payment
     $routes->post('processPayment', 'Booking::processPayment');
 
+    $routes->get('summary/(:num)', 'Booking::summary/$1');
+
+
 
     // // ===============================
     // // Exhibitor Booking
