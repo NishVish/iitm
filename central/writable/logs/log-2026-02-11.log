@@ -228,3 +228,26 @@ in APPPATH\Controllers\Booking.php on line 118.
  5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-11 11:06:25 --> ErrorException: Trying to access array offset on value of type null
+[Method: GET, Route: booking/company/3]
+in APPPATH\Views\booking\company.php on line 54.
+ 1 APPPATH\Views\booking\company.php(54): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\company.php', 54)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\booking\\company.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('booking/company', [], true)
+ 5 APPPATH\Controllers\Booking.php(68): view('booking/company', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Booking->company('3')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Booking))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-11 13:05:17 --> Error: Call to undefined method App\Controllers\CrossValidation::overwriteContact()
+[Method: POST, Route: crossvalidation/actioncontact]
+in APPPATH\Controllers\CrossValidation.php on line 494.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CrossValidation->handleAction()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CrossValidation))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

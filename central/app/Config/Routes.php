@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 
 // Default route (landing page)
 $routes->get('/', 'Home::index');
+$routes->post('login', 'Authentication::login');
 
 // Backend home / admin panel
 $routes->get('backend', 'Backend::index');
@@ -84,6 +85,9 @@ $routes->get('lead/details/(:any)', 'Leads::details/$1');
 // $routes->get('leads/view/(:segment)', 'Leads::view/$1');
 $routes->post('leads/create', 'Leads::createLead');
 $routes->post('leads/store', 'Leads::store');
+$routes->post('leads/clear', 'Leads::clearLeads');
+$routes->get('leads/add-random', 'Leads::addRandomLead');
+
 $routes->post('discussion/add', 'Leads::add');
 
 
@@ -128,6 +132,10 @@ $routes->get('instructions/(:segment)', 'Booking::instructions/$1');
 
     $routes->get('summary/(:num)', 'Booking::summary/$1');
 
+    $routes->get('view', 'Booking::public_view');           // GET: show the form
+    $routes->post('view', 'Booking::show_booking_details'); // POST: process the form
+});
+
 
 
     // // ===============================
@@ -138,7 +146,6 @@ $routes->get('instructions/(:segment)', 'Booking::instructions/$1');
     // $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
 // <a href="<?= site_url('booking/exhibitor_booking/stallinfo') 
 
-});
 
 
 

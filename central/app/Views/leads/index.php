@@ -1,6 +1,17 @@
 <?= view('header') ?>  <!-- loads app/Views/header.php -->
 
-<h2>Leads</h2>
+<h2>Leads <form action="<?= site_url('leads/clear') ?>" method="post">
+    <?= csrf_field() ?>
+    <button type="submit" onclick="return confirm('Are you sure you want to delete all leads?');">
+        Clear All Leads
+    </button>
+</form>
+<form action="<?= site_url('leads/add-random') ?>" method="get">
+    <button type="submit" onclick="return confirm('Add a random lead?');">
+        ➕ Add Random Lead
+    </button>
+</form>
+</h2>
 
 <!-- ================= FILTERS ================= -->
 <form method="get" action="<?= site_url('leads') ?>">

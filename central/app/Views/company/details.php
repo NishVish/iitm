@@ -1,13 +1,152 @@
 <?= view('header') ?>  <!-- loads app/Views/header.php -->
 
 <style>
-    .container {
-  display: flex;
+/* ===== Page Layout ===== */
+
+
+h2, h3 {
+    color: #2c3e50;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* ===== Flex Container for Company & Contacts ===== */
+.container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* for smaller screens */
 }
 
 .box {
-  width: 50%;   /* or flex: 1 */
-  padding: 20px;
+    flex: 1 1 45%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* ===== Form Inputs ===== */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
+select {
+    width: auto;
+    padding: 6px 8px;
+    margin: 2px 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+/* Inputs in H2 inline fields */
+h2 input {
+    width: auto;
+    min-width: 80px;
+}
+
+/* ===== Buttons ===== */
+button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    color: #fff;
+}
+
+#openLeadFormBtn {
+    background-color: #007bff;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+/* ===== Lists ===== */
+ul {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+/* ===== Lead Cards ===== */
+.lead-container {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.lead-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-width: 220px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* ===== Modal ===== */
+#leadModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none; /* hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ===== Updation History ===== */
+#updates div {
+    background: #f7f7f7;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+#updates hr {
+    margin: 8px 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .box {
+        width: 100%;
+    }
 }
 
 </style>
@@ -139,22 +278,8 @@ $label = $categoryMap[$category] ?? '';
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
-<style>.lead-container {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap; /* wraps on small screens */
-}
 
-.lead-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px 16px;
-    min-width: 220px;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
 
-</style>
 
 <!-- ================= ADD LEAD MODAL ================= -->
 
@@ -239,42 +364,6 @@ $label = $categoryMap[$category] ?? '';
     </div>
 </div>
 
-<style>
-/* Modal Overlay */
-#leadModal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-/* Modal Content */
-.modal-content {
-    background: #fff;
-    padding: 20px 25px;
-    border-radius: 8px;
-    width: 400px;
-    max-width: 90%;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-/* Close button */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-}
-</style>
 
 <script>
 // Open modal

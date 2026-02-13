@@ -1,36 +1,61 @@
 <?= view('header') ?>  <!-- loads app/Views/header.php -->
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1, h2 {
-            color: #2c3e50;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 40px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #3498db;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        code {
-            background-color: #ecf0f1;
-            padding: 2px 5px;
-            display: block;
-            white-space: pre-wrap;
-        }
-    </style>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f4f4; /* light background for contrast */
+        color: #333;
+    }
+
+    h1, h2 {
+        color: #a82324; /* deep red headings */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    th, td {
+        border: 1px solid #a82324;
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #a82324;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fddede; /* lighter red for contrast */
+    }
+
+    tr:nth-child(odd) {
+        background-color: #fff0f0; /* subtle off-white for readability */
+    }
+
+    tr:hover {
+        background-color: #f8c0c2; /* hover highlight in palette */
+        transition: background-color 0.3s ease;
+    }
+
+    code {
+        background-color: #fddede; /* lighter shade of red */
+        color: #a82324; /* deep red text */
+        padding: 4px 8px;
+        border-radius: 4px;
+        display: block;
+        white-space: pre-wrap;
+        margin: 5px 0;
+    }
+</style>
+
 </head>
 <body>
     <h1>Company Database Analytics Overview</h1>

@@ -199,7 +199,7 @@ public function add_details()
                 'outbound'      => isset($company['outbound']) ? 1 : 0,
                 'company_name'  => $company['company_name'] ?? null,
                 'category'      => $company['category'] ?? null,
-                'address'       => $company['address'] ?? null,
+                'address' => trim(($company['address_1'] ?? '') . ' ' . ($company['address_2'] ?? '')),
                 'city'          => $company['city'] ?? null,
                 'pincode'       => $company['pincode'] ?? null,
                 'state'         => $company['state'] ?? null,
@@ -217,45 +217,55 @@ public function add_details()
             // Call the addSource method
             $this->addSource($values);
 
+// Insert contacts dynamically (up to 3 contacts)
+for ($i = 1; $i <= 3; $i++) {
 
-            // Insert contacts dynamically (up to 3 contacts)
-            for ($i = 1; $i <= 3; $i++) {
-                $name = trim($company["contact{$i}_name"] ?? '');
-                if (!$name) continue; // Skip if no name
+    $name = trim($company["contact{$i}_name"] ?? '');
 
-                $contactData = [
-                    'company_id'   => $company_id,
-                    'priority'     => $i,
-                    'name'         => $name,
-                    'designation'  => $company["contact{$i}_designation"] ?? '',
-                    'mobiles'      => [],
-                    'emails'       => []
-                ];
+    // Skip if no name
+    if ($name === '') {
+        continue;
+    }
 
-                // Collect mobiles
-                for ($m = 1; $m <= 3; $m++) {
-                    $mobileKey = "contact{$i}_mobile{$m}";
-                    if (!empty($company[$mobileKey])) {
-                        $contactData['mobiles'][] = $company[$mobileKey];
-                    }
-                }
+    $contactData = [
+        'company_id'  => $company_id,
+        'priority'    => $i,
+        'name'        => $name,
+        'designation' => $company["contact{$i}_designation"] ?? '',
+        'mobiles'     => [],
+        'emails'      => []
+    ];
 
-                // Collect emails
-                for ($e = 1; $e <= 3; $e++) {
-                    $emailKey = "contact{$i}_email{$e}";
-                    if (!empty($company[$emailKey])) {
-                        $contactData['emails'][] = $company[$emailKey];
-                    }
-                }
+    // Collect mobiles (up to 3 per contact)
+    for ($m = 1; $m <= 3; $m++) {
 
-                // Insert the contact
-                $inserted = $this->savePerson($contactData);
-                if ($inserted) {
-                    $success++;
-                } else {
-                    $failed++;
-                }
-            }
+        $mobileKey = "contact{$i}_mobile{$m}";
+
+        if (!empty($company[$mobileKey])) {
+            $contactData['mobiles'][] = trim($company[$mobileKey]);
+        }
+    }
+
+    // Collect emails (up to 3 per contact)
+    for ($e = 1; $e <= 3; $e++) {
+
+        $emailKey = "contact{$i}_email{$e}";
+
+        if (!empty($company[$emailKey])) {
+            $contactData['emails'][] = trim($company[$emailKey]);
+        }
+    }
+
+    // Insert contact using your working function
+    $inserted = $this->savePerson($contactData);
+
+    if ($inserted === true) {
+        $success++;
+    } else {
+        $failed++;
+    }
+}
+
 
         } catch (\Throwable $e) {
             log_message('error', "Company {$company['company_name']} failed: " . $e->getMessage());
@@ -273,37 +283,57 @@ public function add_details()
 }
 
 
-
-public function savePerson(array $contactData)
+public function savePerson(array $contactData = null)
 {
     $contactModel = new \App\Models\ContactModel();
     $mobileModel  = new \App\Models\ContactMobileModel();
     $emailModel   = new \App\Models\ContactEmailModel();
 
-    // Ensure required fields
-    if (empty($contactData['company_id']) || empty($contactData['name'])) {
-        log_message('error', 'Missing company_id or name in savePerson');
-        return false;
+    // ✅ If called from form (route)
+    if ($contactData === null) {
+        $contactData = [
+            'company_id'  => $this->request->getPost('company_id'),
+            'priority'    => $this->request->getPost('priority'),
+            'name'        => $this->request->getPost('name'),
+            'designation' => $this->request->getPost('designation'),
+            'mobiles'     => $this->request->getPost('mobiles'),
+            'emails'      => $this->request->getPost('emails'),
+        ];
     }
 
-    // Default values
+    // Ensure required fields
+    if (empty($contactData['company_id']) || empty($contactData['name'])) {
+        return redirect()->back()->with('error', 'Company ID and Name required');
+    }
+
     $contactData['priority']    = $contactData['priority'] ?? 1;
     $contactData['designation'] = $contactData['designation'] ?? '';
     $contactData['created_at']  = date('Y-m-d H:i:s');
 
     try {
+
         // Insert main contact
-        $contactId = $contactModel->insert($contactData, true); // true = return insert ID
-        if (!$contactId) return false;
+        $contactId = $contactModel->insert([
+            'company_id'  => $contactData['company_id'],
+            'priority'    => $contactData['priority'],
+            'name'        => $contactData['name'],
+            'designation' => $contactData['designation'],
+            'created_at'  => $contactData['created_at'],
+        ], true);
+
+        if (!$contactId) {
+            return redirect()->back()->with('error', 'Contact insert failed');
+        }
 
         // Insert mobiles
         if (!empty($contactData['mobiles'])) {
-            foreach ($contactData['mobiles'] as $m) {
+            foreach ($contactData['mobiles'] as $index => $m) {
                 if (empty($m)) continue;
+
                 $mobileModel->insert([
                     'contact_id' => $contactId,
                     'mobile'     => $m,
-                    'is_primary' => 0,
+                    'is_primary' => $index === 0 ? 1 : 0,
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
             }
@@ -311,22 +341,28 @@ public function savePerson(array $contactData)
 
         // Insert emails
         if (!empty($contactData['emails'])) {
-            foreach ($contactData['emails'] as $e) {
+            foreach ($contactData['emails'] as $index => $e) {
                 if (empty($e)) continue;
+
                 $emailModel->insert([
                     'contact_id' => $contactId,
                     'email'      => $e,
-                    'is_primary' => 0,
+                    'is_primary' => $index === 0 ? 1 : 0,
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
             }
+        }
+
+        // ✅ If called from form, redirect
+        if ($this->request->getMethod() === 'post') {
+            return redirect()->back()->with('success', 'Contact Saved Successfully');
         }
 
         return true;
 
     } catch (\Exception $ex) {
         log_message('error', 'savePerson Error: ' . $ex->getMessage());
-        return false;
+        return redirect()->back()->with('error', 'Something went wrong');
     }
 }
 

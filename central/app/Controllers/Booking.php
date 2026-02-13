@@ -204,37 +204,60 @@ public function summary($leadId)
 }
 
 
-// public function exhibitor_bookinginstructions()
-// {
-//     // You can pass any default data to the view if needed
+    public function public_view(){
+    return view('booking/view');
+    }
 
-//     // echo "hello";
-//     // exit;
-//     // Load the form view
-//     return view('booking/exhibitor/instructions');
-// }
-// public function stallinfo()
-// {
-//     // You can pass any default data to the view if needed
+public function show_booking_details()
+    {
+        $leadId = $this->request->getPost('lead_id');
 
-//     // echo "hello";
-//     // exit;
-//     // Load the form view
-//     return view('booking/exhibitor/stallinfo');
-// }    
-// // $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
+        if (!$leadId) {
+            return redirect()->back()->with('status', '⚠ Please enter a Lead / Booking ID.');
+        }
 
-// public function exhibitor_details()
-// {
-//     // You can pass any default data to the view if needed
+        // Fetch the lead
+        $lead = $this->leadModel->where('lead_id', $leadId)->first();
+        if (!$lead) {
+            return redirect()->back()->with('status', '⚠ Lead / Booking not found.');
+        }
 
-//     // echo "hello";
-//     // exit;
-//     // Load the form view
-//     return view('booking/exhibitor/exhibitor_form');
-// }
+        $companyId = $lead['company_id'];
 
+        // Fetch company info
+        $company = $this->companyModel->where('company_id', $companyId)->first();
 
+        // Fetch contacts for company
+        $contacts = $this->contactModel->where('company_id', $companyId)->findAll();
 
+        // For each contact, fetch emails and mobiles
+        foreach ($contacts as &$contact) {
+            $contact['emails']  = $this->contactModel->getEmails($contact['contact_id']);
+            $contact['mobiles'] = $this->contactModel->getMobiles($contact['contact_id']);
+        }
 
+        // // Fetch discussions
+        // $discussions = $this->discussionModel->where('lead_id', $leadId)->findAll();
+
+        // // Fetch invoices
+        // $invoices = $this->invoiceModel->where('lead_id', $leadId)->findAll();
+
+        // // Fetch sources
+        // $sources = $this->sourceModel->where('company_id', $companyId)->findAll();
+
+        // // Fetch event / exhibition details
+        // $event = $this->exhibitionModel->where('event_id', $lead['exhibition_year'])->first();
+
+        $data = [
+            'lead'        => $lead,
+            'company'     => $company,
+            'contacts'    => $contacts,
+            // 'discussions' => $discussions,
+            // 'invoices'    => $invoices,
+            // 'sources'     => $sources,
+            // 'event'       => $event,
+        ];
+
+        return view('show_booking_details', $data);
+    }
 }

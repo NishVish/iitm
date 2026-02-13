@@ -151,7 +151,7 @@ person icon
         </p>
 
         <p>
-            <strong>GST:</strong>
+            <strong>GSTIN:</strong>
             <input type="text"
                    class="input-full"
                    name="gst_number"

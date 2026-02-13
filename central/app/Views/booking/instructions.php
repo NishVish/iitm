@@ -17,7 +17,7 @@ This will help ensure a smooth and successful booking experience.
     <li>The complete registration process should be finished within <strong>15 minutes</strong>.</li>
     <li>Please keep your <strong>company details, GST information, and contact details</strong> ready.</li>
     <li>Ensure that all information entered is <strong>accurate and final</strong>, as changes may not be allowed later.</li>
-    <li>Your stall allocation is subject to <strong>availability and confirmation of payment</strong>.</li>
+    <li>Your stall allocation is subject to <strong>availability and confirmation of full-payment</strong>.</li>
 </ul>
 
 <h3>Step-by-Step Process</h3>
