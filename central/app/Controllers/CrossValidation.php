@@ -254,12 +254,11 @@ return redirect()->to(site_url('/crossvalidation'));
 
 
 
-   public function contactCrossValidation()
+   public function contactCrossValidationc()
     {
     $db = \Config\Database::connect();
 
     // Clear previous matches
-    $db->table('matching_contact_session')->truncate();
 
     // Fetch all contacts
     $contacts = $this->contactModel->findAll();
@@ -280,6 +279,7 @@ return redirect()->to(site_url('/crossvalidation'));
     }
 
     for ($i = 0; $i < $countContacts; $i++) {
+        $newCID = $newContact['company_id'];
         $newContact = $contacts[$i];
         $newId = $newContact['contact_id'];
         $newName = $newContact['name'];
@@ -290,9 +290,13 @@ return redirect()->to(site_url('/crossvalidation'));
 
         for ($j = 0; $j < $countContacts; $j++) {
             $dbContact = $contacts[$j];
+                    $dbCID = $dbContact['company_id'];
+
             $dbId = $dbContact['contact_id'];
 
             if ($newId >= $dbId) continue; // skip self & mirror
+
+
 
             $dbName = $dbContact['name'];
             $dbDesignation = $dbContact['designation'];
@@ -327,6 +331,11 @@ return redirect()->to(site_url('/crossvalidation'));
             }
 
             $totalScore = round(($nameScore + $designationScore + $emailScore + $mobileScore) / 4);
+            // if ($dbContact == $newCID && $nameScore === 100 && $designationScore === 100 && $emailScore === 100 && $mobileScore === 100) {
+            //     its a complete duplicate Remove this dbCID
+
+            // }
+            // if dbcontact == newCid name is also matching but if some email are mating or somenot then insert it same for mobile
 
             // Match type
             if ($nameScore === 100 && $designationScore === 100 && $emailScore === 100 && $mobileScore === 100) {
@@ -358,6 +367,84 @@ return redirect()->to(site_url('/crossvalidation'));
 }
 
 
+public function contactCrossValidation()
+{
+    $this->breakMultipleContacts();
+    $db = \Config\Database::connect();
+    $db->transStart();
+
+    $contacts = $this->contactModel->findAll();
+    $contactEmails = $db->table('contact_email')->get()->getResultArray();
+    $contactMobiles = $db->table('contact_mobile')->get()->getResultArray();
+
+    // Index emails/mobiles for fast lookup
+    $emailsByContact = [];
+    foreach ($contactEmails as $e) {
+        $emailsByContact[$e['contact_id']][] = strtolower(trim($e['email']));
+    }
+
+    $mobilesByContact = [];
+    foreach ($contactMobiles as $m) {
+        $mobilesByContact[$m['contact_id']][] = trim($m['mobile']);
+    }
+
+    // Group contacts by company + normalized name
+    $groups = [];
+    foreach ($contacts as $c) {
+        $key = $c['company_id'] . '|' . strtolower(trim($c['name']));
+        $groups[$key][] = $c;
+    }
+
+    $deletedIds = [];
+
+    foreach ($groups as $group) {
+        if (count($group) <= 1) continue; // no duplicates
+
+        // Take first as master
+        $master = array_shift($group);
+        $masterId = $master['contact_id'];
+
+        $masterEmails = $emailsByContact[$masterId] ?? [];
+        $masterMobiles = $mobilesByContact[$masterId] ?? [];
+
+        foreach ($group as $dup) {
+            $dupId = $dup['contact_id'];
+            $dupEmails = $emailsByContact[$dupId] ?? [];
+            $dupMobiles = $mobilesByContact[$dupId] ?? [];
+
+            // Merge unique emails
+            foreach ($dupEmails as $e) {
+                if (!in_array($e, $masterEmails)) {
+                    $masterEmails[] = $e;
+                    $db->table('contact_email')->insert([
+                        'contact_id' => $masterId,
+                        'email'      => $e
+                    ]);
+                }
+            }
+
+            // Merge unique mobiles
+            foreach ($dupMobiles as $m) {
+                if (!in_array($m, $masterMobiles)) {
+                    $masterMobiles[] = $m;
+                    $db->table('contact_mobile')->insert([
+                        'contact_id' => $masterId,
+                        'mobile'     => $m
+                    ]);
+                }
+            }
+
+            // Delete duplicate contact
+            $this->contactModel->delete($dupId);
+            $deletedIds[] = $dupId;
+        }
+    }
+
+    $db->transComplete();
+
+    return redirect()->back()->with('status', '✅ Merged duplicates: ' . count($deletedIds));
+}
+
 
     /**
      * Fuzzy match helper
@@ -386,7 +473,7 @@ return redirect()->to(site_url('/crossvalidation'));
 
 
 
-    public function handleAction()
+public function handleAction()
 {
     $request = $this->request->getPost();
 
@@ -702,6 +789,198 @@ public function mergeContact($contactId, $matchedContactId)
 
     return true;
 }
+
+public function fixEmailMobileMixup()
+{
+    $contactModel = new \App\Models\ContactModel();
+    $emailModel   = new \App\Models\ContactEmailModel();
+    $mobileModel  = new \App\Models\ContactMobileModel();
+    $db = \Config\Database::connect();
+
+    $db->transStart();
+
+    // 1️⃣ Fix emails that contain numbers only (likely mobiles)
+    $emails = $emailModel->findAll();
+    foreach ($emails as $e) {
+        $emailValue = trim($e['email']);
+
+        // If it looks like a mobile (numbers, maybe spaces, +, -, parentheses)
+        if (preg_match('/^[\d\s\+\-\(\)]+$/', $emailValue)) {
+            // Insert into mobiles if not already there
+            $exists = $mobileModel->where('contact_id', $e['contact_id'])
+                                  ->where('mobile', $emailValue)
+                                  ->countAllResults();
+
+            if (!$exists) {
+                $mobileModel->insert([
+                    'contact_id' => $e['contact_id'],
+                    'mobile' => $emailValue,
+                    'is_primary' => 1
+                ]);
+            }
+
+            // Delete from email table
+            $emailModel->delete($e['email_id']);
+        }
+    }
+
+    // 2️⃣ Fix mobiles that contain "@" (likely emails)
+    $mobiles = $mobileModel->findAll();
+    foreach ($mobiles as $m) {
+        $mobileValue = trim($m['mobile']);
+
+        if (filter_var($mobileValue, FILTER_VALIDATE_EMAIL)) {
+            // Insert into emails if not already there
+            $exists = $emailModel->where('contact_id', $m['contact_id'])
+                                 ->where('email', $mobileValue)
+                                 ->countAllResults();
+
+            if (!$exists) {
+                $emailModel->insert([
+                    'contact_id' => $m['contact_id'],
+                    'email' => $mobileValue,
+                    'is_primary' => 1
+                ]);
+            }
+
+            // Delete from mobile table
+            $mobileModel->delete($m['mobile_id']);
+        }
+    }
+
+    $db->transComplete();
+
+    return "✅ Checked and corrected email/mobile mixups.";
+}
+
+public function breakMultipleContacts()
+{ 
+    $this->fixEmailMobileMixup();
+    $contactModel = new \App\Models\ContactModel();
+    $mobileModel  = new \App\Models\ContactMobileModel();
+    $emailModel   = new \App\Models\ContactEmailModel();
+    $db = \Config\Database::connect();
+
+    // Start transaction
+    $db->transStart();
+
+    // 1️⃣ Fetch all contacts with "/" in name
+    $contacts = $contactModel->like('name', '/')->findAll();
+    if (empty($contacts)) return "No contacts to split.";
+
+    // 2️⃣ Fetch all related emails & mobiles once
+    $contactIds = array_column($contacts, 'contact_id');
+    $emails = $emailModel->whereIn('contact_id', $contactIds)->findAll();
+    $mobiles = $mobileModel->whereIn('contact_id', $contactIds)->findAll();
+
+    // Index emails & mobiles by contact_id
+    $emailsByContact = [];
+    foreach ($emails as $e) {
+        $emailsByContact[$e['contact_id']][] = $e['email'];
+    }
+
+    $mobilesByContact = [];
+    foreach ($mobiles as $m) {
+        $mobilesByContact[$m['contact_id']][] = $m['mobile'];
+    }
+
+    $newContacts = [];
+    $newEmails = [];
+    $newMobiles = [];
+    $toDeleteContacts = [];
+
+    foreach ($contacts as $contact) {
+        $originalId = $contact['contact_id'];
+
+        // Split names & designations
+        $names = array_map('trim', explode('/', $contact['name']));
+        $designations = array_map('trim', explode('/', $contact['designation'] ?? ''));
+
+        // Flatten emails and mobiles
+        $emailList = [];
+        foreach ($emailsByContact[$originalId] ?? [] as $e) {
+            $parts = preg_split('/[\/,]/', $e);
+            foreach ($parts as $p) {
+                $p = trim($p);
+                if ($p) $emailList[] = $p;
+            }
+        }
+
+        $mobileList = [];
+        foreach ($mobilesByContact[$originalId] ?? [] as $m) {
+            $parts = preg_split('/[\/,]/', $m);
+            foreach ($parts as $p) {
+                $p = trim($p);
+                if ($p) $mobileList[] = $p;
+            }
+        }
+
+        // Assign emails and mobiles sequentially
+        foreach ($names as $i => $name) {
+            $newContactData = [
+                'company_id' => $contact['company_id'],
+                'priority'   => $contact['priority'],
+                'name'       => $name,
+                'designation'=> $designations[$i] ?? null,
+            ];
+            $newContacts[] = $newContactData;
+
+            $newEmails[] = [
+                'contact_index' => count($newContacts) - 1,
+                'email' => $emailList[$i] ?? null
+            ];
+
+            $newMobiles[] = [
+                'contact_index' => count($newContacts) - 1,
+                'mobile' => $mobileList[$i] ?? null
+            ];
+        }
+
+        $toDeleteContacts[] = $originalId;
+    }
+
+    // 3️⃣ Insert new contacts and store IDs
+    $insertedIds = [];
+    foreach ($newContacts as $nc) {
+        $insertedIds[] = $contactModel->insert($nc);
+    }
+
+    // 4️⃣ Insert new emails
+    foreach ($newEmails as $ne) {
+        if ($ne['email']) {
+            $emailModel->insert([
+                'contact_id' => $insertedIds[$ne['contact_index']],
+                'email' => $ne['email'],
+                'is_primary' => 1
+            ]);
+        }
+    }
+
+    // 5️⃣ Insert new mobiles
+    foreach ($newMobiles as $nm) {
+        if ($nm['mobile']) {
+            $mobileModel->insert([
+                'contact_id' => $insertedIds[$nm['contact_index']],
+                'mobile' => $nm['mobile'],
+                'is_primary' => 1
+            ]);
+        }
+    }
+
+    // 6️⃣ Delete original messy contacts and related emails/mobiles
+    if ($toDeleteContacts) {
+        $contactModel->whereIn('contact_id', $toDeleteContacts)->delete();
+        $emailModel->whereIn('contact_id', $toDeleteContacts)->delete();
+        $mobileModel->whereIn('contact_id', $toDeleteContacts)->delete();
+    }
+
+    $db->transComplete();
+
+    return "✅ Contacts split successfully. Created " . count($newContacts) . " new contacts.";
+}
+
+
+
 
 }
 

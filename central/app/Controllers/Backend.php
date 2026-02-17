@@ -53,4 +53,16 @@ class Backend extends BaseController
     {
         return view('backend/plan');
     }
+
+    public function games()
+{
+    return view('backend/game');
+}
+    public function tv()
+{
+    return view('backend/tv');
+}
+
+
+
 }

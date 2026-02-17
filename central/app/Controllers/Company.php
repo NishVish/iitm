@@ -172,7 +172,140 @@ public function add()
 {
      return view('company/add');}
 
+public function dummyData()
+{
+    $dataString = "
+    New Delhi	OTR Old	IAAI - President				Bulk Trip/ BTC Tours & Travels Pvt Ltd	C-9/94, Sector-8, Rohini,		Delhi	110085	Delhi	11-42071206 / 45653666 / 45638666/ 45059327		Mr. Tushar Jain/ Ms Soneeka Jain	Directors	9810230050 (Tushar)			tushar.jain@bulktrip.com, tushar@btctravels.com, info@btctravels.com			Mrs. Vandana Neghi/ Ms. Savvy. S	Sr. Executive - Outbound/ Head - Operations	ops4@bulktrip.com, savvy.s@bulktrip.com		7042292236/ 7042296360		Mr. Nikhil Karanwal/ Mr. Yatindra Nath	Sales Manager/ Sales Executive	sales@bulktrip.com, sales1@bulktrip.com		91-7042296356/ 7042296358
+    
+    ";
 
+    $columns = explode("\t", $dataString);
+
+    $db = \Config\Database::connect();
+    $db->transStart();
+
+    try {
+
+        $company_id = strtoupper('C' . time() . rand(100, 999));
+        $session_id = $this->companyModel->get_lastSession();
+
+        // -----------------------
+        // COMPANY INSERT
+        // -----------------------
+        $this->companyModel->insert([
+            'session'       => $session_id,
+            'company_id'    => $company_id,
+            'database_name' => $columns[0] ?? null,
+            'category'      => $columns[1] ?? null,
+            'company_name'  => $columns[6] ?? null,
+            'address'       => trim(($columns[7] ?? '') . ' ' . ($columns[8] ?? '')),
+            'city'          => $columns[9] ?? null,
+            'pincode'       => $columns[10] ?? null,
+            'state'         => $columns[11] ?? null,
+            'country'       => 'India',
+            'phone'         => $columns[12] ?? null,
+        ]);
+
+        // -----------------------
+        // SOURCE INSERT
+        // -----------------------
+        $this->addSource([
+            'company_id' => $company_id,
+            'source_id'  => 1,
+            'event_date' => date('Y-m-d'),
+            'notes'      => $columns[2] ?? null,
+        ]);
+
+        // -----------------------
+        // CONTACT PROCESSOR FUNCTION
+        // -----------------------
+        $processContact = function ($name, $designation, $emails, $mobiles, $priority) use ($company_id) {
+
+            if (empty(trim($name))) return;
+
+            $names = array_map('trim', explode('/', $name));
+            $designations = array_map('trim', explode('/', $designation));
+
+            $emailList = [];
+            if (!empty($emails)) {
+                $parts = preg_split('/[,\/]/', $emails);
+                foreach ($parts as $e) {
+                    $e = trim($e);
+                    if ($e) $emailList[] = $e;
+                }
+            }
+
+            $mobileList = [];
+            if (!empty($mobiles)) {
+                $parts = preg_split('/[,\/]/', $mobiles);
+                foreach ($parts as $m) {
+                    $m = trim(preg_replace('/[^0-9\-\+]/', '', $m));
+                    if ($m) $mobileList[] = $m;
+                }
+            }
+
+            foreach ($names as $i => $singleName) {
+
+                $contactData = [
+                    'company_id'  => $company_id,
+                    'priority'    => $priority,
+                    'name'        => $singleName,
+                    'designation' => $designations[$i] ?? null,
+                    'mobiles'     => [],
+                    'emails'      => []
+                ];
+
+                if (isset($mobileList[$i])) {
+                    $contactData['mobiles'][] = $mobileList[$i];
+                }
+
+                if (isset($emailList[$i])) {
+                    $contactData['emails'][] = $emailList[$i];
+                }
+
+                $this->savePerson($contactData);
+            }
+        };
+
+        // -----------------------
+        // CONTACT 1
+        // -----------------------
+        $processContact(
+            $columns[14] ?? null,
+            $columns[15] ?? null,
+            $columns[19] ?? null,
+            $columns[16] ?? null,
+            1
+        );
+
+        // CONTACT 2
+        $processContact(
+            $columns[21] ?? null,
+            $columns[22] ?? null,
+            $columns[23] ?? null,
+            $columns[25] ?? null,
+            2
+        );
+
+        // CONTACT 3
+        $processContact(
+            $columns[27] ?? null,
+            $columns[28] ?? null,
+            $columns[29] ?? null,
+            $columns[31] ?? null,
+            3
+        );
+
+        $db->transComplete();
+
+        return "✅ Tab data inserted successfully.";
+
+    } catch (\Throwable $e) {
+
+        $db->transRollback();
+        return "❌ Failed: " . $e->getMessage();
+    }
+}
 public function add_details()
 {
     $companies = $this->request->getPost('companies');
@@ -625,24 +758,6 @@ public function compare_popup()
         'company_matches' => $company_matches
     ]);
 }
-
-// public function compare_popup()
-// {
-//     $data = $this->request->getJSON(true);
-
-//     if (!$data || !isset($data['main_id'], $data['compare_id'])) {
-//         return $this->response->setStatusCode(400)->setBody('Invalid data');
-//     }
-
-//     $mainCompany = $this->companyModel->find($data['main_id']);
-//     $compareCompany = $this->companyModel->find($data['compare_id']);
-
-//     return view('crossvalidation/compare_view', [
-//         'mainCompany' => $mainCompany,
-//         'compareCompany' => $compareCompany
-//     ]);
-// }
-
 
 
 }

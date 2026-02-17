@@ -36,30 +36,99 @@ public function index()
     return view('leads/index', $data);
 }
 
+
+
+public function createQuicklead($companyId = null)
+{
+    $leadModel = new \App\Models\LeadModel();
+    $contactModel = new ContactModel();
+    $db = \Config\Database::connect();
+
+    // Get first contact for this company
+    $contact = $contactModel
+                    ->select('contact_id')
+                    ->where('company_id', $companyId)
+                    ->first();
+
+    // Prepare Lead Data
+    $leadData = [
+        'company_id'      => $companyId,
+    'contact_id'      => $contact ? $contact['contact_id'] : null, // safe check
+
+    // Dummy values below
+    'exhibition_year' => '2026',
+    'fascia'          => 'Standard Fascia',
+    'sales_person'    => 'Admin',
+    'exhibitor'       => 'Yes',
+    'booking_form'    => 'Received',
+    'status'          => 'New',
+    'payment_status'  => 'Pending',
+
+    'created_at'      => date('Y-m-d H:i:s')
+];
+
+
+    // 2. Insert Lead and get the ID
+    $leadId = $leadModel->insert($leadData);
+
+    if ($leadId) {
+        $locationBuilder = $db->table('lead_locations');
+
+        // Insert one dummy location for quick lead
+        $locationBuilder->insert([
+            'lead_id'        => $leadId,
+            'location'       => 'Hall A',       // dummy location name
+            'stall_location' => 'A1',           // dummy stall
+            'size'           => '3x3',          // dummy size
+            'price'          => 1000,           // dummy price
+            'grand_total'    => 1000,           // can add GST logic later
+        ]);
+    }
+
+
+return redirect()->to(base_url("booking/company/$leadId"));
+}
+
+
 public function createLead()
 {
     $leadModel = new \App\Models\LeadModel();
+    $db = \Config\Database::connect();
 
-    $data = [
-        'company_id'       => $this->request->getPost('company_id'),
-        'exhibition_year'  => $this->request->getPost('exhibition_year'),
-        'location'         => $this->request->getPost('location'),
-        'size'             => $this->request->getPost('size'),
-        'fascia'           => $this->request->getPost('fascia'),
-        'stall_location'   => $this->request->getPost('stall_location'),
-        'price'            => $this->request->getPost('price'),
-        'sales_person'     => $this->request->getPost('sales_person'),
-        'exhibitor'        => $this->request->getPost('exhibitor'),
-        'booking_form'     => $this->request->getPost('booking_form'),
-        'status'           => $this->request->getPost('status'),
-        'payment_status'   => $this->request->getPost('payment_status'),
-        'created_at'       => date('Y-m-d H:i:s')
+    // 1. Prepare Main Lead Data
+    $leadData = [
+        'company_id'      => $this->request->getPost('company_id'),
+        'exhibition_year' => $this->request->getPost('exhibition_year'),
+        'fascia'          => $this->request->getPost('fascia'),
+        'sales_person'    => $this->request->getPost('sales_person'),
+        'exhibitor'       => $this->request->getPost('exhibitor'),
+        'booking_form'    => $this->request->getPost('booking_form'),
+        'status'          => $this->request->getPost('status'),
+        'payment_status'  => $this->request->getPost('payment_status'),
+        'created_at'      => date('Y-m-d H:i:s')
     ];
 
-    $leadModel->insert($data);
+    // 2. Insert Lead and get the ID
+    $leadId = $leadModel->insert($leadData);
 
-    // Redirect back to the company details page
-    return redirect()->back()->with('success', 'Lead created successfully!');
+    if ($leadId) {
+        // 3. Capture multiple locations from the form
+        $locations = $this->request->getPost('locations'); // Expects array from UI
+        $locationBuilder = $db->table('lead_locations');
+
+        foreach ($locations as $loc) {
+            $locationBuilder->insert([
+                'lead_id'        => $leadId,
+                'location'       => $loc['name'],
+                'stall_location' => $loc['stall'],
+                'size'           => $loc['size'],
+                'price'          => $loc['price'],
+                'grand_total'    => $loc['price'], // Add GST logic here if needed
+            ]);
+        }
+    }
+
+return redirect()->to(base_url("booking/company/$leadId"));
 }
 // Details of single company
 // Details of single company via Lead ID
@@ -147,53 +216,37 @@ public function clearLeads()
 public function addRandomLead()
 {
     $db = \Config\Database::connect();
+    $leadModel = new \App\Models\LeadModel();
 
-    // 1. Pick a random company_id
-    $company = $db->table('company_data')
-                  ->orderBy('RAND()')
-                  ->get()
-                  ->getRowArray();
+    $company = $db->table('company_data')->orderBy('RAND()')->get()->getRowArray();
+    if (!$company) return redirect()->back()->with('status', 'No company found.');
 
-    if (!$company) {
-        return redirect()->back()->with('status', '⚠ No company found to add lead.');
+    // 1. Insert Main Lead
+    $leadId = $leadModel->insert([
+        'company_id'      => $company['company_id'],
+        'exhibition_year' => rand(2020, 2026),
+        'fascia'          => 'Fascia ' . rand(1, 100),
+        'sales_person'    => $company['sales_person'] ?? 'Random Sales',
+        'exhibitor'       => 'Exhibitor ' . rand(1, 999),
+        'status'          => 'draft',
+        'created_at'      => date('Y-m-d H:i:s'),
+    ]);
+
+    // 2. Insert 2 Random Locations for this lead
+    $locBuilder = $db->table('lead_locations');
+    for ($i = 0; $i < 2; $i++) {
+        $locBuilder->insert([
+            'lead_id'        => $leadId,
+            'location'       => ['Mumbai', 'Delhi', 'Bangalore'][rand(0, 2)],
+            'stall_location' => 'Stall ' . chr(rand(65, 90)) . rand(1, 50),
+            'size'           => rand(9, 36) . 'sqm',
+            'price'          => rand(5000, 20000),
+            'grand_total'    => rand(5000, 20000)
+        ]);
     }
 
-    $companyId = $company['company_id'];
-    $salesPerson = $company['sales_person'] ?? 'Random Sales';
-
-    // 2. Generate random lead details
-    $locations = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata'];
-    $sizes     = ['Small', 'Medium', 'Large'];
-    $statuses  = ['draft', 'confirmed', 'cancelled'];
-    $payments  = ['pending', 'paid', 'refunded'];
-
-    $data = [
-        'company_id'       => $companyId,
-        'exhibition_year'  => rand(2020, 2026),
-        'location'         => $locations[array_rand($locations)],
-        'size'             => $sizes[array_rand($sizes)],
-        'fascia'           => 'Fascia ' . rand(1, 100),
-        'stall_location'   => 'Stall ' . chr(rand(65, 90)) . rand(1, 50),
-        'price'            => rand(1000, 50000),
-        'gst_amount'       => 0,
-        'grand_total'      => 0,
-        'discount_amount'  => 0,
-        'sales_person'     => $salesPerson,
-        'exhibitor'        => 'Exhibitor ' . rand(1, 999),
-        'booking_form'     => 'Form ' . rand(1, 999),
-        'status'           => $statuses[array_rand($statuses)],
-        'payment_status'   => $payments[array_rand($payments)],
-        'created_at'       => date('Y-m-d H:i:s'),
-        'updated_at'       => date('Y-m-d H:i:s'),
-    ];
-
-    // 3. Insert into leads table
-    $leadModel = new \App\Models\LeadModel();
-    $leadModel->insert($data);
-
-    return redirect()->back()->with('status', '✅ Random lead added for company: ' . $company['company_name']);
+    return redirect()->back()->with('status', '✅ Lead created with 2 locations.');
 }
-
 
 
 

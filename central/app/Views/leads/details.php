@@ -138,6 +138,7 @@ $label = $categoryMap[$category] ?? '';
                 <div><strong>Location:</strong> <?= esc($l['location'] ?? '-') ?></div>
                 <div><strong>Size:</strong> <?= esc($l['size'] ?? '-') ?></div>
                 <div><strong>Fascia:</strong> <?= esc($l['fascia'] ?? '-') ?></div>
+                
                 <div><strong>Stall:</strong> <?= esc($l['stall_location'] ?? '-') ?></div>
                 <div><strong>Price:</strong> ₹<?= esc($l['price'] ?? '0') ?></div>
                 <div><strong>Sales Person:</strong> <?= esc($l['sales_person'] ?? '-') ?></div>

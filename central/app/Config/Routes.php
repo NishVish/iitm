@@ -9,11 +9,15 @@ use CodeIgniter\Router\RouteCollection;
 // Default route (landing page)
 $routes->get('/', 'Home::index');
 $routes->post('login', 'Authentication::login');
+$routes->get('login', 'Dashboard::index');
 
 // Backend home / admin panel
 $routes->get('backend', 'Backend::index');
 $routes->get('plan', 'Backend::plan');
 $routes->get('backend/sql', 'Backend::sql');
+$routes->get('games', 'Backend::games');
+$routes->get('tv', 'Backend::tv');
+
 $routes->post('backend/sql/run', 'Backend::runSql');
 
 
@@ -43,6 +47,8 @@ $routes->post('company/compare_popup', 'Company::compare_popup');
 // Add new company
 // Show add company form
 $routes->post('company/add_details', 'Company::add_details');
+$routes->get('company/dummy', 'Company::dummyData');
+
 $routes->get('company/add', 'Company::add'); // Show the form
 
 // Preview form data (POST only)
@@ -84,6 +90,7 @@ $routes->get('leads', 'Leads::index');
 $routes->get('lead/details/(:any)', 'Leads::details/$1');
 // $routes->get('leads/view/(:segment)', 'Leads::view/$1');
 $routes->post('leads/create', 'Leads::createLead');
+$routes->get('lead/createQuick/(:any)', 'Leads::createQuicklead/$1');
 $routes->post('leads/store', 'Leads::store');
 $routes->post('leads/clear', 'Leads::clearLeads');
 $routes->get('leads/add-random', 'Leads::addRandomLead');
@@ -121,6 +128,8 @@ $routes->get('instructions/(:segment)', 'Booking::instructions/$1');
     // Step 2
     $routes->get('company/(:segment)', 'Booking::company/$1');
 
+$routes->post('updatefrombooking/(:segment)', 'Booking::update/$1');
+
     // $routes->get('company/(:num)', 'Exhibitor::company/$1');
 
     // Step 3
@@ -128,7 +137,8 @@ $routes->get('instructions/(:segment)', 'Booking::instructions/$1');
     $routes->get('booking_details/(:segment)', 'Booking::booking_details/$1');
 
     // Payment
-    $routes->post('processPayment', 'Booking::processPayment');
+    $routes->post('savebookingdetails/(:segment)', 'Booking::savebookingdetails/$1');
+
 
     $routes->get('summary/(:num)', 'Booking::summary/$1');
 

@@ -9,85 +9,119 @@ class LeadModel extends Model
     protected $primaryKey = 'lead_id';
     protected $returnType = 'array';
 
-    protected $allowedFields = [
-        'lead_id',
-        'company_id',
-        'exhibition_year',
-        'location',
-        'size',
-        'fascia',
-        'stall_location',
-        'price',
-        'gst_amount',        // new
-        'grand_total',       // new
-        'discount_amount',   // new
-        'sales_person',
-        'exhibitor',
-        'status',
-        'payment_status'
-    ];
+protected $allowedFields = [
+    'company_id',
+    'contact_id',
+    'exhibition_year',
+    'fascia',
+    'sales_person',
+    'exhibitor',
+    'booking_form',
+    'status',
+    'payment_status'
+];
 
-    protected $db;
 
-    public function getByCompanyId($companyId)
-    {
-        return $this->where('company_id', $companyId)->findAll();
-    }
-
-    
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->db = \Config\Database::connect();
-    }
-
-    // Total leads/bookings
-    public function getTotalLeads()
-    {
-        return $this->db->table($this->table)->countAllResults();
-    }
-
-    // Payment summary
-    public function getPaymentSummary()
-    {
-        $builder = $this->db->table($this->table);
-        $builder->select('payment_status, COUNT(*) as total, SUM(price) as total_amount');
-        $builder->groupBy('payment_status');
-        return $builder->get()->getResult();
-    }
-
-    public function filterLeads($location = null, $year = null, $salesPerson = null)
-    {
-        if ($location) {
-            $this->where('location', $location);
-        }
-
-        if ($year) {
-            $this->where('exhibition_year', $year);
-        }
-
-        if ($salesPerson) {
-            $this->where('sales_person', $salesPerson);
-        }
-
-        return $this->orderBy('created_at', 'DESC')->findAll();
-    }
-
-    public function getLocations()
+    // Get Lead with all its locations
+public function getLeadFullDetails($leadId)
 {
-    return $this->select('location')
-                ->distinct()
-                ->where('location IS NOT NULL')
-                ->orderBy('location')
-                ->findAll();
+    return $this->db->table('leads')
+        ->select('
+            leads.*,
+            contact.name,
+            contact.designation,
+            contact.priority,
+            ce.email as primary_email,
+            cm.mobile as primary_mobile
+        ')
+        ->join('contact', 'contact.contact_id = leads.contact_id', 'left')
+        ->join('contact_email ce', 'ce.contact_id = contact.contact_id AND ce.is_primary = 1', 'left')
+        ->join('contact_mobile cm', 'cm.contact_id = contact.contact_id AND cm.is_primary = 1', 'left')
+        ->where('leads.lead_id', $leadId)
+        ->get()
+        ->getRowArray();
 }
 
-public function getYears()
+
+public function filterLeads($location = null, $year = null, $salesPerson = null)
+{
+    $builder = $this->builder();
+
+    $builder->select('
+        leads.*,
+        COALESCE(GROUP_CONCAT(DISTINCT lead_locations.location SEPARATOR ", "), "") as all_locations,
+        contact.name as contact_name,
+        contact.designation,
+        ce.email as primary_email,
+        cm.mobile as primary_mobile
+    ');
+
+    $builder->join('lead_locations', 'lead_locations.lead_id = leads.lead_id', 'left');
+    $builder->join('contact', 'contact.contact_id = leads.contact_id', 'left');
+    $builder->join('contact_email ce', 'ce.contact_id = contact.contact_id AND ce.is_primary = 1', 'left');
+    $builder->join('contact_mobile cm', 'cm.contact_id = contact.contact_id AND cm.is_primary = 1', 'left');
+
+    if ($location) {
+        $builder->where('lead_locations.location', $location);
+    }
+
+    if ($year) {
+        $builder->where('leads.exhibition_year', $year);
+    }
+
+    if ($salesPerson) {
+        $builder->where('leads.sales_person', $salesPerson);
+    }
+
+    $builder->groupBy('leads.lead_id');
+    $builder->orderBy('leads.created_at', 'DESC');
+
+    return $builder->get()->getResultArray();
+}
+
+
+
+    // Updated to fetch distinct locations from the NEW table
+    public function getLocations()
+    {
+        return $this->db->table('lead_locations')
+                    ->select('location')
+                    ->distinct()
+                    ->orderBy('location')
+                    ->get()->getResultArray();
+    }
+
+    // ✅ Get all leads for a company with their locations
+public function getByCompanyId($companyId)
+{
+    return $this->select('
+            leads.*,
+            COALESCE(GROUP_CONCAT(DISTINCT lead_locations.location SEPARATOR ", "), "") as all_locations,
+            contact.name as contact_name,
+            contact.designation,
+            ce.email as primary_email,
+            cm.mobile as primary_mobile
+        ')
+        ->join('lead_locations', 'lead_locations.lead_id = leads.lead_id', 'left')
+        ->join('contact', 'contact.contact_id = leads.contact_id', 'left')
+        ->join('contact_email ce', 'ce.contact_id = contact.contact_id AND ce.is_primary = 1', 'left')
+        ->join('contact_mobile cm', 'cm.contact_id = contact.contact_id AND cm.is_primary = 1', 'left')
+        ->where('leads.company_id', $companyId)
+        ->groupBy('leads.lead_id')
+        ->orderBy('leads.created_at', 'DESC')
+        ->findAll();
+}
+
+
+    public function getCompanyIdByLeadId($leadID)
+    {
+        return $this->select('company_id')->where('lead_id', $leadID)->first();
+    }
+
+    public function getYears()
 {
     return $this->select('exhibition_year')
                 ->distinct()
-                ->where('exhibition_year IS NOT NULL')
                 ->orderBy('exhibition_year', 'DESC')
                 ->findAll();
 }
@@ -96,23 +130,13 @@ public function getSalesPersons()
 {
     return $this->select('sales_person')
                 ->distinct()
-                ->where('sales_person IS NOT NULL')
-                ->orderBy('sales_person')
+                ->orderBy('sales_person', 'ASC')
                 ->findAll();
 }
-
 
 public function getByLeadId($leadId)
 {
     return $this->where('lead_id', $leadId)->first();
 }
-public function getCompanyIdByLeadId($leadID)
-{
-    return $this->select('company_id')
-                ->where('lead_id', $leadID)
-                ->first();
-}
-
-
 
 }

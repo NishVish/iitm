@@ -172,7 +172,10 @@
     <!-- Logo/Header -->
     <div class="header-bg">
 <div class="logo-wrapper">
-  <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Company Logo">
+<a href="<?= base_url('company/add') ?>">
+    <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" 
+         alt="Company Logo">
+</a>
 
 <div class="steps">
 
@@ -191,14 +194,15 @@
      Booking Details
   </a>
 
+  <a href="<?= site_url('booking/summary/'.$lead['lead_id']) ?>"
+     class="step <?= ($step >= 4) ? 'active' : '' ?>">
+Summary  </a>
   <!-- Payment should NOT be clickable yet -->
-  <span class="step <?= ($step >= 4) ? 'active' : '' ?>">
+  <span class="step <?= ($step >= 5) ? 'active' : '' ?>">
      Payment
   </span>
 
-  <a href="<?= site_url('booking/summary/'.$lead['lead_id']) ?>"
-     class="step <?= ($step >= 5) ? 'active' : '' ?>">
-Summary  </a>
+
 </div>
 
 </div>

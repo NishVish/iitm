@@ -13,7 +13,27 @@
 
 
 
-<h2>Add Companies (Excel Paste Supported)</h2>
+<h2>Add Companies (Excel Paste Supported)  <div class="action-section">
+        <a href="<?= site_url('clear-matching') ?>" class="action-btn danger">Clear Matching</a>
+        <a href="<?= site_url('clear-contacts') ?>" class="action-btn danger">Clear Contacts</a>
+        <a href="<?= site_url('clear-companies') ?>" class="action-btn danger">Clear Companies</a>
+
+        <a href="<?= site_url('crossvalidation/crossValidate') ?>" class="action-btn primary">
+            Company Cross Validation
+        </a>
+
+        <a href="<?= site_url('crossvalidation/crossValidateContact') ?>" class="action-btn primary">
+            Contact Cross Validation
+        </a>
+
+        <a href="<?= site_url('crossvalidation/clear') ?>" class="action-btn warning">
+            Clear Matches
+        </a>
+
+        <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">
+            Clear Contact Matches
+        </a>
+    </div></h2>
 
 <p><b>Paste Excel rows below (Ctrl + V)</b></p>
 <textarea id="excelPasteArea"
@@ -98,7 +118,7 @@
     </td>
 
 
-    <td><input type="text" name="companies[0][company_name]" required></td>
+    <td><input type="text" name="companies[0][company_name]" ></td>
     <td><input type="text" name="companies[0][address_1]"></td>
     <td><input type="text" name="companies[0][address_2]"></td>
     <td><input type="text" name="companies[0][city]"></td>
@@ -158,7 +178,7 @@
     <?= csrf_field() ?>
 
     <label>Company Name:</label><br>
-    <input type="text" name="companies[0][company_name]" required><br><br>
+    <input type="text" name="companies[0][company_name]" ><br><br>
 
     <label>Database Name:</label><br>
     <input type="text" name="companies[0][database_name]"><br><br>

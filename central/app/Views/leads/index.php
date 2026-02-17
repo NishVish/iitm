@@ -1,27 +1,26 @@
 <?= view('header') ?>  <!-- loads app/Views/header.php -->
 
-<h2>Leads <form action="<?= site_url('leads/clear') ?>" method="post">
-    <?= csrf_field() ?>
-    <button type="submit" onclick="return confirm('Are you sure you want to delete all leads?');">
-        Clear All Leads
-    </button>
-</form>
-<form action="<?= site_url('leads/add-random') ?>" method="get">
-    <button type="submit" onclick="return confirm('Add a random lead?');">
-        ➕ Add Random Lead
-    </button>
-</form>
+<h2>Leads 
+    <form action="<?= site_url('leads/clear') ?>" method="post" style="display:inline-block; margin-left:20px;">
+        <?= csrf_field() ?>
+        <button type="submit" onclick="return confirm('Are you sure you want to delete all leads?');">
+            Clear All Leads
+        </button>
+    </form>
+    <form action="<?= site_url('leads/add-random') ?>" method="get" style="display:inline-block; margin-left:10px;">
+        <button type="submit" onclick="return confirm('Add a random lead?');">
+            ➕ Add Random Lead
+        </button>
+    </form>
 </h2>
 
 <!-- ================= FILTERS ================= -->
-<form method="get" action="<?= site_url('leads') ?>">
-
+<form method="get" action="<?= site_url('leads') ?>" style="margin-bottom:20px;">
     <!-- Location -->
     <select name="location">
         <option value="">All Locations</option>
         <?php foreach ($locations as $row): ?>
-            <option value="<?= esc($row['location']) ?>"
-                <?= ($filters['location'] === $row['location']) ? 'selected' : '' ?>>
+            <option value="<?= esc($row['location']) ?>" <?= ($filters['location'] === $row['location']) ? 'selected' : '' ?>>
                 <?= esc($row['location']) ?>
             </option>
         <?php endforeach; ?>
@@ -31,8 +30,7 @@
     <select name="year">
         <option value="">All Years</option>
         <?php foreach ($years as $row): ?>
-            <option value="<?= esc($row['exhibition_year']) ?>"
-                <?= ($filters['year'] == $row['exhibition_year']) ? 'selected' : '' ?>>
+            <option value="<?= esc($row['exhibition_year']) ?>" <?= ($filters['year'] == $row['exhibition_year']) ? 'selected' : '' ?>>
                 <?= esc($row['exhibition_year']) ?>
             </option>
         <?php endforeach; ?>
@@ -42,8 +40,7 @@
     <select name="sales_person">
         <option value="">All Sales Persons</option>
         <?php foreach ($salesPersons as $row): ?>
-            <option value="<?= esc($row['sales_person']) ?>"
-                <?= ($filters['sales_person'] === $row['sales_person']) ? 'selected' : '' ?>>
+            <option value="<?= esc($row['sales_person']) ?>" <?= ($filters['sales_person'] === $row['sales_person']) ? 'selected' : '' ?>>
                 <?= esc($row['sales_person']) ?>
             </option>
         <?php endforeach; ?>
@@ -52,7 +49,6 @@
     <button type="submit">Filter</button>
     <a href="<?= site_url('leads') ?>">Reset</a>
 </form>
-
 
 <hr>
 
@@ -64,6 +60,7 @@
             <th>Company</th>
             <th>Location</th>
             <th>Year</th>
+            <th>contact Person</th>
             <th>Sales Person</th>
             <th>Status</th>
             <th>Payment</th>
@@ -76,29 +73,30 @@
                 <tr>
                     <td><?= esc($lead['lead_id']) ?></td>
                     <td><?= esc($lead['company_id']) ?></td>
-                    <td><?= esc($lead['location']) ?></td>
-                    <td><?= esc($lead['exhibition_year']) ?></td>
-                    <td><?= esc($lead['sales_person']) ?></td>
-                    <td><?= esc($lead['status']) ?></td>
-                    <td><?= esc($lead['payment_status']) ?></td>
+                    <!-- Safe check for all_locations -->
+
+                    <td><?= esc($lead['all_locations'] ?? '-') ?></td>
+                    <td><?= esc($lead['exhibition_year'] ?? '-') ?></td>
+                                         <td><?= esc($lead['contact_name']) ?>
+<?= esc($lead['designation']) ?>
+<?= esc($lead['primary_email']) ?>
+<?= esc($lead['primary_mobile']) ?>
+</td>
+
+                    <td><?= esc($lead['sales_person'] ?? '-') ?></td>
+                    <td><?= esc($lead['status'] ?? '-') ?></td>
+                    <td><?= esc($lead['payment_status'] ?? '-') ?></td>
                     <td>
-                        <a href="<?= site_url('lead/details/' . esc($lead['lead_id'])) ?>">
-    View Company
-</a>
-
-                         <!-- New Button: Open Exhibitor Registration -->
-<a href="<?= site_url('booking/instructions/'.$lead['lead_id']) ?>" class="btn btn-success btn-sm">
-    Book Exhibitor
-</a>
-
+                        <a href="<?= site_url('lead/details/' . esc($lead['lead_id'])) ?>">View Company</a>
+                        &nbsp;|&nbsp;
+                        <a href="<?= site_url('booking/instructions/'.$lead['lead_id']) ?>" class="btn btn-success btn-sm">Book Exhibitor</a>
                     </td>
                 </tr>
             <?php endforeach ?>
         <?php else: ?>
             <tr>
-                <td colspan="8">No leads found</td>
+                <td colspan="8" style="text-align:center;">No leads found</td>
             </tr>
         <?php endif ?>
     </tbody>
 </table>
-

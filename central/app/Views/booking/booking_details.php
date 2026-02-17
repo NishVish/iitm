@@ -45,39 +45,87 @@ table tbody tr:hover { background: #f9fbff; }
 }
 </style>
 
-<h2>Step 3: Exhibition Details & Payment</h2>
+<h2>Step 3: Space & Location Details</h2>
 
-<form method="post" action="<?= site_url('booking/processPayment') ?>">
+<form method="post" action="<?= site_url('booking/savebookingdetails/'.$lead['lead_id']) ?>">
 
     <!-- Hidden fields -->
     <input type="hidden" name="lead_id" value="<?= esc($lead['lead_id']) ?>">
     <input type="hidden" name="company_id" value="<?= esc($lead['company_id']) ?>">
 
     <div id="locationsContainer" class="location-container">
+
+<?php if (!empty($savedLocations)): ?>
+
+    <?php foreach ($savedLocations as $index => $row): ?>
         <div class="location-column">
             <label>Exhibition Location</label>
             <select name="locations[]" class="location-select" required>
                 <option value="">-- Select Location --</option>
-                <option value="Chennai">IITM Chennai</option>
-                <option value="Bengaluru">IITM Bengaluru</option>
-                <option value="Pune">IITM Pune</option>
-                <option value="Hyderabad">IITM Hyderabad</option>
-                <option value="Kolkata">IITM Kolkata</option>
-                <option value="Ahmedabad">IITM Ahmedabad</option>
+                <?php
+                $allLocations = ["Chennai","Bengaluru","Pune","Hyderabad","Kolkata","Ahmedabad"];
+                foreach ($allLocations as $loc):
+                ?>
+                    <option value="<?= $loc ?>" 
+                        <?= ($row['location'] == $loc) ? 'selected' : '' ?>>
+                        IITM <?= $loc ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
 
             <label>Stall Size (Sq. M)</label>
             <select name="sizes[]" class="size-select" required>
                 <option value="">-- Select Size --</option>
                 <?php foreach ([4,6,9,12,18,24] as $size): ?>
-                    <option value="<?= $size ?>"><?= $size ?> sqm</option>
+                    <option value="<?= $size ?>" 
+                        <?= ($row['size'] == $size) ? 'selected' : '' ?>>
+                        <?= $size ?> sqm
+                    </option>
                 <?php endforeach; ?>
             </select>
-            <input type="hidden" name="price[]" class="price-input">
 
-            <span class="remove-location" style="display:none;">Remove</span>
+            <input type="hidden" 
+                   name="price[]" 
+                   class="price-input" 
+                   value="<?= esc($row['price']) ?>">
+
+            <span class="remove-location" <?= $index == 0 ? 'style="display:none;"' : '' ?>>
+                Remove
+            </span>
         </div>
+    <?php endforeach; ?>
+
+<?php else: ?>
+
+    <!-- Default empty row -->
+    <div class="location-column">
+        <label>Exhibition Location</label>
+        <select name="locations[]" class="location-select" required>
+            <option value="">-- Select Location --</option>
+            <option value="Chennai">IITM Chennai</option>
+            <option value="Bengaluru">IITM Bengaluru</option>
+            <option value="Pune">IITM Pune</option>
+            <option value="Hyderabad">IITM Hyderabad</option>
+            <option value="Kolkata">IITM Kolkata</option>
+            <option value="Ahmedabad">IITM Ahmedabad</option>
+        </select>
+
+        <label>Stall Size (Sq. M)</label>
+        <select name="sizes[]" class="size-select" required>
+            <option value="">-- Select Size --</option>
+            <?php foreach ([4,6,9,12,18,24] as $size): ?>
+                <option value="<?= $size ?>"><?= $size ?> sqm</option>
+            <?php endforeach; ?>
+        </select>
+
+        <input type="hidden" name="price[]" class="price-input">
+        <span class="remove-location" style="display:none;">Remove</span>
     </div>
+
+<?php endif; ?>
+
+</div>
+
 
     <div class="add-location">+ Add Another Location</div>
 
@@ -104,6 +152,12 @@ table tbody tr:hover { background: #f9fbff; }
 </form>
 
 <script>
+
+    // 🔥 Auto calculate when page loads (for saved data)
+document.addEventListener("DOMContentLoaded", function() {
+    updatePricingTable();
+});
+
 const gstRate = 0.18;
 const locationRates = {
     "Chennai": 32000,
