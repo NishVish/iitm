@@ -5,6 +5,7 @@ use App\Models\ContactModel;
 use App\Models\UpdationModel;
 use App\Models\LeadModel;
 use App\Models\SourceModel;
+use Ramsey\Uuid\Uuid;
 
 class Company extends BaseController
 {
@@ -186,7 +187,8 @@ public function dummyData()
 
     try {
 
-        $company_id = strtoupper('C' . time() . rand(100, 999));
+
+$companyId = Uuid::uuid4()->toString();
         $session_id = $this->companyModel->get_lastSession();
 
         // -----------------------

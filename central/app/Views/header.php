@@ -215,25 +215,12 @@ nav {
         <a href="<?= base_url('index.php/login') ?>">Home</a>
 
         <!-- Backend dropdown -->
-        <div class="dropdown">
             <a href="<?= base_url('backend') ?>" class="dropbtn">Backend</a>
-            <div class="dropdown-content">
-                <a href="<?= base_url('plan') ?>">Plan  </a>
-                        <a href="<?= base_url('games') ?>">Play Games</a>
-                        <a href="<?= base_url('tv') ?>"> TV</a>
-
-                <!-- You can add more backend links here -->
-            </div>
-        </div>
+            
 
         <!-- Companies dropdown -->
-        <div class="dropdown">
             <a href="<?= base_url('company') ?>">Companies</a>
-            <div class="dropdown-content">
-                <a href="<?= base_url('company') ?>">View Companies</a>
-                <a href="<?= base_url('company/add') ?>">Add Companies</a>
-            </div>
-        </div>
+            
 
         <a href="<?= base_url('events') ?>">Events</a>
         <a href="<?= base_url('layout-info') ?>">Layout</a>
@@ -466,28 +453,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <div class="wrapper">
     <!-- Sidebar -->
-<div class="sidebar">
-    
 
-<?php
-$segment1 = service('uri')->getSegment(1);
-?>
-
-   <div class="search-box">
-        <form action="<?= base_url('search') ?>" method="get">
-            <input type="text" name="q" placeholder="Search..." required>
-            <button type="submit">🔍</button>
-        </form>
-    </div>
-    <!-- Companies Section -->
-    <?php if ($segment1 == 'company') : ?>
-        <div class="submenu">
-            <a href="<?= base_url('company') ?>">View Companies</a>
-            <a href="<?= base_url('company/add') ?>">Add Company</a>
-        </div>
-    <?php endif; ?>
-
-</div>
 <style>
     .active {
     font-weight: bold;
@@ -582,4 +548,20 @@ document.addEventListener('mousemove', (e) => {
 });
 </script>
 
-<div class="content">
+
+<div class="sidebar">
+
+
+<div class="search-box">
+    <form action="<?= base_url('search') ?>" method="get">
+        <input type="text" name="q" placeholder="Search..." required>
+        <button type="submit">🔍</button>
+    </form>
+</div>
+
+<style>
+    .submenu{
+        text-align:center;
+        padding-top:20px;
+    }
+</style>

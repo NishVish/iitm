@@ -1,668 +1,216 @@
-<?= view('header') ?>  <!-- loads app/Views/header.php -->
+<?= view('backend/sidemenu') ?>  <!-- loads app/Views/header.php -->
 
 <h1>Company Management System</h1>
 
 <h2>Authentication</h2>
-<p>Only logged-in users can access the system. Redirect to login.html if not logged in.</p>
+<p>Only logged-in users can access the system. Users are redirected to <code>login.html</code> if not authenticated.</p>
 
-<h2>Page 1: Home Page (home.html)</h2>
+<h2>System Pages Overview</h2>
+
+<h3>1. Home Page (<code>home.html</code>)</h3>
 <ul>
-  <li>Header: Logo, user info, logout</li>
-  <li>Sidebar / Navigation: Dashboard, Leads, Exhibitor</li>
-  <li>Content: Welcome message and summary cards (Total Companies, Total Leads, Total Exhibitors)</li>
+  <li>Header with Logo, User Info, and Logout</li>
+  <li>Sidebar Navigation: Dashboard, Leads, Exhibitor</li>
+  <li>Main Content: Welcome message + Summary Cards (Total Companies, Leads, Exhibitors)</li>
 </ul>
 
-<h2>Page 2: Dashboard (dashboard.html)</h2>
+<h3>2. Dashboard (<code>dashboard.html</code>)</h3>
 <ul>
-  <li>Search companies</li>
-  <li>KPI Cards: Total Companies, Hotels, Travel Agents, Total Leads, Total Exhibitors</li>
-  <li>Charts: Companies, Leads, Exhibitors</li>
+  <li>Company Search and Filter</li>
+  <li>KPI Cards: Companies, Hotels, Travel Agents, Leads, Exhibitors</li>
+  <li>Data Visualization: Charts for Companies, Leads, Exhibitors</li>
   <li>Company Details Panel</li>
 </ul>
 
-<h2>Page 3: Location Filter (location-filter.html)</h2>
+<h3>3. Location & Size Filter</h3>
 <ul>
-  <li>Country → State → City filters</li>
-  <li>Results: Companies, Leads, Exhibitors, Hotels, Travel Agents</li>
+  <li>Dropdowns for Location → Size selection</li>
+  <li>Display companies in a table: <strong>Location | Size | Cost</strong></li>
+  <li>Support adding multiple locations dynamically</li>
 </ul>
 
-<h2>Page 4: Company View (companies.html)</h2>
+<h3>4. Company Listing (<code>companies.html</code>)</h3>
 <ul>
   <li>Company table with pagination</li>
-  <li>Search and filters</li>
   <li>Columns: Name, Type, Country, State, City, Hotels, Travel Agents, Leads, Exhibitors, Status</li>
   <li>Actions: View, Edit, Delete</li>
 </ul>
 
-<h2>Common Components</h2>
+<h3>Common Components</h3>
 <ul>
-  <li>Header</li>
-  <li>Sidebar</li>
-  <li>Footer</li>
-  <li>Authentication check</li>
+  <li>Header, Sidebar, Footer</li>
+  <li>Authentication validation</li>
 </ul>
 
-<h2>Suggested File Structure</h2>
+<h3>Suggested File Structure</h3>
 <ul>
-  <li>login.html</li>
-  <li>home.html</li>
-  <li>dashboard.html</li>
-  <li>location-filter.html</li>
-  <li>companies.html</li>
-  <li>css/</li>
-  <li>js/</li>
-  <li>api/</li>
+  <li>login.html, home.html, dashboard.html, location-filter.html, companies.html</li>
+  <li>Directories: <code>css/</code>, <code>js/</code>, <code>api/</code></li>
 </ul>
 
+<hr>
 
-Make the Drop down for location then another drop down for size 
+<h1>Plan 2: Company & Contact Management Workflow</h1>
 
-then show in table format 
-that location is this size is this will cost this much 
+<section>
+<h2>Central Database Management</h2>
+<ul>
+  <li>Design normalized database: Companies, Contacts, Emails, Mobiles</li>
+  <li>Insert bulk data from exhibitions, online sources, and visiting cards</li>
+  <li>Deduplicate, clean, and cross-validate entries</li>
+  <li>Link company, contact, and communication data</li>
+  <li>Maintain audit trails and generate reports</li>
+  <li>Monitor data quality and flag anomalies</li>
+</ul>
+</section>
 
-then add another location 
+<section>
+<h2>Leads & Booking Management</h2>
+<ul>
+  <li>Lead creation and automated assignment to agents</li>
+  <li>Track leads by year, location, and salesperson</li>
+  <li>Maintain booking history and status updates</li>
+  <li>Handle cancellations and rescheduling</li>
+</ul>
+</section>
 
-</body>
-</html>
 
-<h1>Plan 2</h1>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company & Contact Workflow</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #f7f9fc;
-            color: #333;
-        }
-        h1, h2 {
-            color: #2c3e50;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        section {
-            background: #fff;
-            padding: 20px 30px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-        }
-        ul {
-            list-style: disc inside;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        .future {
-            background: #eaf4fc;
-            border-left: 5px solid #3498db;
-            padding-left: 15px;
-        }
-    </style>
-</head>
-<body>
+Event Overview Management System
 
-    <h1>Company & Contact Management Workflow</h1>
+Purpose:
+A centralized system to provide all team members with a clear, unified view of upcoming events, tasks, responsibilities, and vendor details to ensure smooth operations and eliminate communication gaps across departments.
 
-    <!-- Central Database Section -->
-    <section>
-        <h2>Central Database</h2>
-        <ul>
-            <li><strong>Design database schema:</strong> Define tables for companies, contacts, emails, and mobiles.</li>
-            <li><strong>Insert large volumes of data:</strong> Efficient data migration from multiple sources.</li>
-            <li><strong>Deduplicate, clean, and cross-validate:</strong> Detect duplicates, handle missing and messy data.</li>
-            <li><strong>Normalize and link data:</strong> Connect company, contact, email, and mobile information.</li>
-            <li><strong>Maintain audit trails:</strong> Track all changes, merges, and validations.</li>
-            <li><strong>Generate reports:</strong> Basic and advanced reporting on counts, duplicates, and validation status.</li>
-            <li><strong>Monitor data quality:</strong> Track metrics and flag anomalies for review.</li>
-        </ul>
-    </section>
+Key Features / Overview:
 
-    <!-- Leads & Booking Section -->
-    <section>
-        <h2>Leads & Booking</h2>
-        <ul>
-            <li><strong>Create leads:</strong> Automatically or manually using validated central database records.</li>
-            <li><strong>Assign leads:</strong> Allocate leads to agents or teams with priority and tracking.</li>
-            <li><strong>Manage bookings and payments:</strong> Secure, multi-step process for bookings and payments.</li>
-            <li><strong>Track booking history:</strong> Maintain full record of each lead’s booking status.</li>
-            <li><strong>Handle cancellations/modifications:</strong> Support rescheduling or updates to bookings.</li>
-        </ul>
-    </section>
+High-Level Event Planning: Overview of all upcoming events (dates, venues, layouts).
 
-    <!-- Communication & Documentation Section -->
-    <section>
-        <h2>Communication & Documentation</h2>
-        <ul>
-            <li><strong>Share booking details:</strong> Notify customers, teams, and stakeholders.</li>
-            <li><strong>Generate confirmations, invoices, receipts:</strong> Automated documentation for bookings.</li>
-            <li><strong>Maintain documentation:</strong> Ensure compliance and audit-readiness.</li>
-            <li><strong>Provide notifications:</strong> Alerts and reminders for pending actions or follow-ups.</li>
-        </ul>
-    </section>
+Operational Tasks: Track key tasks required for each event.
 
-    <!-- Optional Advanced / Future Steps Section -->
-    <section class="future">
-        <h2>Optional Advanced / Future Steps</h2>
-        <ul>
-            <li><strong>Machine learning:</strong> Suggest merges and detect duplicates automatically.</li>
-            <li><strong>Auto-score records:</strong> Confidence scoring for matches or inconsistencies.</li>
-            <li><strong>Implement versioning:</strong> Track historical changes in company or contact data.</li>
-            <li><strong>Integrate with external systems:</strong> CRM, ERP, or other lead management platforms.</li>
-        </ul>
-    </section>
+Team Responsibilities: Assign who handles which operations (Operations, Sales, Accounts, IT, etc.).
 
+Vendor Management: Centralized list of vendors and the services they provide.
 
+Booking & Participation Tracking: Monitor exhibitor confirmations, allocations, and resources.
 
-    Directory: C:\xampp\htdocs\iitm\central\app\Controllers
+Cross-Department Visibility: Ensures every team member has the same information to reduce errors and overlaps.
 
+Outcome / Benefits:
 
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----        13-02-2026     15:15            825 Authentication.php
--a----        23-01-2026     16:05           1257 Backend.php
--a----        12-12-2025     02:37           1352 BaseController.php
--a----        14-02-2026     15:47           9371 Booking.php
--a----        20-01-2026     15:56           4718 Company copy.php
--a----        16-02-2026     15:25          24622 Company.php
--a----        16-02-2026     15:15          35227 CrossValidation.php
--a----        13-02-2026     15:14           1556 Dashboard.php
--a----        02-02-2026     16:02           3403 DatabaseOperation.php
--a----        20-01-2026     12:36           3243 Events.php
--a----        13-02-2026     15:15            244 Home.php
--a----        20-01-2026     12:11           1232 LayoutInfo.php
--a----        14-02-2026     14:50           6541 Leads.php
--a----        16-01-2026     15:45           1164 Master.php
--a----        21-01-2026     13:58            322 Operations.php
--a----        20-01-2026     17:46           1255 Search.php
+No miscommunication between teams.
 
+Easy tracking of tasks and responsibilities.
 
-PS C:\xampp\htdocs\iitm\central\app\Controllers> c
+Faster decision-making and issue resolution.
 
+Standardized event preparation and execution.
 
-    Directory: C:\xampp\htdocs\iitm\central\app\Models
+Scalable for multiple events and future exhibitions.
 
 
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----        12-12-2025     02:37              0 .gitkeep
--a----        20-01-2026     15:51           3076 CompanyModel copy.php
--a----        04-02-2026     15:09           5747 CompanyModel.php
--a----        27-01-2026     18:14            270 ContactEmailModel.php
--a----        27-01-2026     18:13            274 ContactMobileModel.php
--a----        27-01-2026     18:29           1445 ContactModel.php
--a----        16-01-2026     11:48           1693 Dashboard_model.php
--a----        27-01-2026     10:39            505 DiscussionModel.php
--a----        20-01-2026     12:38           1457 EventModel.php
--a----        16-01-2026     18:38            306 ExhibitionModel.php
--a----        20-01-2026     12:11            810 LayoutInfoModel.php
--a----        14-02-2026     11:36            532 LeadLocationModel.php
--a----        14-02-2026     17:28           4327 LeadModel.php
--a----        16-01-2026     14:23           1164 MasterModel.php
--a----        03-02-2026     12:51            610 MatchingSessionModel.php
--a----        24-01-2026     15:34            304 SourceModel.php
--a----        03-02-2026     12:41            875 UpdationModel.php
+<section>
+<h2>Communication & Documentation</h2>
+<ul>
+  <li>Notify stakeholders with booking updates</li>
+  <li>Generate automated confirmations, invoices, and receipts</li>
+  <li>Ensure documentation is audit-ready</li>
+  <li>Provide alerts for pending actions</li>
+</ul>
+</section>
 
+<section class="future">
+<h2>Advanced / Future Enhancements</h2>
+<ul>
+  <li>Machine Learning: Automatic duplicate detection</li>
+  <li>Confidence Scoring: Auto-score records for validation</li>
+  <li>Versioning: Track historical changes in records</li>
+  <li>External Integrations: CRM, ERP, or other platforms</li>
+</ul>
+</section>
 
-PS C:\xampp\htdocs\iitm\central\app\Models>
+<hr>
 
+<h1>Key Result Areas (KRA)</h1>
 
-    Directory: C:\xampp\htdocs\iitm\central\app\Views
-
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
-d-----        22-01-2026     17:39                backend
-d-----        13-02-2026     18:42                booking
-d-----        09-02-2026     11:50                company
-d-----        06-02-2026     16:04                crossvalidation
-d-----        22-01-2026     17:39                dashboard
-d-----        22-01-2026     17:39                errors
-d-----        22-01-2026     17:39                events
-d-----        05-02-2026     14:22                home
-d-----        22-01-2026     17:39                leads
-d-----        22-01-2026     17:39                search
--a----        16-02-2026     12:59           9390 header.php
--a----        13-02-2026     15:53           3379 login.php
-
-in html page what out plan is what are the pages what are the functino in the pages....
-
-use CodeIgniter\Router\RouteCollection;
-
-/**
- * @var RouteCollection $routes
- */
-
-// Default route (landing page)
-$routes->get('/', 'Home::index');
-$routes->post('login', 'Authentication::login');
-
-// Backend home / admin panel
-$routes->get('backend', 'Backend::index');
-$routes->get('plan', 'Backend::plan');
-$routes->get('backend/sql', 'Backend::sql');
-$routes->post('backend/sql/run', 'Backend::runSql');
-
-
-// ===============================
-// Dashboard routes
-// ===============================
-
-// Dashboard main page
-$routes->get('dashboard', 'Dashboard::index');
-$routes->post('dashboard/search', 'Dashboard::search');
-
-// ===============================
-// Company management routes
-// ===============================
-
-$routes->get('company', 'Company::index');               // Main page
-$routes->post('company/getCities', 'Company::getCities');        // AJAX: get cities by state
-$routes->post('company/filterCompanies', 'Company::filterCompanies');
-
-$routes->get('company/details/(:any)', 'Company::details/$1');
-
-$routes->post('master/filterCompanies', 'Master::filterCompanies');
-
-$routes->get('company', 'Company::index');
-$routes->post('company/compare_popup', 'Company::compare_popup');
-
-// Add new company
-// Show add company form
-$routes->post('company/add_details', 'Company::add_details');
-$routes->get('company/dummy', 'Company::dummyData');
-
-$routes->get('company/add', 'Company::add'); // Show the form
-
-// Preview form data (POST only)
-$routes->post('company/add_check', 'Company::add_check'); 
-
-$routes->post('company/store', 'Company::store');
-
-// Edit company
-$routes->get('company/edit/(:segment)', 'Company::edit/$1');
-$routes->post('company/update/(:segment)', 'Company::update/$1');
-
-// Delete company (optional)
-$routes->post('company/delete/(:segment)', 'Company::delete/$1');
-
-
-// Optional: replace existing company if user chooses
-$routes->post('company/replace/(:num)', 'Company::replace/$1');
-
-// List page after adding
-$routes->get('company/list', 'Company::list');    // Optional: show all companies
-
-$routes->post('company/source_check', 'Company::source_check');
-
-// $routes->post('update/(:segment)', 'Company::update/$1');
-
-
-// Show the add contact form
-$routes->get('contacts/add/(:any)', 'Contacts::add/$1'); 
-// (:any) is for company_id
-
-// Handle the form submission
-$routes->post('contacts/savePerson', 'Company::savePerson');
-
-
-// ===============================
-// Leads / Booking routes
-// ===============================
-$routes->get('leads', 'Leads::index');
-$routes->get('lead/details/(:any)', 'Leads::details/$1');
-// $routes->get('leads/view/(:segment)', 'Leads::view/$1');
-$routes->post('leads/create', 'Leads::createLead');
-$routes->post('leads/store', 'Leads::store');
-$routes->post('leads/clear', 'Leads::clearLeads');
-$routes->get('leads/add-random', 'Leads::addRandomLead');
-
-$routes->post('discussion/add', 'Leads::add');
-
-
-// ===============================
-// Event routes
-// ===============================
-$routes->get('events', 'Events::index');
-$routes->get('events/create', 'Events::create');
-$routes->post('events/store', 'Events::store');
-$routes->get('events/edit/(:num)', 'Events::edit/$1');
-$routes->post('events/update/(:num)', 'Events::update/$1');
-$routes->get('events/delete/(:num)', 'Events::delete/$1');
-
-
-$routes->group('layout-info', function ($routes) {
-    $routes->get('/', 'LayoutInfo::index');          // list layouts
-    $routes->get('create', 'LayoutInfo::create');    // show create form
-    $routes->post('store', 'LayoutInfo::store');     // save layout
-});
-// Negotiation asking for 5000 Less if Booked for 3 Location
-
-// ===============================
-// Payments routes
-// ===============================
-$routes->group('booking', function($routes) {
-
-    // Step 1
-    // $routes->get('instructions', 'Exhibitor::instructions');
-$routes->get('instructions/(:segment)', 'Booking::instructions/$1');
-
-    // Step 2
-    $routes->get('company/(:segment)', 'Booking::company/$1');
-
-    // $routes->get('company/(:num)', 'Exhibitor::company/$1');
-
-    // Step 3
-    // $routes->get('exhibition/(:num)', 'Exhibitor::exhibition/$1');
-    $routes->get('booking_details/(:segment)', 'Booking::booking_details/$1');
-
-    // Payment
-    $routes->post('savebookingdetails/(:segment)', 'Booking::savebookingdetails/$1');
-
-
-    $routes->get('summary/(:num)', 'Booking::summary/$1');
-
-    $routes->get('view', 'Booking::public_view');           // GET: show the form
-    $routes->post('view', 'Booking::show_booking_details'); // POST: process the form
-});
-
-
-
-    // // ===============================
-    // // Exhibitor Booking
-    // // ===============================
-    // $routes->get('exhibitor_booking', 'Booking::exhibitor_bookinginstructions');
-    // $routes->get('exhibitor_booking/stallinfo', 'Booking::stallinfo');
-    // $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
-
-
-
-
-login Home Backend Plan Companies Events Layout Add Companies Leads Crossvalidation Exhibitor Booking View Booking MyPhpAdmin
-Search...
- Search
-⚙️
-Company Management System
-Authentication
-Only logged-in users can access the system. Redirect to login.html if not logged in.
-
-Page 1: Home Page (home.html)
-Header: Logo, user info, logout
-Sidebar / Navigation: Dashboard, Leads, Exhibitor
-Content: Welcome message and summary cards (Total Companies, Total Leads, Total Exhibitors)
-Page 2: Dashboard (dashboard.html)
-Search companies
-KPI Cards: Total Companies, Hotels, Travel Agents, Total Leads, Total Exhibitors
-Charts: Companies, Leads, Exhibitors
-Company Details Panel
-Page 3: Location Filter (location-filter.html)
-Country → State → City filters
-Results: Companies, Leads, Exhibitors, Hotels, Travel Agents
-Page 4: Company View (companies.html)
-Company table with pagination
-Search and filters
-Columns: Name, Type, Country, State, City, Hotels, Travel Agents, Leads, Exhibitors, Status
-Actions: View, Edit, Delete
-Common Components
-Header
-Sidebar
-Footer
-Authentication check
-Suggested File Structure
-login.html
-home.html
-dashboard.html
-location-filter.html
-companies.html
-css/
-js/
-api/
-Make the Drop down for location then another drop down for size then show in table format that location is this size is this will cost this much then add another location
-Plan 2
-Company & Contact Management Workflow
-Central Database
-Design database schema: Define tables for companies, contacts, emails, and mobiles.
-Insert large volumes of data: Efficient data migration from multiple sources.
-Deduplicate, clean, and cross-validate: Detect duplicates, handle missing and messy data.
-Normalize and link data: Connect company, contact, email, and mobile information.
-Maintain audit trails: Track all changes, merges, and validations.
-Generate reports: Basic and advanced reporting on counts, duplicates, and validation status.
-Monitor data quality: Track metrics and flag anomalies for review.
-Leads & Booking
-Create leads: Automatically or manually using validated central database records.
-Assign leads: Allocate leads to agents or teams with priority and tracking.
-Manage bookings and payments: Secure, multi-step process for bookings and payments.
-Track booking history: Maintain full record of each lead’s booking status.
-Handle cancellations/modifications: Support rescheduling or updates to bookings.
-Communication & Documentation
-Share booking details: Notify customers, teams, and stakeholders.
-Generate confirmations, invoices, receipts: Automated documentation for bookings.
-Maintain documentation: Ensure compliance and audit-readiness.
-Provide notifications: Alerts and reminders for pending actions or follow-ups.
-Optional Advanced / Future Steps
-Machine learning: Suggest merges and detect duplicates automatically.
-Auto-score records: Confidence scoring for matches or inconsistencies.
-Implement versioning: Track historical changes in company or contact data.
-Integrate with external systems: CRM, ERP, or other lead management platforms.
-combine them 
-
-<!-- I Think I Need to Make an Operation Page Also
- Branding is True then it will be show to opeation teams
- all the requirement and rates will be shown at final invoice and quotes will be genearte and sent to both parties of the conclusion
- -->
-
-
- <!-- A Backend Page to Store Layout -->
-
- <!-- Show Layout To Exhibitor ask them choose it show them the amount
-  they will send request  -->
-
-  <!-- A Page to Have All The Details About the Exhibition
-   all Exhibitor
-   all Fasica Name
-   Venue B2B 
-   all Template and Emails
-  last Updated Layout Previous Layout 
-  
-  
-  Event ID
-  Days
-  B2B Constrain
-  Year
-  Name
-  Venue Details
-  Venue Booking Details
-  Coordinator
-
-Maketing Templates
-Event ID
-Platform
-Image or images
-Email Formats
-date
-
-
-Layout Info
-Event ID
-pdf or image
-data
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detailed Project Overview | IITM Central System</title>
-    <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --danger: #e74c3c;
-            --light: #ecf0f1;
-        }
-        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; margin: 0; background: #f4f7f9; }
-        .container { max-width: 1100px; margin: 30px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
-        header { border-bottom: 4px solid var(--primary); margin-bottom: 30px; padding-bottom: 10px; }
-        h1 { color: var(--primary); margin: 0; }
-        h2 { color: var(--secondary); border-left: 5px solid var(--secondary); padding-left: 15px; margin-top: 40px; }
-        h3 { color: var(--primary); background: var(--light); padding: 10px; border-radius: 5px; }
-        
-        .workflow-box { display: flex; justify-content: space-between; gap: 20px; margin: 20px 0; }
-        .step { flex: 1; background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; }
-        
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 1px solid #dfe6e9; padding: 12px; text-align: left; }
-        th { background: var(--primary); color: white; }
-        tr:nth-child(even) { background: #f9f9f9; }
-        
-        .code-block { background: #2d3436; color: #fab1a0; padding: 15px; border-radius: 6px; font-family: monospace; overflow-x: auto; }
-        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
-        .badge-logic { background: #ffeaa7; color: #d35400; }
-        
-        .op-section { border: 2px dashed var(--warning); padding: 20px; border-radius: 10px; margin-top: 20px; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
-        <h1>Company & Exhibition Management System</h1>
-        <p><strong>Version:</strong> 2.0 | <strong>Framework:</strong> CodeIgniter 4 | <strong>Status:</strong> Operational & Scalable</p>
-    </header>
-
-    <section>
-        <h2>1. System Architecture & Routing</h2>
-        <p>The system follows a strict MVC pattern to separate data integrity from user interaction. Below is the technical file mapping for core functions:</p>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Module</th>
-                    <th>Controller</th>
-                    <th>Model</th>
-                    <th>Key Functionality</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Auth</strong></td>
-                    <td>Authentication.php</td>
-                    <td>-</td>
-                    <td>Session-based login/redirect security.</td>
-                </tr>
-                <tr>
-                    <td><strong>Data Quality</strong></td>
-                    <td>CrossValidation.php</td>
-                    <td>MatchingSessionModel</td>
-                    <td>Deduplication (Company/Contact/Mobile).</td>
-                </tr>
-                <tr>
-                    <td><strong>Booking</strong></td>
-                    <td>Booking.php</td>
-                    <td>LeadLocationModel</td>
-                    <td>Multi-step stall booking wizard.</td>
-                </tr>
-                <tr>
-                    <td><strong>Ops</strong></td>
-                    <td>LayoutInfo.php</td>
-                    <td>LayoutInfoModel</td>
-                    <td>Floor plans, PDF assets, and Venue details.</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <section>
-        <h2>2. Dynamic Calculator & Discount Logic</h2>
-        <p>This module handles real-time cost calculation for exhibitors based on their physical footprint across various events.</p>
-        
-        <h3>The "Stall & Size" Logic</h3>
-        <ul>
-            <li><strong>Step 1:</strong> Select Location via Dropdown (fetches rates from <code>LeadLocationModel</code>).</li>
-            <li><strong>Step 2:</strong> Select Size via Dropdown (Standard: 9sqm, 12sqm, 18sqm, etc.).</li>
-            <li><strong>Step 3:</strong> <code>Booking::savebookingdetails</code> calculates: 
-                <span class="code-block">Total = (Location_Rate * Size_Multiplier)</span>
-            </li>
-        </ul>
-
-        <div class="op-section">
-            <span class="badge badge-logic">CRITICAL LOGIC: Multi-Location Discount</span>
-            <p>If the user adds <strong>3 or more locations</strong> to their cart, the system triggers a <strong>Negotiation Rule</strong>: 
-            A flat reduction of <strong>5,000</strong> is applied to the final invoice total.</p>
-        </div>
-    </section>
-
-    <section>
-        <h2>3. Operations Team Workflow</h2>
-        <p>When the <strong>Branding</strong> flag is active, the system opens the Operations portal. This ensures that the conclusion of a sale transitions smoothly into event execution.</p>
-        
-        <div class="workflow-box">
-            <div class="step">
-                <strong>Fascia Name</strong><br>
-                <small>Exhibitor input for stall header printing.</small>
-            </div>
-            <div class="step">
-                <strong>Layout Choice</strong><br>
-                <small>PDF/Image selection mapped to Event ID.</small>
-            </div>
-            <div class="step">
-                <strong>Quotes & Invoices</strong><br>
-                <small>Auto-generated PDF sent to both parties.</small>
-            </div>
-        </div>
-
-        <h3>Event Metadata Storage</h3>
-        <p>The <code>Events</code> and <code>LayoutInfo</code> modules store the "Physical Reality" of the exhibition:</p>
-        <ul>
-            <li><strong>Venue Details:</strong> Booking dates, Coordinator contacts, and B2B Constraints.</li>
-            <li><strong>Marketing Assets:</strong> Image templates and specific Email formats for the Event ID.</li>
-            <li><strong>Layout History:</strong> Tracks <em>"Previous Layout"</em> vs <em>"Last Updated"</em> to prevent version conflicts.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>4. Database Lifecycle</h2>
-        <p>How a record moves through the system:</p>
-        <ol>
-            <li><strong>Import:</strong> Raw data enters via <code>Backend::index</code>.</li>
-            <li><strong>Cleanse:</strong> <code>CrossValidation</code> flags duplicates.</li>
-            <li><strong>Lead Generation:</strong> <code>Leads::createLead</code> converts validated data into active prospects.</li>
-            <li><strong>Booking:</strong> Exhibitor uses the Public View to select stalls and see the dynamic amount.</li>
-            <li><strong>Execution:</strong> Operations uses <code>LayoutInfo</code> to finalize the floor plan and fascia.</li>
-        </ol>
-        
-        
-    </section>
-
-    <section style="background: #fff5f5; padding: 20px; border-radius: 10px; border: 1px solid #feb2b2;">
-        <h2 style="color: var(--danger); border-color: var(--danger);">5. Maintenance & Database Controls</h2>
-        <p>Specific routes in <code>DatabaseOperation.php</code> allow for mass management:</p>
-        <ul>
-            <li><code>db/clear-matching</code>: Flushes deduplication tables (Safe).</li>
-            <li><code>db/clear-non-financial</code>: Removes leads/companies but keeps payment records (Medium Risk).</li>
-            <li><code>db/wipe-all</code>: Complete system reset (Extreme Risk).</li>
-        </ul>
-    </section>
-
-    <footer style="text-align: center; margin-top: 50px; color: #95a5a6; font-size: 0.9em;">
-        <hr>
-        <p>IITM Company Management System Overview &copy; 2026</p>
-    </footer>
+<section>
+<details>
+<summary>Exhibition Registration & Badge Management</summary>
+<ul>
+  <li>On-site registration setup and badge printing</li>
+  <li>Real-time badge generation with troubleshooting</li>
+</ul>
+<div class="outcome">
+<strong>Key Outcomes:</strong>
+<ul>
+  <li>Zero registration downtime</li>
+  <li>Accurate badge issuance</li>
+  <li>Enhanced exhibitor & volunteer experience</li>
+</ul>
 </div>
+</details>
 
-</body>
-</html>
+<details>
+<summary>Database Management & Validation</summary>
+<ul>
+  <li>Maintain central database with cross-validation</li>
+  <li>Clean and standardize data from multiple sources</li>
+  <li>Correct bounced emails and incomplete records</li>
+</ul>
+<div class="outcome">
+<strong>Key Outcomes:</strong>
+<ul>
+  <li>High accuracy, reduced duplication</li>
+  <li>Reliable reporting base</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>Lead Management System</summary>
+<ul>
+  <li>Centralized system for leads tracking</li>
+  <li>Lead allocation by year, location, salesperson</li>
+  <li>Standardized booking workflow</li>
+</ul>
+<div class="outcome">
+<strong>Key Outcomes:</strong>
+<ul>
+  <li>Transparent lead allocation</li>
+  <li>No duplication or conflicts</li>
+  <li>Improved conversion tracking</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>CodeIgniter 4 Development</summary>
+<ul>
+  <li>Internal system development with CI4</li>
+  <li>Database integration, QR code generation, directory systems</li>
+  <li>Maintain scalable internal web applications</li>
+</ul>
+<div class="outcome">
+<strong>Key Outcomes:</strong>
+<ul>
+  <li>Automation of manual processes</li>
+  <li>Improved operational efficiency</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>Operational & Technical Support</summary>
+<ul>
+  <li>Assist with event coordination, attendance, and presentations</li>
+  <li>Enter visiting card data into systems</li>
+</ul>
+<div class="outcome">
+<strong>Key Outcomes:</strong>
+<ul>
+  <li>Smooth event operations</li>
+  <li>Accurate attendance and reporting</li>
+</ul>
+</div>
+</details>
+</section>
+
+<hr>

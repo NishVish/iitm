@@ -12,14 +12,20 @@ $routes->post('login', 'Authentication::login');
 $routes->get('login', 'Dashboard::index');
 
 // Backend home / admin panel
-$routes->get('backend', 'Backend::index');
-$routes->get('plan', 'Backend::plan');
-$routes->get('backend/sql', 'Backend::sql');
-$routes->get('games', 'Backend::games');
-$routes->get('tv', 'Backend::tv');
+$routes->get('project_summary', 'Backend::project_summary_main');
+$routes->get('profile', 'Backend::profile_main');
 
-$routes->post('backend/sql/run', 'Backend::runSql');
 
+$routes->group('backend', function($routes) {
+    $routes->get('', 'Backend::index');                   // backend/ → dashboard/home
+    $routes->get('plan', 'Backend::plan');               // backend/plan
+    $routes->get('sql', 'Backend::sql');                 // backend/sql
+    $routes->post('sql/run', 'Backend::runSql');         // backend/sql/run
+    $routes->get('games', 'Backend::games');             // backend/games
+    $routes->get('tv', 'Backend::tv');                   // backend/tv
+    $routes->get('project_summary', 'Backend::project_summary'); // backend/project_summary
+    $routes->get('profile', 'Backend::profile');         // backend/profile
+});
 
 // ===============================
 // Dashboard routes

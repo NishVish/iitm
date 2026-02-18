@@ -1,4 +1,7 @@
-<?= view('header') ?>  <!-- loads app/Views/header.php -->
+
+
+<?= view('backend/sidemenu') ?>  <!-- loads app/Views/header.php -->
+
 
     <h1>Database Schema | <a href="<?= site_url('backend/sql') ?>" class="btn btn-primary">
     SQL Runner
@@ -26,6 +29,8 @@
             <?php endforeach; ?>
         </table>
     <?php endforeach; ?>
+my hr has asked me give over view of what i do so i have this table and schema 
+our company is travel and toursim exhibiton organizig company and i am implementing this system there is nothing previously i am making the transition from excel to sql and system....
 
 </body>
 </html>

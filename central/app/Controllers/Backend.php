@@ -62,7 +62,25 @@ class Backend extends BaseController
 {
     return view('backend/tv');
 }
+public function project_summary()
+    {
+        return view('backend/project_summary');
+    }
 
+    public function profile()
+    {
+        return view('backend/profile');
+    }
+
+    public function project_summary_main()
+    {
+        return view('backend/personal/project_summary');
+    }
+
+    public function profile_main()
+    {
+        return view('backend/personal/profile');
+    }
 
 
 }

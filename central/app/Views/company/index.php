@@ -1,11 +1,15 @@
 <?= view('header') ?>
 
-<div class="page-header">
-    <div class="title-section">
-        <h1>All Companies</h1>
-    </div>
 
-    <div class="action-section">
+<?php
+$segment1 = service('uri')->getSegment(1);
+?>
+<!-- Companies Section -->
+<?php if ($segment1 == 'company') : ?>
+    <div class="submenu">
+        <a href="<?= base_url('company') ?>">View Companies</a>
+        <a href="<?= base_url('company/add') ?>">Add Company</a>
+        
         <a href="<?= site_url('clear-matching') ?>" class="action-btn danger">Clear Matching</a>
         <a href="<?= site_url('clear-contacts') ?>" class="action-btn danger">Clear Contacts</a>
         <a href="<?= site_url('clear-companies') ?>" class="action-btn danger">Clear Companies</a>
@@ -27,8 +31,17 @@ insert Data        </a>
         <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">
             Clear Contact Matches
         </a>
+        <button type="button" id="compareBtn">Compare Selected</button>
+
     </div>
+<?php endif; ?>
+
+
+
 </div>
+<div class="content">
+
+
 <style>
     /* Page Header */
 .page-header {
@@ -93,9 +106,10 @@ insert Data        </a>
 
 /* Filter Section */
 .filter-section {
+        width: 100%;
     background: #ffffff;
-    padding: 20px;
-    margin: 20px;
+    padding:auto;
+    margin-top: 20px;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
@@ -128,7 +142,7 @@ insert Data        </a>
 }
 /* Company Table */
 .company-table {
-    width: 95%;
+    width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
     background: #fff;
@@ -217,39 +231,29 @@ insert Data        </a>
 
 
 
-<h3>Filter by City</h3>
-<div class="filter-section"
- id="cities">
+<div class="filter-section" id="cities">
+    <h3>Filter by City</h3>
+<div id="cities">
+</div>
+
     <button class="btn city-btn" data-city="">All</button>
 </div>
 
-<h3>Companies</h3>
-<form id="compareForm">     <button type="button" id="compareBtn">Compare Selected</button>
+<form id="compareForm">    
+    
 
-<table id="company-table" class="company-table">
-        <thead>
-            <tr>
-                <th>Main</th>
-                <th>Compare</th>
-                <th>Session</th>
-                <th>Company Name</th>
-                <th>Category</th>
-                <th>City</th>
-                <th>State</th>
-                <th style="text-align:center"><span style="text-align:center"> Contact Detials</span></th>
-                    
-            </tr>
-        </thead>
+<table id="company-table" class="company-table" style="table-layout: fixed; width: 100%;">
+    <thead>
+        <tr>
+            <th style="width:2%;">Main</th>
+            <th style="width:2%;">Compare</th>
+            <th style="width:15%;">Company Name</th>
+            <th style="width:5%;">City/State</th>
+            <th style="width:auto; text-align:center;">Contact Details</th>
+        </tr>
+    </thead>
         <tbody>
-            <?php foreach($companies as $c): ?>
-<tr onclick="window.location='<?= site_url('company/details/'.$c['company_id']) ?>'" 
-    style="cursor:pointer;">                    <td><input type="radio" name="main_id" value="<?= esc($c['company_id']) ?>"></td>
-                    <td><input type="radio" name="compare_id" value="<?= esc($c['company_id']) ?>"></td>
-                    <td><?= esc($c['session']) ?></td>
-                    <td>
-    <?= esc($c['company_name']) ?>
-
-<style>
+            <style>
     .plain-link {
         color: inherit;       /* Keep the text color same as surrounding text */
         text-decoration: none; /* Remove underline */
@@ -261,10 +265,21 @@ insert Data        </a>
     }
 </style>
 
-                    </td>
-                    <td><?= esc($c['category']) ?></td>
-                    <td><?= esc($c['city']) ?></td>
-                    <td><?= esc($c['state']) ?></td>
+
+            <?php foreach($companies as $c): ?>
+                        <tr onclick="window.location='<?= site_url('company/details/'.$c['company_id']) ?>'" style="cursor:pointer;">                    
+                        <td>
+                        <input type="radio" name="main_id" value="<?= esc($c['company_id']) ?>" onclick="event.stopPropagation()">
+                        </td>
+                        <td>
+                        <input type="radio" name="compare_id" value="<?= esc($c['company_id']) ?>" onclick="event.stopPropagation()">
+                        </td>
+                        <!-- <td><?= esc($c['session']) ?></td> -->
+                            <td>
+                      <?= esc($c['company_name']) ?>  <br>
+                    (<?= esc($c['category']) ?>)</td>
+                        <td><?= esc($c['city']) ?> <br>
+                <?= esc($c['state']) ?></td>
 <td style="text-align:center; vertical-align:middle; 
            display:flex; justify-content:center; 
            align-items:center; flex-direction:column;">

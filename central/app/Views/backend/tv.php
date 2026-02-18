@@ -1,4 +1,5 @@
-<?= view('header') ?>
+<?= view('backend/sidemenu') ?>  <!-- loads app/Views/header.php -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

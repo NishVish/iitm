@@ -1,4 +1,5 @@
-<?= view('header') ?>  <!-- loads app/Views/header.php -->
+<?= view('backend/sidemenu') ?>  <!-- loads app/Views/header.php -->
+
 
 
 <h2>SQL Query Runner</h2>
