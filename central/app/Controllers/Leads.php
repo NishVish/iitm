@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\LeadModel;
+use App\Models\LeadLocationModel;
 use App\Models\CompanyModel;
 use App\Models\ContactModel;
 use App\Models\UpdationModel;
@@ -202,15 +203,34 @@ public function add()
     return redirect()->back()->with('status', '✅ Discussion added successfully');
 }
 
+
 public function clearLeads()
 {
-    $leadModel = new \App\Models\LeadModel();
+    // Connect to DB service
+    $db = \Config\Database::connect();
 
-    // Truncate the leads table
-    $leadModel->truncate();
+    // Wrap in a transaction
+    $db->transStart();
 
-    // Redirect back with a flash message
-    return redirect()->back()->with('status', '✅ All leads have been cleared successfully.');
+    // Disable foreign key checks temporarily
+    $db->query('SET FOREIGN_KEY_CHECKS=0');
+
+    // Truncate child table first
+    $db->table('lead_locations')->truncate();
+
+    // Then truncate parent table
+    $db->table('leads')->truncate();
+
+    // Re-enable foreign key checks
+    $db->query('SET FOREIGN_KEY_CHECKS=1');
+
+    $db->transComplete();
+
+    if ($db->transStatus() === false) {
+        return redirect()->back()->with('status', '❌ Failed to clear leads.');
+    }
+
+    return redirect()->to(base_url('company'));
 }
 
 public function addRandomLead()

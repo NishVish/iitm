@@ -201,4 +201,68 @@ public function mergeCompanies($existingId, $newId)
     // 3. Set new company as inactive
 }
 
+public function getCompanies2($search = null)
+{
+    $builder = $this->db->table('company_data');
+    $builder->select('company_id, company_name, category, city'); // include category
+    if ($search) {
+        $builder->like('company_name', $search);
+    }
+    return $builder->get()->getResult();
+}
+
+
+ public function getCompanyStatistics()
+    {
+        $db = $this->db;
+
+        // Count by state and category
+        $builder = $db->table($this->table);
+        $builder->select('state, category, COUNT(*) as total_count,
+                          SUM(CASE WHEN category="Travel Agent" THEN 1 ELSE 0 END) AS travel_agents,
+                          SUM(CASE WHEN category="Hotel" THEN 1 ELSE 0 END) AS hotels');
+        $builder->groupBy(['state','category']);
+        return $builder->get()->getResult();
+    }
+
+    // -------------------------------
+    // Get duplicate companies
+    // -------------------------------
+public function getDuplicateCompanies()
+{
+    $builder = $this->db->table('company_data');
+    $builder->select('company_name, category, COUNT(*) as total');
+    $builder->groupBy('company_name, category');
+    $builder->having('total >', 1);
+    return $builder->get()->getResultArray();
+}
+
+public function getDuplicateCompaniesCount()
+{
+    $builder = $this->db->table('company_data');
+    $builder->select('COUNT(*) AS total_duplicates')
+            ->groupBy('company_name')
+            ->having('COUNT(*) > 1');
+
+    $result = $builder->get()->getResultArray();
+
+    // Sum all duplicate entries
+    $sum = 0;
+    foreach ($result as $row) {
+        $sum += $row['total_duplicates'];
+    }
+
+    return $sum;
+}
+
+
+
+
+
+
+
+
+
+
+
 }

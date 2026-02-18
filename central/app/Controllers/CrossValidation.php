@@ -170,201 +170,93 @@ class CrossValidation extends Controller
                 $dbCity = $dbRow['city'];
                 $dbPin = $dbRow['pincode'];
 
-                // Scores
-                $nameScore = $this->fuzzyMatch($newName, $dbName);
-                $addressScore = $this->fuzzyMatch($newAddress, $dbAddress);
-                $cityScore = $this->fuzzyMatch($newCity, $dbCity);
-                if ($newPin === $dbPin) {
-                    // If both are the same (including both empty), score 100
-                    $pinScore = 100;
-                } elseif ($newPin === '' && $dbPin === '') {
-                    // Both empty → also 100
-                    $pinScore = 100;
-                } else {
-                    $pinScore = 0;
-                }
+// 1. Calculate Scores
+$nameScore    = $this->fuzzyMatch($newName, $dbName);
+$addressScore = $this->fuzzyMatch($newAddress, $dbAddress);
+$cityScore    = $this->fuzzyMatch($newCity, $dbCity);
 
-                $pinScore = ($newPin === $dbPin && $newPin !== '') ? 100 : 0;
-                $totalScore = round(($nameScore + $addressScore + $pinScore) / 3);
+// Simplified Pin Score: 100 if identical, 0 otherwise (handles empty strings naturally)
+$pinScore     = ($newPin === $dbPin) ? 100 : 0;
 
-                // Match type
-                if ($nameScore === 100 && $addressScore === 100 && $pinScore === 100) {
-                    $matchingType = 'exact match';
-                } elseif ($totalScore >= 50) {
-                    $matchingType = 'partial match';
-                } else {
-                    $matchingType = 'no match';
-                }
-                // echo $newId. "sss" . $dbId;
-                
-            $companyOverwrite = True;
+// Total average
+$totalScore   = round(($nameScore + $addressScore + $cityScore + $pinScore) / 4);
 
-            // -------------------- Step 1: Minimum eligibility --------------------
-            $passesMinimum =
-                $companyOverwrite &&
-                $nameScore >= 70 &&
-                $addressScore >= 50 &&
-                $pinScore >= 50;
+// 2. Determine Match Type
+if ($nameScore === 100 && $addressScore === 100 && $pinScore === 100) {
+    $matchingType = 'exact match';
+} else {
+    $matchingType = ($totalScore >= 50) ? 'partial match' : 'no match';
+}
 
-            if ($passesMinimum) {
+$companyOverwrite = true;
 
-                // -------------------- Step 2: Strong match → overwrite --------------------
-                $isStrongMatch =
-                    $nameScore >= 80 &&
-                    $addressScore >= 60 &&
-                    $pinScore === 100;
+// 3. Logic Gates
+// Thresholds for automatic overwriting
+$passesMinimum = $companyOverwrite && 
+                 $nameScore >= 85 && 
+                 $addressScore >= 70 && 
+                 $cityScore >= 80 && 
+                 $pinScore === 100;
 
-                if ($isStrongMatch) {
-                    $this->overwriteCompany($newId, $dbId);
-                } 
-                // -------------------- Step 3: Weak/medium match → store for manual validation --------------------
-                elseif ($matchingType !== 'no match' && !$dbRow['cross_validation']) {
-                    $db->table('matching_session')->insert([
-                        'company_id'           => $newId,
-                        'matching_company_id'  => $dbId,
-                        'matching_type'        => $matchingType,
-                        'name'                 => $nameScore,
-                        'address'              => $addressScore,
-                        'city'                 => $addressScore,
-                        'pin'                  => $pinScore,
-                    ]);
-                }
+$isStrongMatch = $nameScore >= 80 && 
+                 $addressScore >= 60 && 
+                 $pinScore === 100;
 
-            }elseif( $companyOverwrite != True){
-                if ($matchingType !== 'no match' && !$dbRow['cross_validation']) {
-                    $db->table('matching_session')->insert([
-                        'company_id'           => $newId,
-                        'matching_company_id'  => $dbId,
-                        'matching_type'        => $matchingType,
-                        'name'                 => $nameScore,
-                        'address'              => $addressScore,
-                        'city'                 => $addressScore,
-                        'pin'                  => $pinScore,
-                    ]);
-                }
-            } // end passesMinimum check
-        }
+if ($passesMinimum && $isStrongMatch) {
+    // AUTO-OVERWRITE
+    $this->overwriteCompany($newId, $dbId);
+} 
+elseif ($matchingType !== 'no match' && !($dbRow['cross_validation'] ?? false)) {
+    // LOG FOR MANUAL REVIEW
+    // This catches cases where:
+    // a) passesMinimum is false OR isStrongMatch is false
+    // b) companyOverwrite is false
+    $db->table('matching_session')->insert([
+        'company_id'          => $newId,
+        'matching_company_id' => $dbId,
+        'matching_type'       => $matchingType,
+        'name'                => $nameScore,
+        'address'             => $addressScore,
+        'city'                => $cityScore, // Fixed: was addressScore
+        'pin'                 => $pinScore,
+    ]);
+}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            }
     }
-// Debug here
+
+
+ // After your matching loop finishes
+$matchingCount = $db->table('matching_session')->countAllResults();
+
+if ($matchingCount === 0) {
+    // No entries → redirect to company page
+    return redirect()->to(base_url('company'));
+}
+    return $this->index();
+
 // echo "Comparing $newId vs $dbId → $matchingType (Name=$nameScore, Address=$addressScore, Pin=$pinScore, Total=$totalScore)";
 // exit;
     // -------------------- 3. Return results --------------------
-return redirect()->to(site_url('/crossvalidation'));
+
+
+
 }
 
 
-
-   public function contactCrossValidationc()
-    {
-    $db = \Config\Database::connect();
-
-    // Clear previous matches
-
-    // Fetch all contacts
-    $contacts = $this->contactModel->findAll();
-    $countContacts = count($contacts);
-
-    // Fetch all emails
-    $emailRows = $db->table('contact_email')->get()->getResultArray();
-    $emails = [];
-    foreach ($emailRows as $row) {
-        $emails[$row['contact_id']][] = $row['email'];
-    }
-
-    // Fetch all mobiles
-    $mobileRows = $db->table('contact_mobile')->get()->getResultArray();
-    $mobiles = [];
-    foreach ($mobileRows as $row) {
-        $mobiles[$row['contact_id']][] = $row['mobile'];
-    }
-
-    for ($i = 0; $i < $countContacts; $i++) {
-        $newCID = $newContact['company_id'];
-        $newContact = $contacts[$i];
-        $newId = $newContact['contact_id'];
-        $newName = $newContact['name'];
-        $newDesignation = $newContact['designation'];
-        $newEmails = $emails[$newId] ?? [];
-        $newMobiles = $mobiles[$newId] ?? [];
-        $newCompanyId = $newContact['company_id'];
-
-        for ($j = 0; $j < $countContacts; $j++) {
-            $dbContact = $contacts[$j];
-                    $dbCID = $dbContact['company_id'];
-
-            $dbId = $dbContact['contact_id'];
-
-            if ($newId >= $dbId) continue; // skip self & mirror
-
-
-
-            $dbName = $dbContact['name'];
-            $dbDesignation = $dbContact['designation'];
-            $dbEmails = $emails[$dbId] ?? [];
-            $dbMobiles = $mobiles[$dbId] ?? [];
-            $dbCompanyId = $dbContact['company_id'];
-
-            // Scores
-            $nameScore = $this->fuzzyMatch($newName, $dbName);
-            $designationScore = $this->fuzzyMatch($newDesignation, $dbDesignation);
-
-            // Email match (exact match with any email)
-            $emailScore = 0;
-            foreach ($newEmails as $ne) {
-                foreach ($dbEmails as $de) {
-                    if (strtolower($ne) === strtolower($de)) {
-                        $emailScore = 100;
-                        break 2;
-                    }
-                }
-            }
-
-            // Mobile match (exact match with any mobile)
-            $mobileScore = 0;
-            foreach ($newMobiles as $nm) {
-                foreach ($dbMobiles as $dm) {
-                    if ($nm === $dm) {
-                        $mobileScore = 100;
-                        break 2;
-                    }
-                }
-            }
-
-            $totalScore = round(($nameScore + $designationScore + $emailScore + $mobileScore) / 4);
-            // if ($dbContact == $newCID && $nameScore === 100 && $designationScore === 100 && $emailScore === 100 && $mobileScore === 100) {
-            //     its a complete duplicate Remove this dbCID
-
-            // }
-            // if dbcontact == newCid name is also matching but if some email are mating or somenot then insert it same for mobile
-
-            // Match type
-            if ($nameScore === 100 && $designationScore === 100 && $emailScore === 100 && $mobileScore === 100) {
-                $matchingType = 'exact match';
-            } elseif ($totalScore >= 50) {
-                $matchingType = 'partial match';
-            } else {
-                $matchingType = 'no match';
-            }
-
-            if ($matchingType !== 'no match') {
-                $db->table('matching_contact_session')->insert([
-                    'contact_id' => $newId,
-                    'matching_contact_id' => $dbId,
-                    'company_id' => $newCompanyId,
-                    'matching_company_id' => $dbCompanyId,
-                    'matching_type' => $matchingType,
-                    'name' => $nameScore,
-                    'designation' => $designationScore,
-                    'email' => $emailScore,
-                    'mobile' => $mobileScore
-                ]);
-            }
-
-        }
-    }
-
-    return $this->index(); // show the results
-}
 
 
 public function contactCrossValidation()
@@ -442,7 +334,7 @@ public function contactCrossValidation()
 
     $db->transComplete();
 
-    return redirect()->back()->with('status', '✅ Merged duplicates: ' . count($deletedIds));
+return redirect()->to(site_url('company'));
 }
 
 
@@ -979,6 +871,12 @@ public function breakMultipleContacts()
     return "✅ Contacts split successfully. Created " . count($newContacts) . " new contacts.";
 }
 
+
+// Case 1 exhact company name and Address and pin and city 
+
+// case 2  exhaction comapny name but address is differnt
+
+// case 3 exhact company name and address and city but differnt city 
 
 
 

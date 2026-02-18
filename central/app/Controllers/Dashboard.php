@@ -17,10 +17,9 @@ class Dashboard extends BaseController
 
 public function index()
 {
-    // Counts by state
     $count_by_state = $this->companyModel->getCountsByStateCategory();
 
-    // Calculate totals
+    // Totals
     $total_companies = 0;
     $total_travel_agents = 0;
     $total_hotels = 0;
@@ -31,10 +30,7 @@ public function index()
     }
 
     $data = [
-        // 'total_companies' => $total_companies,
-        // 'total_leads' => $this->leadModel->getTotalLeads(),
-        // 'payment_summary' => $this->leadModel->getPaymentSummary(),
-        'companies' => $this->companyModel->getCompanies(),
+        'duplicate_companies_count' => $this->companyModel->getDuplicateCompaniesCount(),
         'count_by_state' => $count_by_state,
         'totals' => [
             'total_companies' => $total_companies,
@@ -47,12 +43,20 @@ public function index()
 }
 
 
+
+
+
+
     // AJAX company search
 public function search()
 {
     $search = $this->request->getPost('search');
-    $companies = $this->companyModel->getCompanies($search);
+    $companies = $this->companyModel->getCompanies2($search);
     return $this->response->setJSON($companies);
 }
+
+
+
+
 
 }

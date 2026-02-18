@@ -332,7 +332,6 @@ insert Data        </a>
         </tbody>
     </table>
 
-    <button type="button" id="compareBtn">Compare Selected</button>
 </form>
 
 

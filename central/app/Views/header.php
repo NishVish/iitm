@@ -15,14 +15,22 @@
 }
 
 
+
         body { 
             font-family: Arial, sans-serif; 
             margin: 0; 
     background-color: var(--body-color);
+    
         }
+nav {
+    position: sticky; /* or 'fixed' */
+    top: 0;
+    z-index: 1000; /* stay above content */
+}
 
         /* Navigation bar */
         nav { 
+            
     background: var(--nav-color);
             padding: 12px 20px; 
             color: white; 
@@ -45,36 +53,7 @@
             color: #ffb3b3; /* light pink hover for contrast */
         }
 
-        /* Search box styling */
-        .search-box input[type="text"] { 
-            padding: 6px 10px; 
-            border-radius: 8px; 
-            border: none; 
-            outline: none;
-            width: 180px;
-            transition: all 0.3s ease;
-        }
 
-        .search-box input[type="text"]:focus {
-            box-shadow: 0 0 8px rgba(168, 35, 36, 0.7); /* glow effect in red palette */
-        }
-
-        .search-box button { 
-            padding: 6px 12px; 
-            border: none; 
-            border-radius: 8px; 
-    background: var(--button-color);
-            color: #fff; 
-            cursor: pointer; 
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .search-box button:hover { 
-            background: #8b1d20; /* darker red hover */
-            transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-        }
 
         /* Content area */
         .content { 
@@ -268,12 +247,7 @@
 
     </div>
     <!-- Search box -->
-    <div class="search-box">
-        <form action="<?= base_url('search') ?>" method="get">
-            <input type="text" name="q" placeholder="Search..." required>
-            <button type="submit">Search</button>
-        </form>
-    </div>
+ 
     <button id="openTheme" style="margin-left:15px;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;">
 ⚙️</button>
 
@@ -318,21 +292,6 @@
         <button id="resetTheme" class="reset-btn">Reset to Default</button>
     </div>
 </div>
-<?php
-echo "<p>";
-
-// Run ipconfig
-$output = shell_exec('ipconfig');
-
-// Search for IPv4 address using regex
-if (preg_match('/IPv4 Address[.\s]*:\s*([\d\.]+)/', $output, $matches)) {
-    echo $matches[1]."/iitm/central/";
-} else {
-    echo "IPv4 Address not found";
-}
-
-echo "</p>";
-?>
 
 
 <script>
@@ -412,5 +371,215 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<style>
+/* Flex container for sidebar + main content */
+.wrapper {
+    display: flex;
+    min-height: 100vh; /* full viewport height */
+}
+
+/* Left sidebar styling */
+.sidebar {
+    width: 220px;
+    background-color: var(--nav-color);
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #8b1d20;
+}
+
+/* Main content area */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: var(--body-color);
+}
+.sidebar {
+    position: sticky;
+    top: 50px; /* leave space for the nav */
+    height: calc(100vh - 60px); /* full viewport height minus nav */
+    overflow-y: auto; /* scroll if content exceeds height */
+}
+
+/* Responsive: collapse sidebar on small screens */
+@media(max-width: 768px){
+    .wrapper {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+    }
+}
+
+
+        /* Search box styling */
+        .search-box input[type="text"] { 
+            padding: 6px 10px; 
+            border-radius: 8px; 
+            border: none; 
+            outline: none;
+            width: 70%;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input[type="text"]:focus {
+            box-shadow: 0 0 8px rgba(168, 35, 36, 0.7); /* glow effect in red palette */
+        }
+
+        .search-box button { 
+            padding: 6px 5%; 
+            border: none; 
+            border-radius: 8px; 
+    background: var(--button-color);
+            color: #fff; 
+            cursor: pointer; 
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover { 
+            background: #8b1d20; /* darker red hover */
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+</style>
+
+<div class="wrapper">
+    <!-- Sidebar -->
+<div class="sidebar">
+    
+
+<?php
+$segment1 = service('uri')->getSegment(1);
+?>
+
+   <div class="search-box">
+        <form action="<?= base_url('search') ?>" method="get">
+            <input type="text" name="q" placeholder="Search..." required>
+            <button type="submit">🔍</button>
+        </form>
+    </div>
+    <!-- Companies Section -->
+    <?php if ($segment1 == 'company') : ?>
+        <div class="submenu">
+            <a href="<?= base_url('company') ?>">View Companies</a>
+            <a href="<?= base_url('company/add') ?>">Add Company</a>
+        </div>
+    <?php endif; ?>
+
+</div>
+<style>
+    .active {
+    font-weight: bold;
+    color: #007bff;
+}
+
+</style>
+
+<!-- <div id="bottomBar">
+    <div id="circle"></div>
+</div> -->
+
+<style>
+:root {
+    --nav-color: #1a1a1a;
+    --button-color: #ffffff; /* Added default white */
+}
+
+#bottomBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    background-color: var(--nav-color);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+#circle {
+    position: absolute;
+    top: 50%;
+    /* Remove default left: 50% to prevent jumping */
+    background-color: var(--button-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    
+    /* Removed width/height transition for instant JS tracking */
+    transition: opacity 0.3s ease; 
+    
+    filter: blur(12px); /* Increased blur for a smoother 90% look */
+    
+    animation: breathe 2s infinite ease-in-out;
+}
+
+@keyframes breathe {
+    0%, 100% { transform: translate(-50%, -50%) scale(0.98); }
+    50% { transform: translate(-50%, -50%) scale(1.02); }
+}
+</style>
+
+<script>
+const circle = document.getElementById('circle');
+const bottomBar = document.getElementById('bottomBar');
+
+document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const barRect = bottomBar.getBoundingClientRect();
+
+    // Max distance changed to 600 to detect mouse from further up the page
+    const maxDistance = 600; 
+    const distanceFromBar = barRect.top - mouseY;
+
+    // Detect if mouse is within vertical range (even if very far away)
+    if (distanceFromBar < maxDistance && mouseY < barRect.bottom) {
+        // Move circle instantly to mouse X
+        circle.style.left = `${mouseX}px`;
+
+        // Calculate proximity (0 to 1)
+        // Ensure proximity stays 0 if distance is greater than maxDistance
+        const proximity = Math.max(0, (maxDistance - Math.max(0, distanceFromBar)) / maxDistance);
+
+        // Calculate size: 100px when far, 90vw when close
+        const minSize = 100;
+        const maxSize = window.innerWidth * 0.9;
+        const currentSize = minSize + (proximity * (maxSize - minSize));
+
+        circle.style.width = `${currentSize}px`;
+        circle.style.height = `${currentSize}px`;
+
+        // Fade in based on proximity
+        // Only show if distance is positive (above the bar)
+        circle.style.opacity = proximity > 0.01 ? (0.1 + (proximity * 0.9)) : 0;
+        
+    } else {
+        // Instant hide when out of range
+        circle.style.opacity = "0";
+    }
+});
+</script>
 
 <div class="content">
