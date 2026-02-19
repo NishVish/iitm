@@ -8,14 +8,14 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
-            background-color: #5f5f5f;
-            color: #ffffff;
+            background-color: #ffffff;
+            color: #000000;
         }
         h1, h2, h3 {
             color: #000000;
         }
         .impact {
-            background-color: #c8c8c8;
+            background-color: #d4d2d2;
             border-left: 4px solid #1abc9c;
             padding: 10px;
             margin: 10px 0 20px 0;
