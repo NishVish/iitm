@@ -81,6 +81,10 @@ public function project_summary()
     {
         return view('backend/personal/profile');
     }
+   public function kra_main()
+    {
+        return view('backend/personal/kra');
+    }
 
 
 }

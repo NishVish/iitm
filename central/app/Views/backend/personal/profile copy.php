@@ -12,16 +12,16 @@
             color: #ffffff;
         }
         h1, h2, h3 {
-            color: #000000;
+            color: #ffffff;
         }
         .impact {
-            background-color: #c8c8c8;
+            background-color: #646464;
             border-left: 4px solid #1abc9c;
             padding: 10px;
             margin: 10px 0 20px 0;
         }
         .status {
-            background-color: #bbbbba;
+            background-color: #736d59;
             border-left: 4px solid #969696;
             padding: 10px;
             margin-bottom: 20px;
@@ -61,7 +61,7 @@
         <li>Significant reduction in on-site registration time.</li>
         <li>Consistent, error-free data capture.</li>
         <li>Improved visitor experience during live events.</li>
-        <li>3 Step Registration(Scan QR for Form, Fill Form Details, Show QR or Mention Mobile No. at Desk to Print the Badge)</li>
+        <li>3 Step Registation(Scan QR for Form, Fill Form Details, Show QR or Mention Mobile No. at Desk to Print the Badge)</li>
         <li>3 Step Badge Printing(Collecting Business Card,Searching the Entry,Print)</li>
     </ul>
     

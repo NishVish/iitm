@@ -13,6 +13,7 @@ $routes->get('login', 'Dashboard::index');
 
 // Backend home / admin panel
 $routes->get('project_summary', 'Backend::project_summary_main');
+$routes->get('kra', 'Backend::kra_main');
 $routes->get('profile', 'Backend::profile_main');
 
 
@@ -25,6 +26,7 @@ $routes->group('backend', function($routes) {
     $routes->get('tv', 'Backend::tv');                   // backend/tv
     $routes->get('project_summary', 'Backend::project_summary'); // backend/project_summary
     $routes->get('profile', 'Backend::profile');         // backend/profile
+    $routes->get('kra', 'Backend::kra_main');         // backend/profile
 });
 
 // ===============================

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Progress Dashboard</title>
+<title>Enterprise Project Progress Dashboard</title>
 <style>
     body {
         margin: 0;
@@ -11,22 +11,11 @@
         background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
         color: #fff;
     }
-/* Default container width for larger screens */
-.container {
-    width: 70%;
-    max-width: 1100px;
-    margin: 40px auto;
-}
-
-/* For screens smaller than 800px */
-@media screen and (max-width: 800px) {
     .container {
-        width: 95%;
-        margin: 20px auto;
+        width: 90%;
+        max-width: 1100px;
+        margin: 40px auto;
     }
-}
-
-
     h1 {
         text-align: center;
         margin-bottom: 40px;
@@ -90,54 +79,7 @@
     .remains {color:yellow;}
     .working {color:white;}
     
-.table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-table {
-    width: 100%;
-    min-width: 600px; /* ensures table doesn’t collapse completely */
-    border-collapse: collapse;
-    text-align:center;
-    vertical-align: middle;   /* vertical centering */
-}
-th, td {
-    padding: 8px;
-    font-size: 12px;
-}
 
-@media screen and (max-width: 768px) {
-    h1 {
-        font-size: 22px;
-    }
-    .project-title {
-        font-size: 16px;
-    }
-    .project-description, li {
-        font-size: 13px;
-    }
-    .progress-bar {
-        height: 14px;
-    }
-    .progress {
-        font-size: 10px;
-        line-height: 14px;
-        padding-right: 4px;
-    }
-}
-.card {
-    padding: 15px 20px;
-}
-@media screen and (max-width: 600px) {
-    ul {
-        padding-left: 10px;
-    }
-    li ul {
-        margin-left: 10px;
-        border-left: 2px dashed rgba(255,255,255,0.2);
-        padding-left: 8px;
-    }
-}
 
 </style>
 </head>
@@ -155,8 +97,7 @@ th, td {
         </div>
                 <div class="project-description">
             A robust solution for attendee registration and on-site badge printing. Supports pre-registrations, dynamic searches, and instant badge issuance for large-scale corporate events.
-        </div><div class="table-wrapper">
-
+        </div>
          <table>
             <tr>
                 <th class="ok">Start date -> </th> 
@@ -164,7 +105,7 @@ th, td {
                 <th class="ok">Development -> </th> 
                 <th class="ok">Testing -> </th> 
                 <th class="ok">Deployment -> </th> 
-                <th class="ok">Live Run</th> 
+                <th class="ok">Tested and Works on Exhibition</th> 
             </tr>
             <tr>
                 <td>June</td>
@@ -176,7 +117,6 @@ th, td {
             </tr>
         </table>
 
-</div>
 
 
         <ul>
@@ -189,8 +129,7 @@ th, td {
     This project was completed within 20-25 days(June to July.) and has been successfully implemented in Chennai, Bangalore, Pune, Hyderabad, and Kochi.
 </div>
 
-     <div class="updatehistory"><div class="table-wrapper">
-
+     <div class="updatehistory">
 <table style="text-align:center; border:1px dotted grey; border-collapse: collapse; width:100%;">
                             <tr>
                                 <th>Version</th>
@@ -213,8 +152,7 @@ th, td {
 
                         </tr>
 
-                </table></div>
-
+                </table>
         </div>
 
 
@@ -231,7 +169,6 @@ th, td {
         </div>
         
    
-<div class="table-wrapper">
 
 
 <table>
@@ -241,7 +178,7 @@ th, td {
                 <th class="working">Development -> </th> 
                 <th class="working">Testing -> </th> 
                 <th class="remains">Deployment -> </th> 
-                <th class="remains">Live Run</th> 
+                <th class="remains">Tested and Works For All Required Operations</th> 
             </tr>
   <tr>
     <td class="ok">January 15</td>
@@ -252,7 +189,6 @@ th, td {
     <td class="remains">⭕Pending</td>
   </tr>
 </table>
-</div>
 
 
 
@@ -319,7 +255,6 @@ th, td {
 
 
 
-<div class="table-wrapper">
 
 <table>
   <tr>
@@ -328,7 +263,7 @@ th, td {
                 <th class="working">Development -> </th> 
                 <th class="working">Testing -> </th> 
                 <th class="remains">Deployment -> </th> 
-                <th class="remains">Live Run</th> 
+                <th class="remains">Tested and Works For All Required Operations</th> 
             </tr>
   <tr>
     <td class="ok">January 15</td>
@@ -338,8 +273,7 @@ th, td {
     <td class="remains">2 weeks</td>
     <td class="remains">⭕Pending</td>
   </tr>
-</table></div>
-
+</table>
 <div class="stage-info">
 </div>
 
@@ -367,7 +301,6 @@ th, td {
     <div class="project-description">
         End-to-end CRM module for lead tracking, company management, sales pipeline, and inter-team workflow automation.
     </div>
-<div class="table-wrapper">
 
     <table>
       <tr>
@@ -376,7 +309,7 @@ th, td {
         <th class="remains">Development -> </th> 
         <th class="remains">Testing -> </th> 
         <th class="remains">Deployment -> </th> 
-        <th class="remains">Live Run</th> 
+        <th class="remains">Tested and Works For All Required Operations</th> 
       </tr>
       <tr>
         <td class="remains"></td>
@@ -387,8 +320,7 @@ th, td {
         <td class="remains"></td>
         
       </tr>
-    </table></div>
-
+    </table>
     <div class="stage-info">
     </div>
 
@@ -413,16 +345,15 @@ th, td {
         </div>
 
 
-<div class="table-wrapper">
 
          <table>
             <tr>
-                <th class="ok">Start date -> </th> 
+                <th class="ok">Project Start date -> </th> 
                 <th class="ok">Planning -> </th> 
                 <th class="ok">Development -> </th> 
                 <th class="ok">Testing -> </th> 
                 <th class="ok">Deployment -> </th> 
-                <th class="ok">Live Run</th> 
+                <th class="ok">Tested and Works on Exhibition</th> 
             </tr>
             <tr>
                 <td></td>
@@ -433,8 +364,7 @@ th, td {
                                 <td></td>
 
             </tr>
-        </table></div>
-
+        </table>
 <div class="stage-info">
 </div>
 
@@ -486,16 +416,15 @@ th, td {
             Comprehensive platform to track events, allocate resources, manage vendors, and monitor exhibitor participation for large-scale corporate events.
         </div>
 
-<div class="table-wrapper">
 
          <table>
             <tr>
-                <th class="remains">Start date -> </th> 
+                <th class="remains">Project Start date -> </th> 
                 <th class="remains">Planning -> </th> 
                 <th class="remains">Development -> </th> 
                 <th class="remains">Testing -> </th> 
                 <th class="remains">Deployment -> </th> 
-                <th class="remains">Live Run</th> 
+                <th class="remains">Tested and Works on Exhibition</th> 
             </tr>
             <tr>
                 <!-- <td>June</td>
@@ -505,8 +434,7 @@ th, td {
                 <td>2 weeks</td>
                 <td>2 weeks</td> -->
             </tr>
-        </table></div>
-
+        </table>
 <div class="stage-info">
     <!-- This project was completed within 20-25 days(June to July.) and has been successfully implemented in Chennai, Bangalore, Pune, Hyderabad, and Kochi from  -->
 </div>
@@ -536,16 +464,15 @@ th, td {
         </div>
 
 
-<div class="table-wrapper">
 
          <table>
             <tr>
-                <th class="remains">Start date -> </th> 
+                <th class="remains">Project Start date -> </th> 
                 <th class="remains">Planning -> </th> 
                 <th class="remains">Development -> </th> 
                 <th class="remains">Testing -> </th> 
                 <th class="remains">Deployment -> </th> 
-                <th class="remains">Live Run</th> 
+                <th class="remains">Tested and Works on Exhibition</th> 
             </tr>
             <tr>
                 <!-- <td>June</td>
@@ -555,8 +482,7 @@ th, td {
                 <td>2 weeks</td>
                 <td>2 weeks</td> -->
             </tr>
-        </table></div>
-
+        </table>
 <div class="stage-info">
     <!-- This project was completed within 20-25 days(June to July.) and has been successfully implemented in Chennai, Bangalore, Pune, Hyderabad, and Kochi from  -->
 </div>
@@ -576,7 +502,7 @@ th, td {
     </div>
 
     <div class="footer">
-       CRM Development • Data Migration • Automation • Analytics & Reporting
+        Enterprise Solutions • CRM Development • Data Migration • Automation • Analytics & Reporting
     </div>
 </div>
 <script>
