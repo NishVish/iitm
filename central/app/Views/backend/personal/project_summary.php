@@ -302,7 +302,6 @@ th, td {
 
         
 <div class="stage-info">
-    This project was completed within 20-25 days(June to July.) and has been successfully implemented in Chennai, Bangalore, Pune, Hyderabad, and Kochi from 
 </div>
 
     </div>
