@@ -217,3 +217,12 @@ $routes->post('crossvalidation/actioncontact', 'CrossValidation::handleAction');
     // EXTREME (comment this in production)
      $routes->get('wipe-all', 'DatabaseOperation::clearEverything');
 // });
+
+$routes->get('tools', 'Tools::index');               // Main page
+$routes->get('tools/network', 'Tools::server');               // Main page
+$routes->post('tools/upload', 'Tools::webscraper');
+$routes->get('tools/webscraper', 'Webscraper::index');
+
+// $routes->get('tools', 'Tools::index');               // Main page
+$routes->get('tools/listFiles', 'Tools::listFiles');
+$routes->get('tools/download/(:any)', 'Tools::download/$1');

@@ -3,7 +3,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Dashboard_model extends Model
+class Dashboard_Model extends Model
 {
     protected $table = 'company_data';
     protected $primaryKey = 'id';
@@ -53,4 +53,62 @@ class Dashboard_model extends Model
         $builder->groupBy('payment_status');
         return $builder->get()->getResult();
     }
+
+
+
+    
+public function getstats()
+{
+    $db = \Config\Database::connect();
+    
+    // Initialize Models
+    $companyModel = new \App\Models\CompanyModel();
+    $contactModel = new \App\Models\ContactModel();
+    $updationModel = new \App\Models\UpdationModel();
+    $leadModel    = new \App\Models\LeadModel();
+    $sourceModel  = new \App\Models\SourceModel();
+
+    // 1. Basic Counts (Fixes the "Undefined Variable" errors)
+    $data['total_companies']  = $companyModel->countAllResults();
+    $data['active_companies'] = $companyModel->where('active_inactive', 'active')->countAllResults();
+    $data['total_contacts']   = $contactModel->countAllResults(); // Re-added
+    $data['total_leads']      = $leadModel->countAllResults();
+    $data['total_updates']    = $updationModel->countAllResults(); // Re-added
+    $data['total_sources']    = $sourceModel->countAllResults();   // Re-added
+
+    // 2. Conversion Analysis
+    $data['conversion_rate'] = ($data['total_companies'] > 0) 
+        ? ($data['total_leads'] / $data['total_companies']) * 100 
+        : 0;
+
+    // 3. Staff Performance (Group By)
+    $data['staff_performance'] = $companyModel->select('sales_person, COUNT(id) as count')
+                                              ->groupBy('sales_person')
+                                              ->orderBy('count', 'DESC')
+                                              ->findAll();
+
+    // 4. Data Integrity Metric
+    $data['validated_count'] = $companyModel->where('cross_validation', 1)->countAllResults();
+    
+    // 5. Lead Status Breakdown
+    $data['lead_status'] = $leadModel->select('status, COUNT(lead_id) as total')
+                                     ->groupBy('status')
+                                     ->findAll();
+
+    // 6. Recent Activity (Last 30 Days)
+    $data['recent_updates'] = $updationModel->where('created_at >=', date('Y-m-d', strtotime('-30 days')))
+                                            ->countAllResults();
+
+    // 7. Total Revenue
+    $builder = $db->table('lead_locations');
+    $builder->selectSum('grand_total');
+    $res = $builder->get()->getRow();
+    $data['total_revenue'] = $res->grand_total ?? 0;
+
+    return $data;
+}
+
+
+
+
 }

@@ -14,33 +14,46 @@ class Dashboard extends BaseController
         $this->companyModel = new CompanyModel();
         $this->leadModel = new LeadModel();
     }
-
 public function index()
 {
-    $count_by_state = $this->companyModel->getCountsByStateCategory();
+    // Load model
+    $dashboardModel = new \App\Models\Dashboard_Model();
 
-    // Totals
-    $total_companies = 0;
-    $total_travel_agents = 0;
-    $total_hotels = 0;
-    foreach($count_by_state as $row){
-        $total_companies += $row->total_count;
-        $total_travel_agents += $row->travel_agents;
-        $total_hotels += $row->hotels;
-    }
+    // Get stats from model
+    $stats = $dashboardModel->getstats(); // Assuming this returns an array like ['total_revenue' => 1000, ...]
 
-    $data = [
-        'duplicate_companies_count' => $this->companyModel->getDuplicateCompaniesCount(),
-        'count_by_state' => $count_by_state,
-        'totals' => [
-            'total_companies' => $total_companies,
-            'total_travel_agents' => $total_travel_agents,
-            'total_hotels' => $total_hotels
-        ]
-    ];
-
-    return view('dashboard/index', $data);
+    // Pass stats to the view
+    return view('company/all_stats', $stats);
 }
+
+
+// public function index()
+// {
+//     $count_by_state = $this->companyModel->getCountsByStateCategory();
+
+//     // Totals
+//     $total_companies = 0;
+//     $total_travel_agents = 0;
+//     $total_hotels = 0;
+//     foreach($count_by_state as $row){
+//         $total_companies += $row->total_count;
+//         $total_travel_agents += $row->travel_agents;
+//         $total_hotels += $row->hotels;
+//     }
+
+//     $data = [
+//         'duplicate_companies_count' => $this->companyModel->getDuplicateCompaniesCount(),
+//         'count_by_state' => $count_by_state,
+//         'totals' => [
+//             'total_companies' => $total_companies,
+//             'total_travel_agents' => $total_travel_agents,
+//             'total_hotels' => $total_hotels
+//         ]
+//     ];
+
+//     return view('dashboard/index', $data);
+// }
+
 
 
 

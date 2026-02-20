@@ -234,9 +234,13 @@ nav {
 
     </div>
     <!-- Search box -->
- 
+ <div>
+ <a href="<?= site_url('tools') ?>">  Tools</a>
     <button id="openTheme" style="margin-left:15px;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;">
 ⚙️</button>
+       
+
+ </div>
 
 </nav>
 <!-- Theme Popup -->
