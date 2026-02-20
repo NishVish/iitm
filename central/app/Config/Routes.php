@@ -78,6 +78,7 @@ $routes->post('company/replace/(:num)', 'Company::replace/$1');
 // List page after adding
 $routes->get('company/list', 'Company::list');    // Optional: show all companies
 
+$routes->get('company/stats', 'Company::stats');
 $routes->post('company/source_check', 'Company::source_check');
 
 // $routes->post('update/(:segment)', 'Company::update/$1');

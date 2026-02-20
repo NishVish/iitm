@@ -1,20 +1,4 @@
-<?= view('header') ?>  <!-- loads app/Views/header.php -->
-<?php
-$segment1 = service('uri')->getSegment(1);
-
-if ($segment1 == 'backend') : ?>
-    <div class="submenu">
-        <a href="<?= base_url('plan') ?>">Plan</a>
-        <a href="<?= base_url('games') ?>">Play Games</a>
-        <a href="<?= base_url('tv') ?>">TV</a>
-        <a href="<?= base_url('company') ?>">View Companies</a>
-        <a href="<?= base_url('company/add') ?>">Add Company</a>
-    </div>
-<?php endif; ?>
-
-</div>
-
-<div class="content">
+<?= view('company/side') ?>
 
 <style>
 /* ===== Page Layout ===== */
@@ -94,21 +78,21 @@ ul {
 }
 
 /* ===== Lead Cards ===== */
+/* ===== Lead Cards ===== */
 .lead-container {
     display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+    flex-direction: column; /* Stack cards vertically */
+    gap: 16px;              /* Space between cards */
 }
 
 .lead-card {
-    border: 1px solid #ddd;
+    width: 100%;            /* Make card full width of container */
+    padding: 16px;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 12px 16px;
-    min-width: 220px;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    background: #f9f9f9;
+    box-sizing: border-box;
 }
-
 /* ===== Modal ===== */
 #leadModal {
     position: fixed;
@@ -558,16 +542,136 @@ function closeContactComparison() {
     Add Quick Lead
 </a>
 
+<style>
+    .lead-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 6px;
+    background: #f9f9f9;
+}
 
+/* Flex container for the two sections */
+.lead-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* stack on smaller screens */
+}
 
-<!-- Existing leads (always visible) -->
+/* Each section takes ~50% width */
+.location-section {
+    flex: 1;
+    min-width: 50xpx;
+}
+.lead-section {
+    flex: 1;
+    max-width: 20%;
+}
+
+.location-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.location-table th,
+.location-table td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.location-table th {
+    background-color: #f0f0f0;
+}
+
+.location-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.location-section h4 {
+    margin-bottom: 10px;
+}
+
+/* Horizontal rows inside location card */
+.location-row,
+.price-row,
+.timestamp-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.timestamp-row {
+    justify-content: space-between;
+    font-size: 0.85em;
+    color: #555;
+}
+</style>
+
 <?php if (!empty($leads)): ?>
     <div class="lead-container">
         <?php foreach ($leads as $l): ?>
             <div class="lead-card">
-                <div><strong>Lead ID:</strong> <?= esc($l['lead_id']) ?></div>
-                <div><strong>Status:</strong> <?= esc($l['status']) ?></div>
-                <div><strong>Payment:</strong> <?= esc($l['payment_status']) ?></div>
+
+                <div class="lead-row">
+
+                    <!-- Section 1: Lead Details -->
+                    <div class="lead-section">
+                        <div><strong>Lead ID:</strong> <?= esc($l['lead_id'] ?? '') ?></div>
+                        <div><strong>Company ID:</strong> <?= esc($l['company_id'] ?? '') ?></div>
+                        <div><strong>Status:</strong> <?= esc($l['status'] ?? '') ?></div>
+                        <div><strong>Payment Status:</strong> <?= esc($l['payment_status'] ?? '') ?></div>
+                        <div><strong>Source:</strong> <?= esc($l['source'] ?? '') ?></div>
+                        <div><strong>Budget:</strong> <?= esc($l['budget'] ?? '') ?></div>
+                        <div><strong>Requirement:</strong> <?= esc($l['requirement'] ?? '') ?></div>
+
+                                       <a href="<?= site_url('booking/company/'.$l['lead_id']) ?>" class="btn-next">Proceed to Step 2 </a>
+
+                    </div>
+
+                    <!-- Section 2: Location Details -->
+                    <div class="location-section">
+    <?php if (!empty($l['locations'])): ?>
+        <strong>Contact Name:</strong> <?= esc($l['contact_name'] ?? '') ?>, <strong>Designation:</strong> <?= esc($l['designation'] ?? '') ?>, <strong>Email:</strong> <?= esc($l['primary_email'] ?? '') ?>, <strong>Mobile:</strong> <?= esc($l['primary_mobile'] ?? '') ?>
+
+        <table class="location-table">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Stall</th>
+                    <th>Size</th>
+                    <th>Price (₹)</th>
+                    <th>GST (₹)</th>
+                    <th>Discount (₹)</th>
+                    <th>Grand Total (₹)</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($l['locations'] as $loc): ?>
+                    <tr>
+                        <td><?= esc($loc['location']) ?></td>
+                        <td><?= esc($loc['stall_location']) ?></td>
+                        <td><?= esc($loc['size']) ?></td>
+                        <td><?= esc($loc['price']) ?></td>
+                        <td><?= esc($loc['gst_amount']) ?></td>
+                        <td><?= esc($loc['discount_amount']) ?></td>
+                        <td><?= esc($loc['grand_total']) ?></td>
+                        <td><?= esc($loc['created_at']) ?></td>
+                        <td><?= esc($loc['updated_at']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No locations added for this lead.</p>
+    <?php endif; ?>
+</div>
+
+                </div> <!-- lead-row -->
+
             </div>
         <?php endforeach; ?>
     </div>

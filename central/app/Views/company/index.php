@@ -1,45 +1,38 @@
-<?= view('header') ?>
+<?= view('company/side') ?>
 
 
-<?php
-$segment1 = service('uri')->getSegment(1);
-?>
-<!-- Companies Section -->
-<?php if ($segment1 == 'company') : ?>
-    <div class="submenu">
-        <a href="<?= base_url('company') ?>">View Companies</a>
-        <a href="<?= base_url('company/add') ?>">Add Company</a>
-        
-        <a href="<?= site_url('clear-matching') ?>" class="action-btn danger">Clear Matching</a>
-        <a href="<?= site_url('clear-contacts') ?>" class="action-btn danger">Clear Contacts</a>
-        <a href="<?= site_url('clear-companies') ?>" class="action-btn danger">Clear Companies</a>
+<!-- Toggle Button -->
+<button id="toggleBtn">Show/Hide Company Form</button>
 
-        <a href="<?= site_url('crossvalidation/crossValidate') ?>" class="action-btn primary">
-            Company Cross Validation
-        </a>
-    <a href="<?= site_url('company/dummy') ?>" class="action-btn primary">
-insert Data        </a>
-
-        <a href="<?= site_url('crossvalidation/crossValidateContact') ?>" class="action-btn primary">
-            Contact Cross Validation
-        </a>
-
-        <a href="<?= site_url('crossvalidation/clear') ?>" class="action-btn warning">
-            Clear Matches
-        </a>
-
-        <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">
-            Clear Contact Matches
-        </a>
-        <button type="button" id="compareBtn">Compare Selected</button>
-
-    </div>
-<?php endif; ?>
-
-
-
+<!-- Fixed-size scrollable container for form -->
+<div id="myDiv" style="
+    display:block; 
+    border:2px solid #333; 
+    padding:10px; 
+    height:200px;      /* fixed height */
+    width:100%;        /* full width or adjust as needed */
+    max-width:1370px;  /* optional max width */
+    overflow:auto; 
+    margin-bottom:20px;
+">
+    <?= view('company/insert_company_form') ?>
 </div>
-<div class="content">
+
+<script>
+  const toggleBtn = document.getElementById('toggleBtn');
+  const myDiv = document.getElementById('myDiv');
+
+  toggleBtn.addEventListener('click', () => {
+    if (myDiv.style.display === 'none' || myDiv.style.display === '') {
+      myDiv.style.display = 'block';
+      toggleBtn.textContent = 'Hide Company Form';
+    } else {
+      myDiv.style.display = 'none';
+      toggleBtn.textContent = 'Show Company Form';
+    }
+  });
+</script>
+
 
 
 <style>
@@ -67,6 +60,19 @@ insert Data        </a>
     gap: 10px;
 }
 
+:root {
+    --primary-color: #4a90e2;    /* softer blue */
+    --primary-hover: #357ab8;    /* slightly darker on hover */
+
+    --danger-color: #d66a6a;     /* muted red */
+    --danger-hover: #b04e4e;     /* darker muted red on hover */
+
+    --warning-color: #f0b450;    /* soft amber */
+    --warning-hover: #d69c39;    /* darker amber on hover */
+
+    --btn-text-color: #ffffff;   /* white text stays */
+}
+
 .action-btn {
     padding: 8px 14px;
     border-radius: 8px;
@@ -75,34 +81,36 @@ insert Data        </a>
     font-weight: 600;
     transition: all 0.3s ease;
     display: inline-block;
+    color: var(--btn-text-color);
 }
 
+/* Primary */
 .action-btn.primary {
-    background: #0066cc;
-    color: #fff;
+    background: var(--primary-color);
 }
 
 .action-btn.primary:hover {
-    background: #004999;
+    background: var(--primary-hover);
 }
 
+/* Danger */
 .action-btn.danger {
-    background: #c82333;
-    color: #fff;
+    background: var(--danger-color);
 }
 
 .action-btn.danger:hover {
-    background: #a71d2a;
+    background: var(--danger-hover);
 }
 
+/* Warning */
 .action-btn.warning {
-    background: #ff9800;
-    color: #fff;
+    background: var(--warning-color);
 }
 
 .action-btn.warning:hover {
-    background: #e68900;
+    background: var(--warning-hover);
 }
+
 
 /* Filter Section */
 .filter-section {
@@ -176,7 +184,7 @@ insert Data        </a>
 
 /* Compare Button */
 #compareBtn {
-    background: #0066cc;
+    background: #6486a9;
     color: #fff;
     border: none;
     padding: 10px 18px;
@@ -199,7 +207,7 @@ insert Data        </a>
 }
 
 #closeModal {
-    background: #c82333;
+    background: #d7505e;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -210,12 +218,49 @@ insert Data        </a>
 /* Selected buttons */
 .state-btn.selected,
 .city-btn.selected {
-    background: #a82324 !important;
+    background: #ba5858 !important;
     color: #fff;
 }
 
 
 </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const primaryPicker = document.getElementById("primaryColor");
+    const primaryHoverPicker = document.getElementById("primaryHover");
+    const dangerPicker = document.getElementById("dangerColor");
+    const dangerHoverPicker = document.getElementById("dangerHover");
+    const warningPicker = document.getElementById("warningColor");
+    const warningHoverPicker = document.getElementById("warningHover");
+
+    // Function to update CSS variable
+    const updateVar = (varName, input) => {
+        document.documentElement.style.setProperty(varName, input.value);
+    }
+
+    // Initialize variables on page load
+    updateVar("--primary-color", primaryPicker);
+    updateVar("--primary-hover", primaryHoverPicker);
+    updateVar("--danger-color", dangerPicker);
+    updateVar("--danger-hover", dangerHoverPicker);
+    updateVar("--warning-color", warningPicker);
+    updateVar("--warning-hover", warningHoverPicker);
+
+    // Update on input change
+    primaryPicker.addEventListener("input", () => updateVar("--primary-color", primaryPicker));
+    primaryHoverPicker.addEventListener("input", () => updateVar("--primary-hover", primaryHoverPicker));
+
+    dangerPicker.addEventListener("input", () => updateVar("--danger-color", dangerPicker));
+    dangerHoverPicker.addEventListener("input", () => updateVar("--danger-hover", dangerHoverPicker));
+
+    warningPicker.addEventListener("input", () => updateVar("--warning-color", warningPicker));
+    warningHoverPicker.addEventListener("input", () => updateVar("--warning-hover", warningHoverPicker));
+});
+
+
+
+</script>
 
 <div class="filter-section">
     <h3>Filter by State</h3>
@@ -242,7 +287,7 @@ insert Data        </a>
 <form id="compareForm">    
     
 
-<table id="company-table" class="company-table" style="table-layout: fixed; width: 100%;">
+<table id="company-table" class="company-table" style="table-layout: fixed; width: 100%; border-collapse: collapse;">
     <thead>
         <tr>
             <th style="width:2%;">Main</th>

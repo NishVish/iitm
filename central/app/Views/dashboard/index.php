@@ -102,4 +102,5 @@ echo "</p>";
         });
     });
 </script>
+<?= view('company/stats/stats') ?>
 

@@ -74,15 +74,27 @@ public function createQuicklead($companyId = null)
 
     if ($leadId) {
         $locationBuilder = $db->table('lead_locations');
+        $locations = [
+            'Chennai',
+            'Bengaluru',
+            'Pune',
+            'Hyderabad',
+            'Kolkata',
+            'Ahmedabad'
+        ];
+
+        // 2. Pick a random location
+        $randomLocation = $locations[array_rand($locations)];
+
 
         // Insert one dummy location for quick lead
         $locationBuilder->insert([
             'lead_id'        => $leadId,
-            'location'       => 'Hall A',       // dummy location name
+            'location'       => $randomLocation,       // dummy location name
             'stall_location' => 'A1',           // dummy stall
-            'size'           => '3x3',          // dummy size
-            'price'          => 1000,           // dummy price
-            'grand_total'    => 1000,           // can add GST logic later
+            'size'           => '3',          // dummy size
+            'price'          => '',           // dummy price
+            'grand_total'    => '',           // can add GST logic later
         ]);
     }
 

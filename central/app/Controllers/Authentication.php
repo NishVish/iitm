@@ -12,7 +12,7 @@ class Authentication extends BaseController
         $pin = isset($_POST['pin']) ? $_POST['pin'] : '';
 
         // Check if pin matches
-        if ($pin === 'sanjaydon') {
+        if ($pin === 'sphere') {
 
         return view('home/index');
             // // Start session if not already started

@@ -277,6 +277,7 @@ nav {
         <input type="color" id="buttonColor" value="#a82324">
 
         <button id="resetTheme" class="reset-btn">Reset to Default</button>
+        
     </div>
 </div>
 

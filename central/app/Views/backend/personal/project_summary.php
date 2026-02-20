@@ -8,8 +8,9 @@
     body {
         margin: 0;
         font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-        color: #fff;
+        /* background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); */
+        background:white;
+        color: #000000;
     }
 /* Default container width for larger screens */
 .container {
@@ -40,7 +41,12 @@
         box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         backdrop-filter: blur(10px);
         transition: transform 0.3s ease;
-    }
+    }.card {
+    box-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    padding: 10px !important;
+    break-inside: avoid;
+}
     .card:hover {
         transform: translateY(-5px);
     }
@@ -140,12 +146,69 @@ th, td {
 }
 
 </style>
+
+<style>
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .container {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .card {
+        background: white !important; /* Critical: Remove transparency */
+        backdrop-filter: none !important; /* Critical: Remove blur */
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        break-inside: avoid; /* Prevents card from splitting across pages */
+        page-break-inside: avoid;
+        margin-bottom: 20px !important;
+        padding: 15px !important;
+    }
+
+    button {
+        display: none !important; /* Hide the print button on the paper */
+    }
+
+    /* Force background colors to print for progress bars */
+    .progress-bar {
+        border: 1px solid #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .complete { background-color: #00c853 !important; }
+    .mid { background-color: #ffb300 !important; }
+    .low { background-color: #ff5252 !important; }
+
+    li.done { color: #008f39 !important; } /* Darker green for readability on paper */
+    li.pending { color: #8a6d3b !important; }
+}
+</style>
 </head>
 <body>
 
 <div class="container">
     <h1>Project Overview Dashboard</h1>
+<div style="text-align: center; margin-bottom: 20px;">
+    <button onclick="printDashboard()" style="padding: 10px 20px; font-size: 14px; cursor: pointer;">
+        🖨️ Print Dashboard
+    </button>
+</div>
 
+
+<script>
+function printDashboard() {
+    // We don't need a new window. We just trigger the print.
+    // The @media print CSS we wrote above will handle the rest.
+    window.print();
+}
+</script>
     <!-- QR Badge Management System -->
     <div class="card">
         <div class="project-title">QR Badge Printing System V.1 </div>
@@ -287,13 +350,72 @@ th, td {
                     <li class="pending">Cross-System Validation Logic (In Progress)</li>
                 </ul>
             </li>
-            <li class="pending">Duplicate & Data Integrity Management
-                <ul>
-                    <li>Exact & Partial Company/Contact Matching</li>
-                    <li>Conflict Resolution for Cross-System Records</li>
-                    <li>High-Risk Data Review Procedures</li>
-                </ul>
-            </li>
+            <li class="pending">
+    Duplicate & Data Integrity Management
+    <ul>
+        <li>Exact & Partial Company/Contact Matching</li>
+        <li>Conflict Resolution for Cross-System Records</li>
+        <li>High-Risk Data Review Procedures</li>
+        Case 
+           <ul>
+    <li class="done">
+        Case 1 – Exact Company, Exact Contact
+        <ul>
+            <li>Same company and same contact → definite duplicate</li>
+        </ul>
+    </li>
+    <li class="done">
+        Case 2 – Exact Company, No Contact
+        <ul>
+            <li>Same company but contact does not match → new contact under existing company</li>
+        </ul>
+    </li>
+    <li class="pending">
+        Case 3 – Exact Company, Partial Contact
+        <ul>
+            <li>Same company, contact looks similar → possible duplicate contact</li>
+        </ul>
+    </li>
+    <li class="pending">
+        Case 4 – No Company, Exact Contact
+        <ul>
+            <li>Different company but same contact → contact linked to wrong company or shared person</li>
+        </ul>
+    </li>
+    <li class="done">
+        Case 5 – No Company, No Contact
+        <ul>
+            <li>Completely different company and contact → new record</li>
+        </ul>
+    </li>
+    <li class="done">
+        Case 6 – No Company, Partial Contact
+        <ul>
+            <li>Different company, contact partially matches → possible cross-company duplicate contact</li>
+        </ul>
+    </li>
+    <li class="done">
+        Case 7 – Partial Company, Exact Contact
+        <ul>
+            <li>Company looks similar, same contact → possible duplicate company</li>
+        </ul>
+    </li>
+    <li class="done">
+        Case 8 – Partial Company, No Contact
+        <ul>
+            <li>Company looks similar, contact is new → possible duplicate company with new contact</li>
+        </ul>
+    </li>
+    <li class="pending">
+        Case 9 – Partial Company, Partial Contact
+        <ul>
+            <li>Both company and contact look similar → high-risk duplicate, needs review</li>
+        </ul>
+    </li>
+</ul>
+
+        </ul>
+    </li>
             <li class="done">Searching Entries(Company,Contact(name,mobile,eamil),Source)</li>
             <li class="done">Geolocation Filtering (State/City)</li>
             <li class="pending">Enterprise Email & Messaging Integration</li>

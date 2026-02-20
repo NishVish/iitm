@@ -42,7 +42,6 @@ public function getLeadFullDetails($leadId)
         ->getRowArray();
 }
 
-
 public function filterLeads($location = null, $year = null, $salesPerson = null)
 {
     $builder = $this->builder();
@@ -50,10 +49,10 @@ public function filterLeads($location = null, $year = null, $salesPerson = null)
     $builder->select('
         leads.*,
         COALESCE(GROUP_CONCAT(DISTINCT lead_locations.location SEPARATOR ", "), "") as all_locations,
-        contact.name as contact_name,
-        contact.designation,
-        ce.email as primary_email,
-        cm.mobile as primary_mobile
+        MAX(contact.name) as contact_name,
+        MAX(contact.designation) as designation,
+        MAX(ce.email) as primary_email,
+        MAX(cm.mobile) as primary_mobile
     ');
 
     $builder->join('lead_locations', 'lead_locations.lead_id = leads.lead_id', 'left');
@@ -94,22 +93,44 @@ public function filterLeads($location = null, $year = null, $salesPerson = null)
     // ✅ Get all leads for a company with their locations
 public function getByCompanyId($companyId)
 {
-    return $this->select('
-            leads.*,
-            COALESCE(GROUP_CONCAT(DISTINCT lead_locations.location SEPARATOR ", "), "") as all_locations,
-            contact.name as contact_name,
-            contact.designation,
-            ce.email as primary_email,
-            cm.mobile as primary_mobile
-        ')
-        ->join('lead_locations', 'lead_locations.lead_id = leads.lead_id', 'left')
-        ->join('contact', 'contact.contact_id = leads.contact_id', 'left')
-        ->join('contact_email ce', 'ce.contact_id = contact.contact_id AND ce.is_primary = 1', 'left')
-        ->join('contact_mobile cm', 'cm.contact_id = contact.contact_id AND cm.is_primary = 1', 'left')
-        ->where('leads.company_id', $companyId)
-        ->groupBy('leads.lead_id')
-        ->orderBy('leads.created_at', 'DESC')
-        ->findAll();
+    $builder = $this->db->table('leads');
+
+    $builder->select("
+        leads.*,
+        ll.all_locations,
+        contact.name as contact_name,
+        contact.designation,
+        ce.email as primary_email,
+        cm.mobile as primary_mobile
+    ");
+
+    // Subquery for locations (this removes need for GROUP BY in main query)
+    $builder->join(
+        "(SELECT lead_id, GROUP_CONCAT(DISTINCT location SEPARATOR ', ') as all_locations 
+          FROM lead_locations 
+          GROUP BY lead_id) ll",
+        "ll.lead_id = leads.lead_id",
+        "left",
+        false
+    );
+
+    $builder->join('contact', 'contact.contact_id = leads.contact_id', 'left');
+    $builder->join('contact_email ce', 'ce.contact_id = contact.contact_id AND ce.is_primary = 1', 'left');
+    $builder->join('contact_mobile cm', 'cm.contact_id = contact.contact_id AND cm.is_primary = 1', 'left');
+
+    $builder->where('leads.company_id', $companyId);
+    $builder->orderBy('leads.created_at', 'DESC');
+
+$leads = $builder->get()->getResultArray();
+
+foreach ($leads as &$lead) {
+    $lead['locations'] = $this->db->table('lead_locations')
+        ->where('lead_id', $lead['lead_id'])
+        ->get()
+        ->getResultArray();
+}
+
+return $leads;
 }
 
 
@@ -138,5 +159,26 @@ public function getByLeadId($leadId)
 {
     return $this->where('lead_id', $leadId)->first();
 }
+
+public function getLeadsWithContacts()
+{
+    $builder = $this->db->table('leads');
+    $builder->select("
+        leads.*,
+        COALESCE(GROUP_CONCAT(DISTINCT lead_locations.location SEPARATOR ', '), '') AS all_locations,
+        MAX(contact.name) AS contact_name,
+        MAX(contact.designation) AS contact_designation,
+        MAX(ce.email) AS primary_email,
+        MAX(cm.mobile) AS primary_mobile
+    ");
+    $builder->join('lead_locations', 'lead_locations.lead_id = leads.lead_id', 'left');
+    $builder->join('contact', 'contact.contact_id = leads.contact_id', 'left');
+    $builder->join('contact_email ce', 'ce.contact_id = contact.contact_id AND ce.is_primary = 1', 'left');
+    $builder->join('contact_mobile cm', 'cm.contact_id = contact.contact_id AND cm.is_primary = 1', 'left');
+    $builder->groupBy('leads.lead_id');
+
+    return $builder->get()->getResultArray();
+}
+
 
 }

@@ -5,7 +5,6 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\CompanyModel;
 use App\Models\ContactModel;
-use App\Models\LeadModel;
 use App\Models\UpdationModel;
 use App\Models\SourceModel;
 use App\Models\ContactEmailModel;
@@ -18,7 +17,6 @@ class CrossValidation extends Controller
     protected $contactModel;
     protected $sourceModel;
     protected $updationModel;
-    protected $leadModel;
     protected $db;
 
     public function __construct()
@@ -30,8 +28,6 @@ class CrossValidation extends Controller
             $this->contactModel   = new ContactModel();
             $this->sourceModel    = new SourceModel();
             $this->updationModel  = new UpdationModel();
-                        $this->leadModel  = new LeadModel();
-
             $this->matchingSessionModel  = new MatchingSessionModel();
     }
     public function index()
@@ -197,22 +193,24 @@ foreach ($companies as $newRow) {
         $passesMinimum = true && $nameScore >= 85 && $addressScore >= 70 && $cityScore >= 80 && $pinScore === 100;
         $isStrongMatch = $nameScore >= 80 && $addressScore >= 60 && $pinScore === 100;
 
-       $companyScore = $totalScore; // Already computed in your matching loop
-        $case = $this->determineCompanyCase($companyScore);
-
-        switch ($case) {
-            case 'exact':
-                $this->handleExactCompany($newId, $dbId);
-                break;
-            case 'partial':
-                $this->handleExactCompany($newId, $dbId);
-                break;
-            case 'no':
-                $this->handleExactCompany($newId);
-                break;
+        if ($passesMinimum && $isStrongMatch) {
+            $this->overwriteCompany($newId, $dbId);
+        } elseif ($matchingType !== 'no match' && !($dbRow['cross_validation'] ?? false)) {
+            $batch[] = [
+                'company_id'          => $newId,
+                'matching_company_id' => $dbId,
+                'matching_type'       => $matchingType,
+                'name'                => $nameScore,
+                'address'             => $addressScore,
+                'city'                => $cityScore,
+                'pin'                 => $pinScore,
+            ];
         }
 
-
+        if (count($batch) >= $batchSize) {
+            $db->table('matching_session')->insertBatch($batch);
+            $batch = [];
+        }
     }
 }
 
@@ -237,90 +235,8 @@ if ($matchingCount === 0) {
 
 }
 
-protected function determineCompanyCase($companyScore)
-{
-    if ($companyScore === 100) {
-        // Exact company match
-        return 'exact';
-    } elseif ($companyScore >= 50) {
-        // Partial company match
-        return 'partial';
-    } else {
-        // No company match
-        return 'no';
-    }
-}
-
-//Operations 
-protected function determineCase($companyScore, $contactScore) {
-    if ($companyScore === 100) {
-        if ($contactScore === 100) return 1;
-        if ($contactScore >= 50) return 3;
-        return 2;
-    } elseif ($companyScore >= 50) { // Partial company match
-        if ($contactScore === 100) return 7;
-        if ($contactScore >= 50) return 9;
-        return 8;
-    } else { // No company match
-        if ($contactScore === 100) return 4;
-        if ($contactScore >= 50) return 6;
-        return 5;
-    }
-}
-
-// Some Company Name Could be Same that Could be Different Entity this will result in Merge and Overwrite
 
 
-
-protected function handleExactCompany($newId, $dbId) {
-    // Case 1
-    $this->overwriteCompany($newId, $dbId);
-
-    // $this->overwriteCompany($newId, $dbId);
-}
-
-protected function handleExactCompanyNewContact($newId, $dbId) {
-    // Case 2
-    $this->addContactToCompany($newId, $dbId);
-}
-
-protected function handleExactCompanyPartialContact($newId, $dbId) {
-    // Case 3
-    $this->mergePartialContact($newId, $dbId);
-}
-
-protected function handleNoCompanyExactContact($newId, $dbId) {
-    // Case 4
-    $this->reviewContactCompanyMismatch($newId, $dbId);
-}
-
-protected function handleNoCompanyNoContact($newId, $dbId) {
-    // Case 5
-    $this->createNewCompanyAndContact($newId);
-}
-
-protected function handleNoCompanyPartialContact($newId, $dbId) {
-    // Case 6
-    $this->createNewCompanyWithPartialContactReview($newId, $dbId);
-}
-
-protected function handlePartialCompanyExactContact($newId, $dbId) {
-    // Case 7
-    $this->reviewCompanyMerge($newId, $dbId);
-}
-
-protected function handlePartialCompanyNewContact($newId, $dbId) {
-    // Case 8
-    $this->reviewCompanyWithNewContact($newId, $dbId);
-}
-
-protected function handlePartialCompanyPartialContact($newId, $dbId) {
-    // Case 9
-    $this->reviewHighRiskDuplicate($newId, $dbId);
-}
-
-
-///////////////////////////////////////////////////////
 
 public function contactCrossValidation()
 {
@@ -546,7 +462,6 @@ public function overwriteCompany(string $id, string $matchId): void
         ->set('company_id', $id)
         ->update();
     echo "SOURCE UPDATED (company_id: $matchId → $id)<br>";
-    
 
         $this->contactModel
         ->where('company_id', $matchId)
@@ -560,14 +475,6 @@ public function overwriteCompany(string $id, string $matchId): void
         ->set('company_id', $id)
         ->update();
     echo "UPDATION UPDATED (company_id: $matchId → $id)<br><hr>";
-
-        // 1️⃣ Update source table
-    $this->leadModel
-        ->where('company_id', $matchId)
-        ->set('company_id', $id)
-        ->update();
-    echo "leadModel UPDATED (company_id: $matchId → $id)<br>";
-
 
     // 3️⃣ Fetch BEFORE data
     $before = $this->companyModel->find($id);
