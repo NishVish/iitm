@@ -76,4 +76,23 @@ public function thanksforregister()
     }
 
     
+    public function spotform()
+    {
+        // Example: list all leads
+        return view('registration/spotform');
+    }
+
+public function spotinterface($contactId = null)
+{
+        $data = [
+                    'contactName' => "Nishant Vishwakarma",
+                    'companyName' => "Sphere Travel Media"
+                ];
+return view('registration/spotinterface', $data);
+        // Example: list all leads
+
+    }
+
+
+
 }

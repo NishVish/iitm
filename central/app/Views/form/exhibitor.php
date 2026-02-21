@@ -1,4 +1,4 @@
-<form id="companyForm" action="<?= site_url('company/add_details') ?>" method="post">
+<form id="companyFormEx" action="<?= site_url('company/add_details') ?>" method="post">
     <?= csrf_field() ?>
 
     <textarea id="excelPasteArea" placeholder="Paste from Excel here"></textarea>

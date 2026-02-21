@@ -2,7 +2,7 @@
 
 <script>
 
-    document.getElementById('companyForm').style.display = 'none';
+    document.getElementById('companyFormTv').style.display = 'none';
 
 </script>
 
@@ -10,7 +10,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const registerBtn = document.getElementById("registerBtn");
-    const companyForm = document.getElementById("companyForm");
+    const companyForm = document.getElementById("companyFormTv");
 
     registerBtn.addEventListener("click", function () {
 
@@ -148,48 +148,11 @@ document.addEventListener("DOMContentLoaded", function () {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>India International Travel Mart | Ahmedabad | 20 and 21 March 2026</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
     
     <!-- Meta Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
 
-  // ✅ Initialize all pixels
-  fbq('init', '1528244355229931'); // Pixel 1
-  fbq('init', '2163682937395443'); // Pixel 2
-  fbq('init', '9300627153319564'); // Pixel 3
-  fbq('init', '1109477967336886'); // Pixel 4
-
-  // ✅ Track PageView on all pixels
-  fbq('track', 'PageView');
-
-  // ✅ Optional: ViewContent event (use only on product pages)
-  fbq('track', 'ViewContent', {
-    content_ids: ['123'], // Change dynamically per product ID
-    content_type: 'product',
-    value: 2499, // Product price (optional)
-    currency: 'INR'
-  });
-</script>
-
-<noscript>
-  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1528244355229931&ev=PageView&noscript=1"/>
-  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2163682937395443&ev=PageView&noscript=1"/>
-  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=9300627153319564&ev=PageView&noscript=1"/>
-  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1109477967336886&ev=PageView&noscript=1"/>
-</noscript>
-<!-- End Meta Pixel Code -->
-    
-    
-    
     
     
     <style>

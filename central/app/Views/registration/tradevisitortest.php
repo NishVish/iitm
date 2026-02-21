@@ -1,8 +1,8 @@
-<?= view('form/exhibitor') ?>
+<?= view('form/tradevisitor') ?>
 
 <script>
 
-    document.getElementById('companyFormEx').style.display = 'block';
+    document.getElementById('companyForm').style.display = 'none';
 
 </script>
 
@@ -10,7 +10,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const registerBtn = document.getElementById("registerBtn");
-    const companyForm = document.getElementById("companyFormEx");
+    const companyForm = document.getElementById("companyForm");
 
     registerBtn.addEventListener("click", function () {
 
@@ -28,19 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
         companyForm.querySelector('[name="companies[0][contact1_designation]"]').value = "Manager";
         companyForm.querySelector('[name="companies[0][contact1_email1]"]').value = "john@test.com";
 
-        companyForm.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationexhibitor";
-        companyForm.querySelector('[name="companies[0][category]"]').value = "";
-        companyForm.querySelector('[name="companies[0][source]"]').value = "Websiteexhibitor";
+        companyForm.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
+        companyForm.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
+        companyForm.querySelector('[name="companies[0][source]"]').value = "WebsiteTradevisitor";
         companyForm.querySelector('[name="companies[0][updated_by]"]').value = "System";
         companyForm.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
 
-companyForm.querySelector('[name="companies[0][fascia]"]').value = "Standard Fascia";
-    companyForm.querySelector('[name="companies[0][stall_location]"]').value = "A1";
-    companyForm.querySelector('[name="companies[0][size]"]').value = "3x3";
-    companyForm.querySelector('[name="companies[0][price]"]').value = "1000.00";
-    companyForm.querySelector('[name="companies[0][gst_amount]"]').value = "180.00";
-    companyForm.querySelector('[name="companies[0][discount_amount]"]').value = "50.00";
-    companyForm.querySelector('[name="companies[0][grand_total]"]').value = "1130.00";
         // 🔹 Submit hidden form
         companyForm.submit();
 
@@ -155,10 +148,48 @@ document.addEventListener("DOMContentLoaded", function () {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>India International Travel Mart | Ahmedabad | 20 and 21 March 2026</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-     -->
- 
+    
+    <!-- Meta Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+
+  // ✅ Initialize all pixels
+  fbq('init', '1528244355229931'); // Pixel 1
+  fbq('init', '2163682937395443'); // Pixel 2
+  fbq('init', '9300627153319564'); // Pixel 3
+  fbq('init', '1109477967336886'); // Pixel 4
+
+  // ✅ Track PageView on all pixels
+  fbq('track', 'PageView');
+
+  // ✅ Optional: ViewContent event (use only on product pages)
+  fbq('track', 'ViewContent', {
+    content_ids: ['123'], // Change dynamically per product ID
+    content_type: 'product',
+    value: 2499, // Product price (optional)
+    currency: 'INR'
+  });
+</script>
+
+<noscript>
+  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1528244355229931&ev=PageView&noscript=1"/>
+  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2163682937395443&ev=PageView&noscript=1"/>
+  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=9300627153319564&ev=PageView&noscript=1"/>
+  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1109477967336886&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+    
+    
+    
     
     
     <style>

@@ -318,11 +318,13 @@ $companyId = Uuid::uuid4()->toString();
         return "❌ Failed: " . $e->getMessage();
     }
 }
+
+
 public function add_details()
 {
     $companies = $this->request->getPost('companies');
 // print_r($companies); 
-//     exit;
+    // exit;
     // If this doesn't stop the script, your form isn't hitting this function at all.
     if (empty($companies)) {
         return redirect()->back()->with('status', '⚠️ No company data found!');
@@ -333,6 +335,29 @@ public function add_details()
 
     foreach ($companies as $index => $company) {
         try {
+
+        // print_r($companies); 
+        // print_r($company['notes']); 
+
+//     exit;
+// echo $company['notes'] ;
+// exit;
+        // if ($company['notes'] == "spot"){
+        //     $companyValidation = new \App\Controllers\CrossValidationModel();
+
+        //    $ValidationResult = $companyValidation->companyValidation($company);
+
+        //     if ($ValidationResult[0] === true) {
+
+        //         $data = [
+        //             'companyName' => $ValidationResult[1],
+        //             'contactName' => $ValidationResult[2]
+        //         ];
+        //         continue;
+        //         return view('registration/spotinterface', $data);
+        //     }
+
+        // }
             // Generate a unique company ID
             $company_id = strtoupper('C' . time() . rand(100, 999));
             $session_id = $this->companyModel->get_lastSession();
@@ -366,10 +391,10 @@ public function add_details()
             // Call the addSource method
             $this->addSource($values);
 // Debugging
-        echo "<pre>";           // makes output readable in browser
-        print_r($values);
-        print_r($company);
-        echo "</pre>";
+        // echo "<pre>";           // makes output readable in browser
+        // print_r($values);
+        // print_r($company);
+        // echo "</pre>";
         // exit;
         $note = $values['notes']; // or $company['source']
 
@@ -424,40 +449,78 @@ for ($i = 1; $i <= 3; $i++) {
 }
 
 
+if ($note == "Spot") {
 
+
+return redirect()->to(base_url('registration/spotinterface/' . 1));
+    // $companyName = trim($company['company_name'] ?? '');
+    // $mobile      = trim($company['contact1_mobile1'] ?? '');
+    // $email       = trim($company['contact1_email1'] ?? '');
+
+    // // 1️⃣ Find company
+    // $companyRecord = $this->companyModel
+    //                       ->where('company_name', $companyName)
+    //                       ->first();
+
+    // if ($companyRecord) {
+
+    //     $companyId = $companyRecord['id'];
+
+    //     // 2️⃣ Find contact with both mobile AND email under this company
+    //     $contact = $this->contactModel
+    //                     ->join('contact_mobiles cm', 'cm.contact_id = contacts.id')
+    //                     ->join('contact_emails ce', 'ce.contact_id = contacts.id')
+    //                     ->where('contacts.company_id', $companyId)
+    //                     ->where('cm.mobile', $mobile)
+    //                     ->where('ce.email', $email)
+    //                     ->select('contacts.id')
+    //                     ->first();
+
+    //     if (!$contact) {
+    //         $contactId = $contact['id'];
+    //         $contactId = 1;
+
+    //         // 3️⃣ Redirect to generate badge URL
+    //         return redirect()->to(base_url('registration/spotinterface/' . $contactId));
+    //     }
+    // }
+
+    // Optional: handle case if no contact found
+    return redirect()->back()->with('error', 'Contact not found for Spot registration.');
+}
         
 
-if ($note == "Websitetradevisitor"){
-        return redirect()->to(base_url('registration/generatebadge/' . $company_id));
-    }
-if (strtolower($note) === "websiteexhibitor") {
+// if ($note == "Websitetradevisitor"){
+//         return redirect()->to(base_url('registration/generatebadge/' . $company_id));
+//     }
+// if (strtolower($note) === "websiteexhibitor") {
 
-            $leadModel = new \App\Models\LeadModel();
+//             $leadModel = new \App\Models\LeadModel();
 
-            $leadData = [
-                'company_id'     => $company_id,
-                'contact_id'     => 1, // optionally fetch first contact ID
-                'fascia'         => $company['fascia'] ?? "Standard Fascia",
-                'sales_person'   => $company['sales_person'] ?? null,
-                'exhibitor'      => $company['company_name'] ?? null,
-                'booking_form'   => $company['booking_form'] ?? null,
-            ];
+//             $leadData = [
+//                 'company_id'     => $company_id,
+//                 'contact_id'     => 1, // optionally fetch first contact ID
+//                 'fascia'         => $company['fascia'] ?? "Standard Fascia",
+//                 'sales_person'   => $company['sales_person'] ?? null,
+//                 'exhibitor'      => $company['company_name'] ?? null,
+//                 'booking_form'   => $company['booking_form'] ?? null,
+//             ];
 
-            $locationData = [
-                'location'       => $company['location'] ?? null,
-                'stall_location' => $company['stall_location'] ?? "A1",
-                'size'           => $company['size'] ?? "3x3",
-                'price'          => $company['price'] ?? 1000.00,
-                'gst_amount'     => $company['gst_amount'] ?? 180.00,
-                'discount_amount'=> $company['discount_amount'] ?? 50.00,
-                'grand_total'    => $company['grand_total'] ?? 1130.00,
-            ];
+//             $locationData = [
+//                 'location'       => $company['location'] ?? null,
+//                 'stall_location' => $company['stall_location'] ?? "A1",
+//                 'size'           => $company['size'] ?? "3x3",
+//                 'price'          => $company['price'] ?? 1000.00,
+//                 'gst_amount'     => $company['gst_amount'] ?? 180.00,
+//                 'discount_amount'=> $company['discount_amount'] ?? 50.00,
+//                 'grand_total'    => $company['grand_total'] ?? 1130.00,
+//             ];
 
-            $leadId = $leadModel->createLead($leadData, $locationData);
+//             $leadId = $leadModel->createLead($leadData, $locationData);
         
-                return redirect()->to(base_url('registration/regitersuccess'));
+//                 return redirect()->to(base_url('registration/regitersuccess'));
 
-            }
+//             }
 
 
 

@@ -244,7 +244,12 @@ $routes->group('registration', function($routes) {
     $routes->get('publicformtv', 'Registration::publicformtradevisitor');
     $routes->get('publicformex', 'Registration::publicformexhibitor');
     $routes->get('regitersuccess', 'Registration::thanksforregister');
-    $routes->get('generatebadge/(:any)', 'Registration::generatebadge/$1');   
+    $routes->get('generatebadge/(:any)', 'Registration::generatebadge/$1');
+    $routes->get('spotinterface/(:any)', 'Registration::spotinterface/$1');
+    // $routes->get('spotform', 'Registration::spotform');
+    // $routes->get('spotinterface', 'Registration::spotinterface');
+    // $routes->get('spot', 'Registration::publicformtradevisitor');
+
  // $routes->get('publicform', 'Registration::publicform');
     // $routes->post('update/(:num)', 'Issue::update/$1');
 });

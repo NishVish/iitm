@@ -15,6 +15,9 @@
     overflow:auto; 
     margin-bottom:20px;
 ">
+
+
+
     <?= view('company/insert_company_form') ?>
 </div>
 

@@ -1,4 +1,4 @@
-<form id="companyFormTv" action="<?= site_url('company/add_details') ?>" method="post">
+<form id="companyFormSpot" action="<?= site_url('company/add_details') ?>" method="post">
     <?= csrf_field() ?>
 
     <textarea id="excelPasteArea" placeholder="Paste from Excel here"></textarea>
