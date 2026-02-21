@@ -37,7 +37,10 @@ public function index()
     return view('leads/index', $data);
 }
 
+public function createOnlineLead(){
 
+    
+}
 
 public function createQuicklead($companyId = null)
 {

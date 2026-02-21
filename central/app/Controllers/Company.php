@@ -321,7 +321,9 @@ $companyId = Uuid::uuid4()->toString();
 public function add_details()
 {
     $companies = $this->request->getPost('companies');
-
+// print_r($companies); 
+//     exit;
+    // If this doesn't stop the script, your form isn't hitting this function at all.
     if (empty($companies)) {
         return redirect()->back()->with('status', '⚠️ No company data found!');
     }
@@ -352,6 +354,8 @@ public function add_details()
                 'phone'         => $company['phone'] ?? null,
             ]);
 
+            // if$company['phone']
+
              // Prepare source data
             $values = [
                 'company_id'    => $company_id,
@@ -361,7 +365,15 @@ public function add_details()
             ];
             // Call the addSource method
             $this->addSource($values);
+// Debugging
+        echo "<pre>";           // makes output readable in browser
+        print_r($values);
+        print_r($company);
+        echo "</pre>";
+        // exit;
+        $note = $values['notes']; // or $company['source']
 
+        
 // Insert contacts dynamically (up to 3 contacts)
 for ($i = 1; $i <= 3; $i++) {
 
@@ -412,14 +424,52 @@ for ($i = 1; $i <= 3; $i++) {
 }
 
 
+
+        
+
+if ($note == "Websitetradevisitor"){
+        return redirect()->to(base_url('registration/generatebadge/' . $company_id));
+    }
+if (strtolower($note) === "websiteexhibitor") {
+
+            $leadModel = new \App\Models\LeadModel();
+
+            $leadData = [
+                'company_id'     => $company_id,
+                'contact_id'     => 1, // optionally fetch first contact ID
+                'fascia'         => $company['fascia'] ?? "Standard Fascia",
+                'sales_person'   => $company['sales_person'] ?? null,
+                'exhibitor'      => $company['company_name'] ?? null,
+                'booking_form'   => $company['booking_form'] ?? null,
+            ];
+
+            $locationData = [
+                'location'       => $company['location'] ?? null,
+                'stall_location' => $company['stall_location'] ?? "A1",
+                'size'           => $company['size'] ?? "3x3",
+                'price'          => $company['price'] ?? 1000.00,
+                'gst_amount'     => $company['gst_amount'] ?? 180.00,
+                'discount_amount'=> $company['discount_amount'] ?? 50.00,
+                'grand_total'    => $company['grand_total'] ?? 1130.00,
+            ];
+
+            $leadId = $leadModel->createLead($leadData, $locationData);
+        
+                return redirect()->to(base_url('registration/regitersuccess'));
+
+            }
+
+
+
         } catch (\Throwable $e) {
             log_message('error', "Company {$company['company_name']} failed: " . $e->getMessage());
             $failed++;
         }
     }
 
+    
     // $this->companyModel;
-    return redirect()->back()->with(
+    return redirect()->to(site_url('company'))->with(
         'status',
         $failed === 0
             ? "✅ Completed: {$success} contacts added successfully"

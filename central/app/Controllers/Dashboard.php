@@ -14,17 +14,17 @@ class Dashboard extends BaseController
         $this->companyModel = new CompanyModel();
         $this->leadModel = new LeadModel();
     }
-public function index()
-{
-    // Load model
-    $dashboardModel = new \App\Models\Dashboard_Model();
+// public function index()
+// {
+//     // Load model
+//     $dashboardModel = new \App\Models\Dashboard_Model();
 
-    // Get stats from model
-    $stats = $dashboardModel->getstats(); // Assuming this returns an array like ['total_revenue' => 1000, ...]
+//     // Get stats from model
+//     $databasedetails = $dashboardModel->get_count_by_database(); // Assuming this returns an array like ['total_revenue' => 1000, ...]
 
-    // Pass stats to the view
-    return view('company/all_stats', $stats);
-}
+//     // Pass stats to the view
+//     return view('home/index', $databasedetails);
+// }
 
 
 // public function index()

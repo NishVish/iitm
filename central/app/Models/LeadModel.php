@@ -21,7 +21,41 @@ protected $allowedFields = [
     'payment_status'
 ];
 
+public function createLead(array $leadData, ?array $locationData = null)
+    {
+        // Set defaults for lead
+        $leadData['status'] = $leadData['status'] ?? 'draft';
+        $leadData['payment_status'] = $leadData['payment_status'] ?? 'pending';
+        $leadData['exhibition_year'] = $leadData['exhibition_year'] ?? date('Y');
 
+        // Insert lead
+        $this->insert($leadData);
+        $leadId = $this->getInsertID();
+
+        // If location data is provided, insert into lead_locations
+        if ($locationData) {
+            $locationData['lead_id'] = $leadId;
+
+            // Set default null values if not provided
+            $defaults = [
+                'location'       => null,
+                'stall_location' => null,
+                'size'           => null,
+                'price'          => 0.00,
+                'gst_amount'     => 0.00,
+                'discount_amount'=> 0.00,
+                'grand_total'    => 0.00,
+            ];
+            $locationData = array_merge($defaults, $locationData);
+
+            $leadLocationModel = new \App\Models\LeadLocationModel();
+            $leadLocationModel->insert($locationData);
+        }
+
+        return $leadId;
+    }
+
+    
     // Get Lead with all its locations
 public function getLeadFullDetails($leadId)
 {

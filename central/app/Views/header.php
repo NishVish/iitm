@@ -13,6 +13,13 @@
     --body-color: #f8f4f4;
     --button-color: #a82324;
 }
+    /* 
+    
+    background-color: var(--body-color); 
+    
+    
+    
+    */
 
 
 
@@ -212,7 +219,7 @@ nav {
 <nav>
     <div class="nav-links">
         <a href="<?= base_url('') ?>">Login</a>
-        <a href="<?= base_url('index.php/login') ?>">Home</a>
+        <a href="<?= base_url('welcome') ?>">Home</a>
 
         <!-- Backend dropdown -->
             <a href="<?= base_url('backend') ?>" class="dropbtn">Backend</a>
@@ -228,6 +235,8 @@ nav {
         <a href="<?= base_url('crossvalidation') ?>">Crossvalidation</a>
         <a href="<?= site_url('booking/exhibitor_booking') ?>">Exhibitor Booking</a>
         <a href="<?= site_url('booking/view') ?>">View Booking</a>
+        <a href="<?= site_url('issue') ?>">Issue</a>
+        <a href="<?= site_url('registration') ?>">Registration</a>
         <a href="http://localhost/phpmyadmin/index.php">MyPhpAdmin</a>
     </div>
 

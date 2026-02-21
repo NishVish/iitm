@@ -256,13 +256,18 @@ public function getDuplicateCompaniesCount()
 }
 
 
+public function getPersonAndCompany($companyId)
+{
+    $builder = $this->db->table('company_data c');
 
+    $builder->select('c.company_name, co.name AS contact_name');
+    $builder->join('contact co', 'co.company_id = c.company_id', 'left');
+    $builder->where('c.company_id', $companyId);
+    $builder->orderBy('co.contact_id', 'ASC'); // pick first contact if multiple
+    $builder->limit(1);
 
-
-
-
-
-
+    return $builder->get()->getRowArray(); // returns ['company_name' => ..., 'contact_name' => ...]
+}
 
 
 }

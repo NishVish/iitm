@@ -6,29 +6,34 @@ use CodeIgniter\Controller;
 class Authentication extends BaseController
 {
 
-    public function login()
+
+public function index()
     {
-        // Get POST data safely
-        $pin = isset($_POST['pin']) ? $_POST['pin'] : '';
-
-        // Check if pin matches
-        if ($pin === 'sphere') {
-
-        return view('home/index');
-            // // Start session if not already started
-            // if (session_status() === PHP_SESSION_NONE) {
-            //     session_start();
-            // }
-
-            // // You can set a session variable if needed
-            // $_SESSION['authenticated'] = true;
-
-            // // Redirect or call main function
-            // $this->main();
-        } else {
-            // Invalid pin
-            echo "Invalid PIN!";
-        }
+        return view("login");
     }
+
+public function login()
+{
+    $request = service('request');
+
+    // Get POST data safely
+    $pin = $request->getPost('pin');
+
+    if ($pin === 'sphere') {
+        // Start session
+        $session = session();
+        $session->set('authenticated', true);
+
+        // Redirect to welcome route
+        return redirect()->route('welcome');
+    } else {
+        // Set flashdata for error message
+        $session = session();
+        $session->setFlashdata('error', 'Invalid PIN!');
+
+        // Return login view
+        return view('login');
+    }
+}
 
 }

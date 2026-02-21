@@ -55,9 +55,30 @@ class Dashboard_Model extends Model
     }
 
 
+// Companies count grouped by database_name
+public function get_count_by_database()
+{
+    return $this->db->table('company_data')
+                    ->select('database_name, COUNT(*) as total')
+                    ->groupBy('database_name')
+                    ->orderBy('database_name', 'ASC')
+                    ->get()
+                    ->getResult();
+}
 
-    
-public function getstats()
+
+public function get_count_by_database_and_source()
+{
+    return $this->db->table('company_data cd')
+                    ->select('cd.database_name, cs.notes as source, COUNT(DISTINCT cd.company_id) as total')
+                    ->join('company_sources cs', 'cd.company_id = cs.company_id', 'left')
+                    ->groupBy(['cd.database_name', 'cs.notes'])
+                    ->orderBy('cd.database_name', 'ASC')
+                    ->orderBy('cs.notes', 'ASC')
+                    ->get()
+                    ->getResult();
+}
+public function leadsstats()
 {
     $db = \Config\Database::connect();
     

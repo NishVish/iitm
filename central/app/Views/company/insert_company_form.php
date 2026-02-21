@@ -1,199 +1,165 @@
-<?php
-$segment1 = service('uri')->getSegment(2); 
-$formVisible = ($segment1 === 'add'); // visible only for 'add'
-?>
 
-<form id="companyForm" action="<?= site_url('company/add_details') ?>" method="post">
-    <?= csrf_field() ?>
+<?= view('form/tradevisitor') ?>
 
 
-    <button type="submit">Submit</button>
-    <textarea id="excelPasteArea" placeholder="Paste from Excel here"></textarea>
+ 
+<style>
+form {
+    width: 100%;
+    overflow-x: auto;
+    font-family: Arial, sans-serif;
+}
 
-    <!-- CLEAR ALL BUTTON -->
-    <button type="button" id="clearAllBtn">Clear All Data</button>
+textarea {
+    width: 100%;
+    min-height: 80px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
 
-    <!-- Table -->
-    <div>
-        <table border="1" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Database Name</th>
-                    <th>Category</th>
-                    <th>Source</th>
-                    <th>Updated By</th>
-                    <th>Updated At</th>
-                    <th>Outbound</th>
-                    
-                    <th>Company Name</th>
-                    <th>Address 1</th>
-                    <th>Address 2</th>
-                    <th>City</th>
-                    <th>Pincode</th>
-                    <th>State</th>
-                    <th>Phone</th>
-                    <th>Fax</th>
+.company-row {
+    display: flex;
+    flex-wrap: nowrap; /* all fields in a single row */
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
 
-                    <!-- Contact 1 -->
-                    <th>Contact Name</th>
-                    <th>Designation</th>
-                    <th>Mobile 1</th>
-                    <th>Mobile 2</th>
-                    <th>Mobile 3</th>
-                    <th>Email 1</th>
-                    <th>Email 2</th>
-                    <th>Email 3</th>
+.field-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 120px; /* adjust field width */
+}
 
-                    <!-- Contact 2 -->
-                    <th>Contact Name 2</th>
-                    <th>Designation 2</th>
-                    <th>Email 4</th>
-                    <th>Email 5</th>
-                    <th>Mobile 4</th>
-                    <th>Mobile 5</th>
+.field-group label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
 
-                    <!-- Contact 3 -->
-                    <th>Contact Name 3</th>
-                    <th>Designation 3</th>
-                    <th>Email 6</th>
-                    <th>Email 7</th>
-                    <th>Mobile 6</th>
-                    <th>Mobile 7</th>
+.field-group input {
+    padding: 3px 5px;
+    font-size: 12px;
+}
 
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="companyTableBody">
-                <tr class="companyRow">
-                    <td><input type="text" name="companies[0][database_name]"></td>
-                    <td><input type="text" name="companies[0][category]"></td>
-                    <td><input type="text" name="companies[0][source]"></td>
-                    <td><input type="text" name="companies[0][updated_by]"></td>
-                    <td><input type="datetime-local" name="companies[0][updated_at]"></td>
-                    <td><input type="checkbox" name="companies[0][outbound]" value="1"></td>
-
-                    <td><input type="text" name="companies[0][company_name]"></td>
-                    <td><input type="text" name="companies[0][address_1]"></td>
-                    <td><input type="text" name="companies[0][address_2]"></td>
-                    <td><input type="text" name="companies[0][city]"></td>
-                    <td><input type="text" name="companies[0][pincode]"></td>
-                    <td><input type="text" name="companies[0][state]"></td>
-                    <td><input type="text" name="companies[0][phone]"></td>
-                    <td><input type="text" name="companies[0][fax]"></td>
-
-                    <!-- Contact 1 -->
-                    <td><input type="text" name="companies[0][contact1_name]"></td>
-                    <td><input type="text" name="companies[0][contact1_designation]"></td>
-                    <td><input type="text" name="companies[0][contact1_mobile1]"></td>
-                    <td><input type="text" name="companies[0][contact1_mobile2]"></td>
-                    <td><input type="text" name="companies[0][contact1_mobile3]"></td>
-                    <td><input type="text" name="companies[0][contact1_email1]"></td>
-                    <td><input type="text" name="companies[0][contact1_email2]"></td>
-                    <td><input type="text" name="companies[0][contact1_email3]"></td>
-
-                    <!-- Contact 2 -->
-                    <td><input type="text" name="companies[0][contact2_name]"></td>
-                    <td><input type="text" name="companies[0][contact2_designation]"></td>
-                    <td><input type="text" name="companies[0][contact2_email1]"></td>
-                    <td><input type="text" name="companies[0][contact2_email2]"></td>
-                    <td><input type="text" name="companies[0][contact2_mobile1]"></td>
-                    <td><input type="text" name="companies[0][contact2_mobile2]"></td>
-
-                    <!-- Contact 3 -->
-                    <td><input type="text" name="companies[0][contact3_name]"></td>
-                    <td><input type="text" name="companies[0][contact3_designation]"></td>
-                    <td><input type="text" name="companies[0][contact3_email1]"></td>
-                    <td><input type="text" name="companies[0][contact3_email2]"></td>
-                    <td><input type="text" name="companies[0][contact3_mobile1]"></td>
-                    <td><input type="text" name="companies[0][contact3_mobile2]"></td>
-
-                    <td>
-                        <button type="button" class="clearBtn">Clear</button>
-                        <button type="button" class="removeBtn">Remove</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-    <button type="submit">Submit</button>
-</form>
+.field-actions {
+    display: flex;
+    gap: 5px;
+    margin-left: 10px;
+    align-items: flex-end;
+}
+</style> 
 
 <script>
-let companyIndex = 1;
-const tableBody = document.getElementById('companyTableBody');
+document.addEventListener("DOMContentLoaded", function () {
+    let companyIndex = 0; // Start at 0 for the first row
+    const form = document.getElementById('companyForm');
+    const templateRow = document.querySelector('.company-row');
 
-/* ===== CREATE NEW ROW ===== */
-function createRow() {
-    const template = document.querySelector('.companyRow');
-    const row = template.cloneNode(true);
+    function createRow() {
+        companyIndex++;
+        const newRow = templateRow.cloneNode(true);
+        
+        // Update indices in name attributes: companies[0][...] -> companies[1][...]
+        newRow.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            input.name = input.name.replace(/\[\d+\]/, `[${companyIndex}]`);
+            if (input.type === 'checkbox') input.checked = false;
+        });
 
-    row.querySelectorAll('input, textarea').forEach(el => {
-        el.value = '';
-        el.name = el.name.replace(/\d+/, companyIndex);
+        // Add event listeners to buttons in the new row
+        newRow.querySelector('.removeBtn').onclick = function() { newRow.remove(); };
+        newRow.querySelector('.clearBtn').onclick = function() {
+            newRow.querySelectorAll('input').forEach(i => i.value = '');
+        };
+
+        // Insert before the Submit button
+        form.insertBefore(newRow, form.querySelector('button[type="submit"]'));
+        return newRow;
+    }
+
+    document.getElementById('excelPasteArea').addEventListener('paste', function (e) {
+        e.preventDefault();
+        const clipboardData = e.clipboardData || window.clipboardData;
+        const pastedText = clipboardData.getData('text');
+        
+        // Split by new line for rows, then by tab for columns
+        const rows = pastedText.trim().split(/\r?\n/);
+
+        rows.forEach((rowData, i) => {
+            const cols = rowData.split('\t');
+            let currentRow;
+
+            // Use the first row if it's empty, otherwise create a new one
+            if (i === 0 && companyIndex === 0 && isRowEmpty(templateRow)) {
+                currentRow = templateRow;
+            } else {
+                currentRow = createRow();
+            }
+
+            const inputs = currentRow.querySelectorAll('input');
+            cols.forEach((value, colIndex) => {
+                if (inputs[colIndex]) {
+                    if (inputs[colIndex].type === 'checkbox') {
+                        inputs[colIndex].checked = (value.toLowerCase() === 'yes' || value === '1');
+                    } else {
+                        inputs[colIndex].value = value.trim();
+                    }
+                }
+            });
+        });
+        
+        this.value = ''; // Clear textarea after paste
     });
 
-    row.querySelector('.removeBtn').onclick = removeRow;
-    row.querySelector('.clearBtn').onclick = clearRow;
+    function isRowEmpty(row) {
+        const firstInput = row.querySelector('input[type="text"]');
+        return firstInput ? firstInput.value === '' : true;
+    }
 
-    tableBody.appendChild(row);
-    companyIndex++;
-    return row;
-}
+    // Initial first row button logic
+    templateRow.querySelector('.removeBtn').onclick = function() {
+        if(document.querySelectorAll('.company-row').length > 1) templateRow.remove();
+    };
+    templateRow.querySelector('.clearBtn').onclick = function() {
+        templateRow.querySelectorAll('input').forEach(i => i.value = '');
+    };
+    
+    document.getElementById('clearAllBtn').onclick = () => {
+        location.reload(); // Quickest way to reset everything
+    };
+});
 
 /* ===== REMOVE ROW ===== */
 function removeRow(e) {
-    if (document.querySelectorAll('.companyRow').length > 1) {
-        e.target.closest('tr').remove();
+    const rows = document.querySelectorAll('.company-row');
+    if (rows.length > 1) {
+        e.target.closest('.company-row').remove();
+    } else {
+        alert("At least one row must remain.");
     }
 }
 
-
-
-/* ===== CLEAR ROW (EMPTY CELLS) ===== */
+/* ===== CLEAR ROW ===== */
 function clearRow(e) {
-    const row = e.target.closest('tr');
-    row.querySelectorAll('input, textarea').forEach(el => el.value = '');
+    const row = e.target.closest('.company-row');
+    row.querySelectorAll('input, textarea').forEach(el => {
+        el.value = '';
+        if (el.type === 'checkbox') el.checked = false;
+    });
 }
 
-/* ===== EXCEL PASTE HANDLER ===== */
-document.getElementById('excelPasteArea').addEventListener('paste', function(e) {
-    e.preventDefault();
-
-    const text = (e.clipboardData || window.clipboardData).getData('text');
-    const rows = text.trim().split('\n');
-
-    rows.forEach((rowText, rowIndex) => {
-        const cols = rowText.split('\t');
-
-        let row;
-        if (rowIndex === 0 && companyIndex === 1) {
-            row = document.querySelector('.companyRow');
-        } else {
-            row = createRow();
-        }
-
-        const inputs = row.querySelectorAll('input, textarea');
-
-        cols.forEach((value, colIndex) => {
-            if (inputs[colIndex]) {
-                inputs[colIndex].value = value.trim();
-            }
+/* ===== CLEAR ALL ===== */
+document.getElementById('clearAllBtn').addEventListener('click', function() {
+    document.querySelectorAll('.company-row input, .company-row textarea')
+        .forEach(el => {
+            el.value = '';
+            if (el.type === 'checkbox') el.checked = false;
         });
-    });
-
-    this.value = '';
-});
-
-/* attach buttons to first row */
-document.querySelector('.removeBtn').onclick = removeRow;
-document.querySelector('.clearBtn').onclick = clearRow;
-/* ===== CLEAR ALL (EMPTY ALL CELLS) ===== */
-document.getElementById('clearAllBtn').addEventListener('click', function () {
-    document.querySelectorAll('#companyTableBody input, #companyTableBody textarea')
-        .forEach(el => el.value = '');
-
     document.getElementById('excelPasteArea').value = '';
 });
+
+/* Attach handlers to first row buttons */
+templateRow.querySelector('.removeBtn').onclick = removeRow;
+templateRow.querySelector('.clearBtn').onclick = clearRow;
 </script>

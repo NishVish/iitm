@@ -7,9 +7,13 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 // Default route (landing page)
-$routes->get('/', 'Home::index');
+// $routes->get('/', 'Home::index');
+
+$routes->get('/', 'Authentication::login');
+// $routes->get('/', 'Home::index');
+
 $routes->post('login', 'Authentication::login');
-$routes->get('login', 'Dashboard::index');
+$routes->get('welcome', 'Home::index');
 
 // Backend home / admin panel
 $routes->get('project_summary', 'Backend::project_summary_main');
@@ -49,7 +53,6 @@ $routes->get('company/details/(:any)', 'Company::details/$1');
 
 $routes->post('master/filterCompanies', 'Master::filterCompanies');
 
-$routes->get('company', 'Company::index');
 $routes->post('company/compare_popup', 'Company::compare_popup');
 
 // Add new company
@@ -226,3 +229,22 @@ $routes->get('tools/webscraper', 'Webscraper::index');
 // $routes->get('tools', 'Tools::index');               // Main page
 $routes->get('tools/listFiles', 'Tools::listFiles');
 $routes->get('tools/download/(:any)', 'Tools::download/$1');
+
+
+$routes->group('issue', function($routes) {
+    $routes->get('/', 'Issue::index');
+    $routes->post('store', 'Issue::store');
+    $routes->post('update/(:num)', 'Issue::update/$1');
+});
+
+
+
+$routes->group('registration', function($routes) {
+    $routes->get('/', 'Registration::index');
+    $routes->get('publicformtv', 'Registration::publicformtradevisitor');
+    $routes->get('publicformex', 'Registration::publicformexhibitor');
+    $routes->get('regitersuccess', 'Registration::thanksforregister');
+    $routes->get('generatebadge/(:any)', 'Registration::generatebadge/$1');   
+ // $routes->get('publicform', 'Registration::publicform');
+    // $routes->post('update/(:num)', 'Issue::update/$1');
+});
