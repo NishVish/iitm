@@ -162,6 +162,21 @@ nav {
 
     </style>
 
+
+<!-- Excel Module -->
+
+<script>
+<?= view('excelmodule/js/main') ?>  
+
+</script>
+
+<style>
+<?= view('excelmodule/style/main') ?>  
+
+
+</style>
+
+
     
 </head>
 <body>
@@ -235,7 +250,7 @@ nav {
         <a href="<?= base_url('crossvalidation') ?>">Crossvalidation</a>
         <a href="<?= site_url('booking/exhibitor_booking') ?>">Exhibitor Booking</a>
         <a href="<?= site_url('booking/view') ?>">View Booking</a>
-        <a href="<?= site_url('issue') ?>">Issue</a>
+        <a href="<?= site_url('ticket') ?>">Ticket</a>
         <a href="<?= site_url('registration') ?>">Registration</a>
         <a href="http://localhost/phpmyadmin/index.php">MyPhpAdmin</a>
     </div>
@@ -250,9 +265,6 @@ nav {
        
 
  </div>
-
-</nav>
-<!-- Theme Popup -->
 <div id="themeWindow" class="theme-window">
     <div class="theme-header">
         <span>Theme Settings</span>
@@ -293,6 +305,9 @@ nav {
         
     </div>
 </div>
+</nav>
+<!-- Theme Popup -->
+
 
 
 <script>

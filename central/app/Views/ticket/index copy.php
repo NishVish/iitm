@@ -1,4 +1,4 @@
-<?= view('issue/side') ?>
+<?= view('ticket/side') ?>
 
 <style>
 /* Container */

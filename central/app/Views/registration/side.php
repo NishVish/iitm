@@ -11,7 +11,7 @@ $segment1 = service('uri')->getSegment(1);
     <a href="<?= base_url('registration/publicformtv') ?>">TV Form Only</a>
     <a href="<?= base_url('registration/publicformex') ?>">Exhibitor Form Only</a>
     <a href="<?= base_url('registration/spotform') ?>">Spot Form Only</a>
-    <a href="<?= base_url('registration/spotinterface') ?>"> Spot Interface</a>
+    <a href="<?= base_url('registration/spotinterface/1') ?>"> Spot Interface</a>
     
     <div style="margin-top:20px;">
         <button type="button" id="registerBtnexhibitor" class="btn btn-primary">

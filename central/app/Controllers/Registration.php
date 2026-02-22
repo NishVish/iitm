@@ -6,10 +6,10 @@ use CodeIgniter\Controller;
 // use App\Models\LeadsModel;
 use App\Models\CompanyModel;
 // use App\Models\LeadLocationsModel;
-// use App\Models\ContactModel;
-// use App\Models\ContactEmailModel;
-// use App\Models\ContactMobileModel;
-// use App\Models\CompanySourcesModel;
+use App\Models\ContactModel;
+use App\Models\SourceModel;
+use App\Models\ContactMobileModel;
+
 // use App\Models\UpdationModel;
 
 class Registration extends BaseController
@@ -82,16 +82,91 @@ public function thanksforregister()
         return view('registration/spotform');
     }
 
+
+    public function searchentry()
+{
+    $mobile = $this->request->getPost('mobile');
+    // $mobile = 1;
+
+    if (!$mobile) {
+        return redirect()->back()->with('error', 'Mobile number is required.');
+    }
+
+    $MobileModel = new \App\Models\ContactMobileModel();
+
+    // Search contact by mobile
+    $contact = $MobileModel->where('mobile', $mobile)->first();
+
+    if (!$contact) {
+
+    return $this->spotinterface(0);
+    }
+
+    // var_dump( $contact);
+    // exit;
+    // Redirect to spotinterface with contactId
+    return $this->spotinterface($contact['contact_id']);
+}
+
+
+
 public function spotinterface($contactId = null)
 {
-        $data = [
-                    'contactName' => "Nishant Vishwakarma",
-                    'companyName' => "Sphere Travel Media"
-                ];
-return view('registration/spotinterface', $data);
-        // Example: list all leads
+    // Initialize data array
+    $data = [
+        'contactName' => 'Not_Found',
+        'companyName' => 'Not_Found',
+        'designation' => '',
+        'mobile'      => '',
+        'email'       => '',
+        'sources'     => [],
+    ];
 
+    if ($contactId == 0) {
+        return view('registration/spotinterface', $data);
     }
+
+    // Hardcoded for testing
+    if ($contactId == 1) {
+        $data['contactName'] = "Nishant Vishwakarma";
+        $data['companyName'] = "Sphere Travel Media";
+        return view('registration/spotinterface', $data);
+    }
+
+    // Load models
+    $contactModel = new \App\Models\ContactModel();
+    $companyModel = new \App\Models\CompanyModel();
+    $sourceModel  = new \App\Models\SourceModel();
+
+    // Fetch contact
+    $contact = $contactModel->find($contactId);
+
+    if ($contact) {
+        // Fetch company
+        $company = $companyModel->find($contact['company_id'] ?? null);
+
+        $data = [
+            'contactName' => strtoupper($contact['name'] ?? 'Unknown Contact'),
+            'companyName' => strtoupper($company['company_name'] ?? 'Unknown Company'),
+            'designation' => strtoupper($contact['designation'] ?? ''),
+            'mobile'      => $contact['mobile'] ?? '',
+            'email'       => $contact['email'] ?? '',
+        ];
+
+        // --- Insert into company_sources ---
+        $insertData = [
+            'company_id' => $contact['company_id'],
+            'event_date' => date('Y-m-d H:i:s'),
+            'notes'      => 'spot'
+        ];
+
+        if (!empty($insertData['company_id'])) {
+            $sourceModel->addSource($insertData);
+        }
+    }
+
+    return view('registration/spotinterface', $data);
+}
 
 
 

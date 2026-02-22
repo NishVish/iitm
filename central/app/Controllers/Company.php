@@ -682,34 +682,16 @@ public function savePersonold()
 
 
 
-
 public function addSource(array $values)
 {
     $sourceModel = new \App\Models\SourceModel();
 
-    if (empty($values['company_id'])) {
-        dd('company_id missing', $values);
-    }
-
-    // Sanitize source_id: remove minus if any
-$sourceId = isset($values['source_id']) && is_numeric($values['source_id'])
-    ? abs((int)$values['source_id'])
-    : 0; // default to 0 if not provided
-
-
-    $result = $sourceModel->insert([
-        'company_id' => trim($values['company_id']),
-        'source_id'  => $sourceId,
-        'event_date' => $values['event_date'],
-        'notes'      => $values['notes'],
-    ]);
-
-    if ($result === false) {
-        dd($sourceModel->errors());
-    }
+    $result = $sourceModel->addSource($values); // Correct semicolon
 
     return $result;
 }
+
+
 public function source_check()
 {
     $companies = $this->request->getPost('companies');

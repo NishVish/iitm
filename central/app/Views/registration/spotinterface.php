@@ -1,28 +1,16 @@
 <?php
-// Dummy search_result for testing
-$auto_print = True;
+// Optional: auto-print flag
+$auto_print = true;
+
+// Populate search_result from controller
 $search_result = [
     [
-        'select2'      => 'Mr.',
-        'name'         => 'John Doe',
-        'company_name' => 'Acme Corporation',
-        'designation'  => 'Manager',
-        'mobile'       => '9876543210'
-    ],
-    // [
-    //     'select2'      => '',
-    //     'name'         => 'Jane Smith',
-    //     'company_name' => 'Globex Ltd.',
-    //     'designation'  => 'Director',
-    //     'mobile'       => '9123456780'
-    // ],
-    // [
-    //     'select2'      => 'Dr.',
-    //     'name'         => 'Alice Johnson',
-    //     'company_name' => 'Initech Inc.',
-    //     'designation'  => 'CEO',
-    //     'mobile'       => '9988776655'
-    // ]
+        'select2'      => '', // Add prefix if needed
+        'name'         => $contactName ?? 'Unknown Contact',
+        'company_name' => $companyName ?? 'Unknown Company',
+        'designation'  => '', // You can add designation if available
+        'mobile'       => ''  // You can add mobile if available
+    ]
 ];
 ?>
 <!DOCTYPE html>
@@ -151,6 +139,9 @@ $search_result = [
     color: blue;
 }
 
+#nameEditable, #companyEditable {
+    text-transform: uppercase;
+}
 
 
 
@@ -165,21 +156,7 @@ $search_result = [
 
   <div id="printSection" style="flex: 1; border: 1px solid #ccc; padding-top:0px;">
     <div class="image-container">
-<div id="temp">
-    <strong style="font-size: 24px; color: black;" contenteditable="true">
-        NISHANT VISHWAKARMA
-    </strong><br>
 
-    <span style="font-size: 24px; color: black;">
-        <span contenteditable="true">
-            Sphere Travel Media Pvt. Ltd.
-        </span><br>
-
-        <span contenteditable="true">
-          7909075195       
-        </span>
-    </span>
-</div>
   
     <img id="badgeImage" src="trade.jpg" alt="Background Image" class="background-image">
         <div class="overlay-text">
@@ -187,92 +164,26 @@ $search_result = [
 
 
             <?php if (!empty($search_result)): ?>
-
-              <?php foreach ($search_result as $row): ?>
-                  <?php
-                    
-                    if (!empty($row['select2'])) {
-                        $name = strtoupper($row['select2']) . " " . strtoupper($row['name']);
-                    } else {
-                        $name = strtoupper($row['name']);
-                    }
-                    $company_name = strtoupper($row['company_name']);
-                    $designation = $row['designation'];
-
-                    // Combine all text blocks to evaluate length
-                    $max_line_length = max(strlen($name), strlen($company_name), strlen($designation));
-
-                    // Start from a reasonable base
-                    $base_font_size = 26;
-
-                    // Adjust down based on length
-                    if ($max_line_length > 32) {
-                        $base_font_size = 22;
-                    } elseif ($max_line_length > 26) {
-                        $base_font_size = 25;
-                    } elseif ($max_line_length > 20) {
-                        $base_font_size = 26;
-                    }
-
-                    // Final font sizes
-                if (strlen($name)<14){
-                        $name_font_size = $base_font_size + 4; 
-
-                }else{
-                    $name_font_size = $base_font_size + 2;
-
-                }
-                            // Name usually needs emphasis
-                    $company_font_size = $base_font_size;          // Company
-                    $designation_font_size = $base_font_size - 1;  // Designation, usually smallest
-
-            ?>
-                <div>
-                    <form  method="POST" action="submittv.php" id="editForm">
-    <!-- Visible editable name -->
-    <strong 
-        id="nameEditable"
-        contenteditable="true"
-            class="no-wrap"
-
-        style="font-size: <?= $name_font_size ?>px; color: black; text-transform: uppercase;">
-        <?= htmlspecialchars($name) ?>
-    </strong><br>
-
-    <!-- Visible editable company name -->
-    <span style="font-size: <?= $base_font_size ?>px; color: black; text-transform: uppercase;">
-        <span 
-            id="companyEditable"
-            contenteditable="true">
-            <?= htmlspecialchars_decode(htmlspecialchars($company_name)) ?>
-        </span><br>
-    </span>
-
-    <!-- Hidden inputs to store original values for comparison -->
-    <input type="hidden" id="originalName" value="<?= htmlspecialchars($name) ?>" />
-    <input type="hidden" id="originalCompany" value="<?= htmlspecialchars_decode(htmlspecialchars($company_name)) ?>" />
-    <input type="hidden" id="originalMobile" value="<?= htmlspecialchars("789789789")//$mobile) ?>" />
-
-    <!-- Hidden inputs to carry edited data for submission -->
-    <input type="hidden" name="name" id="nameInput" />
-    <input type="hidden" name="company_name" id="companyInput" />
-      <input type="hidden" name="full_page" id="full_page" />
-
-    <input type="hidden" name="mobile" id="mobileInput" />
-</form>
-
-<!-- Hidden Form -->
-<!-- <form method="POST" action="submittv.php" id="editForm">
-  <input type="hidden" name="name" id="nameInput" />
-  <input type="hidden" name="company_name" id="companyInput" />
-  <input type="hidden" name="full_page" id="full_page" />
-  <input type="hidden" name="mobile" id="mobileInput" />
-</form> -->
-
-
-                </div>
-            <?php endforeach; ?>
-            <?php endif; ?>
+    <?php foreach ($search_result as $row): ?>
+        <?php
+            $name = !empty($row['select2']) ? strtoupper($row['select2']) . " " . strtoupper($row['name']) : strtoupper($row['name']);
+            $company_name = strtoupper($row['company_name']);
+        ?>
+        <div id="temp">
+            <strong style="font-size: 24px; color: black;" contenteditable="true" id="nameEditable">
+                <?= htmlspecialchars($name) ?>
+            </strong><br>
+            <span style="font-size: 24px; color: black;">
+                <span contenteditable="true" id="companyEditable">
+                    <?= htmlspecialchars($company_name) ?>
+                </span><br>
+            </span>
+            <!-- Hidden inputs -->
+            <input type="hidden" id="originalName" value="<?= htmlspecialchars($name) ?>" />
+            <input type="hidden" id="originalCompany" value="<?= htmlspecialchars($company_name) ?>" />
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
 
         </div>
     </div>
@@ -342,8 +253,9 @@ $search_result = [
     <!-- Mobile Search Form -->
     <div style="margin-bottom: 10px;">
       <h3 style="margin-bottom: 10px; font-size: 16px; color: #333;">Search by Mobile</h3>
-      <form method="POST" action="" style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <input type="text" name="mobile" placeholder="Enter mobile number" required style="flex: 1; min-width: 150px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;">
+<form method="POST" action="<?= base_url('registration/searchentry') ?>" style="display: flex; gap: 10px; flex-wrap: wrap;">  
+    
+<input type="text" name="mobile" placeholder="Enter mobile number" required style="flex: 1; min-width: 150px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;">
         <button type="submit" style="padding: 6px 10px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Search</button>
       </form>
     </div>
@@ -405,30 +317,8 @@ $search_result = [
 
 
 
-  </div>
-  as the new entry happens create a card that show print....
-<!-- <div>  
-<div id="visitorDisplayBox" style="
-  width: 350px;
-    height:515px;
-
-  max-height:525px;
-  padding: 4px;
-  background-color:#f9f9f9;
-  color: black;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 1.1rem;
-  border-radius: 12px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
-  text-align: center;
-  ">
-  Loading visitor data...
-</div>
-</div> -->
-
-</div>
 <div id="qr-reader" style="width: 300px;"></div>
-<div id="qr-result">Result will appear here</div>
+<!-- <div id="qr-result">Result will appear here</div> -->
 
 <!-- Hidden form to submit QR result to PHP -->
 <form id="qr-form" method="POST" action="">
@@ -506,7 +396,11 @@ $search_result = [
 
 function compareAndSubmitEdit() {
   const currentName = document.getElementById('nameEditable').innerText.trim().toUpperCase();
-  const originalName = document.getElementById('originalName').value.trim().toUpperCase();
+  
+//   const originalName = document.querySelector('.originalName')?.value.trim().toUpperCase() || '';
+// const originalCompany = document.querySelector('.originalCompany')?.value.trim().toUpperCase() || '';
+
+const originalName = document.getElementById('originalName').value.trim().toUpperCase();
   const originalMobile = document.getElementById('originalMobile').value.trim().toUpperCase();
   const currentCompany = document.getElementById('companyEditable').innerText.trim().toUpperCase();
   const originalCompany = document.getElementById('originalCompany').value.trim().toUpperCase();
@@ -539,6 +433,8 @@ window.print();
     document.getElementById('editForm').submit();
   }
 }
+
+
 
 function updateImage() {
     console.log("Interval is Working");

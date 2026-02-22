@@ -1,4 +1,20 @@
-<?= view('leads/side') ?>  <!-- loads app/Views/header.php -->
+<?= view('header') ?>  <!-- loads app/Views/header.php -->
+<?php
+$segment1 = service('uri')->getSegment(1);
+
+if ($segment1 == 'leads') : ?>
+    <div class="submenu">
+        <a href="<?= base_url('plan') ?>">Plan</a>
+        <a href="<?= base_url('games') ?>">Play Games</a>
+        <a href="<?= base_url('tv') ?>">TV</a>
+        <a href="<?= base_url('company') ?>">View Companies</a>
+        <a href="<?= base_url('company/add') ?>">Add Company</a>
+    </div>
+<?php endif; ?>
+
+</div>
+
+<div class="content">
 
 <h2>Leads 
     <form action="<?= site_url('leads/clear') ?>" method="post" style="display:inline-block; margin-left:20px;">
@@ -101,48 +117,9 @@
     </tbody>
 </table>
 
+<link rel="stylesheet" href="<?= base_url('public/spreadsheet_module/style.css') ?>" type="text/css" />
 
-<!-- ================= LEADS TABLE ================= -->
-<div id="spreadsheet"></div>
-<button id="copyAllBtn">Copy All</button>
 
-<script>
-/* ================= PASS PHP DATA TO JS ================= */
-const leadsData = <?= json_encode(array_map(function($lead) {
-    // Generate the HTML string for the Action column
-    $actionHTML = '<a href="' . site_url('lead/details/' . $lead['lead_id']) . '">View Company</a> | ' .
-                  '<a href="' . site_url('booking/instructions/' . $lead['lead_id']) . '" class="btn btn-success btn-sm">Book Exhibitor</a>';
+<!-- <script src="<?= base_url('public/spreadsheep_module/main.js') ?>"></script> -->
 
-    return [
-        $lead['lead_id'],
-        $lead['company_id'],
-        $lead['all_locations'] ?? '-',
-        $lead['exhibition_year'] ?? '-',
-        trim(($lead['contact_name'] ?? '') . ' ' . ($lead['designation'] ?? '') . ' ' . ($lead['primary_email'] ?? '') . ' ' . ($lead['primary_mobile'] ?? '')),
-        $lead['sales_person'] ?? '-',
-        $lead['status'] ?? '-',
-        $lead['payment_status'] ?? '-',
-        $actionHTML // The 9th column (index 8) containing the HTML
-    ];
-}, $leads)); ?>;
 
-const columns = [
-    { title: "Lead ID" },
-    { title: "Company" },
-    { title: "Location" },
-    { title: "Year" },
-    { title: "Contact Details" },
-    { title: "Sales Person" },
-    { title: "Status" },
-    { title: "Payment" },
-    { title: "Action" } // This header will be used for the table but ignored in copy
-];
-
-// Initialize with your real data
-const sheet = new Spreadsheet('spreadsheet', { 
-    data: leadsData, 
-    columns: columns 
-});
-
-document.getElementById('copyAllBtn').addEventListener('click', () => sheet.copyAll());
-</script>

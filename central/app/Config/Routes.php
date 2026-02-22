@@ -230,13 +230,14 @@ $routes->get('tools/webscraper', 'Webscraper::index');
 $routes->get('tools/listFiles', 'Tools::listFiles');
 $routes->get('tools/download/(:any)', 'Tools::download/$1');
 
+$routes->group('ticket', function($routes) {
+    $routes->get('/', 'Ticket::index');
+    $routes->post('store', 'Ticket::store');
+    $routes->post('update/(:num)', 'Ticket::update/$1');
 
-$routes->group('issue', function($routes) {
-    $routes->get('/', 'Issue::index');
-    $routes->post('store', 'Issue::store');
-    $routes->post('update/(:num)', 'Issue::update/$1');
+    // Dynamic type route
+    $routes->get('type/(:segment)', 'Ticket::type/$1');
 });
-
 
 
 $routes->group('registration', function($routes) {
@@ -246,6 +247,8 @@ $routes->group('registration', function($routes) {
     $routes->get('regitersuccess', 'Registration::thanksforregister');
     $routes->get('generatebadge/(:any)', 'Registration::generatebadge/$1');
     $routes->get('spotinterface/(:any)', 'Registration::spotinterface/$1');
+    // $routes->get('searchentry', 'Registration::searchentry');
+    $routes->post('searchentry', 'Registration::searchentry');
     // $routes->get('spotform', 'Registration::spotform');
     // $routes->get('spotinterface', 'Registration::spotinterface');
     // $routes->get('spot', 'Registration::publicformtradevisitor');
