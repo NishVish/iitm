@@ -31,6 +31,23 @@ class ContactModel extends Model
         return $contacts;
     }
 
+
+
+
+
+
+        public function getByCompanyIdOne($companyId)
+    {
+$contact = $this->where('company_id', $companyId)
+                ->orderBy('contact_id', 'DESC')  // latest entry first
+                ->first();               // get only 1 record
+        
+
+        return $contact;
+    }
+
+
+
     public function getMobiles($contact_id)
     {
         return array_column(

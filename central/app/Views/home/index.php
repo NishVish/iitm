@@ -15,5 +15,6 @@ if ($segment1 == 'home') : ?>
 </div>
 
 <div class="content">
+<!-- Example inside your big page -->
 
 <?= view('dashboard/index') ?>  <!-- loads app/Views/header.php -->

@@ -2,38 +2,80 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use App\Models\UserModel;
 
 class Authentication extends BaseController
 {
-
-
-public function index()
+    public function index()
     {
+        // echo "hello";
+        // exit;
         return view("login");
     }
 
-public function login()
-{
-    $request = service('request');
-
-    // Get POST data safely
-    $pin = $request->getPost('pin');
-
-    if ($pin === 'sphere') {
-        // Start session
+    public function login()
+    {
+        $request = service('request');
         $session = session();
-        $session->set('authenticated', true);
 
-        // Redirect to welcome route
-        return redirect()->route('welcome');
-    } else {
-        // Set flashdata for error message
-        $session = session();
-        $session->setFlashdata('error', 'Invalid PIN!');
+        $pin = isset($_POST['pin']) ? $_POST['pin'] : '';
 
-        // Return login view
-        return view('login');
+        // Get email and password from POST
+        // $email = $request->getPost('pin');
+$password = $request->getPost('pin');
+// $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $usersModel = new UserModel();
+
+        // Fetch user by email
+        $user = $usersModel->getByPin($password);
+        if ($user) {
+            // Password matches, store all user info in session
+            $sessionData = [
+                'authenticated'      => true,
+                'user_id'            => $user['id'],
+                'employee_id'        => $user['employee_id'],
+                'name'               => $user['name'],
+                'designation'        => $user['designation'],
+                'phone'              => $user['phone'],
+                'address'            => $user['address'],
+                'email'              => $user['email'],
+                'category'           => $user['category'],
+                'department'         => $user['department'],
+                'doj'                => $user['doj'],
+                'uan_no'             => $user['uan_no'],
+                'fathers_name'       => $user['fathers_name'],
+                'aadhaar_card'       => $user['aadhaar_card'],
+                'pan_card'           => $user['pan_card'],
+                'bank_account_number'=> $user['bank_account_number'],
+                'ifsc_code'          => $user['ifsc_code'],
+                'user_type'          => $user['user_type'],
+                'journal'            => $user['journal'] ?? ''
+            ];
+
+            $session->set($sessionData);
+
+            return redirect()->route('welcome');
+        } else {
+            $session->setFlashdata('error', 'Invalid email or password!');
+            return redirect()->to('/');
+        }
+        
     }
+
+    // public function logout()
+    // {
+    //     session()->destroy();
+    //     return redirect()->to('/login');
+    // }
+
+public function logout()
+{
+        session()->destroy();
+
+    // Redirect to login page
+    return redirect()->route('/');
 }
 
 }
+

@@ -386,7 +386,7 @@ public function add_details()
                 'company_id'    => $company_id,
                 'source_id'  => $company['source_id'] ?? 0,
                 'event_date' => $company['event_date'] ?? date('Y-m-d'),
-                'notes'      => $company['notes'] ?? $company['source'] ?? null,
+                'notes'      => $company['source'] ?? null,
             ];
             // Call the addSource method
             $this->addSource($values);
@@ -453,74 +453,85 @@ if ($note == "Spot") {
 
 
 return redirect()->to(base_url('registration/spotinterface/' . 1));
-    // $companyName = trim($company['company_name'] ?? '');
-    // $mobile      = trim($company['contact1_mobile1'] ?? '');
-    // $email       = trim($company['contact1_email1'] ?? '');
+    $companyName = trim($company['company_name'] ?? '');
+    $mobile      = trim($company['contact1_mobile1'] ?? '');
+    $email       = trim($company['contact1_email1'] ?? '');
 
-    // // 1️⃣ Find company
-    // $companyRecord = $this->companyModel
-    //                       ->where('company_name', $companyName)
-    //                       ->first();
+    // 1️⃣ Find company
+    $companyRecord = $this->companyModel
+                          ->where('company_name', $companyName)
+                          ->first();
 
-    // if ($companyRecord) {
+    if ($companyRecord) {
 
-    //     $companyId = $companyRecord['id'];
+        $companyId = $companyRecord['id'];
 
-    //     // 2️⃣ Find contact with both mobile AND email under this company
-    //     $contact = $this->contactModel
-    //                     ->join('contact_mobiles cm', 'cm.contact_id = contacts.id')
-    //                     ->join('contact_emails ce', 'ce.contact_id = contacts.id')
-    //                     ->where('contacts.company_id', $companyId)
-    //                     ->where('cm.mobile', $mobile)
-    //                     ->where('ce.email', $email)
-    //                     ->select('contacts.id')
-    //                     ->first();
+        // 2️⃣ Find contact with both mobile AND email under this company
+        $contact = $this->contactModel
+                        ->join('contact_mobiles cm', 'cm.contact_id = contacts.id')
+                        ->join('contact_emails ce', 'ce.contact_id = contacts.id')
+                        ->where('contacts.company_id', $companyId)
+                        ->where('cm.mobile', $mobile)
+                        ->where('ce.email', $email)
+                        ->select('contacts.id')
+                        ->first();
 
-    //     if (!$contact) {
-    //         $contactId = $contact['id'];
-    //         $contactId = 1;
+        if (!$contact) {
+            $contactId = $contact['id'];
+            $contactId = 0;
 
-    //         // 3️⃣ Redirect to generate badge URL
-    //         return redirect()->to(base_url('registration/spotinterface/' . $contactId));
-    //     }
-    // }
+            // 3️⃣ Redirect to generate badge URL
+            return redirect()->to(base_url('registration/spotinterface/' . $contactId));
+        }
+    }
 
     // Optional: handle case if no contact found
     return redirect()->back()->with('error', 'Contact not found for Spot registration.');
 }
         
 
-// if ($note == "Websitetradevisitor"){
-//         return redirect()->to(base_url('registration/generatebadge/' . $company_id));
-//     }
-// if (strtolower($note) === "websiteexhibitor") {
+if ($note == "Websitetradevisitor"){
+        return redirect()->to(base_url('registration/generatebadge/' . $company_id));
+    }
 
-//             $leadModel = new \App\Models\LeadModel();
 
-//             $leadData = [
-//                 'company_id'     => $company_id,
-//                 'contact_id'     => 1, // optionally fetch first contact ID
-//                 'fascia'         => $company['fascia'] ?? "Standard Fascia",
-//                 'sales_person'   => $company['sales_person'] ?? null,
-//                 'exhibitor'      => $company['company_name'] ?? null,
-//                 'booking_form'   => $company['booking_form'] ?? null,
-//             ];
+// var_dump($note);
+// exit;
+if ($note === "exhibitor") {
 
-//             $locationData = [
-//                 'location'       => $company['location'] ?? null,
-//                 'stall_location' => $company['stall_location'] ?? "A1",
-//                 'size'           => $company['size'] ?? "3x3",
-//                 'price'          => $company['price'] ?? 1000.00,
-//                 'gst_amount'     => $company['gst_amount'] ?? 180.00,
-//                 'discount_amount'=> $company['discount_amount'] ?? 50.00,
-//                 'grand_total'    => $company['grand_total'] ?? 1130.00,
-//             ];
+            $leadModel = new \App\Models\LeadModel();
+            
+            $contactModel = new \App\Models\ContactModel();
 
-//             $leadId = $leadModel->createLead($leadData, $locationData);
+            // Fetch the latest contact for this company
+            $contact = $contactModel->getByCompanyIdOne($company_id);
+
+            // Prepare lead data using the contact ID
+            $leadData = [
+                'company_id'   => $company_id,
+                'contact_id'   => $contact['contact_id'] ?? null,  // use latest contact ID
+                'fascia'       => $company['fascia'] ?? "Standard Fascia",
+                'sales_person' => $company['sales_person'] ?? null,
+                'exhibitor'    => $company['company_name'] ?? null,
+                'booking_form' => $company['booking_form'] ?? null,
+            ];
+// var_dump($contact);
+// exit;
+            $locationData = [
+                'location'       => $company['location'] ?? null,
+                'stall_location' => $company['stall_location'] ?? "A1",
+                'size'           => $company['size'] ?? "3x3",
+                'price'          => $company['price'] ?? 1000.00,
+                'gst_amount'     => $company['gst_amount'] ?? 180.00,
+                'discount_amount'=> $company['discount_amount'] ?? 50.00,
+                'grand_total'    => $company['grand_total'] ?? 1130.00,
+            ];
+
+            $leadId = $leadModel->createLead($leadData, $locationData);
         
-//                 return redirect()->to(base_url('registration/regitersuccess'));
+                return redirect()->to(base_url('registration/regitersuccess'));
 
-//             }
+            }
 
 
 

@@ -1,6 +1,16 @@
 <?php
-// header.php
+$session = session();
+$user_id    = $session->get('user_id');
+$name       = ucfirst(strtolower($session->get('name')));
+$email      = $session->get('email');
+$user_type  = $session->get('user_type');
+$journal    = $session->get('journal');
 ?>
+<!-- 
+<h1>Welcome, <?= esc($name) ?>!</h1>
+<p>Email: <?= esc($email) ?></p>
+<p>User Type: <?= esc($user_type) ?></p>
+<p>Journal: <?= esc($journal) ?></p> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -259,15 +269,27 @@ nav {
     </div>
     <!-- Search box -->
  <div>
- <a href="<?= site_url('tools') ?>">  Tools</a>
+    <?php if ($session->get('authenticated')): ?>
+        Welcome, <?= htmlspecialchars($session->get('name')) ?>!
+    <?php else: ?>
+        
+<script>
+        window.location.href = "<?= base_url('/') ?>";
+    </script>
+    <?php endif; ?>
     <button id="openTheme" style="margin-left:15px;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;">
 ⚙️</button>
        
 
  </div>
 <div id="themeWindow" class="theme-window">
+
     <div class="theme-header">
-        <span>Theme Settings</span>
+        <span>Settings</span>     <a href="<?= site_url('tools') ?>">  Tools</a>
+<a href="<?= site_url('logout') ?>">  Logout</a>
+
+        
+
         <button id="closeTheme">✖</button>
     </div>
 

@@ -3,14 +3,19 @@
 
 <!-- Toggle Button -->
 <button id="toggleBtn">Show/Hide Company Form</button>
+<div id="myDiv" style="
+    display:block; 
+    border:2px solid #333; 
+    padding:10px; 
+    width:auto;        /* full width or adjust as needed */
+    min-width:800px;  /* optional max width */
 
-<!-- Fixed-size scrollable container for form -->
+"><!-- Fixed-size scrollable container for form -->
 <div id="myDiv" style="
     display:block; 
     border:2px solid #333; 
     padding:10px; 
     height:200px;      /* fixed height */
-    width:100%;        /* full width or adjust as needed */
     max-width:1370px;  /* optional max width */
     overflow:auto; 
     margin-bottom:20px;
@@ -20,7 +25,6 @@
 
     <?= view('company/insert_company_form') ?>
 </div>
-
 <script>
   const toggleBtn = document.getElementById('toggleBtn');
   const myDiv = document.getElementById('myDiv');
@@ -201,8 +205,8 @@
     <button class="btn city-btn" data-city="">All</button>
 </div>
 
-<form id="compareForm">    
     
+<form id="compareForm">    
 
 <table id="company-table" class="company-table" style="table-layout: fixed; width: 100%; border-collapse: collapse;">
     <thead>
@@ -453,3 +457,5 @@ function fetchCompanies(state, city) {
 
 
 </script>
+
+</div>

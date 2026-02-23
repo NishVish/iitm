@@ -8,7 +8,9 @@ $segment1 = service('uri')->getSegment(1);
 <!-- Companies Section -->
 <?php if ($segment1 == 'registration') : ?>
 <div class="submenu">
+        <a href="<?= base_url('registration/view/tradevisitor') ?>">Visitors</a>
     <a href="<?= base_url('registration/publicformtv') ?>">TV Form Only</a>
+    <a href="<?= base_url('registration/registrationview/') ?>">TV Form Only</a>
     <a href="<?= base_url('registration/publicformex') ?>">Exhibitor Form Only</a>
     <a href="<?= base_url('registration/spotform') ?>">Spot Form Only</a>
     <a href="<?= base_url('registration/spotinterface/1') ?>"> Spot Interface</a>
@@ -26,7 +28,7 @@ $segment1 = service('uri')->getSegment(1);
         </button>
     </div>
     <!-- Color Pickers -->
-    <!-- <div style="margin-top:10px;">
+    <div style="margin-top:10px;">
         <label>Primary Color:</label>
         <input type="color" id="primaryColor" value="#486887">
 
@@ -44,12 +46,51 @@ $segment1 = service('uri')->getSegment(1);
 
         <label>Warning Hover:</label>
         <input type="color" id="warningHover" value="#e68900">
-    </div> -->
+    </div>
 
     <button type="button" id="compareBtn">Compare Selected</button>
 </div>
 <?php endif; ?>
+<script>
+function applyButtonColors() {
+    const primary = document.getElementById("primaryColor").value;
+    const primaryHover = document.getElementById("primaryHover").value;
+    const danger = document.getElementById("dangerColor").value;
+    const dangerHover = document.getElementById("dangerHover").value;
+    const warning = document.getElementById("warningColor").value;
+    const warningHover = document.getElementById("warningHover").value;
 
+    const exhibitorBtn = document.getElementById("registerBtnexhibitor");
+    const tradeBtn = document.getElementById("registerBtntradetest");
+    const spotBtn = document.getElementById("registerBtnspottest");
+
+    // Primary Button
+    exhibitorBtn.style.backgroundColor = primary;
+    exhibitorBtn.style.borderColor = primary;
+    exhibitorBtn.onmouseover = () => exhibitorBtn.style.backgroundColor = primaryHover;
+    exhibitorBtn.onmouseout = () => exhibitorBtn.style.backgroundColor = primary;
+
+    // Danger Button
+    tradeBtn.style.backgroundColor = danger;
+    tradeBtn.style.borderColor = danger;
+    tradeBtn.onmouseover = () => tradeBtn.style.backgroundColor = dangerHover;
+    tradeBtn.onmouseout = () => tradeBtn.style.backgroundColor = danger;
+
+    // Warning Button
+    spotBtn.style.backgroundColor = warning;
+    spotBtn.style.borderColor = warning;
+    spotBtn.onmouseover = () => spotBtn.style.backgroundColor = warningHover;
+    spotBtn.onmouseout = () => spotBtn.style.backgroundColor = warning;
+}
+
+// Listen for color changes
+document.querySelectorAll("input[type='color']").forEach(input => {
+    input.addEventListener("input", applyButtonColors);
+});
+
+// Apply once on load
+applyButtonColors();
+</script>
 <style>
     :root {
     --primary-color: #4a90e2;    /* softer blue */
@@ -167,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         companyFormTv.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
         companyFormTv.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
-        companyFormTv.querySelector('[name="companies[0][source]"]').value = "TradeVisitorTest";
+        companyFormTv.querySelector('[name="companies[0][source]"]').value = "tradevisitor";
         companyFormTv.querySelector('[name="companies[0][updated_by]"]').value = "System";
         companyFormTv.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
 
@@ -197,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         companyFormEx.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationexhibitor";
         companyFormEx.querySelector('[name="companies[0][category]"]').value = "";
-        companyFormEx.querySelector('[name="companies[0][source]"]').value = "ExhibitorTest";
+        companyFormEx.querySelector('[name="companies[0][source]"]').value = "exhibitor";
         companyFormEx.querySelector('[name="companies[0][updated_by]"]').value = "System";
         companyFormEx.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
 

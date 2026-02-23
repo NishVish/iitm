@@ -13,6 +13,7 @@ if ($segment1 == 'backend') : ?>
         <a href="<?= base_url('backend/sql') ?>">SQL</a>
         <!-- <a href="<?= base_url('backend/tv') ?>">TV</a> -->
         <a href="<?= base_url('backend/kra') ?>">KRA</a>
+        <a href="<?= base_url('user') ?>">User</a>
     </div>
 <?php endif; ?>
 

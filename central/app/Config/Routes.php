@@ -9,11 +9,33 @@ use CodeIgniter\Router\RouteCollection;
 // Default route (landing page)
 // $routes->get('/', 'Home::index');
 
-$routes->get('/', 'Authentication::login');
+$routes->get('/', 'Authentication::index');
 // $routes->get('/', 'Home::index');
+$routes->get('login', 'Authentication::login');
 
 $routes->post('login', 'Authentication::login');
+$routes->get('logout', 'Authentication::logout');
 $routes->get('welcome', 'Home::index');
+
+
+//Users
+// Display all users
+$routes->get('user', 'User::index');
+
+// Show form to create a new user
+$routes->get('user/create', 'User::create');
+
+// Store a new user
+$routes->post('user/store', 'User::store');
+
+// View a single user
+$routes->get('user/(:num)', 'User::show/$1');
+
+// Delete a user
+$routes->get('user/delete/(:num)', 'User::delete/$1');
+$routes->get('user/operation', 'User::operation'); // show editable users
+$routes->post('user/operation/save', 'User::saveOperation'); // save edits
+
 
 // Backend home / admin panel
 $routes->get('project_summary', 'Backend::project_summary_main');
@@ -249,6 +271,7 @@ $routes->group('registration', function($routes) {
     $routes->get('spotinterface/(:any)', 'Registration::spotinterface/$1');
     // $routes->get('searchentry', 'Registration::searchentry');
     $routes->post('searchentry', 'Registration::searchentry');
+    $routes->get('view/(:segment)', 'Registration::registrationview/$1');
     // $routes->get('spotform', 'Registration::spotform');
     // $routes->get('spotinterface', 'Registration::spotinterface');
     // $routes->get('spot', 'Registration::publicformtradevisitor');
