@@ -252,6 +252,14 @@ $routes->get('tools/webscraper', 'Webscraper::index');
 $routes->get('tools/listFiles', 'Tools::listFiles');
 $routes->get('tools/download/(:any)', 'Tools::download/$1');
 
+
+$routes->get('tools/ftp', 'Tools::ftp');               // Main page
+
+
+
+
+
+
 $routes->group('ticket', function($routes) {
     $routes->get('/', 'Ticket::index');
     $routes->post('store', 'Ticket::store');
