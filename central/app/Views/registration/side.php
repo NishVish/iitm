@@ -10,7 +10,6 @@ $segment1 = service('uri')->getSegment(1);
 <div class="submenu">
         <a href="<?= base_url('registration/view/tradevisitor') ?>">Visitors</a>
     <a href="<?= base_url('registration/publicformtv') ?>">TV Form Only</a>
-    <a href="<?= base_url('registration/registrationview/') ?>">TV Form Only</a>
     <a href="<?= base_url('registration/publicformex') ?>">Exhibitor Form Only</a>
     <a href="<?= base_url('registration/spotform') ?>">Spot Form Only</a>
     <a href="<?= base_url('registration/spotinterface/1') ?>"> Spot Interface</a>
@@ -187,42 +186,43 @@ document.addEventListener("DOMContentLoaded", function () {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    const registerBtntradetest = document.getElementById("registerBtntradetest");
-    const companyFormTv = document.getElementById("companyFormTv");
+    // const registerBtntradetest = document.getElementById("registerBtntradetest");
+    // const companyFormTv = document.getElementById("companyFormTv");
 
-    registerBtntradetest.addEventListener("click", function () {
+    // registerBtntradetest.addEventListener("click", function () {
 
-        console.log("Button clicked"); // 🔎 check in browser console
+    //     console.log("Button clicked"); // 🔎 check in browser console
 
-        // 🔹 Insert dummy data
-        companyFormTv.querySelector('[name="companies[0][company_name]"]').value = "Test Company Pvt Ltd";
-        companyFormTv.querySelector('[name="companies[0][address_1]"]').value = "123 Test Street";
-        companyFormTv.querySelector('[name="companies[0][city]"]').value = "Ahmedabad";
-        companyFormTv.querySelector('[name="companies[0][state]"]').value = "Gujarat";
-        companyFormTv.querySelector('[name="companies[0][pincode]"]').value = "380001";
-        companyFormTv.querySelector('[name="companies[0][phone]"]').value = "9876543210";
+    //     // 🔹 Insert dummy data
+    //     companyFormTv.querySelector('[name="companies[0][company_name]"]').value = "Test Company Pvt Ltd";
+    //     companyFormTv.querySelector('[name="companies[0][address_1]"]').value = "123 Test Street";
+    //     companyFormTv.querySelector('[name="companies[0][city]"]').value = "Ahmedabad";
+    //     companyFormTv.querySelector('[name="companies[0][state]"]').value = "Gujarat";
+    //     companyFormTv.querySelector('[name="companies[0][pincode]"]').value = "380001";
+    //     companyFormTv.querySelector('[name="companies[0][phone]"]').value = "9876543210";
 
-        companyFormTv.querySelector('[name="companies[0][contact1_name]"]').value = "John Doe";
-        companyFormTv.querySelector('[name="companies[0][contact1_designation]"]').value = "Manager";
-        companyFormTv.querySelector('[name="companies[0][contact1_email1]"]').value = "john@test.com";
+    //     companyFormTv.querySelector('[name="companies[0][contact1_name]"]').value = "John Doe";
+    //     companyFormTv.querySelector('[name="companies[0][contact1_designation]"]').value = "Manager";
+    //     companyFormTv.querySelector('[name="companies[0][contact1_email1]"]').value = "john@test.com";
+    //     companyFormTv.querySelector('[name="companies[0][contact1_mobile1]"]').value = 7909075195;
 
-        companyFormTv.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
-        companyFormTv.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
-        companyFormTv.querySelector('[name="companies[0][source]"]').value = "tradevisitor";
-        companyFormTv.querySelector('[name="companies[0][updated_by]"]').value = "System";
-        companyFormTv.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
+    //     companyFormTv.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
+    //     companyFormTv.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
+    //     companyFormTv.querySelector('[name="companies[0][source]"]').value = "tradevisitor";
+    //     companyFormTv.querySelector('[name="companies[0][updated_by]"]').value = "System";
+    //     companyFormTv.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
 
-        // 🔹 Submit hidden form
-        companyFormTv.submit();
+    //     // 🔹 Submit hidden form
+    //     companyFormTv.submit();
 
-    });
+    // });
 
-         const registerBtnexhibitor = document.getElementById("registerBtnexhibitor");
+    const registerBtnexhibitor = document.getElementById("registerBtnexhibitor");
     const companyFormEx = document.getElementById("companyFormEx");
 
     registerBtnexhibitor.addEventListener("click", function () {
 
-        console.log("Button clicked"); // 🔎 check in browser console
+        console.log("Exhibitor clicked"); // 🔎 check in browser console
 
         // 🔹 Insert dummy data
         companyFormEx.querySelector('[name="companies[0][company_name]"]').value = "Test Company Pvt Ltd";
@@ -235,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
         companyFormEx.querySelector('[name="companies[0][contact1_name]"]').value = "John Doe";
         companyFormEx.querySelector('[name="companies[0][contact1_designation]"]').value = "Manager";
         companyFormEx.querySelector('[name="companies[0][contact1_email1]"]').value = "john@test.com";
+        companyFormTv.querySelector('[name="companies[0][contact1_mobile1]"]').value = 7909075195;
 
         companyFormEx.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationexhibitor";
         companyFormEx.querySelector('[name="companies[0][category]"]').value = "";
@@ -243,7 +244,18 @@ document.addEventListener("DOMContentLoaded", function () {
         companyFormEx.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
 
     companyFormEx.querySelector('[name="companies[0][fascia]"]').value = "Standard Fascia";
-    companyFormEx.querySelector('[name="companies[0][stall_location]"]').value = "A1";
+    // companyFormEx.querySelector('[name="companies[0][location]"]').value = "[Mumbai,Pune,Chennai]";
+// 🔹 Grab all checked "Interested In" checkboxes (REAL selection)
+        const selectedCheckboxes = companyFormEx.querySelectorAll('input[name="companies[0][interested_in][]"]:checked');
+        const selectedValues = Array.from(selectedCheckboxes).map(cb => cb.value);
+
+        // 🔹 Set hidden location input dynamically
+        companyFormEx.querySelector('[name="companies[0][location]"]').value = selectedValues.join(',');
+
+
+
+
+
     companyFormEx.querySelector('[name="companies[0][size]"]').value = "3x3";
     companyFormEx.querySelector('[name="companies[0][price]"]').value = "1000.00";
     companyFormEx.querySelector('[name="companies[0][gst_amount]"]').value = "180.00";
@@ -259,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     registerBtnspottest.addEventListener("click", function () {
 
-        console.log("Button clicked"); // 🔎 check in browser console
+        console.log("Spot clicked"); // 🔎 check in browser console
 
         // 🔹 Insert dummy data
         companyFormspot.querySelector('[name="companies[0][company_name]"]').value = "Test Company Pvt Ltd";
@@ -272,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
         companyFormspot.querySelector('[name="companies[0][contact1_name]"]').value = "John Doe";
         companyFormspot.querySelector('[name="companies[0][contact1_designation]"]').value = "Manager";
         companyFormspot.querySelector('[name="companies[0][contact1_email1]"]').value = "john@test.com";
+        companyFormspot.querySelector('[name="companies[0][contact1_mobile1]"]').value = 7909075195;
 
         companyFormspot.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
         companyFormspot.querySelector('[name="companies[0][category]"]').value = "";

@@ -34,7 +34,14 @@ document.addEventListener("DOMContentLoaded", function () {
         companyForm.querySelector('[name="companies[0][updated_by]"]').value = "System";
         companyForm.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
 
-companyForm.querySelector('[name="companies[0][fascia]"]').value = "Standard Fascia";
+// companyForm.querySelector('[name="companies[0][fascia]"]').value = "Standard Fascia";
+// // 🔹 Grab all checked "Interested In" checkboxes
+//         const selectedCheckboxes = companyForm.querySelectorAll('input[name="companies[0][interested_in][]"]:checked');
+//         const selectedValues = Array.from(selectedCheckboxes).map(cb => cb.value);
+
+//         // 🔹 Set hidden location input with comma-separated list
+//         companyForm.querySelector('[name="companies[0][location]"]').value = selectedValues.join(',');
+
     companyForm.querySelector('[name="companies[0][stall_location]"]').value = "A1";
     companyForm.querySelector('[name="companies[0][size]"]').value = "3x3";
     companyForm.querySelector('[name="companies[0][price]"]').value = "1000.00";
@@ -47,12 +54,15 @@ companyForm.querySelector('[name="companies[0][fascia]"]').value = "Standard Fas
     });
 
 });
+
+
 </script>
-<!-- <script>
+
+<script>
 document.addEventListener("DOMContentLoaded", function () {
 
     const registerBtn = document.getElementById("registerBtn");
-    const companyForm = document.getElementById("companyForm");
+    const companyForm = document.getElementById("companyFormEx");
 
     registerBtn.addEventListener("click", function () {
 
@@ -79,15 +89,14 @@ document.addEventListener("DOMContentLoaded", function () {
         companyForm.querySelector('[name="companies[0][pincode]"]').value = pincode;
         companyForm.querySelector('[name="companies[0][phone]"]').value = phone;
 
-        // Contact details
+        // 🔹 Contact details
         companyForm.querySelector('[name="companies[0][contact1_name]"]').value =
             (title + " " + firstName + " " + lastName).trim();
-
         companyForm.querySelector('[name="companies[0][contact1_designation]"]').value = designation;
         companyForm.querySelector('[name="companies[0][contact1_email1]"]').value = email;
         companyForm.querySelector('[name="companies[0][contact1_mobile1]"]').value = phone;
 
-        // 🔹 Fixed values (Always Same)
+        // 🔹 Fixed values
         companyForm.querySelector('[name="companies[0][category]"]').value = "Tradevisitor";
         companyForm.querySelector('[name="companies[0][source]"]').value = "Website";
         companyForm.querySelector('[name="companies[0][database_name]"]').value = "IITM 2026";
@@ -95,13 +104,20 @@ document.addEventListener("DOMContentLoaded", function () {
         companyForm.querySelector('[name="companies[0][updated_at]"]').value =
             new Date().toISOString().slice(0,16);
 
+        // 🔹 Grab all checked "Interested In" checkboxes (REAL)
+        const selectedCheckboxes = companyForm.querySelectorAll('input[name="companies[0][interested_in][]"]:checked');
+        const selectedLocations = Array.from(selectedCheckboxes).map(cb => cb.value);
+
+        // 🔹 Set hidden location input dynamically
+        companyForm.querySelector('[name="companies[0][location]"]').value = selectedLocations.join(',');
+
         // 🔹 Submit hidden form
         companyForm.submit();
 
     });
 
 });
-</script> -->
+</script>
 
 <!-- <script>
 document.addEventListener("DOMContentLoaded", function () {

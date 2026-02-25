@@ -29,6 +29,7 @@ $password = $request->getPost('pin');
 
         // Fetch user by email
         $user = $usersModel->getByPin($password);
+        // var_dump($user);
         if ($user) {
             // Password matches, store all user info in session
             $sessionData = [
@@ -54,8 +55,9 @@ $password = $request->getPost('pin');
             ];
 
             $session->set($sessionData);
-
-            return redirect()->route('welcome');
+// var_dump($session);
+// exit;
+            return redirect()->route('home');
         } else {
             $session->setFlashdata('error', 'Invalid email or password!');
             return redirect()->to('/');

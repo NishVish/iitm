@@ -5,6 +5,7 @@ use App\Models\ContactModel;
 use App\Models\UpdationModel;
 use App\Models\LeadModel;
 use App\Models\SourceModel;
+use App\Models\CrossValidationController;
 use Ramsey\Uuid\Uuid;
 
 class Company extends BaseController
@@ -323,8 +324,8 @@ $companyId = Uuid::uuid4()->toString();
 public function add_details()
 {
     $companies = $this->request->getPost('companies');
-// print_r($companies); 
-    // exit;
+    print_r($companies); 
+    exit;
     // If this doesn't stop the script, your form isn't hitting this function at all.
     if (empty($companies)) {
         return redirect()->back()->with('status', '⚠️ No company data found!');
@@ -336,28 +337,6 @@ public function add_details()
     foreach ($companies as $index => $company) {
         try {
 
-        // print_r($companies); 
-        // print_r($company['notes']); 
-
-//     exit;
-// echo $company['notes'] ;
-// exit;
-        // if ($company['notes'] == "spot"){
-        //     $companyValidation = new \App\Controllers\CrossValidationModel();
-
-        //    $ValidationResult = $companyValidation->companyValidation($company);
-
-        //     if ($ValidationResult[0] === true) {
-
-        //         $data = [
-        //             'companyName' => $ValidationResult[1],
-        //             'contactName' => $ValidationResult[2]
-        //         ];
-        //         continue;
-        //         return view('registration/spotinterface', $data);
-        //     }
-
-        // }
             // Generate a unique company ID
             $company_id = strtoupper('C' . time() . rand(100, 999));
             $session_id = $this->companyModel->get_lastSession();
@@ -390,152 +369,179 @@ public function add_details()
             ];
             // Call the addSource method
             $this->addSource($values);
-// Debugging
-        // echo "<pre>";           // makes output readable in browser
-        // print_r($values);
-        // print_r($company);
-        // echo "</pre>";
-        // exit;
-        $note = $values['notes']; // or $company['source']
-
         
-// Insert contacts dynamically (up to 3 contacts)
-for ($i = 1; $i <= 3; $i++) {
+            // Debugging
+                // echo "<pre>";           // makes output readable in browser
+                // print_r($values);
+                // print_r($company);
+                // echo "</pre>";
+                // exit;
+                $note = $values['notes']; // or $company['source']
 
-    $name = trim($company["contact{$i}_name"] ?? '');
+                
+            // Insert contacts dynamically (up to 3 contacts)
+            for ($i = 1; $i <= 3; $i++) {
 
-    // Skip if no name
-    if ($name === '') {
-        continue;
+                $name = trim($company["contact{$i}_name"] ?? '');
+
+                // Skip if no name
+                if ($name === '') {
+                    continue;
+                }
+
+                $contactData = [
+                    'company_id'  => $company_id,
+                    'priority'    => $i,
+                    'name'        => $name,
+                    'designation' => $company["contact{$i}_designation"] ?? '',
+                    'mobiles'     => [],
+                    'emails'      => []
+                ];
+
+                // Collect mobiles (up to 3 per contact)
+                for ($m = 1; $m <= 3; $m++) {
+
+                    $mobileKey = "contact{$i}_mobile{$m}";
+                    var_dump($mobileKey);
+
+
+                    if (!empty($company[$mobileKey])) {
+                        $contactData['mobiles'][] = trim($company[$mobileKey]);
+                    }
+                }
+
+                // Collect emails (up to 3 per contact)
+                for ($e = 1; $e <= 3; $e++) {
+
+                    $emailKey = "contact{$i}_email{$e}";
+
+                    if (!empty($company[$emailKey])) {
+                        $contactData['emails'][] = trim($company[$emailKey]);
+                    }
+                }
+
+                // Insert contact using your working function
+                $inserted = $this->savePerson($contactData);
+
+                if ($inserted === true) {
+                    $success++;
+                } else {
+                    $failed++;
+                }
+            }
+        
+
+
+
+
+if ($note == "Spot" || $note == "websitetradevisitor") {
+    $crossValidationModel = new \App\Models\CrossValidationModel();
+
+    $result = $crossValidationModel->crossValidate([
+        'company_name' => $company['company_name'] ?? '',
+        'phone'        => $company['phone']        ?? '',
+        'gst_number'   => $company['gst_number']   ?? '',
+        'city'         => $company['city']         ?? '',
+        'state'        => $company['state']        ?? '',
+        'country'      => $company['country']      ?? 'India',
+        'pincode'      => $company['pincode']      ?? '',
+        'address'      => trim(($company['address_1'] ?? '') . ' ' . ($company['address_2'] ?? '')),
+        'contacts'     => [
+            [
+                'name'        => trim($company['contact1_name']  ?? ''),
+                'designation' => $company['contact1_designation'] ?? '',
+                'emails'      => !empty($company['contact1_email1'])
+                                    ? [['email' => $company['contact1_email1']]]
+                                    : [],
+                'mobiles'     => !empty($company['contact1_mobile1'])
+                                    ? [['mobile' => $company['contact1_mobile1']]]
+                                    : [],
+            ]
+        ],
+    ]);
+
+    if ($result['status'] === 'existing') {
+        $this->companyModel->where('company_id', $company_id)
+                           ->set(['cross_validation' => 1])
+                           ->update();
     }
 
-    $contactData = [
-        'company_id'  => $company_id,
-        'priority'    => $i,
-        'name'        => $name,
-        'designation' => $company["contact{$i}_designation"] ?? '',
-        'mobiles'     => [],
-        'emails'      => []
-    ];
+    // ✅ Define variables BEFORE using them
+    $data   = "spot";
+    $number = $company['contact1_mobile1'] ?? $company['contact1_mobile'] ?? '';
 
-    // Collect mobiles (up to 3 per contact)
-    for ($m = 1; $m <= 3; $m++) {
-
-        $mobileKey = "contact{$i}_mobile{$m}";
-
-        if (!empty($company[$mobileKey])) {
-            $contactData['mobiles'][] = trim($company[$mobileKey]);
-        }
-    }
-
-    // Collect emails (up to 3 per contact)
-    for ($e = 1; $e <= 3; $e++) {
-
-        $emailKey = "contact{$i}_email{$e}";
-
-        if (!empty($company[$emailKey])) {
-            $contactData['emails'][] = trim($company[$emailKey]);
-        }
-    }
-
-    // Insert contact using your working function
-    $inserted = $this->savePerson($contactData);
-
-    if ($inserted === true) {
-        $success++;
-    } else {
-        $failed++;
-    }
+    return redirect()->to(base_url('registration/regitersuccess/' . $data . '/' . $number));
 }
-
-
-if ($note == "Spot") {
-
-
-return redirect()->to(base_url('registration/spotinterface/' . 1));
-    $companyName = trim($company['company_name'] ?? '');
-    $mobile      = trim($company['contact1_mobile1'] ?? '');
-    $email       = trim($company['contact1_email1'] ?? '');
-
-    // 1️⃣ Find company
-    $companyRecord = $this->companyModel
-                          ->where('company_name', $companyName)
-                          ->first();
-
-    if ($companyRecord) {
-
-        $companyId = $companyRecord['id'];
-
-        // 2️⃣ Find contact with both mobile AND email under this company
-        $contact = $this->contactModel
-                        ->join('contact_mobiles cm', 'cm.contact_id = contacts.id')
-                        ->join('contact_emails ce', 'ce.contact_id = contacts.id')
-                        ->where('contacts.company_id', $companyId)
-                        ->where('cm.mobile', $mobile)
-                        ->where('ce.email', $email)
-                        ->select('contacts.id')
-                        ->first();
-
-        if (!$contact) {
-            $contactId = $contact['id'];
-            $contactId = 0;
-
-            // 3️⃣ Redirect to generate badge URL
-            return redirect()->to(base_url('registration/spotinterface/' . $contactId));
-        }
-    }
-
-    // Optional: handle case if no contact found
-    return redirect()->back()->with('error', 'Contact not found for Spot registration.');
-}
         
 
-if ($note == "Websitetradevisitor"){
-        return redirect()->to(base_url('registration/generatebadge/' . $company_id));
-    }
+            // if ($note == "Websitetradevisitor"){
+
+            //         return redirect()->to(base_url('registration/generatebadge/' . $company_id));
+            //     }
 
 
-// var_dump($note);
-// exit;
-if ($note === "exhibitor") {
+            // var_dump($note);
+            // exit;
+            if ($note === "exhibitor") {
 
-            $leadModel = new \App\Models\LeadModel();
-            
-            $contactModel = new \App\Models\ContactModel();
+                        $leadModel = new \App\Models\LeadModel();
+                        
+                        $contactModel = new \App\Models\ContactModel();
 
-            // Fetch the latest contact for this company
-            $contact = $contactModel->getByCompanyIdOne($company_id);
+                        // Fetch the latest contact for this company
+                        $contact = $contactModel->getByCompanyIdOne($company_id);
 
-            // Prepare lead data using the contact ID
-            $leadData = [
-                'company_id'   => $company_id,
-                'contact_id'   => $contact['contact_id'] ?? null,  // use latest contact ID
-                'fascia'       => $company['fascia'] ?? "Standard Fascia",
-                'sales_person' => $company['sales_person'] ?? null,
-                'exhibitor'    => $company['company_name'] ?? null,
-                'booking_form' => $company['booking_form'] ?? null,
-            ];
-// var_dump($contact);
-// exit;
-            $locationData = [
-                'location'       => $company['location'] ?? null,
-                'stall_location' => $company['stall_location'] ?? "A1",
-                'size'           => $company['size'] ?? "3x3",
-                'price'          => $company['price'] ?? 1000.00,
-                'gst_amount'     => $company['gst_amount'] ?? 180.00,
-                'discount_amount'=> $company['discount_amount'] ?? 50.00,
-                'grand_total'    => $company['grand_total'] ?? 1130.00,
-            ];
+                        // Prepare lead data using the contact ID
+                        $leadData = [
+                            'company_id'   => $company_id,
+                            'contact_id'   => $contact['contact_id'] ?? null,  // use latest contact ID
+                            'fascia'       => $company['fascia'] ?? "Standard Fascia",
+                            'sales_person' => $company['sales_person'] ?? null,
+                            'exhibitor'    => $company['company_name'] ?? null,
+                            'booking_form' => $company['booking_form'] ?? null,
+                        ];
+                        // var_dump($contact);
+                        // exit;
 
-            $leadId = $leadModel->createLead($leadData, $locationData);
-        
-                return redirect()->to(base_url('registration/regitersuccess'));
+                                    $locations = $company['location'] ?? []; // this is now an array
 
+
+
+                        // Remove square brackets and split by comma
+                        $locationsArray = explode(',', trim($locations, '[]'));
+
+                        // Optional: remove extra spaces
+                        $locationsArray = array_map('trim', $locationsArray);
+                            // var_dump($locationsArray); // will now print each location
+                            // exit;
+                        // Now $locationsArray = ['Mumbai', 'Pune', 'Chennai'];
+                        foreach ($locationsArray as $location) {
+                            $locationData = [
+                                'location'       => $location,
+                                'stall_location' => $company['stall_location'] ?? "A1",
+                                'size'           => $company['size'] ?? "3x3",
+                                'price'          => $company['price'] ?? 1000.00,
+                                'gst_amount'     => $company['gst_amount'] ?? 180.00,
+                                'discount_amount'=> $company['discount_amount'] ?? 50.00,
+                                'grand_total'    => $company['grand_total'] ?? 1130.00,
+                            ];
+
+
+
+                            $leadId = $leadModel->createLead($leadData, $locationData);
+                            $data = "exhibitor";
+                            return redirect()->to(base_url('registration/regitersuccess') . '/' . $data);
             }
 
 
 
-        } catch (\Throwable $e) {
+
+
+
+
+        }
+        }
+         catch (\Throwable $e) {
             log_message('error', "Company {$company['company_name']} failed: " . $e->getMessage());
             $failed++;
         }
@@ -550,6 +556,7 @@ if ($note === "exhibitor") {
             : "⚠️ Partial: {$success} contacts added, {$failed} failed"
     );
 }
+
 
 
 public function savePerson(array $contactData = null)

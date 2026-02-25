@@ -50,10 +50,9 @@
     <a href="<?= site_url('leads') ?>">Reset</a>
 </form>
 
-<hr>
 
 <!-- ================= LEADS TABLE ================= -->
-<table border="1" width="100%" cellpadding="8">
+<table border="1" width="100%" cellpadding="8" style="display:none;">
     <thead>
         <tr>
             <th>Lead ID</th>

@@ -58,17 +58,25 @@ createTable() {
 
         tr.appendChild(tdIndex);
 
-        rowData.forEach((cellData, colIndex) => {
-            const td = document.createElement('td');
-            if (colIndex === rowData.length - 1) {
-                td.innerHTML = cellData; // Action column
-                td.contentEditable = false;
-            } else {
-                td.textContent = cellData;
-                td.contentEditable = true;
-            }
-            tr.appendChild(td);
-        });
+       rowData.forEach((cellData, colIndex) => {
+    const td = document.createElement('td');
+
+    // 1. Check if the cell contains HTML (like your radio buttons) 
+    // or if it's the very last column (Action column)
+    const isRadioColumn = colIndex === 0 || colIndex === 1;
+    const isLastColumn = colIndex === rowData.length - 1;
+
+    if (isRadioColumn || isLastColumn) {
+        td.innerHTML = cellData; // Renders the radio button correctly
+        td.contentEditable = false;
+    } else {
+        // 2. Regular data cells use textContent for security and editing
+        td.textContent = cellData;
+        td.contentEditable = true;
+    }
+    
+    tr.appendChild(td);
+});
 
         tbody.appendChild(tr);
     });

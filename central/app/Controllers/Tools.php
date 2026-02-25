@@ -35,4 +35,24 @@ class Tools extends BaseController {
         }
         return '192.168.1';
     }
-}
+
+public function downloadServer()
+    {
+        // Path to the server module
+        $filePath = WRITEPATH . 'file_transfer_appv3.exe'; // writable/file_transfer_appv3.exe
+
+        // Check if file exists
+        if (!file_exists($filePath)) {
+            return $this->response->setStatusCode(404)->setBody('File not found!');
+        }
+
+        // Use CodeIgniter’s built-in download response
+        return $this->response->download($filePath, null);
+    }
+
+
+
+    
+
+
+    }

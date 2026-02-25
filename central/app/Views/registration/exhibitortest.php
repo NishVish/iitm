@@ -2,7 +2,7 @@
 
 <script>
 
-    document.getElementById('companyForm').style.display = 'block';
+    document.getElementById('companyFormEx').style.display = 'block';
 
 </script>
 
@@ -10,7 +10,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const registerBtn = document.getElementById("registerBtn");
-    const companyForm = document.getElementById("companyForm");
+    const companyForm = document.getElementById("companyFormEx");
 
     registerBtn.addEventListener("click", function () {
 

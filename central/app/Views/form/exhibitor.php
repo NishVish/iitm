@@ -5,12 +5,12 @@
     <button type="button" id="clearAllBtn">Clear All Data</button>
 
     <div class="company-row">
-        <div class="field-group"><label>Database Name</label><input type="text" name="companies[0][database_name]"></div>
-        <div class="field-group"><label>Category</label><input type="text" name="companies[0][category]"></div>
-        <div class="field-group"><label>Source</label><input type="text" name="companies[0][source]"></div>
-        <div class="field-group"><label>Updated By</label><input type="text" name="companies[0][updated_by]"></div>
-        <div class="field-group"><label>Updated At</label><input type="datetime-local" name="companies[0][updated_at]"></div>
-        <div class="field-group"><label>Outbound</label><input type="checkbox" name="companies[0][outbound]" value="1"></div>
+<input type="hidden" name="companies[0][database_name]" value="">
+<input type="hidden" name="companies[0][category]" value="">
+<input type="hidden" name="companies[0][source]" value="">
+<input type="hidden" name="companies[0][updated_by]" value="">
+<input type="hidden" name="companies[0][updated_at]" value="">
+<input type="hidden" name="companies[0][outbound]" value="0">
 
         <div class="field-group"><label>Company Name</label><input type="text" name="companies[0][company_name]"></div>
         <div class="field-group"><label>Address 1</label><input type="text" name="companies[0][address_1]"></div>
@@ -46,14 +46,31 @@
         <div class="field-group"><label>Email 7</label><input type="text" name="companies[0][contact3_email2]"></div>
         <div class="field-group"><label>Mobile 6</label><input type="text" name="companies[0][contact3_mobile1]"></div>
         <div class="field-group"><label>Mobile 7</label><input type="text" name="companies[0][contact3_mobile2]"></div>
+
+
+
+
 <div class="field-group">
     <label>Fascia</label>
     <input type="text" name="companies[0][fascia]">
 </div>
 
 <div class="field-group">
-    <label>Stall Location</label>
-    <input type="text" name="companies[0][stall_location]">
+    <label>Interested In:</label>
+    <div class="checkbox-group">
+        <label><input type="checkbox" name="companies[0][interested_in][]" value="CHENNAI"> CHENNAI</label>
+        <label><input type="checkbox" name="companies[0][interested_in][]" value="BENGALURU"> BENGALURU</label>
+        <label><input type="checkbox" name="companies[0][interested_in][]" value="DELHI"> DELHI</label>
+        <label><input type="checkbox" name="companies[0][interested_in][]" value="MUMBAI"> MUMBAI</label>
+        <label><input type="checkbox" name="companies[0][interested_in][]" value="PUNE"> PUNE</label>
+        <label><input type="checkbox" name="companies[0][interested_in][]" value="HYDERABAD"> HYDERABAD</label>
+        <label><input type="checkbox" name="companies[0][interested_in][]" value="KOCHI"> KOCHI</label>
+        <label><input type="checkbox" name="companies[0][interested_in][]" value="KOLKATA"> KOLKATA</label>
+        <label><input type="checkbox" name="companies[0][interested_in][]" value="AHMEDABAD"> AHMEDABAD</label>
+       <input type="hidden" name="companies[0][location]">
+
+
+    </div>
 </div>
 
 <div class="field-group">

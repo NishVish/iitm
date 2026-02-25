@@ -47,6 +47,12 @@ public function publicformtradevisitor()
         // Example: list all leads
         return view('registration/tradevisitor');
     }
+public function publicformspot()
+    {
+        // Example: list all leads
+        return view('registration/spot');
+    }
+    
 public function publicformexhibitor()
     {
         // Example: list all leads
@@ -73,25 +79,47 @@ public function generatebadge($company_id)
 
 
 }
-public function thanksforregister()
-    {
-        // Example: list all leads
-        return view('registration/thanks');
-    }
 
-    
-    public function spotform()
+ public function spotform()
     {
         // Example: list all leads
         return view('registration/spotform');
     }
 
 
-    public function searchentry()
+
+// ✅ Controller catches both
+public function regitersuccess($data = null, $number = null)
 {
+    // Directly get contact ID from mobile, don't call searchentry()
+    $MobileModel = new \App\Models\ContactMobileModel();
+    $contact     = $MobileModel->where('mobile', $number)->first();
+    $contactId   = $contact['contact_id'] ?? 0;
+
+    $alldata = $this->getgataforprint($contactId, 'form');
+
+    $viewData = [
+        'type'    => $data,
+        'mobile'  => $number,
+        'alldata' => $alldata,
+    ];
+
+    return view('registration/success', $viewData);
+}
+    
+   
+
+    public function searchentry($mobileargument = Null)
+{
+    if($mobileargument == Null){
+    
     $mobile = $this->request->getPost('mobile');
     // $mobile = 1;
 
+    }else{
+
+        $mobile = $mobileargument;
+    }
     if (!$mobile) {
         return redirect()->back()->with('error', 'Mobile number is required.');
     }
@@ -103,20 +131,18 @@ public function thanksforregister()
 
     if (!$contact) {
 
-    return $this->spotinterface(0);
+    return $this->getgataforprint(0);
     }
 
     // var_dump( $contact);
     // exit;
     // Redirect to spotinterface with contactId
-    return $this->spotinterface($contact['contact_id']);
+    return $this->getgataforprint($contact['contact_id']);
 }
 
 
-
-public function spotinterface($contactId = null)
+public function getgataforprint($contactId = 1, $for = 'print')
 {
-    // Initialize data array
     $data = [
         'contactName' => 'Not_Found',
         'companyName' => 'Not_Found',
@@ -126,39 +152,42 @@ public function spotinterface($contactId = null)
         'sources'     => [],
     ];
 
+    // ── contact not found ─────────────────────────────────────────────────────
     if ($contactId == 0) {
-        return view('registration/spotinterface', $data);
+        return $for == 'form'
+            ? $data
+            : view('registration/spotinterface', $data);
     }
 
-    // Hardcoded for testing
+    // ── hardcoded test case ───────────────────────────────────────────────────
     if ($contactId == 1) {
         $data['contactName'] = "Nishant Vishwakarma";
         $data['companyName'] = "Sphere Travel Media";
-        return view('registration/spotinterface', $data);
+        return $for == 'form'
+            ? $data
+            : view('registration/spotinterface', $data);
     }
 
-    // Load models
+    // ── real lookup ───────────────────────────────────────────────────────────
     $contactModel = new \App\Models\ContactModel();
     $companyModel = new \App\Models\CompanyModel();
     $sourceModel  = new \App\Models\SourceModel();
 
-    // Fetch contact
     $contact = $contactModel->find($contactId);
 
     if ($contact) {
-        // Fetch company
         $company = $companyModel->find($contact['company_id'] ?? null);
 
-
         $data = [
-            'contactName' => strtoupper($contact['name'] ?? 'Unknown Contact'),
-            'companyName' => strtoupper($company['company_name'] ?? 'Unknown Company'),
-            'designation' => strtoupper($contact['designation'] ?? ''),
+            'contactName' => strtoupper($contact['name']              ?? 'Unknown Contact'),
+            'companyName' => strtoupper($company['company_name']      ?? 'Unknown Company'),
+            'designation' => strtoupper($contact['designation']       ?? ''),
             'mobile'      => $contact['mobile'] ?? '',
-            'email'       => $contact['email'] ?? '',
+            'email'       => $contact['email']  ?? '',
+            'sources'     => [],
         ];
 
-        // --- Insert into company_sources ---
+        // Insert into company_sources
         $insertData = [
             'company_id' => $contact['company_id'],
             'event_date' => date('Y-m-d H:i:s'),
@@ -170,8 +199,11 @@ public function spotinterface($contactId = null)
         }
     }
 
-    return view('registration/spotinterface', $data);
+    return $for == 'form'
+        ? $data
+        : view('registration/spotinterface', $data);
 }
+
 public function registrationview($source, $timerange = null)
 {
     // ✅ Use AlldetailsModel to get all company details

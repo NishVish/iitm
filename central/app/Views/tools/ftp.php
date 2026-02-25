@@ -12,11 +12,16 @@ if (preg_match('/IPv4 Address[.\s]*:\s*([\d\.]+)/', $output, $matches)) {
 }
 
 // Set your port
-$port = 9835;
+$port = 5000;
 
 // Build full URL
 $server_url = "http://{$local_ip}:{$port}";
 ?>
+<a href="<?= base_url('tools/download-server') ?>" 
+   class="download-btn" 
+   style="padding:12px 20px; background:#4CAF50; color:#fff; border-radius:8px; text-decoration:none;">
+    Download Server Module
+</a>
 
 <style>
 .transfer-container {

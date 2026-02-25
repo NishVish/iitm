@@ -1,4 +1,5 @@
 <?php
+
 $session = session();
 $user_id    = $session->get('user_id');
 $name       = ucfirst(strtolower($session->get('name')));
@@ -116,6 +117,8 @@ nav {
     display: none;
     z-index: 999;
     animation: fadeIn 0.3s ease;
+        color: black;            /* text color */
+
 }
 
 .theme-header {
@@ -131,7 +134,7 @@ nav {
 .theme-header button {
     background: none;
     border: none;
-    color: white;
+    color: black;
     cursor: pointer;
     font-size: 14px;
 }
@@ -163,6 +166,24 @@ nav {
 
 .reset-btn:hover {
     background: #222;
+}
+
+.theme-window .quick-content {
+    color: black;            /* text color */
+    display: flex;           /* enable flex layout */
+    flex-direction: column;  /* stack items vertically */
+    gap: 8px;                /* space between links */
+    padding: 10px 15px;      /* some padding for breathing room */
+}
+
+.theme-window .quick-content a {
+    color: black;            /* ensure links are black */
+    text-decoration: none;   /* remove underline */
+    font-weight: 500;        /* optional: make links slightly bold */
+}
+
+.theme-window .quick-content a:hover {
+    text-decoration: underline;  /* subtle hover effect */
 }
 
 @keyframes fadeIn {
@@ -244,7 +265,7 @@ nav {
 <nav>
     <div class="nav-links">
         <a href="<?= base_url('') ?>">Login</a>
-        <a href="<?= base_url('welcome') ?>">Home</a>
+        <a href="<?= base_url('home') ?>">Home</a>
 
         <!-- Backend dropdown -->
             <a href="<?= base_url('backend') ?>" class="dropbtn">Backend</a>
@@ -269,28 +290,35 @@ nav {
     </div>
     <!-- Search box -->
  <div>
-    <?php if ($session->get('authenticated')): ?>
-        Welcome, <?= htmlspecialchars($session->get('name')) ?>!
+    
+    <button id="openTheme" style="margin-left:15px;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;">
+
+<?php if ($session->get('authenticated')): ?>
+        <?= htmlspecialchars($session->get('name')) ?>!
     <?php else: ?>
         
 <script>
         window.location.href = "<?= base_url('/') ?>";
     </script>
     <?php endif; ?>
-    <button id="openTheme" style="margin-left:15px;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;">
-⚙️</button>
+    
+    ⚙️</button>
        
 
  </div>
+
+
+
 <div id="themeWindow" class="theme-window">
 
     <div class="theme-header">
-        <span>Settings</span>     <a href="<?= site_url('tools') ?>">  Tools</a>
-<a href="<?= site_url('logout') ?>">  Logout</a>
-
-        
-
+        <span>Settings</span>
         <button id="closeTheme">✖</button>
+    </div>
+
+    <div class="quick-content">
+        <a href="<?= site_url('tools') ?>">Tools</a>
+        <a href="<?= site_url('logout') ?>">Logout</a>
     </div>
 
     <div class="theme-body">

@@ -38,6 +38,7 @@
 
 
 <?= view('company/insert_company_form') ?>
+<?= view('company/fb_form') ?>
 
 <h2><h2>Add Company (Preview Only)</h2>
 

@@ -5,10 +5,9 @@ use CodeIgniter\Model;
 
 class ContactModel extends Model
 {
-    protected $table = 'contact';
+    protected $table      = 'contact';
     protected $primaryKey = 'contact_id';
 
-    // Add this:
     protected $allowedFields = [
         'company_id',
         'priority',
@@ -18,7 +17,6 @@ class ContactModel extends Model
         'updated_at'
     ];
 
-    // Get contacts for a company, with mobiles & emails
     public function getByCompanyId($companyId)
     {
         $contacts = $this->where('company_id', $companyId)->findAll();
@@ -31,22 +29,45 @@ class ContactModel extends Model
         return $contacts;
     }
 
-
-
-
-
-
-        public function getByCompanyIdOne($companyId)
+    public function getByCompanyIdOne($companyId)
     {
-$contact = $this->where('company_id', $companyId)
-                ->orderBy('contact_id', 'DESC')  // latest entry first
-                ->first();               // get only 1 record
-        
-
-        return $contact;
+        return $this->where('company_id', $companyId)
+                    ->orderBy('contact_id', 'DESC')
+                    ->first();
     }
 
+    public function getByMobile($mobile)
+    {
+        $mobileRow = $this->db->table('contact_mobile')
+            ->where('mobile', $mobile)
+            ->get()
+            ->getRowArray();
 
+        if (!$mobileRow) {
+            return null;
+        }
+
+        $contact_id = $mobileRow['contact_id'];
+
+        $contact = $this->find($contact_id);
+
+        if (!$contact) {
+            return null;
+        }
+
+        $company = $this->db->table('company_data')
+            ->where('company_id', $contact['company_id'])
+            ->get()
+            ->getRowArray();
+
+        $contact['mobiles'] = $this->getMobiles($contact_id);
+        $contact['emails']  = $this->getEmails($contact_id);
+
+        return [
+            'contact' => $contact,
+            'company' => $company,
+        ];
+    }
 
     public function getMobiles($contact_id)
     {

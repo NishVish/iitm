@@ -1,144 +1,88 @@
-<?= view('form/tradevisitor') ?>
+<?=view('form/tradevisitor') ?>
+
+    <button type="button" class="btnRegister" id="fillDummyBtn">Fill Dummy Data</button>
 
 <script>
-
-    document.getElementById('companyFormTv').style.display = 'none';
-
+    // Set Values to the Curretn Form
+document.getElementById('fillDummyBtn').addEventListener('click', function() {
+    const form = document.getElementById('companyFormTv'); // target by ID
+    form.querySelector('select[name="title"]').value = 'Mr.';
+    form.querySelector('input[name="select2"]').value = 'John';
+    form.querySelector('input[name="lastname"]').value = 'Doe';
+    form.querySelector('input[name="designation"]').value = 'Software Engineer';
+    form.querySelector('input[name="organisation"]').value = 'Acme Corp';
+    form.querySelector('input[name="email"]').value = 'john.doe@example.com';
+    form.querySelector('input[name="phone"]').value = '1234567890';
+    form.querySelector('textarea[name="address"]').value = '123 Main Street';
+    form.querySelector('input[name="city"]').value = 'Metropolis';
+    form.querySelector('input[name="state"]').value = 'NY';
+    form.querySelector('input[name="pincode"]').value = '10001';
+    form.querySelector('input[name="country"]').value = 'USA';
+    form.querySelector('input[name="website"]').value = 'https://example.com';
+    form.querySelector('textarea[name="Message"]').value = 'This is a dummy message.';
+});
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    const registerBtn = document.getElementById("registerBtn");
-    const companyForm = document.getElementById("companyFormTv");
+    document.getElementById('companyFormTv').style.display = 'None';
 
-    registerBtn.addEventListener("click", function () {
 
-        console.log("Button clicked"); // 🔎 check in browser console
+// document.addEventListener("DOMContentLoaded", function () {
 
-        // 🔹 Insert dummy data
-        companyForm.querySelector('[name="companies[0][company_name]"]').value = "Test Company Pvt Ltd";
-        companyForm.querySelector('[name="companies[0][address_1]"]').value = "123 Test Street";
-        companyForm.querySelector('[name="companies[0][city]"]').value = "Ahmedabad";
-        companyForm.querySelector('[name="companies[0][state]"]').value = "Gujarat";
-        companyForm.querySelector('[name="companies[0][pincode]"]').value = "380001";
-        companyForm.querySelector('[name="companies[0][phone]"]').value = "9876543210";
+//     const registerBtn = document.getElementById("registerBtn");
+//     const companyForm = document.getElementById("companyFormTv");
 
-        companyForm.querySelector('[name="companies[0][contact1_name]"]').value = "John Doe";
-        companyForm.querySelector('[name="companies[0][contact1_designation]"]').value = "Manager";
-        companyForm.querySelector('[name="companies[0][contact1_email1]"]').value = "john@test.com";
+//     registerBtn.addEventListener("click", function () {
 
-        companyForm.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
-        companyForm.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
-        companyForm.querySelector('[name="companies[0][source]"]').value = "WebsiteTradevisitor";
-        companyForm.querySelector('[name="companies[0][updated_by]"]').value = "System";
-        companyForm.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
+//         // 🔹 Get values from visible form
+//         const title       = document.querySelector('[name="title"]').value;
+//         const firstName   = document.querySelector('[name="select2"]').value;
+//         const lastName    = document.querySelector('[name="lastname"]').value;
+//         const designation = document.querySelector('[name="designation"]').value;
+//         const organisation= document.querySelector('[name="organisation"]').value;
+//         const email       = document.querySelector('[name="email"]').value;
+//         const phone       = document.querySelector('[name="phone"]').value;
+//         const address     = document.querySelector('[name="address"]').value;
+//         const city        = document.querySelector('[name="city"]').value;
+//         const state       = document.querySelector('[name="state"]').value;
+//         const pincode     = document.querySelector('[name="pincode"]').value;
+//         const country     = document.querySelector('[name="country"]').value;
+//         const website     = document.querySelector('[name="website"]').value;
 
-        // 🔹 Submit hidden form
-        companyForm.submit();
+//         // 🔹 Set values in hidden form
+//         companyForm.querySelector('[name="companies[0][company_name]"]').value = organisation;
+//         companyForm.querySelector('[name="companies[0][address_1]"]').value = address;
+//         companyForm.querySelector('[name="companies[0][city]"]').value = city;
+//         companyForm.querySelector('[name="companies[0][state]"]').value = state;
+//         companyForm.querySelector('[name="companies[0][pincode]"]').value = pincode;
+//         companyForm.querySelector('[name="companies[0][phone]"]').value = phone;
 
-    });
+//         // Contact details
+//         companyForm.querySelector('[name="companies[0][contact1_name]"]').value =
+//             (title + " " + firstName + " " + lastName).trim();
 
-});
+//         companyForm.querySelector('[name="companies[0][contact1_designation]"]').value = designation;
+//         companyForm.querySelector('[name="companies[0][contact1_email1]"]').value = email;
+//         companyForm.querySelector('[name="companies[0][contact1_mobile1]"]').value = phone;
+
+//         // 🔹 Fixed values (Always Same)
+//         companyForm.querySelector('[name="companies[0][category]"]').value = "Tradevisitor";
+//         companyForm.querySelector('[name="companies[0][source]"]').value = "Website";
+//         companyForm.querySelector('[name="companies[0][database_name]"]').value = "IITM 2026";
+//         companyForm.querySelector('[name="companies[0][updated_by]"]').value = "Website";
+//         companyForm.querySelector('[name="companies[0][updated_at]"]').value =
+//             new Date().toISOString().slice(0,16);
+
+//         // 🔹 Submit hidden form
+//         companyForm.submit();
+
+//     });
+
+// });
+
 </script>
-<!-- <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    const registerBtn = document.getElementById("registerBtn");
-    const companyForm = document.getElementById("companyForm");
-
-    registerBtn.addEventListener("click", function () {
-
-        // 🔹 Get values from visible form
-        const title       = document.querySelector('[name="title"]').value;
-        const firstName   = document.querySelector('[name="select2"]').value;
-        const lastName    = document.querySelector('[name="lastname"]').value;
-        const designation = document.querySelector('[name="designation"]').value;
-        const organisation= document.querySelector('[name="organisation"]').value;
-        const email       = document.querySelector('[name="email"]').value;
-        const phone       = document.querySelector('[name="phone"]').value;
-        const address     = document.querySelector('[name="address"]').value;
-        const city        = document.querySelector('[name="city"]').value;
-        const state       = document.querySelector('[name="state"]').value;
-        const pincode     = document.querySelector('[name="pincode"]').value;
-        const country     = document.querySelector('[name="country"]').value;
-        const website     = document.querySelector('[name="website"]').value;
-
-        // 🔹 Set values in hidden form
-        companyForm.querySelector('[name="companies[0][company_name]"]').value = organisation;
-        companyForm.querySelector('[name="companies[0][address_1]"]').value = address;
-        companyForm.querySelector('[name="companies[0][city]"]').value = city;
-        companyForm.querySelector('[name="companies[0][state]"]').value = state;
-        companyForm.querySelector('[name="companies[0][pincode]"]').value = pincode;
-        companyForm.querySelector('[name="companies[0][phone]"]').value = phone;
-
-        // Contact details
-        companyForm.querySelector('[name="companies[0][contact1_name]"]').value =
-            (title + " " + firstName + " " + lastName).trim();
-
-        companyForm.querySelector('[name="companies[0][contact1_designation]"]').value = designation;
-        companyForm.querySelector('[name="companies[0][contact1_email1]"]').value = email;
-        companyForm.querySelector('[name="companies[0][contact1_mobile1]"]').value = phone;
-
-        // 🔹 Fixed values (Always Same)
-        companyForm.querySelector('[name="companies[0][category]"]').value = "Tradevisitor";
-        companyForm.querySelector('[name="companies[0][source]"]').value = "Website";
-        companyForm.querySelector('[name="companies[0][database_name]"]').value = "IITM 2026";
-        companyForm.querySelector('[name="companies[0][updated_by]"]').value = "Website";
-        companyForm.querySelector('[name="companies[0][updated_at]"]').value =
-            new Date().toISOString().slice(0,16);
-
-        // 🔹 Submit hidden form
-        companyForm.submit();
-
-    });
-
-});
-</script> -->
-
-<!-- <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const mainForm = document.querySelector(".register-form");
-    const companyForm = document.getElementById("companyForm");
-
-    function copyValue(sourceName, targetName) {
-        const source = mainForm.querySelector('[name="' + sourceName + '"]');
-        const target = companyForm.querySelector('[name="companies[0][' + targetName + ']"]');
-
-        if (source && target) {
-            source.addEventListener("input", function () {
-                target.value = this.value;
-            });
-        }
-    }
-
-    // 🔹 Mapping fields
-    copyValue("organisation", "company_name");
-    copyValue("address", "address_1");
-    copyValue("city", "city");
-    copyValue("state", "state");
-    copyValue("pincode", "pincode");
-    copyValue("phone", "phone");
-    copyValue("email", "contact1_email1");
-    copyValue("designation", "contact1_designation");
-
-    // First + Last name combined → Contact Name
-    const firstName = mainForm.querySelector('[name="select2"]');
-    const lastName = mainForm.querySelector('[name="lastname"]');
-    const contactName = companyForm.querySelector('[name="companies[0][contact1_name]"]');
-
-    function updateFullName() {
-        contactName.value = (firstName.value + " " + lastName.value).trim();
-    }
-
-    if (firstName && lastName && contactName) {
-        firstName.addEventListener("input", updateFullName);
-        lastName.addEventListener("input", updateFullName);
-    }
-
-});
-</script> -->
 
 
 <!DOCTYPE html>
@@ -286,3 +230,5 @@ document.addEventListener("DOMContentLoaded", function () {
 </html>
 
 
+
+<button type="button" class="btnRegister" id="fillDummyBtn">Fill Dummy Data</button>

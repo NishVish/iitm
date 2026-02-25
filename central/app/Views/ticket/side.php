@@ -1,5 +1,17 @@
 <?= view('header') ?>  <!-- loads app/Views/header.php -->
 <?php
+$userModel = new \App\Models\UserModel();
+$users = $userModel->getAllUsers();
+$session = session();
+
+// var_dump($session);
+// exit;
+$userId   = $session->get('user_id');   // returns user id
+$userName = $session->get('name');      // returns user name
+
+echo "Logged in user: $userName (ID: $userId)";
+?>
+<?php
 $segment1 = service('uri')->getSegment(1);
 
 if ($segment1 == 'ticket') : ?>
@@ -44,15 +56,29 @@ if ($segment1 == 'ticket') : ?>
     <input type="hidden" name="parent_id" id="parent_id_hidden" value="0">
 
     <datalist id="ticket-list">
-        <option data-id="0" data-level="0" value="None (Main Ticket)"></option>
-        <?php if(isset($ticket)): foreach($ticket as $t): ?>
-            <option data-id="<?= $t['id'] ?>" 
-                    data-level="<?= $t['task_level'] ?>" 
-                    value="#<?= $t['id'] ?> - <?= esc($t['title']) ?>">
+    <option data-id="0" data-level="0" value="None (Main Ticket)"></option>
+
+    <?php if(isset($tickets) && is_array($tickets)): ?>
+        <?php foreach($tickets as $t): ?>
+            <option 
+                data-id="<?= $t['id'] ?>" 
+                data-level="<?= $t['task_level'] ?>" 
+                value="#<?= $t['id'] ?> - <?= esc($t['title']) ?>">
             </option>
-        <?php endforeach; endif; ?>
-    </datalist>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</datalist>
 </div>
+<label>Assign To User *
+    <select name="user_id" required>
+    <option value="<?= $userId ?>"><?= esc($userName) ?>(self)</option>
+        <?php if(isset($users) && count($users) > 0): ?>
+            <?php foreach($users as $u): ?>
+                <option value="<?= $u['id'] ?>"><?= esc($u['name']) ?> (<?= esc($u['email']) ?>)</option>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </select>
+</label>
 
 <label>Task Level
     <select name="task_level" id="task_level_select">
@@ -128,7 +154,6 @@ document.getElementById('parent_search').addEventListener('input', function(e) {
         hiddenLvl.value = "0";
     }
 });
-
 function createDummy(type) {
     const form = document.getElementById('form');
     if (!form) return;
@@ -148,10 +173,16 @@ function createDummy(type) {
         form.querySelector('[name="description"]').value = type + " auto-generated at " + new Date().toLocaleString();
         form.querySelector('[name="priority"]').value = random(["Low", "Medium", "High", "Urgent"]);
         form.querySelector('[name="status"]').value = random(["Open", "In Progress"]);
-        
+
         // Dummy always resets to Root
         document.getElementById('parent_id_hidden').value = 0;
         document.getElementById('task_level_hidden').value = 0;
+
+        // NEW: assign a random user
+        if (users.length > 0) {
+            const randomUser = random(users);
+            form.querySelector('[name="user_id"]').value = randomUser.id;
+        }
 
         form.submit();
     } catch (e) {

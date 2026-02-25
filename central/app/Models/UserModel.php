@@ -48,6 +48,9 @@ class UserModel extends Model
     
     return $result ?: null;
 }
-
+public function getAllUsers()
+    {
+        return $this->orderBy('name', 'ASC')->findAll(); // optional ordering by name
+    }
 
 }

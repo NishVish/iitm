@@ -85,6 +85,37 @@ public function saveOperation()
 
     return redirect()->to('/user/operation');
 }
+public function saveOperationById($userId)
+{
+    $post = $this->request->getPost();
+    $usersModel = new \App\Models\UserModel();
+
+    $data = [
+        'employee_id'       => $post['employee_id'],
+        'name'              => $post['name'],
+        'designation'       => $post['designation'],
+        'phone'             => $post['phone'],
+        'address'           => $post['address'],
+        'email'             => $post['email'],
+            'password'          => $post['password'],
+
+        'category'          => $post['category'],
+        'department'        => $post['department'],
+        'doj'               => $post['doj'],
+        'uan_no'            => $post['uan_no'],
+        'fathers_name'      => $post['fathers_name'],
+        'aadhaar_card'      => $post['aadhaar_card'],
+        'pan_card'          => $post['pan_card'],
+        'bank_account_number'=> $post['bank_account_number'],
+        'ifsc_code'         => $post['ifsc_code'],
+    ];
+
+
+    $usersModel->update($userId, $data);
+
+    return redirect()->to('/user/operation')->with('success', 'User updated successfully');
+}
+
     // View a single user
     public function show($id)
     {

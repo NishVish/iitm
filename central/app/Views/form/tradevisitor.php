@@ -56,7 +56,59 @@
     <button type="submit">Submit</button>
 </form>
 
+    <button type="button" class="btnRegister" id="fillDummyBtn">Fill Dummy Data</button>
 
+<script>
+    // Set Values to the Curretn Form
+document.getElementById('fillDummyBtn').addEventListener('click', function() {
+    const form = document.getElementById('companyFormTv');
+
+    form.querySelector('input[name="companies[0][database_name]"]').value = 'DummyDB';
+    form.querySelector('input[name="companies[0][category]"]').value = 'IT';
+    form.querySelector('input[name="companies[0][source]"]').value = 'Internal';
+    form.querySelector('input[name="companies[0][updated_by]"]').value = 'Admin';
+    form.querySelector('input[name="companies[0][company_name]"]').value = 'Acme Corp';
+    form.querySelector('input[name="companies[0][address_1]"]').value = '123 Main Street';
+    form.querySelector('input[name="companies[0][city]"]').value = 'Metropolis';
+    form.querySelector('input[name="companies[0][state]"]').value = 'NY';
+    form.querySelector('input[name="companies[0][pincode]"]').value = '10001';
+    form.querySelector('input[name="companies[0][phone]"]').value = '1234567890';
+    form.querySelector('input[name="companies[0][contact1_name]"]').value = 'John Doe';
+    form.querySelector('input[name="companies[0][contact1_email1]"]').value = 'john.doe@example.com';
+});
+
+// Submit Dummy Data form
+    const registerBtntradetest = document.getElementById("registerBtntradetest");
+    const companyFormTv = document.getElementById("companyFormTv");
+
+    registerBtntradetest.addEventListener("click", function () {
+
+        console.log("Button clicked"); // 🔎 check in browser console
+
+        // 🔹 Insert dummy data
+        companyFormTv.querySelector('[name="companies[0][company_name]"]').value = "Test Company Pvt Ltd";
+        companyFormTv.querySelector('[name="companies[0][address_1]"]').value = "123 Test Street";
+        companyFormTv.querySelector('[name="companies[0][city]"]').value = "Ahmedabad";
+        companyFormTv.querySelector('[name="companies[0][state]"]').value = "Gujarat";
+        companyFormTv.querySelector('[name="companies[0][pincode]"]').value = "380001";
+        companyFormTv.querySelector('[name="companies[0][phone]"]').value = "9876543210";
+
+        companyFormTv.querySelector('[name="companies[0][contact1_name]"]').value = "John Doe";
+        companyFormTv.querySelector('[name="companies[0][contact1_designation]"]').value = "Manager";
+        companyFormTv.querySelector('[name="companies[0][contact1_email1]"]').value = "john@test.com";
+        companyFormTv.querySelector('[name="companies[0][contact1_mobile1]"]').value = 7909075195;
+
+        companyFormTv.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
+        companyFormTv.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
+        companyFormTv.querySelector('[name="companies[0][source]"]').value = "tradevisitor";
+        companyFormTv.querySelector('[name="companies[0][updated_by]"]').value = "System";
+        companyFormTv.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
+
+        // 🔹 Submit hidden form
+        companyFormTv.submit();
+
+    });
+</script>
 <!-- style for Company Side
  
 <style>

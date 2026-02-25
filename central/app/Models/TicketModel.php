@@ -9,7 +9,7 @@ class TicketModel extends Model
     protected $table      = 'tickets';
     protected $primaryKey = 'id';
     
-    // UPDATED: Added 'task_level' to allowed fields
+    // UPDATED: Added 'task_level' and 'user_id' to allowed fields
     protected $allowedFields = [
         'title', 
         'description', 
@@ -18,8 +18,9 @@ class TicketModel extends Model
         'resolved_at', 
         'department', 
         'parent_id', 
-        'task_level', // Added this
-        'ticket_type'
+        'task_level', // existing
+        'ticket_type',
+        'user_id'     // newly added
     ];
 
     protected $useTimestamps = true;
@@ -41,6 +42,16 @@ class TicketModel extends Model
     {
         return $this->where('parent_id', $rootId)
                     ->orderBy('task_level', 'ASC')
+                    ->findAll();
+    }
+
+    /**
+     * Optional: Get tickets along with assigned user info
+     */
+    public function getTicketsWithUser()
+    {
+        return $this->select('tickets.*, users.name AS user_name, users.email AS user_email')
+                    ->join('users', 'users.id = tickets.user_id', 'left')
                     ->findAll();
     }
 }

@@ -219,17 +219,9 @@
         </tr>
     </thead>
         <tbody>
-            <style>
-    .plain-link {
-        color: inherit;       /* Keep the text color same as surrounding text */
-        text-decoration: none; /* Remove underline */
-        cursor: pointer;       /* Optional: keeps pointer cursor on hover */
-    }
-    .plain-link:hover {
-        color: inherit;       /* Prevent color change on hover */
-        text-decoration: none; /* Prevent underline on hover */
-    }
-</style>
+
+
+        
 
 
             <?php foreach($companies as $c): ?>
@@ -327,8 +319,81 @@ transform:translate(-50%,-50%); background:#fff; padding:20px; z-index:9999; max
 
 <button type="button" id="compareBtn">Compare Selected</button>
 
+<?php
+$spreadsheetData = [];
+foreach($companies as $c) {
+    $contactString = !empty($c['contacts']) ? str_replace('|', ' | ', trim($c['contacts'])) : "No contacts";
+
+    $spreadsheetData[] = [
+        '<input type="radio" name="main_id" value="'.$c['company_id'].'">',
+        '<input type="radio" name="compare_id" value="'.$c['company_id'].'">',
+        $c['company_name'] . "\n(" . $c['category'] . ")",
+        $c['city'] . "\n" . $c['state'],
+        $contactString,
+        // Button at absolute last index so createTable uses innerHTML
+        '<button type="button" class="open-details-btn" data-id="'.$c['company_id'].'">View</button>'
+    ];
+}
+?>
+
+
+
+<script>document.addEventListener("DOMContentLoaded", () => {
+    const myColumns = [
+        { title: 'Main' },
+        { title: 'Compare' },
+        { title: 'Company Name' },
+        { title: 'City/State' },
+        { title: 'Contact Details' },
+        { title: 'Action' }  // The innerHTML column
+    ];
+
+    const myData = <?= json_encode($spreadsheetData) ?>;
+
+    const sheet = new Spreadsheet('spreadsheet-ui', {
+        columns: myColumns,
+        data: myData
+    });
+
+    const tableBody = document.querySelector('#spreadsheet-ui tbody');
+    if (tableBody) {
+        tableBody.addEventListener('click', (e) => {
+            // Check if the click was specifically on our "View" button
+            if (e.target.classList.contains('open-details-btn')) {
+                const companyId = e.target.getAttribute('data-id');
+                window.location = '<?= site_url("company/details/") ?>' + companyId;
+            }
+            
+            // Note: Radio buttons work automatically because they are HTML strings
+            // and row-level redirection is now disabled because we removed the window.location 
+            // from the general "if (tr)" block.
+        });
+    }
+});
+</script>
+
+<form id="compareForm">
+    <div id="spreadsheet-ui"></div>
+    <button type="submit" class="btn-submit">Compare Selected</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('compareBtn').addEventListener('click', function () {

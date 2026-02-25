@@ -15,11 +15,17 @@ $routes->get('login', 'Authentication::login');
 
 $routes->post('login', 'Authentication::login');
 $routes->get('logout', 'Authentication::logout');
-$routes->get('welcome', 'Home::index');
+$routes->get('home', 'Home::index');
 
 
 //Users
 // Display all users
+
+
+// ===============================
+// Users routes
+// ===============================
+
 $routes->get('user', 'User::index');
 
 // Show form to create a new user
@@ -35,7 +41,8 @@ $routes->get('user/(:num)', 'User::show/$1');
 $routes->get('user/delete/(:num)', 'User::delete/$1');
 $routes->get('user/operation', 'User::operation'); // show editable users
 $routes->post('user/operation/save', 'User::saveOperation'); // save edits
-
+$routes->post('users/update/(:segment)', 'Users::update/$1');
+$routes->post('user/operation/save/(:num)', 'User::saveOperationById/$1');
 
 // Backend home / admin panel
 $routes->get('project_summary', 'Backend::project_summary_main');
@@ -198,15 +205,7 @@ $routes->post('updatefrombooking/(:segment)', 'Booking::update/$1');
 // ===============================
 $routes->get('search', 'Search::index');
 
-// ===============================
-// Users routes
-// ===============================
-$routes->get('users', 'Users::index');
-$routes->get('users/add', 'Users::add');
-$routes->post('users/store', 'Users::store');
-$routes->get('users/edit/(:segment)', 'Users::edit/$1');
-$routes->post('users/update/(:segment)', 'Users::update/$1');
-$routes->post('users/delete/(:segment)', 'Users::delete/$1');
+
 
 
 // ===============================
@@ -255,7 +254,7 @@ $routes->get('tools/download/(:any)', 'Tools::download/$1');
 
 $routes->get('tools/ftp', 'Tools::ftp');               // Main page
 
-
+$routes->get('tools/download-server', 'Tools::downloadServer');
 
 
 
@@ -263,20 +262,31 @@ $routes->get('tools/ftp', 'Tools::ftp');               // Main page
 $routes->group('ticket', function($routes) {
     $routes->get('/', 'Ticket::index');
     $routes->post('store', 'Ticket::store');
+        $routes->post('storeajax', 'Ticket::storeajax');
+
     $routes->post('update/(:num)', 'Ticket::update/$1');
 
     // Dynamic type route
     $routes->get('type/(:segment)', 'Ticket::type/$1');
+    // $routes->get('view/(:segment)', 'Ticket::view/$1');
 });
 
 
 $routes->group('registration', function($routes) {
     $routes->get('/', 'Registration::index');
-    $routes->get('publicformtv', 'Registration::publicformtradevisitor');
-    $routes->get('publicformex', 'Registration::publicformexhibitor');
-    $routes->get('regitersuccess', 'Registration::thanksforregister');
-    $routes->get('generatebadge/(:any)', 'Registration::generatebadge/$1');
-    $routes->get('spotinterface/(:any)', 'Registration::spotinterface/$1');
+    $routes->get('publicformtv', 'Registration::publicformtradevisitor');// multi
+    $routes->get('publicformex', 'Registration::publicformexhibitor'); //specific
+    $routes->get('publicformspot', 'Registration::publicformspot');//multi
+// Routes.php
+
+// ✅ Route needs two (:segment) for both $data and $number
+$routes->get('regitersuccess/(:segment)/(:segment)', 'Registration::regitersuccess/$1/$2');
+
+
+$routes->get('generatebadge/(:any)', 'Registration::generatebadge/$1');
+    $routes->get('spotinterface', 'Registration::getgataforprint');
+
+    $routes->get('spotinterface/(:any)', 'Registration::getgataforprint/$1');
     // $routes->get('searchentry', 'Registration::searchentry');
     $routes->post('searchentry', 'Registration::searchentry');
     $routes->get('view/(:segment)', 'Registration::registrationview/$1');
