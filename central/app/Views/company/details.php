@@ -165,7 +165,6 @@ ul {
 .company-top {
     display: flex;
     align-items: center;
-    gap: 10px;
     font-size: 14px;
 }
 
@@ -240,8 +239,110 @@ $categoryMap = [
 $category = esc($company['category']);
 $label = $categoryMap[$category] ?? '';
 ?>
+<div class="search-container">
+    <style>
+        :root {
+            --accent-color: #4f46e5; /* Modern Indigo */
+            --input-bg: #ffffff;
+            --text-main: #1e293b;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
 
+        .search-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 10px auto;
+            padding: 0 15px;
+        }
 
+        .modern-search-form {
+            display: flex;
+            align-items: center;
+            background: var(--input-bg);
+            padding: 8px;
+            border-radius: 50px; /* Pill shape */
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Subtle lift when typing */
+        .modern-search-form:focus-within {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .search-icon {
+            padding-left: 15px;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+        }
+
+        .modern-search-form input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: none;
+            background: transparent;
+            outline: none;
+            color: var(--text-main);
+            width: 100%;
+        }
+
+        .modern-search-form input::placeholder {
+            color: #94a3b8;
+        }
+
+        .modern-search-form button {
+            padding: 12px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+        }
+
+        .modern-search-form button:hover {
+            background-color: #4338ca;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+            transform: scale(1.02);
+        }
+
+        .modern-search-form button:active {
+            transform: scale(0.98);
+        }
+
+        /* Responsive tweak */
+        @media (max-width: 480px) {
+            .modern-search-form button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+
+    <form action="<?= base_url('search') ?>" method="get" class="modern-search-form">
+        <div class="search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+
+        <input 
+            type="text" 
+            name="q"
+            value="<?= esc($search ?? '') ?>"
+            placeholder="Search company, contact, mobile..." 
+            required
+        >
+        
+        <button type="submit">Search</button>
+    </form>
+</div>
 <div class="container">
 
   <!-- ================= COMPANY DETAILS ================= -->
@@ -250,36 +351,42 @@ $label = $categoryMap[$category] ?? '';
 
 <div class="company-card">
 
-<div class="company-header">
+   <div class="company-header">
     <div class="company-top">
-        <p>
-            <h1>
-                            <?= esc($category ?? 'No Category') ?> | 
-
+        <h1>
+            <?= esc($company['category'] ?? 'No Category') ?> | 
             <strong><?= esc($company['company_name']) ?></strong> | 
             <?= esc($company['city']) ?>
-
-            </h1>
-
-        </p>
+        </h1>
     </div>
 
     <div class="company-location">
         <p>
             <?= esc($company['address']) ?>, 
             <?= esc($company['city']) ?>, 
-            <?= esc($company['state']) ?> - <?= esc($company['pincode']) ?>
+            <?= esc($company['state']) ?> - <?= esc($company['pincode']) ?>, 
+            <?= esc($company['country']) ?>
         </p>
     </div>
 
     <div class="company-contact">
         <p>
             Phone: <?= esc($company['phone']) ?> | 
-            GST: <?= esc($company['gst_number']) ?>
+            GST: <?= esc($company['gst_number']) ?> | 
+            Database: <?= esc($company['database_name']) ?> | 
+            Outbound: <?= $company['outbound'] ? 'Yes' : 'No' ?> | 
+            Cross Validation: <?= $company['cross_validation'] ? 'Yes' : 'No' ?>
+        </p>
+    </div>
+
+    <div class="company-updates">
+        <p>
+            Last Comments: <?= esc($company['last_comments']) ?> | 
+            Updated By: <?= esc($company['updated_by']) ?> | 
+            Updated At: <?= esc($company['updated_at']) ?>
         </p>
     </div>
 </div>
-
 <hr>
 
 <h3>Sources</h3>
@@ -288,7 +395,7 @@ $label = $categoryMap[$category] ?? '';
         <tr>
             <th>Source ID</th>
             <th>Event Date</th>
-            <th>Notes</th>
+            <th>Source Name</th>
         </tr>
     </thead>
     <tbody>
@@ -792,3 +899,101 @@ window.addEventListener('click', function(e) {
 });
 </script>
 
+
+<div class="box" style="flex: 1 1 100%; margin-top: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3>Company Master Database</h3>
+        <button type="button" class="btn-primary" onclick="crmSheet.copyAll()">📋 Copy Master Row for Excel</button>
+    </div>
+    <div id="crmSpreadsheet"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Columns precisely mapped to your requested headers
+    const columns = [
+        { title: 'database_name' }, { title: 'category' }, { title: 'source' },
+        { title: 'updated_by' }, { title: 'updated_at' }, { title: 'outbound' },
+        { title: 'company_name' }, { title: 'address_1' }, { title: 'address_2' },
+        { title: 'city' }, { title: 'pincode' }, { title: 'state' },
+        { title: 'phone' }, { title: 'fax' },
+        // Contact 1
+        { title: 'contact_name' }, { title: 'designation' }, 
+        { title: 'mobile_1' }, { title: 'mobile_2' }, { title: 'mobile_3' },
+        { title: 'email_1' }, { title: 'email_2' }, { title: 'email_3' },
+        // Contact 2
+        { title: 'contact_name_2' }, { title: 'designation_2' }, 
+        { title: 'email_4' }, { title: 'email_5' }, 
+        { title: 'mobile_4' }, { title: 'mobile_5' },
+        // Contact 3
+        { title: 'contact_name_3' }, { title: 'designation_3' }, 
+        { title: 'email_6' }, { title: 'email_7' }, 
+        { title: 'mobile_6' }, { title: 'mobile_7' }
+    ];
+
+    // 2. Data Logic to distribute contacts into slots
+    const data = [
+        <?php 
+            // Extract history/source metadata
+            $lastUpd = !empty($updates) ? $updates[0] : [];
+            $srcNote = !empty($sources) ? end($sources)['notes'] : '';
+
+            // Map Contacts to fixed slots to maintain column alignment
+            $c1 = $contacts[0] ?? null;
+            $c2 = $contacts[1] ?? null;
+            $c3 = $contacts[2] ?? null;
+
+            // Helper to get specific index from contact arrays
+            $getArr = function($arr, $idx) { return esc($arr[$idx] ?? ''); };
+        ?>
+        [
+            '<?= esc($database_name ?? 'Main DB') ?>',
+            '<?= esc($company['category'] ?? '') ?>',
+            '<?= esc($srcNote) ?>',
+            '<?= esc($lastUpd['updated_by'] ?? '') ?>',
+            '<?= esc($lastUpd['created_at'] ?? '') ?>',
+            '<?= esc($outbound_status ?? 'Pending') ?>',
+            '<?= esc($company['company_name']) ?>',
+            '<?= esc($company['address']) ?>', // split if you have address_2
+            '', // address_2
+            '<?= esc($company['city']) ?>',
+            '<?= esc($company['pincode']) ?>',
+            '<?= esc($company['state']) ?>',
+            '<?= esc($company['phone']) ?>',
+            '<?= esc($company['fax'] ?? '') ?>',
+
+            // Contact 1 Slot
+            '<?= esc($c1['name'] ?? '') ?>',
+            '<?= esc($c1['designation'] ?? '') ?>',
+            '<?= $getArr($c1['mobiles'] ?? [], 0) ?>',
+            '<?= $getArr($c1['mobiles'] ?? [], 1) ?>',
+            '<?= $getArr($c1['mobiles'] ?? [], 2) ?>',
+            '<?= $getArr($c1['emails'] ?? [], 0) ?>',
+            '<?= $getArr($c1['emails'] ?? [], 1) ?>',
+            '<?= $getArr($c1['emails'] ?? [], 2) ?>',
+
+            // Contact 2 Slot
+            '<?= esc($c2['name'] ?? '') ?>',
+            '<?= esc($c2['designation'] ?? '') ?>',
+            '<?= $getArr($c2['emails'] ?? [], 0) ?>',
+            '<?= $getArr($c2['emails'] ?? [], 1) ?>',
+            '<?= $getArr($c2['mobiles'] ?? [], 0) ?>',
+            '<?= $getArr($c2['mobiles'] ?? [], 1) ?>',
+
+            // Contact 3 Slot
+            '<?= esc($c3['name'] ?? '') ?>',
+            '<?= esc($c3['designation'] ?? '') ?>',
+            '<?= $getArr($c3['emails'] ?? [], 0) ?>',
+            '<?= $getArr($c3['emails'] ?? [], 1) ?>',
+            '<?= $getArr($c3['mobiles'] ?? [], 0) ?>',
+            '<?= $getArr($c3['mobiles'] ?? [], 1) ?>'
+        ]
+    ];
+
+    // 3. Initialize Spreadsheet
+    // window.crmSheet = new Spreadsheet('crmSpreadsheet', { 
+    //     data: data, 
+    //     columns: columns 
+    // });
+});
+</script>

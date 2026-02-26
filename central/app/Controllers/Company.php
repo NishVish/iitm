@@ -32,7 +32,145 @@ public function index()
     return view('company/index', $data);
 }
 
+public function update_cell()
+{
+    $json = $this->request->getJSON(true);
+    if (!$json) return $this->response->setJSON(['status' => 'error', 'message' => 'No data']);
 
+    $db = \Config\Database::connect();
+    $companyId  = $json['company_id'];
+    $contactIds = $json['contact_ids']; // Array of IDs we sent from the view
+    $column     = $json['column'];
+    $newValue   = $json['newValue'];
+
+    // 1. Handle Company Table Updates
+    $companyFields = ['category', 'company_name', 'address_1', 'city', 'pincode', 'state', 'phone', 'fax'];
+    if (in_array($column, $companyFields)) {
+        // Map address_1 back to your database column 'address' if necessary
+        $dbCol = ($column == 'address_1') ? 'address' : $column;
+        $db->table('company_data')->where('company_id', $companyId)->update([$dbCol => $newValue]);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    // 2. Handle Contact/Email/Mobile Updates
+    // We parse the column name to find the index (e.g., contact_name_2 -> index 1)
+    preg_match('/_(\d+)$/', $column, $matches);
+    $index = !empty($matches[1]) ? (int)$matches[1] - 1 : 0; 
+    
+    // Safety check: does this contact exist in the array?
+    if (!isset($contactIds[$index])) {
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Contact not found']);
+    }
+    $targetContactId = $contactIds[$index];
+
+    // Update Contact Name or Designation
+    if (strpos($column, 'contact_name') !== false) {
+        $db->table('contact')->where('contact_id', $targetContactId)->update(['name' => $newValue]);
+    } 
+    elseif (strpos($column, 'designation') !== false) {
+        $db->table('contact')->where('contact_id', $targetContactId)->update(['designation' => $newValue]);
+    }
+    
+    // Update Mobiles (Primary = index 0, Secondary = index 1)
+    elseif (strpos($column, 'mobile_') !== false) {
+        $isSecondary = ((int)filter_var($column, FILTER_SANITIZE_NUMBER_INT) % 2 == 0);
+        $this->updateContactDetail($targetContactId, 'contact_mobile', 'mobile', $newValue, $isSecondary);
+    }
+    
+    // Update Emails (Primary = index 0, Secondary = index 1)
+    elseif (strpos($column, 'email_') !== false) {
+        $isSecondary = ((int)filter_var($column, FILTER_SANITIZE_NUMBER_INT) % 2 == 0);
+        $this->updateContactDetail($targetContactId, 'contact_email', 'email', $newValue, $isSecondary);
+    }
+
+    return $this->response->setJSON(['status' => 'success']);
+}
+
+/**
+ * Helper to update or insert mobile/email records
+ */
+private function updateContactDetail($contactId, $table, $field, $value, $isSecondary)
+{
+    $db = \Config\Database::connect();
+    $builder = $db->table($table);
+    
+    // Find existing record (Primary is 1, Secondary is 0)
+    $exists = $builder->where([
+        'contact_id' => $contactId, 
+        'is_primary' => $isSecondary ? 0 : 1
+    ])->get()->getRow();
+
+    if ($exists) {
+        $builder->where('id', $exists->id)->update([$field => $value]);
+    } else {
+        $builder->insert([
+            'contact_id' => $contactId,
+            $field       => $value,
+            'is_primary' => $isSecondary ? 0 : 1
+        ]);
+    }
+}
+
+public function getCompanySourcesContactsByState($state = null)
+{
+    $db = \Config\Database::connect();
+
+    $builder = $db->table('company_data cd')
+        ->select('
+            cd.*, 
+            cs.source_id, cs.event_date, cs.notes as source_notes,
+            c.contact_id, c.name as contact_name, c.designation,
+            ce.email as email_address,
+            cm.mobile as mobile_number
+        ')
+        ->join('company_sources cs', 'cs.company_id = cd.company_id', 'left')
+        ->join('contact c', 'c.company_id = cd.company_id', 'left')
+        ->join('contact_email ce', 'ce.contact_id = c.contact_id', 'left')
+        ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left');
+
+    if ($state) {
+        $builder->where('cd.state', $state);
+    }
+
+    $rows = $builder->get()->getResultArray();
+
+    $grouped = [];
+    foreach ($rows as $row) {
+        $id = $row['company_id'];
+        
+        // Initialize company if not exists
+        if (!isset($grouped[$id])) {
+            $grouped[$id] = [
+                'details'  => $row,
+                'contacts' => []
+            ];
+        }
+
+        // Group contacts and their unique emails/mobiles
+        if ($row['contact_id']) {
+            $cId = $row['contact_id'];
+            if (!isset($grouped[$id]['contacts'][$cId])) {
+                $grouped[$id]['contacts'][$cId] = [
+                    'name'        => $row['contact_name'],
+                    'designation' => $row['designation'],
+                    'emails'      => [],
+                    'mobiles'     => []
+                ];
+            }
+            if ($row['email_address'] && !in_array($row['email_address'], $grouped[$id]['contacts'][$cId]['emails'])) {
+                $grouped[$id]['contacts'][$cId]['emails'][] = $row['email_address'];
+            }
+            if ($row['mobile_number'] && !in_array($row['mobile_number'], $grouped[$id]['contacts'][$cId]['mobiles'])) {
+                $grouped[$id]['contacts'][$cId]['mobiles'][] = $row['mobile_number'];
+            }
+        }
+    }
+
+    $data['companies'] = $grouped;
+    $data['state'] = $state;
+
+    return view('company/by_state', $data);
+}
     // AJAX: get cities by state
 // Company.php
 public function getCities()
@@ -59,6 +197,8 @@ public function filterCompanies()
 
     return $this->response->setJSON($companies);
 }
+
+
 
 
 // Details of single company
@@ -179,6 +319,9 @@ public function add_check()
     // ]);
 }
 
+public function addexhibitor()
+{
+     return view('company/insert_exhibitor');}
 
 public function add()
 {
@@ -324,8 +467,8 @@ $companyId = Uuid::uuid4()->toString();
 public function add_details()
 {
     $companies = $this->request->getPost('companies');
-    print_r($companies); 
-    exit;
+    // print_r($companies); 
+    // exit;
     // If this doesn't stop the script, your form isn't hitting this function at all.
     if (empty($companies)) {
         return redirect()->back()->with('status', '⚠️ No company data found!');
@@ -341,26 +484,35 @@ public function add_details()
             $company_id = strtoupper('C' . time() . rand(100, 999));
             $session_id = $this->companyModel->get_lastSession();
 
-            // Insert company
-            $this->companyModel->insert([
-                'session'    => $session_id,
+            // print_r($company); 
+            // exit;
+        $updatedAt = null;
+        if (!empty($company['updated_at'])) {
+            $updatedAt = str_replace('T', ' ', $company['updated_at']) . ':00';
+        } else {
+            $updatedAt = date('Y-m-d H:i:s');
+        }
 
-                'company_id'    => $company_id,
-                'database_name' => $company['database_name'] ?? null,
-                'outbound'      => isset($company['outbound']) ? 1 : 0,
-                'company_name'  => $company['company_name'] ?? null,
-                'category'      => $company['category'] ?? null,
-                'address' => trim(($company['address_1'] ?? '') . ' ' . ($company['address_2'] ?? '')),
-                'city'          => $company['city'] ?? null,
-                'pincode'       => $company['pincode'] ?? null,
-                'state'         => $company['state'] ?? null,
-                'country'       => $company['country'] ?? 'India',
-                'phone'         => $company['phone'] ?? null,
-            ]);
 
-            // if$company['phone']
+        $this->companyModel->insert([
+            'session'       => $session_id,
+            'company_id'    => $company_id,
+            'database_name' => $company['database_name'] ?? null,
+            'category'      => $company['category'] ?? null,
+            'updated_by'    => $company['updated_by'] ?? 'system',
+            'updated_at'    => $updatedAt,
+            'last_comments' => $company['comments'] ?? null,
+            'outbound'      => isset($company['outbound']) ? 1 : 0,
+            'company_name'  => $company['company_name'] ?? "x",
+            'address'       => trim(($company['address_1'] ?? '') . ' ' . ($company['address_2'] ?? '')),
+            'city'          => $company['city'] ?? null,
+            'pincode'       => $company['pincode'] ?? null,
+            'state'         => $company['state'] ?? null,
+            'country'       => $company['country'] ?? 'India',
+            'phone'         => $company['phone'] ?? null,
+            'corssvaliation'         => 0,
+        ]);
 
-             // Prepare source data
             $values = [
                 'company_id'    => $company_id,
                 'source_id'  => $company['source_id'] ?? 0,
@@ -492,14 +644,16 @@ if ($note == "Spot" || $note == "websitetradevisitor") {
                         $contact = $contactModel->getByCompanyIdOne($company_id);
 
                         // Prepare lead data using the contact ID
-                        $leadData = [
-                            'company_id'   => $company_id,
-                            'contact_id'   => $contact['contact_id'] ?? null,  // use latest contact ID
-                            'fascia'       => $company['fascia'] ?? "Standard Fascia",
-                            'sales_person' => $company['sales_person'] ?? null,
-                            'exhibitor'    => $company['company_name'] ?? null,
-                            'booking_form' => $company['booking_form'] ?? null,
-                        ];
+                     $leadData = [
+                                'company_id'   => $company_id,
+                                'contact_id'   => $contact['contact_id'] ?? null,
+                                'fascia'       => $company['fascia'] ?? "Standard Fascia",
+                                'sales_person' => $company['sales_person'] ?? null,
+                                'exhibitor'    => $company['company_name'] ?? null,
+                                'booking_form' => $company['booking_form'] ?? null,
+                                // If database_name is exhibitor, set is_exhibitor to true, else false
+                                'is_exhibitor' => ($company['database_name'] == "exhibitor") ? true : false,
+                            ];
                         // var_dump($contact);
                         // exit;
 

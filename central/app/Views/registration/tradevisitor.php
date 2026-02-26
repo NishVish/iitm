@@ -1,9 +1,70 @@
 <?=view('form/tradevisitor') ?>
 
     <button type="button" class="btnRegister" id="fillDummyBtn">Fill Dummy Data</button>
+ssdasdasd
+
 
 <script>
-    // Set Values to the Curretn Form
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('companyFormTv');
+    const fillBtn = document.getElementById('fillDummyBtn');
+
+    if (form && fillBtn) {
+        fillBtn.style.display = 'block';
+        form.style.display = 'block';
+
+        fillBtn.addEventListener('click', function() {
+            form.querySelector('select[name="title"]').value = 'Mr.';
+            form.querySelector('input[name="select2"]').value = 'John';
+            form.querySelector('input[name="lastname"]').value = 'Doe';
+            form.querySelector('input[name="designation"]').value = 'Software Engineer';
+            form.querySelector('input[name="organisation"]').value = 'Acme Corp';
+            form.querySelector('input[name="email"]').value = 'john.doe@example.com';
+            form.querySelector('input[name="phone"]').value = '1234567890';
+            form.querySelector('textarea[name="address"]').value = '123 Main Street';
+            form.querySelector('input[name="city"]').value = 'Metropolis';
+            form.querySelector('input[name="state"]').value = 'NY';
+            form.querySelector('input[name="pincode"]').value = '10001';
+            form.querySelector('input[name="country"]').value = 'USA';
+            form.querySelector('input[name="website"]').value = 'https://example.com';
+            form.querySelector('textarea[name="Message"]').value = 'This is a dummy message.';
+        });
+    }
+
+    const registerBtntradetest = document.getElementById("registerBtntradetest");
+    if (form && registerBtntradetest) {
+        registerBtntradetest.addEventListener("click", function () {
+            console.log("Button clicked");
+
+            form.querySelector('[name="companies[0][company_name]"]').value = "Test Company Pvt Ltd";
+            form.querySelector('[name="companies[0][address_1]"]').value = "123 Test Street";
+            form.querySelector('[name="companies[0][city]"]').value = "Ahmedabad";
+            form.querySelector('[name="companies[0][state]"]').value = "Gujarat";
+            form.querySelector('[name="companies[0][pincode]"]').value = "380001";
+            form.querySelector('[name="companies[0][phone]"]').value = "9876543210";
+            form.querySelector('[name="companies[0][contact1_name]"]').value = "John Doe";
+            form.querySelector('[name="companies[0][contact1_designation]"]').value = "Manager";
+            form.querySelector('[name="companies[0][contact1_email1]"]').value = "john@test.com";
+            form.querySelector('[name="companies[0][contact1_mobile1]"]').value = 7909075195;
+            form.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
+            form.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
+            form.querySelector('[name="companies[0][source]"]').value = "tradevisitor";
+            form.querySelector('[name="companies[0][updated_by]"]').value = "System";
+            form.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
+
+            form.submit();
+        });
+    }
+});
+
+
+
+
+    document.getElementById('companyFormTv').style.display = 'Block';
+    document.getElementById('fillDummyBtn').style.display = 'Block';
+
+// Set Values to the Main Form
 document.getElementById('fillDummyBtn').addEventListener('click', function() {
     const form = document.getElementById('companyFormTv'); // target by ID
     form.querySelector('select[name="title"]').value = 'Mr.';
@@ -21,11 +82,52 @@ document.getElementById('fillDummyBtn').addEventListener('click', function() {
     form.querySelector('input[name="website"]').value = 'https://example.com';
     form.querySelector('textarea[name="Message"]').value = 'This is a dummy message.';
 });
+
+    
+
+
+
+    // Set Values to the form but dont Submit
+
+
+// Submit Dummy Data form
+    const registerBtntradetest = document.getElementById("registerBtntradetest");
+    const companyFormTv = document.getElementById("companyFormTv");
+
+    registerBtntradetest.addEventListener("click", function () {
+
+        console.log("Button clicked"); // 🔎 check in browser console
+
+        // 🔹 Insert dummy data
+        companyFormTv.querySelector('[name="companies[0][company_name]"]').value = "Test Company Pvt Ltd";
+        companyFormTv.querySelector('[name="companies[0][address_1]"]').value = "123 Test Street";
+        companyFormTv.querySelector('[name="companies[0][city]"]').value = "Ahmedabad";
+        companyFormTv.querySelector('[name="companies[0][state]"]').value = "Gujarat";
+        companyFormTv.querySelector('[name="companies[0][pincode]"]').value = "380001";
+        companyFormTv.querySelector('[name="companies[0][phone]"]').value = "9876543210";
+
+        companyFormTv.querySelector('[name="companies[0][contact1_name]"]').value = "John Doe";
+        companyFormTv.querySelector('[name="companies[0][contact1_designation]"]').value = "Manager";
+        companyFormTv.querySelector('[name="companies[0][contact1_email1]"]').value = "john@test.com";
+        companyFormTv.querySelector('[name="companies[0][contact1_mobile1]"]').value = 7909075195;
+
+        companyFormTv.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
+        companyFormTv.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
+        companyFormTv.querySelector('[name="companies[0][source]"]').value = "tradevisitor";
+        companyFormTv.querySelector('[name="companies[0][updated_by]"]').value = "System";
+        companyFormTv.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
+
+        // 🔹 Submit hidden form
+        companyFormTv.submit();
+
+    });
+
+
+
 </script>
 
 <script>
 
-    document.getElementById('companyFormTv').style.display = 'None';
 
 
 // document.addEventListener("DOMContentLoaded", function () {
@@ -184,9 +286,9 @@ document.getElementById('fillDummyBtn').addEventListener('click', function() {
                         <input type="text" class="form-control" placeholder="First Name *" name="select2" required>
                     </div>-->
                     
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="First Name *" name="select2" value="" required/>
-                                </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="First Name *" name="select2" value="" required/>
+                    </div>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Last Name" name="lastname">
                     </div>
@@ -231,4 +333,4 @@ document.getElementById('fillDummyBtn').addEventListener('click', function() {
 
 
 
-<button type="button" class="btnRegister" id="fillDummyBtn">Fill Dummy Data</button>
+<!-- <button type="button" class="btnRegister" id="fillDummyBtn">Fill Dummy Data</button> -->

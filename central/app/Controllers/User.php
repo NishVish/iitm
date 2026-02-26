@@ -61,26 +61,33 @@ public function saveOperation()
 {
     $post = $this->request->getPost();
 
-    // Loop through each user ID and update fields
     foreach ($post['id'] as $index => $id) {
-        $this->usersModel->update($id, [
-            'employee_id'       => $post['employee_id'][$index],
-            'name'              => $post['name'][$index],
-            'designation'       => $post['designation'][$index],
-            'phone'             => $post['phone'][$index],
-            'address'           => $post['address'][$index],
-            'email'             => $post['email'][$index],
-            'password'          => $post['password'][$index],
-            'category'          => $post['category'][$index],
-            'department'        => $post['department'][$index],
-            'doj'               => $post['doj'][$index],
-            'uan_no'            => $post['uan_no'][$index],
-            'fathers_name'      => $post['fathers_name'][$index],
-            'aadhaar_card'      => $post['aadhaar_card'][$index],
-            'pan_card'          => $post['pan_card'][$index],
-            'bank_account_number' => $post['bank_account_number'][$index],
-            'ifsc_code'         => $post['ifsc_code'][$index],
-        ]);
+
+        $data = [
+            'employee_id'        => $post['employee_id'][$index],
+            'name'               => $post['name'][$index],
+            'designation'        => $post['designation'][$index],
+            'phone'              => $post['phone'][$index],
+            'address'            => $post['address'][$index],
+            'email'              => $post['email'][$index],
+            'category'           => $post['category'][$index],
+            'department'         => $post['department'][$index],
+            'doj'                => $post['doj'][$index],
+            'uan_no'             => $post['uan_no'][$index],
+            'fathers_name'       => $post['fathers_name'][$index],
+            'aadhaar_card'       => $post['aadhaar_card'][$index],
+            'pan_card'           => $post['pan_card'][$index],
+            'bank_account_number'=> $post['bank_account_number'][$index],
+            'ifsc_code'          => $post['ifsc_code'][$index],
+            'user_type'          => $post['user_type'][$index],
+        ];
+
+        // Only update password if not empty
+        if (!empty($post['password'][$index])) {
+            $data['password'] = $post['password'][$index];
+        }
+
+        $this->usersModel->update($id, $data);
     }
 
     return redirect()->to('/user/operation');
@@ -91,25 +98,28 @@ public function saveOperationById($userId)
     $usersModel = new \App\Models\UserModel();
 
     $data = [
-        'employee_id'       => $post['employee_id'],
-        'name'              => $post['name'],
-        'designation'       => $post['designation'],
-        'phone'             => $post['phone'],
-        'address'           => $post['address'],
-        'email'             => $post['email'],
-            'password'          => $post['password'],
-
-        'category'          => $post['category'],
-        'department'        => $post['department'],
-        'doj'               => $post['doj'],
-        'uan_no'            => $post['uan_no'],
-        'fathers_name'      => $post['fathers_name'],
-        'aadhaar_card'      => $post['aadhaar_card'],
-        'pan_card'          => $post['pan_card'],
+        'employee_id'        => $post['employee_id'],
+        'name'               => $post['name'],
+        'designation'        => $post['designation'],
+        'phone'              => $post['phone'],
+        'address'            => $post['address'],
+        'email'              => $post['email'],
+        'category'           => $post['category'],
+        'department'         => $post['department'],
+        'doj'                => $post['doj'],
+        'uan_no'             => $post['uan_no'],
+        'fathers_name'       => $post['fathers_name'],
+        'aadhaar_card'       => $post['aadhaar_card'],
+        'pan_card'           => $post['pan_card'],
         'bank_account_number'=> $post['bank_account_number'],
-        'ifsc_code'         => $post['ifsc_code'],
+        'ifsc_code'          => $post['ifsc_code'],
+        'user_type'          => $post['user_type'],
     ];
 
+    // Only update password if not empty
+    if (!empty($post['password'])) {
+        $data['password'] = $post['password'];
+    }
 
     $usersModel->update($userId, $data);
 

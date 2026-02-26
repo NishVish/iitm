@@ -26,6 +26,7 @@
                 <th>Password</th>
                 <th>Category</th>
                 <th>Department</th>
+                <th>UserType</th>
                 <th>DOJ</th>
                 <th>UAN No</th>
                 <th>Father's Name</th>
@@ -51,6 +52,7 @@
                     <td><input type="text" name="password[]" placeholder="Enter new password"></td>
                     <td><input type="text" name="category[]" value="<?= esc($user['category']) ?>"></td>
                     <td><input type="text" name="department[]" value="<?= esc($user['department']) ?>"></td>
+                    <td><input type="text" name="user_type[]" value="<?= esc($user['user_type']) ?>"></td>
                     <td><input type="date" name="doj[]" value="<?= esc($user['doj']) ?>"></td>
                     <td><input type="text" name="uan_no[]" value="<?= esc($user['uan_no']) ?>"></td>
                     <td><input type="text" name="fathers_name[]" value="<?= esc($user['fathers_name']) ?>"></td>
@@ -80,6 +82,7 @@
             <tr><td>Password</td><td><input type="password" name="password" placeholder="Enter new password"></td></tr>
             <tr><td>Category</td><td><input type="text" name="category" value="<?= esc($user['category']) ?>"></td></tr>
             <tr><td>Department</td><td><input type="text" name="department" value="<?= esc($user['department']) ?>"></td></tr>
+            <tr><td>User Type</td><td><input type="text" name="user_type" value="<?= esc($user['user_type']) ?>"></td></tr>
             <tr><td>DOJ</td><td><input type="date" name="doj" value="<?= esc($user['doj']) ?>"></td></tr>
             <tr><td>UAN No</td><td><input type="text" name="uan_no" value="<?= esc($user['uan_no']) ?>"></td></tr>
             <tr><td>Father's Name</td><td><input type="text" name="fathers_name" value="<?= esc($user['fathers_name']) ?>"></td></tr>

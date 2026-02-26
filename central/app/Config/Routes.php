@@ -60,6 +60,13 @@ $routes->group('backend', function($routes) {
     $routes->get('project_summary', 'Backend::project_summary'); // backend/project_summary
     $routes->get('profile', 'Backend::profile');         // backend/profile
     $routes->get('kra', 'Backend::kra_main');         // backend/profile
+    $routes->get('modulelist', 'Backend::modulelist');         // backend/profile
+    
+    $routes->get('module/(:any)', 'Backend::module/$1');
+    $routes->get('tabledata/(:segment)', 'Backend::spreadsheetview/$1');
+    $routes->post('tabledata/update', 'Backend::updateCell');
+    $routes->post('tabledata/add', 'Backend::addRow');
+    $routes->post('tabledata/delete', 'Backend::deleteRow');
 });
 
 // ===============================
@@ -81,7 +88,9 @@ $routes->post('company/filterCompanies', 'Company::filterCompanies');
 $routes->get('company/details/(:any)', 'Company::details/$1');
 
 $routes->post('master/filterCompanies', 'Master::filterCompanies');
-
+$routes->get('company/bystate/(:any)', 'Company::getCompanySourcesContactsByState/$1');
+// Route for spreadsheet AJAX updates
+$routes->post('company/update_cell', 'Company::update_cell');
 $routes->post('company/compare_popup', 'Company::compare_popup');
 
 // Add new company
@@ -90,6 +99,7 @@ $routes->post('company/add_details', 'Company::add_details');
 $routes->get('company/dummy', 'Company::dummyData');
 
 $routes->get('company/add', 'Company::add'); // Show the form
+$routes->get('company/addexhibitor', 'Company::addexhibitor'); // Show the form
 
 // Preview form data (POST only)
 $routes->post('company/add_check', 'Company::add_check'); 
@@ -112,6 +122,69 @@ $routes->get('company/list', 'Company::list');    // Optional: show all companie
 
 $routes->get('company/stats', 'Company::stats');
 $routes->post('company/source_check', 'Company::source_check');
+
+
+
+
+
+// Standard base route
+$routes->get('database', 'Database::index');
+
+// Clean state route (database/delhi, database/west-bengal)
+$routes->get('database/(:any)', 'Database::index/$1');
+// // Grouped
+// $routes->group('database', function($routes) {
+
+//     // Main page
+//     $routes->get('/', 'Database::index');
+// // 1. Base URL: domain.com/database (Shows All)
+
+// // 2. Clean State URL: domain.com/database/Delhi (Shows Specific State)
+// $routes->get('database/(:any)', 'Database::index/$1');
+// });
+
+
+
+
+$routes->group('database/company', function($routes) {
+
+    // Main page
+    $routes->get('/', 'Company::index');
+    // AJAX
+    $routes->post('getCities', 'Company::getCities');
+    $routes->post('filterCompanies', 'Company::filterCompanies');
+    $routes->post('compare_popup', 'Company::compare_popup');
+    $routes->post('source_check', 'Company::source_check');
+
+    // Details
+    $routes->get('details/(:any)', 'Company::details/$1');
+
+    // Add company
+    $routes->get('add', 'Company::add');
+    $routes->post('add_details', 'Company::add_details');
+    $routes->post('add_check', 'Company::add_check');
+    $routes->post('store', 'Company::store');
+
+    // Dummy
+    $routes->get('dummy', 'Company::dummyData');
+
+    // Edit / Update
+    $routes->get('edit/(:segment)', 'Company::edit/$1');
+    $routes->post('update/(:segment)', 'Company::update/$1');
+
+    // Delete
+    $routes->post('delete/(:segment)', 'Company::delete/$1');
+
+    // Replace
+    $routes->post('replace/(:num)', 'Company::replace/$1');
+
+    // List & Stats
+    $routes->get('list', 'Company::list');
+    $routes->get('stats', 'Company::stats');
+
+});
+
+
 
 // $routes->post('update/(:segment)', 'Company::update/$1');
 

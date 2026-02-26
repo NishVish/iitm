@@ -1,52 +1,132 @@
-<?= view('header') ?>
+<!-- view.php -->
+<?php include(APPPATH . 'Views/header.php'); ?>
 
 
-<?php
+
+<!-- Companies Section -->
+<!-- Companies Section -->
+<?php 
 $segment1 = service('uri')->getSegment(1);
-?>
-<!-- Companies Section -->
-<!-- Companies Section -->
-<?php if ($segment1 == 'company') : ?>
+
+
+
+
+if ($segment1 == 'company') : ?>
 <div class="submenu">
     <a href="<?= base_url('company') ?>">View Companies</a>
     <a href="<?= base_url('company/add') ?>">Add Company</a>
+    <a href="<?= base_url('company/addexhibitor') ?>">Add Exhibitor</a>
     <a href="<?= base_url('company/stats') ?>">Stats</a>
+    <h2>
+
+</h2>
+    <?php if (isset($user_type) && ($user_type === 'admin' || $user_type === 'superuser')): ?>
+        
+        <a href="<?= site_url('clear-matching') ?>" class="action-btn danger">Clear Matching</a>
+        <a href="<?= site_url('clear-contacts') ?>" class="action-btn danger">Clear Contacts</a>
+        <a href="<?= site_url('clear-companies') ?>" class="action-btn danger">Clear Companies</a>
+
+        <a href="<?= site_url('crossvalidation/crossValidate') ?>" class="action-btn primary">Company Cross Validation</a>
+        <a href="<?= site_url('company/dummy') ?>" class="action-btn primary">Insert Data</a>
+        <a href="<?= site_url('crossvalidation/crossValidateContact') ?>" class="action-btn primary">Contact Cross Validation</a>
+
+        <a href="<?= site_url('crossvalidation/clear') ?>" class="action-btn warning">Clear Matches</a>
+        <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">Clear Contact Matches</a>
+
+        <div class="compact-customizer">
+            <style>
+                .compact-customizer {
+                    display: inline-grid; /* Container only takes space it needs */
+                    grid-template-columns: auto auto; /* Two perfect columns based on content */
+                    align-items: center;
+                    gap: 8px 15px; /* Vertical and horizontal spacing */
+                    padding: 12px;
+                    background: #fff;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    font-family: system-ui, sans-serif;
+                }
+
+                .compact-customizer label {
+                    font-size: 13px;
+                    color: #444;
+                    white-space: nowrap; /* Prevents text from wrapping */
+                }
+
+                .input-box {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    border: 1px solid #eee;
+                    padding: 2px 5px;
+                    border-radius: 4px;
+                }
+
+                .input-box input[type="color"] {
+                    border: none;
+                    width: 22px;
+                    height: 22px;
+                    cursor: pointer;
+                    background: none;
+                    padding: 0;
+                }
+
+                .input-box span {
+                    font-family: monospace;
+                    font-size: 11px;
+                    color: #888;
+                }
+
+                #compareBtn {
+                    grid-column: span 2; /* Spans across both columns */
+                    margin-top: 5px;
+                    padding: 8px;
+                    background: #486887;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 13px;
+                }
+            </style>
+
+            <label>Primary</label>
+            <div class="input-box">
+                <input type="color" id="primaryColor" value="#486887" oninput="updateHex(this)">
+                <span>#486887</span>
+            </div>
+
+            <label>P-Hover</label>
+            <div class="input-box">
+                <input type="color" id="primaryHover" value="#6c93bc" oninput="updateHex(this)">
+                <span>#6C93BC</span>
+            </div>
+
+            <label>Danger</label>
+            <div class="input-box">
+                <input type="color" id="dangerColor" value="#ab7a7f" oninput="updateHex(this)">
+                <span>#AB7A7F</span>
+            </div>
+
+            <label>D-Hover</label>
+            <div class="input-box">
+                <input type="color" id="dangerHover" value="#a71d2a" oninput="updateHex(this)">
+                <span>#A71D2A</span>
+            </div>
+
+            <button type="button" id="compareBtn">Apply Theme</button>
+        </div>
+
+        <script>
+            function updateHex(picker) {
+                picker.nextElementSibling.innerText = picker.value.toUpperCase();
+            }
+        </script>
+    <?php endif; ?>
+
     
-    <a href="<?= site_url('clear-matching') ?>" class="action-btn danger">Clear Matching</a>
-    <a href="<?= site_url('clear-contacts') ?>" class="action-btn danger">Clear Contacts</a>
-    <a href="<?= site_url('clear-companies') ?>" class="action-btn danger">Clear Companies</a>
-
-    <a href="<?= site_url('crossvalidation/crossValidate') ?>" class="action-btn primary">Company Cross Validation</a>
-    <a href="<?= site_url('company/dummy') ?>" class="action-btn primary">Insert Data</a>
-    <a href="<?= site_url('crossvalidation/crossValidateContact') ?>" class="action-btn primary">Contact Cross Validation</a>
-
-    <a href="<?= site_url('crossvalidation/clear') ?>" class="action-btn warning">Clear Matches</a>
-    <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">Clear Contact Matches</a>
-
-    <!-- Color Pickers -->
-    <div style="margin-top:10px;">
-        <label>Primary Color:</label>
-        <input type="color" id="primaryColor" value="#486887">
-
-        <label>Primary Hover:</label>
-        <input type="color" id="primaryHover" value="#6c93bc">
-
-        <label>Danger Color:</label>
-        <input type="color" id="dangerColor" value="#ab7a7f">
-
-        <label>Danger Hover:</label>
-        <input type="color" id="dangerHover" value="#a71d2a">
-
-        <label>Warning Color:</label>
-        <input type="color" id="warningColor" value="#ff9800">
-
-        <label>Warning Hover:</label>
-        <input type="color" id="warningHover" value="#e68900">
-    </div>
-
-    <button type="button" id="compareBtn">Compare Selected</button>
-</div>
 <?php endif; ?>
+</div>
 
 <style>
     :root {

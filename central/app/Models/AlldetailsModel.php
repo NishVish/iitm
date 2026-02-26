@@ -12,7 +12,7 @@ use App\Models\SourceModel;
 use App\Models\ContactMobileModel;
 use App\Models\ContactEmailModel;
 
-// use App\Models\UpdationModel;
+use App\Models\UpdationModel;
 
 class AlldetailsModel extends Model
 {
@@ -36,6 +36,55 @@ class AlldetailsModel extends Model
     }
 
     public function index(){
+}
+
+public function search($search)
+{
+            $db = \Config\Database::connect();
+
+     $builder = $db->table('company_data c');
+
+        $builder->select("
+            c.company_id,
+            c.company_name,
+            c.category,
+            c.city,
+            c.state,
+            GROUP_CONCAT(
+                DISTINCT CONCAT(
+                    co.name, ' (', co.designation, ') - ',
+                    IFNULL(cm.mobile, 'N/A'), ' / ',
+                    IFNULL(ce.email, 'N/A')
+                )
+                SEPARATOR '\\n'
+            ) AS contacts
+        ");
+
+        // Joins
+        $builder->join('contact co', 'co.company_id = c.company_id', 'left');
+        $builder->join('contact_mobile cm', 'cm.contact_id = co.contact_id AND cm.is_primary = 1', 'left');
+        $builder->join('contact_email ce', 'ce.contact_id = co.contact_id AND ce.is_primary = 1', 'left');
+
+        // Search Conditions (Grouped Properly)
+        $builder->groupStart()
+                ->like('c.company_name', $search)
+                ->orLike('c.category', $search)
+                ->orLike('c.company_id', $search)
+                ->orLike('c.city', $search)
+                ->orLike('c.state', $search)
+                ->orLike('co.name', $search)
+                ->orLike('co.designation', $search)
+                ->orLike('ce.email', $search)
+                ->orLike('cm.mobile', $search)
+                ->groupEnd();
+
+        $builder->groupBy('c.company_id');
+        $builder->orderBy('c.company_name', 'ASC');
+
+        $query = $builder->get();
+        $results = $query->getResult();
+        return $results;
+
 }
 
 public function getAllCompanyDetails($source, $timerange = null)

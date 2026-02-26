@@ -3,36 +3,29 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use App\Models\AlldetailsModel;
 
-class Search extends BaseController
+class Search extends Controller
 {
     public function index()
     {
         $db = \Config\Database::connect();
-        $builder = $db->table('company_data c');
+        $search = trim($this->request->getGet('q'));
 
-        $builder->select('c.company_id, c.company_name, c.category, c.city, c.state, 
-            GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\n") AS contacts', false);
-        $builder->join('contact co', 'co.company_id = c.company_id', 'left');
-        $builder->groupBy('c.company_id');
-
-        // Get search query from GET parameter
-        $q = $this->request->getGet('q');
-
-        if (!empty($q)) {
-            $builder->like('c.company_name', $q)
-                    ->orLike('c.category', $q)
-                    ->orLike('c.city', $q)
-                    ->orLike('c.state', $q)
-                    ->orLike('co.name', $q)
-                    ->orLike('co.designation', $q)
-                    ->orLike('co.email', $q)
-                    ->orLike('co.mobile', $q);
+        // If empty search, return empty result (prevents full DB scan)
+        if (empty($search)) {
+            return view('search_results', ['results' => []]);
         }
 
-        $data['results'] = $builder->get()->getResultArray();
-        $data['query'] = $q;
+       $serachModel = new AlldetailsModel;
 
-        return view('search/results', $data);
+
+        // $query = $builder->get();
+        $results = $serachModel->search($search);
+
+        return view('search/results', [
+            'results' => $results,
+            'search'  => $search
+        ]);
     }
 }

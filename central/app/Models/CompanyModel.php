@@ -1,273 +1,152 @@
 <?php
+
 namespace App\Models;
+
 use CodeIgniter\Model;
 
 class CompanyModel extends Model
 {
-    protected $table = 'company_data';
-    protected $primaryKey = 'company_id';
-protected $allowedFields = [
-    'company_id', 'company_name', 'database_name', 'outbound', 'category',
-    'address', 'city', 'pincode', 'state', 'country', 'phone','session','cross_validation'
-];
+    protected $table      = 'company_data';
+    protected $primaryKey = 'id'; // Schema says 'id' is the PK
+    protected $useAutoIncrement = true;
+    
+    protected $allowedFields = [
+        'company_id', 'database_name', 'outbound', 'company_name', 'category',
+        'address', 'city', 'pincode', 'state', 'country', 'phone',
+        'gst_number', 'sales_person', 'active_inactive', 'updated_at',
+        'last_confirmed_at', 'session', 'cross_validation', 'last_comments',
+        'second_last_comments', 'updated_by', 'second_last_comments_updated_by'
+    ];
 
+    /**
+     * Reuses session if last entry was < 60 seconds ago, otherwise increments.
+     */
+    public function get_lastSession()
+    {
+        $lastEntry = $this->select('session, created_at')
+                          ->orderBy('created_at', 'DESC')
+                          ->first();
 
-public function get_lastSession()
-{
-    $builder = $this->db->table($this->table);
-
-    // Get the last entry's session and created_at
-    $builder->select('session, created_at');
-    $builder->orderBy('created_at', 'DESC');
-    $builder->limit(1);
-    $query = $builder->get();
-    $lastEntry = $query->getRow();
-
-    if ($lastEntry) {
-        $lastSession = $lastEntry->session;
-        $lastTime = strtotime($lastEntry->created_at);
-        $currentTime = time();
-
-        // If the last entry is within 1 minute, reuse the session
-        if (($currentTime - $lastTime) <= 60) {
-            return $lastSession;
+        if ($lastEntry) {
+            $lastSession = (int)$lastEntry['session'];
+            $lastTime    = strtotime($lastEntry['created_at']);
+            
+            // If within 1 minute, reuse session
+            if ((time() - $lastTime) <= 60) {
+                return $lastSession;
+            }
+            return $lastSession + 1;
         }
 
-        // Otherwise, increment session
-        return $lastSession + 1;
+        return 1;
     }
 
-    // If no session exists, start from 1
-    return 1;
-}
+    /**
+     * Fetches companies with formatted contact strings
+     */
+    public function getCompaniesWithContacts($state = null, $city = null)
+    {
+        $builder = $this->db->table($this->table . ' c');
 
-
-    // Get companies with concatenated contacts
-   // app/Models/CompanyModel.php
-public function getCompaniesWithContacts($state = null, $city = null)
-{
-    $builder = $this->db->table('company_data c');
-
-    $builder->select('
+        $builder->select('
             c.session,
+            c.company_id,
+            c.company_name,
+            c.category,
+            c.city,
+            c.state,
+            GROUP_CONCAT(
+                DISTINCT CONCAT(
+                    co.name, " (", IFNULL(co.designation, "N/A"), ")",
+                    " | Mobiles: ", IFNULL(cm.mobiles, "N/A"),
+                    " | Emails: ", IFNULL(ce.emails, "N/A")
+                )
+                SEPARATOR "\n"
+            ) AS contacts
+        ', false);
 
-        c.company_id,
-        c.company_name,
-        c.category,
-        c.city,
-        c.state,
-        GROUP_CONCAT(
-            DISTINCT CONCAT(
-                co.name, " (", co.designation, ")",
-                " | Mobiles: ", IFNULL(cm.mobiles, "N/A"),
-                " | Emails: ", IFNULL(ce.emails, "N/A")
-            )
-            SEPARATOR "\n"
-        ) AS contacts
-    ', false);
+        $builder->join('contact co', 'co.company_id = c.company_id', 'left');
 
-    $builder->join('contact co', 'co.company_id = c.company_id', 'left');
+        // Subquery for mobiles
+        $builder->join(
+            '(SELECT contact_id, GROUP_CONCAT(mobile) AS mobiles FROM contact_mobile GROUP BY contact_id) cm',
+            'cm.contact_id = co.contact_id',
+            'left'
+        );
 
-    // mobiles per contact
-    $builder->join(
-        '(SELECT contact_id, GROUP_CONCAT(mobile) AS mobiles
-          FROM contact_mobile
-          GROUP BY contact_id) cm',
-        'cm.contact_id = co.contact_id',
-        'left'
-    );
+        // Subquery for emails
+        $builder->join(
+            '(SELECT contact_id, GROUP_CONCAT(email) AS emails FROM contact_email GROUP BY contact_id) ce',
+            'ce.contact_id = co.contact_id',
+            'left'
+        );
 
-    // emails per contact
-    $builder->join(
-        '(SELECT contact_id, GROUP_CONCAT(email) AS emails
-          FROM contact_email
-          GROUP BY contact_id) ce',
-        'ce.contact_id = co.contact_id',
-        'left'
-    );
-
-    if ($state) {
-        $builder->where('c.state', $state);
-    }
-
-    if ($city) {
-        $builder->where('c.city', $city);
-    }
+        if ($state) $builder->where('c.state', $state);
+        if ($city)  $builder->where('c.city', $city);
+        
         $builder->where('c.cross_validation', 0);
+        $builder->groupBy('c.company_id');
+        $builder->orderBy('c.company_name', 'ASC');
 
-    $builder->groupBy('c.company_id');
-    $builder->orderBy('c.company_name', 'ASC');
+        return $builder->get()->getResultArray();
+    }
 
-    return $builder->get()->getResultArray();
-}
+    public function getDistinctStates()
+    {
+        return $this->select('state')->distinct()->orderBy('state')->findAll();
+    }
 
+    public function getCitiesByState($state)
+    {
+        return $this->select('city')->distinct()->where('state', $state)->orderBy('city')->findAll();
+    }
 
-    // Get distinct states
-public function getDistinctStates()
-{
-    $builder = $this->db->table('company_data');
-    $builder->select('state')->distinct();
-    $builder->orderBy('state');
-    return $builder->get()->getResultArray();
-}
-
-// CompanyModel.php
-public function getCitiesByState($state)
-{
-    $builder = $this->db->table('company_data');
-    $builder->select('city')->distinct();
-    $builder->where('state', $state);
-    $builder->orderBy('city');
-    return $builder->get()->getResultArray(); // returns array of ['city' => 'CityName']
-}
-
-// --- New method to get counts by state & category ---
     public function getCountsByStateCategory()
     {
-        $builder = $this->db->table($this->table);
-        $builder->select('state');
-        $builder->select('COUNT(*) as total_count', false);
-        $builder->select('SUM(category="Travel Agent") as travel_agents', false);
-        $builder->select('SUM(category="Hotel") as hotels', false);
-        $builder->groupBy('state');
-
-        $query = $builder->get();
-        return $query->getResult(); // array of objects
+        return $this->select('state, COUNT(*) as total_count')
+                    ->select('SUM(CASE WHEN category="Travel Agent" THEN 1 ELSE 0 END) as travel_agents', false)
+                    ->select('SUM(CASE WHEN category="Hotel" THEN 1 ELSE 0 END) as hotels', false)
+                    ->groupBy('state')
+                    ->get()->getResult();
     }
 
-    // --- Existing method to get companies with contacts ---
-public function getCompanies($search = null)
-{
-    $builder = $this->db->table('company_data c');
-
-    $builder->select('
-        c.company_id,
-        c.company_name,
-        c.category,
-        c.city,
-        c.state,
-        GROUP_CONCAT(
-            DISTINCT CONCAT(
-                co.name, " (", co.designation, ")",
-                " | Mobiles: ", IFNULL(cm.mobiles, "N/A"),
-                " | Emails: ", IFNULL(ce.emails, "N/A")
-            )
-            SEPARATOR "\n"
-        ) AS contacts
-    ', false);
-
-    $builder->join('contact co', 'co.company_id = c.company_id', 'left');
-
-    $builder->join(
-        '(SELECT contact_id, GROUP_CONCAT(mobile) AS mobiles FROM contact_mobile GROUP BY contact_id) cm',
-        'cm.contact_id = co.contact_id',
-        'left'
-    );
-
-    $builder->join(
-        '(SELECT contact_id, GROUP_CONCAT(email) AS emails FROM contact_email GROUP BY contact_id) ce',
-        'ce.contact_id = co.contact_id',
-        'left'
-    );
-
-    if ($search) {
-        $builder->groupStart()
-                ->like('c.company_name', $search)
-                ->orLike('c.category', $search)
-                ->groupEnd();
-    }
-
-$builder->groupBy('co.contact_id');
-
-    return $builder->get()->getResultArray();
-}
-
-public function getByCompanyId($companyId)
-{
-    return $this->where('company_id', $companyId)->first();
-}
-
-public function findPotentialMatches($company)
-{
-    // Compare $company->company_name + address + city + pincode
-    // Use LIKE queries or pull all candidates and run PHP fuzzy matching
-}
-
-public function mergeCompanies($existingId, $newId)
-{
-    // Merge logic: 
-    // 1. Move contacts from new to existing
-    // 2. Update source table
-    // 3. Set new company as inactive
-}
-
-public function getCompanies2($search = null)
-{
-    $builder = $this->db->table('company_data');
-    $builder->select('company_id, company_name, category, city'); // include category
-    if ($search) {
-        $builder->like('company_name', $search);
-    }
-    return $builder->get()->getResult();
-}
-
-
- public function getCompanyStatistics()
+    public function getByCompanyId($companyId)
     {
-        $db = $this->db;
-
-        // Count by state and category
-        $builder = $db->table($this->table);
-        $builder->select('state, category, COUNT(*) as total_count,
-                          SUM(CASE WHEN category="Travel Agent" THEN 1 ELSE 0 END) AS travel_agents,
-                          SUM(CASE WHEN category="Hotel" THEN 1 ELSE 0 END) AS hotels');
-        $builder->groupBy(['state','category']);
-        return $builder->get()->getResult();
+        return $this->where('company_id', $companyId)->first();
     }
 
-    // -------------------------------
-    // Get duplicate companies
-    // -------------------------------
-public function getDuplicateCompanies()
-{
-    $builder = $this->db->table('company_data');
-    $builder->select('company_name, category, COUNT(*) as total');
-    $builder->groupBy('company_name, category');
-    $builder->having('total >', 1);
-    return $builder->get()->getResultArray();
-}
-
-public function getDuplicateCompaniesCount()
-{
-    $builder = $this->db->table('company_data');
-    $builder->select('COUNT(*) AS total_duplicates')
-            ->groupBy('company_name')
-            ->having('COUNT(*) > 1');
-
-    $result = $builder->get()->getResultArray();
-
-    // Sum all duplicate entries
-    $sum = 0;
-    foreach ($result as $row) {
-        $sum += $row['total_duplicates'];
+    /**
+     * Statistics breakdown by state and category
+     */
+    public function getCompanyStatistics()
+    {
+        return $this->select('state, category, COUNT(*) as total_count')
+                    ->select('SUM(CASE WHEN category="Travel Agent" THEN 1 ELSE 0 END) AS travel_agents', false)
+                    ->select('SUM(CASE WHEN category="Hotel" THEN 1 ELSE 0 END) AS hotels', false)
+                    ->groupBy(['state', 'category'])
+                    ->get()->getResult();
     }
 
-    return $sum;
-}
+    /**
+     * Duplicates based on Name and Category
+     */
+    public function getDuplicateCompanies()
+    {
+        return $this->select('company_name, category, COUNT(*) as total')
+                    ->groupBy(['company_name', 'category'])
+                    ->having('total >', 1)
+                    ->findAll();
+    }
 
+    public function getPersonAndCompany($companyId)
+    {
+        $builder = $this->db->table($this->table . ' c');
+        $builder->select('c.company_name, co.name AS contact_name');
+        $builder->join('contact co', 'co.company_id = c.company_id', 'left');
+        $builder->where('c.company_id', $companyId);
+        $builder->orderBy('co.id', 'ASC'); // Assuming contact table has an 'id'
+        $builder->limit(1);
 
-public function getPersonAndCompany($companyId)
-{
-    $builder = $this->db->table('company_data c');
-
-    $builder->select('c.company_name, co.name AS contact_name');
-    $builder->join('contact co', 'co.company_id = c.company_id', 'left');
-    $builder->where('c.company_id', $companyId);
-    $builder->orderBy('co.contact_id', 'ASC'); // pick first contact if multiple
-    $builder->limit(1);
-
-    return $builder->get()->getRowArray(); // returns ['company_name' => ..., 'contact_name' => ...]
-}
-
-
+        return $builder->get()->getRowArray();
+    }
 }

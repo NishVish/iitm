@@ -74,7 +74,6 @@ public function clearContactTables()
         $tables = [
             'company_sources',
             'company_data',
-            'company_data_backup'
         ];
 
         foreach ($tables as $table) {

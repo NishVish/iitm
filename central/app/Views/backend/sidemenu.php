@@ -11,9 +11,11 @@ if ($segment1 == 'backend') : ?>
         <a href="<?= base_url('backend/profile') ?>">Profile</a>
         <!-- <a href="<?= base_url('backend/games') ?>">Play Games</a> -->
         <a href="<?= base_url('backend/sql') ?>">SQL</a>
+        <a href="<?= base_url('backend/tabledata/company_data') ?>">Table Data</a>
         <!-- <a href="<?= base_url('backend/tv') ?>">TV</a> -->
         <a href="<?= base_url('backend/kra') ?>">KRA</a>
         <a href="<?= base_url('user') ?>">User</a>
+        <a href="<?= base_url('backend/modulelist') ?>">Module/Extentions</a>
     </div>
 <?php endif; ?>
 

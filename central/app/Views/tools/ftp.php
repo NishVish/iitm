@@ -12,7 +12,7 @@ if (preg_match('/IPv4 Address[.\s]*:\s*([\d\.]+)/', $output, $matches)) {
 }
 
 // Set your port
-$port = 5000;
+$port = 8000;
 
 // Build full URL
 $server_url = "http://{$local_ip}:{$port}";

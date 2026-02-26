@@ -1,10 +1,10 @@
-<?= view('company/side') ?>
+<?php include(APPPATH . 'Views/company/side.php'); ?>
 
 
 <!-- Toggle Button -->
 <button id="toggleBtn">Show/Hide Company Form</button>
 <div id="myDiv" style="
-    display:block; 
+    display:None; 
     border:2px solid #333; 
     padding:10px; 
     width:auto;        /* full width or adjust as needed */
@@ -15,8 +15,8 @@
     display:block; 
     border:2px solid #333; 
     padding:10px; 
-    height:200px;      /* fixed height */
-    max-width:1370px;  /* optional max width */
+    height:auto;      /* fixed height */
+    max-width:1300px;  /* optional max width */
     overflow:auto; 
     margin-bottom:20px;
 ">
@@ -182,6 +182,8 @@
 
 </style>
 
+</div>
+<!-- 
 
 <div class="filter-section">
     <h3>Filter by State</h3>
@@ -193,8 +195,27 @@
             </button>
         <?php endforeach; ?>
     </div>
-</div>
+</div> -->
 
+
+
+<div class="filter-section">
+    <h3>Database</h3>
+    <div id="states">
+        
+        <!-- All
+        <a href="<?= base_url('company/bystate') ?>" class="state-link">
+            All
+        </a> -->
+
+        <?php foreach($states as $s): ?>
+<a href="<?= base_url('company/bystate/' . urlencode($s['state'])) ?>">
+    <?= esc($s['state']) ?>
+</a>
+        <?php endforeach; ?>
+
+    </div>
+</div>
 
 
 <div class="filter-section" id="cities">
@@ -208,7 +229,7 @@
     
 <form id="compareForm">    
 
-<table id="company-table" class="company-table" style="table-layout: fixed; width: 100%; border-collapse: collapse;">
+<table id="company-table" class="company-table" style="table-layout: fixed; width: 100%; border-collapse: collapse; display:None;">
     <thead>
         <tr>
             <th style="width:2%;">Main</th>

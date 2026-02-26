@@ -1,17 +1,28 @@
-<?php
 
+<?php
 $session = session();
-$user_id    = $session->get('user_id');
-$name       = ucfirst(strtolower($session->get('name')));
-$email      = $session->get('email');
-$user_type  = $session->get('user_type');
-$journal    = $session->get('journal');
+
+$user_id             = $session->get('user_id');
+$employee_id         = $session->get('employee_id');
+$name                = ucfirst(strtolower($session->get('name')));
+$designation         = $session->get('designation');
+$phone               = $session->get('phone');
+$address             = $session->get('address');
+$email               = $session->get('email');
+$category            = $session->get('category');
+$department          = $session->get('department');
+$doj                 = $session->get('doj');
+$uan_no              = $session->get('uan_no');
+$fathers_name        = $session->get('fathers_name');
+$aadhaar_card        = $session->get('aadhaar_card');
+$pan_card            = $session->get('pan_card');
+$bank_account_number = $session->get('bank_account_number');
+$ifsc_code           = $session->get('ifsc_code');
+$user_type           = $session->get('user_type');
+$journal             = $session->get('journal') ?? '';
+
 ?>
-<!-- 
-<h1>Welcome, <?= esc($name) ?>!</h1>
-<p>Email: <?= esc($email) ?></p>
-<p>User Type: <?= esc($user_type) ?></p>
-<p>Journal: <?= esc($journal) ?></p> -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +37,9 @@ $journal    = $session->get('journal');
 }
     /* 
     
+    background-color: var(--nav-color); 
     background-color: var(--body-color); 
+    background-color: var(--button-color); 
     
     
     
@@ -264,7 +277,7 @@ nav {
 <!-- Navigation with search -->
 <nav>
     <div class="nav-links">
-        <a href="<?= base_url('') ?>">Login</a>
+        <!-- <a href="<?= base_url('') ?>">Login</a> -->
         <a href="<?= base_url('home') ?>">Home</a>
 
         <!-- Backend dropdown -->
@@ -272,7 +285,7 @@ nav {
             
 
         <!-- Companies dropdown -->
-            <a href="<?= base_url('company') ?>">Companies</a>
+            <a href="<?= base_url('company') ?>">Database</a>
             
 
         <a href="<?= base_url('events') ?>">Events</a>

