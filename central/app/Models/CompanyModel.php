@@ -18,6 +18,153 @@ class CompanyModel extends Model
         'second_last_comments', 'updated_by', 'second_last_comments_updated_by'
     ];
 
+
+    
+// Statss Stass Stassts
+
+public function getStateAndCategoryStats()
+{
+    // Connect to the database
+    $db = \Config\Database::connect();
+
+    // Write your SQL query
+    $sql = "
+        SELECT 
+            state,
+            SUM(CASE WHEN category = 'TA' THEN 1 ELSE 0 END) AS TA_count,
+            SUM(CASE WHEN category = 'Hotel' THEN 1 ELSE 0 END) AS Hotel_count,
+            SUM(CASE WHEN category NOT IN ('TA', 'Hotel') THEN 1 ELSE 0 END) AS Other_count
+        FROM 
+            company_data
+        GROUP BY 
+            state
+    ";
+
+    // Execute the query
+    $query = $db->query($sql);
+
+    // Return results as an array
+    return $query->getResultArray();
+}
+
+
+
+
+
+public function getDashboardStats()
+{
+    $db = \Config\Database::connect();
+    $builder = $db->table('company_data');
+
+    $stats = [];
+
+    // Total Companies
+    $stats['total_companies'] = $builder->countAll();
+
+    // Active Companies
+    $stats['active_companies'] = $db->table('company_data')
+        ->where('active_inactive', 'active')
+        ->countAllResults();
+
+    // Inactive Companies
+    $stats['inactive_companies'] = $db->table('company_data')
+        ->where('active_inactive', 'inactive')
+        ->countAllResults();
+
+    // Outbound Enabled
+    $stats['outbound_enabled'] = $db->table('company_data')
+        ->where('outbound', 1)
+        ->countAllResults();
+
+    // Outbound Disabled
+    $stats['outbound_disabled'] = $db->table('company_data')
+        ->where('outbound', 0)
+        ->countAllResults();
+
+    // Created Today
+    $stats['created_today'] = $db->table('company_data')
+        ->where('DATE(created_at) = CURDATE()', null, false)
+        ->countAllResults();
+
+    // Created This Month
+    $stats['created_this_month'] = $db->table('company_data')
+        ->where('MONTH(created_at) = MONTH(CURDATE())', null, false)
+        ->where('YEAR(created_at) = YEAR(CURDATE())', null, false)
+        ->countAllResults();
+
+    // Updated Last 7 Days
+    $stats['updated_last_7_days'] = $db->table('company_data')
+        ->where('updated_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)', null, false)
+        ->countAllResults();
+
+    // Companies With Sessions
+    $stats['companies_with_sessions'] = $db->table('company_data')
+        ->where('session >', 0)
+        ->countAllResults();
+
+    return $stats;
+}
+
+public function getCategoryStats()
+{
+    $db = \Config\Database::connect();
+
+    return $db->table('company_data')
+        ->select('category, COUNT(*) as total')
+        ->groupBy('category')
+        ->orderBy('total', 'DESC')
+        ->get()
+        ->getResultArray();
+}
+
+public function getStateStats()
+{
+    $db = \Config\Database::connect();
+
+    return $db->table('company_data')
+        ->select('state, COUNT(*) as total')
+        ->groupBy('state')
+        ->orderBy('total', 'DESC')
+        ->get()
+        ->getResultArray();
+}
+
+public function getCountryStats()
+{
+    $db = \Config\Database::connect();
+
+    return $db->table('company_data')
+        ->select('country, COUNT(*) as total')
+        ->groupBy('country')
+        ->orderBy('total', 'DESC')
+        ->get()
+        ->getResultArray();
+}
+
+public function getSalesPersonStats()
+{
+    $db = \Config\Database::connect();
+
+    return $db->table('company_data')
+        ->select('sales_person, COUNT(*) as total')
+        ->groupBy('sales_person')
+        ->orderBy('total', 'DESC')
+        ->get()
+        ->getResultArray();
+}
+
+public function getCrossValidationStats()
+{
+    $db = \Config\Database::connect();
+
+    return $db->table('company_data')
+        ->select('cross_validation, COUNT(*) as total')
+        ->groupBy('cross_validation')
+        ->get()
+        ->getResultArray();
+}
+
+
     /**
      * Reuses session if last entry was < 60 seconds ago, otherwise increments.
      */
@@ -110,11 +257,38 @@ class CompanyModel extends Model
                     ->get()->getResult();
     }
 
-    public function getByCompanyId($companyId)
-    {
-        return $this->where('company_id', $companyId)->first();
+public function getByCompanyId($companyId)
+{
+    // 1. Get the current company to find its Name and State
+    $current = $this->where('company_id', $companyId)->first();
+
+    if (!$current) {
+        return null;
     }
 
+    $state = $current['state'];
+    $name  = $current['company_name'];
+
+    // 2. Get the Previous Company ID (Alphabetically before)
+    $prev = $this->where('state', $state)
+                 ->where('company_name <', $name)
+                 ->orderBy('company_name', 'DESC')
+                 ->select('company_id')
+                 ->first();
+
+    // 3. Get the Next Company ID (Alphabetically after)
+    $next = $this->where('state', $state)
+                 ->where('company_name >', $name)
+                 ->orderBy('company_name', 'ASC')
+                 ->select('company_id')
+                 ->first();
+
+    return [
+        'current'  => $current,
+        'prev_id'  => $prev['company_id'] ?? null,
+        'next_id'  => $next['company_id'] ?? null
+    ];
+}
     /**
      * Statistics breakdown by state and category
      */
@@ -149,4 +323,6 @@ class CompanyModel extends Model
 
         return $builder->get()->getRowArray();
     }
+
+
 }

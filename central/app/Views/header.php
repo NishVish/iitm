@@ -1,5 +1,8 @@
 
 <?php
+$uri = service('uri');
+$currentSegment = $uri->getSegment(1); // Gets the first segment
+
 $session = session();
 
 $user_id             = $session->get('user_id');
@@ -292,8 +295,8 @@ nav {
         <a href="<?= base_url('layout-info') ?>">Layout</a>
         <a href="<?= base_url('leads') ?>">Leads</a>
         <a href="<?= base_url('crossvalidation') ?>">Crossvalidation</a>
-        <a href="<?= site_url('booking/exhibitor_booking') ?>">Exhibitor Booking</a>
-        <a href="<?= site_url('booking/view') ?>">View Booking</a>
+        <!-- <a href="<?= site_url('booking/exhibitor_booking') ?>">Exhibitor Booking</a> -->
+        <!-- <a href="<?= site_url('booking/view') ?>">View Booking</a> -->
         <a href="<?= site_url('ticket') ?>">Ticket</a>
         <a href="<?= site_url('registration') ?>">Registration</a>
         <a href="http://localhost/phpmyadmin/index.php">MyPhpAdmin</a>
@@ -640,7 +643,166 @@ document.addEventListener('mousemove', (e) => {
 });
 </script>
 
+<?php
+$session = session();
 
+$user_id     = $session->get('user_id');
+$name        = ucfirst(strtolower($session->get('name')));
+$department  = $session->get('department');
+?>
+
+<!-- Modal Background -->
+<div id="ticketModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+
+        <form method="post" action="<?= base_url('ticket/store') ?>" class="simple-form" id="form">
+            <?= csrf_field() ?>
+
+<div class="form-group">
+    <label>Parent Ticket (Type to search)</label>
+    <input type="text" 
+           list="ticket-list" 
+           id="parent_search" 
+           placeholder="Search ID or Title..." 
+           value="<?=$currentSegment?>"
+           autocomplete="off">
+
+    <input type="hidden" name="parent_id" id="parent_id_hidden" value="0">
+
+    <datalist id="ticket-list">
+        <option data-id="0" data-level="0" value="None (Main Ticket)"></option>
+
+        <?php if(isset($tickets) && is_array($tickets)): ?>
+            <?php foreach($tickets as $ticket): ?>
+                <option 
+                    data-id="<?= $ticket['id'] ?>" 
+                    data-level="<?= $ticket['task_level'] ?>" 
+                    value="#<?= $ticket['id'] ?> - <?= esc($ticket['title']) ?>">
+                </option>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </datalist>
+</div>
+
+<label>Assign To User *
+    <select name="user_id" required>
+        <!-- Self user selected by default -->
+        <option value="<?= $user_id ?>" selected><?= esc($name) ?> (self)</option>
+
+        <?php if(isset($users) && count($users) > 0): ?>
+            <?php foreach($users as $user): ?>
+                <?php if($user['id'] != $user_id): ?>
+                    <option value="<?= $user['id'] ?>"><?= esc($user['name']) ?> (<?= esc($user['email']) ?>)</option>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </select>
+</label>
+            <label>Task Level
+                <select name="task_level" id="task_level_select">
+                    <option value="0" selected>Head</option>
+                    <option value="1">Level 2</option>
+                    <option value="2">Level 3</option>
+                    <option value="3">Level 4</option>
+                    <option value="4">Level 5</option>
+                </select>
+            </label>
+
+            <label>Type
+                <select name="ticket_type">
+                    <option value="Task">Task</option>
+                    <option value="Issue">Issue</option>
+                    <option value="Update">Update</option>
+                </select>
+            </label>
+
+            <label>Department
+                <input type="text" name="department">
+            </label>
+
+            <label>Priority
+                <select name="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                    <option value="Urgent">Urgent</option>
+                </select>
+            </label>
+
+            <label>Status
+                <select name="status">
+                    <option value="Open" selected>Open</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+            </label>
+
+            <label class="full">Description *
+                <textarea name="description" rows="3" required></textarea>
+            </label>
+
+            <button type="submit" class="full">Create Ticket</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: #fff;
+    width: 600px;
+    max-width: 95%;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from {transform: scale(0.9); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+
+</style>
+
+<script>
+function openModal() {
+    document.getElementById("ticketModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("ticketModal").style.display = "none";
+}
+
+// Close when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById("ticketModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 <div class="sidebar">
 
 
@@ -650,10 +812,10 @@ document.addEventListener('mousemove', (e) => {
         <button type="submit">🔍</button>
     </form>
 </div>
-
-<style>
+<button type="button" onclick="openModal()">+ Create Ticket</button><style>
     .submenu{
         text-align:center;
         padding-top:20px;
     }
 </style>
+

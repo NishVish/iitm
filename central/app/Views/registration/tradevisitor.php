@@ -3,6 +3,14 @@
     <button type="button" class="btnRegister" id="fillDummyBtn">Fill Dummy Data</button>
 ssdasdasd
 
+<?php
+$segment = service('uri')->getSegment(3);
+
+echo $segment;
+?>
+ <button type="button" id="registerBtntradetest" class="btn btn-success">
+            Register as Trade Visitor
+        </button>
 
 <script>
 
@@ -49,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             form.querySelector('[name="companies[0][contact1_mobile1]"]').value = 7909075195;
             form.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
             form.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
-            form.querySelector('[name="companies[0][source]"]').value = "tradevisitor";
+            form.querySelector('[name="companies[0][source]"]').value = "<?php echo $segment; ?>";
             form.querySelector('[name="companies[0][updated_by]"]').value = "System";
             form.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
 
@@ -113,7 +121,7 @@ document.getElementById('fillDummyBtn').addEventListener('click', function() {
 
         companyFormTv.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
         companyFormTv.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
-        companyFormTv.querySelector('[name="companies[0][source]"]').value = "tradevisitor";
+        companyFormTv.querySelector('[name="companies[0][source]"]').value = "tradevisitor-";
         companyFormTv.querySelector('[name="companies[0][updated_by]"]').value = "System";
         companyFormTv.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
 

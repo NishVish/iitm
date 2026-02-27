@@ -14,6 +14,11 @@ class DatabaseOperation extends Controller
         $this->db = Database::connect();
     }
 
+    // autmatical Detect if Hotel or TA 
+    // atumatcailly set inactive if comments are inactive
+// 
+
+
     /**
      * Clear ONLY matching / validation tables
      * (safe to run often)
@@ -61,7 +66,7 @@ public function clearContactTables()
     $this->db->transComplete();
 
     // Redirect to company page
-    return redirect()->to(site_url('company'));
+    // return redirect()->to(site_url('company'));
 }
 
 
@@ -69,20 +74,50 @@ public function clearContactTables()
      * Clear company-related tables
      * ⚠️ High risk
      */
-    public function clearCompanyTables()
-    {
-        $tables = [
-            'company_sources',
-            'company_data',
-        ];
+public function clearCompanyTables($database = null)
+{
+    $db = $this->db;
+    $db->transStart();
 
-        foreach ($tables as $table) {
-            $this->db->table($table)->truncate();
+    if ($database === "yes") {
+        $db->table('contact_email')->truncate();
+        $db->table('contact_mobile')->truncate();
+        $db->table('contact')->truncate();
+        $db->table('company_sources')->truncate();
+        $db->table('company_data')->truncate();
+    } else {
+        $companyIds = $db->table('company_data')
+            ->select('company_id')
+            ->where('database_name', $database)
+            ->get()
+            ->getResultArray();
+
+        if (!empty($companyIds)) {
+            $companyIds = array_column($companyIds, 'company_id');
+
+            $contactIds = $db->table('contact')
+                ->select('contact_id')
+                ->whereIn('company_id', $companyIds)
+                ->get()
+                ->getResultArray();
+
+            $contactIds = array_column($contactIds, 'contact_id');
+
+            if (!empty($contactIds)) {
+                $db->table('contact_email')->whereIn('contact_id', $contactIds)->delete();
+                $db->table('contact_mobile')->whereIn('contact_id', $contactIds)->delete();
+            }
+
+            $db->table('contact')->whereIn('company_id', $companyIds)->delete();
+            $db->table('company_sources')->whereIn('company_id', $companyIds)->delete();
+            $db->table('company_data')->whereIn('company_id', $companyIds)->delete();
         }
-
-return redirect()->to(site_url('company'));
     }
 
+    $db->transComplete();
+
+    return redirect()->to(site_url('company'));
+}
     /**
      * Clear everything NON-FINANCIAL
      * ⚠️ Very high risk – admin only
@@ -140,6 +175,6 @@ return redirect()->to(site_url('company'));
             $this->db->table($table)->truncate();
         }
 
-return redirect()->to(site_url('company'));
+// return redirect()->to(site_url('company'));
     }
 }

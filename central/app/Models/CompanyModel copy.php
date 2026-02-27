@@ -11,6 +11,7 @@ class CompanyModel extends Model
 
     // Get companies with concatenated contacts
    // app/Models/CompanyModel.php
+
 public function getCompaniesWithContacts($state = null, $city = null)
 {
     $builder = $this->db->table('company_data c');
@@ -30,6 +31,26 @@ public function getCompaniesWithContacts($state = null, $city = null)
     $query = $builder->get();
     return $query->getResultArray(); // return array so view works
 }
+
+// public function getCompaniesWithContacts($state = null, $city = null)
+// {
+//     $builder = $this->db->table('company_data c');
+//     $builder->select('c.company_id, c.company_name, c.category, c.city, c.state, 
+//                       GROUP_CONCAT(CONCAT(co.name, " (", co.designation, ") - ", co.mobile, " / ", co.email) SEPARATOR "\n") AS contacts', false);
+//     $builder->join('contact co', 'co.company_id = c.company_id', 'left');
+
+//     // Apply filters only if provided
+//     if ($state !== null && $state !== '') {
+//         $builder->where('c.state', $state);
+//     }
+//     if ($city !== null && $city !== '') {
+//         $builder->where('c.city', $city);
+//     }
+
+//     $builder->groupBy('c.company_id');
+//     $query = $builder->get();
+//     return $query->getResultArray(); // return array so view works
+// }
 
 
     // Get distinct states

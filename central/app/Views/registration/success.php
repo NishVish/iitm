@@ -141,7 +141,7 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
+            font-size: 30px;
             font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -238,6 +238,11 @@
         <div class="badge" id="badge-front">
             <div class="badge-header">
                 <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Logo" class="logo-white">
+            
+    <div id="event-name" style="font-weight:bold; font-size:16px; margin-bottom:10px;">
+        <?php echo esc($event[0]['name']); ?>
+    </div>
+            
             </div>
 
             <div class="badge-body">
@@ -292,9 +297,9 @@
                     </ol>
 
                     <strong style="font-size: 13px; color: #1a1a1a; display: block; margin: 12px 0 4px;">
-                        📍 Venue
-                    </strong>
-                    Hall No. X, Pragati Maidan, New Delhi
+<div id="event-venue" style="font-size:14px; color:#1a1a1a;">
+        📍 <?php echo esc($event[0]['venue_details']); ?>
+    </div>                    </strong>
 
                     <strong style="font-size: 13px; color: #1a1a1a; display: block; margin: 10px 0 4px;">
                         📞 Helpdesk

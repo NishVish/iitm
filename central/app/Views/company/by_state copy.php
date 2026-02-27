@@ -59,7 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
             $cList = array_values($comp['contacts']); 
         ?>
         [
-            'Main DB', '<?= esc($d['category']) ?>', '<?= esc($d['source_notes']) ?>',
+            <?= esc($d['database']) ?>',
+            
+            
+            <?= esc($d['category']) ?>',
+             '<?= esc($d['source_notes']) ?>',
             'Admin', '<?= esc($d['event_date']) ?>', 'Yes',
             '<?= esc($d['company_name']) ?>', '<?= esc($d['address'] ?? '') ?>', '',
             '<?= esc($d['city']) ?>', '<?= esc($d['pincode'] ?? '') ?>', '<?= esc($d['state']) ?>',

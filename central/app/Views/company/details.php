@@ -342,13 +342,30 @@ $label = $categoryMap[$category] ?? '';
         
         <button type="submit">Search</button>
     </form>
+    
 </div>
 <div class="container">
 
   <!-- ================= COMPANY DETAILS ================= -->
 
 <div class="box left">
+<div class="navigation-wrapper">
+        <?php if ($prev_id): ?>
+            <a href="<?= base_url('company/details/' . $prev_id) ?>" class="nav-btn">← Previous</a>
+        <?php else: ?>
+            <button class="nav-btn" disabled>At Start</button>
+        <?php endif; ?>
 
+        <div style="font-weight: 600; color: var(--text-main); font-size: 0.9rem;">
+            <?= esc($company['company_name']) ?>
+        </div>
+
+        <?php if ($next_id): ?>
+            <a href="<?= base_url('company/details/' . $next_id) ?>" class="nav-btn">Next →</a>
+        <?php else: ?>
+            <button class="nav-btn" disabled>At End</button>
+        <?php endif; ?>
+    </div>
 <div class="company-card">
 
    <div class="company-header">
@@ -510,20 +527,36 @@ function closeComparison() {
 <br><br>
 
 
-
 <?php if (!empty($contacts)): ?>
-   <?php foreach($contacts as $contact): ?>
-    <p>id - <?= $contact['contact_id'] ?>
-        <?= $contact['name'] ?> (<?= $contact['designation'] ?>)<br>
-        Mobiles: <?= !empty($contact['mobiles']) ? implode(', ', $contact['mobiles']) : 'N/A' ?><br>
-        Emails: <?= !empty($contact['emails']) ? implode(', ', $contact['emails']) : 'N/A' ?>
-    </p>
-<?php endforeach; ?>
-
+    <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width:100%; font-size:14px;">
+        <thead style="background:#f5f5f5;">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Mobile(s)</th>
+                <th>Email(s)</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach($contacts as $contact): ?>
+            <tr>
+                <td><?= esc($contact['contact_id']) ?></td>
+                <td><?= esc($contact['name']) ?></td>
+                <td><?= esc($contact['designation']) ?></td>
+                <td>
+                    <?= !empty($contact['mobiles']) ? esc(implode(', ', $contact['mobiles'])) : 'N/A' ?>
+                </td>
+                <td>
+                    <?= !empty($contact['emails']) ? esc(implode(', ', $contact['emails'])) : 'N/A' ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 <?php else: ?>
     <p>No contacts found.</p>
 <?php endif; ?>
-
 
 
 
@@ -990,10 +1023,10 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     ];
 
-    // 3. Initialize Spreadsheet
-    // window.crmSheet = new Spreadsheet('crmSpreadsheet', { 
-    //     data: data, 
-    //     columns: columns 
-    // });
+    3. Initialize Spreadsheet
+    window.crmSheet = new Spreadsheet('crmSpreadsheet', { 
+        data: data, 
+        columns: columns 
+    });
 });
 </script>

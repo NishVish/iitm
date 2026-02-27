@@ -1,49 +1,49 @@
 <?php include(APPPATH . 'Views/company/side.php'); ?>
 
-
 <!-- Toggle Button -->
 <button id="toggleBtn">Show/Hide Company Form</button>
-<div id="myDiv" style="
-    display:None; 
-    border:2px solid #333; 
-    padding:10px; 
-    width:auto;        /* full width or adjust as needed */
-    min-width:800px;  /* optional max width */
 
-"><!-- Fixed-size scrollable container for form -->
-<div id="myDiv" style="
-    display:block; 
-    border:2px solid #333; 
-    padding:10px; 
-    height:auto;      /* fixed height */
-    max-width:1300px;  /* optional max width */
-    overflow:auto; 
-    margin-bottom:20px;
-">
-
-
-
+<!-- Form Container -->
+<div id="companyFormWrapper" class="form-container">
     <?= view('company/insert_company_form') ?>
 </div>
-<script>
-  const toggleBtn = document.getElementById('toggleBtn');
-  const myDiv = document.getElementById('myDiv');
-
-  toggleBtn.addEventListener('click', () => {
-    if (myDiv.style.display === 'none' || myDiv.style.display === '') {
-      myDiv.style.display = 'block';
-      toggleBtn.textContent = 'Hide Company Form';
-    } else {
-      myDiv.style.display = 'none';
-      toggleBtn.textContent = 'Show Company Form';
-    }
-  });
-</script>
-
 
 
 <style>
-    /* Page Header */
+
+/* ===============================
+   FORM CONTAINER
+=================================*/
+.form-container {
+    display: block;
+    border: 2px solid #333;
+    padding: 15px;
+    max-width: 1300px;
+    margin-bottom: 20px;
+    overflow: auto;
+}
+
+
+/* ===============================
+   CONTENT WRAPPER
+=================================*/
+.content {
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.content table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+/* ===============================
+   PAGE HEADER
+=================================*/
 .page-header {
     background: #ffffff;
     padding: 20px;
@@ -60,20 +60,14 @@
     font-size: 26px;
 }
 
-/* Action Buttons */
-.action-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
 
-
-
-/* Filter Section */
+/* ===============================
+   FILTER SECTION
+=================================*/
 .filter-section {
-        width: 100%;
+    width: 100%;
     background: #ffffff;
-    padding:auto;
+    padding: 15px;
     margin-top: 20px;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.08);
@@ -83,29 +77,33 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 10px;
 }
 
-.state-btn {
+.state-link {
     padding: 6px 12px;
     border-radius: 20px;
     border: 1px solid #ccc;
     background: #f8f8f8;
-    cursor: pointer;
-    transition: 0.3s;
+    text-decoration: none;
+    color: #333;
     font-size: 13px;
+    transition: 0.3s;
 }
 
-.state-btn:hover {
+.state-link:hover {
     background: #eaeaea;
 }
 
-.state-btn.active {
+.state-link.active {
     background: #a82324;
     color: #fff;
     border-color: #a82324;
 }
-/* Company Table */
+
+
+/* ===============================
+   COMPANY TABLE
+=================================*/
 .company-table {
     width: 100%;
     margin: 20px auto;
@@ -132,14 +130,16 @@
 
 .company-table tr:hover {
     background: #f9f9f9;
-    transition: 0.2s;
 }
 
 .company-table input[type="radio"] {
     transform: scale(1.2);
 }
 
-/* Compare Button */
+
+/* ===============================
+   BUTTONS
+=================================*/
 #compareBtn {
     background: #6486a9;
     color: #fff;
@@ -156,11 +156,13 @@
     background: #004999;
 }
 
-/* Modal */
+
+/* ===============================
+   MODAL
+=================================*/
 #compareModal {
     border-radius: 12px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    animation: fadeIn 0.3s ease;
 }
 
 #closeModal {
@@ -172,376 +174,51 @@
     cursor: pointer;
 }
 
-/* Selected buttons */
-.state-btn.selected,
-.city-btn.selected {
-    background: #ba5858 !important;
-    color: #fff;
-}
-
-
 </style>
 
-</div>
-<!-- 
-
-<div class="filter-section">
-    <h3>Filter by State</h3>
-    <div id="states">
-        <button class="state-btn active" data-state="">All</button>
-        <?php foreach($states as $s): ?>
-            <button class="state-btn" data-state="<?= esc($s['state']) ?>">
-                <?= esc($s['state']) ?>
-            </button>
-        <?php endforeach; ?>
-    </div>
-</div> -->
-
-
-
-<div class="filter-section">
-    <h3>Database</h3>
-    <div id="states">
-        
-        <!-- All
-        <a href="<?= base_url('company/bystate') ?>" class="state-link">
-            All
-        </a> -->
-
-        <?php foreach($states as $s): ?>
-<a href="<?= base_url('company/bystate/' . urlencode($s['state'])) ?>">
-    <?= esc($s['state']) ?>
-</a>
-        <?php endforeach; ?>
-
-    </div>
-</div>
-
-
-<div class="filter-section" id="cities">
-    <h3>Filter by City</h3>
-<div id="cities">
-</div>
-
-    <button class="btn city-btn" data-city="">All</button>
-</div>
-
-    
-<form id="compareForm">    
-
-<table id="company-table" class="company-table" style="table-layout: fixed; width: 100%; border-collapse: collapse; display:None;">
+<table border="1" cellpadding="8" cellspacing="0">
     <thead>
         <tr>
-            <th style="width:2%;">Main</th>
-            <th style="width:2%;">Compare</th>
-            <th style="width:15%;">Company Name</th>
-            <th style="width:5%;">City/State</th>
-            <th style="width:auto; text-align:center;">Contact Details</th>
+            <th>State</th>
+            <th>TA</th>
+            <th>Hotel</th>
+            <th>Other</th>
         </tr>
     </thead>
-        <tbody>
+    <tbody>
+        <?php if(!empty($category_counts)): ?>
+            <?php foreach($category_counts as $row): ?>
+                <tr>
+
+                
 
 
-        
+                    <td>
 
-
-            <?php foreach($companies as $c): ?>
-                        <tr onclick="window.location='<?= site_url('company/details/'.$c['company_id']) ?>'" style="cursor:pointer;">                    
-                        <td>
-                        <input type="radio" name="main_id" value="<?= esc($c['company_id']) ?>" onclick="event.stopPropagation()">
-                        </td>
-                        <td>
-                        <input type="radio" name="compare_id" value="<?= esc($c['company_id']) ?>" onclick="event.stopPropagation()">
-                        </td>
-                        <!-- <td><?= esc($c['session']) ?></td> -->
-                            <td>
-                      <?= esc($c['company_name']) ?>  <br>
-                    (<?= esc($c['category']) ?>)</td>
-                        <td><?= esc($c['city']) ?> <br>
-                <?= esc($c['state']) ?></td>
-<td style="text-align:center; vertical-align:middle; 
-           display:flex; justify-content:center; 
-           align-items:center; flex-direction:column;">
-<?php if (!empty($c['contacts'])): ?>
-
-    <?php 
-        $rows = explode("\n", trim($c['contacts']));
+                    
+                         <?php 
+        // Replace & with '-and-' and spaces with '-'
+        $cleanState = str_replace([' & ', ' '], ['-and-', '-'], $row['state']);
     ?>
-
-<table class="table table-sm table-bordered text-center"
-       style="font-size:13px; table-layout:fixed; width:100%;">
-        <thead style="background:#f5f5f5;">
-           
-        </thead>
-        <tbody>
-
-        <?php foreach ($rows as $row): ?>
-            <?php
-                if (trim($row) === '') continue;
-
-                // Break using "|"
-                $parts = array_map('trim', explode('|', $row));
-
-                // Extract Name + Designation
-                preg_match('/^(.*?)\s*\((.*?)\)$/', $parts[0] ?? '', $matches);
-                $name = $matches[1] ?? $parts[0];
-                $designation = $matches[2] ?? '';
-
-                // Extract Mobiles
-                $mobiles = '';
-                if (isset($parts[1])) {
-                    $mobiles = str_replace('Mobiles:', '', $parts[1]);
-                }
-
-                // Extract Emails
-                $emails = '';
-                if (isset($parts[2])) {
-                    $emails = str_replace('Emails:', '', $parts[2]);
-                }
-            ?>
-
-            <tr>
-    <td style="width:25%; word-wrap:break-word;"><?= esc(trim($name)) ?></td>
-    <td style="width:25%; word-wrap:break-word;"><?= esc(trim($designation)) ?></td>
-    <td style="width:25%; word-wrap:break-word;"><?= esc(trim($mobiles)) ?></td>
-    <td style="width:25%; word-wrap:break-word;"><?= esc(trim($emails)) ?></td>
-</tr>
-
-
-        <?php endforeach; ?>
-
-        </tbody>
-    </table>
-
-<?php else: ?>
-    No contacts
-<?php endif; ?>
-</td>
-
-
-
-
+                    
+                    
+                    
+                    <a href="<?= base_url('company/bystate/' . $cleanState) ?>">
+        <?= esc($row['state']) ?>
+    </a>
+    
+    
+                
+                </td>
+                    <td><?= (int)$row['TA_count'] ?></td>
+                    <td><?= (int)$row['Hotel_count'] ?></td>
+                    <td><?= (int)$row['Other_count'] ?></td>
                 </tr>
             <?php endforeach; ?>
-        </tbody>
-    </table>
-
-</form>
-
-
-
-<div id="modalBackdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:9998;"></div>
-
-<div id="compareModal" style="display:none; position:fixed; top:50%; left:50%;
-transform:translate(-50%,-50%); background:#fff; padding:20px; z-index:9999; max-width:90%; max-height:80%; overflow:auto;">
-    <button id="closeModal" style="float:right;">X</button>
-    <div id="compareContent"></div>
-</div>
-
-<button type="button" id="compareBtn">Compare Selected</button>
-
-<?php
-$spreadsheetData = [];
-foreach($companies as $c) {
-    $contactString = !empty($c['contacts']) ? str_replace('|', ' | ', trim($c['contacts'])) : "No contacts";
-
-    $spreadsheetData[] = [
-        '<input type="radio" name="main_id" value="'.$c['company_id'].'">',
-        '<input type="radio" name="compare_id" value="'.$c['company_id'].'">',
-        $c['company_name'] . "\n(" . $c['category'] . ")",
-        $c['city'] . "\n" . $c['state'],
-        $contactString,
-        // Button at absolute last index so createTable uses innerHTML
-        '<button type="button" class="open-details-btn" data-id="'.$c['company_id'].'">View</button>'
-    ];
-}
-?>
-
-
-
-<script>document.addEventListener("DOMContentLoaded", () => {
-    const myColumns = [
-        { title: 'Main' },
-        { title: 'Compare' },
-        { title: 'Company Name' },
-        { title: 'City/State' },
-        { title: 'Contact Details' },
-        { title: 'Action' }  // The innerHTML column
-    ];
-
-    const myData = <?= json_encode($spreadsheetData) ?>;
-
-    const sheet = new Spreadsheet('spreadsheet-ui', {
-        columns: myColumns,
-        data: myData
-    });
-
-    const tableBody = document.querySelector('#spreadsheet-ui tbody');
-    if (tableBody) {
-        tableBody.addEventListener('click', (e) => {
-            // Check if the click was specifically on our "View" button
-            if (e.target.classList.contains('open-details-btn')) {
-                const companyId = e.target.getAttribute('data-id');
-                window.location = '<?= site_url("company/details/") ?>' + companyId;
-            }
-            
-            // Note: Radio buttons work automatically because they are HTML strings
-            // and row-level redirection is now disabled because we removed the window.location 
-            // from the general "if (tr)" block.
-        });
-    }
-});
-</script>
-
-<form id="compareForm">
-    <div id="spreadsheet-ui"></div>
-    <button type="submit" class="btn-submit">Compare Selected</button>
-</form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    document.getElementById('compareBtn').addEventListener('click', function () {
-
-        const mainId = document.querySelector('input[name="main_id"]:checked');
-        const compareId = document.querySelector('input[name="compare_id"]:checked');
-
-        if (!mainId || !compareId) {
-            alert('Please select both a Main and a Compare company.');
-            return;
-        }
-
-        document.getElementById('compareContent').innerHTML = 'Loading...';
-
-fetch('<?= site_url('company/compare_popup') ?>', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-        main_id: mainId.value,
-        compare_id: compareId.value
-    })
-})
-.then(res => res.text())
-.then(html => {
-    document.getElementById('compareContent').innerHTML = html;
-});
-
-
-        document.getElementById('compareModal').style.display = 'block';
-        document.getElementById('modalBackdrop').style.display = 'block';
-    });
-
-    document.getElementById('closeModal').addEventListener('click', function () {
-        document.getElementById('compareModal').style.display = 'none';
-        document.getElementById('modalBackdrop').style.display = 'none';
-    });
-
-});
-</script>
-
-
-<script>
-let selectedState = '';
-let selectedCity = '';
-
-// State buttons
-document.querySelectorAll('.state-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        selectedState = this.dataset.state;
-        selectedCity = '';
-
-        document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('selected'));
-        this.classList.add('selected');
-
-        if(selectedState){
-            fetchCities(selectedState);
-        } else {
-            document.getElementById('cities').innerHTML = `<button class="btn city-btn" data-city="">All</button>`;
-        }
-
-        fetchCompanies(selectedState, selectedCity);
-    });
-});
-
-function fetchCities(state){
-    fetch('<?= site_url("company/getCities") ?>', {
-        method:'POST',
-        headers:{'Content-Type':'application/x-www-form-urlencoded'},
-        body:'state='+encodeURIComponent(state)
-    })
-    .then(res=>res.json())
-    .then(data=>{
-        let html = `<button class="btn city-btn" data-city="">All</button>`; 
-        data.forEach(c=>{
-            let cityName = c.city?.trim() ?? '';
-            html += `<button class="btn city-btn" data-city="${cityName}">${cityName}</button>`;
-        });
-        document.getElementById('cities').innerHTML = html;
-
-        document.querySelectorAll('.city-btn').forEach(btn=>{
-            btn.addEventListener('click', function(){
-                selectedCity = this.dataset.city;
-                document.querySelectorAll('.city-btn').forEach(b=>b.classList.remove('selected'));
-                this.classList.add('selected');
-                fetchCompanies(selectedState, selectedCity);
-            });
-        });
-    });
-}
-
-function fetchCompanies(state, city) {
-    fetch('<?= site_url("company/filterCompanies") ?>', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: 'state=' + encodeURIComponent(state) + '&city=' + encodeURIComponent(city)
-    })
-    .then(res => res.json())
-    .then(data => {
-        let html = '';
-        data.forEach(c => {
-            html += `<tr>
-                <td><input type="radio" name="main_id" value="${c.company_id}"></td>
-                <td><input type="radio" name="compare_id" value="${c.company_id}"></td>
-                <td>${c.session ?? ''}</td>
-                <td>
-                    <a href="<?= site_url('company/details') ?>/${c.company_id}" target="_blank">
-                        ${c.company_name}
-                    </a>
-                </td>
-                <td>${c.category ?? ''}</td>
-                <td>${c.city ?? ''}</td>
-                <td>${c.state ?? ''}</td>
-                <td style="white-space: pre-line;">${c.contacts ?? 'No contacts'}</td>
-            </tr>`;
-        });
-
-        document.querySelector('#company-table tbody').innerHTML = html;
-    })
-    .catch(err => console.error('Failed to fetch companies:', err));
-}
-
-
-
-
-
-
-
-</script>
-
-</div>
+        <?php else: ?>
+            <tr>
+                <td colspan="4" style="text-align:center;">No data found</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>

@@ -65,4 +65,6 @@ class Database extends Controller
 
         return view('database/index', $data);
     }
+
+    
 }

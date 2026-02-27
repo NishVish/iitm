@@ -17,20 +17,76 @@ class Company extends BaseController
         $this->companyModel = new CompanyModel();
     }
 
-    // Main page
-public function index()
+
+
+/**
+     * Dashboard View
+     */
+    public function index()
+    {
+        $data = [];
+
+        // Basic Dashboard Stats
+        $data['dashboardStats'] = $this->companyModel->getDashboardStats();
+
+        // State + Category (TA / HOTEL / Resst / Other)
+        $stateCategory = $this->companyModel->getStateAndCategoryStats();
+
+        $data['category_counts'] = $stateCategory;
+        return view('company/index', $data);
+
+        // Optional Extra Stats
+        $data['categoryStats']        = $this->companyModel->getCategoryStats();
+        $data['stateStats']           = $this->companyModel->getStateStats();
+        $data['countryStats']         = $this->companyModel->getCountryStats();
+        $data['salesPersonStats']     = $this->companyModel->getSalesPersonStats();
+        $data['crossValidationStats'] = $this->companyModel->getCrossValidationStats();
+
+        return view('company/index', $data);
+    }
+
+
+    public function getDatabases()
 {
-    $companies = $this->companyModel->getCompaniesWithContacts();
-    $states    = $this->companyModel->getDistinctStates();
+    $db = \Config\Database::connect();
 
-    $data = [
-        'title' => 'All Companies',
-        'companies' => $companies,
-        'states' => $states
-    ];
+    $databases = $db->table('company_data')
+        ->select('DISTINCT(database_name) as db_name')
+        ->get()
+        ->getResultArray();
 
-    return view('company/index', $data);
+    return $this->response->setJSON($databases);
 }
+
+
+
+    // Main page
+// public function index()
+// {
+//     $companies = $this->companyModel->getCompaniesWithContacts();
+//     $states    = $this->companyModel->getDistinctStates();
+
+//     // --- Pagination setup ---
+//     $perPage = 1000; // Number of rows per page
+//     $page = $this->request->getGet('page') ?? 1; // Current page from ?page=
+//     $totalCompanies = count($companies);       // Total rows
+//     $totalPages = ceil($totalCompanies / $perPage);
+//     $startIndex = ($page - 1) * $perPage;
+
+//     // Slice the data for current page
+//     $paginatedData = array_slice($companies, $startIndex, $perPage);
+
+//     $data = [
+//         'title' => 'All Companies',
+//         'companies' => $companies,       // Optional, if you still need full data elsewhere
+//         'states' => $states,
+//         'paginatedData' => $paginatedData,
+//         'totalPages' => $totalPages,
+//         'currentPage' => $page
+//     ];
+
+//     return view('company/index', $data);
+// }
 
 public function update_cell()
 {
@@ -114,7 +170,11 @@ private function updateContactDetail($contactId, $table, $field, $value, $isSeco
 public function getCompanySourcesContactsByState($state = null)
 {
     $db = \Config\Database::connect();
-
+// Decode slug
+    $state = urldecode($state);
+    $state = str_replace('-and-', ' & ', $state);
+    $state = str_replace('-', ' ', $state);
+    $state = trim(preg_replace('/\s+/', ' ', $state));
     $builder = $db->table('company_data cd')
         ->select('
             cd.*, 
@@ -166,6 +226,7 @@ public function getCompanySourcesContactsByState($state = null)
         }
     }
 
+    
     $data['companies'] = $grouped;
     $data['state'] = $state;
 
@@ -210,23 +271,30 @@ public function details($companyId = null)
     $contactModel  = new ContactModel();
     $updationModel = new UpdationModel();
     $leadModel     = new LeadModel();
-    $sourceModel   = new \App\Models\SourceModel(); // Load SourceModel
+    $sourceModel   = new \App\Models\SourceModel();
 
-    // Get main company data
-    $company = $companyModel->getByCompanyId($companyId);
-    if (!$company) throw new \CodeIgniter\Exceptions\PageNotFoundException('Company not found');
+    // 1. Fetch the composite data (current company + neighbor IDs)
+    $result = $companyModel->getByCompanyId($companyId);
 
-    // Prepare data array with sources
+    // 2. Validate if the company exists
+    if (!$result || !$result['current']) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('Company not found');
+    }
+
+    // 3. Prepare data array
     $data = [
-        'company'   => $company,
+        'company'   => $result['current'],  // The actual company object
+        'prev_id'   => $result['prev_id'],  // The previous ID for your "Back" button
+        'next_id'   => $result['next_id'],  // The next ID for your "Next" button
         'contacts'  => $contactModel->getByCompanyId($companyId),
         'updates'   => $updationModel->getByCompanyId($companyId),
         'leads'     => $leadModel->getByCompanyId($companyId),
-        'sources'   => $sourceModel->where('company_id', $companyId)->findAll() // Fetch sources
+        'sources'   => $sourceModel->where('company_id', $companyId)->findAll()
     ];
 
     return view('company/details', $data);
 }
+
 
 
 public function stats()
@@ -481,8 +549,10 @@ public function add_details()
         try {
 
             // Generate a unique company ID
-            $company_id = strtoupper('C' . time() . rand(100, 999));
-            $session_id = $this->companyModel->get_lastSession();
+
+$company_id = 'C' . strtoupper(bin2hex(random_bytes(4))); 
+
+$session_id = $this->companyModel->get_lastSession();
 
             // print_r($company); 
             // exit;
@@ -525,7 +595,7 @@ public function add_details()
             // Debugging
                 // echo "<pre>";           // makes output readable in browser
                 // print_r($values);
-                // print_r($company);
+                // // print_r($company);
                 // echo "</pre>";
                 // exit;
                 $note = $values['notes']; // or $company['source']
@@ -584,9 +654,15 @@ public function add_details()
         
 
 
+$allowedCities = [
+    'ahmedabad', 'mumbai', 'delhi', 
+    'bangalore', 'kochi', 'pune', 'hyderabad'
+];
 
+if ($note === "Spot" || in_array(strtolower($note), $allowedCities)) {
 
-if ($note == "Spot" || $note == "websitetradevisitor") {
+// var_dump($note);
+// exit;
     $crossValidationModel = new \App\Models\CrossValidationModel();
 
     $result = $crossValidationModel->crossValidate([
@@ -619,7 +695,8 @@ if ($note == "Spot" || $note == "websitetradevisitor") {
     }
 
     // ✅ Define variables BEFORE using them
-    $data   = "spot";
+    // if ($note === "Spot"){}
+    $data   = $note;
     $number = $company['contact1_mobile1'] ?? $company['contact1_mobile'] ?? '';
 
     return redirect()->to(base_url('registration/regitersuccess/' . $data . '/' . $number));

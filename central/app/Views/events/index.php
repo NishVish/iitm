@@ -2,13 +2,14 @@
 <?php
 $segment1 = service('uri')->getSegment(1);
 
-if ($segment1 == 'backend') : ?>
+if ($segment1 == 'events') : ?>
     <div class="submenu">
-        <a href="<?= base_url('plan') ?>">Plan</a>
+        <!-- <a href="<?= base_url('plan') ?>">Plan</a>
         <a href="<?= base_url('games') ?>">Play Games</a>
         <a href="<?= base_url('tv') ?>">TV</a>
-        <a href="<?= base_url('company') ?>">View Companies</a>
-        <a href="<?= base_url('company/add') ?>">Add Company</a>
+        <a href="<?= base_url('company') ?>">View Companies</a> -->
+        <a href="<?= base_url('events/fetch/iitm') ?>">Fetch IITM</a>
+        <a href="<?= base_url('events/delete') ?>">Delete</a>
     </div>
 <?php endif; ?>
 

@@ -6,7 +6,7 @@ use CodeIgniter\Controller;
 use App\Models\LeadModel;
 use App\Models\LeadLocationModel;
 use App\Models\CompanyModel;
-// use App\Models\LeadLocationsModel;
+use App\Models\EventModel;
 use App\Models\ContactModel;
 use App\Models\SourceModel;
 use App\Models\ContactMobileModel;
@@ -97,17 +97,39 @@ public function regitersuccess($data = null, $number = null)
     $contactId   = $contact['contact_id'] ?? 0;
 
     $alldata = $this->getgataforprint($contactId, 'form');
+$eventModel = new \App\Models\EventModel();
 
     $viewData = [
         'type'    => $data,
         'mobile'  => $number,
         'alldata' => $alldata,
     ];
+$allowedCities = [
+    'ahmedabad', 'mumbai', 'delhi', 
+    'bangalore', 'kochi', 'pune', 'hyderabad'
+];
 
+
+// Example: $type coming from URI, form, or input
+$data = strtolower($data); // convert to lowercase for matching
+var_dump($data);
+if (in_array($data, $allowedCities)) {
+    // Query EventModel where event_name matches $type
+    $events = $eventModel->like('name', $data)->findAll();
+
+    $viewData = [
+        'type'    => $data,
+        'mobile'  => $number,
+        'alldata' => $alldata,
+        'event' => $events,
+    ];
+    // var_dump($events);
+    // exit;
     return view('registration/success', $viewData);
 }
     
    
+}
 
     public function searchentry($mobileargument = Null)
 {

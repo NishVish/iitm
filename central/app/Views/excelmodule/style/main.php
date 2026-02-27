@@ -15,7 +15,12 @@
     font-size: 13px;
     color: #334155; 
 }
-
+mark.search-highlight {
+    background: #fff176;
+    color: #000;
+    border-radius: 2px;
+    padding: 0 1px;
+}
 /* Header: Muted and flat */
 .adv-spreadsheet thead th {
     position: sticky;

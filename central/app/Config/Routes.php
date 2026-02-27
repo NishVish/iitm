@@ -122,6 +122,19 @@ $routes->get('company/list', 'Company::list');    // Optional: show all companie
 
 $routes->get('company/stats', 'Company::stats');
 $routes->post('company/source_check', 'Company::source_check');
+$routes->get('api/databases', 'Company::getDatabases');
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -220,7 +233,8 @@ $routes->get('events/create', 'Events::create');
 $routes->post('events/store', 'Events::store');
 $routes->get('events/edit/(:num)', 'Events::edit/$1');
 $routes->post('events/update/(:num)', 'Events::update/$1');
-$routes->get('events/delete/(:num)', 'Events::delete/$1');
+$routes->get('events/delete', 'Events::delete');
+$routes->get('events/fetch/iitm', 'Events::fetchiitmdate');
 
 
 $routes->group('layout-info', function ($routes) {
@@ -306,7 +320,8 @@ $routes->post('crossvalidation/actioncontact', 'CrossValidation::handleAction');
 
     // Medium risk
     $routes->get('clear-contacts', 'DatabaseOperation::clearContactTables');
-    $routes->get('clear-companies', 'DatabaseOperation::clearCompanyTables');
+    // $routes->get('clear-companies', 'DatabaseOperation::clearCompanyTables');
+    $routes->get('clear-companies/(:any)', 'DatabaseOperation::clearCompanyTables/$1');
 
     // High risk
     $routes->get('clear-non-financial', 'DatabaseOperation::clearAllNonFinancial');
@@ -347,7 +362,7 @@ $routes->group('ticket', function($routes) {
 
 $routes->group('registration', function($routes) {
     $routes->get('/', 'Registration::index');
-    $routes->get('publicformtv', 'Registration::publicformtradevisitor');// multi
+    $routes->get('publicformtv/(:any)', 'Registration::publicformtradevisitor');// multi
     $routes->get('publicformex', 'Registration::publicformexhibitor'); //specific
     $routes->get('publicformspot', 'Registration::publicformspot');//multi
 // Routes.php
