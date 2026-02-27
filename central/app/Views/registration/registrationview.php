@@ -80,7 +80,11 @@
                 <tr>
                     <td><?= $index + 1 ?></td>
                     <td><?= esc($companyData['company']['company_id']) ?></td>
-                    <td><?= esc($companyData['company']['company_name']) ?></td>
+<td>
+    <a href="<?= site_url('company/details/' . $companyData['company']['company_id']) ?>" >
+        <?= esc($companyData['company']['company_name']) ?>
+    </a>
+</td>
                     <td><?= esc($companyData['company']['city']) ?></td>
                     <td><?= esc($companyData['company']['phone']) ?></td>
                     <td><?= $leadsCount ?></td>

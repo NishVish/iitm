@@ -25,7 +25,8 @@ class ContactModel extends Model
             $contact['mobiles'] = $this->getMobiles($contact['contact_id']);
             $contact['emails']  = $this->getEmails($contact['contact_id']);
         }
-
+// var_dump($contacts);
+// exit;array(1) { [0]=> &array(9) { ["contact_id"]=> string(3) "752" ["company_id"]=> string(14) "C1772185582444" ["priority"]=> string(1) "1" ["name"]=> string(14) "Mr. B.S. Naidu" ["designation"]=> string(7) "Manager" ["created_at"]=> string(19) "2026-02-27 09:46:22" ["updated_at"]=> NULL ["mobiles"]=> array(2) { [0]=> string(10) "9603243999" [1]=> string(10) "8247864135" } ["emails"]=> array(2) { [0]=> string(29) "adityaholidays.visa@gmail.com" [1]=> string(21) "bandaru1980@gmail.com" } } }
         return $contacts;
     }
 
