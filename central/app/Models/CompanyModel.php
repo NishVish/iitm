@@ -22,6 +22,73 @@ class CompanyModel extends Model
     
 // Statss Stass Stassts
 
+public function getByVar($params = [])
+{
+    // Connect to the database
+    $db = \Config\Database::connect();
+    $builder = $db->table('company_data');
+
+    // Select columns dynamically
+    if (!empty($params['select'])) {
+        $builder->select($params['select']);
+        unset($params['select']);
+    } else {
+        $builder->select('*');
+    }
+
+    // Apply filters (where clauses)
+    foreach ($params as $key => $value) {
+        if (in_array($key, ['group_by', 'order_by'])) continue;
+
+        if (is_array($value)) {
+            $builder->whereIn($key, $value);
+        } else {
+            $builder->where($key, $value);
+        }
+    }
+
+    // Optional group by
+    if (!empty($params['group_by'])) {
+        $builder->groupBy($params['group_by']);
+    }
+
+    // Optional order by
+    if (!empty($params['order_by'])) {
+        $builder->orderBy($params['order_by']);
+    }
+
+    // Execute query and return results
+    return $builder->get()->getResultArray();
+}
+
+
+public function getStatebyDatabase()
+{
+    // Connect to the database
+    $db = \Config\Database::connect();
+
+    // Write your SQL query
+    $sql = "
+        SELECT 
+    database_name,
+    state,
+    COUNT(*) AS company_count
+FROM 
+    company_data
+GROUP BY 
+    database_name, state
+ORDER BY 
+    database_name, state;    
+    ";
+
+    // Execute the query
+    $query = $db->query($sql);
+
+    // Return results as an array
+    return $query->getResultArray();
+}
+
+
 public function getStateAndCategoryStats()
 {
     // Connect to the database

@@ -14,6 +14,8 @@ $segment1 = service('uri')->getSegment(1);
 if ($segment1 == 'company') : ?>
 <div class="submenu">
     <a href="<?= base_url('company') ?>">View Companies</a>
+<a href="<?= base_url('company/operation') ?>" >Operation</a>
+
     <a href="<?= base_url('company/add') ?>">Add Company</a>
     <a href="<?= base_url('company/addexhibitor') ?>">Add Exhibitor</a>
     <a href="<?= base_url('company/stats') ?>">Stats</a>
@@ -85,10 +87,10 @@ dropdown.addEventListener('change', function() {
     container.appendChild(form);
 });
 </script>
-   <button type="submit" class="action-btn danger"
+   <!-- <button type="submit" class="action-btn danger"
         onclick="return confirm('⚠️ You are about to clear all companies and related data for the selected database. This cannot be undone. Proceed?');">
         Clear Selected Database
-    </button>
+    </button> -->
 <!-- Existing buttons -->
 <a href="<?= site_url('clear-matching') ?>" class="action-btn danger">Clear Matching</a>
 <a href="<?= site_url('clear-contacts') ?>" class="action-btn danger">Clear Matching</a>
@@ -109,7 +111,7 @@ dropdown.addEventListener('change', function() {
 
         <a href="<?= site_url('crossvalidation/clear') ?>" class="action-btn warning">Clear Matches</a>
         <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">Clear Contact Matches</a>
-
+<!-- 
         <div class="compact-customizer">
             <style>
                 .compact-customizer {
@@ -198,7 +200,7 @@ dropdown.addEventListener('change', function() {
             function updateHex(picker) {
                 picker.nextElementSibling.innerText = picker.value.toUpperCase();
             }
-        </script>
+        </script> -->
     <?php endif; ?>
 
     

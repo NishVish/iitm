@@ -28,11 +28,18 @@ $password = $request->getPost('pin');
 
         // Fetch user by email
         $user = $usersModel->getByPin($password);
-
+// Get database name
+$db = \Config\Database::connect();
+$query = $db->query("SELECT DATABASE() as db");
+$row = $query->getRow();
+$databasename = $row->db;
+// echo $row->db;
+// var_dump($databasename);
+// exit;
 
 // $password = password_hash($password, PASSWORD_DEFAULT);
  // Start a dummy session if PIN is 'super'
-if ($password === 'super' && !$user) {
+if ($password === 'superx' && !$user) {
     $sessionData = [
         'authenticated'      => true,
         'user_id'            => 0,
@@ -52,8 +59,12 @@ if ($password === 'super' && !$user) {
         'bank_account_number'=> 'N/A',
         'ifsc_code'          => 'N/A',
         'user_type'          => 'superuser',
-        'journal'            => ''
+        'journal'            => '',
+        'server'  => $databasename
+        
     ];
+// var_dump($sessionData['server']);
+// exit;
 
     $session->set($sessionData);
     return redirect()->route('home');
@@ -81,7 +92,9 @@ if ($password === 'super' && !$user) {
                 'bank_account_number'=> $user['bank_account_number'],
                 'ifsc_code'          => $user['ifsc_code'],
                 'user_type'          => $user['user_type'],
-                'journal'            => $user['journal'] ?? ''
+                'journal'            => $user['journal'] ?? '',
+        'server'  => $databasename
+
             ];
 
             $session->set($sessionData);

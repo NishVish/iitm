@@ -2,323 +2,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Badge - 9.3x13.3</title>
-    <style>
-        :root {
-            --brand-blue: <?= $badge_color ?>;
-            --badge-width: 9.3cm;
-            --badge-height: 13.3cm;
-        }
+<meta charset="UTF-8">
+<title>Event Badge</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #e0e0e0;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
+<!-- Modern Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        .note-box {
-            width: 100%;
-            max-width: 9.3cm;
-            background: #fff8e1;
-            border-left: 4px solid <?= $badge_color ?>;
-            padding: 12px 15px;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #444;
-            line-height: 1.7;
-            box-sizing: border-box;
-        }
+<style>
+:root{
+    --primary: <?= $badge_color ?>;
+    --dark: #111827;
+    --gray: #6b7280;
+    --light: #f9fafb;
+}
 
-        .btn {
-            width: 100%;
-            max-width: 9.3cm;
-            padding: 14px;
-            border-radius: 8px;
-            border: none;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            background: var(--brand-blue);
-            color: white;
-            text-align: center;
-            box-sizing: border-box;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .print-hint {
-            font-size: 11px;
-            color: #888;
-            text-align: center;
-            margin-top: -10px;
-        }
+body{
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg,#f3f4f6,#e5e7eb);
+    color: var(--dark);
+    text-align:center;
+}
 
-        /* Screen: show both badges stacked */
-        .both-wrapper {
-            position: relative;
-            display: inline-flex;
-            flex-direction: column;
-        }
+.page-wrapper{
+    padding:60px 20px;
+    max-width:1000px;
+    margin:auto;
+}
 
-        .badge {
-            width: var(--badge-width);
-            height: var(--badge-height);
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #ccc;
-        }
+/* ===== HEADER ===== */
+#headder{
+    background: linear-gradient(135deg,var(--primary),#a8742f);
+    color:white;
+    padding:40px 20px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    margin-bottom:40px;
+}
 
-        .badge-header {
-            background-color: var(--brand-blue);
-            height: 3.2cm;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 20px;
-            color: white;
-        }
+#event-name{
+    font-size:26px;
+    font-weight:600;
+    letter-spacing:.5px;
+}
 
-        .logo-white {
-            max-width: 70%;
-            max-height: 3cm;
-            margin-bottom: 8px;
-        }
+/* ===== BADGE WRAPPER ===== */
+.both-wrapper{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin:auto;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
 
-        .badge-body {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 15px;
-        }
+.badge{
+    width:360px;
+    height:520px;
+    border-radius:18px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    background:white;
+    border:1px solid #eee;
+    position:relative;
+}
 
-        .attendee-name {
-            font-size: 26px;
-            font-weight: 800;
-            color: #1a1a1a;
-            margin: 0;
-            line-height: 1.1;
-            text-transform: uppercase;
-        }
+/* HEADER INSIDE BADGE */
+.badge-header{
+    background: linear-gradient(135deg,var(--primary),#a8742f);
+    color:white;
+    padding:20px;
+}
 
-        .attendee-org {
-            font-size: 18px;
-            color: var(--brand-blue);
-            font-weight: 600;
-            margin: 10px 0 20px 0;
-        }
+.logo-white{
+    width:110px;
+    margin-bottom:10px;
+}
 
-        .qr-container {
-            background: white;
-            padding: 10px;
-            border: 2px solid #f0f0f0;
-            border-radius: 10px;
-        }
+.badge-body{
+    padding:25px;
+    flex:1;
+}
 
-        .qr-container img {
-            width: 3.5cm;
-            height: 3.5cm;
-            display: block;
-        }
+.attendee-name{
+    font-size:24px;
+    font-weight:600;
+    margin-bottom:6px;
+}
 
-        .badge-footer {
-            height: 1.8cm;
-            background-color: var(--brand-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
+.attendee-org{
+    font-size:14px;
+    color:var(--gray);
+    margin-bottom:20px;
+}
 
-        .fold-line {
-            width: var(--badge-width);
-            border-top: 2px dashed #aaa;
-            margin: 0;
-        }
+.qr-container img{
+    width:180px;
+    height:180px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
 
-        /* Cut marks */
-        .cut {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-        }
-        .tl { top: 0;    left: 0;  border-top: 1px solid #000; border-left: 1px solid #000; }
-        .tr { top: 0;    right: 0; border-top: 1px solid #000; border-right: 1px solid #000; }
-        .bl { bottom: 0; left: 0;  border-bottom: 1px solid #000; border-left: 1px solid #000; }
-        .br { bottom: 0; right: 0; border-bottom: 1px solid #000; border-right: 1px solid #000; }
+.badge-footer{
+    background:#f3f4f6;
+    padding:14px;
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:.5px;
+}
 
-        @media print {
-            * {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
+/* Fold divider */
+.fold-line{
+    width:2px;
+    background:linear-gradient(to bottom,transparent,#ddd,transparent);
+}
 
-            body {
-                background: white;
-                padding: 0;
-                margin: 0;
-                display: block;
-            }
+/* BACK SIDE */
+#badge-back{
+    transform: rotate(180deg);
+}
 
-            .note-box, .btn, .print-hint { display: none; }
+/* NOTE BOX */
+.note-box{
+    margin-top:40px;
+    padding:25px;
+    background:white;
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    font-size:15px;
+}
 
-            .both-wrapper {
-                padding: 20px;
-                position: relative;
-                display: block;
-            }
+/* BUTTON */
+.btn{
+    margin-top:25px;
+    padding:14px 28px;
+    font-size:15px;
+    border:none;
+    border-radius:10px;
+    background:var(--primary);
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .3s ease;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
 
-            .cut {
-                display: block !important;
-                visibility: visible !important;
-                position: absolute !important;
-                width: 15px !important;
-                height: 15px !important;
-            }
+.btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.2);
+}
 
-            .fold-line {
-                display: block !important;
-                width: 100% !important;
-                border-top: 1px dashed #aaa !important;
-            }
+.print-hint{
+    font-size:13px;
+    margin-top:10px;
+    color:var(--gray);
+}
 
-            .badge {
-                box-shadow: none;
-                border: 0.5pt solid #eee;
-                border-radius: 0;
-                position: relative;
-            }
-
-            @page {
-                size: 9.3cm 26.6cm;
-                margin: 0;
-            }
-        }
-    </style>
+/* PRINT STYLING */
+@media print{
+    body{
+        background:none;
+    }
+    .note-box,.btn,.print-hint,#headder{
+        display:none;
+    }
+    .both-wrapper{
+        box-shadow:none;
+        padding:0;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- 1. Note -->
-    <div class="note-box">
-        ✅ <strong>Registration Successful!</strong> You can either print this badge or show it on your phone at the Registration Desk.<br><br>
-        ⚠️ <strong>Important:</strong> You <strong>must</strong> verify your badge at the venue entrance before entering.
+<div class="page-wrapper">
+
+<!-- HEADER -->
+<div id="headder">
+    <div id="event-name">
+        <?= esc($event[0]['name']); ?>
     </div>
+</div>
 
-    <!-- 2. Print Button -->
-    <button class="btn" onclick="window.print()">🖨️ Print This Badge</button>
-    <p class="print-hint">Set margins to "None" in the print dialog for best results.</p>
+<!-- BADGES -->
+<div class="both-wrapper">
 
-    <!-- 3. Both Sides in One Wrapper -->
-    <div class="both-wrapper">
+    <!-- FRONT -->
+    <div class="badge">
 
-        <!-- Corner cut marks (outer only) -->
-        <div class="cut tl"></div>
-        <div class="cut tr"></div>
-        <div class="cut bl"></div>
-        <div class="cut br"></div>
-
-        <!-- FRONT -->
-        <div class="badge" id="badge-front">
-            <div class="badge-header">
-                <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Logo" class="logo-white">
-            
-    <div id="event-name" style="font-weight:bold; font-size:16px; margin-bottom:10px;">
-        <?php echo esc($event[0]['name']); ?>
-    </div>
-            
-            </div>
-
-            <div class="badge-body">
-                <?php if (!empty($alldata) && $alldata['contactName'] !== 'Not_Found'): ?>
-                    <h1 class="attendee-name"><?= esc($alldata['contactName']) ?></h1>
-                    <div class="attendee-org"><?= esc($alldata['companyName']) ?></div>
-                    <div class="qr-container">
-                        <?php $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" . urlencode($mobile); ?>
-                        <img src="<?= $qr_url ?>" alt="QR Code">
-                    </div>
-                    <p style="font-size: 10px; color: #999; margin-top: 10px;">Note: Only For B2B</p>
-                <?php else: ?>
-                    <h1 class="attendee-name">Visitor</h1>
-                    <div class="qr-container">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=<?= urlencode($mobile) ?>" alt="QR Code">
-                    </div>
-                <?php endif; ?>
-            </div>
-
-            <div class="badge-footer">TRADE VISITOR</div>
+        <div class="badge-header">
+            <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" class="logo-white">
+            <div><?= esc($event[0]['name']); ?></div>
         </div>
 
-        <!-- FOLD LINE -->
-        <div class="fold-line"></div>
+        <div class="badge-body">
 
-       <!-- FOLD LINE -->
-        <div class="fold-line"></div>
+        <?php if (!empty($alldata) && $alldata['contactName'] !== 'Not_Found'): ?>
+            
+            <div class="attendee-name"><?= esc($alldata['contactName']) ?></div>
+            <div class="attendee-org"><?= esc($alldata['companyName']) ?></div>
 
-        <!-- BACK (inverted so when folded it reads correctly) -->
-        <div class="badge" id="badge-back" style="transform: rotate(180deg);">
-
-            <div class="badge-header">
-                <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Logo" class="logo-white">
+            <?php $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" . urlencode($mobile); ?>
+            
+            <div class="qr-container">
+                <img src="<?= $qr_url ?>" alt="QR Code">
             </div>
 
-            <div class="badge-body">
-                <div style="font-size: 12px; color: #444; line-height: 1.8; text-align: left; padding: 0 10px;">
+            <p style="font-size:12px;color:#9ca3af;margin-top:15px;">
+                For B2B Access Only
+            </p>
 
-                    <strong style="font-size: 15px; color: #1a1a1a; display: block; margin-bottom: 6px;">
-                        📋 Visitor Guidelines
-                    </strong>
+        <?php else: ?>
 
-                    <ol style="margin: 0; padding-left: 16px;">
-                        <li>Carry this badge at all times inside the venue.</li>
-                        <li>Badge is non-transferable and valid for one person only.</li>
-                        <li>Report to the Registration Desk upon arrival for verification.</li>
-                        <li>Photography is allowed in designated areas only.</li>
-                        <li>Please maintain decorum inside the exhibition hall.</li>
-                        <li>Food & beverages are allowed only in the food court area.</li>
-                        <li>Lost badges will not be replaced.</li>
-                        <li>Organizers reserve the right to deny entry without reason.</li>
-                    </ol>
-
-                    <strong style="font-size: 13px; color: #1a1a1a; display: block; margin: 12px 0 4px;">
-<div id="event-venue" style="font-size:14px; color:#1a1a1a;">
-        📍 <?php echo esc($event[0]['venue_details']); ?>
-    </div>                    </strong>
-
-                    <strong style="font-size: 13px; color: #1a1a1a; display: block; margin: 10px 0 4px;">
-                        📞 Helpdesk
-                    </strong>
-                    +91 XXXXX XXXXX &nbsp;|&nbsp; info@iitmindia.com
-
-                    <strong style="font-size: 13px; color: #1a1a1a; display: block; margin: 10px 0 4px;">
-                        🗓 Event Dates
-                    </strong>
-                    XX – XX Month 20XX
-
-                </div>
+            <div class="attendee-name">Visitor</div>
+            <div class="qr-container">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=<?= urlencode($mobile) ?>">
             </div>
 
-            <div class="badge-footer">IITM INDIA</div>
+        <?php endif; ?>
 
         </div>
 
-    </div><!-- end .both-wrapper -->
+        <div class="badge-footer">TRADE VISITOR</div>
+
+    </div>
+
+    <div class="fold-line"></div>
+
+    <!-- BACK -->
+    <div class="badge" id="badge-back">
+
+        <div class="badge-header">
+            <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" class="logo-white">
+        </div>
+
+        <div class="badge-body" style="text-align:left;font-size:13px;line-height:1.7;">
+
+            <strong style="font-size:15px;">Visitor Guidelines</strong>
+
+            <ol style="padding-left:18px;margin-top:10px;">
+                <li>Carry badge at all times.</li>
+                <li>Badge is non-transferable.</li>
+                <li>Report to Registration Desk.</li>
+                <li>Photography only in allowed areas.</li>
+                <li>Maintain venue decorum.</li>
+                <li>Food only in food court.</li>
+                <li>Lost badges not replaced.</li>
+                <li>Entry rights reserved.</li>
+            </ol>
+
+            <div style="margin-top:15px;">
+                📍 <?= esc($event[0]['venue_details']); ?>
+            </div>
+
+            <div style="margin-top:10px;">
+                📞 +91 XXXXX XXXXX
+            </div>
+
+        </div>
+
+        <div class="badge-footer">IITM INDIA</div>
+
+    </div>
+
+</div>
+
+<!-- NOTE -->
+<div class="note-box">
+    <strong>Registration Successful!</strong><br><br>
+    You can print this badge or show it on your phone at the Registration Desk.<br><br>
+    <strong>Important:</strong> Badge must be verified at the venue entrance.
+</div>
+
+<button class="btn" onclick="window.print()">Print Badge</button>
+<p class="print-hint">Set margins to “None” while printing for best alignment.</p>
+
+</div>
 
 </body>
 </html>

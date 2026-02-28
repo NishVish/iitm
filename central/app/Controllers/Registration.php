@@ -42,11 +42,38 @@ class Registration extends BaseController
         // Example: list all leads
         return view('registration/index');
     }
-public function publicformtradevisitor()
-    {
-        // Example: list all leads
-        return view('registration/tradevisitor');
+public function publicformtradevisitor($location = null)
+{
+    $allowedCities = [
+        'ahmedabad', 'mumbai', 'delhi', 
+        'bangalore', 'kochi', 'pune', 'hyderabad'
+    ];
+
+    // 1. Sanitize and validate the city
+    $city = strtolower(trim((string)$location));
+
+    // 2. Initialize empty events array
+    $events = [];
+
+    // 3. Only query if the city is in our whitelist
+    if (!empty($city) && in_array($city, $allowedCities)) {
+        $eventModel = new \App\Models\EventModel();
+        // Get the actual data from the database
+        $events = $eventModel->like('name', $city)->findAll();
     }
+
+    // 4. Prepare data for the view
+    $data = [
+        'events'   => $events,
+        'location' => $city,
+        'title'    => 'Trade Visitor Registration - ' . ucfirst($city)
+    ];
+
+    return view('registration/tradevisitor', $data);
+}
+
+
+
 public function publicformspot()
     {
         // Example: list all leads
@@ -87,49 +114,107 @@ public function generatebadge($company_id)
     }
 
 
-
-// ✅ Controller catches both
 public function regitersuccess($data = null, $number = null)
 {
-    // Directly get contact ID from mobile, don't call searchentry()
     $MobileModel = new \App\Models\ContactMobileModel();
     $contact     = $MobileModel->where('mobile', $number)->first();
     $contactId   = $contact['contact_id'] ?? 0;
 
     $alldata = $this->getgataforprint($contactId, 'form');
-$eventModel = new \App\Models\EventModel();
+
+    // 1. Extract the city from the string (e.g., 'onlinetradevisitor-KOLKATA')
+    $parts = explode('-', (string)$data);
+    $citySuffix = isset($parts[1]) ? $parts[1] : $data; 
+
+    // 2. Pass ONLY the city suffix to the helper
+    $events = $this->getEventsByCity($citySuffix);
 
     $viewData = [
-        'type'    => $data,
+        'type'    => strtolower($data),
         'mobile'  => $number,
         'alldata' => $alldata,
+        'event'   => $events, 
     ];
-$allowedCities = [
-    'ahmedabad', 'mumbai', 'delhi', 
-    'bangalore', 'kochi', 'pune', 'hyderabad'
-];
 
-
-// Example: $type coming from URI, form, or input
-$data = strtolower($data); // convert to lowercase for matching
-var_dump($data);
-if (in_array($data, $allowedCities)) {
-    // Query EventModel where event_name matches $type
-    $events = $eventModel->like('name', $data)->findAll();
-
-    $viewData = [
-        'type'    => $data,
-        'mobile'  => $number,
-        'alldata' => $alldata,
-        'event' => $events,
-    ];
-    // var_dump($events);
-    // exit;
     return view('registration/success', $viewData);
 }
-    
-   
+
+/**
+ * Standalone logic to fetch events based on allowed city keywords
+ */
+
+
+private function getEventsByCity($cityInput): array
+{
+    if (empty($cityInput)) {
+        return [];
+    }
+
+    $allowedCities = [
+        'ahmedabad', 'mumbai', 'delhi', 
+        'bangalore', 'kochi', 'pune', 'hyderabad','kolkata'
+    ];
+
+    // Sanitize input
+    $city = strtolower(trim((string)$cityInput));
+
+    // Check whitelist
+    if (in_array($city, $allowedCities)) {
+        $eventModel = new \App\Models\EventModel();
+        // Use like() to find the city name within the event record
+        return $eventModel->like('name', "iitm ".$city)->findAll();
+    }
+
+    return [];
 }
+
+// // ✅ Controller catches both
+// public function regitersuccess($data = null, $number = null)
+// {
+//     // Directly get contact ID from mobile, don't call searchentry()
+//     $MobileModel = new \App\Models\ContactMobileModel();
+//     $contact     = $MobileModel->where('mobile', $number)->first();
+//     $contactId   = $contact['contact_id'] ?? 0;
+
+//     $alldata = $this->getgataforprint($contactId, 'form');
+
+//     $viewData = [
+//         'type'    => $data,
+//         'mobile'  => $number,
+//         'alldata' => $alldata,
+//     ];
+
+
+//     $eventModel = new \App\Models\EventModel();
+
+// $allowedCities = [
+//     'ahmedabad', 'mumbai', 'delhi', 
+//     'bangalore', 'kochi', 'pune', 'hyderabad'
+// ];
+
+
+// // Example: $type coming from URI, form, or input
+// $data = strtolower($data); // convert to lowercase for matching
+// var_dump($data);
+// if (in_array($data, $allowedCities)) {
+//     // Query EventModel where event_name matches $type
+//     $events = $eventModel->like('name', $data)->findAll();
+
+//     $viewData = [
+//         'type'    => $data,
+//         'mobile'  => $number,
+//         'alldata' => $alldata,
+//         'event' => $events,
+//     ];
+//     // var_dump($events);
+//     // exit;
+//     return view('registration/success', $viewData);
+// }
+    
+
+
+   
+// }
 
     public function searchentry($mobileargument = Null)
 {

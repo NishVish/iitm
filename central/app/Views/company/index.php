@@ -18,7 +18,6 @@
     display: block;
     border: 2px solid #333;
     padding: 15px;
-    max-width: 1300px;
     margin-bottom: 20px;
     overflow: auto;
 }
@@ -28,8 +27,7 @@
    CONTENT WRAPPER
 =================================*/
 .content {
-    max-width: 1300px;
-    width: 100%;
+    max-width: 150vh;;
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
@@ -175,7 +173,7 @@
 }
 
 </style>
-
+<!-- 
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
         <tr>
@@ -218,6 +216,129 @@
         <?php else: ?>
             <tr>
                 <td colspan="4" style="text-align:center;">No data found</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+
+
+<!-- company/index.php -->
+
+<!-- <h3>Database & State Stats</h3>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Database Name</th>
+            <th>State</th>
+            <th>Company Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if(!empty($database_counts)): ?>
+            <?php foreach($database_counts as $row): ?>
+                <tr>
+                    <td><?= esc($row['database_name']) ?></td>
+                    <td><?= esc($row['state']) ?></td>
+                    <td><?= esc($row['company_count']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3">No data found.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table> -->
+
+<!-- <h1>Special Tag</h1> -->
+
+<!-- Category Counts Table -->
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>State</th>
+            <th>TA</th>
+            <th>Hotel</th>
+            <th>Other</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if(!empty($category_counts)): ?>
+            <?php foreach($category_counts as $row): ?>
+                <?php 
+                    // Clean state for URL
+                    $cleanState = str_replace([' & ', ' '], ['-and-', '-'], $row['state']);
+                ?>
+                <tr>
+                    <td>
+                        <a href="<?= base_url('company/byvar/state/' . $cleanState) ?>">
+                            <?= esc($row['state']) ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('company/byvar/category/TA/state/' . $cleanState) ?>">
+                            <?= (int)$row['TA_count'] ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('company/byvar/category/Hotel/state/' . $cleanState) ?>">
+                            <?= (int)$row['Hotel_count'] ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('company/byvar/category/Other/state/' . $cleanState) ?>">
+                            <?= (int)$row['Other_count'] ?>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="4" style="text-align:center;">No data found</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+
+<!-- Database & State Stats Table -->
+<h3>Database & State Stats</h3>
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Database Name</th>
+            <th>State</th>
+            <th>Company Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if(!empty($database_counts)): ?>
+            <?php foreach($database_counts as $row): ?>
+                <?php 
+                    $cleanState = str_replace([' & ', ' '], ['-and-', '-'], $row['state']);
+                    $cleanDB = str_replace([' '], ['-'], $row['database_name']);
+                ?>
+                <tr>
+                    <td>
+                        <a href="<?= base_url('company/byvar/database/' . $cleanDB) ?>">
+                            <?= esc($row['database_name']) ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('company/byvar/state/' . $cleanState) ?>">
+                            <?= esc($row['state']) ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('company/byvar/database/' . $cleanDB . '/state/' . $cleanState) ?>">
+                            <?= esc($row['company_count']) ?>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3">No data found.</td>
             </tr>
         <?php endif; ?>
     </tbody>

@@ -21,7 +21,7 @@ if ($segment1 == 'home') : ?>
 
 <?php
         $session = session();
-var_dump($session);
+// var_dump($session);
 
 ?>
 <?= view('dashboard/index') ?>  <!-- loads app/Views/header.php -->

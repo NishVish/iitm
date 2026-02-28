@@ -124,7 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php endforeach; ?>
     ];
 
-// --- UPDATED STATS LOGIC ---
+
+    // --- UPDATED STATS LOGIC WITH SPLIT SOURCES ---
 function calculateStats(rows) {
     const stats = {
         sources: {},
@@ -136,12 +137,17 @@ function calculateStats(rows) {
         // Support both original data and getData() format
         const row = item.cells || item;
 
-        const source = row[2] || 'Unknown';
-        const city   = row[9] || 'Unknown';
+        const sourceString = row[2] || 'Unknown';
+        const city         = row[9] || 'Unknown';
 
         stats.totalContacts++;
 
-        stats.sources[source] = (stats.sources[source] || 0) + 1;
+        // Split multiple sources by comma and count individually
+        const sources = sourceString.split(',').map(s => s.trim()).filter(s => s.length > 0);
+        sources.forEach(src => {
+            stats.sources[src] = (stats.sources[src] || 0) + 1;
+        });
+
         stats.cities[city] = (stats.cities[city] || 0) + 1;
     });
 
@@ -166,6 +172,9 @@ function calculateStats(rows) {
         ...cityData
     ];
 }
+
+
+
 
 
 // // Initialize Master Spreadsheet

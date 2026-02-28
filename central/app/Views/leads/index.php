@@ -52,7 +52,7 @@
 
 
 <!-- ================= LEADS TABLE ================= -->
-<table border="1" width="100%" cellpadding="8" style="display:none;">
+<table border="1" cellpadding="8" style="display:none;">
     <thead>
         <tr>
             <th>Lead ID</th>
@@ -145,3 +145,16 @@ const sheet = new Spreadsheet('spreadsheet', {
 
 document.getElementById('copyAllBtn').addEventListener('click', () => sheet.copyAll());
 </script>
+
+<style>
+
+
+    .adv-spreadsheet {
+        /* Force the table to be at least as wide as the container */
+        min-width: 100%; 
+        border-collapse: collapse;
+    }
+</style>
+
+<div id="spreadsheet"></div>
+<button id="copyAllBtn">Copy All</button>

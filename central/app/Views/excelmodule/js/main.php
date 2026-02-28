@@ -61,16 +61,17 @@ createTable() {
        rowData.forEach((cellData, colIndex) => {
     const td = document.createElement('td');
 
-    // 1. Check if the cell contains HTML (like your radio buttons) 
-    // or if it's the very last column (Action column)
+    // NEW LOGIC: Look at the column definition to decide if it's HTML
+    const colDef = this.columns[colIndex];
+    const isHtmlType = colDef && colDef.type === 'html';
+    
     const isRadioColumn = colIndex === 0 || colIndex === 1;
     const isLastColumn = colIndex === rowData.length - 1;
 
-    if (isRadioColumn || isLastColumn) {
-        td.innerHTML = cellData; // Renders the radio button correctly
-        td.contentEditable = false;
+    if (isRadioColumn || isLastColumn || isHtmlType) {
+        td.innerHTML = cellData; // This renders the link!
+        td.contentEditable = false; // Links shouldn't be editable
     } else {
-        // 2. Regular data cells use textContent for security and editing
         td.textContent = cellData;
         td.contentEditable = true;
     }

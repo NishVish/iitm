@@ -23,6 +23,31 @@ $bank_account_number = $session->get('bank_account_number');
 $ifsc_code           = $session->get('ifsc_code');
 $user_type           = $session->get('user_type');
 $journal             = $session->get('journal') ?? '';
+$server             = $session->get('server') ?? '';
+// var_dump($server);
+// // Print all session data in a readable way
+// echo "<pre>";
+// echo "Current Segment: $currentSegment\n";
+// echo "User ID: $user_id\n";
+// echo "Employee ID: $employee_id\n";
+// echo "Name: $name\n";
+// echo "Designation: $designation\n";
+// echo "Phone: $phone\n";
+// echo "Address: $address\n";
+// echo "Email: $email\n";
+// echo "Category: $category\n";
+// echo "Department: $department\n";
+// echo "Date of Joining: $doj\n";
+// echo "UAN No: $uan_no\n";
+// echo "Father's Name: $fathers_name\n";
+// echo "Aadhaar Card: $aadhaar_card\n";
+// echo "PAN Card: $pan_card\n";
+// echo "Bank Account Number: $bank_account_number\n";
+// echo "IFSC Code: $ifsc_code\n";
+// echo "User Type: $user_type\n";
+// echo "Journal: $journal\n";
+// echo "Database Server: $server\n";
+// echo "</pre>";
 
 ?>
 
@@ -48,8 +73,23 @@ $journal             = $session->get('journal') ?? '';
     
     */
 
+.content {
+    max-width: 150vh;;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
-
+#spreadsheet,#Spreadsheet,.Spreadsheet {
+        /* Set width to 150% of the viewport height */
+        width: 150vh; 
+        max-width: 100%; /* Prevents it from breaking mobile layouts if 150vh is too wide */
+        overflow-x: auto; /* Enables horizontal scrolling */
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        background: #fff;
+        margin-bottom: 10px;
+    }
         body { 
             font-family: Arial, sans-serif; 
             margin: 0; 
@@ -300,7 +340,11 @@ nav {
         <a href="<?= site_url('ticket') ?>">Ticket</a>
         <a href="<?= site_url('registration') ?>">Registration</a>
         <a href="http://localhost/phpmyadmin/index.php">MyPhpAdmin</a>
-    </div>
+    
+<a href="#"><?= esc($server) ?></a>
+
+
+</div>
 
 
     </div>
@@ -333,7 +377,6 @@ nav {
     </div>
 
     <div class="quick-content">
-        <a href="<?= site_url('tools') ?>">Tools</a>
         <a href="<?= site_url('logout') ?>">Logout</a>
     </div>
 
@@ -650,140 +693,220 @@ $user_id     = $session->get('user_id');
 $name        = ucfirst(strtolower($session->get('name')));
 $department  = $session->get('department');
 ?>
-
-<!-- Modal Background -->
 <div id="ticketModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="modal-header">
+            <h3><span class="header-icon">+</span> Create New Ticket</h3>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+        </div>
 
-        <form method="post" action="<?= base_url('ticket/store') ?>" class="simple-form" id="form">
+        <form method="post" action="<?= base_url('ticket/store') ?>" class="ticket-form" id="form">
             <?= csrf_field() ?>
 
-<div class="form-group">
-    <label>Parent Ticket (Type to search)</label>
-    <input type="text" 
-           list="ticket-list" 
-           id="parent_search" 
-           placeholder="Search ID or Title..." 
-           value="<?=$currentSegment?>"
-           autocomplete="off">
+            <div class="form-row full">
+                <label>Parent Ticket (Search ID or Title)</label>
+                <input type="text" list="ticket-list" id="parent_search" placeholder="Search ID or Title..." value="<?=$currentSegment?>" autocomplete="off">
+                <input type="hidden" name="parent_id" id="parent_id_hidden" value="0">
+                <datalist id="ticket-list">
+                    <option data-id="0" data-level="0" value="None (Main Ticket)"></option>
+                    <?php if(isset($tickets) && is_array($tickets)): ?>
+                        <?php foreach($tickets as $ticket): ?>
+                            <option data-id="<?= $ticket['id'] ?>" data-level="<?= $ticket['task_level'] ?>" value="#<?= $ticket['id'] ?> - <?= esc($ticket['title']) ?>"></option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </datalist>
+            </div>
 
-    <input type="hidden" name="parent_id" id="parent_id_hidden" value="0">
+            <div class="form-grid">
+                <div class="form-row">
+                    <label>Assign To User *</label>
+                    <select name="user_id" required>
+                        <option value="<?= $user_id ?>" selected><?= esc($name) ?> (self)</option>
+                        <?php if(isset($users)): foreach($users as $user): if($user['id'] != $user_id): ?>
+                            <option value="<?= $user['id'] ?>"><?= esc($user['name']) ?></option>
+                        <?php endif; endforeach; endif; ?>
+                    </select>
+                </div>
 
-    <datalist id="ticket-list">
-        <option data-id="0" data-level="0" value="None (Main Ticket)"></option>
+                <div class="form-row">
+                    <label>Task Level</label>
+                    <select name="task_level" id="task_level_select">
+                        <option value="0" selected>Head</option>
+                        <option value="1">Level 2</option>
+                        <option value="2">Level 3</option>
+                        <option value="3">Level 4</option>
+                        <option value="4">Level 5</option>
+                    </select>
+                </div>
 
-        <?php if(isset($tickets) && is_array($tickets)): ?>
-            <?php foreach($tickets as $ticket): ?>
-                <option 
-                    data-id="<?= $ticket['id'] ?>" 
-                    data-level="<?= $ticket['task_level'] ?>" 
-                    value="#<?= $ticket['id'] ?> - <?= esc($ticket['title']) ?>">
-                </option>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </datalist>
-</div>
+                <div class="form-row">
+                    <label>Type</label>
+                    <select name="ticket_type">
+                        <option value="Task">Task</option>
+                        <option value="Issue">Issue</option>
+                        <option value="Update">Update</option>
+                    </select>
+                </div>
 
-<label>Assign To User *
-    <select name="user_id" required>
-        <!-- Self user selected by default -->
-        <option value="<?= $user_id ?>" selected><?= esc($name) ?> (self)</option>
+                <div class="form-row">
+                    <label>Department</label>
+                    <input type="text" name="department" placeholder="e.g. Sales">
+                </div>
 
-        <?php if(isset($users) && count($users) > 0): ?>
-            <?php foreach($users as $user): ?>
-                <?php if($user['id'] != $user_id): ?>
-                    <option value="<?= $user['id'] ?>"><?= esc($user['name']) ?> (<?= esc($user['email']) ?>)</option>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </select>
-</label>
-            <label>Task Level
-                <select name="task_level" id="task_level_select">
-                    <option value="0" selected>Head</option>
-                    <option value="1">Level 2</option>
-                    <option value="2">Level 3</option>
-                    <option value="3">Level 4</option>
-                    <option value="4">Level 5</option>
-                </select>
-            </label>
+                <div class="form-row">
+                    <label>Priority</label>
+                    <select name="priority">
+                        <option value="Low">Low</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="High">High</option>
+                        <option value="Urgent">Urgent</option>
+                    </select>
+                </div>
 
-            <label>Type
-                <select name="ticket_type">
-                    <option value="Task">Task</option>
-                    <option value="Issue">Issue</option>
-                    <option value="Update">Update</option>
-                </select>
-            </label>
+                <div class="form-row">
+                    <label>Status</label>
+                    <select name="status">
+                        <option value="Open" selected>Open</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+                </div>
+            </div>
 
-            <label>Department
-                <input type="text" name="department">
-            </label>
+            <div class="form-row full">
+                <label>Description *</label>
+                <textarea name="description" rows="3" required placeholder="Details about this ticket..."></textarea>
+            </div>
 
-            <label>Priority
-                <select name="priority">
-                    <option value="Low">Low</option>
-                    <option value="Medium" selected>Medium</option>
-                    <option value="High">High</option>
-                    <option value="Urgent">Urgent</option>
-                </select>
-            </label>
-
-            <label>Status
-                <select name="status">
-                    <option value="Open" selected>Open</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Resolved">Resolved</option>
-                </select>
-            </label>
-
-            <label class="full">Description *
-                <textarea name="description" rows="3" required></textarea>
-            </label>
-
-            <button type="submit" class="full">Create Ticket</button>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn-submit">Create Ticket</button>
+            </div>
         </form>
     </div>
 </div>
 
 <style>
-    .modal {
+/* Variables Integrated */
+:root {
+    --modal-primary: var(--nav-color, #007bff);
+    --modal-bg: #ffffff;
+    --modal-border: #e2e8f0;
+}
+
+/* Modal Overlay */
+.modal {
     display: none;
     position: fixed;
     z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(15, 23, 42, 0.6); /* Slightly darker slate overlay */
+    backdrop-filter: blur(4px);
 }
 
+/* Modal Content Box */
 .modal-content {
-    background: #fff;
-    width: 600px;
+    background: var(--modal-bg);
+    width: 650px;
     max-width: 95%;
-    margin: 5% auto;
-    padding: 20px;
-    border-radius: 8px;
-    position: relative;
-    animation: fadeIn 0.2s ease-in-out;
+    margin: 40px auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.close-btn {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 22px;
+/* Header Styling */
+.modal-header {
+    padding: 16px 24px;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--modal-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 { margin: 0; font-size: 1.15rem; color: #1e293b; font-weight: 600; }
+.header-icon { color: var(--modal-primary); margin-right: 8px; font-weight: bold; }
+
+.close-btn { 
+    font-size: 24px; color: #94a3b8; cursor: pointer; transition: 0.2s; 
+}
+.close-btn:hover { color: #1e293b; }
+
+/* Form Elements */
+.ticket-form { padding: 24px; }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.form-row { display: flex; flex-direction: column; margin-bottom: 16px; }
+.form-row.full { grid-column: span 2; }
+
+.form-row label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.form-row input, .form-row select, .form-row textarea {
+    padding: 10px 12px;
+    border: 1px solid var(--modal-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #1e293b;
+    transition: all 0.2s;
+}
+
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    border-color: var(--modal-primary);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    outline: none;
+}
+
+/* Footer & Buttons */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    background: var(--modal-primary);
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.btn-cancel {
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
     cursor: pointer;
 }
 
-@keyframes fadeIn {
-    from {transform: scale(0.9); opacity: 0;}
-    to {transform: scale(1); opacity: 1;}
+.btn-submit:hover { filter: brightness(90%); }
+.btn-cancel:hover { background: #e2e8f0; }
+
+/* Animations */
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
-
-
 </style>
 
 <script>
@@ -803,6 +926,10 @@ window.onclick = function(event) {
     }
 }
 </script>
+
+
+
+
 <div class="sidebar">
 
 
@@ -812,10 +939,79 @@ window.onclick = function(event) {
         <button type="submit">🔍</button>
     </form>
 </div>
-<button type="button" onclick="openModal()">+ Create Ticket</button><style>
+<div class="ticket-container">
+    <button type="button" class="btn-compact" onclick="openModal()">
+        <span class="plus-icon">+</span> Ticket
+    </button>
+
+    <a href="<?= site_url('tools') ?>" class="btn-compact">
+        Tools
+    </a>
+</div>
+
+<style>
+    .ticket-container {
+        width: 100%;
+        padding-top: 15px;
+        display: flex;
+        gap: 8px;
+        /* Ensures both children stretch to the same height */
+        align-items: stretch; 
+    }
+
+    .btn-compact {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        
+        /* Fixed sizing for perfect symmetry */
+        height: 34px; /* Explicit height for identical look */
+        padding: 0 5px; /* Horizontal padding only */
+        box-sizing: border-box; /* Includes border/padding in height calculation */
+        
+        /* Aesthetic */
+        background-color: var(--button-color); 
+        color: #ffffff !important;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        
+        /* Shape */
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        white-space: nowrap;
+        
+        /* Interactions */
+        transition: opacity 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-tools {
+        background-color: #6c757d;
+    }
+
+    .btn-compact:hover {
+        opacity: 0.9; 
+    }
+
+    .btn-compact:active {
+        transform: scale(0.96);
+    }
+
+    .plus-icon {
+        font-size: 1rem;
+        /* Helps center the icon vertically with text */
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+    }
+</style>
+
+<style>
     .submenu{
         text-align:center;
         padding-top:20px;
     }
 </style>
-

@@ -22,7 +22,7 @@ class Company extends BaseController
 /**
      * Dashboard View
      */
-    public function index()
+    public function index($var = Null)
     {
         $data = [];
 
@@ -31,8 +31,16 @@ class Company extends BaseController
 
         // State + Category (TA / HOTEL / Resst / Other)
         $stateCategory = $this->companyModel->getStateAndCategoryStats();
+        $Databasestate = $this->companyModel->getStatebyDatabase();
+
+    // $data['vardata'] = $this->companyModel->getByVar($var);
+
+
+        // $data['category_counts'] = $stateCategory;
+        // $data['vardata'] = $Vardata;
 
         $data['category_counts'] = $stateCategory;
+        $data['database_counts'] = $Databasestate;
         return view('company/index', $data);
 
         // Optional Extra Stats
@@ -46,6 +54,11 @@ class Company extends BaseController
     }
 
 
+    public function opreation()
+{
+
+ return view('company/operation');
+}
     public function getDatabases()
 {
     $db = \Config\Database::connect();
@@ -167,6 +180,145 @@ private function updateContactDetail($contactId, $table, $field, $value, $isSeco
     }
 }
 
+public function byvar($filterKey = null, $filterValue = null)
+{
+    $filters = [];
+
+    if ($filterKey && $filterValue) {
+        // Normalize value for state
+        if ($filterKey === 'state') {
+            $filterValue = str_replace(['-and-', '-'], [' & ', ' '], $filterValue);
+            $filterValue = trim(preg_replace('/\s+/', ' ', $filterValue));
+        }
+
+        $filters[$filterKey] = $filterValue;
+    }
+
+    return $this->getCompanySourcesContactsByFilters($filters);
+}
+
+public function filter()
+{
+    // Capture variables from the Query String (?database=X&category=Y)
+    $filters = [
+        'database' => $this->request->getGet('database'),
+        'category' => $this->request->getGet('category'),
+        'source'   => $this->request->getGet('source')
+    ];
+
+    // Reuse your existing logic!
+    return $this->getCompanySourcesContactsByFilters(array_filter($filters));
+}
+
+public function getCompanySourcesContactsByFilters($filters = [])
+{
+    $db = \Config\Database::connect();
+// --- 1. Fetch Unique Lists for Dropdowns ---
+    $databases = $db->table('company_data')->select('database_name')->distinct()->get()->getResultArray();
+    $categories = $db->table('company_data')->select('category')->distinct()->get()->getResultArray();
+    $sources = $db->table('company_sources')->select('notes')->distinct()->get()->getResultArray();
+    $builder = $db->table('company_data cd')
+        ->select('
+            cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+        ', false)
+        ->join('company_sources cs', 'cs.company_id = cd.company_id', 'left')
+        ->join('contact c', 'c.company_id = cd.company_id', 'left')
+        ->join('contact_email ce', 'ce.contact_id = c.contact_id', 'left')
+        ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left')
+        ->groupBy(['cd.company_id', 'c.contact_id']);
+
+    // 1. Update the filter map to remove the alias here
+$filterMap = [
+    'database' => 'database_name',
+    'state'    => 'state',
+    'category' => 'category',
+    'source'   => 'notes' // Just use the column name 'notes'
+];
+
+foreach ($filters as $key => $value) {
+    if ($value) {
+        $column = $filterMap[$key] ?? $key;
+
+        // Normalize the value
+        $value = urldecode($value);
+        $value = str_replace('-and-', ' & ', $value);
+        $value = str_replace('-', ' ', $value);
+        $value = trim(preg_replace('/\s+/', ' ', $value));
+
+        // 2. Specify the table alias ONLY if it's not a source filter
+        if ($key === 'source') {
+            $builder->where("cs.$column", $value); // Use 'cs' alias for sources
+        } else {
+            $builder->where("cd.$column", $value); // Use 'cd' alias for company data
+        }
+    }
+}
+
+    $rows = $builder->get()->getResultArray();
+
+    // Grouping Logic (The core "State-like" behavior)
+    $grouped = [];
+    foreach ($rows as $row) {
+        $id = $row['company_id'];
+        if (!isset($grouped[$id])) {
+            $grouped[$id] = [
+                'details'  => $row,
+                'contacts' => []
+            ];
+        }
+
+        if ($row['contact_id']) {
+            $cId = $row['contact_id'];
+            if (!isset($grouped[$id]['contacts'][$cId])) {
+                $grouped[$id]['contacts'][$cId] = [
+                    'name'        => $row['contact_name'],
+                    'designation' => $row['designation'],
+                    'emails'      => [],
+                    'mobiles'     => []
+                ];
+            }
+            
+            // Clean emails and mobiles into arrays
+            if ($row['email_address']) {
+                $grouped[$id]['contacts'][$cId]['emails'] = array_unique(explode(', ', $row['email_address']));
+            }
+            if ($row['mobile_number']) {
+                $grouped[$id]['contacts'][$cId]['mobiles'] = array_unique(explode(', ', $row['mobile_number']));
+            }
+        }
+    }
+
+    // Calculate maxContacts for the Spreadsheet Headers
+    $maxContacts = 0;
+    foreach ($grouped as $company) {
+        $count = count($company['contacts']);
+        if ($count > $maxContacts) $maxContacts = $count;
+    }
+
+   $data = [
+        'companies'   => $grouped,
+        'filters'     => $filters,
+        'maxContacts' => $maxContacts > 0 ? $maxContacts : 1,
+        // Pass the lists here:
+        'databases'   => array_column($databases, 'database_name'),
+        'categories'  => array_column($categories, 'category'),
+        'sources'     => array_column($sources, 'notes'),
+    ];
+
+    return view('company/by_var', $data);
+}
+
+
+
+
+
+
 public function getCompanySourcesContactsByState($state = null)
 {
     $db = \Config\Database::connect();
@@ -175,19 +327,33 @@ public function getCompanySourcesContactsByState($state = null)
     $state = str_replace('-and-', ' & ', $state);
     $state = str_replace('-', ' ', $state);
     $state = trim(preg_replace('/\s+/', ' ', $state));
-    $builder = $db->table('company_data cd')
-        ->select('
-            cd.*, 
-            cs.source_id, cs.event_date, cs.notes as source_notes,
-            c.contact_id, c.name as contact_name, c.designation,
-            ce.email as email_address,
-            cm.mobile as mobile_number
-        ')
-        ->join('company_sources cs', 'cs.company_id = cd.company_id', 'left')
-        ->join('contact c', 'c.company_id = cd.company_id', 'left')
-        ->join('contact_email ce', 'ce.contact_id = c.contact_id', 'left')
-        ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left');
-
+    // $builder = $db->table('company_data cd')
+    //     ->select('
+    //         cd.*, 
+    //         cs.source_id, cs.event_date, cs.notes as source_notes,
+    //         c.contact_id, c.name as contact_name, c.designation,
+    //         ce.email as email_address,
+    //         cm.mobile as mobile_number
+    //     ')
+    //     ->join('company_sources cs', 'cs.company_id = cd.company_id', 'left')
+    //     ->join('contact c', 'c.company_id = cd.company_id', 'left')
+    //     ->join('contact_email ce', 'ce.contact_id = c.contact_id', 'left')
+    //     ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left');
+$builder = $db->table('company_data cd')
+    ->select('
+        cd.*,
+        GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+        c.contact_id,
+        c.name AS contact_name,
+        c.designation,
+        GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+        GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+    ', false) // false prevents CI from escaping GROUP_CONCAT
+    ->join('company_sources cs', 'cs.company_id = cd.company_id', 'left')
+    ->join('contact c', 'c.company_id = cd.company_id', 'left')
+    ->join('contact_email ce', 'ce.contact_id = c.contact_id', 'left')
+    ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left')
+    ->groupBy(['cd.company_id', 'c.contact_id']);
     if ($state) {
         $builder->where('cd.state', $state);
     }
@@ -554,7 +720,7 @@ $company_id = 'C' . strtoupper(bin2hex(random_bytes(4)));
 
 $session_id = $this->companyModel->get_lastSession();
 
-            // print_r($company); 
+            print_r($company); 
             // exit;
         $updatedAt = null;
         if (!empty($company['updated_at'])) {
@@ -583,24 +749,72 @@ $session_id = $this->companyModel->get_lastSession();
             'corssvaliation'         => 0,
         ]);
 
-            $values = [
-                'company_id'    => $company_id,
-                'source_id'  => $company['source_id'] ?? 0,
-                'event_date' => $company['event_date'] ?? date('Y-m-d'),
-                'notes'      => $company['source'] ?? null,
-            ];
-            // Call the addSource method
-            $this->addSource($values);
-        
-            // Debugging
-                // echo "<pre>";           // makes output readable in browser
-                // print_r($values);
-                // // print_r($company);
-                // echo "</pre>";
-                // exit;
-                $note = $values['notes']; // or $company['source']
 
-                
+
+$sources = $company['source'] ?? '';
+$note    = $company['source'] ?? '';
+
+// 1. Break the source by "-"
+$parts = explode('-', $sources);
+
+// Normalize part 1
+$part1 = isset($parts[0]) ? strtolower(trim($parts[0])) : 'EMPTY';
+
+// Normalize part 2 (Safe check to avoid "Offset 1" error)
+$part2 = (count($parts) > 1) ? strtolower(trim($parts[1])) : 'NO HYPHEN FOUND';
+
+// --- DEBUG DUMP ---
+echo "<div style='background:#1a1a1a; color:#00ff00; padding:20px; font-family:monospace; border-left:5px solid #007bff;'>";
+    echo "<h3>--- Debugging Source Split ---</h3>";
+    
+    echo "<b>Original Source:</b> "; 
+    var_dump($sources); echo "<br>";
+    
+    echo "<b>Part 1 (Prefix):</b> "; 
+    var_dump($part1); echo "<br>";
+    
+    echo "<b>Part 2 (Suffix):</b> "; 
+    var_dump($part2); echo "<br>";
+    
+    echo "<b>Full Explode Array:</b> "; 
+    var_dump($parts);
+    
+echo "</div>";
+// exit; // Stops execution so you can see the results
+
+if ($part1 === "onlinetradevisitor") {
+    // 2. Logic for Online Trade Visitor (Single entry)
+    $values = [
+        'company_id' => $company_id,
+        'source_id'  => $company['source_id'] ?? 0,
+        'event_date' => $company['event_date'] ?? date('Y-m-d'),
+        'notes'      => $sources, 
+    ];
+
+    $this->addSource($values);
+
+} else {
+    // Standard case: split by comma (,) or slash (/)
+    $splitSources = preg_split('/[,\/]+/', $sources); 
+
+    foreach ($splitSources as $source) {
+        $source = trim($source);
+        
+        if ($source === '') continue; // Skip empty strings
+
+        $values = [
+            'company_id' => $company_id,
+            'source_id'  => $company['source_id'] ?? 0,
+            'event_date' => $company['event_date'] ?? date('Y-m-d'),
+            'notes'      => $source, // Use the individual split source in notes
+        ];
+
+        // Process each split source
+        $this->addSource($values);
+    }
+}
+
+          
             // Insert contacts dynamically (up to 3 contacts)
             for ($i = 1; $i <= 3; $i++) {
 
@@ -656,10 +870,22 @@ $session_id = $this->companyModel->get_lastSession();
 
 $allowedCities = [
     'ahmedabad', 'mumbai', 'delhi', 
-    'bangalore', 'kochi', 'pune', 'hyderabad'
+    'bangalore', 'kochi', 'pune', 'hyderabad','kolkata'
 ];
 
-if ($note === "Spot" || in_array(strtolower($note), $allowedCities)) {
+// Single block to see the raw values and the logic result
+var_dump([
+    'note_value'    => $note,
+    'part2_value'   => $part2 ?? 'NOT_SET',
+    'allowed_list'  => $allowedCities,
+    'is_spot'       => ($note === "Spot"),
+    'is_city_match' => in_array(strtolower($part2 ?? ''), $allowedCities),
+    'final_check'   => ($note === "Spot" || in_array(strtolower($part2 ?? ''), $allowedCities))
+]);
+// exit;
+
+
+if ($note === "Spot" || in_array(strtolower($part2), $allowedCities)) {
 
 // var_dump($note);
 // exit;
