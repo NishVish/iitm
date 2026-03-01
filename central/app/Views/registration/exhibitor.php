@@ -59,6 +59,88 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const registerBtn = document.getElementById("registerBtn");
+    const companyForm = document.getElementById("companyFormEx");
+
+    registerBtn.addEventListener("click", function () {
+        // 1. Fetch values from Form 1 (Visible)
+        const title       = document.querySelector('[name="title"]').value;
+        const firstName   = document.querySelector('[name="select2"]').value;
+        const lastName    = document.querySelector('[name="lastname"]').value;
+        const designation = document.querySelector('[name="designation"]').value;
+        const organisation= document.querySelector('[name="organisation"]').value;
+        const email       = document.querySelector('[name="email"]').value;
+        const phone       = document.querySelector('[name="phone"]').value;
+        const address     = document.querySelector('[name="address"]').value;
+        const city        = document.querySelector('[name="city"]').value;
+        const state       = document.querySelector('[name="state"]').value;
+        const pincode     = document.querySelector('[name="pincode"]').value;
+        const website     = document.querySelector('[name="website"]').value;
+
+        // 2. Automate Category Classification (TA / Hotel / Other)
+        let orgLower = organisation.toLowerCase();
+        let autoCat  = "Other"; 
+        
+        const taKeywords = ["travel", "aviation", "adventure", "trek", "holidays", "tours", "airline"];
+        const hotelKeywords = ["hotel", "hospitality", "mice", "inn", "resort", "lodging", "stay"];
+
+        if (taKeywords.some(k => orgLower.includes(k))) {
+            autoCat = "TA";
+        } else if (hotelKeywords.some(k => orgLower.includes(k))) {
+            autoCat = "Hotel";
+        }
+
+        // 3. Set Values into Form 2 (Hidden)
+        companyForm.querySelector('[name="companies[0][company_name]"]').value = organisation;
+        companyForm.querySelector('[name="companies[0][address_1]"]').value = address;
+        companyForm.querySelector('[name="companies[0][city]"]').value = city;
+        companyForm.querySelector('[name="companies[0][state]"]').value = state;
+        companyForm.querySelector('[name="companies[0][pincode]"]').value = pincode;
+        companyForm.querySelector('[name="companies[0][phone]"]').value = phone;
+
+        // Contact 1 Details
+        companyForm.querySelector('[name="companies[0][contact1_name]"]').value = (title + " " + firstName + " " + lastName).trim();
+        companyForm.querySelector('[name="companies[0][contact1_designation]"]').value = designation;
+        companyForm.querySelector('[name="companies[0][contact1_email1]"]').value = email;
+        companyForm.querySelector('[name="companies[0][contact1_mobile1]"]').value = phone;
+
+        // Metadata & Classification
+        companyForm.querySelector('[name="companies[0][category]"]').value = autoCat;
+        companyForm.querySelector('[name="companies[0][database_name]"]').value = "IITM Exhibitor 2026";
+        companyForm.querySelector('[name="companies[0][source]"]').value = "Websiteregistrationexhibitor";
+        companyForm.querySelector('[name="companies[0][updated_by]"]').value = "Website";
+        companyForm.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0, 16);
+
+        // 4. Handle "Interested In" Checkboxes
+        // We look for checked boxes inside Form 1's city-selection div
+        const checkedCities = document.querySelectorAll('#city-selection input[type="checkbox"]:checked');
+        const cityArray = Array.from(checkedCities).map(cb => cb.value);
+        const cityString = cityArray.join(', ');
+
+        // Set the hidden location string in Form 2
+        companyForm.querySelector('[name="companies[0][location]"]').value = cityString;
+
+        // Also check the specific checkboxes in Form 2 (optional, but good for consistency)
+        cityArray.forEach(cityVal => {
+            const hiddenCheckbox = companyForm.querySelector(`input[name="companies[0][interested_in][]"][value="${cityVal}"]`);
+            if (hiddenCheckbox) hiddenCheckbox.checked = true;
+        });
+
+        // 5. Final Submit
+        // Validate required fields before submitting
+        if (!firstName || !organisation || !email || !phone) {
+            alert("Please fill in all required fields marked with *");
+            return;
+        }
+
+        companyForm.submit();
+    });
+});
+
+</script>
+<!-- <script>
 document.addEventListener("DOMContentLoaded", function () {
 
     const registerBtn = document.getElementById("registerBtn");
@@ -97,8 +179,28 @@ document.addEventListener("DOMContentLoaded", function () {
         companyForm.querySelector('[name="companies[0][contact1_mobile1]"]').value = phone;
 
         // 🔹 Fixed values
-        companyForm.querySelector('[name="companies[0][category]"]').value = "Tradevisitor";
-        companyForm.querySelector('[name="companies[0][source]"]').value = "Website";
+// 🔹 Auto-classify Category based on Company Name
+let orgName = organisation.toLowerCase();
+let autoCategory = "Other"; // Default
+
+// Keywords for TA (Travel Agency / Tour Operators)
+const taKeywords = ["travel", "aviation", "adventure", "trek", "holidays", "tours", "expeditions", "airline"];
+
+// Keywords for Hotel
+const hotelKeywords = ["hotel", "hospitality", "mice", "inn", "resort", "lodging", "suites", "stay"];
+
+// Check for TA matches
+if (taKeywords.some(keyword => orgName.includes(keyword))) {
+    autoCategory = "TA";
+} 
+// Check for Hotel matches
+else if (hotelKeywords.some(keyword => orgName.includes(keyword))) {
+    autoCategory = "Hotel";
+}
+
+// 🔹 Set the values in the hidden form
+companyForm.querySelector('[name="companies[0][category]"]').value = autoCategory;   
+     companyForm.querySelector('[name="companies[0][source]"]').value = "Websiteregistrationexhibitor";
         companyForm.querySelector('[name="companies[0][database_name]"]').value = "IITM 2026";
         companyForm.querySelector('[name="companies[0][updated_by]"]').value = "Website";
         companyForm.querySelector('[name="companies[0][updated_at]"]').value =
@@ -117,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
-</script>
+</script> -->
 
 <!-- <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -295,10 +397,49 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Country" name="country">
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Website" name="website">
-                    </div>
-                    <div class="form-group">
+                  
+                  
+                  <div style="margin-bottom: 15px;">
+    <input type="text" placeholder="Website" name="website" style="width: 100%; padding: 8px; border: 1px solid #ccc;">
+</div>
+
+<div style="margin-bottom: 15px;">
+    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Interested In:</label>
+    
+    <div id="city-selection" style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <label><input type="checkbox" value="CHENNAI"> CHENNAI</label>
+        <label><input type="checkbox" value="BENGALURU"> BENGALURU</label>
+        <label><input type="checkbox" value="DELHI"> DELHI</label>
+        <label><input type="checkbox" value="MUMBAI"> MUMBAI</label>
+        <label><input type="checkbox" value="PUNE"> PUNE</label>
+        <label><input type="checkbox" value="HYDERABAD"> HYDERABAD</label>
+        <label><input type="checkbox" value="KOCHI"> KOCHI</label>
+        <label><input type="checkbox" value="KOLKATA"> KOLKATA</label>
+        <label><input type="checkbox" value="AHMEDABAD"> AHMEDABAD</label>
+    </div>
+
+    <input type="hidden" name="companies[0][location]" id="hidden_location">
+</div>
+
+<script>
+    // Update the hidden location field whenever a checkbox is clicked
+    const checkboxes = document.querySelectorAll('#city-selection input[type="checkbox"]');
+    const hiddenInput = document.getElementById('hidden_location');
+
+    checkboxes.forEach(box => {
+        box.addEventListener('change', () => {
+            let selected = [];
+            checkboxes.forEach(b => {
+                if (b.checked) selected.push(b.value);
+            });
+            // Result: "CHENNAI, MUMBAI, KOLKATA"
+            hiddenInput.value = selected.join(', ');
+        });
+    });
+</script>
+
+
+<div class="form-group">
                         <textarea class="form-control" placeholder="Your Message" name="Message"></textarea>
                     </div>
 <button type="button" class="btnRegister" id="registerBtn">Submit</button>            </div>

@@ -140,6 +140,58 @@ $segment = ($uri->getTotalSegments() >= 3) ? $uri->getSegment(3) : 'General';
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Company Name *" name="organisation" required>
                     </div>
+   <div class="form-group">
+    <label class="fw-bold mb-2">Category</label>
+    
+    <div class="form-check mb-2">
+        <input class="form-check-input" type="radio" name="PrimaryCategory" value="Travel Agency" id="cat1">
+        <label class="form-check-label" for="cat1">Travel Agency / Agent & Transportation</label>
+    </div>
+
+    <div class="form-check mb-2">
+        <input class="form-check-input" type="radio" name="PrimaryCategory" value="Hoteliers" id="cat2">
+        <label class="form-check-label" for="cat2">Hoteliers</label>
+    </div>
+
+    <div class="form-check mb-2">
+        <input class="form-check-input" type="radio" name="PrimaryCategory" value="Other" id="other_trigger">
+        <label class="form-check-label" for="other_trigger">Other</label>
+    </div>
+
+    <div id="other_list" style="display: none; margin-left: 25px; border-left: 2px solid #dee2e6; padding-left: 15px;">
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="SubCategory" value="Technology" id="tech">
+            <label class="form-check-label" for="tech">Travel or Hotel Technology</label>
+        </div>
+        
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="SubCategory" value="Insurance" id="insur">
+            <label class="form-check-label" for="insur">Travel or Hotel Insurance</label>
+        </div>
+
+        <div class="mt-2">
+            <input type="text" class="form-control form-control-sm" name="CustomIndustry" id="custom_input" placeholder="Write your industry name">
+        </div>
+    </div>
+</div>
+
+<script>
+    // Listen to all radio buttons in the primary group
+    document.querySelectorAll('input[name="PrimaryCategory"]').forEach((radio) => {
+        radio.addEventListener('change', function() {
+            const otherList = document.getElementById('other_list');
+            // Show only if 'Other' is selected, hide otherwise
+            if (document.getElementById('other_trigger').checked) {
+                otherList.style.display = 'block';
+            } else {
+                otherList.style.display = 'none';
+                // Clear sub-selections if user switches back to Travel/Hotel
+                document.querySelectorAll('input[name="SubCategory"]').forEach(r => r.checked = false);
+                document.getElementById('custom_input').value = "";
+            }
+        });
+    });
+</script>
                     <div class="form-group">
                         <input type="email" class="form-control" placeholder="Your Email *" name="email" required>
                     </div>
@@ -197,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('[name="country"]').value = 'India';
         document.querySelector('[name="website"]').value = 'https://example.com';
         document.querySelector('[name="Message"]').value = 'Trade Visitor Test';
+        document.querySelector('[name="Category"]').value = 'None';
     };
 
     // 3. Function to sync visible UI to Hidden Form and Submit
@@ -224,10 +277,30 @@ document.addEventListener('DOMContentLoaded', () => {
         hiddenForm.querySelector('[name="companies[0][contact1_designation]"]').value = document.querySelector('[name="designation"]').value;
         hiddenForm.querySelector('[name="companies[0][contact1_email1]"]').value = document.querySelector('[name="email"]').value;
         hiddenForm.querySelector('[name="companies[0][contact1_mobile1]"]').value = document.querySelector('[name="phone"]').value;
-        
-        // Metadata
         hiddenForm.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
-        hiddenForm.querySelector('[name="companies[0][category]"]').value = "TradeVisitor";
+
+        // Metadata
+        let selectedVal = "";
+        const primary = document.querySelector('input[name="PrimaryCategory"]:checked');
+        const sub = document.querySelector('input[name="SubCategory"]:checked');
+        const custom = document.getElementById('custom_input').value;
+
+        if (primary) {
+            if (primary.value === "Other") {
+                // Priority: Custom Text > Sub-Radio > "Other"
+                selectedVal = custom ? custom : (sub ? sub.value : "Other");
+            } else {
+                selectedVal = primary.value;
+            }
+        }
+
+        // Paste into your hidden form
+        hiddenForm.querySelector('[name="companies[0][category]"]').value = selectedVal || "TradeVisitor";
+        // 4. Paste the values into your hidden form
+
+        // hiddenForm.querySelector('[name="companies[0][category]"]').value = categoryString;
+
+
         hiddenForm.querySelector('[name="companies[0][source]"]').value = "onlinetradevisitor-<?php echo $segment; ?>";
         hiddenForm.querySelector('[name="companies[0][updated_by]"]').value = isTest ? "System-Test" : "Website";
         hiddenForm.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);

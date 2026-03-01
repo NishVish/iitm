@@ -10,3 +10,4 @@ central/app/Config/Database.php
 central/app/Config/App.php
 central/app/Config/Database.php
 /central/writable/logs
+/central/writable/session

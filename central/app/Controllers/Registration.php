@@ -46,7 +46,7 @@ public function publicformtradevisitor($location = null)
 {
     $allowedCities = [
         'ahmedabad', 'mumbai', 'delhi', 
-        'bangalore', 'kochi', 'pune', 'hyderabad'
+        'bangalore', 'kochi', 'pune', 'hyderabad','chennai','kolkata'
     ];
 
     // 1. Sanitize and validate the city
@@ -69,6 +69,9 @@ public function publicformtradevisitor($location = null)
         'title'    => 'Trade Visitor Registration - ' . ucfirst($city)
     ];
 
+    var_dump($data);
+    // exit;
+
     return view('registration/tradevisitor', $data);
 }
 
@@ -86,26 +89,7 @@ public function publicformexhibitor()
         return view('registration/exhibitor');
     }
 
-public function generatebadge($company_id)
-{
-    $companyModel = new \App\Models\CompanyModel();
 
-    // Fetch company name and first contact
-    $data = $companyModel->getPersonAndCompany($company_id);
-
-    if (!$data) {
-        return "Company not found";
-    }
-
-    // Pass data to view
-    return view('registration/badge', [
-        'company_id'   => $company_id,
-        'company_name' => $data['company_name'],
-        'contact_name' => $data['contact_name']
-    ]);
-
-
-}
 
  public function spotform()
     {
@@ -116,12 +100,12 @@ public function generatebadge($company_id)
 
 public function regitersuccess($data = null, $number = null)
 {
-    $MobileModel = new \App\Models\ContactMobileModel();
+
+$MobileModel = new \App\Models\ContactMobileModel();
     $contact     = $MobileModel->where('mobile', $number)->first();
     $contactId   = $contact['contact_id'] ?? 0;
 
     $alldata = $this->getgataforprint($contactId, 'form');
-
     // 1. Extract the city from the string (e.g., 'onlinetradevisitor-KOLKATA')
     $parts = explode('-', (string)$data);
     $citySuffix = isset($parts[1]) ? $parts[1] : $data; 
@@ -130,12 +114,34 @@ public function regitersuccess($data = null, $number = null)
     $events = $this->getEventsByCity($citySuffix);
 
     $viewData = [
-        'type'    => strtolower($data),
+        'type'    => strtolower($parts[0]),
         'mobile'  => $number,
         'alldata' => $alldata,
         'event'   => $events, 
     ];
+    var_dump($viewData);
+// Check if it's a 'spot' registration and data was not found
+if ($viewData['type'] === 'spot' && 
+    $viewData['alldata']['contactName'] === 'Not_Found' && 
+    (
+    $viewData['alldata']['companyName'] === 'Not_Found' ||
+    $viewData['alldata']['companyName'] === 'UNKNOWN COMPANY' )) {
+    
+    // Return the specific view for public spot registration
+    return $this->publicformspot();
+}
 
+// Otherwise, proceed to the standard success/badge view
+    if($data == "exhibitor"){
+
+            return view('registration/thankyouexhibitor',$viewData);
+
+
+    }
+    
+
+    // var_dump($viewData);
+    // exit;
     return view('registration/success', $viewData);
 }
 

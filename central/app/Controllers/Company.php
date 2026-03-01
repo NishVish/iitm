@@ -720,7 +720,7 @@ $company_id = 'C' . strtoupper(bin2hex(random_bytes(4)));
 
 $session_id = $this->companyModel->get_lastSession();
 
-            print_r($company); 
+            // print_r($company); 
             // exit;
         $updatedAt = null;
         if (!empty($company['updated_at'])) {
@@ -764,22 +764,22 @@ $part1 = isset($parts[0]) ? strtolower(trim($parts[0])) : 'EMPTY';
 $part2 = (count($parts) > 1) ? strtolower(trim($parts[1])) : 'NO HYPHEN FOUND';
 
 // --- DEBUG DUMP ---
-echo "<div style='background:#1a1a1a; color:#00ff00; padding:20px; font-family:monospace; border-left:5px solid #007bff;'>";
-    echo "<h3>--- Debugging Source Split ---</h3>";
+// echo "<div style='background:#1a1a1a; color:#00ff00; padding:20px; font-family:monospace; border-left:5px solid #007bff;'>";
+//     echo "<h3>--- Debugging Source Split ---</h3>";
     
-    echo "<b>Original Source:</b> "; 
-    var_dump($sources); echo "<br>";
+//     echo "<b>Original Source:</b> "; 
+//     var_dump($sources); echo "<br>";
     
-    echo "<b>Part 1 (Prefix):</b> "; 
-    var_dump($part1); echo "<br>";
+//     echo "<b>Part 1 (Prefix):</b> "; 
+//     var_dump($part1); echo "<br>";
     
-    echo "<b>Part 2 (Suffix):</b> "; 
-    var_dump($part2); echo "<br>";
+//     echo "<b>Part 2 (Suffix):</b> "; 
+//     var_dump($part2); echo "<br>";
     
-    echo "<b>Full Explode Array:</b> "; 
-    var_dump($parts);
+//     echo "<b>Full Explode Array:</b> "; 
+//     var_dump($parts);
     
-echo "</div>";
+// echo "</div>";
 // exit; // Stops execution so you can see the results
 
 if ($part1 === "onlinetradevisitor") {
@@ -838,7 +838,7 @@ if ($part1 === "onlinetradevisitor") {
                 for ($m = 1; $m <= 3; $m++) {
 
                     $mobileKey = "contact{$i}_mobile{$m}";
-                    var_dump($mobileKey);
+                    // var_dump($mobileKey);
 
 
                     if (!empty($company[$mobileKey])) {
@@ -874,14 +874,14 @@ $allowedCities = [
 ];
 
 // Single block to see the raw values and the logic result
-var_dump([
-    'note_value'    => $note,
-    'part2_value'   => $part2 ?? 'NOT_SET',
-    'allowed_list'  => $allowedCities,
-    'is_spot'       => ($note === "Spot"),
-    'is_city_match' => in_array(strtolower($part2 ?? ''), $allowedCities),
-    'final_check'   => ($note === "Spot" || in_array(strtolower($part2 ?? ''), $allowedCities))
-]);
+// var_dump([
+//     'note_value'    => $note,
+//     'part2_value'   => $part2 ?? 'NOT_SET',
+//     'allowed_list'  => $allowedCities,
+//     'is_spot'       => ($note === "Spot"),
+//     'is_city_match' => in_array(strtolower($part2 ?? ''), $allowedCities),
+//     'final_check'   => ($note === "Spot" || in_array(strtolower($part2 ?? ''), $allowedCities))
+// ]);
 // exit;
 
 
@@ -937,7 +937,7 @@ if ($note === "Spot" || in_array(strtolower($part2), $allowedCities)) {
 
             // var_dump($note);
             // exit;
-            if ($note === "exhibitor") {
+            if ($note === "Websiteregistrationexhibitor") {
 
                         $leadModel = new \App\Models\LeadModel();
                         
@@ -960,7 +960,7 @@ if ($note === "Spot" || in_array(strtolower($part2), $allowedCities)) {
                         // var_dump($contact);
                         // exit;
 
-                                    $locations = $company['location'] ?? []; // this is now an array
+                        $locations = $company['location'] ?? []; // this is now an array
 
 
 
@@ -973,6 +973,8 @@ if ($note === "Spot" || in_array(strtolower($part2), $allowedCities)) {
                             // exit;
                         // Now $locationsArray = ['Mumbai', 'Pune', 'Chennai'];
                         foreach ($locationsArray as $location) {
+                                                //  var_dump($location); // will now print each location
+                            // exit;
                             $locationData = [
                                 'location'       => $location,
                                 'stall_location' => $company['stall_location'] ?? "A1",
@@ -987,9 +989,9 @@ if ($note === "Spot" || in_array(strtolower($part2), $allowedCities)) {
 
                             $leadId = $leadModel->createLead($leadData, $locationData);
                             $data = "exhibitor";
-                            return redirect()->to(base_url('registration/regitersuccess') . '/' . $data);
-            }
-
+                            }
+return redirect()->to(base_url('registration/regitersuccess') . '/' . $data ."/". $company['contact1_mobile1']);
+            
 
 
 

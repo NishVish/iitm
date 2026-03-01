@@ -1,294 +1,274 @@
-<?php $badge_color = '#c58940'; ?>
+<?php
+$badge_color = '#c58940';
+
+// var_dump($type);
+
+?>
+
+<?php if ($type == "spot"): ?>
+
+<?=view('registration/spotsuccess');?>
+<?php elseif ($type == "onlinetradevisitor"): ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Event Badge</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation & Badge | IITM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --primary: <?= $badge_color ?>; --dark: #4f3a30; }
+        body { font-family: 'Inter', sans-serif; background-color: #f4f4f4; color: #333; padding: 20px; }
+        
+        /* Main Layout */
+        .main-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+            justify-content: center;
+        }
 
-<!-- Modern Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        /* Left Side: Confirmation Text */
+        .content-section {
+            flex: 1;
+            min-width: 350px;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .logo-main { width: 120px; margin-bottom: 20px; }
+        .event-title { color: #a42627; font-weight: 700; margin-bottom: 25px; }
 
-<style>
-:root{
-    --primary: <?= $badge_color ?>;
-    --dark: #111827;
-    --gray: #6b7280;
-    --light: #f9fafb;
-}
+        /* Right Side: Badge Section */
+        .badge-section {
+            flex: 0 0 380px;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            align-items: center;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        /* Badge Styling */
+        .badge-card {
+            width: 350px;
+            height: 480px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .badge-header {
+            background: linear-gradient(135deg, var(--primary), #a8742f);
+            color: white;
+            padding: 20px;
+        }
+        .badge-header img { width: 100px; margin-bottom: 10px; }
+        .badge-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+        .attendee-name { font-size: 24px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; }
+        .attendee-org { color: #666; font-size: 14px; margin-bottom: 15px; }
+        .qr-container img { width: 150px; height: 150px; border: 1px solid #eee; padding: 5px; border-radius: 10px; }
+        .badge-footer { background: #222; color: white; padding: 12px; font-weight: 600; font-size: 14px; letter-spacing: 1px; }
 
-body{
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg,#f3f4f6,#e5e7eb);
-    color: var(--dark);
-    text-align:center;
-}
+        .fold-hint { border-top: 2px dashed #bbb; width: 100%; margin: 10px 0; position: relative; }
+        .fold-hint::after { content: 'FOLD HERE'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #f4f4f4; padding: 0 10px; font-size: 10px; color: #888; }
 
-.page-wrapper{
-    padding:60px 20px;
-    max-width:1000px;
-    margin:auto;
-}
+        .btn-print {
+            background: var(--dark);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-print:hover { background: #a42627; color: white; }
 
-/* ===== HEADER ===== */
-#headder{
-    background: linear-gradient(135deg,var(--primary),#a8742f);
-    color:white;
-    padding:40px 20px;
-    border-radius:16px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.15);
-    margin-bottom:40px;
-}
-
-#event-name{
-    font-size:26px;
-    font-weight:600;
-    letter-spacing:.5px;
-}
-
-/* ===== BADGE WRAPPER ===== */
-.both-wrapper{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    margin:auto;
-    background:white;
-    padding:40px;
-    border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.08);
-}
-
-.badge{
-    width:360px;
-    height:520px;
-    border-radius:18px;
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    background:white;
-    border:1px solid #eee;
-    position:relative;
-}
-
-/* HEADER INSIDE BADGE */
-.badge-header{
-    background: linear-gradient(135deg,var(--primary),#a8742f);
-    color:white;
-    padding:20px;
-}
-
-.logo-white{
-    width:110px;
-    margin-bottom:10px;
-}
-
-.badge-body{
-    padding:25px;
-    flex:1;
-}
-
-.attendee-name{
-    font-size:24px;
-    font-weight:600;
-    margin-bottom:6px;
-}
-
-.attendee-org{
-    font-size:14px;
-    color:var(--gray);
-    margin-bottom:20px;
-}
-
-.qr-container img{
-    width:180px;
-    height:180px;
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-.badge-footer{
-    background:#f3f4f6;
-    padding:14px;
-    font-weight:600;
-    font-size:14px;
-    letter-spacing:.5px;
-}
-
-/* Fold divider */
-.fold-line{
-    width:2px;
-    background:linear-gradient(to bottom,transparent,#ddd,transparent);
-}
-
-/* BACK SIDE */
-#badge-back{
-    transform: rotate(180deg);
-}
-
-/* NOTE BOX */
-.note-box{
-    margin-top:40px;
-    padding:25px;
-    background:white;
-    border-radius:14px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.05);
-    font-size:15px;
-}
-
-/* BUTTON */
-.btn{
-    margin-top:25px;
-    padding:14px 28px;
-    font-size:15px;
-    border:none;
-    border-radius:10px;
-    background:var(--primary);
-    color:white;
-    cursor:pointer;
-    font-weight:600;
-    transition:all .3s ease;
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
-}
-
-.btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 25px rgba(0,0,0,0.2);
-}
-
-.print-hint{
-    font-size:13px;
-    margin-top:10px;
-    color:var(--gray);
-}
-
-/* PRINT STYLING */
-@media print{
-    body{
-        background:none;
-    }
-    .note-box,.btn,.print-hint,#headder{
-        display:none;
-    }
-    .both-wrapper{
-        box-shadow:none;
-        padding:0;
-    }
-}
-</style>
+            
+    </style>
 </head>
-
 <body>
 
-<div class="page-wrapper">
+<div class="main-wrapper">
+    
+    <div class="content-section">
+       <style>
+    .header-flex {
+        display: flex;
+        align-items: center; /* Vertically centers the text with the logo */
+        gap: 20px;           /* Adjusts spacing between logo and title */
+    }
+    
+    .logo-main {
+        width: 120px;        /* Fixed width for the logo */
+        height: auto;
+    }
 
-<!-- HEADER -->
-<div id="headder">
-    <div id="event-name">
-        <?= esc($event[0]['name']); ?>
-    </div>
+    .event-title {
+        color: #a42627;      /* Matches your theme color */
+        margin: 0;           /* Removes default heading margins */
+        font-weight: 700;
+    }
+</style>
+
+<div class="header-flex">
+    <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="IITM Logo" class="logo-main">
+    <h3 class="event-title">Registration Confirmed</h3>
 </div>
+        <p><strong>Dear Mr. Jio J,</strong></p>
+        <p>We are delighted to inform you that your registration for <strong>IITM Kolkata</strong> has been successfully confirmed.</p>
+        <p>This serves as your official entry pass for the B2B Travel & Tourism Exhibition. Please find your event badge displayed on the right.</p>
+        
+      <div class="main-page-container">
 
-<!-- BADGES -->
-<div class="both-wrapper">
+    <div class="info-sidebar">
+        <div class="alert alert-light border">
+            <p class="mb-1"><strong>Reference Number:</strong> 30053610</p>
+            <p class="mb-0"><strong>Venue:</strong> <?= esc($event[0]['venue_details'] ?? 'TBA, Kolkata'); ?></p>
+        
+        <p class="small text-muted">Kindly print this page and wear the badge during the event. Lost badges will not be replaced.</p>
+        
+        <p><strong>Contact Us:</strong><br>
+        📧 info@iitmindia.com | 📞 +91-80-40834100</p>
 
-    <!-- FRONT -->
-    <div class="badge">
+        <a href="javascript:window.print()" class="btn-print">Print Event Badge</a>
+    
 
-        <div class="badge-header">
-            <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" class="logo-white">
-            <div><?= esc($event[0]['name']); ?></div>
-        </div>
-
-        <div class="badge-body">
-
-        <?php if (!empty($alldata) && $alldata['contactName'] !== 'Not_Found'): ?>
-            
-            <div class="attendee-name"><?= esc($alldata['contactName']) ?></div>
-            <div class="attendee-org"><?= esc($alldata['companyName']) ?></div>
-
-            <?php $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" . urlencode($mobile); ?>
-            
-            <div class="qr-container">
-                <img src="<?= $qr_url ?>" alt="QR Code">
-            </div>
-
-            <p style="font-size:12px;color:#9ca3af;margin-top:15px;">
-                For B2B Access Only
-            </p>
-
-        <?php else: ?>
-
-            <div class="attendee-name">Visitor</div>
-            <div class="qr-container">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=<?= urlencode($mobile) ?>">
-            </div>
-
-        <?php endif; ?>
-
-        </div>
-
-        <div class="badge-footer">TRADE VISITOR</div>
 
     </div>
-
-    <div class="fold-line"></div>
-
-    <!-- BACK -->
-    <div class="badge" id="badge-back">
-
-        <div class="badge-header">
-            <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" class="logo-white">
-        </div>
-
-        <div class="badge-body" style="text-align:left;font-size:13px;line-height:1.7;">
-
-            <strong style="font-size:15px;">Visitor Guidelines</strong>
-
-            <ol style="padding-left:18px;margin-top:10px;">
-                <li>Carry badge at all times.</li>
-                <li>Badge is non-transferable.</li>
-                <li>Report to Registration Desk.</li>
-                <li>Photography only in allowed areas.</li>
-                <li>Maintain venue decorum.</li>
-                <li>Food only in food court.</li>
-                <li>Lost badges not replaced.</li>
-                <li>Entry rights reserved.</li>
-            </ol>
-
-            <div style="margin-top:15px;">
-                📍 <?= esc($event[0]['venue_details']); ?>
-            </div>
-
-            <div style="margin-top:10px;">
-                📞 +91 XXXXX XXXXX
-            </div>
-
-        </div>
-
-        <div class="badge-footer">IITM INDIA</div>
-
     </div>
 
+    <div class="badge-section">
+        
+        <div class="badge-card">
+            <div class="badge-header">
+                <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Logo">
+                <div class="small"><?= esc($event[0]['name'] ?? 'IITM Kolkata'); ?></div>
+            </div>
+            <div class="badge-body">
+                <div class="attendee-name"><?= !empty($alldata['contactName']) ? esc($alldata['contactName']) : 'Jio J'; ?></div>
+                <div class="attendee-org"><?= !empty($alldata['companyName']) ? esc($alldata['companyName']) : 'Organization Name'; ?></div>
+                
+                <div class="qr-container">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=<?= urlencode($mobile ?? '30053610') ?>" alt="QR Code">
+                </div>
+                <p class="mt-3 mb-0 small text-secondary">B2B Access Only</p>
+            </div>
+            <div class="badge-footer">TRADE VISITOR</div>
+        </div>
+
+        <div class="badge-card">
+            <div class="badge-header">
+                <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Logo">
+            </div>
+            <div class="badge-body text-start">
+                <strong style="font-size:14px; color: #0073e6;">Visitor Guidelines:</strong>
+                <ul style="font-size:11px; padding-left:15px; margin-top:10px; line-height:1.5; list-style: disc;">
+                    <li>Carry badge at all times.</li>
+                    <li>Badge is non-transferable.</li>
+                    <li>Photography only in allowed areas.</li>
+                    <li>Maintain venue decorum.</li>
+                    <li>Entry rights reserved by Team IITM.</li>
+                </ul>
+                <div class="mt-3 pt-2 border-top">
+                    <p class="small mb-0"><strong>Venue:</strong> <?= esc($event[0]['venue_details'] ?? 'TBA'); ?></p>
+                </div>
+            </div>
+            <div class="badge-footer">IITM INDIA</div>
+        </div>
+
+    </div>
+    
 </div>
 
-<!-- NOTE -->
-<div class="note-box">
-    <strong>Registration Successful!</strong><br><br>
-    You can print this badge or show it on your phone at the Registration Desk.<br><br>
-    <strong>Important:</strong> Badge must be verified at the venue entrance.
-</div>
+<style>
+    /* Main Layout: Sidebar and Badges side by side */
+    .main-page-container {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        align-items: flex-start;
+        padding: 20px;
+        font-family: sans-serif;
+    }
 
-<button class="btn" onclick="window.print()">Print Badge</button>
-<p class="print-hint">Set margins to “None” while printing for best alignment.</p>
+    /* Section 1 styling */
+    .info-sidebar {
+        flex: 1;
+        max-width: 300px;
+    }
 
+    /* Section 2 styling: Internal badges side by side */
+    .badge-section {
+        flex: 2;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    /* Badge Card Box */
+    .badge-card {
+        width: 300px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .badge-header { padding: 15px; border-bottom: 1px solid #eee; }
+    .badge-header img { max-width: 120px; }
+    
+    .badge-body { padding: 20px; min-height: 250px; }
+    .attendee-name { font-size: 20px; font-weight: bold; margin-bottom: 5px; }
+    .attendee-org { font-size: 14px; color: #666; margin-bottom: 15px; }
+    
+    .qr-container img { width: 120px; height: 120px; }
+
+    .badge-footer { 
+        background: #0073e6; 
+        color: white; 
+        padding: 10px; 
+        font-weight: bold; 
+        font-size: 14px;
+    }
+
+    .text-start { text-align: left; }
+
+    /* Responsive: Stack vertically on small screens */
+    @media (max-width: 900px) {
+        .main-page-container { flex-direction: column; }
+        .info-sidebar { max-width: 100%; width: 100%; }
+    }
+</style>
+
+        
+    </div>
+
+    
 </div>
 
 </body>
 </html>
+
+<?php else: ?>
+
+
+    <?php view("registration/thankyouexhibitor"); ?>
+
+<?php endif; ?>
