@@ -144,22 +144,32 @@
 
 <?php 
     $uri = service('uri');
-    $mainLabel = $uri->getSegment(3, ''); 
-    $subLabel = ($uri->getTotalSegments() >= 4) ? str_replace(['-', '-and-'], [' ', ' & '], $uri->getSegment(4)) : '';
+    $mainLabel = $uri->getSegment(3, '').' '. $uri->getSegment(4, ''); 
+    $subLabel = ($uri->getTotalSegments() >= 5) ? str_replace(['-', '-and-'], [' ', ' & '], $uri->getSegment(4)) : '';
 ?>
 
 <div class="filter-toolbar">
     
-    <?php if ($mainLabel): ?>
-        <div class="breadcrumb-container">
-            <span class="breadcrumb-main"><?= esc($mainLabel) ?></span>
-            <?php if ($subLabel): ?>
-                <span style="color: #bdc3c7;">&rsaquo;</span>
-                <span class="breadcrumb-sub"><?= esc($subLabel) ?></span>
-            <?php endif; ?>
-        </div>
-        <div class="divider"></div>
-    <?php endif; ?>
+<?php if ($mainLabel): ?>
+    <div class="breadcrumb-container">
+        <span class="breadcrumb-main"><?= esc($mainLabel) ?></span>
+        <?php if ($subLabel): ?>
+            <span style="color: #bdc3c7;">&rsaquo;</span>
+            <span class="breadcrumb-sub">
+                <?php
+                // Only show subLabel if there are at least 4 URI segments
+if ($uri->getTotalSegments() >= 5) {
+    $segment = $uri->getSegment(5);
+    echo '<a href="' . base_url('company/download/' . $filters['entry_type'].'/'. $segment) . '">'
+        . str_replace(['-', '-and-'], [' ', ' & '], $segment)
+        . '</a>';
+}
+                ?>
+            </span>
+        <?php endif; ?>
+    </div>
+    <div class="divider"></div>
+<?php endif; ?>
 
     <a href="<?= base_url('company') ?>" class="btn-home">
        <span>&#8962;</span> Home
@@ -247,18 +257,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const maxContacts = <?= $maxContacts ?? 1 ?>;
 
     // --- Define Columns ---
-    // --- Define Columns ---
-const columns = [
-    { title: 'DB', readOnly: true },
-    { title: 'category' },
-    { title: 'source', type: 'html', readOnly: true }, // Add type: 'html'
-    
-    { title: 'updated_by', readOnly: true },
-    // ... rest of columns
+    const columns = [
+        { title: 'view', type: 'html', readOnly: true },
+        { title: 'database' },
+        { title: 'category' },
+        { title: 'source', type: 'html', readOnly: true },
+        { title: 'updated_by', readOnly: true },
         { title: 'updated_at', readOnly: true },
         { title: 'comments', readOnly: true },
         { title: 'outbound' },
-        { title: 'company_name' },
+        { title: 'company_name', type: 'html' },
         { title: 'address' },
         { title: 'city' },
         { title: 'pincode' },
@@ -278,17 +286,14 @@ const columns = [
     }
 
     // --- Prepare Data ---
-const data = [
+    const data = [
 <?php foreach ($companies as $comp):
     $d = $comp['details'];
     $cList = array_values($comp['contacts']);
-    
-    // Create Hyperlinks for Source Notes
     $rawSources = explode(', ', $d['source_notes'] ?? '');
     $linkedSources = [];
     foreach ($rawSources as $source) {
         if (!empty(trim($source))) {
-            // URL Friendly version of the source name
             $slug = urlencode(str_replace([' & ', ' '], ['-and-', '-'], trim($source)));
             $url = base_url("company/byvar/source/$slug");
             $linkedSources[] = '<a href="'.$url.'" style="color:#007bff;text-decoration:none;">'.esc($source).'</a>';
@@ -296,36 +301,38 @@ const data = [
     }
     $sourceHtml = implode(', ', $linkedSources);
 ?>
-    {
-        id: '<?= esc($d['company_id'] ?? '') ?>',
-        contact_ids: <?= json_encode(array_keys($comp['contacts'])) ?>,
-        cells: [
-            <?= json_encode($d['database_name'] ?? '') ?>,
-            <?= json_encode($d['category'] ?? '') ?>,
-            <?= json_encode($sourceHtml) ?>, // <--- This now contains HTML links
-            '<?= esc($d['updated_by'] ?? '') ?>',
-            '<?= esc($d['updated_at'] ?? '') ?>',
-            '<?= esc($d['last_comments'] ?? '') ?>',
-            '<?= esc($d['outbound'] ?? '') ?>',
-            '<?= esc($d['company_name'] ?? '') ?>',
-            '<?= esc($d['address'] ?? '') ?>',
-            '<?= esc($d['city'] ?? '') ?>',
-            '<?= esc($d['pincode'] ?? '') ?>',
-            '<?= esc($d['state'] ?? '') ?>',
-            '<?= esc($d['phone'] ?? '') ?>',
-            '<?= esc($d['fax'] ?? '') ?>',
-            <?php for ($i=0; $i < $maxContacts; $i++):
-                $c = $cList[$i] ?? [];
-            ?>
-                '<?= esc($c['name'] ?? '') ?>',
-                '<?= esc($c['designation'] ?? '') ?>',
-                '<?= esc($c['mobiles'][0] ?? '') ?>',
-                '<?= esc($c['mobiles'][1] ?? '') ?>',
-                '<?= esc($c['emails'][0] ?? '') ?>',
-                '<?= esc($c['emails'][1] ?? '') ?>',
-            <?php endfor; ?>
-        ]
-    },
+        {
+            contact_ids: <?= json_encode(array_keys($comp['contacts'])) ?>,
+            cells: [
+                '<a href="<?= base_url('company/details/') . esc($d['company_id']) ?>">View</a>',
+                <?= json_encode($d['database_name'] ?? '') ?>,
+                <?= json_encode($d['category'] ?? '') ?>,
+                <?= json_encode($sourceHtml) ?>,
+                '<?= esc($d['updated_by'] ?? '') ?>',
+                '<?= esc($d['updated_at'] ?? '') ?>',
+                '<?= esc($d['last_comments'] ?? '') ?>',
+                '<?= esc($d['outbound'] ?? '') ?>',
+<?= json_encode('<a href="' . base_url("company/details/" . ($filters['entry_type'] ?? 'general') . "/" . $d['company_id']) . '">' . esc($d['company_name'] ?? 'View') . '</a>') ?>,
+
+                
+                '<?= esc($d['address'] ?? '') ?>',
+                '<?= esc($d['city'] ?? '') ?>',
+                '<?= esc($d['pincode'] ?? '') ?>',
+                '<?= esc($d['state'] ?? '') ?>',
+                '<?= esc($d['phone'] ?? '') ?>',
+                '<?= esc($d['fax'] ?? '') ?>',
+                <?php for ($i=0; $i < $maxContacts; $i++):
+                    $c = $cList[$i] ?? [];
+                ?>
+                    '<?= esc($c['name'] ?? '') ?>',
+                    '<?= esc($c['designation'] ?? '') ?>',
+                    '<?= esc($c['mobiles'][0] ?? '') ?>',
+                    '<?= esc($c['mobiles'][1] ?? '') ?>',
+                    '<?= esc($c['emails'][0] ?? '') ?>',
+                    '<?= esc($c['emails'][1] ?? '') ?>',
+                <?php endfor; ?>
+            ]
+        },
 <?php endforeach; ?>
 ];
 
@@ -366,16 +373,15 @@ const data = [
     }
 
     // --- Initialize Stats Spreadsheet ---
-    window.statsSheet = new Spreadsheet('statsSpreadsheet', {
-        data: calculateStats(data),
-        columns: [
-            { title: 'Type', readOnly: true },
-            { title: 'Name', readOnly: true },
-            { title: 'Count', readOnly: true }
-        ],
-        editable: false
-    });
-
+window.statsSheet = new Spreadsheet('statsSpreadsheet', {
+    data: calculateStats(data),
+    columns: [
+        { title: 'Type', readOnly: true },
+        { title: 'Name', type: 'html', readOnly: true },  // <-- quotes around 'html'
+        { title: 'Count', readOnly: true }
+    ],
+    editable: false
+});
     // --- Initialize Master Spreadsheet ---
     window.sheet = new Spreadsheet('masterSpreadsheet', {
         data: data.map(d => d.cells),

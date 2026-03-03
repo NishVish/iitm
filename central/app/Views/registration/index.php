@@ -2,7 +2,7 @@
 // Optional: check if function 'view' exists (safety check)
 if (function_exists('view')) {
     echo view('registration/side') ?? '';
-    echo view('registration/tradevisitor') ?? '';
+    // echo view('registration/tradevisitor') ?? '';
     // echo view('registration/exhibitor') ?? '';
     // echo view('registration/spot') ?? '';
 }

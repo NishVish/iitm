@@ -60,14 +60,8 @@
     .btn-edit { background: #ffc107; color: #000; padding: 4px 8px; border-radius: 4px; text-decoration:none; }
     .btn-delete { background: #dc3545; color: #fff; padding: 4px 8px; border-radius: 4px; text-decoration:none; }
 </style>
-
 <script>
-/* ================= PASS PHP DATA TO SPREADSHEET ================= */
 const eventsData = <?= json_encode(array_map(function($e) {
-    // Action column HTML
-    $actions = '<a href="'.site_url('events/edit/'.$e['event_id']).'">Edit</a> | '.
-               '<a href="'.site_url('events/delete/'.$e['event_id']).'" onclick="return confirm(\'Sure?\')">Delete</a>';
-    
     return [
         $e['event_id'],
         $e['name'],
@@ -76,28 +70,56 @@ const eventsData = <?= json_encode(array_map(function($e) {
         $e['coordinator'],
         $e['start_date'],
         $e['end_date'],
-        $e['b2b_constrain'],
-        $actions
+        $e['b2b_constrain']
     ];
 }, $events)); ?>;
-
 const eventColumns = [
-    { title: "ID", width: 50 },
-    { title: "Event Name", width: 200 },
-    { title: "Year", width: 80 },
-    { title: "Venue", width: 250 },
-    { title: "Coordinator", width: 150 },
-    { title: "Start Date", width: 120 },
-    { title: "End Date", width: 120 },
-    { title: "B2B Logic", width: 100 },
-    { title: "Actions", type: 'html', width: 150 }
+    { title: "ID", field: "event_id" },
+    { title: "Event Name", field: "name" },
+    { title: "Year", field: "year" },
+    { title: "Venue", field: "venue_details" },
+    { title: "Coordinator", field: "coordinator" },
+    { title: "Start Date", field: "start_date" },
+    { title: "End Date", field: "end_date" },
+    { title: "B2B Logic", field: "b2b_constrain" }
 ];
 
-// Initialize Spreadsheet
-const eventSheet = new Spreadsheet('Spreadsheet', { 
-    data: eventsData, 
+const columnMap = [
+    'event_id',
+    'name',
+    'year',
+    'venue_details',
+    'coordinator',
+    'start_date',
+    'end_date',
+    'b2b_constrain'
+];
+
+
+const eventSheet = new Spreadsheet('Spreadsheet', {
+    data: eventsData,
     columns: eventColumns,
-    width: '100%', // Fills container
-    height: '400px' // Keeps it contained with scroll
+
+    onCellEdit: function(data) {
+        // 🔥 Debug log
+        console.log("Cell Edited:", data);
+
+        fetch("<?= base_url('events/update-cell') ?>", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `id=${data.id}&field=${data.field}&value=${encodeURIComponent(data.value)}`
+        })
+        .then(res => res.json())
+        .then(response => {
+            if (response.status !== 'success') {
+                alert("Save failed");
+            } else {
+                console.log("Saved successfully ✅");
+            }
+        })
+        .catch(() => alert("Server error"));
+    }
 });
 </script>

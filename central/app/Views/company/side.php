@@ -13,7 +13,13 @@ $segment1 = service('uri')->getSegment(1);
 
 if ($segment1 == 'company') : ?>
 <div class="submenu">
-    <a href="<?= base_url('company') ?>">View Companies</a>
+    <a href="<?= base_url('company/all') ?>">All Companies</a>
+
+    <a href="<?= base_url('company/main') ?>">View Companies</a>
+    <a href="<?= base_url('company/lead') ?>">Leads Companies</a>
+    <a href="<?= base_url('company/participant') ?>">Participant Companies</a>
+    <a href="<?= base_url('company/online_registration') ?>">Online Registration Companies</a>
+    <a href="<?= base_url('company/spot') ?>">Spot Regisrataion</a>
 <a href="<?= base_url('company/operation') ?>" >Operation</a>
 
     <a href="<?= base_url('company/add') ?>">Add Company</a>
@@ -27,7 +33,7 @@ if ($segment1 == 'company') : ?>
 
 
        <!-- Container for the form -->
-<div id="clearDatabaseContainer" style="display:inline-block;">
+<div id="clearDatabaseContainer" style="max-width:120px; margin-top:10px;">
     <select id="databaseDropdown" required>
         <option value="" disabled selected>Loading databases...</option>
     </select>
@@ -105,12 +111,12 @@ dropdown.addEventListener('change', function() {
 
  
 </form>
-        <a href="<?= site_url('crossvalidation/crossValidate') ?>" class="action-btn primary">Company Cross Validation</a>
-        <a href="<?= site_url('company/dummy') ?>" class="action-btn primary">Insert Data</a>
-        <a href="<?= site_url('crossvalidation/crossValidateContact') ?>" class="action-btn primary">Contact Cross Validation</a>
+        <!-- <a href="<?= site_url('crossvalidation/crossValidate') ?>" class="action-btn primary">Company Cross Validation</a> -->
+        <!-- <a href="<?= site_url('company/dummy') ?>" class="action-btn primary">Insert Data</a> -->
+        <!-- <a href="<?= site_url('crossvalidation/crossValidateContact') ?>" class="action-btn primary">Contact Cross Validation</a> -->
 
-        <a href="<?= site_url('crossvalidation/clear') ?>" class="action-btn warning">Clear Matches</a>
-        <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">Clear Contact Matches</a>
+        <!-- <a href="<?= site_url('crossvalidation/clear') ?>" class="action-btn warning">Clear Matches</a> -->
+        <!-- <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">Clear Contact Matches</a> -->
 <!-- 
         <div class="compact-customizer">
             <style>

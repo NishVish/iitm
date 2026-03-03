@@ -170,14 +170,16 @@ $search_result = [
             $company_name = strtoupper($row['company_name']);
         ?>
         <div id="temp">
-            <strong style="font-size: 24px; color: black;" contenteditable="true" id="nameEditable">
-                <?= htmlspecialchars($name) ?>
-            </strong><br>
-            <span style="font-size: 24px; color: black;">
-                <span contenteditable="true" id="companyEditable">
-                    <?= htmlspecialchars($company_name) ?>
-                </span><br>
-            </span>
+            <div style="text-align: center;">
+    <strong style="font-size: 24px; color: black;" contenteditable="true" id="nameEditable">
+        <?= htmlspecialchars($name) ?>
+    </strong><br>
+    <span style="font-size: 24px; color: black;">
+        <span contenteditable="true" id="companyEditable">
+            <?= htmlspecialchars($company_name) ?>
+        </span><br>
+    </span>
+</div>
             <!-- Hidden inputs -->
             <input type="hidden" id="originalName" value="<?= htmlspecialchars($name) ?>" />
             <input type="hidden" id="originalCompany" value="<?= htmlspecialchars($company_name) ?>" />
@@ -229,6 +231,7 @@ $search_result = [
       <div>
         <input type="number" id="leftInput" style="width: 80px; padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
       </div>
+      
     </div>
 
     <!-- Right Button -->
@@ -253,7 +256,7 @@ $search_result = [
     <!-- Mobile Search Form -->
     <div style="margin-bottom: 10px;">
       <h3 style="margin-bottom: 10px; font-size: 16px; color: #333;">Search by Mobile</h3>
-<form method="POST" action="<?= base_url('registration/searchentry') ?>" style="display: flex; gap: 10px; flex-wrap: wrap;">  
+<form method="POST" action="<?= base_url('registration/searchentry/'.$location) ?>" style="display: flex; gap: 10px; flex-wrap: wrap;">  
     
 <input type="text" name="mobile" placeholder="Enter mobile number" required style="flex: 1; min-width: 150px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;">
         <button type="submit" style="padding: 6px 10px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Search</button>
@@ -495,8 +498,8 @@ window.addEventListener('load', function () {
     }
 
      function restorePosition() {
-    const top = localStorage.getItem('overlayTop') || '155';
-    const left = localStorage.getItem('overlayLeft') || '45';
+    const top = localStorage.getItem('overlayTop') || '45';
+    const left = localStorage.getItem('overlayLeft') || '15';
 
     document.getElementById('topInput').value = top;
     document.getElementById('leftInput').value = left;
@@ -505,12 +508,12 @@ window.addEventListener('load', function () {
   }
 
 function reset_position() {
-    document.getElementById('topInput').value = 155;
-    document.getElementById('leftInput').value = 45;
+    document.getElementById('topInput').value = 45;
+    document.getElementById('leftInput').value = 15;
 
-    applyPosition(155, 45); // Make sure it updates the overlay visually
-    localStorage.setItem('overlayTop', 155);
-    localStorage.setItem('overlayLeft', 45);
+    applyPosition(45, 15); // Make sure it updates the overlay visually
+    localStorage.setItem('overlayTop', 45);
+    localStorage.setItem('overlayLeft', 15);
 }
 
 

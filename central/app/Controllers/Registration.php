@@ -39,49 +39,92 @@ class Registration extends BaseController
 
     public function index()
     {
-        // Example: list all leads
-        return view('registration/index');
-    }
-public function publicformtradevisitor($location = null)
-{
-    $allowedCities = [
-        'ahmedabad', 'mumbai', 'delhi', 
-        'bangalore', 'kochi', 'pune', 'hyderabad','chennai','kolkata'
+                        $eventYear = $events[0]['year'] ?? date('Y');
+
+        $data = [
+        // 'events'     => $events,
+        // 'location'   => $city,
+        'eventYear'  => $eventYear,
+        'citySuffix' => "none", // Pass this to the view
+        // 'title'      => 'Trade Visitor Registration - ' . ucfirst($city)
     ];
 
-    // 1. Sanitize and validate the city
+        // Example: list all leads
+
+        return view('registration/index',$data);
+    }
+
+    public function publicformtradevisitor($location = null)
+{
+    $allowedCities = ['ahmedabad', 'mumbai', 'delhi', 'bangalore', 'kochi', 'pune', 'hyderabad','chennai','kolkata'];
     $city = strtolower(trim((string)$location));
-
-    // 2. Initialize empty events array
+    
     $events = [];
+    $eventYear = date('Y'); 
+    $citySuffix = $city; // Default to the location parameter
 
-    // 3. Only query if the city is in our whitelist
     if (!empty($city) && in_array($city, $allowedCities)) {
         $eventModel = new \App\Models\EventModel();
-        // Get the actual data from the database
         $events = $eventModel->like('name', $city)->findAll();
     }
 
-    // 4. Prepare data for the view
+    if (!empty($events)) {
+        // 1. Extract the City Suffix (e.g., "IITM AHMEDABAD" becomes "ahmedabad")
+        $rawName = $events[0]['name'];
+        $citySuffix = trim(str_ireplace('IITM', '', $rawName));
+        $citySuffix = strtolower($citySuffix);
+
+        // 2. Get the Year
+        $eventYear = $events[0]['year'] ?? date('Y');
+    }
+
     $data = [
-        'events'   => $events,
-        'location' => $city,
-        'title'    => 'Trade Visitor Registration - ' . ucfirst($city)
+        'events'     => $events,
+        'location'   => $city,
+        'eventYear'  => $eventYear,
+        'citySuffix' => $citySuffix, // Pass this to the view
+        'title'      => 'Trade Visitor Registration - ' . ucfirst($city)
     ];
 
-    var_dump($data);
-    // exit;
-
+    // var_dump($data); // Debug: Check the data being passed to the view
+    
     return view('registration/tradevisitor', $data);
 }
 
 
-
 public function publicformspot()
-    {
-        // Example: list all leads
-        return view('registration/spot');
-    }
+{
+    $this->db = \Config\Database::connect();
+    $today = date('Y-m-d');
+
+    $upcomingEvents = $this->db->table('events')
+        ->select('event_id, name, year, venue_details')
+        ->where('start_date >=', $today)
+        ->orderBy('start_date', 'ASC')
+        ->get()
+        ->getResultArray();
+
+    // 1. Initialize the variable
+    $citySuffix = 'TBA'; 
+// In your publicformspot() function
+// $citySuffix = 'TBA';
+$eventYear  = date('Y'); // Fallback to current year
+
+if (!empty($upcomingEvents)) {
+    // 1. Get the City from "IITM AHMEDABAD"
+    $citySuffix = trim(str_ireplace('IITM', '', $upcomingEvents[0]['name']));
+    $citySuffix = strtolower($citySuffix);
+
+    // 2. Get the Year directly from the database row (e.g., "2026")
+    $eventYear = $upcomingEvents[0]['year'];
+}
+
+return view('registration/spot', [
+    'events'     => $upcomingEvents,
+    'citySuffix' => $citySuffix,
+    'eventYear'  => $eventYear
+]);
+}
     
 public function publicformexhibitor()
     {
@@ -94,6 +137,8 @@ public function publicformexhibitor()
  public function spotform()
     {
         // Example: list all leads
+        // use db get events where start date is gretea that current date and name 
+        
         return view('registration/spotform');
     }
 
@@ -101,11 +146,22 @@ public function publicformexhibitor()
 public function regitersuccess($data = null, $number = null)
 {
 
-$MobileModel = new \App\Models\ContactMobileModel();
+// var_dump($data, $number);
+// exit;
+    $MobileModel = new \App\Models\ContactMobileModel();
     $contact     = $MobileModel->where('mobile', $number)->first();
     $contactId   = $contact['contact_id'] ?? 0;
 
-    $alldata = $this->getgataforprint($contactId, 'form');
+// 1. Explode the string by the hyphen
+$parts = explode('-', (string)$data);
+
+// 2. Get the last element of the array
+$citySuffix = end($parts);
+
+// var_dump($citySuffix); 
+// Output: string(4) "pune"
+// exit;
+    $alldata = $this->getgataforprint($citySuffix,$contactId, 'form');
     // 1. Extract the city from the string (e.g., 'onlinetradevisitor-KOLKATA')
     $parts = explode('-', (string)$data);
     $citySuffix = isset($parts[1]) ? $parts[1] : $data; 
@@ -119,7 +175,7 @@ $MobileModel = new \App\Models\ContactMobileModel();
         'alldata' => $alldata,
         'event'   => $events, 
     ];
-    var_dump($viewData);
+    // var_dump($alldata);
 // Check if it's a 'spot' registration and data was not found
 if ($viewData['type'] === 'spot' && 
     $viewData['alldata']['contactName'] === 'Not_Found' && 
@@ -174,65 +230,27 @@ private function getEventsByCity($cityInput): array
     return [];
 }
 
-// // ✅ Controller catches both
-// public function regitersuccess($data = null, $number = null)
-// {
-//     // Directly get contact ID from mobile, don't call searchentry()
-//     $MobileModel = new \App\Models\ContactMobileModel();
-//     $contact     = $MobileModel->where('mobile', $number)->first();
-//     $contactId   = $contact['contact_id'] ?? 0;
 
-//     $alldata = $this->getgataforprint($contactId, 'form');
-
-//     $viewData = [
-//         'type'    => $data,
-//         'mobile'  => $number,
-//         'alldata' => $alldata,
-//     ];
-
-
-//     $eventModel = new \App\Models\EventModel();
-
-// $allowedCities = [
-//     'ahmedabad', 'mumbai', 'delhi', 
-//     'bangalore', 'kochi', 'pune', 'hyderabad'
-// ];
-
-
-// // Example: $type coming from URI, form, or input
-// $data = strtolower($data); // convert to lowercase for matching
-// var_dump($data);
-// if (in_array($data, $allowedCities)) {
-//     // Query EventModel where event_name matches $type
-//     $events = $eventModel->like('name', $data)->findAll();
-
-//     $viewData = [
-//         'type'    => $data,
-//         'mobile'  => $number,
-//         'alldata' => $alldata,
-//         'event' => $events,
-//     ];
-//     // var_dump($events);
-//     // exit;
-//     return view('registration/success', $viewData);
-// }
-    
-
-
-   
-// }
-
-    public function searchentry($mobileargument = Null)
+    public function searchentry($location, $mobileargument = null)
 {
-    if($mobileargument == Null){
-    
-    $mobile = $this->request->getPost('mobile');
-    // $mobile = 1;
+    // var_dump($location, $mobileargument);
+    // exit;
+    $allowedLocations = [
+        'ahmedabad', 'mumbai', 'delhi', 
+        'bangalore', 'kochi', 'pune', 'hyderabad', 'chennai', 'kolkata'
+    ];
 
-    }else{
+    // Normalize to lowercase
+    $location = strtolower($location);
 
-        $mobile = $mobileargument;
+    // Validate location
+    if (!in_array($location, $allowedLocations)) {
+        return redirect()->back()->with('error', 'Invalid location specified.');
     }
+
+    // Get mobile number either from argument or POST
+    $mobile = $mobileargument ?? $this->request->getPost('mobile');
+
     if (!$mobile) {
         return redirect()->back()->with('error', 'Mobile number is required.');
     }
@@ -240,22 +258,75 @@ private function getEventsByCity($cityInput): array
     $MobileModel = new \App\Models\ContactMobileModel();
 
     // Search contact by mobile
-    $contact = $MobileModel->where('mobile', $mobile)->first();
+$contact = $MobileModel
+    ->select('contact_mobile.mobile_id, contact_mobile.contact_id, contact_mobile.mobile, 
+              contact.name AS contact_name, contact.designation, 
+              company_data.company_id, company_data.company_name, company_data.entry_type')
+    ->join('contact', 'contact.contact_id = contact_mobile.contact_id', 'inner')
+    ->join('company_data', 'company_data.company_id = contact.company_id', 'inner')
+    ->where('contact_mobile.mobile', $mobile)
+    ->where('company_data.entry_type', 'main')
+    ->first();
+
+
+    // get company data 
+    // // get the contact name desination current number and email
+
+    // when person register on spot they should automatically get into participants but no copy for main 
+
+
+
+    // if entrytype = participants and database = spot 
+    // spot registration save in participant 
+    // database = Year Location - TV
+    // source = spot 
+
+
+    // if online registration comes and verify at venue 
+    // cretae entry 
+    // participant
+    // database = Year Location - TV
+    // source = online registration 
+
+    // no let the spot create a copy in main with database as Spot and source as YEAR - Location - TV 
+    // spot registration 
+    // online registration 
+    // verfication 
+    // spot -a copy in main
+    // online whoever i have search add a 
+
+
+    // participant year-location-TV spot 
+    // var_dump($location, $mobile);
 
     if (!$contact) {
-
-    return $this->getgataforprint(0);
+        return $this->getgataforprint($location,0); // no contact found
     }
 
-    // var_dump( $contact);
-    // exit;
-    // Redirect to spotinterface with contactId
-    return $this->getgataforprint($contact['contact_id']);
+    
+    $data = $this->getgataforprint($location,$contact['contact_id']);
+
+    return view('registration/spotinterface', $data);
 }
 
 
-public function getgataforprint($contactId = 1, $for = 'print')
+public function getgataforprint($location = null, $contactId = 1, $for = 'print')
 {
+
+    // var_dump($location, $contactId, $for);
+    // exit;
+    $allowedLocations = [
+        'ahmedabad', 'mumbai', 'delhi', 
+        'bangalore', 'kochi', 'pune', 'hyderabad', 'chennai', 'kolkata','none'
+    ];
+
+    // Normalize and validate location
+    $location = strtolower($location ?? '');
+    if (!in_array($location, $allowedLocations)) {
+        return redirect()->back()->with('error', 'Invalid location specified.');
+    }
+
+    // Default data structure
     $data = [
         'contactName' => 'Not_Found',
         'companyName' => 'Not_Found',
@@ -263,58 +334,61 @@ public function getgataforprint($contactId = 1, $for = 'print')
         'mobile'      => '',
         'email'       => '',
         'sources'     => [],
+        'location'    => $location, // pass location to view if needed
     ];
 
-    // ── contact not found ─────────────────────────────────────────────────────
+    // ── Contact not found ─────────────────────────────
     if ($contactId == 0) {
         return $for == 'form'
             ? $data
             : view('registration/spotinterface', $data);
     }
 
-    // ── hardcoded test case ───────────────────────────────────────────────────
+    // ── Hardcoded test case ──────────────────────────
     if ($contactId == 1) {
-        $data['contactName'] = "Nishant Vishwakarma";
-        $data['companyName'] = "Sphere Travel Media";
+        $data['contactName']  = "Nishant Vishwakarma";
+        $data['companyName']  = "Sphere Travel Media";
         return $for == 'form'
             ? $data
             : view('registration/spotinterface', $data);
     }
 
-    // ── real lookup ───────────────────────────────────────────────────────────
+    // ── Real lookup ─────────────────────────────────
     $contactModel = new \App\Models\ContactModel();
     $companyModel = new \App\Models\CompanyModel();
     $sourceModel  = new \App\Models\SourceModel();
 
     $contact = $contactModel->find($contactId);
+    // var_dump($contact);
+    // exit;
 
     if ($contact) {
-        $company = $companyModel->find($contact['company_id'] ?? null);
+        $company = $companyModel
+            ->where('company_id', $contact['company_id'])
+            ->first();
 
         $data = [
-            'contactName' => strtoupper($contact['name']              ?? 'Unknown Contact'),
-            'companyName' => strtoupper($company['company_name']      ?? 'Unknown Company'),
-            'designation' => strtoupper($contact['designation']       ?? ''),
+            'contactName' => strtoupper($contact['name'] ?? 'Unknown Contact'),
+            'companyName' => strtoupper($company['company_name'] ?? 'Unknown Company'),
+            'designation' => strtoupper($contact['designation'] ?? ''),
             'mobile'      => $contact['mobile'] ?? '',
-            'email'       => $contact['email']  ?? '',
+            'email'       => $contact['email'] ?? '',
             'sources'     => [],
+            'location'    => $location,
         ];
 
+        // var_dump($company);
+        // exit;
         // Insert into company_sources
-        $insertData = [
-            'company_id' => $contact['company_id'],
-            'event_date' => date('Y-m-d H:i:s'),
-            'notes'      => 'spot'
-        ];
 
-        if (!empty($insertData['company_id'])) {
+            $insertData = [
+                'company_id' => $company['company_id'],
+                'event_date' => date('Y-m-d H:i:s'),
+'notes' => 'IITM-' . $location . '-' . date('Y')                ];
             $sourceModel->addSource($insertData);
-        }
     }
 
-    return $for == 'form'
-        ? $data
-        : view('registration/spotinterface', $data);
+    return $data;
 }
 
 public function registrationview($source, $timerange = null)

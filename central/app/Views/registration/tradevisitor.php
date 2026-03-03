@@ -150,7 +150,7 @@ $segment = ($uri->getTotalSegments() >= 3) ? $uri->getSegment(3) : 'General';
 
     <div class="form-check mb-2">
         <input class="form-check-input" type="radio" name="PrimaryCategory" value="Hoteliers" id="cat2">
-        <label class="form-check-label" for="cat2">Hoteliers</label>
+        <label class="form-check-label" for="cat2">Hospitaltiy</label>
     </div>
 
     <div class="form-check mb-2">
@@ -277,7 +277,6 @@ document.addEventListener('DOMContentLoaded', () => {
         hiddenForm.querySelector('[name="companies[0][contact1_designation]"]').value = document.querySelector('[name="designation"]').value;
         hiddenForm.querySelector('[name="companies[0][contact1_email1]"]').value = document.querySelector('[name="email"]').value;
         hiddenForm.querySelector('[name="companies[0][contact1_mobile1]"]').value = document.querySelector('[name="phone"]').value;
-        hiddenForm.querySelector('[name="companies[0][database_name]"]').value = "onlineregistrationtradevisitor";
 
         // Metadata
         let selectedVal = "";
@@ -296,12 +295,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Paste into your hidden form
         hiddenForm.querySelector('[name="companies[0][category]"]').value = selectedVal || "TradeVisitor";
-        // 4. Paste the values into your hidden form
+hiddenForm.querySelector('[name="companies[0][database_name]"]').value = "Online_Registration<?= $eventYear ?>_<?= $citySuffix ?>";
+        // hiddenForm.querySelector('[name="companies[0][database_name]"]').value = "Online_Registration";
+        hiddenForm.querySelector('[name="companies[0][entry_type]"]').value = "Online_Registration";
 
-        // hiddenForm.querySelector('[name="companies[0][category]"]').value = categoryString;
-
-
-        hiddenForm.querySelector('[name="companies[0][source]"]').value = "onlinetradevisitor-<?php echo $segment; ?>";
+        // Setting the value to: "year-2026-cityname"
+        hiddenForm.querySelector('[name="companies[0][source]"]').value = "<?= date('Y') ?>-<?= $segment ?>";  
         hiddenForm.querySelector('[name="companies[0][updated_by]"]').value = isTest ? "System-Test" : "Website";
         hiddenForm.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0,16);
 

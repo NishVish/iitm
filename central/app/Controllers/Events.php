@@ -301,5 +301,31 @@ $this->eventModel->db->query('SET FOREIGN_KEY_CHECKS = 1');    // Option 2 (alte
             ->orderBy('events.start_date', 'DESC')
             ->findAll();
     }
+    public function updateCell()
+{
+    $eventId = $this->request->getPost('id');
+    $field   = $this->request->getPost('field');
+    $value   = $this->request->getPost('value');
+
+    $allowedFields = [
+        'name',
+        'year',
+        'venue_details',
+        'coordinator',
+        'start_date',
+        'end_date',
+        'b2b_constrain'
+    ];
+
+    if (!in_array($field, $allowedFields)) {
+        return $this->response->setJSON(['status' => 'error']);
+    }
+
+    $this->eventModel->update($eventId, [
+        $field => $value
+    ]);
+
+    return $this->response->setJSON(['status' => 'success']);
+}
 
 }

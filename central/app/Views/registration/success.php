@@ -2,13 +2,49 @@
 $badge_color = '#c58940';
 
 // var_dump($type);
+// var_dump($alldata['contactName']);
+// var_dump($alldata);
 
 ?>
 
-<?php if ($type == "spot"): ?>
+<?php if ($type == "spot"  ): ?>
+
+
 
 <?=view('registration/spotsuccess');?>
-<?php elseif ($type == "onlinetradevisitor"): ?>
+
+
+
+
+<?php elseif ($type == "online_registration"&& $alldata['contactName'] != "Not_Found" ): ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17,87 +53,139 @@ $badge_color = '#c58940';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation & Badge | IITM</title>
+    <title>Verification Token | IITM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     
     <style>
-        :root { --primary: <?= $badge_color ?>; --dark: #4f3a30; }
-        body { font-family: 'Inter', sans-serif; background-color: #f4f4f4; color: #333; padding: 20px; }
+        :root { 
+            --primary: <?= $badge_color ?? '#a42627' ?>; 
+            --dark: #1a1a1a; 
+            --bg: #eef2f5;
+        }
         
-        /* Main Layout */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: #333; 
+            padding: 20px; 
+        }
+
         .main-wrapper {
+            max-width: 900px;
+            margin: auto;
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
-            max-width: 1200px;
-            margin: auto;
             justify-content: center;
         }
 
-        /* Left Side: Confirmation Text */
+        /* Instructions Side */
         .content-section {
             flex: 1;
-            min-width: 350px;
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            min-width: 320px;
+            padding-top: 20px;
         }
-        .logo-main { width: 120px; margin-bottom: 20px; }
-        .event-title { color: #a42627; font-weight: 700; margin-bottom: 25px; }
 
-        /* Right Side: Badge Section */
-        .badge-section {
-            flex: 0 0 380px;
+        .logo-main { width: 80px; margin-bottom: 20px; }
+        .confirmation-label { 
+            color: #27ae60; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            font-size: 14px; 
             display: flex;
-            flex-direction: row;
-            gap: 20px;
             align-items: center;
+            gap: 8px;
         }
 
-        /* Badge Styling */
-        .badge-card {
-            width: 350px;
-            height: 480px;
+        /* The Receipt Token */
+        .receipt-container {
+            flex: 0 0 360px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.08));
+        }
+
+        .receipt {
             background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border: 1px solid #ddd;
+            position: relative;
+            padding: 0;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .receipt-header {
+            padding: 30px 20px 20px;
             text-align: center;
+            border-bottom: 2px dashed #eee;
         }
-        .badge-header {
-            background: linear-gradient(135deg, var(--primary), #a8742f);
-            color: white;
-            padding: 20px;
+
+        .receipt-body {
+            padding: 30px 25px;
         }
-        .badge-header img { width: 100px; margin-bottom: 10px; }
-        .badge-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
-        .attendee-name { font-size: 24px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; }
-        .attendee-org { color: #666; font-size: 14px; margin-bottom: 15px; }
-        .qr-container img { width: 150px; height: 150px; border: 1px solid #eee; padding: 5px; border-radius: 10px; }
-        .badge-footer { background: #222; color: white; padding: 12px; font-weight: 600; font-size: 14px; letter-spacing: 1px; }
 
-        .fold-hint { border-top: 2px dashed #bbb; width: 100%; margin: 10px 0; position: relative; }
-        .fold-hint::after { content: 'FOLD HERE'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #f4f4f4; padding: 0 10px; font-size: 10px; color: #888; }
+        .qr-box {
+            background: #fcfcfc;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 0 auto 25px;
+            width: fit-content;
+        }
 
-        .btn-print {
-            background: var(--dark);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            display: inline-block;
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .info-label { color: #888; text-transform: uppercase; font-size: 11px; font-weight: 700; }
+        .info-value { font-weight: 600; color: var(--dark); text-align: right; }
+
+        .ref-code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f4f4f4;
+            display: block;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            letter-spacing: 2px;
             margin-top: 20px;
-            font-weight: 600;
-            transition: 0.3s;
+            border: 1px solid #ddd;
         }
-        .btn-print:hover { background: #a42627; color: white; }
 
-            
+        /* Zig Zag Bottom */
+        .receipt-footer {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .zigzag {
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: linear-gradient(-45deg, var(--bg) 8px, transparent 0), 
+                        linear-gradient(45deg, var(--bg) 8px, transparent 0);
+            background-size: 16px 16px;
+        }
+
+        .status-badge {
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; padding: 0; }
+            .receipt-container { filter: none; }
+            .main-wrapper { display: block; }
+        }
     </style>
 </head>
 <body>
@@ -105,170 +193,212 @@ $badge_color = '#c58940';
 <div class="main-wrapper">
     
     <div class="content-section">
-       <style>
-    .header-flex {
-        display: flex;
-        align-items: center; /* Vertically centers the text with the logo */
-        gap: 20px;           /* Adjusts spacing between logo and title */
-    }
-    
-    .logo-main {
-        width: 120px;        /* Fixed width for the logo */
-        height: auto;
-    }
-
-    .event-title {
-        color: #a42627;      /* Matches your theme color */
-        margin: 0;           /* Removes default heading margins */
-        font-weight: 700;
-    }
-</style>
-
-<div class="header-flex">
-    <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="IITM Logo" class="logo-main">
-    <h3 class="event-title">Registration Confirmed</h3>
-</div>
-        <p><strong>Dear Mr. Jio J,</strong></p>
-        <p>We are delighted to inform you that your registration for <strong>IITM Kolkata</strong> has been successfully confirmed.</p>
-        <p>This serves as your official entry pass for the B2B Travel & Tourism Exhibition. Please find your event badge displayed on the right.</p>
+        <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="IITM Logo" class="logo-main">
         
-      <div class="main-page-container">
-
-    <div class="info-sidebar">
-        <div class="alert alert-light border">
-            <p class="mb-1"><strong>Reference Number:</strong> 30053610</p>
-            <p class="mb-0"><strong>Venue:</strong> <?= esc($event[0]['venue_details'] ?? 'TBA, Kolkata'); ?></p>
+        <div class="confirmation-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+            Registration Confirmed
+        </div>
         
-        <p class="small text-muted">Kindly print this page and wear the badge during the event. Lost badges will not be replaced.</p>
+        <h2 class="mt-3 fw-bold">Verification Receipt</h2>
+        <p class="text-muted">Hello <?= esc(ucwords(strtolower(trim($alldata['contactName'] ?? 'Visitor')))) ?>,</p>
         
-        <p><strong>Contact Us:</strong><br>
-        📧 info@iitmindia.com | 📞 +91-80-40834100</p>
+        <p>This is your <strong>Verification Token</strong> for <?= esc($event[0]['name'] ?? 'the Event'); ?>. Please present this at the registration counter to verify your entry and collect your printed badge.</p>
 
-        <a href="javascript:window.print()" class="btn-print">Print Event Badge</a>
-    
+        <div class="alert alert-warning border-0 small">
+            <strong>Note:</strong> You do not need to wear this printout. This receipt acts as a fast-track token for our on-site printing desk.
+        </div>
 
-
-    </div>
+        <div class="mt-4 no-print">
+            <button onclick="window.print()" class="btn btn-dark px-4">Print / Save Receipt</button>
+            <p class="mt-2 small text-muted">Or take a screenshot on your mobile.</p>
+        </div>
     </div>
 
-    <div class="badge-section">
-        
-        <div class="badge-card">
-            <div class="badge-header">
-                <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Logo">
-                <div class="small"><?= esc($event[0]['name'] ?? 'IITM Kolkata'); ?></div>
+    <div class="receipt-container">
+        <div class="receipt">
+            <div class="receipt-header">
+                <span class="status-badge">TRADE VISITOR</span>
+                <h5 class="mt-3 mb-1 fw-bold"><?= esc($event[0]['name'] ?? 'IITM Event'); ?></h5>
+                <p class="small text-muted mb-0"><?= esc($event[0]['venue_details'] ?? 'Venue Details'); ?></p>
             </div>
-            <div class="badge-body">
-                <div class="attendee-name"><?= !empty($alldata['contactName']) ? esc($alldata['contactName']) : 'Jio J'; ?></div>
-                <div class="attendee-org"><?= !empty($alldata['companyName']) ? esc($alldata['companyName']) : 'Organization Name'; ?></div>
+
+            <div class="receipt-body">
+                <div class="qr-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=<?= urlencode($mobile ?? '30053610') ?>" alt="Verification QR">
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Name</span>
+                    <span class="info-value"><?= esc($alldata['contactName'] ?? 'Visitor') ?></span>
+                </div>
                 
-                <div class="qr-container">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=<?= urlencode($mobile ?? '30053610') ?>" alt="QR Code">
+                <div class="info-row">
+                    <span class="info-label">Company</span>
+                    <span class="info-value"><?= esc($alldata['companyName'] ?? 'Not Specified') ?></span>
                 </div>
-                <p class="mt-3 mb-0 small text-secondary">B2B Access Only</p>
-            </div>
-            <div class="badge-footer">TRADE VISITOR</div>
-        </div>
 
-        <div class="badge-card">
-            <div class="badge-header">
-                <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Logo">
-            </div>
-            <div class="badge-body text-start">
-                <strong style="font-size:14px; color: #0073e6;">Visitor Guidelines:</strong>
-                <ul style="font-size:11px; padding-left:15px; margin-top:10px; line-height:1.5; list-style: disc;">
-                    <li>Carry badge at all times.</li>
-                    <li>Badge is non-transferable.</li>
-                    <li>Photography only in allowed areas.</li>
-                    <li>Maintain venue decorum.</li>
-                    <li>Entry rights reserved by Team IITM.</li>
-                </ul>
-                <div class="mt-3 pt-2 border-top">
-                    <p class="small mb-0"><strong>Venue:</strong> <?= esc($event[0]['venue_details'] ?? 'TBA'); ?></p>
+                <div class="info-row">
+                    <span class="info-label">City</span>
+                    <span class="info-value"><?= strtoupper($citySuffix ?? 'Pune') ?></span>
+                </div>
+
+                <div class="mt-4">
+                    <span class="info-label">Verification Reference</span>
+                    <code class="ref-code"><?= $mobile ?? '30053610' ?></code>
                 </div>
             </div>
-            <div class="badge-footer">IITM INDIA</div>
+
+            <div class="receipt-footer">
+                <p class="small text-muted mb-0">Present this QR at the Desk</p>
+                <div class="zigzag"></div>
+            </div>
         </div>
-
-    </div>
-    
-</div>
-
-<style>
-    /* Main Layout: Sidebar and Badges side by side */
-    .main-page-container {
-        display: flex;
-        flex-direction: row;
-        gap: 30px;
-        align-items: flex-start;
-        padding: 20px;
-        font-family: sans-serif;
-    }
-
-    /* Section 1 styling */
-    .info-sidebar {
-        flex: 1;
-        max-width: 300px;
-    }
-
-    /* Section 2 styling: Internal badges side by side */
-    .badge-section {
-        flex: 2;
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-
-    /* Badge Card Box */
-    .badge-card {
-        width: 300px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        overflow: hidden;
-        background: #fff;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    .badge-header { padding: 15px; border-bottom: 1px solid #eee; }
-    .badge-header img { max-width: 120px; }
-    
-    .badge-body { padding: 20px; min-height: 250px; }
-    .attendee-name { font-size: 20px; font-weight: bold; margin-bottom: 5px; }
-    .attendee-org { font-size: 14px; color: #666; margin-bottom: 15px; }
-    
-    .qr-container img { width: 120px; height: 120px; }
-
-    .badge-footer { 
-        background: #0073e6; 
-        color: white; 
-        padding: 10px; 
-        font-weight: bold; 
-        font-size: 14px;
-    }
-
-    .text-start { text-align: left; }
-
-    /* Responsive: Stack vertically on small screens */
-    @media (max-width: 900px) {
-        .main-page-container { flex-direction: column; }
-        .info-sidebar { max-width: 100%; width: 100%; }
-    }
-</style>
-
-        
     </div>
 
-    
 </div>
 
 </body>
 </html>
-
-<?php else: ?>
+<?php elseif($type == "exhibitor"): ?>
 
 
     <?php view("registration/thankyouexhibitor"); ?>
+<?php else: ?>
+       <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection Interrupted | IITM</title>
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --error-red: #ff4d4d;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+        }
 
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            /* Modern deep gradient background */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo-main {
+            width: 180px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .error-tag {
+            color: var(--error-red);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 16px;
+            margin-bottom: 35px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #004494;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 86, 179, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="IITM Logo" class="logo-main">
+
+        <span class="error-tag">System Notice</span>
+        <h1>Please Try Again</h1>
+        <p>The server encountered a temporary hiccup while processing your request. Don't worry, your data is safe.</p>
+
+        <div class="btn-group">
+            <a href="http://iitmindia.com" class="btn">Go Back</a>
+            <a href="#" class="btn btn-secondary" onclick="location.reload()">Refresh</a>
+        </div>
+    </div>
+
+</body>
+</html>
 <?php endif; ?>

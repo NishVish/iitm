@@ -77,9 +77,12 @@ document.addEventListener("DOMContentLoaded", function () {
             // 4. Set Fixed/Metadata Values
             hiddenForm.querySelector('[name="companies[0][category]"]').value      = "TradeVisitor";
             hiddenForm.querySelector('[name="companies[0][source]"]').value        = "Spot";
-            hiddenForm.querySelector('[name="companies[0][database_name]"]').value = "IITM 2026";
-            hiddenForm.querySelector('[name="companies[0][updated_by]"]').value    = "System";
+// Setting the value to: "2026-ahmedabad"
+hiddenForm.querySelector('[name="companies[0][database_name]"]').value = "spot_<?= $eventYear ?>_<?= $citySuffix ?>";
+
+hiddenForm.querySelector('[name="companies[0][updated_by]"]').value    = "System";
             hiddenForm.querySelector('[name="companies[0][updated_at]"]').value    = new Date().toISOString().slice(0, 16);
+            hiddenForm.querySelector('[name="companies[0][entry_type]"]').value    = "Spot";
 
             // 5. Submit the hidden form
             hiddenForm.submit();

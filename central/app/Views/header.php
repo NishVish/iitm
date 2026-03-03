@@ -311,7 +311,7 @@ nav {
             
 
         <!-- Companies dropdown -->
-            <a href="<?= base_url('company') ?>">Database</a>
+            <a href="<?= base_url('company/general') ?>">Database</a>
             
 
         <a href="<?= base_url('events') ?>">Events</a>

@@ -349,23 +349,24 @@ $label = $categoryMap[$category] ?? '';
   <!-- ================= COMPANY DETAILS ================= -->
 
 <div class="box left">
-<div class="navigation-wrapper">
-        <?php if ($prev_id): ?>
-            <a href="<?= base_url('company/details/' . $prev_id) ?>" class="nav-btn">← Previous</a>
-        <?php else: ?>
-            <button class="nav-btn" disabled>At Start</button>
-        <?php endif; ?>
 
-        <div style="font-weight: 600; color: var(--text-main); font-size: 0.9rem;">
-            <?= esc($company['company_name']) ?>
-        </div>
+<div class="navigation-wrapper" style="display: flex; align-items: center; gap: 15px;">
+    <?php if ($prev_id): ?>
+        <a href="<?= base_url("company/details/$type/$prev_id") ?>" class="nav-btn">← Previous</a>
+    <?php else: ?>
+        <button class="nav-btn" disabled>At Start</button>
+    <?php endif; ?>
 
-        <?php if ($next_id): ?>
-            <a href="<?= base_url('company/details/' . $next_id) ?>" class="nav-btn">Next →</a>
-        <?php else: ?>
-            <button class="nav-btn" disabled>At End</button>
-        <?php endif; ?>
+    <div style="font-weight: 600; color: var(--text-main); font-size: 0.9rem;">
+        <?= esc($company['company_name']) ?>
     </div>
+
+    <?php if ($next_id): ?>
+        <a href="<?= base_url("company/details/$type/$next_id") ?>" class="nav-btn">Next →</a>
+    <?php else: ?>
+        <button class="nav-btn" disabled>At End</button>
+    <?php endif; ?>
+</div>
 <div class="company-card">
 
    <div class="company-header">

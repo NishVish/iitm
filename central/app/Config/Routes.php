@@ -80,15 +80,15 @@ $routes->post('dashboard/search', 'Dashboard::search');
 // ===============================
 // Company management routes
 // ===============================
+$routes->get('company/byvar/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3');
 
-$routes->get('company', 'Company::index');               // Main page
 $routes->post('company/getCities', 'Company::getCities');        // AJAX: get cities by state
 $routes->post('company/filterCompanies', 'Company::filterCompanies');
 
-$routes->get('company/details/(:any)', 'Company::details/$1');
+$routes->get('company/details/(:any)/(:any)', 'Company::details/$1/$2');
 
 $routes->post('master/filterCompanies', 'Master::filterCompanies');
-$routes->get('company/bystate/(:any)', 'Company::getCompanySourcesContactsByState/$1');
+// $routes->get('company/bystate/(:any)', 'Company::getCompanySourcesContactsByState/$1');
 // Route for spreadsheet AJAX updates
 $routes->post('company/update_cell', 'Company::update_cell');
 $routes->post('company/compare_popup', 'Company::compare_popup');
@@ -125,18 +125,35 @@ $routes->post('company/source_check', 'Company::source_check');
 $routes->get('api/databases', 'Company::getDatabases');
 
 
+$routes->get('company/operation', 'Company::opreation');
+
+
+
+
+// Route for filtered by state
+// Dynamic "byvar" route for any filter type
+// Keep your old one for the hyperlinks in the table
+
+// Add this new one for the "Apply Filters" button
+$routes->get('company/filter', 'Company::filter');
+$routes->get('company/download/(:any)/(:any)', 'Company::downloadDatabase/$1/$2');
+
+// $routes->get('company/bystate/(:any)', 'Company::byvar/$1');
+
+// // Route for filtered by category and state
+// $routes->get('company/bycategory/(:any)/(:any)', 'Company::byvar/$1/$2');
+
+// // Route for filtered by database
+// $routes->get('company/bydatabase/(:any)', 'Company::byvar/$1');
+
+// // Route for database + state filter
+// $routes->get('company/bydatabase/(:any)/bystate/(:any)', 'Company::byvar/$1/$2');
 
 
 
 
 
-
-
-
-
-
-
-
+$routes->get('company/(:any)', 'Company::index/$1');               // Main page
 
 
 
@@ -235,6 +252,8 @@ $routes->get('events/edit/(:num)', 'Events::edit/$1');
 $routes->post('events/update/(:num)', 'Events::update/$1');
 $routes->get('events/delete', 'Events::delete');
 $routes->get('events/fetch/iitm', 'Events::fetchiitmdate');
+$routes->post('events/update-cell', 'Events::updateCell');
+
 
 
 $routes->group('layout-info', function ($routes) {
@@ -362,10 +381,11 @@ $routes->group('ticket', function($routes) {
 
 $routes->group('registration', function($routes) {
     $routes->get('/', 'Registration::index');
-    $routes->get('publicformtv/(:any)', 'Registration::publicformtradevisitor');// multi
+    $routes->get('publicformtv/(:any)', 'Registration::publicformtradevisitor/$1');// multi
     $routes->get('publicformex', 'Registration::publicformexhibitor'); //specific
     $routes->get('publicformspot', 'Registration::publicformspot');//multi
 // Routes.php
+// $routes->get('regitersuccess/exhibitor', 'Registration::thankyouexhibitor');
 
 // ✅ Route needs two (:segment) for both $data and $number
 $routes->get('regitersuccess/(:segment)/(:segment)', 'Registration::regitersuccess/$1/$2');
@@ -374,10 +394,12 @@ $routes->get('regitersuccess/(:segment)/(:segment)', 'Registration::regitersucce
 $routes->get('generatebadge/(:any)', 'Registration::generatebadge/$1');
     $routes->get('spotinterface', 'Registration::getgataforprint');
 
-    $routes->get('spotinterface/(:any)', 'Registration::getgataforprint/$1');
+    $routes->get('spotinterface/(:any)/(:any)', 'Registration::getgataforprint/$1/$2');
     // $routes->get('searchentry', 'Registration::searchentry');
-    $routes->post('searchentry', 'Registration::searchentry');
-    $routes->get('view/(:segment)', 'Registration::registrationview/$1');
+$routes->post('searchentry/(:segment)', 'Registration::searchentry/$1');
+$routes->get('searchentry/(:segment)', 'Registration::searchentry/$1');
+
+$routes->get('view/(:segment)', 'Registration::registrationview/$1');
     // $routes->get('spotform', 'Registration::spotform');
     // $routes->get('spotinterface', 'Registration::spotinterface');
     // $routes->get('spot', 'Registration::publicformtradevisitor');

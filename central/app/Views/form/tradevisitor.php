@@ -9,12 +9,12 @@
     <button type="button" id="clearAllBtn">Clear All Data</button>
 
     <div class="company-row">
+        <div class="field-group"><label>Entry Type</label><input type="text" name="companies[0][entry_type]"></div>
         <div class="field-group"><label>Database Name</label><input type="text" name="companies[0][database_name]"></div>
         <div class="field-group"><label>Category</label><input type="text" name="companies[0][category]"></div>
         <div class="field-group"><label>Source</label><input type="text" name="companies[0][source]"></div>
         <div class="field-group"><label>Updated By</label><input type="text" name="companies[0][updated_by]"></div>
-<input type="datetime-local" name="companies[0][updated_at]" 
-       value="<?= isset($company['updated_at']) ? date('Y-m-d\TH:i', strtotime($company['updated_at'])) : '' ?>">        
+        <div class="field-group"><label>Updated On</label><input type="text" name="companies[0][updated_at]">      </div>  
        
        <div class="field-group"><label>Comments</label><input type="text" name="companies[0][comments]"></div>
         <div class="field-group"><label>Outbound</label><input type="checkbox" name="companies[0][outbound]" value="1"></div>

@@ -76,6 +76,7 @@ public function clearContactTables()
      */
 public function clearCompanyTables($database = null)
 {
+
     $db = $this->db;
     $db->transStart();
 
@@ -116,7 +117,7 @@ public function clearCompanyTables($database = null)
 
     $db->transComplete();
 
-    return redirect()->to(site_url('company'));
+    return redirect()->to(site_url('company/general'));
 }
     /**
      * Clear everything NON-FINANCIAL
