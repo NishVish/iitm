@@ -45,12 +45,14 @@ $server             = $session->get('server') ?? '';
     --nav-color: #a82324;
     --body-color: #f8f4f4;
     --button-color: #a82324;
+    --text-color: #ffffff;
 }
     /* 
     
-    background-color: var(--nav-color); 
-    background-color: var(--body-color); 
-    background-color: var(--button-color); 
+    -: var(--nav-color); 
+    -: var(--body-color); 
+    -: var(--button-color); 
+    -: var(--text-color); 
     
     
     
@@ -70,7 +72,7 @@ $server             = $session->get('server') ?? '';
         overflow-x: auto; /* Enables horizontal scrolling */
         overflow-y: auto;
         border: 1px solid #ccc;
-        background: #fff;
+        background: var(--text-color); ;
         margin-bottom: 10px;
     }
         body { 
@@ -85,12 +87,12 @@ nav {
     z-index: 1000; /* stay above content */
 }
 
-        /* Navigation bar */
+        /* Navigation barthere */
         nav { 
             
     background: var(--nav-color);
             padding: 12px 20px; 
-            color: white; 
+            color: var(--text-color); 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
@@ -98,7 +100,7 @@ nav {
         }
 
         nav a { 
-            color: white; 
+            color: var(--text-color);
             margin-right: 20px; 
             text-decoration: none; 
             font-weight: 500;
@@ -142,6 +144,8 @@ nav {
 }
 
 .color-controls label {
+            color: var(--text-color) ;            /* text color */
+
     font-size: 14px;
 }
 /* Theme Popup Window */
@@ -150,19 +154,19 @@ nav {
     top: 80px;
     right: 20px;
     width: 260px;
-    background: #ffffff;
+    background:var(--nav-color) ; 
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     display: none;
     z-index: 999;
     animation: fadeIn 0.3s ease;
-        color: black;            /* text color */
+        color: var(--text-color); ;            /* text color */
 
 }
 
 .theme-header {
     background: #a82324;
-    color: #fff;
+    color: var(--text-color); ;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -173,7 +177,7 @@ nav {
 .theme-header button {
     background: none;
     border: none;
-    color: black;
+    color: var(--text-color); ;
     cursor: pointer;
     font-size: 14px;
 }
@@ -208,7 +212,7 @@ nav {
 }
 
 .theme-window .quick-content {
-    color: black;            /* text color */
+    color: var(--text-color);            /* text color */
     display: flex;           /* enable flex layout */
     flex-direction: column;  /* stack items vertically */
     gap: 8px;                /* space between links */
@@ -216,7 +220,7 @@ nav {
 }
 
 .theme-window .quick-content a {
-    color: black;            /* ensure links are black */
+    color: var(--text-color);            /* ensure links are black */
     text-decoration: none;   /* remove underline */
     font-weight: 500;        /* optional: make links slightly bold */
 }
@@ -307,7 +311,7 @@ nav {
         <a href="<?= base_url('home') ?>">Home</a>
 
         <!-- Backend dropdown -->
-            <a href="<?= base_url('backend') ?>" class="dropbtn">Backend</a>
+            <a href="<?= base_url('backend') ?>" >Backend</a>
             
 
         <!-- Companies dropdown -->
@@ -369,6 +373,9 @@ nav {
         <label>Button Color</label>
         <input type="color" id="buttonColor" value="#a82324">
 
+ <label>Text Color</label>
+        <input type="color" id="textColor" value="#ffffff">
+
         <button id="resetTheme" class="reset-btn">Reset to Default</button>
     </div>
 </div>
@@ -388,6 +395,8 @@ nav {
 
         <label>Button Color</label>
         <input type="color" id="buttonColor" value="#a82324">
+  <label>Text Color</label>
+        <input type="color" id="textColor" value="#000000">
 
         <button id="resetTheme" class="reset-btn">Reset to Default</button>
         
@@ -404,6 +413,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const navPicker = document.getElementById("navColor");
     const bodyPicker = document.getElementById("bodyColor");
     const buttonPicker = document.getElementById("buttonColor");
+    const textColorPicker = document.getElementById("textColor");
 
     const themeWindow = document.getElementById("themeWindow");
     const openBtn = document.getElementById("openTheme");
@@ -413,7 +423,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const defaultNav = "#a82324";
     const defaultBody = "#f8f4f4";
     const defaultButton = "#a82324";
-
+    const defaultText = "#000000";
+        
     // Open / Close
     openBtn.onclick = () => themeWindow.style.display = "block";
     closeBtn.onclick = () => themeWindow.style.display = "none";
@@ -422,6 +433,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const savedNav = localStorage.getItem("navColor");
     const savedBody = localStorage.getItem("bodyColor");
     const savedButton = localStorage.getItem("buttonColor");
+    const savedText = localStorage.getItem("textColor");
 
     if (savedNav) {
         document.documentElement.style.setProperty('--nav-color', savedNav);
@@ -437,7 +449,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.documentElement.style.setProperty('--button-color', savedButton);
         buttonPicker.value = savedButton;
     }
-
+    if (savedText) {
+        document.documentElement.style.setProperty('--text-color', savedText);
+        textColorPicker.value = savedText;
+    }       
     // Change events
     navPicker.addEventListener("input", function () {
         document.documentElement.style.setProperty('--nav-color', this.value);
@@ -454,20 +469,28 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("buttonColor", this.value);
     });
 
+    textColorPicker.addEventListener("input", function () {
+        document.documentElement.style.setProperty('--text-color', this.value);
+        localStorage.setItem("textColor", this.value);
+    });
+
     // Reset button
     resetBtn.addEventListener("click", function () {
 
         document.documentElement.style.setProperty('--nav-color', defaultNav);
         document.documentElement.style.setProperty('--body-color', defaultBody);
         document.documentElement.style.setProperty('--button-color', defaultButton);
-
+        document.documentElement.style.setProperty('--text-color', defaultText);    
+        
         localStorage.removeItem("navColor");
         localStorage.removeItem("bodyColor");
         localStorage.removeItem("buttonColor");
+        localStorage.removeItem("textColor");   
 
         navPicker.value = defaultNav;
         bodyPicker.value = defaultBody;
         buttonPicker.value = defaultButton;
+        textColorPicker.value = defaultText;
 
         themeWindow.style.display = "none";
     });

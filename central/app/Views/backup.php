@@ -45,12 +45,14 @@ $server             = $session->get('server') ?? '';
     --nav-color: #a82324;
     --body-color: #f8f4f4;
     --button-color: #a82324;
+    --text-color: #a82324;
 }
     /* 
     
     background-color: var(--nav-color); 
     background-color: var(--body-color); 
     background-color: var(--button-color); 
+    background-color: var(--text-color); 
     
     
     
@@ -90,7 +92,7 @@ nav {
             
     background: var(--nav-color);
             padding: 12px 20px; 
-            color: white; 
+            color: var(--text-color); ; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
@@ -98,7 +100,7 @@ nav {
         }
 
         nav a { 
-            color: white; 
+            color: var(--text-color); ; 
             margin-right: 20px; 
             text-decoration: none; 
             font-weight: 500;
@@ -162,7 +164,7 @@ nav {
 
 .theme-header {
     background: #a82324;
-    color: #fff;
+    color: var(--text-color); ;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -173,7 +175,7 @@ nav {
 .theme-header button {
     background: none;
     border: none;
-    color: black;
+    color: var(--text-color); ;
     cursor: pointer;
     font-size: 14px;
 }
@@ -198,7 +200,7 @@ nav {
     border: none;
     border-radius: 6px;
     background: #444;
-    color: white;
+    color: var(--text-color); ;
     cursor: pointer;
     transition: 0.3s;
 }

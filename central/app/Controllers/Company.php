@@ -174,6 +174,9 @@ private function updateContactDetail($contactId, $table, $field, $value, $isSeco
 }
 public function byvar($type = 'main', $filterKey = null, $filterValue = null)
 {
+    if($type == "details"){
+        return $this->details($filterKey, $filterValue);
+    }
     // REMOVE 'return None;' from here
     
     // return view('ftp');

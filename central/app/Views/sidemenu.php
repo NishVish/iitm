@@ -18,7 +18,7 @@
 .sidebar {
     width: 220px;
     background-color: var(--nav-color);
-    color: #fff;
+    color: var(--text-color);;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     flex-shrink: 0;
@@ -32,7 +32,7 @@
 
 .sidebar a {
     display: block;
-    color: white;
+    color: var(--text-color);;
     text-decoration: none;
     margin-bottom: 10px;
     padding: 8px 12px;
@@ -147,7 +147,7 @@
         
         /* Aesthetic */
         background-color: var(--button-color); 
-        color: #ffffff !important;
+        color:var(--text-color);
         text-decoration: none;
         font-size: 0.85rem;
         font-weight: 500;

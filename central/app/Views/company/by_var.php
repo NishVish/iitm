@@ -143,10 +143,17 @@
 </style>
 
 <?php 
-    $uri = service('uri');
-    $mainLabel = $uri->getSegment(3, '').' '. $uri->getSegment(4, ''); 
-    $subLabel = ($uri->getTotalSegments() >= 5) ? str_replace(['-', '-and-'], [' ', ' & '], $uri->getSegment(4)) : '';
-?>
+$uri = service('uri');
+$mainLabel = $uri->getSegment(2, '').' '. $uri->getSegment(3, ''); 
+$subLabel = ($uri->getTotalSegments() >= 4) ? str_replace(['-', '-and-'], [' ', ' & '], $uri->getSegment(3)) : '';
+
+// ADD ONE OF THESE:
+var_dump($mainLabel, $subLabel);   // detailed
+// OR
+echo $mainLabel . ' | ' . $subLabel;  // quick check
+// OR
+dd($mainLabel, $subLabel);  // CodeIgniter/Laravel die-dump
+  ?>
 
 <div class="filter-toolbar">
     
@@ -210,8 +217,10 @@ if ($uri->getTotalSegments() >= 5) {
 </div>
 
 
+<?= view('company/spreadsheet') ?>
 
-<div id="masterSpreadsheet"></div>
+
+<div id="masterSpreadsheet" style="display:None";></div>
 
 <style>
 #masterSpreadsheet {
@@ -288,6 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Prepare Data ---
     const data = [
 <?php foreach ($companies as $comp):
+//  foreach (array_slice($companies, 0, 200) as $comp)
     $d = $comp['details'];
     $cList = array_values($comp['contacts']);
     $rawSources = explode(', ', $d['source_notes'] ?? '');

@@ -80,7 +80,7 @@ $routes->post('dashboard/search', 'Dashboard::search');
 // ===============================
 // Company management routes
 // ===============================
-$routes->get('company/byvar/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3');
+$routes->get('company/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3');
 
 $routes->post('company/getCities', 'Company::getCities');        // AJAX: get cities by state
 $routes->post('company/filterCompanies', 'Company::filterCompanies');

@@ -58,7 +58,7 @@
             // This matches your normalization logic in the byvar() function
             $state_url = strtolower(str_replace([' & ', ' '], ['-and-', '-'], $row['state'])); 
         ?>
-        <a href="<?= site_url("company/byvar/{$type}/state/{$state_url}") ?>" 
+        <a href="<?= site_url("company/{$type}/state/{$state_url}") ?>" 
            style="color: var(--nav-color); text-decoration: none; border-bottom: 1px dashed transparent;"
            onmouseover="this.style.borderBottomColor='var(--nav-color)'"
            onmouseout="this.style.borderBottomColor='transparent'">
@@ -132,7 +132,7 @@ function renderDynamicTable({
     const categories = allKeys.filter(
         key => key !== groupKey && key !== 'Grand_Total'
     );
-    const baseUrl = "<?= site_url('company/byvar') ?>";
+    const baseUrl = "<?= site_url('company') ?>";
 
     let columnTotals = {};
     categories.forEach(cat => columnTotals[cat] = 0);
