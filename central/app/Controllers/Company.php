@@ -228,14 +228,15 @@ public function byvar($type = 'main', $filterKey = null, $filterValue = null)
 
 // public function downloadDatabase($type,$state)
 
-public function downloadDatabase($type,$state)
+public function downloadDatabase($entry_type,$byvar,$value)
 {
 
-// var_dump($state);
+var_dump($entry_type,$byvar,$value);
 // exit;
+
     $db = \Config\Database::connect();
-    $stateName = urldecode($state);
-    $stateName = str_replace('-', ' ', $stateName);
+    $value = urldecode($value);
+    $value = str_replace('-', ' ', $value);
 
     // Step 1: Fetch long-format data
     $builder = $db->table('company_data cd');
@@ -268,9 +269,16 @@ public function downloadDatabase($type,$state)
 
     $builder->join('(SELECT contact_id, GROUP_CONCAT(mobile SEPARATOR ", ") AS mobile_numbers FROM contact_mobile GROUP BY contact_id) cm', 'cm.contact_id = c.contact_id', 'left');
     $builder->join('(SELECT contact_id, GROUP_CONCAT(email SEPARATOR ", ") AS email_addresses FROM contact_email GROUP BY contact_id) ce', 'ce.contact_id = c.contact_id', 'left');
+if($byvar === 'database_name'){
 
-    $builder->where('cd.state', $stateName);
-    $builder->where('cd.entry_type', $type);
+    $builder->where('cd.database_name', $value);
+
+}else{
+
+    $builder->where('cd.state', $value);
+
+}
+    $builder->where('cd.entry_type', $entry_type);
 
     $query = $builder->get();
     $results = $query->getResultArray();
@@ -281,51 +289,10 @@ public function downloadDatabase($type,$state)
         $companyId = $row['company_id'];
         $contactNum = $row['contact_number'];
 
-//         Entry Type
-// Database Name
-// Category
-// Source
-// Updated By
-
-// dd-mm-yyyy --:--
-// Comments
-// Outbound
-
-// Company Name
-// Address 1
-// Address 2
-// City
-// Pincode
-// State
-// Phone
-// Fax
-// Contact Name
-// Designation
-// Mobile 1
-// Mobile 2
-// Mobile 3
-// Email 1
-// Email 2
-// Email 3
-// Contact Name 2
-// Designation 2
-// Email 4
-// Email 5
-// Mobile 4
-// Mobile 5
-// Contact Name 3
-// Designation 3
-// Email 6
-// Email 7
-// Mobile 6
-// Mobile 7
-// Clear
-// Remove
-// Submit
 
         if (!isset($companies[$companyId])) {
             $companies[$companyId] = [
-                'entry_type'=> $type,
+                'entry_type'=> $entry_type,
                 'database_name' => $row['database_name'],
                 'category' => $row['category'],
                 'source' => $row['source'],
@@ -356,7 +323,7 @@ public function downloadDatabase($type,$state)
 
     // Step 3: Pass data to view
     return view('company/download', [
-        'state' => $stateName,
+        'state' => $byvar,
         'data'  => json_encode(array_values($companies)) // array_values to reset keys
     ]);
 }

@@ -80,7 +80,9 @@ $routes->post('dashboard/search', 'Dashboard::search');
 // ===============================
 // Company management routes
 // ===============================
-$routes->get('company/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3');
+$routes->get('company/download/(:any)/(:any)/(:any)', 'Company::downloadDatabase/$1/$2/$3');
+
+// $routes->get('company/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3');
 
 $routes->post('company/getCities', 'Company::getCities');        // AJAX: get cities by state
 $routes->post('company/filterCompanies', 'Company::filterCompanies');
@@ -136,7 +138,7 @@ $routes->get('company/operation', 'Company::opreation');
 
 // Add this new one for the "Apply Filters" button
 $routes->get('company/filter', 'Company::filter');
-$routes->get('company/download/(:any)/(:any)', 'Company::downloadDatabase/$1/$2');
+// $routes->get('company/download/(:any)/(:any)/(:any)', 'Company::downloadDatabase');
 
 // $routes->get('company/bystate/(:any)', 'Company::byvar/$1');
 
@@ -407,3 +409,6 @@ $routes->get('view/(:segment)', 'Registration::registrationview/$1');
  // $routes->get('publicform', 'Registration::publicform');
     // $routes->post('update/(:num)', 'Issue::update/$1');
 });
+
+
+$routes->get('open/qr/(:any)', 'Open::openqr/$1');               // Main page

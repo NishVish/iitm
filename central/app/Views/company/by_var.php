@@ -144,14 +144,31 @@
 
 <?php 
 $uri = service('uri');
-$mainLabel = $uri->getSegment(2, '').' '. $uri->getSegment(3, ''); 
-$subLabel = ($uri->getTotalSegments() >= 4) ? str_replace(['-', '-and-'], [' ', ' & '], $uri->getSegment(3)) : '';
 
+$segments = [];
+
+for ($i = 2; $i <= 5; $i++) {
+    $seg = $uri->getSegment($i);
+    if ($seg) {
+        $segments[] = $seg;
+    }
+}
+
+// store
+$data['segments'] = $segments;
+
+// print
+foreach ($segments as $key => $value) {
+    echo "Segment " . ($key + 2) . ": " . esc($value) . "<br>";
+}
+
+$mainLabel = $uri->getSegment(2, '').' '. $uri->getSegment(3, ''); 
+$subLabel = $uri->getSegment(4);
 // ADD ONE OF THESE:
 var_dump($mainLabel, $subLabel);   // detailed
 // OR
 echo $mainLabel . ' | ' . $subLabel;  // quick check
-// OR
+// 
 dd($mainLabel, $subLabel);  // CodeIgniter/Laravel die-dump
   ?>
 
@@ -165,12 +182,14 @@ dd($mainLabel, $subLabel);  // CodeIgniter/Laravel die-dump
             <span class="breadcrumb-sub">
                 <?php
                 // Only show subLabel if there are at least 4 URI segments
-if ($uri->getTotalSegments() >= 5) {
-    $segment = $uri->getSegment(5);
-    echo '<a href="' . base_url('company/download/' . $filters['entry_type'].'/'. $segment) . '">'
-        . str_replace(['-', '-and-'], [' ', ' & '], $segment)
+
+    $entrytype = $uri->getSegment(2);
+    $bystateordatabase = $uri->getSegment(3);
+    $value = $uri->getSegment(4);
+echo '<a href="' . base_url('company/download/'. $entrytype . '/' . $bystateordatabase . '/' . $value) .   '">'
+        . str_replace(['-', '-and-'], [' ', ' & '], $value)
         . '</a>';
-}
+
                 ?>
             </span>
         <?php endif; ?>
@@ -345,43 +364,87 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 <?php endforeach; ?>
 ];
+// --- Stats Calculation ---
+function calculateStats(rows) {
+    const stats = { 
+        sources: {}, 
+        cities: {}, 
+        states: {}, 
+        categories: {},
+        companies: new Set(),
+        totalContacts: 0 
+    };
 
-    // --- Stats Calculation ---
-    function calculateStats(rows) {
-        const stats = { sources: {}, cities: {}, totalContacts: 0 };
-        rows.forEach(item => {
-            const row = item.cells || item;
-            const sourceIndex = columns.findIndex(c => c.title === 'source');
-            const cityIndex = columns.findIndex(c => c.title === 'city');
+    rows.forEach(item => {
+        const row = item.cells || item;
 
-            const sourceString = row[sourceIndex] || '';
-            const city = row[cityIndex] || '';
+        const sourceIndex = columns.findIndex(c => c.title === 'source');
+        const cityIndex = columns.findIndex(c => c.title === 'city');
+        const stateIndex = columns.findIndex(c => c.title === 'state');
+        const companyIndex = columns.findIndex(c => c.title === 'company');
+        const categoryIndex = columns.findIndex(c => c.title === 'category');
 
-            stats.totalContacts += (item.contact_ids?.length || 1);
+        const sourceString = row[sourceIndex] || '';
+        const city = row[cityIndex] || '';
+        const state = row[stateIndex] || '';
+        const company = row[companyIndex] || '';
+        const categoryString = row[categoryIndex] || '';
 
-            const sources = sourceString.split(',').map(s => s.trim()).filter(s => s);
-            sources.forEach(src => stats.sources[src] = (stats.sources[src] || 0) + 1);
+        stats.totalContacts += (item.contact_ids?.length || 1);
 
-            if (city) stats.cities[city] = (stats.cities[city] || 0) + 1;
-        });
+        // Unique company count
+        if (company) stats.companies.add(company);
 
-        const sourceData = Object.entries(stats.sources)
-            .sort((a,b) => b[1]-a[1])
-            .map(([name,count]) => ['Source', name, count]);
+        // Sources
+        const sources = sourceString.split(',').map(s => s.trim()).filter(Boolean);
+        sources.forEach(src => stats.sources[src] = (stats.sources[src] || 0) + 1);
 
-        const cityData = Object.entries(stats.cities)
-            .sort((a,b) => b[1]-a[1])
-            .map(([name,count]) => ['City', name, count]);
+        // Cities
+        if (city) stats.cities[city] = (stats.cities[city] || 0) + 1;
 
-        return [
-            ['General','Total Contacts', stats.totalContacts],
-            ['---','---','---'],
-            ...sourceData,
-            ['---','---','---'],
-            ...cityData
-        ];
-    }
+        // States
+        if (state) stats.states[state] = (stats.states[state] || 0) + 1;
 
+        // Categories
+        const categories = categoryString.split(',').map(c => c.trim()).filter(Boolean);
+        categories.forEach(cat => stats.categories[cat] = (stats.categories[cat] || 0) + 1);
+    });
+
+    const sourceData = Object.entries(stats.sources)
+        .sort((a,b) => b[1]-a[1])
+        .map(([name,count]) => ['Source', name, count]);
+
+    const cityData = Object.entries(stats.cities)
+        .sort((a,b) => b[1]-a[1])
+        .map(([name,count]) => ['City', name, count]);
+
+    const stateData = Object.entries(stats.states)
+        .sort((a,b) => b[1]-a[1])
+        .map(([name,count]) => ['State', name, count]);
+
+    const categoryData = Object.entries(stats.categories)
+        .sort((a,b) => b[1]-a[1])
+        .map(([name,count]) => ['Category', name, count]);
+
+    return [
+        ['General','Total Contacts', stats.totalContacts],
+        ['General','Total Companies', stats.companies.size],
+        ['General','Total States', Object.keys(stats.states).length],
+        ['General','Total Categories', Object.keys(stats.categories).length],
+        ['---','---','---'],
+
+        ...sourceData,
+        ['---','---','---'],
+
+        ...categoryData,
+        ['---','---','---'],
+
+        ...stateData,
+        ['---','---','---'],
+
+        ...cityData
+    ];
+}
     // --- Initialize Stats Spreadsheet ---
 window.statsSheet = new Spreadsheet('statsSpreadsheet', {
     data: calculateStats(data),

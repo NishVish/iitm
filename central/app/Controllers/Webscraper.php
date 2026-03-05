@@ -12,7 +12,7 @@ public function index()
         return view('tools/webscraper');
     }
 
-public function scrape()
+public function scrapeEventDates()
 {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://example.com");
@@ -22,5 +22,32 @@ public function scrape()
 
     return $output;
 }
+
+public function scrapeCompanyData()
+{
+    // save nomes only 
+
+
+
+
+}
+
+function googlesearch($entry)
+{
+
+
+// serchresurl in html format
+
+// deta[
+//     text=>text only 
+//     prettify =>prettytext
+
+// ]}
+
+
+
+}
+
+
 
 }
