@@ -30,16 +30,16 @@ abstract class BaseController extends Controller
     /**
      * @return void
      */
+
+
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
-        // Load here all helpers you want to be available in your controllers that extend BaseController.
-        // Caution: Do not put the this below the parent::initController() call below.
-        // $this->helpers = ['form', 'url'];
+{
+    // Do Not Edit This Line
+    parent::initController($request, $response, $logger);
 
-        // Caution: Do not edit this line.
-        parent::initController($request, $response, $logger);
+    // Add this line to make it global across all controllers
+    $this->data['currentSegment'] = $request->getUri()->getTotalSegments() > 0 ? $request->getUri()->getSegment(1) : 'dashboard';
+}
 
-        // Preload any models, libraries, etc, here.
-        // $this->session = service('session');
-    }
+
 }
