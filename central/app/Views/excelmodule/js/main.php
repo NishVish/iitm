@@ -27,7 +27,16 @@ this.onCellEdit = options.onCellEdit || null;
         this.initPagination();
         this.loadPage(1);
     }
+search(term) {
+    const lower = term.toLowerCase();
 
+    const rows = this.tbody.querySelectorAll('tr');
+
+    rows.forEach(tr => {
+        const text = tr.innerText.toLowerCase();
+        tr.style.display = text.includes(lower) ? '' : 'none';
+    });
+}
     // ── CREATE TABLE HEADER ONLY ─────────────────────────────────────────────
     createTable() {
         // Table element
@@ -123,8 +132,9 @@ renderRows() {
         tr.appendChild(tdIndex);
 
         // Data columns
-        rowData.forEach((cellData, colIndex) => {
-            const td = document.createElement('td');
+const row = rowData.cells || rowData;
+
+row.forEach((cellData, colIndex) => {            const td = document.createElement('td');
             const colDef = this.columns[colIndex];
             const isHtmlType = colDef && colDef.type === 'html';
 

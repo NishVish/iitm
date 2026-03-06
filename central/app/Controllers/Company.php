@@ -172,11 +172,14 @@ private function updateContactDetail($contactId, $table, $field, $value, $isSeco
         ]);
     }
 }
-public function byvar($type = 'main', $filterKey = null, $filterValue = null)
+public function byvar($type = 'main', $filterKey = null, $filterValue = null,$fordwonload =null)
 {
     if($type == "details"){
         return $this->details($filterKey, $filterValue);
     }
+    elseif($type == "download"){
+        return $this->downloadDatabase($type,$filterKey, $filterValue);
+        }
     // REMOVE 'return None;' from here
     
     // return view('ftp');
@@ -429,21 +432,28 @@ public function getCompanySourcesContactsByFilters($filters = [])
         }
     }
 
-    $maxContacts = 0;
-    foreach ($grouped as $company) {
-        $count = count($company['contacts']);
-        if ($count > $maxContacts) $maxContacts = $count;
-    }
 
-    $data = [
-        'companies'   => $grouped,
-        'filters'     => $filters,
-        'maxContacts' => $maxContacts > 0 ? $maxContacts : 1,
-        'databases'   => array_column($databases, 'database_name'),
-        'categories'  => array_column($categories, 'category'),
-        'sources'     => array_column($sources, 'notes'),
-        'entry_types' => array_column($entry_types, 'entry_type'),
+$maxContacts = 0;
+foreach ($grouped as $company) {
+$details = $company['details'] ?? [];
+
+$count = count($company['contacts']);
+    if ($count > $maxContacts) $maxContacts = $count;
+
+}
+$data = [
+    'companies'   => $grouped,
+    'filters'     => $filters,
+    'maxContacts' => $maxContacts > 0 ? $maxContacts : 1,
+    'databases'   => array_column($databases, 'database_name'),
+    'categories'  => array_column($categories, 'category'),
+    'sources'     => array_column($sources, 'notes'),
+    'entry_types' => array_column($entry_types, 'entry_type'),
+
     ];
+
+
+// Finally render
 
     // var_dump($data);
     // exit;

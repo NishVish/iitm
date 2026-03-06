@@ -59,12 +59,12 @@ body {
     margin: 0 auto;
 }
 
-.header-section {
+/* .header-section {
     margin-bottom: 2.5rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-}
+} */
 
 /* Table Container with Glassmorphism */
 .table-card {
@@ -152,12 +152,12 @@ body {
 .selected-column {
     background: var(--nav-color) !important;
     color: var(--text-color) !important;
-    color:
+
 }
 
 /* Interactive Elements - Internal Resets to maintain row height */
 .custom-table td a {
-    color: var(--button-dim);
+    color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
     display: inline-block;
@@ -165,6 +165,9 @@ body {
     line-height: normal; /* Prevents anchor from expanding 50px cell */
 }
 
+.custom-table td {
+    color: var(--text-color);
+}
 .custom-table td a:hover {
     color: var(--primary);
 }
@@ -173,7 +176,7 @@ body {
     display: inline-block;
     padding: 0.25rem 0.6rem;
     border-radius: 6px;
-    color: var(--primary);
+    color: var(--text-color);
     font-size: 0.8rem;
     font-weight: 600;
     border: 1px solid rgba(99, 102, 241, 0.3);
