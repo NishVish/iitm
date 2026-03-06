@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\Dashboard_Model;
+use App\Models\DashboardModel;
 
 
 class Home extends BaseController
@@ -17,7 +17,7 @@ class Home extends BaseController
 public function index()
 {
     // Load model
-    $dashboardModel = new \App\Models\Dashboard_Model();
+    $dashboardModel = new \App\Models\DashboardModel();
 
     // Get stats from model
     $databasedetails = $dashboardModel->get_count_by_database();                  // Counts by database_name

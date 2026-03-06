@@ -22,5 +22,5 @@ if ($segment1 == 'home') : ?>
 <?php
         $session = session();
 // var_dump($session);
-// view('dashboard/index')
+view('dashboard/index')
 ?>
