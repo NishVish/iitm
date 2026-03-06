@@ -411,4 +411,4 @@ $routes->get('view/(:segment)', 'Registration::registrationview/$1');
 });
 
 
-$routes->get('open/qr/(:any)', 'Open::openqr/$1');               // Main page
+$routes->get('open/qr/(:any)/(:any)', 'Open::openqr/$1/$2');               // Main page

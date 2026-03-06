@@ -158,6 +158,7 @@ $parts = explode('-', (string)$data);
 // 2. Get the last element of the array
 $citySuffix = end($parts);
 
+
 // var_dump($citySuffix); 
 // Output: string(4) "pune"
 // exit;

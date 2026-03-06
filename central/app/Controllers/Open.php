@@ -18,9 +18,24 @@ class Open extends BaseController
         return view('search/results', $data);
     }
 
-    public function openqr($url)
+public function openqr($type, $value)
 {
-    $data['url'] = $url; // pass the URL to the view
+    // Just pass the raw values to the view
+    $value = str_replace('-', '/', $value);
+    if ($type === 'link') {
+        $value = str_replace('-', '/', $value);
+    }elseif ($type == 'text')
+     
+    {
+        # code...
+    }
+
+    $data = [
+        'type' => $type,
+        'value' => $value
+    ];
+    
+print_r($data);
     return view('open/qr', $data);
 }
 

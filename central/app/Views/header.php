@@ -40,133 +40,107 @@ $server             = $session->get('server') ?? '';
     <meta charset="UTF-8">
     <title>Company Management System</title>
     <style>
-
-        :root {
+:root {
+    /* Main colors */
     --nav-color: #a82324;
+    --nav-color-dim: #c45a5b;
+
     --body-color: #f8f4f4;
+    --body-color-dim: #fbf9f9;
+
     --button-color: #a82324;
+    --button-color-dim: #c45a5b;
+
     --text-color: #ffffff;
+    --text-color-dim: #dcdcdc;
 }
-    /* 
-    
-    -: var(--nav-color); 
-    -: var(--body-color); 
-    -: var(--button-color); 
-    -: var(--text-color); 
-    
-    
-    
-    */
+
+/* General content */
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    background-color: var(--body-color);
+}
 
 .content {
-    max-width: 150vh;;
+    max-width: 150vh;
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
 }
 
-#spreadsheet,#Spreadsheet,.Spreadsheet {
-        /* Set width to 150% of the viewport height */
-        width: 150vh; 
-        max-width: 100%; /* Prevents it from breaking mobile layouts if 150vh is too wide */
-        overflow-x: auto; /* Enables horizontal scrolling */
-        overflow-y: auto;
-        border: 1px solid #ccc;
-        background: var(--text-color); ;
+/* Spreadsheet container */
+#spreadsheet, #Spreadsheet, .Spreadsheet {
+    width: 150vh;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    border: 1px solid var(--body-color-dim); /* fixed from --border-dim */
+    background: var(--text-color);
+    margin-bottom: 10px;
+}
+
+/* Navigation */
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--nav-color);
+    padding: 12px 20px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+nav a { 
+    color: var(--text-color);
+    margin-right: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+nav a:hover { 
+    color: var(--body-color); /* replaced non-existing --text-nav-dim */
+}
+
+/* Responsive nav */
+@media(max-width: 768px) {
+    nav { 
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links { 
         margin-bottom: 10px;
     }
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 0; 
-    background-color: var(--body-color);
-    
-        }
-nav {
-    position: sticky; /* or 'fixed' */
-    top: 0;
-    z-index: 1000; /* stay above content */
+
+    .nav-links a { 
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
 }
 
-        /* Navigation barthere */
-        nav { 
-            
-    background: var(--nav-color);
-            padding: 12px 20px; 
-            color: var(--text-color); 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        nav a { 
-            color: var(--text-color);
-            margin-right: 20px; 
-            text-decoration: none; 
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover { 
-            text-decoration: underline;
-            color: #ffb3b3; /* light pink hover for contrast */
-        }
-
-
-
-        /* Content area */
-        .content { 
-            padding: 20px; 
-        }
-
-        /* Responsive nav */
-        @media(max-width: 768px) {
-            nav { 
-                flex-direction: column; 
-                align-items: flex-start; 
-            }
-            .nav-links { 
-                margin-bottom: 10px; 
-            }
-            .nav-links a { 
-                margin-right: 10px; 
-                margin-bottom: 5px; 
-            }
-        }
-        .color-controls {
-    padding: 15px;
-    background: #fff;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    flex-wrap: wrap;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.color-controls label {
-            color: var(--text-color) ;            /* text color */
-
-    font-size: 14px;
-}
-/* Theme Popup Window */
+/* Theme popup */
 .theme-window {
     position: fixed;
     top: 80px;
     right: 20px;
     width: 260px;
-    background:var(--nav-color) ; 
+    background: var(--nav-color);
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     display: none;
     z-index: 999;
     animation: fadeIn 0.3s ease;
-        color: var(--text-color); ;            /* text color */
-
+    color: var(--text-color);
 }
 
 .theme-header {
-    background: #a82324;
-    color: var(--text-color); ;
+    background: var(--nav-color-dim);
+    color: var(--text-color);
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -177,7 +151,7 @@ nav {
 .theme-header button {
     background: none;
     border: none;
-    color: var(--text-color); ;
+    color: var(--text-color-dim); /* fixed from --text-dim */
     cursor: pointer;
     font-size: 14px;
 }
@@ -196,47 +170,47 @@ nav {
     cursor: pointer;
 }
 
+/* Reset button */
 .reset-btn {
     margin-top: 10px;
     padding: 8px;
     border: none;
     border-radius: 6px;
-    background: #444;
-    color: white;
+    background: var(--button-color);
+    color: var(--text-color);
     cursor: pointer;
     transition: 0.3s;
 }
 
 .reset-btn:hover {
-    background: #222;
+    background: var(--button-color-dim);
 }
 
+/* Quick links inside theme popup */
 .theme-window .quick-content {
-    color: var(--text-color);            /* text color */
-    display: flex;           /* enable flex layout */
-    flex-direction: column;  /* stack items vertically */
-    gap: 8px;                /* space between links */
-    padding: 10px 15px;      /* some padding for breathing room */
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 15px;
 }
 
 .theme-window .quick-content a {
-    color: var(--text-color);            /* ensure links are black */
-    text-decoration: none;   /* remove underline */
-    font-weight: 500;        /* optional: make links slightly bold */
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
 }
 
 .theme-window .quick-content a:hover {
-    text-decoration: underline;  /* subtle hover effect */
+    color: var(--text-color);
+    text-decoration: underline;
 }
 
+/* Animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
-    </style>
-
-
 <!-- Excel Module -->
 
 <script>
@@ -351,56 +325,51 @@ nav {
  </div>
 
 
-
 <div id="themeWindow" class="theme-window">
 
-    <div class="theme-header">
-        <span>Settings</span>
-        <button id="closeTheme">✖</button>
-    </div>
-
-    <div class="quick-content">
-        <a href="<?= site_url('logout') ?>">Logout</a>
-    </div>
-
-    <div class="theme-body">
-        <label>Navbar Color</label>
-        <input type="color" id="navColor" value="#a82324">
-
-        <label>Body Background</label>
-        <input type="color" id="bodyColor" value="#f8f4f4">
-
-        <label>Button Color</label>
-        <input type="color" id="buttonColor" value="#a82324">
-
- <label>Text Color</label>
-        <input type="color" id="textColor" value="#ffffff">
-
-        <button id="resetTheme" class="reset-btn">Reset to Default</button>
-    </div>
-</div>
-<!-- Theme Popup -->
-<div id="themeWindow" class="theme-window">
     <div class="theme-header">
         <span>Theme Settings</span>
         <button id="closeTheme">✖</button>
     </div>
 
+    <div class="quick-content">
+        <table>
+            <tr>
+                <td>        
+                    
+                <a href="<?= site_url('logout') ?>">Logout</a>
+</td>
+            </tr>
+        </table>
+    </div>
+
     <div class="theme-body">
+
         <label>Navbar Color</label>
         <input type="color" id="navColor" value="#a82324">
+
+        <label>Navbar Dim</label>
+        <input type="color" id="navDim" value="#c45a5b">
 
         <label>Body Background</label>
         <input type="color" id="bodyColor" value="#f8f4f4">
 
         <label>Button Color</label>
         <input type="color" id="buttonColor" value="#a82324">
-  <label>Text Color</label>
-        <input type="color" id="textColor" value="#000000">
+
+        <label>Button Dim</label>
+        <input type="color" id="buttonDim" value="#c45a5b">
+
+        <label>Text Color</label>
+        <input type="color" id="textColor" value="#ffffff">
+
+        <label>Text Dim</label>
+        <input type="color" id="textDim" value="#d6d6d6">
 
         <button id="resetTheme" class="reset-btn">Reset to Default</button>
-        
+
     </div>
+
 </div>
 </nav>
 <!-- Theme Popup -->
@@ -410,93 +379,122 @@ nav {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    const navPicker = document.getElementById("navColor");
-    const bodyPicker = document.getElementById("bodyColor");
-    const buttonPicker = document.getElementById("buttonColor");
+    // Pickers
+    const navPicker     = document.getElementById("navColor");
+    const navDimPicker  = document.getElementById("navDim");
+    const bodyPicker    = document.getElementById("bodyColor");
+    const bodyDimPicker = document.getElementById("bodyDim");
+    const buttonPicker  = document.getElementById("buttonColor");
+    const buttonDimPicker = document.getElementById("buttonDim");
     const textColorPicker = document.getElementById("textColor");
+    const textDimPicker   = document.getElementById("textDim");
 
     const themeWindow = document.getElementById("themeWindow");
     const openBtn = document.getElementById("openTheme");
     const closeBtn = document.getElementById("closeTheme");
     const resetBtn = document.getElementById("resetTheme");
 
-    const defaultNav = "#a82324";
-    const defaultBody = "#f8f4f4";
-    const defaultButton = "#a82324";
-    const defaultText = "#000000";
-        
-    // Open / Close
+    // Default colors
+    const defaultColors = {
+        nav: "#a82324",
+        navDim: "#c45a5b",
+        body: "#f8f4f4",
+        bodyDim: "#fbf9f9",
+        button: "#a82324",
+        buttonDim: "#c45a5b",
+        text: "#ffffff",
+        textDim: "#dcdcdc"
+    };
+
+    // Function to create lighter DIM color
+    function makeDim(hex, percent = 40) {
+        let num = parseInt(hex.replace("#",""),16),
+            r = (num >> 16) + percent,
+            g = (num >> 8 & 0x00FF) + percent,
+            b = (num & 0x0000FF) + percent;
+
+        r = r<255 ? r : 255;
+        g = g<255 ? g : 255;
+        b = b<255 ? b : 255;
+
+        // Convert back to hex, pad with zeros
+        return "#" + ((1 << 24) + (r <<16) + (g << 8) + b).toString(16).slice(1);
+    }
+
+    // Open / Close Theme Window
     openBtn.onclick = () => themeWindow.style.display = "block";
     closeBtn.onclick = () => themeWindow.style.display = "none";
 
-    // Load saved colors
-    const savedNav = localStorage.getItem("navColor");
-    const savedBody = localStorage.getItem("bodyColor");
-    const savedButton = localStorage.getItem("buttonColor");
-    const savedText = localStorage.getItem("textColor");
-
-    if (savedNav) {
-        document.documentElement.style.setProperty('--nav-color', savedNav);
-        navPicker.value = savedNav;
+    // Load saved colors from localStorage
+    function loadColor(key, picker, cssVar, dimVar = null) {
+        const saved = localStorage.getItem(key);
+        if (saved) {
+            document.documentElement.style.setProperty(cssVar, saved);
+            picker.value = saved;
+            if (dimVar) {
+                document.documentElement.style.setProperty(dimVar, makeDim(saved));
+            }
+        }
     }
 
-    if (savedBody) {
-        document.documentElement.style.setProperty('--body-color', savedBody);
-        bodyPicker.value = savedBody;
-    }
+    loadColor("navColor", navPicker, "--nav-color", "--nav-color-dim");
+    loadColor("bodyColor", bodyPicker, "--body-color", "--body-color-dim");
+    loadColor("buttonColor", buttonPicker, "--button-color", "--button-color-dim");
+    loadColor("textColor", textColorPicker, "--text-color");
+    loadColor("textDim", textDimPicker, "--text-color-dim");
 
-    if (savedButton) {
-        document.documentElement.style.setProperty('--button-color', savedButton);
-        buttonPicker.value = savedButton;
-    }
-    if (savedText) {
-        document.documentElement.style.setProperty('--text-color', savedText);
-        textColorPicker.value = savedText;
-    }       
-    // Change events
-    navPicker.addEventListener("input", function () {
-        document.documentElement.style.setProperty('--nav-color', this.value);
-        localStorage.setItem("navColor", this.value);
+    function setupPicker(picker, cssVar, storageKey, dimVar = null, dimPicker = null) {
+    picker.addEventListener("input", function () {
+        document.documentElement.style.setProperty(cssVar, this.value);
+        localStorage.setItem(storageKey, this.value);
+
+        if (dimVar) {
+            const dimValue = makeDim(this.value);
+            document.documentElement.style.setProperty(dimVar, dimValue);
+
+            if (dimPicker) {
+                dimPicker.value = dimValue; // update the dim input
+            }
+        }
     });
+}
 
-    bodyPicker.addEventListener("input", function () {
-        document.documentElement.style.setProperty('--body-color', this.value);
-        localStorage.setItem("bodyColor", this.value);
-    });
-
-    buttonPicker.addEventListener("input", function () {
-        document.documentElement.style.setProperty('--button-color', this.value);
-        localStorage.setItem("buttonColor", this.value);
-    });
-
-    textColorPicker.addEventListener("input", function () {
-        document.documentElement.style.setProperty('--text-color', this.value);
-        localStorage.setItem("textColor", this.value);
-    });
-
+// Example usage:
+setupPicker(navPicker, "--nav-color", "navColor", "--nav-color-dim", navDimPicker);
+setupPicker(buttonPicker, "--button-color", "buttonColor", "--button-color-dim", buttonDimPicker);
+setupPicker(bodyPicker, "--body-color", "bodyColor", "--body-color-dim");
+setupPicker(textColorPicker, "--text-color", "textColor");
+setupPicker(textDimPicker, "--text-color-dim", "textDim");
     // Reset button
     resetBtn.addEventListener("click", function () {
+        document.documentElement.style.setProperty('--nav-color', defaultColors.nav);
+        document.documentElement.style.setProperty('--nav-color-dim', defaultColors.navDim);
+        document.documentElement.style.setProperty('--body-color', defaultColors.body);
+        document.documentElement.style.setProperty('--body-color-dim', defaultColors.bodyDim);
+        document.documentElement.style.setProperty('--button-color', defaultColors.button);
+        document.documentElement.style.setProperty('--button-color-dim', defaultColors.buttonDim);
+        document.documentElement.style.setProperty('--text-color', defaultColors.text);
+        document.documentElement.style.setProperty('--text-color-dim', defaultColors.textDim);
 
-        document.documentElement.style.setProperty('--nav-color', defaultNav);
-        document.documentElement.style.setProperty('--body-color', defaultBody);
-        document.documentElement.style.setProperty('--button-color', defaultButton);
-        document.documentElement.style.setProperty('--text-color', defaultText);    
-        
+        navPicker.value = defaultColors.nav;
+        bodyPicker.value = defaultColors.body;
+        buttonPicker.value = defaultColors.button;
+        textColorPicker.value = defaultColors.text;
+        textDimPicker.value = defaultColors.textDim;
+
+        // Remove from localStorage
         localStorage.removeItem("navColor");
         localStorage.removeItem("bodyColor");
         localStorage.removeItem("buttonColor");
-        localStorage.removeItem("textColor");   
-
-        navPicker.value = defaultNav;
-        bodyPicker.value = defaultBody;
-        buttonPicker.value = defaultButton;
-        textColorPicker.value = defaultText;
+        localStorage.removeItem("textColor");
+        localStorage.removeItem("textDim");
 
         themeWindow.style.display = "none";
     });
 
 });
 </script>
+
 
 <div class="wrapper">
 

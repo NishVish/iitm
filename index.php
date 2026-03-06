@@ -15,16 +15,18 @@
 <body>
     <h1>IITM Directory</h1>
     <ul>
-        <li><a href="backend_tools/">backend_tools/</a></li>
-        <li><a href="central/">central/</a></li>
-        <!-- <li><a href="central2/">central2/</a></li>
-        <li><a href="iitm/">iitm/</a></li> -->
-        <li><a href="sphereintranet/">sphereintranet/</a></li>
-        <!-- <li><a href="visitors/">visitors/</a></li>
-        <li><a href=".gitattributes">.gitattributes</a></li>
-        <li><a href=".gitignore">.gitignore</a></li>
-        <li><a href="codeigniter4-framework-v4.6.4-0-ge4d3702.zip">codeigniter4-framework-v4.6.4-0-ge4d3702.zip</a></li>
-        <li><a href="index.php">index.php</a></li> -->
+        <?php
+        // Read current directory
+        $files = scandir(__DIR__);
+        foreach ($files as $file) {
+            if ($file === "." || $file === "..") continue;
+
+            // Optional: skip this master.php file itself
+            if ($file === basename(__FILE__)) continue;
+
+            echo "<li><a href='" . htmlspecialchars($file) . "'>" . htmlspecialchars($file) . "</a></li>";
+        }
+        ?>
     </ul>
 </body>
 </html>
