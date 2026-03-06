@@ -101,7 +101,7 @@
 </style>
 
 
-<? view('ticketform')?>
+<? //view('ticketform')?>
 
 
 <div class="sidebar">
