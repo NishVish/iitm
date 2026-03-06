@@ -36,7 +36,7 @@ class Database extends Config
         'username'     => 'iitminda_master',
         'password'     => 'gB)%gU}ocn?MCP=}',
       
-        'database'     => 'iitm_testing_server',
+        'database'     => 'iitminda_testing_server',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
