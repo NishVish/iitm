@@ -2,19 +2,19 @@
 
 <h1>Dashboard</h1>
 <?php
-echo "<p>";
+// echo "<p>";
 
-// Run ipconfig
-$output = shell_exec('ipconfig');
+// // Run ipconfig
+// $output = shell_exec('ipconfig');
 
-// Search for IPv4 address using regex
-if (preg_match('/IPv4 Address[.\s]*:\s*([\d\.]+)/', $output, $matches)) {
-    echo $matches[1]."/iitm/central/";
-} else {
-    echo "IPv4 Address not found";
-}
+// // Search for IPv4 address using regex
+// if (preg_match('/IPv4 Address[.\s]*:\s*([\d\.]+)/', $output, $matches)) {
+//     echo $matches[1]."/iitm/central/";
+// } else {
+//     echo "IPv4 Address not found";
+// }
 
-echo "</p>";
+// echo "</p>";
 ?>
 
 <h2>Company Counts by Database</h2>
