@@ -9,44 +9,9 @@ $badge_color = '#c58940';
 
 <?php if ($type == "spot"  ): ?>
 
-
-
 <?=view('registration/spotsuccess');?>
 
-
-
-
 <?php elseif ($type == "online_registration"&& $alldata['contactName'] != "Not_Found" ): ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">

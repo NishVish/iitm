@@ -3,7 +3,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Dashboard_Model extends Model
+class DashboardModel extends Model
 {
     protected $table = 'company_data';
     protected $primaryKey = 'id';
