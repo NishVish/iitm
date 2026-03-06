@@ -13,23 +13,25 @@ class Home extends BaseController
     //     return view("home/index");
     // }
 
-    
-public function index()
+    public function index()
 {
     // Load model
     $dashboardModel = new \App\Models\DashboardModel();
 
     // Get stats from model
-    $databasedetails = $dashboardModel->get_count_by_database();                  // Counts by database_name
-    $databasedetailsgroupbysource = $dashboardModel->get_count_by_database_and_source(); // Counts by database_name + source
+    $databasedetails = $dashboardModel->get_count_by_database();                  
+    $databasedetailsgroupbysource = $dashboardModel->get_count_by_database_and_source(); 
 
-    // Pass both datasets to the view
+    // Example: get current segment (from URI or default value)
+    $currentSegment = $this->request->getGet('ticket') ?? ''; // You can adjust based on your logic
+
+    // Pass all data to the view
     return view('home/index', [
         'databasedetails' => $databasedetails,
-        'databasedetailsgroupbysource' => $databasedetailsgroupbysource
+        'databasedetailsgroupbysource' => $databasedetailsgroupbysource,
+        'currentSegment' => $currentSegment // <-- Pass this to the view
     ]);
 }
-
 
     //     public function home(): string
     // {
