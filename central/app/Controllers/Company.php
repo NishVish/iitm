@@ -447,6 +447,17 @@ public function getCompanySourcesContactsByFilters($filters = [])
 
     // var_dump($data);
     // exit;
+ // --- 3. Pass URI Segments ---
+        $uri = service('uri');
+        $segments = [];
+        for ($i = 2; $i <= 5; $i++) {
+            $seg = $uri->getSegment($i);
+            if ($seg) $segments[] = $seg;
+        }
+
+        $data['segments'] = $segments;
+        $data['mainLabel'] = trim($uri->getSegment(2, '') . ' ' . $uri->getSegment(3, ''));
+        $data['subLabel']  = $uri->getSegment(4, '');
 
     // IF THIS IS IN A CONTROLLER:
     return view('company/by_var', $data);

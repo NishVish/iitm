@@ -141,100 +141,52 @@
 
 
 </style>
-
-<?php 
-$uri = service('uri');
-
-$segments = [];
-
-for ($i = 2; $i <= 5; $i++) {
-    $seg = $uri->getSegment($i);
-    if ($seg) {
-        $segments[] = $seg;
-    }
-}
-
-// store
-$data['segments'] = $segments;
-
-// print
-foreach ($segments as $key => $value) {
-    echo "Segment " . ($key + 2) . ": " . esc($value) . "<br>";
-}
-
-$mainLabel = $uri->getSegment(2, '').' '. $uri->getSegment(3, ''); 
-$subLabel = $uri->getSegment(4);
-// ADD ONE OF THESE:
-var_dump($mainLabel, $subLabel);   // detailed
-// OR
-echo $mainLabel . ' | ' . $subLabel;  // quick check
-// 
-dd($mainLabel, $subLabel);  // CodeIgniter/Laravel die-dump
-  ?>
+<?php include(APPPATH . 'Views/company/side.php'); ?>
 
 <div class="filter-toolbar">
-    
-<?php if ($mainLabel): ?>
-    <div class="breadcrumb-container">
-        <span class="breadcrumb-main"><?= esc($mainLabel) ?></span>
-        <?php if ($subLabel): ?>
-            <span style="color: #bdc3c7;">&rsaquo;</span>
-            <span class="breadcrumb-sub">
-                <?php
-                // Only show subLabel if there are at least 4 URI segments
+    <?php if($mainLabel): ?>
+        <div class="breadcrumb-container">
+            <span class="breadcrumb-main"><?= esc($mainLabel) ?></span>
+            <?php if($subLabel): ?>
+                <span style="color: #bdc3c7;">&rsaquo;</span>
+                <span class="breadcrumb-sub">
+                    <a href="<?= base_url('company/download/' . ($segments[0] ?? '') . '/' . ($segments[1] ?? '') . '/' . ($segments[2] ?? '')) ?>">
+                        <?= str_replace(['-', '-and-'], [' ', ' & '], $subLabel) ?>
+                    </a>
+                </span>
+            <?php endif; ?>
+        </div>
+        <div class="divider"></div>
+    <?php endif; ?>
 
-    $entrytype = $uri->getSegment(2);
-    $bystateordatabase = $uri->getSegment(3);
-    $value = $uri->getSegment(4);
-echo '<a href="' . base_url('company/download/'. $entrytype . '/' . $bystateordatabase . '/' . $value) .   '">'
-        . str_replace(['-', '-and-'], [' ', ' & '], $value)
-        . '</a>';
+    <a href="<?= base_url('company') ?>" class="btn-home">&#8962; Home</a>
 
-                ?>
-            </span>
-        <?php endif; ?>
-    </div>
-    <div class="divider"></div>
-<?php endif; ?>
-
-    <a href="<?= base_url('company') ?>" class="btn-home">
-       <span>&#8962;</span> Home
-    </a>
-
+    <!-- Filters -->
     <div class="filter-group">
         <select id="selDatabase" class="filter-select">
             <option value="">All Databases</option>
             <?php foreach($databases as $db): ?>
-                <option value="<?= esc($db) ?>" <?= (($filters['database'] ?? '') == $db) ? 'selected' : '' ?>><?= esc($db) ?></option>
+                <option value="<?= esc($db) ?>" <?= (($filters['database'] ?? '') == $db ? 'selected' : '') ?>><?= esc($db) ?></option>
             <?php endforeach; ?>
         </select>
 
         <select id="selCategory" class="filter-select">
             <option value="">All Categories</option>
             <?php foreach($categories as $cat): ?>
-                <option value="<?= esc($cat) ?>" <?= (($filters['category'] ?? '') == $cat) ? 'selected' : '' ?>><?= esc($cat) ?></option>
+                <option value="<?= esc($cat) ?>" <?= (($filters['category'] ?? '') == $cat ? 'selected' : '') ?>><?= esc($cat) ?></option>
             <?php endforeach; ?>
         </select>
 
         <select id="selSource" class="filter-select">
             <option value="">All Sources</option>
             <?php foreach($sources as $src): ?>
-                <option value="<?= esc($src) ?>" <?= (($filters['source'] ?? '') == $src) ? 'selected' : '' ?>><?= esc($src) ?></option>
+                <option value="<?= esc($src) ?>" <?= (($filters['source'] ?? '') == $src ? 'selected' : '') ?>><?= esc($src) ?></option>
             <?php endforeach; ?>
         </select>
 
         <button id="btnFilter" class="btn-apply">Apply</button>
     </div>
-
-    <div class="search-container">
-        <div class="search-wrapper">
-            <input type="text" id="tableSearch" class="search-input" placeholder="Search...">
-            <span class="search-icon">&#128269;</span>
-        </div>
-        <span id="saveStatus" class="save-status"></span>
-    </div>
 </div>
-
 
 <?= view('company/spreadsheet') ?>
 
