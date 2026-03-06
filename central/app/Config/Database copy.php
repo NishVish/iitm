@@ -26,15 +26,15 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        //         'hostname'     => '21.157.66.148.host.secureserver.net',
-        // 'username'     => 'iitminda_master',
-        // 'password'     => 'gB)%gU}ocn?MCP=}',
-        'hostname'    => 'localhost',
-        'username'    => 'root',
-        'password'    => '',
+                'hostname'     => '21.157.66.148.host.secureserver.net',
+        'username'     => 'iitminda_master',
+        'password'     => 'gB)%gU}ocn?MCP=}',
+        // 'hostname'    => 'localhost',
+        // 'username'    => 'root',
+        // 'password'    => '',
 
-        'database'     => 'testing_server',
-        // 'database'     => 'iitm_testing_server',
+        // 'database'     => 'testing_server',
+        'database'     => 'iitm_testing_server',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,

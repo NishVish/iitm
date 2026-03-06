@@ -5,10 +5,37 @@ session_start();
 $password = 'nin'; // Change this to your secret password
 $baseDir = __DIR__;
 $bookmarksFile = __DIR__ . '/.bookmarks.json'; // stores bookmarks
+// =================
+// Load bookmarks (always an array)
+$bookmarks = [];
+if (file_exists($bookmarksFile)) {
+    $bookmarks = json_decode(file_get_contents($bookmarksFile), true);
+    if (!is_array($bookmarks)) $bookmarks = []; // safety check
+}
+// ==== SAVE BOOKMARK & ADD LINK TO master.php ====
+if (isset($_GET['bookmark'])) {
+    $file = safePath($_GET['bookmark'], $baseDir);
+    if ($file) {
+        // Add to bookmarks file
+        if (!in_array($file, $bookmarks)) {
+            $bookmarks[] = $file;
+            file_put_contents($bookmarksFile, json_encode($bookmarks));
+        }
 
-// ==== LOGOUT ====
-if (isset($_GET['logout'])) {
-    session_destroy();
+        // Add link to master.php
+        $masterFile = $baseDir . '/master.php';
+        $relPath = trim(str_replace($baseDir . '/', '', $file), '/');
+
+        if (file_exists($masterFile)) {
+            $linkHtml = "<p><a href='" . htmlspecialchars($relPath) . "'>" . basename($file) . "</a></p>\n";
+            
+            // Only add if link not already in master.php
+            $masterContent = file_get_contents($masterFile);
+            if (strpos($masterContent, $relPath) === false) {
+                file_put_contents($masterFile, $masterContent . "\n" . $linkHtml);
+            }
+        }
+    }
     header("Location: file_manager_secure.php");
     exit;
 }
@@ -24,9 +51,9 @@ if (!isset($_SESSION['authenticated'])) {
     }
 
     if (!isset($_SESSION['authenticated'])) {
-        // Show login form
+        // Show password form
         ?>
-        <h2>Login to Access File Manager</h2>
+        <h2>Enter Password to Access File Manager</h2>
         <?php if(isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
         <form method="post">
             <input type="password" name="password" placeholder="Password">
@@ -43,10 +70,10 @@ function safePath($path, $baseDir) {
     return ($real && strpos($real, $baseDir) === 0) ? $real : false;
 }
 
-// ==== LOAD BOOKMARKS ====
+// Load bookmarks
 $bookmarks = file_exists($bookmarksFile) ? json_decode(file_get_contents($bookmarksFile), true) : [];
 
-// ==== ADD BOOKMARK ====
+// ==== SAVE BOOKMARK ====
 if (isset($_GET['bookmark'])) {
     $file = safePath($_GET['bookmark'], $baseDir);
     if ($file && !in_array($file, $bookmarks)) {
@@ -100,15 +127,13 @@ if (isset($_GET['edit'])) {
 $path = isset($_GET['path']) ? safePath($_GET['path'], $baseDir) : $baseDir;
 $files = scandir($path);
 ?>
-
 <h2>
-    <a href="file_manager_secure.php" style="color:red;">File Manager
-</a>
 
-
+<p><a href="file_manager_secure.php">file_manager_secure</a></p>
 
 </h2>
-<p>Logged in as <strong>admin</strong> | <a href="?logout=1" style="color:red;">Logout</a></p>
+<p><a href="?logout=1">Logout</a></p>
+<p><a href="file_manager_secure.php">Logout</a></p>
 
 <?php if(!empty($bookmarks)): ?>
 <h3>Bookmarks</h3>
@@ -122,11 +147,12 @@ $files = scandir($path);
     <?php endforeach; ?>
 </ul>
 <?php endif; ?>
-
 <p><a href="?run_script=1" style="color:orange;">Run Custom Script</a></p>
-
 <h3>Directory: <?php echo $path; ?></h3>
 <ul>
+
+
+
 <?php
 foreach ($files as $file) {
     if ($file == ".") continue;
@@ -142,14 +168,15 @@ foreach ($files as $file) {
 }
 ?>
 </ul>
-
 <?php
 // ==== SCRIPT RUNNER ====
 if (isset($_GET['run_script'])) {
 
+    // Single form submission
     if (!isset($_POST['dir'])) {
         ?>
         <h2>Script Runner</h2>
+
         <form method="post" id="scriptForm">
             <label>Directory (full path or relative to base):</label><br>
             <input type="text" name="dir" id="dir" style="width:300px"><br><br>
@@ -191,7 +218,7 @@ if (isset($_GET['run_script'])) {
         exit;
     }
 
-    // Handle script actions
+    // ==== HANDLE SCRIPT ACTION ====
     $dir = safePath($_POST['dir'], $baseDir);
     $deleteFile = $_POST['delete_file'] ?? '';
     $renameFile = $_POST['rename_file'] ?? '';
@@ -202,6 +229,7 @@ if (isset($_GET['run_script'])) {
     if ($dir && is_dir($dir)) {
         echo "<p>Operating in directory: $dir</p>";
 
+        // Delete file
         if ($deleteFile) {
             $fileToDelete = $dir . '/' . $deleteFile;
             if (file_exists($fileToDelete)) {
@@ -212,6 +240,7 @@ if (isset($_GET['run_script'])) {
             }
         }
 
+        // Rename file
         if ($renameFile && $newName) {
             $oldFile = $dir . '/' . $renameFile;
             $newFile = $dir . '/' . $newName;

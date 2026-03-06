@@ -34,7 +34,6 @@ class Database extends Config
         'password'    => '',
 
         'database'     => 'testing_server',
-        // 'database'     => 'iitm_testing_server',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
