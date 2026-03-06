@@ -108,8 +108,13 @@ arsort($commentCounts);
 
     .inner-table td {
         padding: 10px 12px;
-        font-size: 13px;
+        font-size: 15px;
         border-bottom: 1px solid var(--body-color);
+            color: var(--text-color);
+
+    }
+    .inner-table td a{
+        
             color: var(--text-color);
 
     }
@@ -123,11 +128,10 @@ arsort($commentCounts);
         background: var(--body-color);
         color: var(--text-color);
         padding: 2px 8px;
-        border-radius: 6px;
         font-weight: 700;
         font-size: 11px;
         float: right;
-        border: 1px solid var(--nav-color-dim);
+        border: none;
     }
 
     /* Scrollable container */
@@ -168,7 +172,33 @@ arsort($commentCounts);
             </tr>
         </tbody>
     </table>
+<?php
 
+$uri = service('uri');
+$first  = (string) ($uri->getSegment(1) ?? '');
+
+        $second = (string) ($uri->getSegment(2) ?? '');
+
+if($first !="all"){ 
+$third  = (string) ($uri->getSegment(2) ?? '');
+}else{
+    $third = (string) ($uri->getSegment(3) ?? '');
+}
+
+
+// // Use getSegment() with a 1-based index to get the string directly
+// if($first !="all"){
+
+// $third  = (string) ($uri->getSegment(3) ?? '');
+
+// }else{
+//     $second = (string) ($uri->getSegment(3) ?? '');
+// }
+
+
+var_dump($first, $second, $third);
+echo $first,    $second,    $third;
+?>
     <table class="main-grid-table">
         <tbody>
             <tr>
@@ -177,7 +207,7 @@ arsort($commentCounts);
                         <table class="inner-table">
                             <thead><tr><th>State Name</th></tr></thead>
                             <?php foreach ($stateCounts as $name => $count): ?>
-                                <tr><td><?= htmlspecialchars($name) ?> <span class="badge"><?= $count ?></span></td></tr>
+                                <tr><td><a href="<?= base_url() ."company/".$third."/" . "state/" . urlencode(str_replace(' ', '-', $name))?>"><?= htmlspecialchars($name) ?> <span class="badge"><?= $count ?></span></a></td></tr>
                             <?php endforeach; ?>
                         </table>
                     </div>
@@ -188,7 +218,7 @@ arsort($commentCounts);
                         <table class="inner-table">
                             <thead><tr><th>City Name</th></tr></thead>
                             <?php foreach ($cityCounts as $name => $count): ?>
-                                <tr><td><?= htmlspecialchars($name) ?> <span class="badge"><?= $count ?></span></td></tr>
+                                <tr><td><a href="<?= base_url() ."company/".$third."/" . "city/" . urlencode(str_replace(' ', '-', $name))?>"><?= htmlspecialchars($name) ?> <span class="badge"><?= $count ?></span></a></td></tr>
                             <?php endforeach; ?>
                         </table>
                     </div>
@@ -199,7 +229,7 @@ arsort($commentCounts);
                         <table class="inner-table">
                             <thead><tr><th>Source</th></tr></thead>
                             <?php foreach ($sourceCounts as $name => $count): ?>
-                                <tr><td><?= htmlspecialchars($name) ?> <span class="badge"><?= $count ?></span></td></tr>
+                                <tr><td><a href="<?= base_url() ."company/".$third."/" . "source/" . urlencode(str_replace(' ', '-', $name))?>"><?= htmlspecialchars($name) ?> <span class="badge"><?= $count ?></span></a></td></tr>
                             <?php endforeach; ?>
                         </table>
                     </div>
@@ -210,7 +240,7 @@ arsort($commentCounts);
                         <table class="inner-table">
                             <thead><tr><th>Category</th></tr></thead>
                             <?php foreach ($categoryCounts as $name => $count): ?>
-                                <tr><td><?= htmlspecialchars($name) ?> <span class="badge"><?= $count ?></span></td></tr>
+                                <tr><td><a href="<?= base_url() ."company/".$third."/" . "category/" . urlencode(str_replace(' ', '-', $name))?>"><?= htmlspecialchars($name) ?> <span class="badge"><?= $count ?></span></a></td></tr>
                             <?php endforeach; ?>
                         </table>
                     </div>
@@ -223,7 +253,7 @@ arsort($commentCounts);
                             <?php foreach ($commentCounts as $name => $count): ?>
                                 <tr><td>
                                     <div style="max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="<?= htmlspecialchars($name) ?>">
-                                        <?= htmlspecialchars($name) ?>
+                                <tr><td><a href="<?= base_url() ."company/".$third."/" . "last_comments/" . urlencode(str_replace(' ', '-', $name))?>"><?= htmlspecialchars($name) ?> <span class="badge"><?= $count ?></span></a></td></tr>
                                     </div>
                                     <span class="badge"><?= $count ?></span>
                                 </td></tr>

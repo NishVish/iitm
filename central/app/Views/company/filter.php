@@ -186,15 +186,15 @@ $uri = service('uri');
 
 $segments = [];
 
-for ($i = 2; $i <= 5; $i++) {
-    $seg = $uri->getSegment($i);
-    if ($seg) {
-        $segments[] = $seg;
-    }
-}
+// for ($i = 2; $i <= 5; $i++) {
+//     $seg = $uri->getSegment($i);
+//     if ($seg) {
+//         $segments[] = $seg;
+//     }
+// }
 
-// // store
-$data['segments'] = $segments;
+// // // store
+// $data['segments'] = $segments;
 
 // // print
 // foreach ($segments as $key => $value) {

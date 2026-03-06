@@ -14,8 +14,12 @@ $commentCounts    = [];
 
 
 
-?>
-<?= view('company/spreadsheet') ?>
+if ($all == "super"): ?>
+    <?php include(APPPATH . 'Views/company/spreadsheet.php'); ?>
+<?php endif; ?>
+
+
+
 
 <script>
 
@@ -175,18 +179,7 @@ if (!empty($d['last_comments'])) {
 
 
 ];
-    // --- Initialize Master Spreadsheet ---
-window.sheet = new Spreadsheet('masterSpreadsheet', {
-    data: data,
-        columns: columns,
-        editable: true,
-        onAfterChange: function(changes) {
-            if (!changes) return;
-            document.getElementById('saveStatus').innerText = "Saving changes...";
-        }
-    });
-    
-});
+
 </script>
 
 

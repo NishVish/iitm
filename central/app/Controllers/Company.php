@@ -23,28 +23,14 @@ protected $allowedTypes = ['main', 'lead', 'participant', 'all', 'online_registr
 /**
      * Dashboard View
      */
-public function index($type = null) 
+public function index($entry_type) 
 {
     // 1. Check if type is empty or invalid, fallback to 'main'
     
-    if (!$type || !in_array($type, $this->allowedTypes)) {
-        // Option A: Just set the variable and continue (Stay on current URL)
-        $type = 'main';
-        
-        // Option B: Hard redirect to the correct URL (Cleaner for browser history)
-        // return redirect()->to(base_url("company/main"));
-    }
-
-    $data = [];
-    $data['type'] = $type;
-   // 2. Fetch data from Model
-$data['statecategorycounts'] = $this->companyModel->statsByColumn($type, 'state');
-$data['databasestatecounts'] = $this->companyModel->statsByColumn($type, 'database_name');
-
-
+$this->getCompanySourcesContactsByFilters(['all' => $entry_type]);
 
     // 3. Return the View (Make sure the path matches your file)
-    return view('company/index', $data);
+    
 }
 
     public function opreation()
@@ -172,34 +158,49 @@ private function updateContactDetail($contactId, $table, $field, $value, $isSeco
         ]);
     }
 }
-public function byvar($type = 'main', $filterKey = null, $filterValue = null,$fordwonload =null)
+
+public function byvar($type, $filterKey = null, $filterValue = null, $fordwonload = null)
 {
-    if($type == "details"){
+    // 1. Handle special types first
+    if ($type === "details") {
         return $this->details($filterKey, $filterValue);
     }
-    elseif($type == "download"){
-        return $this->downloadDatabase($type,$filterKey, $filterValue);
-        }
-    // REMOVE 'return None;' from here
-    
-    // return view('ftp');
-    $filters = ['entry_type' => $type];
 
-
-    if ($filterKey && $filterValue) {
-        if ($filterKey === 'state') {
-            $filterValue = str_replace(['-and-', '-'], [' & ', ' '], $filterValue);
-            $filterValue = trim(preg_replace('/\s+/', ' ', $filterValue));
-        }
-        $filters[$filterKey] = $filterValue;
+    if ($type === "download") {
+        return $this->downloadDatabase($type, $filterKey, $filterValue);
     }
 
-    // This will now actually run!
-    // var_dump($filters); 
-    // exit;
+    // 2. Prepare the Value (Cleaning logic must happen before assignment)
+    if (!empty($filterValue)) {
+        // Convert 'tamil-nadu' or 'odisha-and-bengal' to clean strings
+        $filterValue = str_replace(['-and-', '-'], [' & ', ' '], $filterValue);
+        $filterValue = trim(preg_replace('/\s+/', ' ', $filterValue));
+    }
+
+    $filters = [];
+
+    // 3. Your "Hard Logic" for Type and Filter Assignment
+    if ($type == "all") {
+        // If type is 'all', use 'all' as the key for the filterKey
+        $filters['all'] = $filterKey;
+        
+        // Debugging as per your requirement
+        // var_dump($filters); print_r("super");
+    } else {
+        // Otherwise, map the specific key (e.g., 'state') to the clean value
+        if (!empty($filterKey)) {
+            $filters[$filterKey] = $filterValue;
+        }
+    }
+
+    // 4. Always ensure entry_type is set for the query
+    $filters['entry_type'] = $type;
+
+    // 5. Final Execution
+    // var_dump($filters); exit; 
+
     return $this->getCompanySourcesContactsByFilters($filters);
 }
-
 
 
 
@@ -342,7 +343,8 @@ public function filter()
         'source'   => $this->request->getGet('source'),
         'entry_type'   => $this->request->getGet('entry_type')
     ];
-
+// var_dump($filters);
+// exit;
     // Reuse your existing logic!
     return $this->getCompanySourcesContactsByFilters(array_filter($filters));
 }
@@ -357,7 +359,9 @@ public function getCompanySourcesContactsByFilters($filters = [])
     $sources    = $db->table('company_sources')->select('notes')->distinct()->get()->getResultArray();
     $entry_types = $db->table('company_data')->select('entry_type')->distinct()->get()->getResultArray();
 
-    // --- 2. Main Query Builder ---
+    
+    // var_dump($filters); 
+    // exit;
     $builder = $db->table('company_data cd')
         ->select('
             cd.*,
@@ -374,14 +378,17 @@ public function getCompanySourcesContactsByFilters($filters = [])
         ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left')
         ->groupBy(['cd.company_id', 'c.contact_id']);
 
+
     $filterMap = [
         'database'   => 'database_name',
         'state'      => 'state',
         'category'   => 'category',
         'source'     => 'notes', // Added missing comma here
-        'entry_type' => 'entry_type' 
     ];
 
+// var_dump($filters);
+// var_dump("super");
+// exit;
     foreach ($filters as $key => $value) {
         if ($value) {
             $column = $filterMap[$key] ?? $key;
@@ -391,13 +398,32 @@ public function getCompanySourcesContactsByFilters($filters = [])
             $value = str_replace('-', ' ', $value);
             $value = trim(preg_replace('/\s+/', ' ', $value));
 
-            if ($key === 'source') {
+            if ($key === 'all') {
+
+            $builder->where("cd.entry_type", $value);
+            // exit;
+    
+            }else{
+
+                $builder->where("cd.entry_type", $filters['entry_type']);
+
+                if ($key === 'source') {
                 $builder->where("cs.$column", $value);
             } else {
                 $builder->where("cd.$column", $value);
             }
+
+            }
+
+
+
         }
     }
+                        //  print_r("super");
+
+// var_dump($filters);
+                // exit;
+
 
     $rows = $builder->get()->getResultArray();
 
@@ -449,13 +475,15 @@ $data = [
     'categories'  => array_column($categories, 'category'),
     'sources'     => array_column($sources, 'notes'),
     'entry_types' => array_column($entry_types, 'entry_type'),
+    'all' => $filters['all'] ?? "super"
 
     ];
 
+    // var_dump($data['all']);
+    // exit;
 
 // Finally render
 
-    // var_dump($data);
     // exit;
  // --- 3. Pass URI Segments ---
         // $uri = service('uri');
@@ -470,7 +498,12 @@ $data = [
         // $data['subLabel']  = $uri->getSegment(4, '');
 
     // IF THIS IS IN A CONTROLLER:
+
+
     return view('company/by_var', $data);
+
+   
+   
     
     // IF THIS IS IN A MODEL:
     // return $data;
