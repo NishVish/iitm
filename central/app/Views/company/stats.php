@@ -317,7 +317,9 @@ document.getElementById('testFilterForm').addEventListener('submit', async funct
             </select>
             <span id="count-selDatabase" style="display:none;"></span>
         </label>
-
+<h2>
+    <?=$totalCompanies?>
+</h2>
         <a id="applyFilters" href="#" class="btn-apply">Apply</a>
     </div>
 </div>

@@ -436,6 +436,8 @@ $count = count($company['contacts']);
 // Define all variables to avoid "Undefined variable" errors if the result set is empty
 $data = [
     'companies'   => $grouped,
+    'totalCompanies'   => count($grouped),
+
     'maxContacts' => $maxContacts > 0 ? $maxContacts : 1,
     'all'         => $filters['all'] ?? "super",
     'databases'   => !empty($databases) ? $databases : ['all'],
