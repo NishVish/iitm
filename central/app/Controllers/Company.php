@@ -159,102 +159,64 @@ private function updateContactDetail($contactId, $table, $field, $value, $isSeco
     }
 }
 
-public function overview($entry_type)
+public function overview($entry_type, $parameter)
 {
+    $data = $this->overviewDynamic($entry_type, $parameter);
+    return view('company/index', $data);
+}
+
+
+
+public function overviewDynamic($entry_type, $column)
+{
+    $allowed = ['state','database_name','category'];
+
+    if (!in_array($column, $allowed)) {
+        throw new \Exception("Invalid column");
+    }
+
     $db = \Config\Database::connect();
 
     $companies = $db->query("
-        SELECT state, category, database_name
+        SELECT $column, category
         FROM company_data
         WHERE entry_type = ?
     ", [$entry_type])->getResultArray();
 
     $pivot = [];
-    $states = [];
-    $categories = [];
+    $rows = [];
+    $columns = [];
 
     foreach ($companies as $row) {
 
-        $state = $row['state'] ?? 'Unknown';
-        $category = $row['category'] ?? 'Unknown';
+        $rowKey = $row[$column] ?? 'Unknown';
+        $colKey = $row['category'] ?? 'Unknown';
 
-        $states[$state] = true;
-        $categories[$category] = true;
+        $rows[$rowKey] = true;
+        $columns[$colKey] = true;
 
-        if (!isset($pivot[$state][$category])) {
-            $pivot[$state][$category] = 0;
+        if (!isset($pivot[$rowKey][$colKey])) {
+            $pivot[$rowKey][$colKey] = 0;
         }
 
-        $pivot[$state][$category]++;
+        $pivot[$rowKey][$colKey]++;
     }
 
-    $states = array_keys($states);
-    $categories = array_keys($categories);
+    $rows = array_keys($rows);
+    $columns = array_keys($columns);
 
-    sort($states);
-    sort($categories);
+    sort($rows);
+    sort($columns);
 
-    $data = [
-        'pivot' => $pivot,
-        'states' => $states,
-        'categories' => $categories,
-        'type' => $entry_type
+    return [
+        'pivot'   => $pivot,
+        'rows'    => $rows,
+        'columns' => $columns,
+        'type'    => $entry_type,
+        'groupby' => $column
     ];
-
-    // print_r($data);
-    // exit;
-    return view('company/index', $data);
 }
 
-
-public function byvarx($type, $filterKey = null, $filterValue = null, $fordwonload = null)
-{
-    var_dump($type,$filterKey);
-    exit;
-    // 1. Handle special types first
-    if ($type === "details") {
-        return $this->details($filterKey, $filterValue);
-    }
-    if ($type === "general") {
-        return $this->overview($filterKey);
-    }
-
-
-    if ($type === "download") {
-        return $this->downloadDatabase($type, $filterKey, $filterValue);
-    }
-
-    // 2. Prepare the Value (Cleaning logic must happen before assignment)
-    if (!empty($filterValue)) {
-        // Convert 'tamil-nadu' or 'odisha-and-bengal' to clean strings
-        $filterValue = str_replace(['-and-', '-'], [' & ', ' '], $filterValue);
-        $filterValue = trim(preg_replace('/\s+/', ' ', $filterValue));
-    }
-
-    $filters = [];
-
-    // 3. Your "Hard Logic" for Type and Filter Assignment
-    if ($type == "all") {
-        // If type is 'all', use 'all' as the key for the filterKey
-        $filters['all'] = $filterKey;
-        
-        // Debugging as per your requirement
-        // var_dump($filters); print_r("super");
-    } else {
-        // Otherwise, map the specific key (e.g., 'state') to the clean value
-        if (!empty($filterKey)) {
-            $filters[$filterKey] = $filterValue;
-        }
-    }
-
-    // 4. Always ensure entry_type is set for the query
-    $filters['entry_type'] = $type;
-
-    // 5. Final Execution
-    // var_dump($filters); exit; 
-
-    return $this->getCompanySourcesContactsByFilters($filters);
-}
 
 
 public function byvar(
@@ -271,7 +233,7 @@ public function byvar(
         return $this->details("main",$database);
     }
     if ($database === "overview") {
-        return $this->overview($entrytype);
+        return $this->overview($entrytype,$category);
     }
 
     if ($entrytype === "download") {

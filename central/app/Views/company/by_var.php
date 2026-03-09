@@ -3,12 +3,7 @@
 
     
 <!-- Toggle Button -->
-<button id="toggleBtn">Show/Hide Company Form</button>
 
-<!-- Form Container -->
-<div id="companyFormWrapper" class="form-container">
-    <?= view('company/insert_company_form') ?>
-</div>
 
 <?php
 
@@ -210,3 +205,9 @@ if ($all == "super"): ?>
 
 // var_dump($companies) ;
 endif; ?>
+<button id="toggleBtn">Show/Hide Company Form</button>
+
+<!-- Form Container -->
+<div id="companyFormWrapper" class="form-container">
+    <?= view('company/insert_company_form') ?>
+</div>

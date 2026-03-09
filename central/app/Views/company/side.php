@@ -14,11 +14,11 @@ if ($segment1 == 'company') : ?>
 <div class="submenu">
     <a href="<?= base_url('company/all') ?>">All Companies</a>
 
-    <a href="<?= base_url('company/main') ?>">View Companies</a>
-    <a href="<?= base_url('company/lead') ?>">Leads Companies</a>
-    <a href="<?= base_url('company/participant') ?>">Participant Companies</a>
-    <a href="<?= base_url('company/online_registration') ?>">Online Registration Companies</a>
-    <a href="<?= base_url('company/spot') ?>">Spot Regisrataion</a>
+    <a href="<?= base_url('company/main/overview') ?>">View Companies</a>
+    <a href="<?= base_url('company/lead/overview') ?>">Leads Companies</a>
+    <a href="<?= base_url('company/participant/overview') ?>">Participant Companies</a>
+    <a href="<?= base_url('company/online_registration/overview') ?>">Online Registration Companies</a>
+    <a href="<?= base_url('company/spot/overview') ?>">Spot Regisrataion</a>
 <a href="<?= base_url('company/operation') ?>" >Operation</a>
 
     <a href="<?= base_url('company/add') ?>">Add Company</a>
@@ -124,21 +124,8 @@ dropdown.addEventListener('change', function() {
 </div>
 
 <style>
-    <style>
-:root {
-    /* Main colors */
-    --nav-color: #a82324;
-    --nav-color-dim: #c45a5b;
+    
 
-    --body-color: #f8f4f4;
-    --body-color-dim: #fbf9f9;
-
-    --button-color: #a82324;
-    --button-color-dim: #c45a5b;
-
-    --text-color: #ffffff;
-    --text-color-dim: #dcdcdc;
-}
 
 /* Action Button Base */
 .action-btn {
@@ -167,24 +154,24 @@ dropdown.addEventListener('change', function() {
 
 /* Danger */
 .action-btn.danger {
-    background: #c0392b;
-    border-color: #c0392b;
+    background: var(--button-color-dim);
+    border-color: var(--button-color-dim);
 }
 
 .action-btn.danger:hover {
-    background: #e74c3c;
-    border-color: #e74c3c;
+    background: var(--body-color);
+    border-color: var(--button-color-dim);
 }
 
 /* Warning */
 .action-btn.warning {
-    background: #f39c12;
-    border-color: #f39c12;
+    background: var(--button-color-dim);
+    border-color: var(--button-color-dim);
 }
 
 .action-btn.warning:hover {
-    background: #f1c40f;
-    border-color: #f1c40f;
+    background: var(--body-color);
+    border-color: var(--button-color-dim);
 }
 </style>
 

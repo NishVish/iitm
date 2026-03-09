@@ -23,12 +23,7 @@
     --selection-row: rgba(255,255,255,0.15);
 }
 
-/* Base Styles & Scrollbar */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -45,14 +40,6 @@
     background: rgba(148, 163, 184, 0.4);
 }
 
-body {
-    background-color: var(--bg-dark);
-    background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(34, 211, 238, 0.1) 0, transparent 50%);
-    color: var(--text-main);
-    font-family: 'Inter', sans-serif;
-}
 
 .page-wrapper {
     max-width: 100%;
@@ -191,8 +178,8 @@ body {
     padding: 0.4rem 0.8rem;
     border-radius: 8px;
     /* font-size: 0.8rem; */
-    background: var(--button-color);
-    color: #fff !important;
+    background: var(--body-color);
+    color: var(--text-color);
     line-height: 1;
     vertical-align: middle;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);

@@ -20,20 +20,6 @@ $third = 'none';
 <style>
 /* PAGE WRAPPER */
 
-variables
-    /* Main colors */
-    --nav-color: #a82324;
-    --nav-color-dim: #c45a5b;
-
-    --body-color: #f8f4f4;
-    --body-color-dim: #fbf9f9;
-
-    --button-color: #a82324;
-    --button-color-dim: #c45a5b;
-
-    --text-color: #ffffff;
-    --text-color-dim: #dcdcdc;
-
 
 .master-wrapper{
 font-family:'Inter',system-ui,-apple-system,sans-serif;
@@ -84,11 +70,13 @@ gap:15px;
 /* LIST PANEL */
 
 .list-box{
-background:var(--text-color);
+background:var(--nav-color);
 border-radius:10px;
 display:flex;
 flex-direction:column;
 overflow:hidden;
+color:var(--text-color);
+
 box-shadow:0 2px 8px rgba(0,0,0,.05);
 }
 
@@ -128,7 +116,7 @@ justify-content:space-between;
 align-items:center;
 padding:10px 12px;
 text-decoration:none;
-color:var(--nav-color);
+color:var(--text-color);
 border-bottom:1px solid var(--body-color);
 font-size:14px;
 transition:background .2s ease;
@@ -192,8 +180,6 @@ align-items:center;
 
 
 </style>
-<div class="dashboard-header">
-<div class="header-bar">
 
 <style>
     .dashboard-header{
@@ -201,14 +187,15 @@ align-items:center;
     justify-content:space-between;
     align-items:center;
     padding:15px 20px;
-    background:#f5f7fb;
+    background:var(--nav-color);
     border-bottom:1px solid #ddd;
 }
 .header-bar{
     display:flex;
     justify-content:flex-end;
     padding:10px 20px;
-    background:#f4f6fa;
+    background:var(--nav-color);
+    color:var(--text-color);
     border-bottom:1px solid #ddd;
 }
 
@@ -295,9 +282,59 @@ document.getElementById('testFilterForm').addEventListener('submit', async funct
 });
 </script> -->
 
-    
-<div class="filters">
-        <label>
+<style>
+    /* DROPDOWN STYLE */
+
+.filter-select{
+appearance:none;
+-webkit-appearance:none;
+-moz-appearance:none;
+
+padding:8px 34px 8px 12px;
+
+border-radius:8px;
+border:1px solid #ddd;
+
+background:var(--nav-color);
+color:var(--text-color);
+font-size:13px;
+font-weight:500;
+max-width:200px;
+cursor:pointer;
+
+transition:all .2s ease;
+
+/* custom arrow */
+background-image:url("data:image/svg+xml;utf8,<svg fill='%23a82324' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5z'/></svg>");
+background-repeat:no-repeat;
+background-position:right 8px center;
+background-size:14px;
+}
+
+.filter-select:hover{
+border-color:var(--nav-color);
+}
+
+.filter-select:focus{
+outline:none;
+border-color:var(--nav-color);
+box-shadow:0 0 0 2px rgba(168,35,36,.15);
+}
+
+/* dropdown options */
+
+.filter-select option{
+padding:6px;
+font-size:13px;
+}
+</style>
+
+
+
+<table style="width:100%">
+    <tr>
+        <td>
+            <label>
             Entry Type
             <select id="selEntrytype" class="filter-select">
                 <option value="">All</option>
@@ -306,8 +343,10 @@ document.getElementById('testFilterForm').addEventListener('submit', async funct
                 <?php endforeach; ?>
             </select>
         </label>
+    </td>
 
-        <label>
+    <td>
+<label>
             Database
             <select id="selDatabase" class="filter-select">
                 <option value="">All</option>
@@ -317,14 +356,24 @@ document.getElementById('testFilterForm').addEventListener('submit', async funct
             </select>
             <span id="count-selDatabase" style="display:none;"></span>
         </label>
-<h2>
+
+    </td>
+    <td>     
+
+<h2 style="    color:var(--text-color);">
     <?=$totalCompanies?>
 </h2>
-        <a id="applyFilters" href="#" class="btn-apply">Apply</a>
-    </div>
-</div>
 
-</div>
+    </td>
+    <td>
+
+        <a id="applyFilters" href="#" class="btn-apply">Apply</a>
+
+    </td>
+    </tr>
+</table>
+
+
 <div class="master-wrapper">
 
 

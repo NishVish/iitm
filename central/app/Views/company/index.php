@@ -12,67 +12,87 @@
             </button>
         </div>
     </div>
-<div id="stateTable" class="data-card" style="max-height:700px; width:auto; overflow:auto;">
+
+
+    <div id="stateTable" class="data-card" style="max-height:700px; width:auto; overflow:auto;">
     <table class="dynamic-table">
         <thead>
             <tr>
-                <th class="sticky-col sticky-header">State</th>
+                <th class="sticky-col sticky-header"><?= ucfirst($groupby) ?></th>
                 <th class="sticky-header">Total</th>
-                <?php foreach ($categories as $cat): ?>
-                    <th class="sticky-header"><?= esc($cat ?: 'Uncategorized') ?></th>
+
+                <?php foreach ($columns as $col): ?>
+                    <th class="sticky-header"><?= esc($col ?: 'Uncategorized') ?></th>
                 <?php endforeach; ?>
+
             </tr>
         </thead>
+
         <tbody>
-            <?php 
-// Sort states alphabetically
+<?php 
+// Sort rows alphabetically
 ksort($pivot);
 
-$baseUrl = site_url('company'); // your base URL
-$entryType = $filters['entrytype'] ?? 'main';
+$baseUrl = site_url('company');
+$entryType = $type;
 
-foreach ($pivot as $state => $row): 
+foreach ($pivot as $rowKey => $row): 
+
     $rowTotal = 0;
-    foreach ($categories as $cat){
-        $rowTotal += $row[$cat] ?? 0;
+    foreach ($columns as $col){
+        $rowTotal += $row[$col] ?? 0;
     }
 ?>
 <tr>
     <td class="sticky-col">
-        <a href="<?= $baseUrl . '/' . $entryType . '/all/all/all/' . urlencode($state) ?>">
-            <?= esc($state ?: 'Unknown') ?>
+        <a href="<?= $baseUrl . '/' . $entryType . '/all/all/all/' . urlencode($rowKey) ?>">
+            <?= esc($rowKey ?: 'Unknown') ?>
         </a>
     </td>
+
     <td class="total-cell"><?= number_format($rowTotal) ?></td>
-    <?php foreach ($categories as $cat): ?>
-        <td><?= number_format($row[$cat] ?? 0) ?></td>
+
+    <?php foreach ($columns as $col): ?>
+        <td><?= number_format($row[$col] ?? 0) ?></td>
     <?php endforeach; ?>
+
 </tr>
 <?php endforeach; ?>
         </tbody>
+
         <tfoot>
-            <tr>
-                <td class="sticky-col"><strong>GRAND TOTAL</strong></td>
-                <td class="grand-total">
-                    <?php
-                    $grandTotal = 0;
-                    foreach ($pivot as $row){
-                        $grandTotal += array_sum(array_map(fn($v) => $v ?? 0, $row));
-                    }
-                    ?>
-                    <strong><?= number_format($grandTotal) ?></strong>
-                </td>
-                <?php 
-                    foreach ($categories as $cat):
-                        $colTotal = 0;
-                        foreach ($pivot as $row){
-                            $colTotal += $row[$cat] ?? 0;
-                        }
-                ?>
-                    <td><strong><?= number_format($colTotal) ?></strong></td>
-                <?php endforeach; ?>
-            </tr>
+<tr>
+<td class="sticky-col"><strong>GRAND TOTAL</strong></td>
+
+<td class="grand-total">
+<?php
+$grandTotal = 0;
+
+foreach ($pivot as $row){
+    $grandTotal += array_sum(array_map(fn($v) => $v ?? 0, $row));
+}
+?>
+
+<strong><?= number_format($grandTotal) ?></strong>
+</td>
+
+<?php 
+foreach ($columns as $col):
+
+    $colTotal = 0;
+
+    foreach ($pivot as $row){
+        $colTotal += $row[$col] ?? 0;
+    }
+?>
+
+<td><strong><?= number_format($colTotal) ?></strong></td>
+
+<?php endforeach; ?>
+
+</tr>
         </tfoot>
+
     </table>
 </div>
 

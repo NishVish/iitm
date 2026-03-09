@@ -2,9 +2,8 @@
 <style>
     .active {
     font-weight: bold;
-    color: #007bff;
-}
-
+    color:var(--text-color);
+    }
 </style>
 
 <style>
@@ -41,7 +40,7 @@
 }
 
 .sidebar a:hover {
-    background-color: #8b1d20;
+    background-color: var(--body-color);
 }
 
 /* Main content area */
@@ -94,10 +93,12 @@
         }
 
         .search-box button:hover { 
-            background: #8b1d20; /* darker red hover */
+            background: var(--body-color);
             transform: translateY(-2px);
             box-shadow: 0 3px 8px rgba(0,0,0,0.2);
         }
+
+ 
 </style>
 
 
@@ -167,6 +168,8 @@
     }
 
     .btn-compact:hover {
+                background-color: var(--body-color);
+
         opacity: 0.9; 
     }
 
