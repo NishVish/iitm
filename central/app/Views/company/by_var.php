@@ -2,6 +2,13 @@
 <?php //include(APPPATH . 'Views/company/filter.php'); ?>
 
     
+<!-- Toggle Button -->
+<button id="toggleBtn">Show/Hide Company Form</button>
+
+<!-- Form Container -->
+<div id="companyFormWrapper" class="form-container">
+    <?= view('company/insert_company_form') ?>
+</div>
 
 <?php
 
