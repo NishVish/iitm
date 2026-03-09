@@ -18,7 +18,7 @@ protected $allowedTypes = ['main', 'lead', 'participant', 'all', 'online_registr
         $this->companyModel = new CompanyModel();
     }
 
-
+// company/entrytype/database/source/category/state/city/comment
 
 /**
      * Dashboard View
@@ -159,12 +159,66 @@ private function updateContactDetail($contactId, $table, $field, $value, $isSeco
     }
 }
 
+public function overview($entry_type)
+{
+    $db = \Config\Database::connect();
+
+    $companies = $db->query("
+        SELECT state, category, database_name
+        FROM company_data
+        WHERE entry_type = ?
+    ", [$entry_type])->getResultArray();
+
+    $pivot = [];
+    $states = [];
+    $categories = [];
+
+    foreach ($companies as $row) {
+
+        $state = $row['state'] ?? 'Unknown';
+        $category = $row['category'] ?? 'Unknown';
+
+        $states[$state] = true;
+        $categories[$category] = true;
+
+        if (!isset($pivot[$state][$category])) {
+            $pivot[$state][$category] = 0;
+        }
+
+        $pivot[$state][$category]++;
+    }
+
+    $states = array_keys($states);
+    $categories = array_keys($categories);
+
+    sort($states);
+    sort($categories);
+
+    $data = [
+        'pivot' => $pivot,
+        'states' => $states,
+        'categories' => $categories,
+        'type' => $entry_type
+    ];
+
+    // print_r($data);
+    // exit;
+    return view('company/index', $data);
+}
+
+
 public function byvarx($type, $filterKey = null, $filterValue = null, $fordwonload = null)
 {
+    var_dump($type,$filterKey);
+    exit;
     // 1. Handle special types first
     if ($type === "details") {
         return $this->details($filterKey, $filterValue);
     }
+    if ($type === "general") {
+        return $this->overview($filterKey);
+    }
+
 
     if ($type === "download") {
         return $this->downloadDatabase($type, $filterKey, $filterValue);
@@ -207,49 +261,49 @@ public function byvar(
     $entrytype = 'all',
     $database  = 'all',
     $category  = 'all',
-    $source  = 'all',
+    $source    = 'all',
     $state     = 'all',
     $city      = 'all',
     $comment   = 'all'
 ) {
 
-// var_dump($entrytype, $database, $category, $state, $city, $comment);
-// exit;
- // 1. Handle special types first
     if ($entrytype === "details") {
-        return $this->details($filterKey, $filterValue);
+        return $this->details("main",$database);
+    }
+    if ($database === "overview") {
+        return $this->overview($entrytype);
     }
 
-      
-
-
-    
     if ($entrytype === "download") {
-        return $this->downloadDatabase($type, $filterKey, $filterValue);
+        return $this->downloadDatabase();
     }
 
 
 
-    $filters = [
-        'entrytype' => $entrytype,
-        'database'  => $database,
-        'category'  => $category,
-        'source'    => $source,
-        'state'     => $state,
-        'city'      => $city,
-        'comment'   => $comment
-    ];
+    $filters = compact(
+        'entrytype',
+        'database',
+        'category',
+        'source',
+        'state',
+        'city',
+        'comment'
+    );
 
-// var_dump($filters);
-// exit;
 
-    $data =  $this->getCompanySourcesContactsByFilters($filters);
+    $data = $this->getCompanySourcesContactsByFilters($filters);
 
     // var_dump($data);
     // exit;
-return view('company/by_var', $data);
+    
+//     echo '<pre>';
+// print_r($data);   // or var_dump($data) if you need types
+// echo '</pre>';
+// // exit;
 
- }
+
+    return view('company/by_var', $data);
+}
 
 
 
@@ -282,22 +336,221 @@ public function filter()
     return $this->getCompanySourcesContactsByFilters($filters);
 }
 
+// public function getCompanySourcesContactsByFilters($filters = [])
+// {
+// $db = \Config\Database::connect();
+
+// $entry_types = $this->getDistinct($db, 'company_data', 'entry_type');
+
+// $databases   = $this->getDistinct($db, 'company_data', 'database_name');
+// $categories  = $this->getDistinct($db, 'company_data', 'category');
+// $states      = $this->getDistinct($db, 'company_data', 'state');
+// $cities      = $this->getDistinct($db, 'company_data', 'city');
+// $comments    = $this->getDistinct($db, 'company_data', 'last_comments');
+
+// $sources     = $this->getDistinct($db, 'company_sources', 'notes');
+
+//     var_dump($filters); 
+//     // array(7) { ["entrytype"]=> string(4) "main" ["database"]=> string(3) "all" ["category"]=> string(3) "all" ["source"]=> string(3) "all" ["state"]=> string(3) "all" ["city"]=> string(3) "all" ["comment"]=> string(3) "all" }
+//     exit;
+//     $builder = $db->table('company_data cd')
+//         ->select('
+//             cd.*,
+//             GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+//             c.contact_id,
+//             c.name AS contact_name,
+//             c.designation,
+//             GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+//             GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+//         ', false)
+//         ->join('company_sources cs', 'cs.company_id = cd.company_id', 'left')
+//         ->join('contact c', 'c.company_id = cd.company_id', 'left')
+//         ->join('contact_email ce', 'ce.contact_id = c.contact_id', 'left')
+//         ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left')
+//         ->groupBy(['cd.company_id', 'c.contact_id']);
+
+
+//         $columnMap = [
+//     'entrytype' => 'entry_type',
+//     'database'  => 'database_name', // adjust if your column is database_name
+//     'category'  => 'category',
+//     'source'    => 'notes',         // notes column in company_sources table
+//     'state'     => 'state',
+//     'city'      => 'city',
+//     'comment'   => 'last_comments'
+// ];
+
+
+// /* Apply Filters */
+// foreach ($filters as $key => $value) {
+
+//     // Skip 'all' values
+//     if ($value === 'all' || $value === '') continue;
+
+//     // Map key to actual column
+//     $column = $columnMap[$key] ?? $key;
+
+//     // Table mapping
+//     if ($key === 'source') {
+// $builder->like("cs.$column", $value);
+
+
+// } else {
+//         $builder->where("cd.$column", $value);
+//     }
+// }
+
+// $rows = $builder->get()->getResultArray();
+
+//     // --- 3. Grouping Logic ---
+//     $grouped = [];
+// // $databases  = [];
+// $categories = [];
+// $sources    = [];
+// $states     = [];
+// $cities     = [];
+// $comments   = [];
+
+
+
+
+
+//     foreach ($rows as $row) {
+
+// // --- Dynamic Filter Collection ---
+// //     We collect these only once per company to keep the lists clean
+//     // if (!in_array($row['database_name'], $databases)) {
+//     //     if (!empty($row['database_name'])) $databases[] = $row['database_name'];
+//     // }
+//     if (!in_array($row['category'], $categories)) {
+//         if (!empty($row['category'])) $categories[] = $row['category'];
+//     }
+//     if (!in_array($row['source_notes'], $sources)) {
+//         if (!empty($row['source_notes'])) $sources[] = $row['source_notes'];
+//     }
+//     if (!in_array($row['state'], $states)) {
+//         if (!empty($row['state'])) $states[] = $row['state'];
+//     }
+//     if (!in_array($row['city'], $cities)) {
+//         if (!empty($row['city'])) $cities[] = $row['city'];
+//     }
+//     if (!in_array($row['last_comments'], $comments)) {
+//         if (!empty($row['last_comments'])) $comments[] = $row['last_comments'];
+//     }
+
+//         $id = $row['company_id'];
+//         if (!isset($grouped[$id])) {
+//             $grouped[$id] = [
+//                 'details'  => $row,
+//                 'contacts' => []
+//             ];
+//         }
+
+//         if ($row['contact_id']) {
+//             $cId = $row['contact_id'];
+//             if (!isset($grouped[$id]['contacts'][$cId])) {
+//                 $grouped[$id]['contacts'][$cId] = [
+//                     'name'        => $row['contact_name'],
+//                     'designation' => $row['designation'],
+//                     'emails'      => [],
+//                     'mobiles'     => []
+//                 ];
+//             }
+            
+//             if ($row['email_address']) {
+//                 $grouped[$id]['contacts'][$cId]['emails'] = array_unique(explode(', ', $row['email_address']));
+//             }
+//             if ($row['mobile_number']) {
+//                 $grouped[$id]['contacts'][$cId]['mobiles'] = array_unique(explode(', ', $row['mobile_number']));
+//             }
+//         }
+//     }
+
+
+    
+// // 2. Sort them alphabetically so the dropdowns look professional
+// sort($databases);
+// sort($categories);
+// sort($sources);
+// sort($states);
+// sort($cities);
+// sort($comments);
+
+
+
+
+// $maxContacts = 0;
+// foreach ($grouped as $company) {
+// $details = $company['details'] ?? [];
+
+// $count = count($company['contacts']);
+//     if ($count > $maxContacts) $maxContacts = $count;
+
+// }
+
+
+// // ... after your foreach ($rows as $row) loop where you collected everything ...
+
+// // Define all variables to avoid "Undefined variable" errors if the result set is empty
+// $data = [
+//     'companies'   => $grouped,
+//     'totalCompanies'   => count($grouped),
+
+//     'maxContacts' => $maxContacts > 0 ? $maxContacts : 1,
+//     'all'         => $filters['all'] ?? "super",
+//     'databases'   => !empty($databases) ? $databases : ['all'],
+//     'categories'  => !empty($categories) ? $categories : ['all'],
+//     'sources'     => !empty($sources) ? $sources : ['all'],
+//     'states'      => !empty($states) ? $states : ['all'],
+//     'cities'      => !empty($cities) ? $cities : ['all'],
+//     'comments'    => !empty($comments) ? $comments : ['all'],
+//     'entry_types' => !empty($entry_types) ? $entry_types : ['all'],
+//     'filters'     => $filters, // Ensure the current filter state is also passed
+// ];
+
+// // var_dump($data['databases']);
+// // exit;
+
+// // CRITICAL: Ensure the $data array is passed to the view
+// // return view('company/by_var', $data);
+//     return $data;
+
+// }
+
 public function getCompanySourcesContactsByFilters($filters = [])
 {
-$db = \Config\Database::connect();
+    $db = \Config\Database::connect();
 
-$entry_types = $this->getDistinct($db, 'company_data', 'entry_type');
+    $columnMap = [
+        'entrytype' => 'entry_type',
+        'database'  => 'database_name',
+        'category'  => 'category',
+        'state'     => 'state',
+        'city'      => 'city',
+        'comment'   => 'last_comments'
+    ];
 
-$databases   = $this->getDistinct($db, 'company_data', 'database_name');
-$categories  = $this->getDistinct($db, 'company_data', 'category');
-$states      = $this->getDistinct($db, 'company_data', 'state');
-$cities      = $this->getDistinct($db, 'company_data', 'city');
-$comments    = $this->getDistinct($db, 'company_data', 'last_comments');
+    /* ---------------------------
+       1. Build reusable WHERE
+    ----------------------------*/
 
-$sources     = $this->getDistinct($db, 'company_sources', 'notes');
+    $where = [];
 
-    // var_dump($filters); 
-    // exit;
+    foreach ($filters as $key => $value) {
+
+        if ($value === 'all' || $value === '') continue;
+
+        if ($key === 'source') continue;
+
+        $column = $columnMap[$key] ?? $key;
+
+        $where["cd.$column"] = $value;
+    }
+
+    /* ---------------------------
+       2. MAIN QUERY (companies)
+    ----------------------------*/
+
     $builder = $db->table('company_data cd')
         ->select('
             cd.*,
@@ -312,153 +565,158 @@ $sources     = $this->getDistinct($db, 'company_sources', 'notes');
         ->join('contact c', 'c.company_id = cd.company_id', 'left')
         ->join('contact_email ce', 'ce.contact_id = c.contact_id', 'left')
         ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left')
-        ->groupBy(['cd.company_id', 'c.contact_id']);
+        ->groupBy(['cd.company_id','c.contact_id']);
 
-
-        $columnMap = [
-    'entrytype' => 'entry_type',
-    'database'  => 'database_name', // adjust if your column is database_name
-    'category'  => 'category',
-    'source'    => 'notes',         // notes column in company_sources table
-    'state'     => 'state',
-    'city'      => 'city',
-    'comment'   => 'last_comments'
-];
-
-
-/* Apply Filters */
-foreach ($filters as $key => $value) {
-
-    // Skip 'all' values
-    if ($value === 'all' || $value === '') continue;
-
-    // Map key to actual column
-    $column = $columnMap[$key] ?? $key;
-
-    // Table mapping
-    if ($key === 'source') {
-$builder->like("cs.$column", $value);
-
-
-} else {
-        $builder->where("cd.$column", $value);
+    if (!empty($where)) {
+        $builder->where($where);
     }
-}
 
-$rows = $builder->get()->getResultArray();
+    if (!empty($filters['source']) && $filters['source'] !== 'all') {
+        $builder->like('cs.notes', $filters['source']);
+    }
 
-    // --- 3. Grouping Logic ---
+    $rows = $builder->get()->getResultArray();
+
+    /* ---------------------------
+       3. GROUP COMPANIES
+    ----------------------------*/
+
     $grouped = [];
-
-// $databases  = [];
-$categories = [];
-$sources    = [];
-$states     = [];
-$cities     = [];
-$comments   = [];
+    $maxContacts = 0;
 
     foreach ($rows as $row) {
+        // var_dump($row);
 
-// --- Dynamic Filter Collection ---
-//     We collect these only once per company to keep the lists clean
-    // if (!in_array($row['database_name'], $databases)) {
-    //     if (!empty($row['database_name'])) $databases[] = $row['database_name'];
-    // }
-    if (!in_array($row['category'], $categories)) {
-        if (!empty($row['category'])) $categories[] = $row['category'];
-    }
-    if (!in_array($row['source_notes'], $sources)) {
-        if (!empty($row['source_notes'])) $sources[] = $row['source_notes'];
-    }
-    if (!in_array($row['state'], $states)) {
-        if (!empty($row['state'])) $states[] = $row['state'];
-    }
-    if (!in_array($row['city'], $cities)) {
-        if (!empty($row['city'])) $cities[] = $row['city'];
-    }
-    if (!in_array($row['last_comments'], $comments)) {
-        if (!empty($row['last_comments'])) $comments[] = $row['last_comments'];
-    }
 
-        $id = $row['company_id'];
-        if (!isset($grouped[$id])) {
-            $grouped[$id] = [
-                'details'  => $row,
-                'contacts' => []
+        $cid = $row['company_id'];
+
+        if (!isset($grouped[$cid])) {
+            $grouped[$cid] = [
+                'details' => $row,
+                'contacts'=> []
             ];
         }
 
-        if ($row['contact_id']) {
-            $cId = $row['contact_id'];
-            if (!isset($grouped[$id]['contacts'][$cId])) {
-                $grouped[$id]['contacts'][$cId] = [
-                    'name'        => $row['contact_name'],
-                    'designation' => $row['designation'],
-                    'emails'      => [],
-                    'mobiles'     => []
-                ];
-            }
-            
-            if ($row['email_address']) {
-                $grouped[$id]['contacts'][$cId]['emails'] = array_unique(explode(', ', $row['email_address']));
-            }
-            if ($row['mobile_number']) {
-                $grouped[$id]['contacts'][$cId]['mobiles'] = array_unique(explode(', ', $row['mobile_number']));
-            }
+        if (!$row['contact_id']) continue;
+
+        $contactId = $row['contact_id'];
+
+        if (!isset($grouped[$cid]['contacts'][$contactId])) {
+
+            $grouped[$cid]['contacts'][$contactId] = [
+                'name' => $row['contact_name'],
+                'designation' => $row['designation'],
+                'emails' => [],
+                'mobiles'=> []
+            ];
+        }
+
+        if ($row['email_address']) {
+            $grouped[$cid]['contacts'][$contactId]['emails'] =
+                array_unique(explode(', ', $row['email_address']));
+        }
+
+        if ($row['mobile_number']) {
+            $grouped[$cid]['contacts'][$contactId]['mobiles'] =
+                array_unique(explode(', ', $row['mobile_number']));
         }
     }
 
+    foreach ($grouped as $company) {
+        $maxContacts = max($maxContacts, count($company['contacts']));
+    }
 
+    /* ---------------------------
+       4. FILTER QUERIES (FAST)
+    ----------------------------*/
+
+    $categories = $db->table('company_data cd')
+        ->select('category')
+        ->where($where)
+        ->groupBy('category')
+        ->orderBy('category')
+        ->get()->getResultArray();
+
+    $states = $db->table('company_data cd')
+        ->select('state')
+        ->where($where)
+        ->groupBy('state')
+        ->orderBy('state')
+        ->get()->getResultArray();
+
+    $cities = $db->table('company_data cd')
+        ->select('city')
+        ->where($where)
+        ->groupBy('city')
+        ->orderBy('city')
+        ->get()->getResultArray();
+
+    $comments = $db->table('company_data cd')
+        ->select('last_comments')
+        ->where($where)
+        ->groupBy('last_comments')
+        ->orderBy('last_comments')
+        ->get()->getResultArray();
+
+    $sources = $db->table('company_sources cs')
+        ->select('notes')
+        ->join('company_data cd','cd.company_id = cs.company_id')
+        ->where($where)
+        ->groupBy('notes')
+        ->orderBy('notes')
+        ->get()->getResultArray();
+
+    /* convert to simple arrays */
+
+    $categories = array_column($categories,'category');
+    $states     = array_column($states,'state');
+    $cities     = array_column($cities,'city');
+    $comments   = array_column($comments,'last_comments');
+    $sources    = array_column($sources,'notes');
+
+    /* ---------------------------
+       5. RETURN DATA
+    ----------------------------*/
+$entry_types = $db->table('company_data')
+    ->select('entry_type')
+    ->groupBy('entry_type')
+    ->orderBy('entry_type')
+    ->get()->getResultArray();
+
+$databases = $db->table('company_data')
+    ->select('database_name')
+    ->groupBy('database_name')
+    ->orderBy('database_name')
+    ->get()->getResultArray();
+    $entry_types = array_column($entry_types, 'entry_type');
+$databases   = array_column($databases, 'database_name');
     
-// 2. Sort them alphabetically so the dropdowns look professional
-sort($databases);
-sort($categories);
-sort($sources);
-sort($states);
-sort($cities);
-sort($comments);
 
+$data = 
 
+[
+    'companies'     => $grouped,
+    'totalCompanies' => count($grouped),
 
+    'maxContacts'   => $maxContacts ?: 1,
 
-$maxContacts = 0;
-foreach ($grouped as $company) {
-$details = $company['details'] ?? [];
-
-$count = count($company['contacts']);
-    if ($count > $maxContacts) $maxContacts = $count;
-
-}
-
-
-// ... after your foreach ($rows as $row) loop where you collected everything ...
-
-// Define all variables to avoid "Undefined variable" errors if the result set is empty
-$data = [
-    'companies'   => $grouped,
-    'totalCompanies'   => count($grouped),
-
-    'maxContacts' => $maxContacts > 0 ? $maxContacts : 1,
+    'entry_types'   => $entry_types ?: ['all'],
+    'databases'     => $databases ?: ['all'],
+    'categories'    => $categories ?: ['all'],
+    'states'        => $states ?: ['all'],
+    'cities'        => $cities ?: ['all'],
+    'comments'      => $comments ?: ['all'],
+    'sources'       => $sources ?: ['all'],
     'all'         => $filters['all'] ?? "super",
-    'databases'   => !empty($databases) ? $databases : ['all'],
-    'categories'  => !empty($categories) ? $categories : ['all'],
-    'sources'     => !empty($sources) ? $sources : ['all'],
-    'states'      => !empty($states) ? $states : ['all'],
-    'cities'      => !empty($cities) ? $cities : ['all'],
-    'comments'    => !empty($comments) ? $comments : ['all'],
-    'entry_types' => !empty($entry_types) ? $entry_types : ['all'],
-    'filters'     => $filters, // Ensure the current filter state is also passed
+
+    'filters'       => $filters
 ];
-
-// var_dump($data['databases']);
+// var_dump($data);
 // exit;
+return $data;
 
-// CRITICAL: Ensure the $data array is passed to the view
-// return view('company/by_var', $data);
-    return $data;
 
 }
-
 
 
 public function getDynamicFilters()
@@ -466,7 +724,7 @@ public function getDynamicFilters()
     // 1. Capture the current selections from AJAX
     $currentFilters = [
         'entrytype' => $this->request->getPost('selEntrytype'),
-        'database'  => $this->request->getPost('selDatabase'),
+        'database_name'  => $this->request->getPost('selDatabase'),
         'category'  => $this->request->getPost('selCategory'),
         'source'    => $this->request->getPost('selSource'),
         'state'     => $this->request->getPost('selState'),
