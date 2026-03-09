@@ -10,7 +10,6 @@ $segment1 = service('uri')->getSegment(1);
 
 
 
-
 if ($segment1 == 'company') : ?>
 <div class="submenu">
     <a href="<?= base_url('company/all') ?>">All Companies</a>
@@ -33,8 +32,8 @@ if ($segment1 == 'company') : ?>
 
 
        <!-- Container for the form -->
-<div id="clearDatabaseContainer" style="max-width:120px; margin-top:10px;">
-    <select id="databaseDropdown" required>
+<div id="clearDatabaseContainer" style="max-width:auto; margin-top:10px;">
+    <select id="databaseDropdown" style="max-width:150px" required>
         <option value="" disabled selected>Loading databases...</option>
     </select>
 </div>
@@ -117,96 +116,7 @@ dropdown.addEventListener('change', function() {
 
         <!-- <a href="<?= site_url('crossvalidation/clear') ?>" class="action-btn warning">Clear Matches</a> -->
         <!-- <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">Clear Contact Matches</a> -->
-<!-- 
-        <div class="compact-customizer">
-            <style>
-                .compact-customizer {
-                    display: inline-grid; /* Container only takes space it needs */
-                    grid-template-columns: auto auto; /* Two perfect columns based on content */
-                    align-items: center;
-                    gap: 8px 15px; /* Vertical and horizontal spacing */
-                    padding: 12px;
-                    background: #fff;
-                    border: 1px solid #ddd;
-                    border-radius: 8px;
-                    font-family: system-ui, sans-serif;
-                }
 
-                .compact-customizer label {
-                    font-size: 13px;
-                    color: #444;
-                    white-space: nowrap; /* Prevents text from wrapping */
-                }
-
-                .input-box {
-                    display: flex;
-                    align-items: center;
-                    gap: 5px;
-                    border: 1px solid #eee;
-                    padding: 2px 5px;
-                    border-radius: 4px;
-                }
-
-                .input-box input[type="color"] {
-                    border: none;
-                    width: 22px;
-                    height: 22px;
-                    cursor: pointer;
-                    background: none;
-                    padding: 0;
-                }
-
-                .input-box span {
-                    font-family: monospace;
-                    font-size: 11px;
-                    color: #888;
-                }
-
-                #compareBtn {
-                    grid-column: span 2; /* Spans across both columns */
-                    margin-top: 5px;
-                    padding: 8px;
-                    background: #486887;
-                    color: white;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    font-size: 13px;
-                }
-            </style>
-
-            <label>Primary</label>
-            <div class="input-box">
-                <input type="color" id="primaryColor" value="#486887" oninput="updateHex(this)">
-                <span>#486887</span>
-            </div>
-
-            <label>P-Hover</label>
-            <div class="input-box">
-                <input type="color" id="primaryHover" value="#6c93bc" oninput="updateHex(this)">
-                <span>#6C93BC</span>
-            </div>
-
-            <label>Danger</label>
-            <div class="input-box">
-                <input type="color" id="dangerColor" value="#ab7a7f" oninput="updateHex(this)">
-                <span>#AB7A7F</span>
-            </div>
-
-            <label>D-Hover</label>
-            <div class="input-box">
-                <input type="color" id="dangerHover" value="#a71d2a" oninput="updateHex(this)">
-                <span>#A71D2A</span>
-            </div>
-
-            <button type="button" id="compareBtn">Apply Theme</button>
-        </div>
-
-        <script>
-            function updateHex(picker) {
-                picker.nextElementSibling.innerText = picker.value.toUpperCase();
-            }
-        </script> -->
     <?php endif; ?>
 
     
@@ -214,57 +124,68 @@ dropdown.addEventListener('change', function() {
 </div>
 
 <style>
-    :root {
-    --primary-color: #4a90e2;    /* softer blue */
-    --primary-hover: #357ab8;    /* slightly darker on hover */
+    <style>
+:root {
+    /* Main colors */
+    --nav-color: #a82324;
+    --nav-color-dim: #c45a5b;
 
-    --danger-color: #d66a6a;     /* muted red */
-    --danger-hover: #b04e4e;     /* darker muted red on hover */
+    --body-color: #f8f4f4;
+    --body-color-dim: #fbf9f9;
 
-    --warning-color: #f0b450;    /* soft amber */
-    --warning-hover: #d69c39;    /* darker amber on hover */
+    --button-color: #a82324;
+    --button-color-dim: #c45a5b;
 
-    --btn-text-color: #ffffff;   /* white text stays */
+    --text-color: #ffffff;
+    --text-color-dim: #dcdcdc;
 }
 
+/* Action Button Base */
 .action-btn {
     padding: 8px 14px;
     border-radius: 8px;
     text-decoration: none;
     font-size: 13px;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     display: inline-block;
-    color: var(--btn-text-color);
+    color: var(--text-color);
+    background: var(--button-color);
+    border: 1px solid var(--button-color);
 }
 
-/* Primary */
+/* Hover */
+.action-btn:hover {
+    background: var(--button-color-dim);
+    border-color: var(--button-color-dim);
+}
+
+/* Primary (same as main button color) */
 .action-btn.primary {
-    background: var(--primary-color);
-}
-
-.action-btn.primary:hover {
-    background: var(--primary-hover);
+    background: var(--button-color);
 }
 
 /* Danger */
 .action-btn.danger {
-    background: var(--danger-color);
+    background: #c0392b;
+    border-color: #c0392b;
 }
 
 .action-btn.danger:hover {
-    background: var(--danger-hover);
+    background: #e74c3c;
+    border-color: #e74c3c;
 }
 
 /* Warning */
 .action-btn.warning {
-    background: var(--warning-color);
+    background: #f39c12;
+    border-color: #f39c12;
 }
 
 .action-btn.warning:hover {
-    background: var(--warning-hover);
+    background: #f1c40f;
+    border-color: #f1c40f;
 }
-
 </style>
 
 <script>

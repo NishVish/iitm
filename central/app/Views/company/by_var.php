@@ -1,5 +1,5 @@
 <?php include(APPPATH . 'Views/company/side.php'); ?>
-<?php include(APPPATH . 'Views/company/filter.php'); ?>
+<?php //include(APPPATH . 'Views/company/filter.php'); ?>
 
     
 
@@ -12,11 +12,11 @@ $categoryCounts   = [];
 $commentCounts    = [];
 
 
+// var_dump($companies);
+?>
 
 
-if ($all == "super"): ?>
-    <?php include(APPPATH . 'Views/company/spreadsheet.php'); ?>
-<?php endif; ?>
+
 
 
 
@@ -138,8 +138,8 @@ if (!empty($d['last_comments'])) {
             $stats['sources'][$cleanSource] = ($stats['sources'][$cleanSource] ?? 0) + 1;
             
             // Format for HTML
-            $slug = urlencode(str_replace([' & ', ' '], ['-and-', '-'], $cleanSource));
-            $url = base_url("company/byvar/source/$slug");
+            // $slug = urlencode(str_replace([' & ', ' '], ['-and-', '-'], $cleanSource));
+            $url = base_url("company/byvar/source/");
             $linkedSources[] = '<a href="'.$url.'" style="color:#007bff;text-decoration:none;">'.esc($cleanSource).'</a>';
         }
     }
@@ -180,8 +180,26 @@ if (!empty($d['last_comments'])) {
 
 ];
 
-</script>
 
+});
+
+</script>
 
 <div style="margin-bottom: 20px;"></div>
 <?php include(APPPATH . 'Views/company/stats.php'); ?>
+
+<?php
+
+
+if ($all == "super"): ?>
+
+
+
+
+    <?php include(APPPATH . 'Views/company/spreadsheet.php'); ?>
+
+
+<?php 
+
+// var_dump($companies) ;
+endif; ?>

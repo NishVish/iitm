@@ -80,15 +80,18 @@ $routes->post('dashboard/search', 'Dashboard::search');
 // ===============================
 // Company management routes
 // ===============================
-$routes->get('company/download/(:any)/(:any)/(:any)', 'Company::downloadDatabase/$1/$2/$3');
-$routes->get('company/dashboard/(:any)', 'Company::index/$1');
+$routes->post('company/getDynamicFilters', 'Company::getDynamicFilters');
 
-
+$routes->get('company/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3/$4/$5/$6/$7');
+$routes->get('company/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3/$4/$5/$6');
+$routes->get('company/(:any)/(:any)/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3/$4/$5');
+$routes->get('company/(:any)/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3/$4');
 $routes->get('company/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3');
+$routes->get('company/(:any)/(:any)', 'Company::byvar/$1/$2');
+$routes->get('company/(:any)', 'Company::byvar/$1');
 
 
-$routes->post('company/getCities', 'Company::getCities');        // AJAX: get cities by state
-$routes->post('company/filterCompanies', 'Company::filterCompanies');
+
 
 $routes->get('company/details/(:any)/(:any)', 'Company::details/$1/$2');
 
@@ -98,10 +101,8 @@ $routes->post('master/filterCompanies', 'Master::filterCompanies');
 $routes->post('company/update_cell', 'Company::update_cell');
 $routes->post('company/compare_popup', 'Company::compare_popup');
 
-// Add new company
 // Show add company form
 $routes->post('company/add_details', 'Company::add_details');
-$routes->get('company/dummy', 'Company::dummyData');
 
 $routes->get('company/add', 'Company::add'); // Show the form
 $routes->get('company/addexhibitor', 'Company::addexhibitor'); // Show the form
@@ -111,54 +112,15 @@ $routes->post('company/add_check', 'Company::add_check');
 
 $routes->post('company/store', 'Company::store');
 
-// Edit company
-$routes->get('company/edit/(:segment)', 'Company::edit/$1');
-$routes->post('company/update/(:segment)', 'Company::update/$1');
-
 // Delete company (optional)
 $routes->post('company/delete/(:segment)', 'Company::delete/$1');
-
 
 // Optional: replace existing company if user chooses
 $routes->post('company/replace/(:num)', 'Company::replace/$1');
 
-// List page after adding
-$routes->get('company/list', 'Company::list');    // Optional: show all companies
-
-$routes->get('company/stats', 'Company::stats');
-$routes->post('company/source_check', 'Company::source_check');
-$routes->get('api/databases', 'Company::getDatabases');
-
-
 $routes->get('company/operation', 'Company::opreation');
 
-
-
-
-// Route for filtered by state
-// Dynamic "byvar" route for any filter type
-// Keep your old one for the hyperlinks in the table
-
-// Add this new one for the "Apply Filters" button
 $routes->get('company/filter', 'Company::filter');
-// $routes->get('company/download/(:any)/(:any)/(:any)', 'Company::downloadDatabase');
-
-// $routes->get('company/bystate/(:any)', 'Company::byvar/$1');
-
-// // Route for filtered by category and state
-// $routes->get('company/bycategory/(:any)/(:any)', 'Company::byvar/$1/$2');
-
-// // Route for filtered by database
-// $routes->get('company/bydatabase/(:any)', 'Company::byvar/$1');
-
-// // Route for database + state filter
-// $routes->get('company/bydatabase/(:any)/bystate/(:any)', 'Company::byvar/$1/$2');
-
-
-
-
-
-$routes->get('company/(:any)', 'Company::index/$1');               // Main page
 
 
 

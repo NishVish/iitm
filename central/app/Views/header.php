@@ -40,6 +40,7 @@ $server             = $session->get('server') ?? '';
     <meta charset="UTF-8">
     <title>Company Management System</title>
     <style>
+        
 :root {
     /* Main colors */
     --nav-color: #a82324;

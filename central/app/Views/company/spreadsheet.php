@@ -55,7 +55,7 @@ body {
 }
 
 .page-wrapper {
-    max-width: 1600px;
+    max-width: 100%;
     margin: 0 auto;
 }
 
@@ -73,6 +73,7 @@ body {
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     overflow: hidden;
+    width: 100% ;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.6s ease-out;
 }
@@ -174,12 +175,12 @@ body {
 
 .badge {
     display: inline-block;
-    padding: 0.25rem 0.6rem;
-    border-radius: 6px;
+    /* padding: 0.25rem 0.6rem; */
+    /* border-radius: 6px; */
     color: var(--text-color);
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
     font-weight: 600;
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    /* border: 1px solid rgba(99, 102, 241, 0.3); */
     line-height: 1;
     vertical-align: middle;
 }
@@ -189,7 +190,7 @@ body {
     align-items: center;
     padding: 0.4rem 0.8rem;
     border-radius: 8px;
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
     background: var(--button-color);
     color: #fff !important;
     line-height: 1;
@@ -279,7 +280,7 @@ body {
                                 </a>
                             </td>
 
-                            <td><span class="badge"><?= esc($d['database_name'] ?? 'N/A') ?></span></td>
+                            <td><?= esc($d['database_name'] ?? 'N/A') ?></td>
                             <td><?= esc($d['category'] ?? '') ?></td>
                             <td><?= $sourceHtml ?></td>
                             <td><?= esc($d['updated_by'] ?? '') ?></td>
