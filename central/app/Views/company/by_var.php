@@ -13,13 +13,21 @@ $sourceCounts     = [];
 $categoryCounts   = [];
 $commentCounts    = [];
 
-
-// var_dump($companies);
 ?>
 
 
+<?php
+$baseUrl = site_url('company');
+$entrytype = $filters['entrytype'];
+?>
 
+<a href="<?= $baseUrl . '/' . $entrytype . '/overview/state' ?>">
+    State
+</a>
 
+<a href="<?= $baseUrl . '/' . $entrytype . '/overview/category' ?>">
+    Category
+</a>
 
 
 

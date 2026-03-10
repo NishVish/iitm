@@ -1,4 +1,11 @@
-<?php include(APPPATH . 'Views/company/side.php'); ?>
+<?php include(APPPATH . 'Views/company/side.php'); 
+
+// Sort rows alphabetically
+ksort($pivot);
+
+$baseUrl = site_url('company');
+$entryType = $type;
+    ?>
 
 
 
@@ -6,13 +13,22 @@
 
     <div class="page-header">
         <h2>📊 <?= ucfirst($type) ?> Statistics</h2>
+
         <div class="actions">
             <button onclick="window.print()" class="btn-compact">
                 Print Report 🖨️
             </button>
+
+            <a href="<?= $baseUrl . '/'.$entryType . '/overview/state' ?>">
+                State
+            </a>
+
+            <a href="<?= $baseUrl . '/'.$entryType . '/overview/category' ?>">
+                Category
+            </a>
+
         </div>
     </div>
-
 
     <div id="stateTable" class="data-card" style="max-height:700px; width:auto; overflow:auto;">
     <table class="dynamic-table">
@@ -30,11 +46,7 @@
 
         <tbody>
 <?php 
-// Sort rows alphabetically
-ksort($pivot);
 
-$baseUrl = site_url('company');
-$entryType = $type;
 
 foreach ($pivot as $rowKey => $row): 
 
@@ -44,11 +56,26 @@ foreach ($pivot as $rowKey => $row):
     }
 ?>
 <tr>
-    <td class="sticky-col">
-        <a href="<?= $baseUrl . '/' . $entryType . '/all/all/all/' . urlencode($rowKey) ?>">
-            <?= esc($rowKey ?: 'Unknown') ?>
-        </a>
-    </td>
+
+<td class="sticky-col">
+<?php 
+
+$urlfor = '/all/all/all/';
+
+if ($groupby == "category") {
+    $urlfor = "/all/";
+}
+
+if ($groupby == "state") {
+    $urlfor = '/all/all/all/';
+}
+
+?>
+
+<a href="<?= $baseUrl . '/'.$entryType  . '/all/all/all/' . urlencode($rowKey) ?>">
+    <?= esc($rowKey ?: 'Unknown') ?>
+</a>
+</td>
 
     <td class="total-cell"><?= number_format($rowTotal) ?></td>
 

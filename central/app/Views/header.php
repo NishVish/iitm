@@ -290,7 +290,7 @@ nav a:hover {
             
 
         <!-- Companies dropdown -->
-            <a href="<?= base_url('company/main/overview') ?>">Database</a>
+            <a href="<?= base_url('company/main/overview/state') ?>">Database</a>
             
 
         <a href="<?= base_url('events') ?>">Events</a>
