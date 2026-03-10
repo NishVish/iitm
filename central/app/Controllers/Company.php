@@ -35,8 +35,15 @@ $this->getCompanySourcesContactsByFilters(['all' => $entry_type]);
 
     public function opreation()
 {
+$db = \Config\Database::connect();
 
- return view('company/operation');
+    $databases = $db->table('company_data')
+        ->select('DISTINCT(database_name) as db_name')
+        ->get()
+        ->getResultArray();
+
+
+ return view('company/operation',$databases);
 }
     public function getDatabases()
 {
@@ -220,6 +227,50 @@ public function overviewDynamic($entry_type, $column)
 
 
 
+public function fulloverview()
+{
+    $db = \Config\Database::connect();
+
+    $sql = "
+        SELECT 
+            cd.database_name,
+            cd.entry_type,
+
+            COUNT(DISTINCT cd.company_id) AS total_companies,
+
+            SUM(CASE WHEN cd.active_inactive='active' THEN 1 ELSE 0 END) AS active_count,
+            SUM(CASE WHEN cd.active_inactive='inactive' THEN 1 ELSE 0 END) AS inactive_count,
+
+            SUM(CASE WHEN cd.outbound=1 THEN 1 ELSE 0 END) AS outbound_count,
+
+            COUNT(DISTINCT cd.city) AS city_count,
+            GROUP_CONCAT(DISTINCT cd.city ORDER BY cd.city SEPARATOR ', ') AS cities,
+
+            COUNT(DISTINCT cd.state) AS state_count,
+            GROUP_CONCAT(DISTINCT cd.state ORDER BY cd.state SEPARATOR ', ') AS states,
+
+            COUNT(DISTINCT cd.category) AS category_count,
+            GROUP_CONCAT(DISTINCT cd.category ORDER BY cd.category SEPARATOR ', ') AS categories,
+
+            COUNT(DISTINCT cs.notes) AS source_count,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.notes SEPARATOR ', ') AS sources
+
+        FROM company_data cd
+        LEFT JOIN company_sources cs 
+            ON cd.company_id = cs.company_id
+
+        GROUP BY cd.database_name, cd.entry_type
+        ORDER BY cd.database_name, cd.entry_type
+    ";
+
+    $query = $db->query($sql);
+
+    $Data['overview'] = $query->getResultArray();
+
+    return view('company/overview', $Data);
+}
+
+
 
 
 public function byvar(
@@ -231,6 +282,12 @@ public function byvar(
     $city      = 'all',
     $comment   = 'all'
 ) {
+
+
+if ($entrytype === "overview") {
+        return $this->fulloverview();
+    }
+
 
     if ($entrytype === "details") {
         return $this->details("main",$database);
