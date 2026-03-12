@@ -1,14 +1,17 @@
-<?= view('header') ?>  <!-- loads app/Views/header.php -->
+<?php include(APPPATH . 'Views/header.php'); ?>
 
 
 <?php
 $segment1 = service('uri')->getSegment(1);
 
-if ($segment1 == 'user') : ?>
+if ($segment1 == 'user') : ?> 
     <div class="submenu">
 
         <a href="<?= base_url('user') ?>">User</a>
-        <a href="<?= base_url('user/operation') ?>">Edit</a>
+<?php if ($user_type === "superuser"): ?>
+    <a href="<?= base_url('user/operation') ?>">Edit</a>
+<?php endif; ?>
+
 
 <a href="#" onclick="document.getElementById('dummyForm').submit(); return false;">Test Users</a>
     </div>

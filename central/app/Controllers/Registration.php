@@ -104,6 +104,10 @@ public function publicformspot()
         ->get()
         ->getResultArray();
 
+//     echo "<pre>";
+// var_dump($upcomingEvents);
+// echo "</pre>";
+// exit;
     // 1. Initialize the variable
     $citySuffix = 'TBA'; 
 // In your publicformspot() function
@@ -119,11 +123,18 @@ if (!empty($upcomingEvents)) {
     $eventYear = $upcomingEvents[0]['year'];
 }
 
-return view('registration/spot', [
+$data = [
     'events'     => $upcomingEvents,
     'citySuffix' => $citySuffix,
+    
     'eventYear'  => $eventYear
-]);
+];
+echo "<pre>";
+var_dump($data);
+echo "</pre>";
+    // exit;
+
+return view('registration/spot', $data);
 }
     
 public function publicformexhibitor()
@@ -160,7 +171,7 @@ $citySuffix = end($parts);
 
 
 // var_dump($citySuffix); 
-// Output: string(4) "pune"
+// Output: string(4) "pune";
 // exit;
     $alldata = $this->getgataforprint($citySuffix,$contactId, 'form');
     // 1. Extract the city from the string (e.g., 'onlinetradevisitor-KOLKATA')
@@ -188,9 +199,15 @@ if ($viewData['type'] === 'spot' &&
     return $this->publicformspot();
 }
 
+
 // Otherwise, proceed to the standard success/badge view
     if($data == "exhibitor"){
+if ($viewData['alldata']['companyName'] === 'Not_Found') {
+    return redirect()->to('https://iitmindia.com');
+}
 
+    // var_dump($viewData);
+    // exit;
             return view('registration/thankyouexhibitor',$viewData);
 
 
@@ -314,7 +331,8 @@ $contact = $MobileModel
 public function getgataforprint($location = null, $contactId = 1, $for = 'print')
 {
 
-    // var_dump($location, $contactId, $for);
+if($location != 'exhibitor'){
+// var_dump($location, $contactId, $for);
     // exit;
     $allowedLocations = [
         'ahmedabad', 'mumbai', 'delhi', 
@@ -326,6 +344,14 @@ public function getgataforprint($location = null, $contactId = 1, $for = 'print'
     if (!in_array($location, $allowedLocations)) {
         return redirect()->back()->with('error', 'Invalid location specified.');
     }
+
+}
+else{
+    $location = "null";
+
+
+}
+    
 
     // Default data structure
     $data = [

@@ -26,12 +26,51 @@ public function __construct()
         return view('backend/index', ['dbSchema' => $dbSchema]);
     }
 
-    public function sql()
-    {
-        return view('backend/sql');
-        log_message('error', 'THIS IS A TEST ERROR LOG');
 
+public function sql()
+{    $db = \Config\Database::connect();
+
+            $sql = $this->request->getPost('sql');
+// var_dump($sql);
+
+
+                $query = $db->query($sql);
+                $data['results'] = $query->getResultArray();
+var_dump($data['results']);
+
+
+
+    $db = \Config\Database::connect();
+    $data = [];
+
+    // Fetch all SQL tickets
+    $data['sql_tickets'] = $db->table('tickets')
+                              ->where('ticket_type', 'SQL')
+                              ->orderBy('created_at', 'DESC')
+                              ->get()
+                              ->getResultArray();
+
+    // Handle SQL query form
+    if ($this->request->getMethod() === 'post') {
+        $sql = $this->request->getPost('sql');
+        $data['sql'] = $sql;
+
+        try {
+            if (preg_match('/^\s*SELECT/i', $sql)) {
+                $query = $db->query($sql);
+                $data['results'] = $query->getResultArray();
+            } else {
+                $db->query($sql);
+                $data['message'] = "Query executed successfully. Affected rows: " . $db->affectedRows();
+            }
+        } catch (\Exception $e) {
+            $data['error'] = $e->getMessage();
+        }
     }
+
+    return view('backend/sql', $data);
+}
+
 
     public function modulelist()
     {

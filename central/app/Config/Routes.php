@@ -54,7 +54,8 @@ $routes->group('backend', function($routes) {
     $routes->get('', 'Backend::index');                   // backend/ → dashboard/home
     $routes->get('plan', 'Backend::plan');               // backend/plan
     $routes->get('sql', 'Backend::sql');                 // backend/sql
-    $routes->post('sql/run', 'Backend::runSql');         // backend/sql/run
+    $routes->post('sql', 'Backend::sql');                 // backend/sql
+    // $routes->post('sql/run', 'Backend::runSql');         // backend/sql/run
     $routes->get('games', 'Backend::games');             // backend/games
     $routes->get('tv', 'Backend::tv');                   // backend/tv
     $routes->get('project_summary', 'Backend::project_summary'); // backend/project_summary
@@ -82,6 +83,7 @@ $routes->post('dashboard/search', 'Dashboard::search');
 // ===============================
 $routes->post('company/getDynamicFilters', 'Company::getDynamicFilters');
 
+$routes->get('company/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3/$4/$5/$6/$7/$8');
 $routes->get('company/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3/$4/$5/$6/$7');
 $routes->get('company/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3/$4/$5/$6');
 $routes->get('company/(:any)/(:any)/(:any)/(:any)/(:any)', 'Company::byvar/$1/$2/$3/$4/$5');

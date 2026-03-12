@@ -12,13 +12,13 @@ $segment1 = service('uri')->getSegment(1);
 
 if ($segment1 == 'company') : ?>
 <div class="submenu">
-    <a href="<?= base_url('company/all') ?>">All Companies</a>
+    <a href="<?= base_url('company/overview') ?>">Overview</a>
 
-    <a href="<?= base_url('company/main/overview') ?>">View Companies</a>
-    <a href="<?= base_url('company/lead/overview') ?>">Leads Companies</a>
-    <a href="<?= base_url('company/participant/overview') ?>">Participant Companies</a>
-    <a href="<?= base_url('company/online_registration/overview') ?>">Online Registration Companies</a>
-    <a href="<?= base_url('company/spot/overview') ?>">Spot Regisrataion</a>
+    <a href="<?= base_url('company/main/overview/state') ?>">View Companies</a>
+    <a href="<?= base_url('company/lead/overview/state') ?>">Leads Companies</a>
+    <a href="<?= base_url('company/participant/overview/state') ?>">Participant Companies</a>
+    <a href="<?= base_url('company/online_registration/overview/state') ?>">Online Registration Companies</a>
+    <a href="<?= base_url('company/spot/overview/state') ?>">Spot Regisrataion</a>
 <a href="<?= base_url('company/operation') ?>" >Operation</a>
 
     <a href="<?= base_url('company/add') ?>">Add Company</a>
@@ -108,7 +108,7 @@ dropdown.addEventListener('change', function() {
 
 <!-- New button with dropdown for database selection -->
 
- 
+ <?php if ($user_type === "superuser"): ?>
 </form>
         <!-- <a href="<?= site_url('crossvalidation/crossValidate') ?>" class="action-btn primary">Company Cross Validation</a> -->
         <!-- <a href="<?= site_url('company/dummy') ?>" class="action-btn primary">Insert Data</a> -->
@@ -116,6 +116,9 @@ dropdown.addEventListener('change', function() {
 
         <!-- <a href="<?= site_url('crossvalidation/clear') ?>" class="action-btn warning">Clear Matches</a> -->
         <!-- <a href="<?= site_url('crossvalidation/clearcontact') ?>" class="action-btn warning">Clear Contact Matches</a> -->
+<?php endif; ?>
+
+
 
     <?php endif; ?>
 

@@ -30,6 +30,14 @@ $entrytype = $filters['entrytype'];
 </a>
 
 
+<a href="<?= $baseUrl . '/' . $entrytype . '/overview/database_name' ?>">
+    database_name
+</a>
+
+<a href="<?= $baseUrl . '/' . $entrytype . '/overview/country' ?>">
+    country
+</a>
+
 
 <script>
 

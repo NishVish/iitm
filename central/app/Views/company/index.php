@@ -27,6 +27,13 @@ $entryType = $type;
                 Category
             </a>
 
+            <a href="<?= $baseUrl . '/'.$entryType . '/overview/database_name' ?>">
+                Database
+            </a>
+
+            <a href="<?= $baseUrl . '/'.$entryType . '/overview/country' ?>">
+                Country
+            </a>
         </div>
     </div>
 
@@ -66,13 +73,15 @@ if ($groupby == "category") {
     $urlfor = "/all/";
 }
 
-if ($groupby == "state") {
+if ($groupby == "country") {
     $urlfor = '/all/all/all/';
 }
-
+if ($groupby == "state") {
+    $urlfor = '/all/all/all/all/';
+}
 ?>
 
-<a href="<?= $baseUrl . '/'.$entryType  . '/all/all/all/' . urlencode($rowKey) ?>">
+<a href="<?= $baseUrl . '/'.$entryType  . $urlfor . urlencode($rowKey) ?>">
     <?= esc($rowKey ?: 'Unknown') ?>
 </a>
 </td>

@@ -5,6 +5,8 @@
     <button type="button" id="clearAllBtn">Clear All Data</button>
 
     <div class="company-row">
+
+<input type="hidden" name="companies[0][entry_type]" value="">
 <input type="hidden" name="companies[0][database_name]" value="">
 <input type="hidden" name="companies[0][category]" value="">
 <input type="hidden" name="companies[0][source]" value="">

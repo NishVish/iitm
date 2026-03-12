@@ -1,6 +1,6 @@
 <?= view('backend/sidemenu') ?>  <!-- loads app/Views/header.php -->
 
-
+query bookmark
 
 <h2>SQL Query Runner</h2>
 <p>Delete queries</p>

@@ -1,26 +1,60 @@
 <?= view('header') ?> 
 
-<?php $segment1 = service('uri')->getSegment(1); ?>
 
-<?php if ($segment1 == 'events') : ?>
+
+
     <div class="submenu">
         <a href="<?= base_url('events/fetch/iitm') ?>">Fetch IITM</a>
         <a href="<?= base_url('events/delete') ?>">Delete</a>
     </div>
-<?php endif; ?>
+
 </div>
 
+    
 <div class="content">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2 style="margin:0;">Events Management</h2>
-        <a href="<?= site_url('events/create') ?>" class="btn-create-compact" style="width: auto; text-decoration: none;">
+        <a href="<?= site_url('events/create') ?>" class="btn-create-compact">
             <span class="plus-icon">+</span> Create New Event
         </a>
     </div>
 
-    <div id="Spreadsheet" style="margin-bottom: 30px;"></div>
+    <!-- Editable Table -->
+    <table class="events-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Event Name</th>
+                <th>Year</th>
+                <th>Venue</th>
+                <th>Coordinator</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>B2B Logic</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($events as $event): ?>
+            <tr data-id="<?= $event['event_id'] ?>">
+                <td><?= $event['event_id'] ?></td>
+                <td contenteditable="true" data-field="name"><?= esc($event['name']) ?></td>
+                <td contenteditable="true" data-field="year"><?= esc($event['year']) ?></td>
+                <td contenteditable="true" data-field="venue_details"><?= esc($event['venue_details']) ?></td>
+                <td contenteditable="true" data-field="coordinator"><?= esc($event['coordinator']) ?></td>
+                <td contenteditable="true" data-field="start_date"><?= esc($event['start_date']) ?></td>
+                <td contenteditable="true" data-field="end_date"><?= esc($event['end_date']) ?></td>
+                <td contenteditable="true" data-field="b2b_constrain"><?= esc($event['b2b_constrain']) ?></td>
+                <td>
+                    <a href="<?= site_url('events/edit/' . $event['event_id']) ?>" class="btn-edit">Edit</a>
+                    <a href="<?= site_url('events/delete/' . $event['event_id']) ?>" onclick="return confirm('Are you sure?')" class="btn-delete">Delete</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;">
+    <hr style="border:0; border-top:1px solid #eee; margin:40px 0;">
 
     <h3 style="margin-bottom:15px; color:#666;">Visual Cards View</h3>
     <div class="cards-container">
@@ -40,16 +74,30 @@
 </div>
 
 <style>
-    /* Compact Button Style from previous step */
+    /* Compact Button */
     .btn-create-compact {
         display: flex; align-items: center; justify-content: center; gap: 6px;
-        padding: 8px 16px; background-color: var(--nav-color, #007bff);
-        color: #fff; font-size: 0.9rem; font-weight: 500; border-radius: 4px;
+        padding: 8px 16px; background-color: var(--nav-color);
+        color: var(--text-color); font-size: 0.9rem; font-weight: 500; border-radius: 4px;
         transition: opacity 0.2s;
     }
-    .btn-create-compact:hover { opacity: 0.9; color: #fff; }
+    .btn-create-compact:hover { opacity: 0.9; color: var(--text-color); }
 
-    /* Card Layout Styles */
+    /* Editable Table */
+    .events-table {
+        width: 100%; border-collapse: collapse; margin-bottom: 30px;
+        background: var(--body-color-dim); border-radius: 8px; overflow: hidden;
+        box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    }
+    .events-table th {
+        background: var(--nav-color); color: var(--text-color); padding: 10px 12px; text-align: left;
+    }
+    .events-table td {
+        padding: 8px 12px; border-bottom: 1px solid #eee;
+    }
+    .events-table tr:hover { background: #fff; transition: 0.2s; }
+
+    /* Card Layout */
     .cards-container { display: flex; flex-wrap: wrap; gap: 15px; }
     .event-card {
         background: #fff; border: 1px solid #ddd; border-radius: 8px;
@@ -60,66 +108,28 @@
     .btn-edit { background: #ffc107; color: #000; padding: 4px 8px; border-radius: 4px; text-decoration:none; }
     .btn-delete { background: #dc3545; color: #fff; padding: 4px 8px; border-radius: 4px; text-decoration:none; }
 </style>
+
 <script>
-const eventsData = <?= json_encode(array_map(function($e) {
-    return [
-        $e['event_id'],
-        $e['name'],
-        $e['year'],
-        $e['venue_details'],
-        $e['coordinator'],
-        $e['start_date'],
-        $e['end_date'],
-        $e['b2b_constrain']
-    ];
-}, $events)); ?>;
-const eventColumns = [
-    { title: "ID", field: "event_id" },
-    { title: "Event Name", field: "name" },
-    { title: "Year", field: "year" },
-    { title: "Venue", field: "venue_details" },
-    { title: "Coordinator", field: "coordinator" },
-    { title: "Start Date", field: "start_date" },
-    { title: "End Date", field: "end_date" },
-    { title: "B2B Logic", field: "b2b_constrain" }
-];
-
-const columnMap = [
-    'event_id',
-    'name',
-    'year',
-    'venue_details',
-    'coordinator',
-    'start_date',
-    'end_date',
-    'b2b_constrain'
-];
-
-
-const eventSheet = new Spreadsheet('Spreadsheet', {
-    data: eventsData,
-    columns: eventColumns,
-
-    onCellEdit: function(data) {
-        // 🔥 Debug log
-        console.log("Cell Edited:", data);
+// Save edits on blur
+document.querySelectorAll('.events-table td[contenteditable="true"]').forEach(cell => {
+    cell.addEventListener('blur', function() {
+        const tr = cell.closest('tr');
+        const id = tr.dataset.id;
+        const field = cell.dataset.field;
+        const value = cell.textContent.trim();
 
         fetch("<?= base_url('events/update-cell') ?>", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: `id=${data.id}&field=${data.field}&value=${encodeURIComponent(data.value)}`
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `id=${id}&field=${field}&value=${encodeURIComponent(value)}`
         })
         .then(res => res.json())
-        .then(response => {
-            if (response.status !== 'success') {
-                alert("Save failed");
-            } else {
-                console.log("Saved successfully ✅");
+        .then(res => {
+            if(res.status !== 'success'){
+                alert("Save failed for "+field);
             }
         })
-        .catch(() => alert("Server error"));
-    }
+        .catch(()=> alert("Server error"));
+    });
 });
 </script>

@@ -108,10 +108,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Metadata & Classification
         companyForm.querySelector('[name="companies[0][category]"]').value = autoCat;
-        companyForm.querySelector('[name="companies[0][database_name]"]').value = "IITM Exhibitor 2026";
-        companyForm.querySelector('[name="companies[0][source]"]').value = "Websiteregistrationexhibitor";
+        companyForm.querySelector('[name="companies[0][database_name]"]').value = "Registered Exhibitor 2026";
+        companyForm.querySelector('[name="companies[0][source]"]').value = "Online_Registration_2026";
         companyForm.querySelector('[name="companies[0][updated_by]"]').value = "Website";
         companyForm.querySelector('[name="companies[0][updated_at]"]').value = new Date().toISOString().slice(0, 16);
+        companyForm.querySelector('[name="companies[0][entry_type]"]').value = "Online_Registration";
 
         // 4. Handle "Interested In" Checkboxes
         // We look for checked boxes inside Form 1's city-selection div

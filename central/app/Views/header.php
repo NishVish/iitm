@@ -56,6 +56,11 @@ $server             = $session->get('server') ?? '';
     --text-color-dim: #dcdcdc;
 }
 
+ /* var(--body-color)
+  var(--body-color)
+   var(--body-color)
+    var(--body-color) */
+
 /* General content */
 body { 
     font-family: Arial, sans-serif; 

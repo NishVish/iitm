@@ -89,15 +89,16 @@ if ($segment1 == 'ticket') : ?>
         <option value="4">Level 5</option>
     </select>
 </label>
+<label>Type
+    <input type="text" name="ticket_type" placeholder="Enter ticket type or select below">
+</label>
 
-    <label>Type
-        <select name="ticket_type">
-            <option value="Task">Task</option>
-            <option value="Issue">Issue</option>
-            <option value="Update">Update</option>
-        </select>
-    </label>
-
+<select name="ticket_type_select" onchange="this.previousElementSibling.value=this.value;">
+    <option value="">--Select Existing Type--</option>
+    <option value="Task">Task</option>
+    <option value="Issue">Issue</option>
+    <option value="Update">Update</option>
+</select>
     <label>Department
         <input type="text" name="department">
     </label>

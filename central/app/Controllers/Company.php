@@ -177,7 +177,7 @@ public function overview($entry_type, $parameter)
 
 public function overviewDynamic($entry_type, $column)
 {
-    $allowed = ['state','database_name','category'];
+    $allowed = ['state','database_name','category','country'];
 
     if (!in_array($column, $allowed)) {
         throw new \Exception("Invalid column");
@@ -225,49 +225,278 @@ public function overviewDynamic($entry_type, $column)
     ];
 }
 
-
-
 public function fulloverview()
 {
     $db = \Config\Database::connect();
 
-    $sql = "
+    // --- Collect Filters from GET params ---
+    $status      = $this->request->getGet('status');       // active/inactive
+    $salesPerson = $this->request->getGet('sales_person');
+    $city        = $this->request->getGet('city');
+    $state       = $this->request->getGet('state');
+    $country     = $this->request->getGet('country');
+    $outbound    = $this->request->getGet('outbound');     // 0 or 1
+    $entryType   = $this->request->getGet('entry_type');
+    $dateFrom    = $this->request->getGet('date_from');    // Y-m-d
+    $dateTo      = $this->request->getGet('date_to');      // Y-m-d
+
+    // --- Base Builder ---
+    $builder = $db->table('company_data');
+
+    // Apply filters dynamically
+    if (!empty($status)) {
+        $builder->where('active_inactive', $status);
+    }
+    if (!empty($salesPerson)) {
+        $builder->where('sales_person', $salesPerson);
+    }
+    if (!empty($city)) {
+        $builder->where('city', $city);
+    }
+    if (!empty($state)) {
+        $builder->where('state', $state);
+    }
+    if (!empty($country)) {
+        $builder->where('country', $country);
+    }
+    if ($outbound !== null && $outbound !== '') {
+        $builder->where('outbound', (int)$outbound);
+    }
+    if (!empty($entryType)) {
+        $builder->where('entry_type', $entryType);
+    }
+    if (!empty($dateFrom)) {
+        $builder->where('created_at >=', $dateFrom . ' 00:00:00');
+    }
+    if (!empty($dateTo)) {
+        $builder->where('created_at <=', $dateTo . ' 23:59:59');
+    }
+
+    // Clone builder state for reuse across stat queries
+    $filteredBuilder = clone $builder;
+
+    // --- Summary Stats ---
+
+    // Total companies (with filters applied)
+    $total = (clone $filteredBuilder)->countAllResults(false);
+
+    // Active vs Inactive
+    $activeCount   = (clone $filteredBuilder)->where('active_inactive', 'active')->countAllResults(false);
+    $inactiveCount = (clone $filteredBuilder)->where('active_inactive', 'inactive')->countAllResults(false);
+
+    // Outbound vs Inbound
+    $outboundCount = (clone $filteredBuilder)->where('outbound', 1)->countAllResults(false);
+    $inboundCount  = (clone $filteredBuilder)->where('outbound', 0)->countAllResults(false);
+
+    // Cross-validated count
+    $crossValidated = (clone $filteredBuilder)->where('cross_validation', 1)->countAllResults(false);
+
+    // Companies with no session activity
+    $noSession = (clone $filteredBuilder)->where('session', 0)->countAllResults(false);
+
+    // --- Breakdowns ---
+
+    // By Sales Person
+    $bySalesPerson = (clone $filteredBuilder)
+        ->select('sales_person, COUNT(*) as total, 
+                  SUM(active_inactive = "active") as active_count,
+                  SUM(outbound = 1) as outbound_count')
+        ->groupBy('sales_person')
+        ->orderBy('total', 'DESC')
+        ->get()->getResultArray();
+
+    // By State
+    $byState = (clone $filteredBuilder)
+        ->select('state, COUNT(*) as total')
+        ->groupBy('state')
+        ->orderBy('total', 'DESC')
+        ->get()->getResultArray();
+
+    // By Country
+    $byCountry = (clone $filteredBuilder)
+        ->select('country, COUNT(*) as total')
+        ->groupBy('country')
+        ->orderBy('total', 'DESC')
+        ->get()->getResultArray();
+
+    // By Entry Type
+    $byEntryType = (clone $filteredBuilder)
+        ->select('entry_type, COUNT(*) as total')
+        ->groupBy('entry_type')
+        ->orderBy('total', 'DESC')
+        ->get()->getResultArray();
+
+    // Monthly registrations (last 12 months)
+    $monthlyTrend = $db->query("
         SELECT 
-            cd.database_name,
-            cd.entry_type,
+            DATE_FORMAT(created_at, '%Y-%m') as month,
+            COUNT(*) as total,
+            SUM(active_inactive = 'active') as active_count
+        FROM company_data
+        WHERE created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+        GROUP BY month
+        ORDER BY month ASC
+    ")->getResultArray();
 
-            COUNT(DISTINCT cd.company_id) AS total_companies,
+    // --- Stale / At-Risk Companies ---
+    $staleCompanies = $db->query("
+        SELECT company_name, sales_person, last_confirmed_at, active_inactive
+        FROM company_data
+        WHERE last_confirmed_at < DATE_SUB(NOW(), INTERVAL 90 DAY)
+           OR last_confirmed_at IS NULL
+        ORDER BY last_confirmed_at ASC
+        LIMIT 10
+    ")->getResultArray();
 
-            SUM(CASE WHEN cd.active_inactive='active' THEN 1 ELSE 0 END) AS active_count,
-            SUM(CASE WHEN cd.active_inactive='inactive' THEN 1 ELSE 0 END) AS inactive_count,
+    // --- Dropdown options for filter UI ---
+    $salesPersonList = $db->query("SELECT DISTINCT sales_person FROM company_data WHERE sales_person IS NOT NULL ORDER BY sales_person")->getResultArray();
+    $countryList     = $db->query("SELECT DISTINCT country FROM company_data WHERE country IS NOT NULL ORDER BY country")->getResultArray();
+    $stateList       = $db->query("SELECT DISTINCT state FROM company_data WHERE state IS NOT NULL ORDER BY state")->getResultArray();
+    $entryTypeList   = $db->query("SELECT DISTINCT entry_type FROM company_data WHERE entry_type IS NOT NULL ORDER BY entry_type")->getResultArray();
 
-            SUM(CASE WHEN cd.outbound=1 THEN 1 ELSE 0 END) AS outbound_count,
+    // --- Pass to View ---
+    $data = [
+        // Summary
+        'total'           => $total,
+        'activeCount'     => $activeCount,
+        'inactiveCount'   => $inactiveCount,
+        'outboundCount'   => $outboundCount,
+        'inboundCount'    => $inboundCount,
+        'crossValidated'  => $crossValidated,
+        'noSession'       => $noSession,
 
-            COUNT(DISTINCT cd.city) AS city_count,
-            GROUP_CONCAT(DISTINCT cd.city ORDER BY cd.city SEPARATOR ', ') AS cities,
+        // Breakdowns
+        'bySalesPerson'   => $bySalesPerson,
+        'byState'         => $byState,
+        'byCountry'       => $byCountry,
+        'byEntryType'     => $byEntryType,
+        'monthlyTrend'    => $monthlyTrend,
+        'staleCompanies'  => $staleCompanies,
 
-            COUNT(DISTINCT cd.state) AS state_count,
-            GROUP_CONCAT(DISTINCT cd.state ORDER BY cd.state SEPARATOR ', ') AS states,
+        // Filter dropdowns
+        'salesPersonList' => $salesPersonList,
+        'countryList'     => $countryList,
+        'stateList'       => $stateList,
+        'entryTypeList'   => $entryTypeList,
 
-            COUNT(DISTINCT cd.category) AS category_count,
-            GROUP_CONCAT(DISTINCT cd.category ORDER BY cd.category SEPARATOR ', ') AS categories,
+        // Active filters (to repopulate form)
+        'filters' => [
+            'status'       => $status,
+            'sales_person' => $salesPerson,
+            'city'         => $city,
+            'state'        => $state,
+            'country'      => $country,
+            'outbound'     => $outbound,
+            'entry_type'   => $entryType,
+            'date_from'    => $dateFrom,
+            'date_to'      => $dateTo,
+        ],
+    ];
 
-            COUNT(DISTINCT cs.notes) AS source_count,
-            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.notes SEPARATOR ', ') AS sources
+    return view('company/overview', $data);
+}
 
-        FROM company_data cd
-        LEFT JOIN company_sources cs 
-            ON cd.company_id = cs.company_id
 
-        GROUP BY cd.database_name, cd.entry_type
-        ORDER BY cd.database_name, cd.entry_type
-    ";
 
-    $query = $db->query($sql);
+public function viewbyfilter()
+{
+    $db = \Config\Database::connect();
+    $builder = $db->table('company_data');
 
-    $Data['overview'] = $query->getResultArray();
+    // 1. Fetch Unique Values for Static/Global Filters
+    // These populate your Entry Type and Database selects
+    $data['entry_types'] = array_column(
+        $builder->select('entry_type')->distinct()->get()->getResultArray(), 
+        'entry_type'
+    );
+    
+    $data['databases'] = array_column(
+        $builder->select('database_name')->distinct()->get()->getResultArray(), 
+        'database_name'
+    );
 
-    return view('company/overview', $Data);
+    // 2. Fetch Unique Values & Counts for Dynamic Summary Cards
+    // We use distinct counts to show how many unique items exist in the whole table
+    $summaryQuery = $builder->select("
+        COUNT(DISTINCT state) as total_states,
+        COUNT(DISTINCT city) as total_cities,
+        COUNT(DISTINCT category) as total_categories,
+        COUNT(DISTINCT sales_person) as total_sources,
+        COUNT(DISTINCT last_comments) as total_comments
+    ")->get()->getRowArray();
+
+    // 3. Populate Card Data
+    $data['states']     = array_column($db->table('company_data')->select('state')->distinct()->get()->getResultArray(), 'state');
+    $data['cities']     = array_column($db->table('company_data')->select('city')->distinct()->get()->getResultArray(), 'city');
+    $data['categories'] = array_column($db->table('company_data')->select('category')->distinct()->get()->getResultArray(), 'category');
+    $data['sources']    = array_column($db->table('company_data')->select('sales_person')->distinct()->get()->getResultArray(), 'sales_person');
+    $data['comments']   = array_column($db->table('company_data')->select('last_comments')->distinct()->get()->getResultArray(), 'last_comments');
+
+    // 4. Map the totals for the View
+    $data['totalUniqueStates']     = $summaryQuery['total_states']     ?? 0;
+    $data['totalUniqueCities']     = $summaryQuery['total_cities']     ?? 0;
+    $data['totalUniqueCategories'] = $summaryQuery['total_categories'] ?? 0;
+    $data['totalUniqueSources']    = $summaryQuery['total_sources']    ?? 0;
+    $data['totalUniqueComments']   = $summaryQuery['total_comments']   ?? 0;
+
+    return view('company/overview', $data);
+}
+public function fulloverview2()
+{
+    $db = \Config\Database::connect();
+
+    // Unique Countries
+    $countries = $db->query("
+        SELECT DISTINCT country
+        FROM company_data
+        WHERE country IS NOT NULL AND country != ''
+        ORDER BY country
+    ")->getResultArray();
+
+    // Unique States
+    $states = $db->query("
+        SELECT DISTINCT state 
+        FROM company_data 
+        WHERE state IS NOT NULL AND state != ''
+        ORDER BY state
+    ")->getResultArray();
+
+    // Unique Categories
+    $categories = $db->query("
+        SELECT DISTINCT category 
+        FROM company_data 
+        WHERE category IS NOT NULL AND category != ''
+        ORDER BY category
+    ")->getResultArray();
+
+    // Unique Databases
+    $databases = $db->query("
+        SELECT DISTINCT database_name 
+        FROM company_data 
+        WHERE database_name IS NOT NULL AND database_name != ''
+        ORDER BY database_name
+    ")->getResultArray();
+
+    $Data['countries'] = $countries;
+    $Data['states'] = $states;
+    $Data['categories'] = $categories;
+    $Data['databases'] = $databases;
+$db = \Config\Database::connect();
+
+    // Count by entry_type and country
+    $entryCountry = $db->query("
+        SELECT 
+            entry_type,
+            country,
+            COUNT(*) AS total
+        FROM company_data
+        WHERE country IS NOT NULL AND country != ''
+        GROUP BY entry_type, country
+        ORDER BY entry_type, country
+    ")->getResultArray();
+
+    $Data['entry_country'] = $entryCountry;
+    return view('company/overview2', $Data);
 }
 
 
@@ -278,6 +507,7 @@ public function byvar(
     $database  = 'all',
     $category  = 'all',
     $source    = 'all',
+    $country    = 'all',
     $state     = 'all',
     $city      = 'all',
     $comment   = 'all'
@@ -286,6 +516,9 @@ public function byvar(
 
 if ($entrytype === "overview") {
         return $this->fulloverview();
+    }
+if ($entrytype === "overview2") {
+        return $this->fulloverview2();
     }
 
 
@@ -310,6 +543,7 @@ if ($entrytype === "overview") {
         'database',
         'category',
         'source',
+        'country',
         'state',
         'city',
         'comment'
@@ -371,6 +605,7 @@ public function getCompanySourcesContactsByFilters($filters = [])
         'entrytype' => 'entry_type',
         'database'  => 'database_name',
         'category'  => 'category',
+        'country'     => 'country',
         'state'     => 'state',
         'city'      => 'city',
         'comment'   => 'last_comments'
@@ -1045,6 +1280,10 @@ public function add_details()
 {
     $companies = $this->request->getPost('companies');
 
+// echo "<pre>";
+// var_dump($companies);
+// echo "</pre>";
+    // exit;
     if (empty($companies)) {
         return redirect()->back()->with('status', '⚠️ No company data found!');
     }
@@ -1052,326 +1291,177 @@ public function add_details()
     $success = 0;
     $failed  = 0;
 
-    // foreach ($companies as $index => $company) {
-    //     try {
-    //         // 1. DUPLICATION LOGIC (If entry_type is lead)
-    //         if (($company['entry_type'] ?? '') === 'lead' && !empty($company['id'])) {
-    //             $original = $this->companyModel->find($company['id']);
-                
-    //             if ($original) {
-    //                 // Create a new unique ID for the duplicate
-    //                 $new_company_id = 'C' . strtoupper(bin2hex(random_bytes(4)));
-                    
-    //                 // Duplicate Company Record
-    //                 $newCompanyData = $original;
-    //                 unset($newCompanyData['id']); // Remove primary key
-    //                 $newCompanyData['company_id'] = $new_company_id;
-    //                 $newCompanyData['entry_type'] = 'lead'; // Ensure it stays as lead
-    //                 $this->companyModel->insert($newCompanyData);
-
-    //                 // Duplicate Contacts associated with the original
-    //                 $contactModel = new \App\Models\ContactModel();
-    //                 $originalContacts = $contactModel->where('company_id', $original['company_id'])->findAll();
-                    
-    //                 foreach ($originalContacts as $contact) {
-    //                     unset($contact['id']); // Remove primary key
-    //                     $contact['company_id'] = $new_company_id; // Link to new ID
-    //                     $contactModel->insert($contact);
-    //                 }
-                    
-    //                 // Optional: Update the current $company_id for the rest of this loop
-    //                 $company_id = $new_company_id;
-    //             }
-    //         } else {
-    //             // 2. STANDARD NEW ID GENERATION (For non-duplicates)
-    //             $company_id = 'C' . strtoupper(bin2hex(random_bytes(4)));
-    //         }
-
-    //         $session_id = $this->companyModel->get_lastSession();
-
-    //         // Handle Updated At Timestamp
-    //         $updatedAt = !empty($company['updated_at']) 
-    //             ? str_replace('T', ' ', $company['updated_at']) . ':00' 
-    //             : date('Y-m-d H:i:s');
-
-    //         $this->companyModel->insert([
-    //         'session'       => $session_id,
-    // 'entry_type' => str_replace(' ', '_', $company['entry_type']), // spaces → underscores
-    //         'company_id'    => $company_id,
-    //         'database_name' => $company['database_name'] ?? null,
-    //         'category'      => $company['category'] ?? null,
-    //         'updated_by'    => $company['updated_by'] ?? 'system',
-    //         'updated_at'    => $updatedAt,
-    //         'last_comments' => $company['comments'] ?? null,
-    //         'outbound'      => isset($company['outbound']) ? 1 : 0,
-    //         'company_name'  => $company['company_name'] ?? "x",
-    //         'address'       => trim(($company['address_1'] ?? '') . ' ' . ($company['address_2'] ?? '')),
-    //         'city'          => $company['city'] ?? null,
-    //         'pincode'       => $company['pincode'] ?? null,
-    //         'state'         => $company['state'] ?? null,
-    //         'country'       => $company['country'] ?? 'India',
-    //         'phone'         => $company['phone'] ?? null,
-    //         'corssvaliation'         => 0,
-    //     ]);
 
 foreach ($companies as $index => $company) {
         try {
-    // 1. Determine how many times to insert
+   
+                $entryTypesToInsert = [];
 
-    // keep allowed field for entry type 
-    // [main participant ] if datbase= 'spot'
-    $entryTypesToInsert = [];
+                // var_dump($company['entry_type']); 
+                // exit;// Debug: Check the original entry type
+                if (!empty($company['entry_type']) && strtolower($company['entry_type']) !== 'main') {
+                    // First run with original entry_type
+                    $entryTypesToInsert[] = $company['entry_type'];
+                    // Second run as 'main'
+                    $entryTypesToInsert[] = 'main';
 
-    // var_dump($company['entry_type']); 
-    // exit;// Debug: Check the original entry type
-    if (!empty($company['entry_type']) && strtolower($company['entry_type']) !== 'main') {
-        // First run with original entry_type
-        $entryTypesToInsert[] = $company['entry_type'];
-        // Second run as 'main'
-        $entryTypesToInsert[] = 'main';
+                    // var_dump($entryTypesToInsert); // Debug: Check the entry types to be inserted
+                    // exit; // Uncomment to stop execution and see the result  
 
-        // var_dump($entryTypesToInsert); // Debug: Check the entry types to be inserted
-        // exit; // Uncomment to stop execution and see the result  
-
-    } else {
-        // Only run once with whatever entry_type it has
-        $entryTypesToInsert[] = $company['entry_type'] ?? 'main';
-    }
+                } else {
+                    // Only run once with whatever entry_type it has
+                    $entryTypesToInsert[] = $company['entry_type'] ?? 'main';
+                }
 // var_dump($entryTypesToInsert); // Debug: Check the final entry types array before insertion
     // 2. Loop through each entry_type and insert
     foreach ($entryTypesToInsert as $currentType) {
-    // var_dump($currentType); // Debug: Check the current entry type being processed
-    // exit; // Uncomment to stop execution and see the result
-        $company_id = 'C' . strtoupper(bin2hex(random_bytes(4))); // Generate new company ID
+                // var_dump($currentType); // Debug: Check the current entry type being processed
+                // exit; // Uncomment to stop execution and see the result
+                    $company_id = 'C' . strtoupper(bin2hex(random_bytes(4))); // Generate new company ID
 
-        $updatedAt = !empty($company['updated_at']) 
-            ? str_replace('T', ' ', $company['updated_at']) . ':00' 
-            : date('Y-m-d H:i:s');
+                    $updatedAt = !empty($company['updated_at']) 
+                        ? str_replace('T', ' ', $company['updated_at']) . ':00' 
+                        : date('Y-m-d H:i:s');
 
-        $this->companyModel->insert([
-            'session'       => $this->companyModel->get_lastSession(),
-            'entry_type'    => str_replace(' ', '_', $currentType),
-            'company_id'    => $company_id,
-            'database_name' => $company['database_name'] ?? null,
-            'category'      => $company['category'] ?? null,
-            'updated_by'    => $company['updated_by'] ?? 'system',
-            'updated_at'    => $updatedAt,
-            'last_comments' => $company['comments'] ?? null,
-            'outbound'      => isset($company['outbound']) ? 1 : 0,
-            'company_name'  => $company['company_name'] ?? "x",
-            'address'       => trim(($company['address_1'] ?? '') . ' ' . ($company['address_2'] ?? '')),
-            'city'          => $company['city'] ?? null,
-            'pincode'       => $company['pincode'] ?? null,
-            'state'         => $company['state'] ?? null,
-            'country'       => $company['country'] ?? 'India',
-            'corssvaliation'=> 0,
-        ]);
+                    $this->companyModel->insert([
+                        'session'       => $this->companyModel->get_lastSession(),
+                        'entry_type'    => str_replace(' ', '_', $currentType),
+                        'company_id'    => $company_id,
+                        'database_name' => $company['database_name'] ?? null,
+                        'category'      => $company['category'] ?? null,
+                        'updated_by'    => $company['updated_by'] ?? 'system',
+                        'updated_at'    => $updatedAt,
+                        'last_comments' => $company['comments'] ?? null,
+                        'outbound'      => isset($company['outbound']) ? 1 : 0,
+                        'company_name'  => $company['company_name'] ?? "x",
+                        'address'       => trim(($company['address_1'] ?? '') . ' ' . ($company['address_2'] ?? '')),
+                        'city'          => $company['city'] ?? null,
+                        'pincode'       => $company['pincode'] ?? null,
+                        'state'         => $company['state'] ?? "x",
+                        'country'       => $company['country'] ?? 'India',
+                        'corssvaliation'=> 0,
+                    ]);
 
-$sources = $company['database_name'] ?? '';
-$note    = $company['entry_type'] ?? '';
-
-
-
-// 1. Break the source by "-"
-$parts = explode('_', $sources);
-
-// Normalize part 1
-$part1 = isset($parts[0]) ? strtolower(trim($parts[0])) : 'EMPTY';
-
-// Normalize part 2 (Safe check to avoid "Offset 1" error)
-$part2 = (count($parts) > 2) ? strtolower(trim($parts[2])) : 'NO HYPHEN FOUND';
-
-var_dump($sources); // Debug: Check original source
-var_dump($parts); // Debug: Check part 1
-var_dump($part2); // Debug: Check part 2
-
-// --- DEBUG DUMP ---
-// echo "<div style='background:#1a1a1a; color:#00ff00; padding:20px; font-family:monospace; border-left:5px solid #007bff;'>";
-//     echo "<h3>--- Debugging Source Split ---</h3>";
-    
-//     echo "<b>Original Source:</b> "; 
-//     var_dump($sources); echo "<br>";
-    
-//     echo "<b>Part 1 (Prefix):</b> "; 
-//     var_dump($part1); echo "<br>";
-    
-//     echo "<b>Part 2 (Suffix):</b> "; 
-//     var_dump($part2); echo "<br>";
-    
-//     echo "<b>Full Explode Array:</b> "; 
-//     var_dump($parts);
-    
-// echo "</div>";
-// exit; // Stops execution so you can see the results
-
-if ($part1 === "Online_Registration") {
-    // 2. Logic for Online Trade Visitor (Single entry)
-    $values = [
-        'company_id' => $company_id,
-        'source_id'  => $company['source_id'] ?? 0,
-        'event_date' => $company['event_date'] ?? date('Y-m-d'),
-        'notes'      => $sources, 
-    ];
-
-    $this->addSource($values);
-
-} else {
-    // Standard case: split by comma (,) or slash (/)
-    $splitSources = preg_split('/[,\/]+/', $sources); 
-
-    if($note != "spot"){
-
-    
-    foreach ($splitSources as $source) {
-        $source = trim($source);
-        
-        if ($source === '') continue; // Skip empty strings
-
-        $values = [
-            'company_id' => $company_id,
-            'source_id'  => $company['source_id'] ?? 0,
-            'event_date' => $company['event_date'] ?? date('Y-m-d'),
-            'notes'      => $source, // Use the individual split source in notes
-        ];
-
-        // Process each split source
-        $this->addSource($values);
-    }
-  }
-
-}
-
-          
-            // Insert contacts dynamically (up to 3 contacts)
-            for ($i = 1; $i <= 3; $i++) {
-
-                $name = trim($company["contact{$i}_name"] ?? '');
-
-                // Skip if no name
-                if ($name === '') {
-                    continue;
-                }
-
-                $contactData = [
-                    'company_id'  => $company_id,
-                    'priority'    => $i,
-                    'name'        => $name,
-                    'designation' => $company["contact{$i}_designation"] ?? '',
-                    'mobiles'     => [],
-                    'emails'      => []
-                ];
-
-                // Collect mobiles (up to 3 per contact)
-                for ($m = 1; $m <= 3; $m++) {
-
-                    $mobileKey = "contact{$i}_mobile{$m}";
-                    // var_dump($mobileKey);
+            $sources = $company['database_name'] ?? '';
+            $note    = $company['entry_type'] ?? '';
 
 
-                    if (!empty($company[$mobileKey])) {
-                        $contactData['mobiles'][] = trim($company[$mobileKey]);
+
+            // 1. Break the source by "-"
+            $parts = explode('_', $sources);
+
+            // Normalize part 1
+            $part1 = isset($parts[0]) ? strtolower(trim($parts[0])) : 'EMPTY';
+
+            // Normalize part 2 (Safe check to avoid "Offset 1" error)
+            $part2 = (count($parts) > 2) ? strtolower(trim($parts[2])) : 'NO HYPHEN FOUND';
+
+//             var_dump($sources); // Debug: Check original source
+//             var_dump($parts); // Debug: Check part 1
+//             var_dump($part2); // Debug: Check part 2
+// // exit;
+
+                    if ($part1 === "Online_Registration") {
+                        // 2. Logic for Online Trade Visitor (Single entry)
+                        $values = [
+                            'company_id' => $company_id,
+                            'source_id'  => $company['source_id'] ?? 0,
+                            'event_date' => $company['event_date'] ?? date('Y-m-d'),
+                            'notes'      => $sources, 
+                        ];
+
+                        $this->addSource($values);
+
+                    } else {
+                // Standard case: split by comma (,) or slash (/)
+                                $splitSources = preg_split('/[,\/]+/', $sources); 
+
+                                if($note != "spot"){
+
+                                
+                                    foreach ($splitSources as $source) {
+                                        $source = trim($source);
+                                        
+                                        if ($source === '') continue; // Skip empty strings
+
+                                        $values = [
+                                            'company_id' => $company_id,
+                                            'source_id'  => $company['source_id'] ?? 0,
+                                            'event_date' => $company['event_date'] ?? date('Y-m-d'),
+                                            'notes'      => $source, // Use the individual split source in notes
+                                        ];
+
+                                        // Process each split source
+                                        $this->addSource($values);
+                                    }
+                                }
+
+                            }
+
+                    
+                        // Insert contacts dynamically (up to 3 contacts)
+                        for ($i = 1; $i <= 3; $i++) {
+
+                            $name = trim($company["contact{$i}_name"] ?? '');
+
+                            // Skip if no name
+                            if ($name === '') {
+                                continue;
+                            }
+
+                            $contactData = [
+                                'company_id'  => $company_id,
+                                'priority'    => $i,
+                                'name'        => $name,
+                                'designation' => $company["contact{$i}_designation"] ?? '',
+                                'mobiles'     => [],
+                                'emails'      => []
+                            ];
+
+                            // Collect mobiles (up to 3 per contact)
+                            for ($m = 1; $m <= 3; $m++) {
+
+                                $mobileKey = "contact{$i}_mobile{$m}";
+                                // var_dump($mobileKey);
+
+
+                                if (!empty($company[$mobileKey])) {
+                                    $contactData['mobiles'][] = trim($company[$mobileKey]);
+                                }
+                            }
+
+                            // Collect emails (up to 3 per contact)
+                            for ($e = 1; $e <= 3; $e++) {
+
+                                $emailKey = "contact{$i}_email{$e}";
+
+                                if (!empty($company[$emailKey])) {
+                                    $contactData['emails'][] = trim($company[$emailKey]);
+                                }
+                            }
+
+                            // Insert contact using your working function
+                            $inserted = $this->savePerson($contactData);
+
+                            if ($inserted === true) {
+                                $success++;
+                            } else {
+                                $failed++;
+                            }
+                        }
+                    
+
+                        $allowedCities = [
+                            'ahmedabad', 'mumbai', 'delhi', 
+                            'bangalore', 'kochi', 'pune', 'hyderabad','kolkata'
+                        ];
+
                     }
-                }
+// var_dump($note);
 
-                // Collect emails (up to 3 per contact)
-                for ($e = 1; $e <= 3; $e++) {
-
-                    $emailKey = "contact{$i}_email{$e}";
-
-                    if (!empty($company[$emailKey])) {
-                        $contactData['emails'][] = trim($company[$emailKey]);
-                    }
-                }
-
-                // Insert contact using your working function
-                $inserted = $this->savePerson($contactData);
-
-                if ($inserted === true) {
-                    $success++;
-                } else {
-                    $failed++;
-                }
-            }
-        
-
-
-$allowedCities = [
-    'ahmedabad', 'mumbai', 'delhi', 
-    'bangalore', 'kochi', 'pune', 'hyderabad','kolkata'
-];
-
-// Single block to see the raw values and the logic result
-// var_dump([
-//     'note_value'    => $note,
-//     'part2_value'   => $part2 ?? 'NOT_SET',
-//     'allowed_list'  => $allowedCities,
-//     'is_spot'       => ($note === "Spot"),
-//     'is_city_match' => in_array(strtolower($part2 ?? ''), $allowedCities),
-//     'final_check'   => ($note === "Spot" || in_array(strtolower($part2 ?? ''), $allowedCities))
-// ]);
+if ($sources === "Registered Exhibitor 2026") {
+var_dump($sources);
 // exit;
-
-
-// if 
-// if($company)
-        }
-var_dump($note);
-// exit;
-if ($note === "spot" || $note === "Online_Registration"|| in_array(strtolower($part2), $allowedCities))
-    {
-
-var_dump($note);
-// exit;
-    $crossValidationModel = new \App\Models\CrossValidationModel();
-
-    // $result = $crossValidationModel->crossValidate([
-    //     'company_name' => $company['company_name'] ?? '',
-    //     'phone'        => $company['phone']        ?? '',
-    //     'gst_number'   => $company['gst_number']   ?? '',
-    //     'city'         => $company['city']         ?? '',
-    //     'state'        => $company['state']        ?? '',
-    //     'country'      => $company['country']      ?? 'India',
-    //     'pincode'      => $company['pincode']      ?? '',
-    //     'address'      => trim(($company['address_1'] ?? '') . ' ' . ($company['address_2'] ?? '')),
-    //     'contacts'     => [
-    //         [
-    //             'name'        => trim($company['contact1_name']  ?? ''),
-    //             'designation' => $company['contact1_designation'] ?? '',
-    //             'emails'      => !empty($company['contact1_email1'])
-    //                                 ? [['email' => $company['contact1_email1']]]
-    //                                 : [],
-    //             'mobiles'     => !empty($company['contact1_mobile1'])
-    //                                 ? [['mobile' => $company['contact1_mobile1']]]
-    //                                 : [],
-    //         ]
-    //     ],
-    // ]);
-
-    // if ($result['status'] === 'existing') {
-    //     $this->companyModel->where('company_id', $company_id)
-    //                        ->set(['cross_validation' => 1])
-    //                        ->update();
-    // }
-
-    // ✅ Define variables BEFORE using them
-    // if ($note === "Spot"){}
-    $data   = $note."-". $part2;
-    $number = $company['contact1_mobile1'] ?? $company['contact1_mobile'] ?? '';
-
-    return redirect()->to(base_url('registration/regitersuccess/' . $data . '/' . $number));
-}
-        
-
-            // if ($note == "Websitetradevisitor"){
-
-            //         return redirect()->to(base_url('registration/generatebadge/' . $company_id));
-            //     }
-
-
-            // var_dump($note);
-            // exit;
-            if ($note === "Websiteregistrationexhibitor") {
-
                         $leadModel = new \App\Models\LeadModel();
                         
                         $contactModel = new \App\Models\ContactModel();
@@ -1423,15 +1513,44 @@ var_dump($note);
                             $leadId = $leadModel->createLead($leadData, $locationData);
                             $data = "exhibitor";
                             }
-return redirect()->to(base_url('registration/regitersuccess') . '/' . $data ."/". $company['contact1_mobile1']);
+
+                            // print_r( $data);
+                            // print_r( $company['contact1_mobile1']);
+                            // var_dump($data);
+                            // // exit;
+
+                        return redirect()->to(base_url('registration/regitersuccess') . '/' . $data ."/". $company['contact1_mobile1']);
             
-
-
-
-
-
-
         }
+
+// exit;
+
+        if ($note === "spot" || $note === "x"|| in_array(strtolower($part2), $allowedCities))
+            {
+
+        // var_dump($note);
+        // exit;
+            $crossValidationModel = new \App\Models\CrossValidationModel();
+
+
+            // ✅ Define variables BEFORE using them
+            // if ($note === "Spot"){}
+            $data   = $note."-". $part2;
+            $number = $company['contact1_mobile1'] ?? $company['contact1_mobile'] ?? '';
+
+            return redirect()->to(base_url('registration/regitersuccess/' . $data . '/' . $number));
+        }
+        
+
+            // if ($note == "Websitetradevisitor"){
+
+            //         return redirect()->to(base_url('registration/generatebadge/' . $company_id));
+            //     }
+
+
+            // var_dump($note);
+            // exit;
+            
                 // exit;
 
         }

@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Company Details
             hiddenForm.querySelector('[name="companies[0][company_name]"]').value = document.getElementById('company_name').value;
             hiddenForm.querySelector('[name="companies[0][city]"]').value         = document.getElementById('city').value;
+            hiddenForm.querySelector('[name="companies[0][state]"]').value         = "x";
             
             // Personal/Contact Details
             hiddenForm.querySelector('[name="companies[0][contact1_name]"]').value        = document.getElementById('name').value;
