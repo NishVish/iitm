@@ -1,0 +1,15 @@
+CRITICAL - 2026-03-05 11:39:34 --> ErrorException: include_once(C:\xampp\htdocs\iitm\central\app\third_party/phpqrcode/qrlib.php): Failed to open stream: No such file or directory
+[Method: GET, Route: open/qr/test]
+in APPPATH\Views\open\qr.php on line 10.
+ 1 APPPATH\Views\open\qr.php(10): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include_once(C:\\xampp\\htdocs\\iitm\\central\\app\\third_party/phpqrcode/qrlib.php): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\open\\qr.php', 10)
+ 2 APPPATH\Views\open\qr.php(10): include_once()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\open\\qr.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('open/qr', [], true)
+ 6 APPPATH\Controllers\Open.php(24): view('open/qr', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Open->openqr('test')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Open))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

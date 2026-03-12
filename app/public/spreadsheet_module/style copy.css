@@ -1,0 +1,157 @@
+/* Container for the spreadsheet */
+#spreadsheet-container {
+    max-height: 600px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background: #fff;
+}
+
+/* The Table Base */
+.adv-spreadsheet {
+    width: 100%;
+    border-collapse: separate; /* Required for sticky headers */
+    border-spacing: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+    color: #333;
+}
+
+/* Header Styling */
+.adv-spreadsheet thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    color: #444;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    z-index: 10;
+    white-space: nowrap;
+    user-select: none;
+}
+
+/* Body Styling */
+.adv-spreadsheet tbody td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    transition: background 0.1s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}
+
+/* Hover effect for rows */
+.adv-spreadsheet tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* Editable Cell States */
+.adv-spreadsheet td[contenteditable="true"]:focus {
+    outline: 2px solid #3b82f6;
+    background: #fff;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    z-index: 5;
+    position: relative;
+}
+
+/* Style for the "Action" column (the last one) */
+.adv-spreadsheet td:last-child, 
+.adv-spreadsheet th:last-child {
+    border-right: none;
+    text-align: center;
+}
+
+/* Clean up links in the Action column */
+.adv-spreadsheet a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.adv-spreadsheet a:hover {
+    text-decoration: underline;
+}
+
+/* Success Button Style for "Book Exhibitor" */
+.btn-success {
+    background: #22c55e;
+    color: white !important;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Zebra Striping */
+.adv-spreadsheet tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Selected Column logic (for when you copy) */
+.copying-selection {
+    background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Resizer Wrapper */
+.resizer-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Resizer Handle */
+.resizer {
+    width: 5px;
+    height: 100%;
+    background: transparent;
+    cursor: col-resize;
+    position: absolute;
+    right: -15px; /* Aligns with padding */
+    top: 0;
+    transition: background 0.2s;
+}
+
+.resizer:hover, .resizing {
+    background: #3b82f6 !important;
+    width: 2px;
+}
+
+/* Corner & Index Columns */
+.corner-selector, .row-index {
+    background-color: #f1f5f9 !important;
+    text-align: center !important;
+    width: 40px;
+    min-width: 40px;
+    font-weight: bold;
+    color: #64748b;
+    border-right: 2px solid #cbd5e1 !important;
+    cursor: pointer;
+}
+
+.corner-selector:hover {
+    background-color: #cbd5e1 !important;
+    color: #1e293b;
+}
+
+/* Action Column Styling */
+.adv-spreadsheet td:last-child {
+    background-color: #fff;
+    white-space: nowrap;
+}
+
+.btn-sm {
+    padding: 2px 6px;
+    font-size: 11px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+}
