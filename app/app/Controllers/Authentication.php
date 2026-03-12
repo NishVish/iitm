@@ -13,104 +13,117 @@ class Authentication extends BaseController
         return view("login");
     }
 
-    public function login()
-    {
-        $request = service('request');
-        $session = session();
+   public function login()
+{
+    $db = \Config\Database::connect();
+    $session = session();
 
-        $pin = isset($_POST['pin']) ? $_POST['pin'] : '';
+// 1. Get POST data
+$mobile   = $this->request->getPost('mobile_number');
+$password = $this->request->getPost('password');
 
-        // Get email and password from POST
-        // $email = $request->getPost('pin');
-$password = $request->getPost('pin');
+// 2. Simple hardcoded check for now
+if ($mobile == "7909075195" && $password == "super1234") {
 
- $usersModel = new UserModel();
+    // 3. Define the User Name (used in the redirect message)
+    $userName = "Nishant";
 
-        // Fetch user by email
-        $user = $usersModel->getByPin($password);
-// Get database name
-$db = \Config\Database::connect();
-$query = $db->query("SELECT DATABASE() as db");
-$row = $query->getRow();
-$databasename = $row->db;
-// echo $row->db;
-// var_dump($databasename);
-// exit;
-
-// $password = password_hash($password, PASSWORD_DEFAULT);
- // Start a dummy session if PIN is 'super'
-if ($password === 'superx' && !$user) {
+    // 4. Build Session Data
     $sessionData = [
-        'authenticated'      => true,
-        'user_id'            => 0,
-        'employee_id'        => 'SUPER',
-        'name'               => 'Super User',
-        'designation'        => 'Admin',
-        'phone'              => 'N/A',
-        'address'            => 'N/A',
-        'email'              => 'super@dummy.com',
-        'category'           => 'Admin',
-        'department'         => 'Admin',
-        'doj'                => date('Y-m-d'),
-        'uan_no'             => 'N/A',
-        'fathers_name'       => 'N/A',
-        'aadhaar_card'       => 'N/A',
-        'pan_card'           => 'N/A',
-        'bank_account_number'=> 'N/A',
-        'ifsc_code'          => 'N/A',
-        'user_type'          => 'superuser',
-        'journal'            => '',
-        'server'  => $databasename
-        
+        'isLoggedIn'    => true,
+        'user_name'     => $userName, // Added quotes
+        'contact_id'    => 100,
+        'company_id'    => 100,
+        'company_name'  => "Sphere Travelmedia",
+        'database_name' => "Sphere_DB",
+        'entry_type'    => "Exhibitor",
+        'city'          => "Bangalore",
+        'state'         => "Karnataka",
     ];
-// var_dump($sessionData['server']);
-// exit;
 
+    // 5. Set the session
     $session->set($sessionData);
-    return redirect()->route('home');
+
+    // 6. Redirect to your new dashboard
+    return redirect()->to(base_url('mainmenu'))->with('message', "Welcome back, $userName!");
+
+} else {
+    // 7. Handle failure
+    return redirect()->back()->with('error', 'Invalid Mobile Number or Password');
 }
-       
-        // var_dump($user);
-        if ($user) {
-            // Password matches, store all user info in session
-            $sessionData = [
-                'authenticated'      => true,
-                'user_id'            => $user['id'],
-                'employee_id'        => $user['employee_id'],
-                'name'               => $user['name'],
-                'designation'        => $user['designation'],
-                'phone'              => $user['phone'],
-                'address'            => $user['address'],
-                'email'              => $user['email'],
-                'category'           => $user['category'],
-                'department'         => $user['department'],
-                'doj'                => $user['doj'],
-                'uan_no'             => $user['uan_no'],
-                'fathers_name'       => $user['fathers_name'],
-                'aadhaar_card'       => $user['aadhaar_card'],
-                'pan_card'           => $user['pan_card'],
-                'bank_account_number'=> $user['bank_account_number'],
-                'ifsc_code'          => $user['ifsc_code'],
-                'user_type'          => $user['user_type'],
-                'journal'            => $user['journal'] ?? '',
-        'server'  => $databasename
 
-            ];
-
-            $session->set($sessionData);
-// var_dump($session);
-// exit;
-            return redirect()->route('home');
-        } else {
-            $session->setFlashdata('error', 'Invalid email or password!');
-            return redirect()->to('/');
-        }
-       
-
-
-        
+    var_dump($mobile);
+    var_dump($password);
+    // var_dump($moblie);
+    // var_dump($moblie);
+    // exit;
+    if (empty($mobile) || empty($password)) {
+        return redirect()->back()->with('error', 'Please provide both mobile and password.');
     }
 
+    // 2. Find the Contact ID from the mobile number
+    $mobileRecord = $db->table('contact_mobile')
+                       ->where('mobile', $mobile)
+                       ->get()
+                       ->getRowArray();
+
+    if (!$mobileRecord) {
+        return redirect()->back()->with('error', 'Mobile number not found.');
+    }
+        // var_dump($mobileRecord);
+
+    $contactId = $mobileRecord['contact_id'];
+
+    // 3. Get Contact Name and Company ID
+    $contact = $db->table('contact')
+                  ->where('contact_id', $contactId)
+                  ->get()
+                  ->getRowArray();
+
+    if (!$contact) {
+        return redirect()->back()->with('error', 'No contact associated with this number.');
+    }
+
+    $companyId = $contact['company_id'];
+    $userName  = $contact['name'];
+        // var_dump($companyId);
+
+    // 4. Validate against company_data
+    // Assuming 'password' column exists in company_data or adjust to your actual auth column
+    $company = $db->table('company_data')
+                  ->where('company_id', $companyId)
+                  ->where('active_inactive', 'active')
+                  ->get()
+                  ->getRowArray();
+        // var_dump($session);
+
+    // Verification Logic
+    // Replace with password_verify($password, $company['password']) if hashed
+    if ($company && $password === $company['company_id']) { 
+        
+        // 5. Build Session Data
+        $sessionData = [
+            'isLoggedIn'    => true,
+            'user_name'     => $userName,
+            'contact_id'    => $contactId,
+            'company_id'    => $companyId,
+            'company_name'  => $company['company_name'],
+            'database_name' => $company['database_name'],
+            'entry_type'    => $company['entry_type'],
+            'city'          => $company['city'],
+            'state'         => $company['state']
+        ];
+
+        $session->set($sessionData);
+
+        // var_dump($session);
+        // exit;
+
+        return redirect()->to(base_url('mainmenu'))->with('message', "Welcome back, $userName!");
+    } else {
+        return redirect()->back()->with('error', 'Invalid Credentials or Account Inactive.');
+    }
+}
     // public function logout()
     // {
     //     session()->destroy();

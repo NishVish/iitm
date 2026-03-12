@@ -11,11 +11,14 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Authentication::index');
 // $routes->get('/', 'Home::index');
-$routes->get('login', 'Authentication::login');
+// $routes->get('login', 'Authentication::login');
 
 $routes->post('login', 'Authentication::login');
 $routes->get('logout', 'Authentication::logout');
 $routes->get('home', 'Home::index');
+
+$routes->get('mainmenu', 'Mainmenu::index');
+
 
 
 //Users
