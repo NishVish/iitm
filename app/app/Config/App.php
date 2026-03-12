@@ -19,12 +19,12 @@ class App extends BaseConfig
             */
         // public string $baseURL = 'http://localhost/iitm/central/';
 
-        public string $baseURL = 'http://192.168.1.161/iitm/central/';
+        // public string $baseURL = 'http://iitminda/iitm/central/';
 
 
         // public string $baseURL = 'localhost/iitm/central/';
         // public string $baseURL = 'https://192.168.1.140/iitm/central/';
-        //   public string $baseURL = 'https://iitmindia.com/ci/central/';
+          public string $baseURL = 'https://iitmindia.com/ci/app/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
