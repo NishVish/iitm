@@ -23,7 +23,7 @@ $mobile   = $this->request->getPost('mobile_number');
 $password = $this->request->getPost('password');
 
 // 2. Simple hardcoded check for now
-if ($mobile == "7909075195" && $password == "super1234") {
+if ($mobile == "1234" && $password == "1234") {
 
     // 3. Define the User Name (used in the redirect message)
     $userName = "Nishant";
