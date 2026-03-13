@@ -68,6 +68,8 @@ foreach ($pivot as $rowKey => $row):
 <?php 
 
 $urlfor = '/all/all/all/';
+// var_dump($groupby);
+// exit;
 
 if ($groupby == "category") {
     $urlfor = "/all/";
@@ -79,11 +81,20 @@ if ($groupby == "country") {
 if ($groupby == "state") {
     $urlfor = '/all/all/all/all/';
 }
+
+if ($groupby == "database_name") {
+    $urlfor = '/';
+}
 ?>
 
-<a href="<?= $baseUrl . '/'.$entryType  . $urlfor . urlencode($rowKey) ?>">
+
+
+<a href="<?= $baseUrl . '/' . $entryType . $urlfor . urlencode(str_replace(' ', '-', $rowKey)) ?>">
     <?= esc($rowKey ?: 'Unknown') ?>
 </a>
+
+
+
 </td>
 
     <td class="total-cell"><?= number_format($rowTotal) ?></td>

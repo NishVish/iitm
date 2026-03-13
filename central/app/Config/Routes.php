@@ -379,3 +379,7 @@ $routes->get('view/(:segment)', 'Registration::registrationview/$1');
 
 
 $routes->get('open/qr/(:any)/(:any)', 'Open::openqr/$1/$2');               // Main page
+$routes->get('app', 'Open::downloadapp');               // Main page
+
+
+

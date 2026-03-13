@@ -1,0 +1,578 @@
+CRITICAL - 2026-03-07 16:08:39 --> Error: Call to undefined function baseurl()
+[Method: GET, Route: company/main/all/ta]
+in APPPATH\Views\company\filter.php on line 324.
+ 1 APPPATH\Views\company\by_var.php(2): include()
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\company\\by_var.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('company/by_var', [], true)
+ 5 APPPATH\Controllers\Company.php(398): view('company/by_var', [...])
+ 6 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'ta')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 16:10:36 --> Error: Call to undefined function baseurl()
+[Method: GET, Route: company/main/all/ta]
+in APPPATH\Views\company\filter.php on line 323.
+ 1 APPPATH\Views\company\by_var.php(2): include()
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\company\\by_var.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('company/by_var', [], true)
+ 5 APPPATH\Controllers\Company.php(398): view('company/by_var', [...])
+ 6 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'ta')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 16:10:38 --> Error: Call to undefined function baseurl()
+[Method: GET, Route: company/main/all/ta]
+in APPPATH\Views\company\filter.php on line 323.
+ 1 APPPATH\Views\company\by_var.php(2): include()
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\company\\by_var.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('company/by_var', [], true)
+ 5 APPPATH\Controllers\Company.php(398): view('company/by_var', [...])
+ 6 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'ta')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-03-07 16:37:45 --> mysqli_sql_exception: Unknown column 'cd.comment' in 'where clause' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT cd.*,\r\n ...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cd.*,\r\n ...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cd.*,\r\n ...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,\r\n ...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'all', 'Agra', 'all')
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2026-03-07 16:37:45 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'cd.comment' in 'where clause'
+[Method: GET, Route: company/main/all/all/all/all/all/Agra/all]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = :cd.entry_type:
+AND `cd`.`comment` = :cd.comment:
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', [...], false)
+ 2 APPPATH\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'all', 'Agra', 'all')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 16:37:45 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'cd.comment' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = :cd.entry_type:
+AND `cd`.`comment` = :cd.comment:
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', [...], false)
+ 4 APPPATH\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'all', 'Agra', 'all')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 16:37:45 --> [Caused by] mysqli_sql_exception: Unknown column 'cd.comment' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = :cd.entry_type:
+AND `cd`.`comment` = :cd.comment:
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', [...], false)
+ 5 APPPATH\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'all', 'Agra', 'all')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-03-07 16:39:00 --> mysqli_sql_exception: Unknown column 'cd.comment' in 'where clause' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT cd.*,\r\n ...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cd.*,\r\n ...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cd.*,\r\n ...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,\r\n ...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'Agra', 'Agra', 'all')
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2026-03-07 16:39:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'cd.comment' in 'where clause'
+[Method: GET, Route: company/main/all/all/all/all/Agra/Agra/all]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = :cd.entry_type:
+AND `cd`.`city` = :cd.city:
+AND `cd`.`comment` = :cd.comment:
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', [...], false)
+ 2 APPPATH\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'Agra', 'Agra', 'all')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 16:39:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'cd.comment' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`city` = \'Agra\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`city` = \'Agra\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = :cd.entry_type:
+AND `cd`.`city` = :cd.city:
+AND `cd`.`comment` = :cd.comment:
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', [...], false)
+ 4 APPPATH\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'Agra', 'Agra', 'all')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 16:39:00 --> [Caused by] mysqli_sql_exception: Unknown column 'cd.comment' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`city` = \'Agra\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`city` = \'Agra\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`city` = \'Agra\'
+AND `cd`.`comment` = \'Agra\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = :cd.entry_type:
+AND `cd`.`city` = :cd.city:
+AND `cd`.`comment` = :cd.comment:
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', [...], false)
+ 5 APPPATH\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'Agra', 'Agra', 'all')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-03-07 16:42:24 --> mysqli_sql_exception: Unknown column 'cd.comment' in 'where clause' in C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT cd.*,\r\n ...', 0)
+#1 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cd.*,\r\n ...')
+#2 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cd.*,\r\n ...')
+#3 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,\r\n ...', Array, false)
+#4 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\iitm\central\app\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters(Array)
+#6 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'all', 'Acharapakkam', 'all')
+#7 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+#8 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\iitm\central\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\iitm\central\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2026-03-07 16:42:24 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'cd.comment' in 'where clause'
+[Method: GET, Route: company/main/all/all/all/all/all/Acharapakkam/all]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = :cd.entry_type:
+AND `cd`.`comment` = :cd.comment:
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', [...], false)
+ 2 APPPATH\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'all', 'Acharapakkam', 'all')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 16:42:24 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'cd.comment' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Acharapakkam\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Acharapakkam\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = :cd.entry_type:
+AND `cd`.`comment` = :cd.comment:
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', [...], false)
+ 4 APPPATH\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'all', 'Acharapakkam', 'all')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 16:42:24 --> [Caused by] mysqli_sql_exception: Unknown column 'cd.comment' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Acharapakkam\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Acharapakkam\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = \'main\'
+AND `cd`.`comment` = \'Acharapakkam\'
+GROUP BY `cd`.`company_id`, `c`.`contact_id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT cd.*,
+            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+            c.contact_id,
+            c.name AS contact_name,
+            c.designation,
+            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+FROM `company_data` `cd`
+LEFT JOIN `company_sources` `cs` ON `cs`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact` `c` ON `c`.`company_id` = `cd`.`company_id`
+LEFT JOIN `contact_email` `ce` ON `ce`.`contact_id` = `c`.`contact_id`
+LEFT JOIN `contact_mobile` `cm` ON `cm`.`contact_id` = `c`.`contact_id`
+WHERE `cd`.`entry_type` = :cd.entry_type:
+AND `cd`.`comment` = :cd.comment:
+GROUP BY `cd`.`company_id`, `c`.`contact_id`', [...], false)
+ 5 APPPATH\Controllers\Company.php(338): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'all', 'all', 'all', 'all', 'Acharapakkam', 'all')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 16:45:31 --> CodeIgniter\HTTP\Exceptions\HTTPException: Request URI segment is out of range: "6"
+[Method: GET, Route: company/main/all/ta]
+in SYSTEMPATH\HTTP\URI.php on line 574.
+ 1 SYSTEMPATH\HTTP\URI.php(574): CodeIgniter\HTTP\Exceptions\HTTPException::forURISegmentOutOfRange(6)
+ 2 APPPATH\Views\company\filter.php(232): CodeIgniter\HTTP\URI->getSegment(6, 'all')
+ 3 APPPATH\Views\company\by_var.php(2): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\company\\filter.php')
+ 4 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\iitm\\central\\app\\Views\\company\\by_var.php')
+ 5 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('company/by_var', [], true)
+ 7 APPPATH\Controllers\Company.php(398): view('company/by_var', [...])
+ 8 APPPATH\Controllers\Company.php(242): App\Controllers\Company->getCompanySourcesContactsByFilters([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('main', 'all', 'ta')
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-03-07 18:10:23 --> ErrorException: Undefined variable $type
+[Method: GET, Route: company/download/none/none/none]
+in APPPATH\Controllers\Company.php on line 224.
+ 1 APPPATH\Controllers\Company.php(224): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $type', 'C:\\xampp\\htdocs\\iitm\\central\\app\\Controllers\\Company.php', 224)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Company->byvar('download', 'none', 'none', 'none')
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Company))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

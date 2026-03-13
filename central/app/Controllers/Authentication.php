@@ -6,12 +6,18 @@ use App\Models\UserModel;
 
 class Authentication extends BaseController
 {
-    public function index()
-    {
-        // echo "hello";
-        // exit;
-        return view("login");
+
+
+public function index()
+{
+    $session = session();
+
+    if ($session->get('user_id')) {
+        return redirect()->to(route_to('home'));
     }
+
+    return view('login');
+}
 
     public function login()
     {

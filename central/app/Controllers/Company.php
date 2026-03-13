@@ -617,16 +617,19 @@ public function getCompanySourcesContactsByFilters($filters = [])
 
     $where = [];
 
-    foreach ($filters as $key => $value) {
+   foreach ($filters as $key => $value) {
 
-        if ($value === 'all' || $value === '') continue;
+    if ($value === 'all' || $value === '') continue;
 
-        if ($key === 'source') continue;
+    if ($key === 'source') continue;
 
-        $column = $columnMap[$key] ?? $key;
+    $column = $columnMap[$key] ?? $key;
 
-        $where["cd.$column"] = $value;
-    }
+    // Replace dashes with spaces before using in query
+    $dbValue = str_replace('-', ' ', $value);
+
+    $where["cd.$column"] = $dbValue;
+}
 
     /* ---------------------------
        2. MAIN QUERY (companies)

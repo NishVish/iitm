@@ -41,14 +41,6 @@ else {
     <meta charset="UTF-8" />
     <title><?= esc($title ?? 'Admin Panel') ?></title>
 
-<link rel="stylesheet" href="<?= base_url('public/css/home.css') ?>">
-<link rel="stylesheet" href="<?= base_url('public/css/tools.css') ?>">
-<link rel="stylesheet" href="<?= base_url('public/css/chat.css') ?>">
-<link rel="stylesheet" href="<?= base_url('public/css/communication.css') ?>">
-<link rel="stylesheet" href="<?= base_url('public/css/creative.css') ?>">
-<link rel="stylesheet" href="<?= base_url('public/css/event.css') ?>">
-
-
 </head>
 <body>
 

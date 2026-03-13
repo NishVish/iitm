@@ -1,0 +1,606 @@
+<?php
+// Optional: auto-print flag
+$auto_print = true;
+
+// Populate search_result from controller
+$search_result = [
+    [
+        'select2'      => '', // Add prefix if needed
+        'name'         => $contactName ?? 'Unknown Contact',
+        'company_name' => $companyName ?? 'Unknown Company',
+        'designation'  => '', // You can add designation if available
+        'mobile'       => ''  // You can add mobile if available
+    ]
+];
+?>
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Print Manager</title>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+
+        }
+        body {
+            display: flex;
+            justify-content: center; /* horizontal centering */
+            align-items: center;    /* vertical centering */
+            flex-direction: column;
+            font-family: 'Times New Roman', serif;
+            min-height: 100vh;
+            text-align: center;
+
+            box-sizing: border-box;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            width: 200px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 8px 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #printSection {
+            margin-top: 0px;
+        }
+        @media print {
+        body * {
+            visibility: hidden;
+        }
+
+        #printSection, #printSection * {
+            visibility: visible;
+        }
+        
+        
+        * {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+
+        #printSection {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+         /* Default image opacity */
+            .image-container img {
+                opacity: 0 !important;
+            }
+
+            /* Show image if override class is present */
+            .image-container.opacity-enabled img {
+                opacity: 1 !important;
+            }
+            .overlay-text {
+
+                            color: blue !important;
+                        }
+             /* Adjust overlay position only if enabled */
+            .image-container.opacity-enabled .overlay-text {
+                color: blue !important;
+            }
+
+            
+    }
+    .no-wrap {
+    white-space: nowrap;
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+  width: 9.2cm;
+  /* height: 13.3cm;  */
+  height: 13.67cm; 
+
+  /* border: 2px solid black; */
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+}
+
+.overlay-text {
+    position: absolute;
+    color: black;
+    text-align: left;
+    width: calc(100% - 40px);
+    line-height: 1.6;
+        text-align: center; /* ← ADD THIS */
+
+}
+
+#temp {
+    position: absolute;
+    text-align: left;
+
+    margin-top: 300px;
+    margin-left: 15px;
+    line-height: 1.3;
+
+    color: blue;
+}
+
+#nameEditable, #companyEditable {
+    text-transform: uppercase;
+}
+
+
+
+    </style>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+</head>
+<body>
+
+    <div style="display: flex; gap: 20px; align-items: flex-start;">
+
+
+  <div id="printSection" style="flex: 1; border: 1px solid #ccc; padding-top:0px;">
+    <div class="image-container">
+
+  
+    <img id="badgeImage" src="trade.jpg" alt="Background Image" class="background-image">
+        <div class="overlay-text">
+                      
+
+
+            <?php if (!empty($search_result)): ?>
+    <?php foreach ($search_result as $row): ?>
+        <?php
+            $name = !empty($row['select2']) ? strtoupper($row['select2']) . " " . strtoupper($row['name']) : strtoupper($row['name']);
+            $company_name = strtoupper($row['company_name']);
+        ?>
+        <div id="temp">
+            <div style="text-align: center;">
+    <strong style="font-size: 24px; color: black;" contenteditable="true" id="nameEditable">
+        <?= htmlspecialchars($name) ?>
+    </strong><br>
+    <span style="font-size: 24px; color: black;">
+        <span contenteditable="true" id="companyEditable">
+            <?= htmlspecialchars($company_name) ?>
+        </span><br>
+    </span>
+</div>
+            <!-- Hidden inputs -->
+            <input type="hidden" id="originalName" value="<?= htmlspecialchars($name) ?>" />
+            <input type="hidden" id="originalCompany" value="<?= htmlspecialchars($company_name) ?>" />
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+        </div>
+    </div>
+    </div>
+ <!-- Form Section (Right Side) -->
+  <div style="width: 350px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; border: 1px solid #ddd; padding: 12px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); background-color: #f9f9f9;">
+
+    <!-- Position Controls -->
+           <h3 style="margin-bottom: 7px; margin-top:5px;font-size: 16px; color: #333;">Position Settings</h3>
+
+    <div style="margin-bottom: 7px; margin-left:45px;">
+      <div style="display: flex; gap: 15px;">
+        <!-- <div>
+          <label for="topInput">Top</label><br>
+          <input type="number" id="topInput" style="width: 60px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div>
+          <label for="leftInput">Left</label><br>
+          <input type="number" id="leftInput" style="width: 60px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+        </div> -->
+
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; font-family: sans-serif;">
+
+  <!-- Up Button -->
+  <button onclick="adjustPosition('up')" style="padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer;">
+    ↑
+  </button>
+
+  <!-- Input Controls and Left/Right Buttons -->
+  <div style="display: flex; align-items: center; gap: 20px;">
+
+    <!-- Left Button -->
+    <button onclick="adjustPosition('left')" style="padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer;">
+      ← 
+    </button>
+
+    <!-- Inputs -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div>
+        <input type="number" id="topInput" style="width: 80px; padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <div>
+        <input type="number" id="leftInput" style="width: 80px; padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      
+    </div>
+
+    <!-- Right Button -->
+    <button onclick="adjustPosition('right')" style="padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer;">
+      →
+    </button>
+  </div>
+
+  <!-- Down Button -->
+  <button onclick="adjustPosition('down')" style="padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer;">
+    ↓
+  </button>
+  <button onclick="reset_position()" style="padding: 8px 12px; background-color:rgb(100, 143, 223); color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+      ↻
+     </button>
+
+</div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Search Form -->
+    <div style="margin-bottom: 10px;">
+      <h3 style="margin-bottom: 10px; font-size: 16px; color: #333;">Search by Mobile</h3>
+<form method="POST" action="<?= base_url('registration/searchentry/'.$location) ?>" style="display: flex; gap: 10px; flex-wrap: wrap;">  
+    
+<input type="text" name="mobile" placeholder="Enter mobile number" required style="flex: 1; min-width: 150px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <button type="submit" style="padding: 6px 10px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Search</button>
+      </form>
+    </div>
+
+ <div style="display: flex; gap: 30px; margin-bottom: 10px;">
+
+  <!-- Opacity Options -->
+  <div>
+    <h3 style="margin-bottom: 10px; font-size: 16px; color: #333;">Image Visibility</h3>
+    <label style="display: block; margin-bottom: 5px;">
+      <input type="radio" name="opacityToggle" id="enableOpacity" onchange="toggleOpacity(true)">
+      Show Image in Print
+    </label>
+    <label style="display: block;">
+      <input type="radio" name="opacityToggle" id="disableOpacity" onchange="toggleOpacity(false)" checked>
+      Hide Image in Print
+    </label>
+  </div>
+
+  <!-- Badge Type -->
+  <div>
+    <h3 style="margin-bottom: 10px; font-size: 16px; color: #333;">Badge Type</h3>
+    <label style="display: block; margin-bottom: 5px;">
+      <input type="radio" name="badgeType" value="tradevisitor" checked onchange="updateImage()">
+      Trade Visitor
+    </label>
+    <label style="display: block;">
+      <input type="radio" name="badgeType" value="exhibitor" onchange="updateImage()">
+      Exhibitor
+    </label>
+  </div>
+
+</div>
+
+    <!-- Print Button -->
+    <div style="display: flex; gap: 10px; width: 100%; margin-top: 10px;">
+
+  <!-- Print Button (Fixed width 70px) -->
+  <button type="button" onclick="compareAndSubmitEdit()" 
+          style="width: 200px; padding: 8px; background-color: #28a745; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+    Print
+  </button>
+
+  <!-- Refresh/Back Button (fills remaining space) -->
+  <button onclick="window.location.href='https://iitmindia.com/reg/spot/search_form5.php'" 
+          style="flex: 1; padding: 8px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+    Refresh
+  </button>
+
+</div>
+
+    <div>
+        
+
+<a href="https://iitmindia.com/backend/">Backend</a>
+<a href="https://iitmindia.com/backend/volenteer/">Volunteer Guidelines</a>
+
+    </div>
+
+
+
+<div id="qr-reader" style="width: 300px;"></div>
+<!-- <div id="qr-result">Result will appear here</div> -->
+
+<!-- Hidden form to submit QR result to PHP -->
+<form id="qr-form" method="POST" action="">
+    <input type="hidden" name="qrcode" id="qrcode-input">
+</form>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+    console.log("Page Loaded");
+
+    function onScanSuccess(decodedText, decodedResult) {
+        // Show the scanned code
+        document.getElementById('qr-result').innerText = `Scanned: ${decodedText}`;
+        console.log(`QR matched: ${decodedText}`);
+
+        // Set QR code in hidden input and submit form
+        document.getElementById('qrcode-input').value = decodedText;
+        document.getElementById('qr-form').submit();
+    }
+
+    // Initialize the scanner
+    const html5QrCode = new Html5Qrcode("qr-reader");
+
+    Html5Qrcode.getCameras().then(devices => {
+        if (devices && devices.length) {
+            let cameraId = devices[0].id;
+            html5QrCode.start(
+                cameraId,
+                {
+                    fps: 10,
+                    qrbox: 250
+                },
+                onScanSuccess
+            );
+        }
+    }).catch(err => {
+        console.error("Camera access error: ", err);
+    });
+</script>
+
+    <?php if ($auto_print): ?>
+        <script>
+
+// function loadVisitorData(visitor_or_exhbitor) {
+//   const displayBox = document.getElementById('visitorDisplayBox');
+
+//   // First: Clear the display box
+//   displayBox.innerHTML = '';
+
+//   const fetch_url = visitor_or_exhbitor + ".php";
+//   console.log("fetch_url", fetch_url);
+
+//   // Then: Fetch and insert
+//   fetch(fetch_url)
+//     .then(response => response.text())
+//     .then(data => {
+//       displayBox.innerHTML = data;
+//     })
+//     .catch(error => {
+//       displayBox.innerText = "Error loading visitor data.";
+//       console.error("Fetch error:", error);
+//     });
+// }
+
+
+// // Load immediately and then every 5 seconds
+// loadVisitorData();
+// setInterval(updateImage, 15000);
+// updateImage();
+
+
+
+
+
+function compareAndSubmitEdit() {
+  const currentName = document.getElementById('nameEditable').innerText.trim().toUpperCase();
+  
+//   const originalName = document.querySelector('.originalName')?.value.trim().toUpperCase() || '';
+// const originalCompany = document.querySelector('.originalCompany')?.value.trim().toUpperCase() || '';
+
+const originalName = document.getElementById('originalName').value.trim().toUpperCase();
+  const originalMobile = document.getElementById('originalMobile').value.trim().toUpperCase();
+  const currentCompany = document.getElementById('companyEditable').innerText.trim().toUpperCase();
+  const originalCompany = document.getElementById('originalCompany').value.trim().toUpperCase();
+
+
+  if (currentName == originalName && currentCompany == originalCompany) {
+
+window.print();
+
+      }    if (currentName !== originalName && currentCompany === originalCompany) {
+    console.log("Name is Changed");
+    document.getElementById('nameInput').value = currentName;
+    document.getElementById('companyInput').value = originalCompany;
+    document.getElementById('mobileInput').value = originalMobile;
+    document.getElementById('full_page').value = 'no';
+    document.getElementById('editForm').submit();
+  }
+
+  if (currentCompany !== originalCompany) {
+    console.log("Name and Company Both Changed Number is Required");
+    let mobile = prompt("Please enter your mobile number:");
+    if (mobile === null || mobile.trim() === "") {
+      alert("Mobile number is required to submit changes.");
+      return;
+    }
+    document.getElementById('nameInput').value = currentName;
+    document.getElementById('companyInput').value = currentCompany;
+    document.getElementById('mobileInput').value = mobile.trim();
+    document.getElementById('full_page').value = 'no';
+    document.getElementById('editForm').submit();
+  }
+}
+
+
+
+function updateImage() {
+    console.log("Interval is Working");
+const selected = document.querySelector('input[name="badgeType"]:checked').value;
+const img = document.getElementById('badgeImage');
+
+if (selected === 'exhibitor') {
+    img.src = 'exhibitor.jpg';
+    img.alt = 'Exhibitor Badge';
+    loadVisitorData("live_exhibitor");
+} else {
+    img.src = 'trade.jpg';
+    img.alt = 'Trade Visitor Badge';
+    loadVisitorData("live_visitor");
+
+}
+}
+
+           const overlayText = document.querySelector('.overlay-text');
+let originalTop = null;
+
+window.addEventListener('beforeprint', function () {
+    const isChecked = document.getElementById('enableOpacity').checked;
+    console.log("Is opacity enabled?", isChecked); // true if selected, false if not
+
+    if (overlayText) {
+        // Save the original top value
+        originalTop = parseInt(getComputedStyle(overlayText).top, 10);
+
+        // If unchecked, move it up by 25px; otherwise leave it as is
+        const offset = isChecked ? 0 : 25;
+        overlayText.style.top = `${originalTop - offset}px`;
+    }
+    
+
+});
+
+window.addEventListener('afterprint', function () {
+    if (overlayText && originalTop !== null) {
+        overlayText.style.top = `${originalTop}px`;
+    }
+});
+
+
+window.addEventListener('load', function () {
+    restorePosition();
+    <?php if ($auto_print): ?> window.print(); <?php endif; ?>
+});
+
+
+    function toggleOpacity(enable) {
+        const container = document.querySelector('.image-container');
+        if (enable) {
+            container.classList.add('opacity-enabled');
+        } else {
+            container.classList.remove('opacity-enabled');
+        }
+    }
+
+     function restorePosition() {
+    const top = localStorage.getItem('overlayTop') || '45';
+    const left = localStorage.getItem('overlayLeft') || '15';
+
+    document.getElementById('topInput').value = top;
+    document.getElementById('leftInput').value = left;
+
+    applyPosition(top, left);
+  }
+
+function reset_position() {
+    document.getElementById('topInput').value = 45;
+    document.getElementById('leftInput').value = 15;
+
+    applyPosition(45, 15); // Make sure it updates the overlay visually
+    localStorage.setItem('overlayTop', 45);
+    localStorage.setItem('overlayLeft', 15);
+}
+
+
+  function applyPosition(top, left) {
+    const overlay = document.querySelector('.overlay-text');
+    overlay.style.top = top + 'px';
+    overlay.style.left = left + 'px';
+  }
+
+  function adjustPosition(direction) {
+    let top = parseInt(document.getElementById('topInput').value, 10);
+    let left = parseInt(document.getElementById('leftInput').value, 10);
+    const step = 5; // pixels to move per click
+
+    switch (direction) {
+      case 'up':
+        top -= step;
+        break;
+      case 'down':
+        top += step;
+        break;
+      case 'left':
+        left -= step;
+        break;
+      case 'right':
+        left += step;
+        break;
+    }
+
+    document.getElementById('topInput').value = top;
+    document.getElementById('leftInput').value = left;
+
+    applyPosition(top, left);
+
+    localStorage.setItem('overlayTop', top);
+    localStorage.setItem('overlayLeft', left);
+  }
+
+    // Auto-save when user changes input
+    document.addEventListener('DOMContentLoaded', () => {
+        const topInput = document.getElementById('topInput');
+        const leftInput = document.getElementById('leftInput');
+
+        topInput.addEventListener('input', () => {
+            localStorage.setItem('overlayTop', topInput.value);
+            applyPosition(topInput.value, leftInput.value);
+        });
+
+        leftInput.addEventListener('input', () => {
+            localStorage.setItem('overlayLeft', leftInput.value);
+            applyPosition(topInput.value, leftInput.value);
+        });
+    });
+</script>
+
+
+
+
+    <?php endif; ?>
+
+    <script>
+function smartNameFit() {
+    const el = document.getElementById("nameEditable");
+    if (!el) return;
+
+    const containerWidth = document.querySelector(".overlay-text").offsetWidth;
+
+    let fontSize = parseInt(window.getComputedStyle(el).fontSize);
+
+    // Allow wrapping (for long names)
+    el.style.whiteSpace = "normal";
+    el.style.display = "inline-block";
+    el.style.textAlign = "center";
+
+    // If it fits without wrapping, keep font
+    if (el.scrollWidth <= containerWidth) return;
+
+    // If it wraps, try to shrink until it fits nicely
+    while (el.scrollWidth > containerWidth && fontSize > 14) {
+        fontSize -= 1;
+        el.style.fontSize = fontSize + "px";
+    }
+}
+
+window.addEventListener("load", smartNameFit);
+document.getElementById("nameEditable")?.addEventListener("input", smartNameFit);
+</script>
+
+</body>
+</html>

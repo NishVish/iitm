@@ -18,6 +18,14 @@ class Open extends BaseController
         return view('search/results', $data);
     }
 
+public function downloadapp()
+{
+    $file = WRITEPATH . 'uploads/app.apk';
+
+    return $this->response->download($file, null);
+}
+
+
 public function openqr($type, $value)
 {
     // Just pass the raw values to the view

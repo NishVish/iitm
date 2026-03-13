@@ -8,11 +8,38 @@ use CodeIgniter\Controller;
 class Events extends Controller
 {
     protected $eventModel;
+    protected $db;
 
     public function __construct()
     {
         $this->eventModel = new EventModel();
+        $this->db = \Config\Database::connect();
     }
+
+public function upcoming()
+{
+    $db = \Config\Database::connect();
+    $today = date('Y-m-d');
+
+    $event = $db->table('events')
+        ->select('event_id, name, year, venue_details, start_date')
+        ->where('start_date >=', $today)
+        ->orderBy('start_date', 'ASC')
+        ->limit(1)
+        ->get()
+        ->getRowArray();
+
+        // var_dump($event);
+        // var_dump("hero");
+        // exit;
+
+    return $this->response
+        ->setContentType('application/json')
+        ->setJSON($event);
+}
+
+
+
 
     // List all events
     public function index()
@@ -327,5 +354,8 @@ $this->eventModel->db->query('SET FOREIGN_KEY_CHECKS = 1');    // Option 2 (alte
 
     return $this->response->setJSON(['status' => 'success']);
 }
+
+
+
 
 }

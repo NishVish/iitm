@@ -15,10 +15,17 @@ $routes->get('/', 'Authentication::index');
 
 $routes->post('login', 'Authentication::login');
 $routes->get('logout', 'Authentication::logout');
-$routes->get('home', 'Home::index');
+// $routes->get('home', 'Home::index');
 
-$routes->get('mainmenu', 'Mainmenu::index');
 
+$routes->get('user/companyDetails/json', 'User::companyDetails');
+$routes->post('user/uploadProfileImage', 'User::uploadProfileImage');
+
+
+
+$routes->get('open/qr/(:any)/(:any)', 'Open::openqr/$1/$2');               // Main page
+$routes->get('home', 'Mainmenu::index');
+$routes->get('profile', 'Mainmenu::index');
 
 
 //Users
@@ -224,6 +231,7 @@ $routes->get('events/edit/(:num)', 'Events::edit/$1');
 $routes->post('events/update/(:num)', 'Events::update/$1');
 $routes->get('events/delete', 'Events::delete');
 $routes->get('events/fetch/iitm', 'Events::fetchiitmdate');
+$routes->get('events/upcoming', 'Events::upcoming');
 $routes->post('events/update-cell', 'Events::updateCell');
 
 
@@ -380,5 +388,3 @@ $routes->get('view/(:segment)', 'Registration::registrationview/$1');
     // $routes->post('update/(:num)', 'Issue::update/$1');
 });
 
-
-$routes->get('open/qr/(:any)/(:any)', 'Open::openqr/$1/$2');               // Main page

@@ -307,7 +307,8 @@ nav a:hover {
         <a href="<?= site_url('ticket') ?>">Ticket</a>
         <a href="<?= site_url('registration') ?>">Registration</a>
         <a href="http://localhost/phpmyadmin/index.php">MyPhpAdmin</a>
-    
+        <a href="<?= site_url('app') ?>">Download App</a>
+<a href="http://localhost/iitm/app">App</a>    
 <a href="#"><?= esc($server) ?></a>
 
 

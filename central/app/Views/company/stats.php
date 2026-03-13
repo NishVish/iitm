@@ -15,6 +15,12 @@ $totalUniqueComments   = count($commentCounts);
 
 $uri = service('uri');
 $third = 'none';
+
+// $test = $uri->getSegment(3);
+
+// var_dump($test);
+
+
 ?>
 
 <style>
@@ -226,6 +232,8 @@ align-items:center;
     cursor:pointer;
 }
 </style>
+
+
 <!-- 
 
 <div style="margin: 50px; padding: 20px; border: 2px dashed #1e88e5; background: #fff;">
@@ -405,6 +413,8 @@ $cardMapping = [
         </div>
     <?php endforeach; ?>
 </div>
+
+
 <script>
 /**
  * Configuration: All dropdown IDs in the exact order 
@@ -419,6 +429,10 @@ const dropdownIds = [
     'selCity',
     'selComment'
 ];
+
+
+
+
 
 const applyLink = document.getElementById('applyFilters');
 
@@ -524,28 +538,38 @@ function updateApplyHref() {
 /**
  * 4. INITIALIZATION & EVENT LISTENERS
  */
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Load what the user picked last time
-    loadFromLocalStorage();
+    const entryType = document.getElementById('selEntrytype');
+    const database  = document.getElementById('selDatabase');
+    const applyLink = document.getElementById('applyFilters');
 
-    // Trigger initial sync to update counts and cascading options based on load
-    syncFilters();
+    // Get CI4 URI segments safely
+    const uriSegment2 = '<?= $uri->getSegment(2) ?>'; // segment2 = entry_type
+const uriSegment3 = '<?= $uri->getSegment(3) ?>'.replace(/-/g, ' '); // segment3 = database
+    // 1️⃣ Set dropdowns from URI if present
+    if (entryType && uriSegment2) entryType.value = uriSegment2;
+    if (database && uriSegment3) database.value = uriSegment3;
 
-    // Attach "Change" listener to every dropdown
-    document.querySelectorAll('.filter-select').forEach(sel => {
-        sel.addEventListener('change', (e) => {
-            saveToLocalStorage();
-            syncFilters(e.target.id);
-        });
-    });
+    // // 2️⃣ Load from localStorage ONLY if URI did not provide a value
+    // dropdownIds.forEach(id => {
+    //     const savedVal = localStorage.getItem('filter_' + id);
+    //     const element = document.getElementById(id);
+    //     if (savedVal !== null && element && (!element.value || element.value === '')) {
+    //         element.value = savedVal;
+    //     }
+    // });
 
-    // Reset Logic (Optional: bind to a Home or Reset button)
-    const btnHome = document.querySelector('.btn-home');
-    if (btnHome) {
-        btnHome.addEventListener('click', () => {
-            dropdownIds.forEach(id => localStorage.removeItem('filter_' + id));
-        });
-    }
+    // // 3️⃣ Attach change listeners
+    // document.querySelectorAll('.filter-select').forEach(sel => {
+    //     sel.addEventListener('change', (e) => {
+    //         saveToLocalStorage();
+    //         syncFilters(e.target.id);
+    //     });
+    // });
+
+    // 4️⃣ Trigger initial sync
+    // syncFilters();
 });
 </script>
 <!-- GRID -->
