@@ -45,7 +45,7 @@ if ($mobile == "7909075195" && $password == "super1234") {
     $session->set($sessionData);
 
     // 6. Redirect to your new dashboard
-    return redirect()->to(base_url('mainmenu'))->with('message', "Welcome back, $userName!");
+return redirect()->to(base_url('home'));
 
 } else {
     // 7. Handle failure
