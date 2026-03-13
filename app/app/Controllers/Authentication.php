@@ -23,34 +23,34 @@ $mobile   = $this->request->getPost('mobile_number');
 $password = $this->request->getPost('password');
 
 // 2. Simple hardcoded check for now
-// if ($mobile == "7909075195" && $password == "super1234") {
+if ($mobile == "7909075195" && $password == "super1234") {
 
-//     // 3. Define the User Name (used in the redirect message)
-//     $userName = "Nishant";
+    // 3. Define the User Name (used in the redirect message)
+    $userName = "Nishant";
 
-//     // 4. Build Session Data
-//     $sessionData = [
-//         'isLoggedIn'    => true,
-//         'user_name'     => $userName, // Added quotes
-//         'contact_id'    => 100,
-//         'company_id'    => 100,
-//         'company_name'  => "Sphere Travelmedia",
-//         'database_name' => "Sphere_DB",
-//         'entry_type'    => "Exhibitor",
-//         'city'          => "Bangalore",
-//         'state'         => "Karnataka",
-//     ];
+    // 4. Build Session Data
+    $sessionData = [
+        'isLoggedIn'    => true,
+        'user_name'     => $userName, // Added quotes
+        'contact_id'    => 100,
+        'company_id'    => 100,
+        'company_name'  => "Sphere Travelmedia",
+        'database_name' => "Sphere_DB",
+        'entry_type'    => "Exhibitor",
+        'city'          => "Bangalore",
+        'state'         => "Karnataka",
+    ];
 
-//     // 5. Set the session
-//     $session->set($sessionData);
+    // 5. Set the session
+    $session->set($sessionData);
 
-//     // 6. Redirect to your new dashboard
-//     return redirect()->to(base_url('mainmenu'))->with('message', "Welcome back, $userName!");
+    // 6. Redirect to your new dashboard
+    return redirect()->to(base_url('mainmenu'))->with('message', "Welcome back, $userName!");
 
-// } else {
-//     // 7. Handle failure
-//     return redirect()->back()->with('error', 'Invalid Mobile Number or Password');
-// }
+} else {
+    // 7. Handle failure
+    return redirect()->back()->with('error', 'Invalid Mobile Number or Password');
+}
 
     var_dump($mobile);
     var_dump($password);
