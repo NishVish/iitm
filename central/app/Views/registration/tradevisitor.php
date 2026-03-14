@@ -14,217 +14,296 @@ $segment = ($uri->getTotalSegments() >= 3) ? $uri->getSegment(3) : 'General';
     </div>
 
     
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>India International Travel Mart | Ahmedabad | 20 and 21 March 2026</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
-    
-    <!-- Meta Pixel Code -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    
-    
-    <style>
-        body {
-            background: #f8f9fa;
-        }
-        .register-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding:10px;
-            padding-top: 100px;
-        }
-        
-      
-        
-        .register-left {
-            text-align: center;
-            padding: 00px;
-         
-        }
-        
-        @media (min-width: 992px) {
-    .register-left {
-        padding-top: 200px;
+<style>
+    :root {
+        --brand: #4f46e5;
+        --brand-soft: #f0f4ff;
+        --success: #10b981;
+        --bg: #f8fafc;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --card-radius: 24px;
     }
-}
-        .register-left img {
-            width: 80%;
-            max-width: 250px;
-      animation: float 2s infinite ease-in-out;
-        }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-        .register-form {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .btnRegister {
-            width: 100%;
-            padding: 10px;
-            background: #a5251f;
-            color: #fff;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .btnRegister:hover {
-            background: #8b1e18;
-        }
-    </style>
-</head>
-<body>
 
+    body {
+        background-color: var(--bg);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: var(--text-main);
+        line-height: 1.6;
+        margin: 0;
+    }
 
-    <div class="container register-container">
-        <div class="row w-100">
-            <div class="col-lg-4 col-md-12 register-left">
-                <img src="https://iitmindia.com/reg/iitm_chennai/logo.png" alt="IITM Logo">
-                <h3 style="color: #a52020;"><strong>India International Travel Mart</strong></h3>
-                
-                <p><strong>B2B Travel Exhibition</strong></p>
-                
-<div class="events-list">
-    <?php if (!empty($events)): ?>
-        <?php foreach ($events as $event): ?>
-            <p>
-                <strong><?= esc($event['name']) ?></strong> | 
-                <?php 
-                    // Format dates (assuming YYYY-MM-DD in database)
-                    $start = date('j', strtotime($event['start_date']));
-                    $end = date('j F Y', strtotime($event['end_date']));
-                    echo "$start and $end";
-                ?>
-            </p>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>No events scheduled for <?= esc(ucfirst($location ?? 'this location')) ?>.</p>
-    <?php endif; ?>
-</div>            </div>
-            <div class="col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <select class="form-control" name="title" required>
-                            <option value="Mr.">Mr</option>
-                            <option value="Mrs.">Mrs</option>
-                            <option value="Ms.">Ms</option>
-                            <option value="Dr.">Dr</option>
-                        </select>
-                    </div>
-                    <!--<div class="form-group">
-                        <input type="text" class="form-control" placeholder="First Name *" name="select2" required>
-                    </div>-->
-                    
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="First Name *" name="select2" value="" required/>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Last Name" name="lastname">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Designation *" name="designation" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Company Name *" name="organisation" required>
-                    </div>
-   <div class="form-group">
-    <label class="fw-bold mb-2">Category</label>
-    
-    <div class="form-check mb-2">
-        <input class="form-check-input" type="radio" name="PrimaryCategory" value="Travel Agency" id="cat1">
-        <label class="form-check-label" for="cat1">Travel Agency / Agent & Transportation</label>
-    </div>
+    /* Hero Section */
+    .hero-banner {
+        background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 0 0 40px 40px;
+        margin-bottom: -60px;
+    }
 
-    <div class="form-check mb-2">
-        <input class="form-check-input" type="radio" name="PrimaryCategory" value="Hoteliers" id="cat2">
-        <label class="form-check-label" for="cat2">Hospitaltiy</label>
-    </div>
+    .hero-banner h1 {
+        font-size: clamp(24px, 5vw, 42px);
+        font-weight: 800;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+    }
 
-    <div class="form-check mb-2">
-        <input class="form-check-input" type="radio" name="PrimaryCategory" value="Other" id="other_trigger">
-        <label class="form-check-label" for="other_trigger">Other</label>
-    </div>
+    .hero-banner p {
+        opacity: 0.8;
+        font-size: 18px;
+        margin-top: 10px;
+    }
 
-    <div id="other_list" style="display: none; margin-left: 25px; border-left: 2px solid #dee2e6; padding-left: 15px;">
-        <div class="form-check mb-2">
-            <input class="form-check-input" type="radio" name="SubCategory" value="Technology" id="tech">
-            <label class="form-check-label" for="tech">Travel or Hotel Technology</label>
-        </div>
-        
-        <div class="form-check mb-2">
-            <input class="form-check-input" type="radio" name="SubCategory" value="Insurance" id="insur">
-            <label class="form-check-label" for="insur">Travel or Hotel Insurance</label>
-        </div>
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        position: relative;
+    }
 
-        <div class="mt-2">
-            <input type="text" class="form-control form-control-sm" name="CustomIndustry" id="custom_input" placeholder="Write your industry name">
-        </div>
-    </div>
+    /* Form Card */
+    .reg-card {
+        background: white;
+        border-radius: var(--card-radius);
+        padding: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
+    }
+
+    /* Section Headers */
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 40px 0 25px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--brand-soft);
+    }
+
+    .section-title .step-num {
+        background: var(--brand);
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 14px;
+    }
+
+    .section-title h2 {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    /* Grid Layout for Inputs */
+    .input-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group.full { grid-column: span 2; }
+
+    label {
+        display: block;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: var(--text-main);
+    }
+
+    input[type="text"], input[type="email"], select, textarea {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1.5px solid #e2e8f0;
+        font-family: inherit;
+        font-size: 15px;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: var(--brand);
+        box-shadow: 0 0 0 4px var(--brand-soft);
+    }
+
+    /* Checkbox / Choice Buttons */
+    .choice-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+    }
+
+    .choice-item {
+        position: relative;
+    }
+
+    .choice-item input {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .choice-item label {
+        background: white;
+        border: 1.5px solid #e2e8f0;
+        padding: 12px 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 500;
+        text-align: center;
+        transition: 0.2s;
+        margin: 0;
+    }
+
+    .choice-item input:checked + label {
+        background: var(--brand-soft);
+        border-color: var(--brand);
+        color: var(--brand);
+        font-weight: 700;
+    }
+
+    /* Upload Area */
+    .upload-box {
+        border: 2px dashed #cbd5e1;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .upload-box:hover { border-color: var(--brand); background: var(--brand-soft); }
+
+    /* Submit Button */
+    .btn-submit {
+        background: var(--brand);
+        color: white;
+        width: 100%;
+        padding: 18px;
+        border-radius: 16px;
+        font-size: 18px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        margin-top: 40px;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); }
+
+    @media (max-width: 600px) {
+        .input-grid { grid-template-columns: 1fr; }
+        .form-group.full { grid-column: span 1; }
+        .reg-card { padding: 25px; }
+    }
+</style>
+
+<div class="hero-banner">
+    <h1>TTF <?= strtoupper($citySuffix) ?> <?= $eventYear ?></h1>
+    <p>Trade Visitor Registration</p>
 </div>
 
-<script>
-    // Listen to all radio buttons in the primary group
-    document.querySelectorAll('input[name="PrimaryCategory"]').forEach((radio) => {
-        radio.addEventListener('change', function() {
-            const otherList = document.getElementById('other_list');
-            // Show only if 'Other' is selected, hide otherwise
-            if (document.getElementById('other_trigger').checked) {
-                otherList.style.display = 'block';
-            } else {
-                otherList.style.display = 'none';
-                // Clear sub-selections if user switches back to Travel/Hotel
-                document.querySelectorAll('input[name="SubCategory"]').forEach(r => r.checked = false);
-                document.getElementById('custom_input').value = "";
-            }
-        });
-    });
-</script>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Your Email *" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Phone *" name="phone" required minlength="10" maxlength="10">
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" placeholder="Address" name="address"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="City" name="city">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="State" name="state">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Pincode" name="pincode">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Country" name="country">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Website" name="website">
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" placeholder="Your Message" name="Message"></textarea>
-                    </div>
-<button type="button" class="btnRegister" id="registerBtn">Submit</button>            </div>
-        </div>
-    </div>
-</body>
-</html>
+<div class="container">
+    <div class="reg-card">
+        <form action="<?= base_url('register/submit') ?>" method="POST" enctype="multipart/form-data">
+            
+            <div class="section-title">
+                <div class="step-num">1</div>
+                <h2>Personal & Professional Details</h2>
+            </div>
 
+            <div class="input-grid">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" name="full_name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Designation *</label>
+                    <input type="text" name="designation" required placeholder="CEO / Manager">
+                </div>
+                <div class="form-group full">
+                    <label>Company Name *</label>
+                    <input type="text" name="company_name" required placeholder="Organization Pvt Ltd">
+                </div>
+                <div class="form-group">
+                    <label>City *</label>
+                    <input type="text" name="city" value="<?= ucfirst($location) ?>" required>
+                </div>
+                <div class="form-group">
+                    <label>Pincode *</label>
+                    <input type="text" name="pincode" required>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <div class="step-num">2</div>
+                <h2>Contact Information</h2>
+            </div>
+            <div class="input-grid">
+                <div class="form-group">
+                    <label>Mobile Number *</label>
+                    <div style="display:flex; gap:10px;">
+                        <select name="country_code" style="width:100px;">
+                            <option value="+91">IN (+91)</option>
+                        </select>
+                        <input type="text" name="mobile" required placeholder="9876543210">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email ID *</label>
+                    <input type="email" name="email" required placeholder="john@company.com">
+                </div>
+            </div>
+
+            <div class="section-title">
+                <div class="step-num">3</div>
+                <h2>Business Interests</h2>
+            </div>
+            <label>Travel Segments you belong to *</label>
+            <div class="choice-grid">
+                <?php 
+                $segments = ['FIT', 'MICE', 'GIT', 'Ticketing', 'Airlines', 'Cruises', 'Wellness'];
+                foreach($segments as $s): ?>
+                <div class="choice-item">
+                    <input type="checkbox" name="segments[]" value="<?= $s ?>" id="seg_<?= $s ?>">
+                    <label for="seg_<?= $s ?>"><?= $s ?></label>
+                </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="section-title">
+                <div class="step-num">4</div>
+                <h2>Verification</h2>
+            </div>
+            <label>Business Card (Max 2MB) *</label>
+            <div class="upload-box" onclick="document.getElementById('card-upload').click()">
+                <i class="fa-solid fa-cloud-arrow-up" style="font-size:30px; color:var(--brand); margin-bottom:10px;"></i>
+                <p style="margin:0; font-weight:600;">Drag & Drop or Click to Upload</p>
+                <p style="font-size:12px; color:var(--text-muted);">PNG, JPG allowed</p>
+                <input type="file" name="business_card" id="card-upload" hidden accept="image/*">
+            </div>
+
+            <button type="submit" class="btn-submit">Generate Trade Badge</button>
+            
+            <p style="text-align:center; font-size:12px; color:var(--text-muted); margin-top:20px;">
+                By registering, you agree to our Terms & Conditions and Privacy Policy.
+            </p>
+        </form>
+    </div>
+</div>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Elements

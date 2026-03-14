@@ -16,31 +16,61 @@ class Events extends Controller
         $this->db = \Config\Database::connect();
     }
 
-public function upcoming()
+    
+public function upcoming($type = 'single')
 {
     $db = \Config\Database::connect();
     $today = date('Y-m-d');
+    $builder = $db->table('events')
+                  ->where('start_date >=', $today)
+                  ->orderBy('start_date', 'ASC');
 
-    $event = $db->table('events')
-        ->select('event_id, name, year, venue_details, start_date')
-        ->where('start_date >=', $today)
-        ->orderBy('start_date', 'ASC')
-        ->limit(1)
-        ->get()
-        ->getRowArray();
+    if ($type === 'all') {
+        $events = $builder->get()->getResultArray();
+        
+        // Process images for all events in the list
+        foreach ($events as &$e) {
+            $e['event_image_url'] = !empty($e['event_image']) 
+                ? base_url('public/' . ltrim($e['event_image'], '/')) 
+                : "";
+        }
+        return $this->response->setJSON($events);
+    }
 
-        // var_dump($event);
-        // var_dump("hero");
-        // exit;
-
-    return $this->response
-        ->setContentType('application/json')
-        ->setJSON($event);
+    // Default: Single nearest event
+    $event = $builder->limit(1)->get()->getRowArray();
+    if ($event) {
+        $event['event_image_url'] = !empty($event['event_image']) 
+            ? base_url('public/' . ltrim($event['event_image'], '/')) 
+            : "";
+    }
+    return $this->response->setJSON($event);
 }
 
+public function testImage()
+{
+    // We manually add 'public' since your FCPATH stops at 'app'
+    $path = FCPATH . 'public/uploads/events/ahmedabad2026.png';
 
+    // Normalize slashes for Windows
+    $path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
 
+    if (file_exists($path)) {
+        return $this->response
+                    ->setHeader('Content-Type', 'image/png')
+                    ->setBody(file_get_contents($path));
+    }
 
+    // Still failing? Let's do a hard-coded check to prove it works
+    $hardPath = 'C:\\xampp\\htdocs\\iitm\\app\\public\\uploads\\events\\ahmedabad2026.png';
+    if (file_exists($hardPath)) {
+        return $this->response
+                    ->setHeader('Content-Type', 'image/png')
+                    ->setBody(file_get_contents($hardPath));
+    }
+
+    return "System path still incorrect. Target: " . $path;
+}
     // List all events
     public function index()
     {

@@ -1,218 +1,259 @@
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    :root {
-        --brand: #4f46e5;
-        --brand-light: #eef2ff;
-        --surface: #ffffff;
-        --text-base: #475569;
-        --text-heading: #0f172a;
-    }
-
-    .modern-wrapper {
+    /* NAMESPACED WRAPPER - Prevents all conflicts */
+    #profile-app {
+        --p-brand: #4f46e5;
+        --p-brand-light: #eef2ff;
+        --p-surface: #ffffff;
+        --p-text-base: #475569;
+        --p-text-heading: #0f172a;
+        --p-danger: #ff4d4f;
+        
         font-family: 'Plus Jakarta Sans', sans-serif;
         padding: 40px 20px;
         max-width: 1100px;
         margin: auto;
         background-color: #fbfcfe;
+        min-height: 100vh;
     }
 
     /* Hero Profile Section */
-    .profile-hero {
-        background: var(--surface);
-        border-radius: 24px;
+    #profile-app .profile-hero {
+        background: var(--p-surface);
+        border-radius: 32px;
         padding: 40px;
         display: flex;
         align-items: center;
         gap: 30px;
-        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
+        box-shadow: 0 10px 40px -15px rgba(0,0,0,0.05);
         margin-bottom: 30px;
         border: 1px solid #f1f5f9;
-        flex-wrap: wrap;
     }
 
-    .profile-avatar {
-        width: 100px;
-        height: 100px;
-        background: var(--brand);
-        color: white;
-        border-radius: 30px;
+    #profile-app .avatar-wrapper {
+        position: relative;
+        cursor: pointer;
+    }
+
+    #profile-app .profile-avatar, 
+    #profile-app #contactImage {
+        width: 120px;
+        height: 120px;
+        border-radius: 40px;
+        object-fit: cover;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 40px;
+        font-size: 44px;
         font-weight: 800;
-        box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+        transition: transform 0.3s ease;
+        box-shadow: 0 15px 30px -10px rgba(79, 70, 229, 0.3);
     }
 
-    .profile-info h1 {
+    #profile-app .profile-avatar {
+        background: linear-gradient(135deg, var(--p-brand), #818cf8);
+        color: white;
+    }
+
+    #profile-app .avatar-wrapper:hover .profile-avatar,
+    #profile-app .avatar-wrapper:hover #contactImage {
+        transform: scale(1.05);
+    }
+
+    #profile-app .profile-info h1 {
         margin: 0;
-        font-size: 28px;
-        color: var(--text-heading);
-        letter-spacing: -0.02em;
+        font-size: clamp(24px, 5vw, 32px);
+        color: var(--p-text-heading);
+        letter-spacing: -1px;
     }
 
-    .profile-info p {
-        margin: 5px 0 15px 0;
-        color: var(--brand);
-        font-weight: 600;
+    #profile-app .profile-info .designation-text {
+        margin: 4px 0 16px 0;
+        color: var(--p-brand);
+        font-weight: 700;
         font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
-    .contact-pills {
+    #profile-app .contact-pills {
         display: flex;
-        gap: 10px;
+        gap: 12px;
         flex-wrap: wrap;
     }
 
-    .pill {
-        background: var(--brand-light);
-        color: var(--brand);
-        padding: 8px 16px;
-        border-radius: 12px;
+    #profile-app .pill {
+        background: var(--p-brand-light);
+        color: var(--p-brand);
+        padding: 10px 18px;
+        border-radius: 14px;
         font-size: 14px;
         font-weight: 600;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
+        border: 1px solid rgba(79, 70, 229, 0.1);
     }
 
-    /* Bento Grid for Company Data */
-    .bento-grid {
+    /* Bento Grid */
+    #profile-app .bento-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, auto);
         gap: 20px;
     }
 
-    .bento-item {
-        background: var(--surface);
-        padding: 24px;
-        border-radius: 20px;
+    #profile-app .bento-item {
+        background: var(--p-surface);
+        padding: 28px;
+        border-radius: 28px;
         border: 1px solid #f1f5f9;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    .bento-item:hover {
-        border-color: var(--brand);
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
+    #profile-app .bento-item:hover {
+        border-color: var(--p-brand);
+        transform: translateY(-8px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
     }
 
-    .bento-item.large {
+    #profile-app .bento-item.large {
         grid-column: span 2;
-        background: var(--brand);
+        background: linear-gradient(135deg, var(--p-brand), #6366f1);
+        color: white;
+        border: none;
+    }
+
+    #profile-app .bento-item.logout-card {
+        background: #fff1f0;
+        border-color: #ffa39e;
+        color: var(--p-danger);
+        cursor: pointer;
+    }
+
+    #profile-app .bento-item.logout-card:hover {
+        background: var(--p-danger);
         color: white;
     }
 
-    .label {
-        font-size: 12px;
+    #profile-app .bento-label {
+        font-size: 11px;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
-        font-weight: 700;
+        letter-spacing: 1.5px;
+        font-weight: 800;
         margin-bottom: 8px;
-        display: block;
-        opacity: 0.8;
+        opacity: 0.6;
     }
 
-    .value {
+    #profile-app .bento-value {
         font-size: 18px;
         font-weight: 700;
-        display: block;
+        line-height: 1.3;
     }
 
-    .bento-item.large .value {
-        font-size: 24px;
+    #profile-app .bento-item.large .bento-value {
+        font-size: 26px;
     }
 
-    .icon-box {
-        width: 40px;
-        height: 40px;
+    #profile-app .b-icon {
+        width: 44px;
+        height: 44px;
         background: #f8fafc;
-        border-radius: 12px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 15px;
-        color: var(--brand);
+        margin-bottom: 18px;
+        color: var(--p-brand);
+        font-size: 18px;
     }
 
-    .bento-item.large .icon-box {
-        background: rgba(255,255,255,0.2);
+    #profile-app .large .b-icon {
+        background: rgba(255, 255, 255, 0.2);
         color: white;
     }
 
-    /* Mobile Adaptability */
-    @media (max-width: 768px) {
-        .bento-grid { grid-template-columns: 1fr; }
-        .bento-item.large { grid-column: span 1; }
-    .profile-hero { flex-direction: column; text-align: center; }
-        
+    #profile-app .logout-card .b-icon {
+        background: rgba(255, 77, 79, 0.1);
+        color: var(--p-danger);
+    }
+    
+    #profile-app .logout-card:hover .b-icon {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    @media (max-width: 850px) {
+        #profile-app .bento-grid { grid-template-columns: 1fr; }
+        #profile-app .bento-item.large { grid-column: span 1; }
+        #profile-app .profile-hero { flex-direction: column; text-align: center; padding: 30px; }
+        #profile-app .contact-pills { justify-content: center; }
     }
 </style>
 
-<div class="modern-wrapper">
-<div class="profile-hero">
-    <div class="profile-avatar" id="initials">JD</div>
-    <img id="contactImage" src="default.jpg" alt="Contact Image" style="width:100px; border-radius:50%; display:none;">
-    <div class="profile-info">
-        <h1 id="name">Loading...</h1>
-        <p id="designation">Please wait</p>
-        <div class="contact-pills">
-            <div class="pill"><i class="fa-solid fa-envelope"></i> <span id="email">...</span></div>
-            <div class="pill"><i class="fa-solid fa-phone"></i> <span id="mobile">...</span></div>
+<div id="profile-app">
+    <div class="profile-hero">
+        <div class="avatar-wrapper">
+            <div class="profile-avatar" id="initials">...</div>
+            <img id="contactImage" src="" alt="Profile" style="display:none;">
+        </div>
+        <div class="profile-info">
+            <h1 id="name">Loading...</h1>
+            <p class="designation-text" id="designation">User Profile</p>
+            <div class="contact-pills">
+                <div class="pill"><i class="fa-solid fa-envelope"></i> <span id="email">...</span></div>
+                <div class="pill"><i class="fa-solid fa-phone"></i> <span id="mobile">...</span></div>
+            </div>
         </div>
     </div>
-</div>
 
     <div class="bento-grid">
         <div class="bento-item large">
-            <div class="icon-box"><i class="fa-solid fa-building"></i></div>
-            <span class="label">Organization</span>
-            <span class="value" id="company_name">...</span>
+            <div class="b-icon"><i class="fa-solid fa-building"></i></div>
+            <span class="bento-label">Primary Organization</span>
+            <span class="bento-value" id="company_name">Connecting...</span>
         </div>
 
         <div class="bento-item">
-            <div class="icon-box"><i class="fa-solid fa-database"></i></div>
-            <span class="label">System Database</span>
-            <span class="value" id="database_name">...</span>
+            <div class="b-icon"><i class="fa-solid fa-database"></i></div>
+            <span class="bento-label">System Node</span>
+            <span class="bento-value" id="database_name">DB_INSTANCE</span>
         </div>
 
         <div class="bento-item">
-            <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
-            <span class="label">Location</span>
-            <span class="value"><span id="city">...</span>, <span id="state">...</span></span>
+            <div class="b-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <span class="bento-label">Regional Location</span>
+            <span class="bento-value"><span id="city">City</span>, <span id="state">State</span></span>
         </div>
 
         <div class="bento-item">
-            <div class="icon-box"><i class="fa-solid fa-layer-group"></i></div>
-            <span class="label">Entry Classification</span>
-            <span class="value" id="entry_type">...</span>
+            <div class="b-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <span class="bento-label">Classification</span>
+            <span class="bento-value" id="entry_type">Standard</span>
         </div>
 
         <div class="bento-item">
-            <div class="icon-box"><i class="fa-solid fa-id-card"></i></div>
-            <span class="label">Client ID</span>
-            <span class="value">#<?= session()->get('company_id') ?></span>
+            <div class="b-icon"><i class="fa-solid fa-id-card"></i></div>
+            <span class="bento-label">Client Token</span>
+            <span class="bento-value">#<?= session()->get('company_id') ?></span>
         </div>
 
-<a href="logout" style="text-decoration:none;">
-    <div class="bento-item">
-        <div class="icon-box"><i class="fa-solid fa-power-off"></i></div>
-        <span class="label">Kill Session</span>
-        <span class="value">Logout</span>
+        <a href="logout" style="text-decoration:none;">
+            <div class="bento-item logout-card">
+                <div class="b-icon"><i class="fa-solid fa-power-off"></i></div>
+                <span class="bento-label">Security</span>
+                <span class="bento-value">Terminate Session</span>
+            </div>
+        </a>
     </div>
-</a>
-<style>
-    .bento-item.logout {
-    background:#ff4d4f;
-    color:white;
-}
-</style>
 </div>
-<!-- Hidden file input -->
+
 <input type="file" id="imageUpload" accept="image/*" style="display:none;">
+
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {

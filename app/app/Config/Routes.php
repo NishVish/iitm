@@ -26,8 +26,12 @@ $routes->post('user/uploadProfileImage', 'User::uploadProfileImage');
 $routes->get('open/qr/(:any)/(:any)', 'Open::openqr/$1/$2');               // Main page
 $routes->get('home', 'Mainmenu::index');
 $routes->get('profile', 'Mainmenu::index');
+$routes->get('layout', 'Mainmenu::index');
+$routes->get('calendar', 'Mainmenu::index');
 
 
+$routes->get('layoutimage/(:any)', 'Events::getlayout/$1');
+$routes->get('test-image', 'Events::testImage');
 //Users
 // Display all users
 
@@ -232,6 +236,8 @@ $routes->post('events/update/(:num)', 'Events::update/$1');
 $routes->get('events/delete', 'Events::delete');
 $routes->get('events/fetch/iitm', 'Events::fetchiitmdate');
 $routes->get('events/upcoming', 'Events::upcoming');
+$routes->get('events/upcoming/(:any)', 'Events::upcoming/$1');
+
 $routes->post('events/update-cell', 'Events::updateCell');
 
 

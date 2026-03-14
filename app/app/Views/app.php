@@ -110,6 +110,7 @@ $session = session();
             grid-template-columns: repeat(2, 1fr); /* 2 columns look better for travel icons */
             gap: 15px;
             padding: 0 20px;
+            padding-bottom:20px
         }
 
         .menu-item {
@@ -181,10 +182,29 @@ $session = session();
 <?php 
 $segment = service('uri')->getSegment(1);
 
+
+if ($segment == 'calendar') {
+
+// echo "hellO";
+
+include(APPPATH . 'Views/calendar/index.php');
+}
+
+
+
 if ($segment == 'home') {
     include(APPPATH . 'Views/mainmenu/index.php');
 }
 
+if ($segment == 'layout') {
+ 
+
+    include(APPPATH . 'Views/mainmenu/header.php');
+
+
+
+    include(APPPATH . 'Views/layout/index.php');
+}
 
 
 
