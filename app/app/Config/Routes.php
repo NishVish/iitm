@@ -24,14 +24,14 @@ $routes->post('user/uploadProfileImage', 'User::uploadProfileImage');
 
 
 $routes->get('open/qr/(:any)/(:any)', 'Open::openqr/$1/$2');               // Main page
-$routes->get('home', 'Mainmenu::index');
-$routes->get('profile', 'Mainmenu::index');
-$routes->get('layout', 'Mainmenu::index');
-$routes->get('calendar', 'Mainmenu::index');
+$routes->get('mobile/home', 'Mobile::index');
+$routes->get('mobile/profile', 'Mobile::index');
+$routes->get('mobile/layout', 'Mobile::index');
+$routes->get('mobile/calendar', 'Mobile::index');
 
 
-$routes->get('layoutimage/(:any)', 'Events::getlayout/$1');
-$routes->get('test-image', 'Events::testImage');
+$routes->get('mobile/layoutimage/(:any)', 'Events::getlayout/$1');
+$routes->get('mobile/test-image', 'Events::testImage');
 //Users
 // Display all users
 

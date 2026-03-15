@@ -15,9 +15,7 @@ class Events extends Controller
         $this->eventModel = new EventModel();
         $this->db = \Config\Database::connect();
     }
-
-    
-public function upcoming($type = 'single')
+    public function upcoming($type = 'single')
 {
     $db = \Config\Database::connect();
     $today = date('Y-m-d');
@@ -25,15 +23,22 @@ public function upcoming($type = 'single')
                   ->where('start_date >=', $today)
                   ->orderBy('start_date', 'ASC');
 
+    // Base URL for images
+    $url = "http://localhost/iitm/central/public/uploads/events/";
+
     if ($type === 'all') {
         $events = $builder->get()->getResultArray();
         
-        // Process images for all events in the list
+        // Process images for all events
         foreach ($events as &$e) {
             $e['event_image_url'] = !empty($e['event_image']) 
-                ? base_url('public/' . ltrim($e['event_image'], '/')) 
+                ? $url . $e['event_image']  // <-- use $e, not $event
                 : "";
         }
+
+        // Optional: debug
+        // var_dump($events);
+
         return $this->response->setJSON($events);
     }
 
@@ -41,9 +46,10 @@ public function upcoming($type = 'single')
     $event = $builder->limit(1)->get()->getRowArray();
     if ($event) {
         $event['event_image_url'] = !empty($event['event_image']) 
-            ? base_url('public/' . ltrim($event['event_image'], '/')) 
+            ? $url . $event['event_image'] 
             : "";
     }
+
     return $this->response->setJSON($event);
 }
 
@@ -69,6 +75,8 @@ public function testImage()
                     ->setBody(file_get_contents($hardPath));
     }
 
+    var_dump($path);
+exit;    
     return "System path still incorrect. Target: " . $path;
 }
     // List all events

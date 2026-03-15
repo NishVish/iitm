@@ -8,17 +8,18 @@ class EventModel extends Model
 {
     protected $table = 'events';
     protected $primaryKey = 'event_id';
-    protected $allowedFields = [
-        'b2b_constrain',
-        'year',
-        'name',
-        'venue_details',
-        'venue_booking_details',
-        'coordinator',
-        'start_date',
-        'end_date',
-        'created_at'
-    ];
+// Inside app/Models/EventModel.php
+protected $allowedFields = [
+    'name', 
+    'year', 
+    'event_image', // <--- MAKE SURE THIS IS HERE
+    'b2b_constrain', 
+    'venue_details', 
+    'venue_booking_details',
+    'coordinator',
+    'start_date',
+    'end_date'
+];
 
     protected $useTimestamps = true; // automatically manages created_at
     protected $createdField  = 'created_at';

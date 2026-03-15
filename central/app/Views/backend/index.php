@@ -9,7 +9,16 @@
 </h1>
 
     <?php foreach ($dbSchema as $table => $columns): ?>
-        <h2>Table: <?= $table ?></h2>
+       
+       
+      
+    
+    <h2>Table:  <a href="<?= base_url('backend/tabledata' . '/' . urlencode($table)) ?>">
+      <?= $table ?>
+    
+    </a>
+    
+  </h2>
         <table>
             <tr>
                 <th>Column Name</th>

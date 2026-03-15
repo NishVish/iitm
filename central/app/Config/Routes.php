@@ -6,6 +6,31 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
+// $routes->get('mobile', 'Mobile::index');
+
+$routes->get('mobile/home', 'Mobile::index');
+$routes->get('mobile/profile', 'Mobile::index');
+$routes->get('mobile/layout', 'Mobile::index');
+$routes->get('mobile/calendar', 'Mobile::index');
+
+
+$routes->get('mobile/layoutimage/(:any)', 'Events::getlayout/$1');
+$routes->get('mobile/test-image', 'Events::testImage');
+
+$routes->get('mobile/logout', 'Authentication::logout');
+
+
+
+
+$routes->get('user/companyDetails/json', 'User::companyDetails');
+$routes->post('user/uploadProfileImage', 'User::uploadProfileImage');
+// Change this line in Routes.php
+$routes->post('user/uploadBusinessCardImage', 'User::uploadBusinessCard');
+
+
+$routes->get('mobile/events/upcoming', 'Events::upcoming');
+$routes->get('mobile/events/upcoming/(:any)', 'Events::upcoming/$1');
+
 // Default route (landing page)
 // $routes->get('/', 'Home::index');
 
@@ -17,6 +42,10 @@ $routes->post('login', 'Authentication::login');
 $routes->get('logout', 'Authentication::logout');
 $routes->get('home', 'Home::index');
 
+$routes->get('backendlogin', 'Authentication::backendloginpage');
+$routes->post('backendloginpost', 'Authentication::backendloginpost');
+$routes->get('otptest', 'Authentication::getotp');
+$routes->post('request_otp', 'Authentication::request_otp');
 
 //Users
 // Display all users

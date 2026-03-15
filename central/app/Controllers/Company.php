@@ -1284,7 +1284,7 @@ public function add_details()
     $companies = $this->request->getPost('companies');
 
 // echo "<pre>";
-// var_dump($companies);
+var_dump($companies);
 // echo "</pre>";
     // exit;
     if (empty($companies)) {
@@ -1318,7 +1318,7 @@ foreach ($companies as $index => $company) {
 // var_dump($entryTypesToInsert); // Debug: Check the final entry types array before insertion
     // 2. Loop through each entry_type and insert
     foreach ($entryTypesToInsert as $currentType) {
-                // var_dump($currentType); // Debug: Check the current entry type being processed
+                var_dump($currentType); // Debug: Check the current entry type being processed
                 // exit; // Uncomment to stop execution and see the result
                     $company_id = 'C' . strtoupper(bin2hex(random_bytes(4))); // Generate new company ID
 
@@ -1359,10 +1359,10 @@ foreach ($companies as $index => $company) {
             // Normalize part 2 (Safe check to avoid "Offset 1" error)
             $part2 = (count($parts) > 2) ? strtolower(trim($parts[2])) : 'NO HYPHEN FOUND';
 
-//             var_dump($sources); // Debug: Check original source
-//             var_dump($parts); // Debug: Check part 1
-//             var_dump($part2); // Debug: Check part 2
-// // exit;
+            var_dump($sources); // Debug: Check original source
+            var_dump($parts); // Debug: Check part 1
+            var_dump($part2); // Debug: Check part 2
+// exit;
 
                     if ($part1 === "Online_Registration") {
                         // 2. Logic for Online Trade Visitor (Single entry)
@@ -1377,6 +1377,8 @@ foreach ($companies as $index => $company) {
 
                     } else {
                 // Standard case: split by comma (,) or slash (/)
+                $sources = $company['source'];
+                // exit;
                                 $splitSources = preg_split('/[,\/]+/', $sources); 
 
                                 if($note != "spot"){
@@ -1384,7 +1386,8 @@ foreach ($companies as $index => $company) {
                                 
                                     foreach ($splitSources as $source) {
                                         $source = trim($source);
-                                        
+                                                    var_dump($source); // Debug: Check part 2
+// exit;
                                         if ($source === '') continue; // Skip empty strings
 
                                         $values = [
@@ -1396,6 +1399,9 @@ foreach ($companies as $index => $company) {
 
                                         // Process each split source
                                         $this->addSource($values);
+
+                                        var_dump($values);
+// exit;
                                     }
                                 }
 

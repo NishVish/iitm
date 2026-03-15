@@ -351,6 +351,49 @@
         });
     });
     </script>
+<!-- Add this just before the closing </body> tag -->
 
+<div style="text-align:center; margin: 2rem 0;">
+    <button id="copyTableBtn" style="
+        padding: 0.6rem 1.2rem;
+        border:none;
+        border-radius:8px;
+        background-color:#4f46e5;
+        color:white;
+        font-weight:600;
+        cursor:pointer;
+        box-shadow:0 4px 6px rgba(0,0,0,0.2);
+    ">
+        Copy All Data
+    </button>
+</div>
+
+<script>
+document.getElementById("copyTableBtn").addEventListener("click", function() {
+    const table = document.getElementById("dataTable");
+    if (!table) return;
+
+    let textToCopy = "";
+
+    // Copy headers
+    const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.innerText.trim());
+    textToCopy += headers.join("\t") + "\n";
+
+    // Copy rows
+    table.querySelectorAll("tbody tr").forEach(row => {
+        const cells = Array.from(row.querySelectorAll("td")).map(td => td.innerText.trim());
+        if (cells.length) {
+            textToCopy += cells.join("\t") + "\n";
+        }
+    });
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("Table data copied to clipboard!");
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
+});
+</script>
 </body>
 </html>

@@ -18,6 +18,10 @@ class Events extends Controller
     public function index()
     {
         $data['events'] = $this->eventModel->getEventsWithLatestLayout();
+        
+        var_dump($data);
+        // exit;
+        
         return view('events/index', $data);
     }
 
@@ -243,21 +247,50 @@ list($start_date, $end_date) = $parseDates($dates ?? '');
     }
 
     // Update event
-    public function update($id)
-    {
-        $this->eventModel->update($id, [
-            'b2b_constrain' => $this->request->getPost('b2b_constrain'),
-            'year' => $this->request->getPost('year'),
-            'name' => $this->request->getPost('name'),
-            'venue_details' => $this->request->getPost('venue_details'),
-            'venue_booking_details' => $this->request->getPost('venue_booking_details'),
-            'coordinator' => $this->request->getPost('coordinator'),
-            'start_date' => $this->request->getPost('start_date'),
-            'end_date' => $this->request->getPost('end_date'),
-        ]);
+public function update($id)
+{
+    $event = $this->eventModel->find($id);
 
-        return redirect()->to('/events');
+    $image = $this->request->getFile('event_image');
+    $imageName = $event['event_image']; // keep old image by default
+
+    if ($image && $image->isValid() && !$image->hasMoved()) {
+
+        // Make sure folder exists
+        if (!is_dir(ROOTPATH . 'public/uploads/events')) {
+            mkdir(ROOTPATH . 'public/uploads/events', 0777, true);
+        }
+
+        $imageName = $image->getRandomName();
+        $image->move(ROOTPATH . 'public/uploads/events', $imageName);
+
+        // Delete old image if exists
+        if (!empty($event['event_image']) && file_exists(ROOTPATH . 'public/uploads/events/' . $event['event_image'])) {
+            unlink(ROOTPATH . 'public/uploads/events/' . $event['event_image']);
+        }
     }
+
+    $data = [
+        'b2b_constrain' => $this->request->getPost('b2b_constrain'),
+        'year' => $this->request->getPost('year'),
+        'name' => $this->request->getPost('name'),
+        'event_image' => $imageName,
+        'venue_details' => $this->request->getPost('venue_details'),
+        'venue_booking_details' => $this->request->getPost('venue_booking_details'),
+        'coordinator' => $this->request->getPost('coordinator'),
+        'start_date' => $this->request->getPost('start_date'),
+        'end_date' => $this->request->getPost('end_date'),
+    ];
+
+    // Debug: confirm POST + image before updating
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+    // die();
+
+    $this->eventModel->update($id, $data);
+    return redirect()->to('/events');
+}
 
  // Delete event
 public function delete()

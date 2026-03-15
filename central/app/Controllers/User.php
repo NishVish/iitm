@@ -139,4 +139,154 @@ public function saveOperationById($userId)
         $this->usersModel->delete($id);
         return redirect()->to('/user');
     }
+
+
+    public function companyDetails()
+    {
+        $session = session();
+
+        // var_dump($session);
+        // exit;
+        $companyId = $session->get('company_id');
+        $contactId = $session->get('contact_id');
+
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('company_data cd');
+
+        $builder->select('
+    cd.company_id,
+    cd.company_name,
+    cd.database_name,
+    cd.city,
+    cd.state,
+    cd.entry_type,
+    c.contact_id,
+    c.name,
+    c.designation,
+    c.business_card_path,
+    c.image,
+    ce.email,
+    cm.mobile
+');
+
+        $builder->join('contact c', 'c.company_id = cd.company_id', 'left');
+        $builder->join('contact_email ce', 'ce.contact_id = c.contact_id AND ce.is_primary = 1', 'left');
+        $builder->join('contact_mobile cm', 'cm.contact_id = c.contact_id AND cm.is_primary = 1', 'left');
+
+        $builder->where('cd.company_id', $companyId);
+        $builder->where('c.contact_id', $contactId);
+
+$query = $builder->get();
+$data = $query->getRowArray();
+
+// Return JSON explicitly
+return $this->response->setJSON($data ?? []);
+
+    }
+
+ public function uploadProfileImage()
+{
+    $file = $this->request->getFile('image');
+
+    
+if ($file && $file->isValid() && !$file->hasMoved()) {
+    // Generate a unique name for the file
+    $newName = $file->getRandomName();
+
+    // Define the path to store the file in the public/uploads/contacts/ directory
+    $uploadPath = FCPATH . 'public/uploads/contacts/';
+
+    // Ensure the directory exists
+    if (!is_dir($uploadPath)) {
+        mkdir($uploadPath, 0755, true); // Create the directory if it doesn't exist
+    }
+
+    // Move the uploaded file to the public folder
+    $file->move($uploadPath, $newName);
+
+    // Optionally, save $newName to the database for this contact
+    $session = session();
+    $contactId = $session->get('contact_id');
+    $db = \Config\Database::connect();
+    $builder = $db->table('contact');
+    $builder->where('contact_id', $contactId);
+    $builder->update(['image' => $newName]);
+
+    // Return a JSON response with the success status and the file URL
+    return $this->response->setJSON([
+        'success' => true,
+        'path' => base_url('public/uploads/contacts/' . $newName) // URL to access the file
+    ]);
+    }
+
+    return $this->response->setJSON([
+        'success' => false,
+        'message' => 'Invalid file upload'
+    ]);
 }
+
+
+public function uploadBusinessCard()
+{
+    // Get the uploaded file for the business card
+    $file = $this->request->getFile('business_card_image');
+
+    // Check if the file is valid
+    if ($file && $file->isValid() && !$file->hasMoved()) {
+        // Generate a unique name for the file
+        $newName = $file->getRandomName();
+
+        // Define the path to store the file in the public/uploads/contacts/ directory
+        $uploadPath = FCPATH . 'public/uploads/contacts/';
+
+        // Ensure the directory exists
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0755, true); // Create the directory if it doesn't exist
+        }
+
+        // Move the uploaded file to the public folder
+        $file->move($uploadPath, $newName);
+
+        // Optionally, save $newName (file path) to the database for this contact
+        $session = session();
+        $contactId = $session->get('contact_id');
+        $db = \Config\Database::connect();
+        $builder = $db->table('contact');
+        $builder->where('contact_id', $contactId);
+        $builder->update(['business_card_path' => $newName]);
+
+        // Return the response with the file URL
+        $fileUrl = base_url('public/uploads/contacts/' . $newName); // URL to access the file
+
+        return $this->response->setJSON([
+            'success' => true,
+            'path' => $fileUrl // URL of the uploaded file
+        ]);
+    } else {
+        return $this->response->setJSON([
+            'success' => false,
+            'message' => 'File upload failed!'
+        ]);
+    }
+}
+
+
+
+// In User.php
+public function contactImage($filename)
+{
+    $path = WRITEPATH . 'uploads/contacts/' . $filename;
+    if (file_exists($path)) {
+        return $this->response->setHeader('Content-Type', mime_content_type($path))
+                              ->setBody(file_get_contents($path));
+    } else {
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    }
+}
+
+
+
+}
+
+

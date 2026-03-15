@@ -24,6 +24,8 @@
         <thead>
             <tr>
                 <th>ID</th>
+    <th>Image</th>
+
                 <th>Event Name</th>
                 <th>Year</th>
                 <th>Venue</th>
@@ -38,6 +40,10 @@
         <?php foreach ($events as $event): ?>
             <tr data-id="<?= $event['event_id'] ?>">
                 <td><?= $event['event_id'] ?></td>
+<td>
+    <img src="<?= base_url('public/uploads/events/' . $event['event_image']) ?>" width="120">
+
+</td>
                 <td contenteditable="true" data-field="name"><?= esc($event['name']) ?></td>
                 <td contenteditable="true" data-field="year"><?= esc($event['year']) ?></td>
                 <td contenteditable="true" data-field="venue_details"><?= esc($event['venue_details']) ?></td>
@@ -60,11 +66,28 @@
     <div class="cards-container">
         <?php foreach ($events as $event): ?>
             <div class="event-card">
-                <h3><?= esc($event['name']) ?> | <?= esc($event['year']) ?></h3>
-                <p><strong>B2B:</strong> <?= esc($event['b2b_constrain']) ?></p>
-                <p><strong>Venue:</strong> <?= esc($event['venue_details']) ?></p>
-                <p><strong>Start:</strong> <?= esc($event['start_date']) ?></p>
-                <div class="actions">
+
+    <?php if(!empty($event['event_image'])): ?>
+
+       <?php
+// Original variable (commented out)
+// $variable = "iitmindia.com/ci/central/pulic/uploads/events/";
+
+// Working variable using base_url()
+$variable = base_url('public/uploads/events/');
+?>
+
+<img src="<?= $variable . $event['event_image'] ?>" class="event-img" alt="Event Image">
+
+
+<?php endif; ?>
+
+    <h3><?= esc($event['name']) ?> | <?= esc($event['year']) ?></h3>
+    <p><strong>B2B:</strong> <?= esc($event['b2b_constrain']) ?></p>
+    <p><strong>Venue:</strong> <?= esc($event['venue_details']) ?></p>
+    <p><strong>Start:</strong> <?= esc($event['start_date']) ?></p>
+    
+    <div class="actions">
                     <a href="<?= site_url('events/edit/' . $event['event_id']) ?>" class="btn-edit">Edit</a>
                     <a href="<?= site_url('events/delete/' . $event['event_id']) ?>" onclick="return confirm('Are you sure?')" class="btn-delete">Delete</a>
                 </div>
@@ -106,7 +129,20 @@
     }
     .event-card h3 { margin: 0 0 10px 0; color: var(--nav-color); }
     .btn-edit { background: #ffc107; color: #000; padding: 4px 8px; border-radius: 4px; text-decoration:none; }
-    .btn-delete { background: #dc3545; color: #fff; padding: 4px 8px; border-radius: 4px; text-decoration:none; }
+    
+    .events-table img{
+    border-radius:4px;
+}
+
+.event-img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-radius:6px;
+    margin-bottom:10px;
+}
+
+.btn-delete { background: #dc3545; color: #fff; padding: 4px 8px; border-radius: 4px; text-decoration:none; }
 </style>
 
 <script>
