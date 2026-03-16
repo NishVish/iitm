@@ -61,6 +61,15 @@
     </div>
 
     <button type="submit">Submit</button>
+
+    <div class="row mb-3">
+        <div class="col-12 text-center">
+            <button type="button" class="btn btn-info" id="fillDummyBtn">Fill Dummy Data</button>
+            <button type="button" id="registerBtntradetest" class="btn btn-warning">Test Register (Auto-Fill & Submit)</button>
+        </div>
+    </div>
+
+
 </form>
 
 

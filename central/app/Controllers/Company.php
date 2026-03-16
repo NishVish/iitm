@@ -1283,10 +1283,10 @@ public function add_details()
 {
     $companies = $this->request->getPost('companies');
 
-// echo "<pre>";
+echo "<pre>";
 var_dump($companies);
-// echo "</pre>";
-    // exit;
+echo "</pre>";
+//     exit;
     if (empty($companies)) {
         return redirect()->back()->with('status', '⚠️ No company data found!');
     }
@@ -1304,10 +1304,10 @@ foreach ($companies as $index => $company) {
                 // exit;// Debug: Check the original entry type
                 if (!empty($company['entry_type']) && strtolower($company['entry_type']) !== 'main') {
                     // First run with original entry_type
-                    $entryTypesToInsert[] = $company['entry_type'];
+                    
                     // Second run as 'main'
                     $entryTypesToInsert[] = 'main';
-
+$entryTypesToInsert[] = $company['entry_type'];
                     // var_dump($entryTypesToInsert); // Debug: Check the entry types to be inserted
                     // exit; // Uncomment to stop execution and see the result  
 
@@ -1317,11 +1317,15 @@ foreach ($companies as $index => $company) {
                 }
 // var_dump($entryTypesToInsert); // Debug: Check the final entry types array before insertion
     // 2. Loop through each entry_type and insert
+
+
     foreach ($entryTypesToInsert as $currentType) {
                 var_dump($currentType); // Debug: Check the current entry type being processed
                 // exit; // Uncomment to stop execution and see the result
                     $company_id = 'C' . strtoupper(bin2hex(random_bytes(4))); // Generate new company ID
-
+// echo "<pre>";
+// var_dump($companies);
+// echo "</pre>";
                     $updatedAt = !empty($company['updated_at']) 
                         ? str_replace('T', ' ', $company['updated_at']) . ':00' 
                         : date('Y-m-d H:i:s');
@@ -1345,13 +1349,13 @@ foreach ($companies as $index => $company) {
                         'corssvaliation'=> 0,
                     ]);
 
-            $sources = $company['database_name'] ?? '';
-            $note    = $company['entry_type'] ?? '';
+            $database_name = $company['database_name'] ?? '';
+            $entry_type    = $company['entry_type'] ?? '';
 
 
 
             // 1. Break the source by "-"
-            $parts = explode('_', $sources);
+            $parts = explode('_', $database_name);
 
             // Normalize part 1
             $part1 = isset($parts[0]) ? strtolower(trim($parts[0])) : 'EMPTY';
@@ -1359,18 +1363,18 @@ foreach ($companies as $index => $company) {
             // Normalize part 2 (Safe check to avoid "Offset 1" error)
             $part2 = (count($parts) > 2) ? strtolower(trim($parts[2])) : 'NO HYPHEN FOUND';
 
-            var_dump($sources); // Debug: Check original source
-            var_dump($parts); // Debug: Check part 1
-            var_dump($part2); // Debug: Check part 2
-// exit;
+            
 
-                    if ($part1 === "Online_Registration") {
-                        // 2. Logic for Online Trade Visitor (Single entry)
+                    if ($part1 === "Online") {
+                        
+                    // exit;
+
+                    // 2. Logic for Online Trade Visitor (Single entry)
                         $values = [
                             'company_id' => $company_id,
                             'source_id'  => $company['source_id'] ?? 0,
                             'event_date' => $company['event_date'] ?? date('Y-m-d'),
-                            'notes'      => $sources, 
+                            'notes'      => $company['source'], 
                         ];
 
                         $this->addSource($values);
@@ -1381,7 +1385,7 @@ foreach ($companies as $index => $company) {
                 // exit;
                                 $splitSources = preg_split('/[,\/]+/', $sources); 
 
-                                if($note != "spot"){
+                                if($entry_type != "spot"){
 
                                 
                                     foreach ($splitSources as $source) {
@@ -1400,7 +1404,7 @@ foreach ($companies as $index => $company) {
                                         // Process each split source
                                         $this->addSource($values);
 
-                                        var_dump($values);
+                                        // var_dump($values);
 // exit;
                                     }
                                 }
@@ -1468,8 +1472,8 @@ foreach ($companies as $index => $company) {
                     }
 // var_dump($note);
 
-if ($sources === "Registered Exhibitor 2026") {
-var_dump($sources);
+if ($database_name === "Registered Exhibitor 2026") {
+var_dump($database_name);
 // exit;
                         $leadModel = new \App\Models\LeadModel();
                         
@@ -1533,19 +1537,27 @@ var_dump($sources);
         }
 
 // exit;
-
-        if ($note === "spot" || $note === "x"|| in_array(strtolower($part2), $allowedCities))
+// var_dump($entry_type);
+// var_dump("Super");
+// var_dump($part1);
+// var_dump($part2);
+// exit;
+        if ($entry_type === "spot" || $part1  === "online")
             {
 
-        // var_dump($note);
-        // exit;
-            $crossValidationModel = new \App\Models\CrossValidationModel();
+            var_dump($part1);
+            // exit;
+            // $crossValidationModel = new \App\Models\CrossValidationModel();
+        var_dump("Super");
 
 
             // ✅ Define variables BEFORE using them
             // if ($note === "Spot"){}
-            $data   = $note."-". $part2;
+            $data   = $part1."-"."registration"."-". $part2;
             $number = $company['contact1_mobile1'] ?? $company['contact1_mobile'] ?? '';
+        var_dump($data);
+        var_dump($number);
+
 
             return redirect()->to(base_url('registration/regitersuccess/' . $data . '/' . $number));
         }
@@ -1568,6 +1580,7 @@ var_dump($sources);
             $failed++;
         }
     }
+                exit;
 
     // if ($company['entry_type'] == 'lead'){
     //     this

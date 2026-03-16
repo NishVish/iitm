@@ -6,12 +6,6 @@ $segment = ($uri->getTotalSegments() >= 3) ? $uri->getSegment(3) : 'General';
 ?>
 
 
-    <div class="row mb-3">
-        <div class="col-12 text-center">
-            <button type="button" class="btn btn-info" id="fillDummyBtn">Fill Dummy Data</button>
-            <button type="button" id="registerBtntradetest" class="btn btn-warning">Test Register (Auto-Fill & Submit)</button>
-        </div>
-    </div>
 
     
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -212,7 +206,7 @@ $segment = ($uri->getTotalSegments() >= 3) ? $uri->getSegment(3) : 'General';
 </style>
 
 <div class="hero-banner">
-    <h1>TTF <?= strtoupper($citySuffix) ?> <?= $eventYear ?></h1>
+    <h1> <?= strtoupper($citySuffix) ?> <?= $eventYear ?></h1>
     <p>Trade Visitor Registration</p>
 </div>
 

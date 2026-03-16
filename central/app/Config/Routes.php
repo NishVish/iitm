@@ -34,7 +34,7 @@ $routes->get('mobile/events/upcoming/(:any)', 'Events::upcoming/$1');
 // Default route (landing page)
 // $routes->get('/', 'Home::index');
 
-$routes->get('/', 'Authentication::index');
+$routes->get('/', 'Authentication::backendloginpage');
 // $routes->get('/', 'Home::index');
 $routes->get('login', 'Authentication::login');
 
@@ -380,6 +380,8 @@ $routes->group('ticket', function($routes) {
 $routes->group('registration', function($routes) {
     $routes->get('/', 'Registration::index');
     $routes->get('publicformtv/(:any)', 'Registration::publicformtradevisitor/$1');// multi
+    $routes->get('event/(:any)', 'Registration::publicformtradevisitor/$1');// multi
+    $routes->get('mobile/(:any)', 'Registration::mobile/$1');// multi
     $routes->get('publicformex', 'Registration::publicformexhibitor'); //specific
     $routes->get('publicformspot', 'Registration::publicformspot');//multi
 // Routes.php

@@ -9,14 +9,27 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 
-Route::get('/login', [AuthController::class, 'loginpage'])->name('login'); // show login form
+Route::get('/', [AuthController::class, 'loginpage'])->name('login'); // show login form
 Route::post('/login', [AuthController::class, 'login'])->name('login.post'); // submit login
+Route::get('/create', [AuthController::class, 'create'])->name('create'); // submit login
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::post('/request-otp',[AuthController::class,'requestOtp'])->name('login.otp');
+
+Route::post('/verify-otp',[AuthController::class,'verifyOtp'])->name('login.verify');
+
+Route::get('/otp-list',[AuthController::class,'getOtp']);
 
 use App\Http\Controllers\MobileController;
 
-Route::get('mobile/home', [MobileController::class, 'index'])->name('home'); // show login form
-Route::get('mobile/profile', [MobileController::class, 'index'])->name('profile'); // submit login
-Route::get('mobile/layout', [MobileController::class, 'index'])->name('layout'); // submit login
-Route::get('mobile/calendar', [MobileController::class, 'index'])->name('calendar'); // submit login    
+Route::get('/home', [MobileController::class, 'index'])->name('home'); // show login form
+Route::get('/profile', [MobileController::class, 'index'])->name('profile'); // submit login
+Route::get('/layout', [MobileController::class, 'index'])->name('layout'); // submit login
+Route::get('/calendar', [MobileController::class, 'index'])->name('calendar'); // submit login    
+
+use App\Http\Controllers\RegisterController;
+Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
+
+// Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
+
+// Route::post('/register', [RegisterController::class, 'store'])->name('register.store'); // submit login 

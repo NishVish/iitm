@@ -56,9 +56,20 @@ class Registration extends BaseController
 
     public function publicformtradevisitor($location = null)
 {
-    $allowedCities = ['ahmedabad', 'mumbai', 'delhi', 'bangalore', 'kochi', 'pune', 'hyderabad','chennai','kolkata'];
+    // Normalize city
+    $allowedCities = ['ahmedabad', 'mumbai', 'delhi', 'bangalore', 'kochi', 'pune', 'hyderabad', 'chennai', 'kolkata'];
     $city = strtolower(trim((string)$location));
+
+    // Check if city is allowed
+    if (!in_array($city, $allowedCities)) {
+        // Option 1: Show 403 Forbidden page
+        throw \CodeIgniter\Exceptions\PageForbiddenException::forPage();
+
+        // Option 2: Redirect to a safe page (uncomment if you prefer redirect)
+        // return redirect()->to(base_url('/not-allowed'));
+    }
     
+    var_dump($city);
     $events = [];
     $eventYear = date('Y'); 
     $citySuffix = $city; // Default to the location parameter
@@ -86,11 +97,56 @@ class Registration extends BaseController
         'title'      => 'Trade Visitor Registration - ' . ucfirst($city)
     ];
 
-    // var_dump($data); // Debug: Check the data being passed to the view
+    var_dump($data); // Debug: Check the data being passed to the view
     
-    return view('registration/tradevisitor', $data);
+    return view('registration/eventoverview', $data);
 }
 
+
+    public function mobile($location = null)
+{
+
+    $allowedCities = ['ahmedabad', 'mumbai', 'delhi', 'bangalore', 'kochi', 'pune', 'hyderabad','chennai','kolkata'];
+    $city = strtolower(trim((string)$location));
+    
+    $events = [];
+    $eventYear = date('Y'); 
+    $citySuffix = "x"; // Default to the location parameter
+
+    if (!empty($city) && in_array($city, $allowedCities)) {
+        $eventModel = new \App\Models\EventModel();
+        $events = $eventModel->like('name', $city)->findAll();
+    }
+
+    if (!empty($events)) {
+        // 1. Extract the City Suffix (e.g., "IITM AHMEDABAD" becomes "ahmedabad")
+        $rawName = $events[0]['name'];
+        $citySuffix = trim(str_ireplace('IITM', '', $rawName));
+        $citySuffix = strtolower($citySuffix);
+
+        // 2. Get the Year
+        $eventYear = $events[0]['year'] ?? date('Y');
+    }
+if($location == "x"){
+$error = "";
+
+}else{
+    $error = "Number is Not Registered";
+}
+
+    $data = [
+        'events'     => $events,
+        'location'   => $city,
+        'eventYear'  => $eventYear,
+        'citySuffix' => $citySuffix, // Pass this to the view
+        'title'      => 'Trade Visitor Registration - ' . ucfirst($city),
+        'error'      => $error,
+    ];
+
+    // var_dump($data); // Debug: Check the data being passed to the view
+    var_dump($data);
+    return view('registration/mobile', $data);
+}
 
 public function publicformspot()
 {
@@ -176,7 +232,7 @@ $citySuffix = end($parts);
     $alldata = $this->getgataforprint($citySuffix,$contactId, 'form');
     // 1. Extract the city from the string (e.g., 'onlinetradevisitor-KOLKATA')
     $parts = explode('-', (string)$data);
-    $citySuffix = isset($parts[1]) ? $parts[1] : $data; 
+    $citySuffix = isset($parts[2]) ? $parts[2] : $data; 
 
     // 2. Pass ONLY the city suffix to the helper
     $events = $this->getEventsByCity($citySuffix);

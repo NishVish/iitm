@@ -29,7 +29,7 @@
     <img src="<?= base_url('uploads/events/'.$event['event_image']) ?>" width="120"><br><br>
 
     Change Image:
-    <input type="file" name="event_image"><br><br>
+    <input type="file" name="event_image"> <!-- MUST match PHP -->
 
     <button type="submit">Update</button>
 
