@@ -9,6 +9,7 @@ class ContactModel extends Model
     protected $primaryKey = 'contact_id';
 
     protected $allowedFields = [
+        
         'company_id',
         'priority',
         'name',

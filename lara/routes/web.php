@@ -12,7 +12,7 @@ use App\Http\Controllers\AuthController;
 Route::get('/', [AuthController::class, 'loginpage'])->name('login'); // show login form
 Route::post('/login', [AuthController::class, 'login'])->name('login.post'); // submit login
 Route::get('/create', [AuthController::class, 'create'])->name('create'); // submit login
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/request-otp',[AuthController::class,'requestOtp'])->name('login.otp');
 
@@ -33,3 +33,12 @@ Route::get('/register/{location}', [RegisterController::class, 'index'])->name('
 // Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
 
 // Route::post('/register', [RegisterController::class, 'store'])->name('register.store'); // submit login 
+
+use App\Http\Controllers\UserController;
+
+route::get('/userdata', [UserController::class, 'userdata']);
+
+use App\Http\Controllers\EventController;
+
+Route::get('/eventlist', [EventController::class, 'getUpcomingEvents']);
+Route::get('/lasteventdetails/{id?}', [EventController::class, 'lastEventDetails']);

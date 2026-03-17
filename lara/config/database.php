@@ -43,15 +43,27 @@ return [
             'synchronous' => null,
             'transaction_mode' => 'DEFERRED',
         ],
+'hostname'=>'21.157.66.148.host.secureserver.net','username'=>'iitminda_master','password'=>'gB)%gU}ocn?MCP=}','database'=>'iitminda_testing_server',
 
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'testing_server'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+
+            // 'host' => env('DB_HOST', '127.0.0.1'),
+            // 'database' => env('DB_DATABASE', 'testing_server'),
+            // 'username' => env('DB_USERNAME', 'root'),
+            // 'password' => env('DB_PASSWORD', ''),
+
+
+
+            'host' => env('DB_HOST', '21.157.66.148.host.secureserver.net'),
+            'database' => env('DB_DATABASE', 'iitminda_testing_server'),
+            'username' => env('DB_USERNAME', 'iitminda_master'),
+            'password' => env('DB_PASSWORD', 'gB)%gU}ocn?MCP=}'),
+
+
+
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),

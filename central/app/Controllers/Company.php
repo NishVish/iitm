@@ -1143,150 +1143,19 @@ public function add()
 {
      return view('company/add');}
 
-public function dummyData()
-{
-    $dataString = "
-    New Delhi	OTR Old	IAAI - President				Bulk Trip/ BTC Tours & Travels Pvt Ltd	C-9/94, Sector-8, Rohini,		Delhi	110085	Delhi	11-42071206 / 45653666 / 45638666/ 45059327		Mr. Tushar Jain/ Ms Soneeka Jain	Directors	9810230050 (Tushar)			tushar.jain@bulktrip.com, tushar@btctravels.com, info@btctravels.com			Mrs. Vandana Neghi/ Ms. Savvy. S	Sr. Executive - Outbound/ Head - Operations	ops4@bulktrip.com, savvy.s@bulktrip.com		7042292236/ 7042296360		Mr. Nikhil Karanwal/ Mr. Yatindra Nath	Sales Manager/ Sales Executive	sales@bulktrip.com, sales1@bulktrip.com		91-7042296356/ 7042296358
-    
-    ";
-
-    $columns = explode("\t", $dataString);
-
-    $db = \Config\Database::connect();
-    $db->transStart();
-
-    try {
 
 
-$companyId = Uuid::uuid4()->toString();
-        $session_id = $this->companyModel->get_lastSession();
-
-        // -----------------------
-        // COMPANY INSERT
-        // -----------------------
-        $this->companyModel->insert([
-            'session'       => $session_id,
-            'company_id'    => $company_id,
-            'database_name' => $columns[0] ?? null,
-            'category'      => $columns[1] ?? null,
-            'company_name'  => $columns[6] ?? null,
-            'address'       => trim(($columns[7] ?? '') . ' ' . ($columns[8] ?? '')),
-            'city'          => $columns[9] ?? null,
-            'pincode'       => $columns[10] ?? null,
-            'state'         => $columns[11] ?? null,
-            'country'       => 'India',
-            'phone'         => $columns[12] ?? null,
-        ]);
-
-        // -----------------------
-        // SOURCE INSERT
-        // -----------------------
-        $this->addSource([
-            'company_id' => $company_id,
-            'source_id'  => 1,
-            'event_date' => date('Y-m-d'),
-            'notes'      => $columns[2] ?? null,
-        ]);
-
-        // -----------------------
-        // CONTACT PROCESSOR FUNCTION
-        // -----------------------
-        $processContact = function ($name, $designation, $emails, $mobiles, $priority) use ($company_id) {
-
-            if (empty(trim($name))) return;
-
-            $names = array_map('trim', explode('/', $name));
-            $designations = array_map('trim', explode('/', $designation));
-
-            $emailList = [];
-            if (!empty($emails)) {
-                $parts = preg_split('/[,\/]/', $emails);
-                foreach ($parts as $e) {
-                    $e = trim($e);
-                    if ($e) $emailList[] = $e;
-                }
-            }
-
-            $mobileList = [];
-            if (!empty($mobiles)) {
-                $parts = preg_split('/[,\/]/', $mobiles);
-                foreach ($parts as $m) {
-                    $m = trim(preg_replace('/[^0-9\-\+]/', '', $m));
-                    if ($m) $mobileList[] = $m;
-                }
-            }
-
-            foreach ($names as $i => $singleName) {
-
-                $contactData = [
-                    'company_id'  => $company_id,
-                    'priority'    => $priority,
-                    'name'        => $singleName,
-                    'designation' => $designations[$i] ?? null,
-                    'mobiles'     => [],
-                    'emails'      => []
-                ];
-
-                if (isset($mobileList[$i])) {
-                    $contactData['mobiles'][] = $mobileList[$i];
-                }
-
-                if (isset($emailList[$i])) {
-                    $contactData['emails'][] = $emailList[$i];
-                }
-
-                $this->savePerson($contactData);
-            }
-        };
-
-        // -----------------------
-        // CONTACT 1
-        // -----------------------
-        $processContact(
-            $columns[14] ?? null,
-            $columns[15] ?? null,
-            $columns[19] ?? null,
-            $columns[16] ?? null,
-            1
-        );
-
-        // CONTACT 2
-        $processContact(
-            $columns[21] ?? null,
-            $columns[22] ?? null,
-            $columns[23] ?? null,
-            $columns[25] ?? null,
-            2
-        );
-
-        // CONTACT 3
-        $processContact(
-            $columns[27] ?? null,
-            $columns[28] ?? null,
-            $columns[29] ?? null,
-            $columns[31] ?? null,
-            3
-        );
-
-        $db->transComplete();
-
-        return "✅ Tab data inserted successfully.";
-
-    } catch (\Throwable $e) {
-
-        $db->transRollback();
-        return "❌ Failed: " . $e->getMessage();
-    }
-}
 
 public function add_details()
 {
+        set_time_limit(300);
+
     $companies = $this->request->getPost('companies');
 
-echo "<pre>";
-var_dump($companies);
-echo "</pre>";
-//     exit;
+// echo "<pre>";
+// var_dump($companies);
+// echo "</pre>";
+    // exit;
     if (empty($companies)) {
         return redirect()->back()->with('status', '⚠️ No company data found!');
     }
@@ -1320,7 +1189,7 @@ $entryTypesToInsert[] = $company['entry_type'];
 
 
     foreach ($entryTypesToInsert as $currentType) {
-                var_dump($currentType); // Debug: Check the current entry type being processed
+                // var_dump($currentType); // Debug: Check the current entry type being processed
                 // exit; // Uncomment to stop execution and see the result
                     $company_id = 'C' . strtoupper(bin2hex(random_bytes(4))); // Generate new company ID
 // echo "<pre>";
@@ -1351,6 +1220,9 @@ $entryTypesToInsert[] = $company['entry_type'];
 
             $database_name = $company['database_name'] ?? '';
             $entry_type    = $company['entry_type'] ?? '';
+            $contact    = $company['contact1_name'] ?? '';
+            // var_dump($contact);
+            // exit;
 
 
 
@@ -1390,7 +1262,7 @@ $entryTypesToInsert[] = $company['entry_type'];
                                 
                                     foreach ($splitSources as $source) {
                                         $source = trim($source);
-                                                    var_dump($source); // Debug: Check part 2
+                                                    // var_dump($source); // Debug: Check part 2
 // exit;
                                         if ($source === '') continue; // Skip empty strings
 
@@ -1411,12 +1283,15 @@ $entryTypesToInsert[] = $company['entry_type'];
 
                             }
 
-                    
+                                                    // var_dump("super");
+
                         // Insert contacts dynamically (up to 3 contacts)
                         for ($i = 1; $i <= 3; $i++) {
 
                             $name = trim($company["contact{$i}_name"] ?? '');
-
+                                var_dump("super");
+                                var_dump($company["contact1_name"] );
+                                // exit;
                             // Skip if no name
                             if ($name === '') {
                                 continue;
@@ -1431,31 +1306,41 @@ $entryTypesToInsert[] = $company['entry_type'];
                                 'emails'      => []
                             ];
 
+                            // var_dump($contactData);
+                            // exit;
                             // Collect mobiles (up to 3 per contact)
                             for ($m = 1; $m <= 3; $m++) {
 
                                 $mobileKey = "contact{$i}_mobile{$m}";
-                                // var_dump($mobileKey);
+                                var_dump($contactData);
 
 
                                 if (!empty($company[$mobileKey])) {
                                     $contactData['mobiles'][] = trim($company[$mobileKey]);
-                                }
+                                
+                                
+                                    }
                             }
 
                             // Collect emails (up to 3 per contact)
                             for ($e = 1; $e <= 3; $e++) {
 
                                 $emailKey = "contact{$i}_email{$e}";
+                            // exit;
 
                                 if (!empty($company[$emailKey])) {
                                     $contactData['emails'][] = trim($company[$emailKey]);
                                 }
                             }
 
+                            // var_dump($contactData);
+                            // exit;
                             // Insert contact using your working function
                             $inserted = $this->savePerson($contactData);
+                            // var_dump("super1000");
+                            // var_dump($inserted);
 
+                            // exit;
                             if ($inserted === true) {
                                 $success++;
                             } else {
@@ -1473,7 +1358,7 @@ $entryTypesToInsert[] = $company['entry_type'];
 // var_dump($note);
 
 if ($database_name === "Registered Exhibitor 2026") {
-var_dump($database_name);
+// var_dump($database_name);
 // exit;
                         $leadModel = new \App\Models\LeadModel();
                         
@@ -1545,34 +1430,23 @@ var_dump($database_name);
         if ($entry_type === "spot" || $part1  === "online")
             {
 
-            var_dump($part1);
+            // var_dump($part1);
             // exit;
             // $crossValidationModel = new \App\Models\CrossValidationModel();
-        var_dump("Super");
+        // var_dump("Super");
 
 
             // ✅ Define variables BEFORE using them
             // if ($note === "Spot"){}
             $data   = $part1."-"."registration"."-". $part2;
             $number = $company['contact1_mobile1'] ?? $company['contact1_mobile'] ?? '';
-        var_dump($data);
-        var_dump($number);
+        // var_dump($data);
+        // var_dump($number);
 
 
             return redirect()->to(base_url('registration/regitersuccess/' . $data . '/' . $number));
         }
         
-
-            // if ($note == "Websitetradevisitor"){
-
-            //         return redirect()->to(base_url('registration/generatebadge/' . $company_id));
-            //     }
-
-
-            // var_dump($note);
-            // exit;
-            
-                // exit;
 
         }
          catch (\Throwable $e) {
@@ -1580,12 +1454,8 @@ var_dump($database_name);
             $failed++;
         }
     }
-                exit;
+                // exit;
 
-    // if ($company['entry_type'] == 'lead'){
-    //     this
-    // }
-    // $this->companyModel;
     return redirect()->to(site_url('company/'.$company['entry_type']."/overview/state"))->with(
         'status',
         $failed === 0
@@ -1603,9 +1473,16 @@ public function savePerson(array $contactData = null)
     $contactModel = new \App\Models\ContactModel();
     $mobileModel  = new \App\Models\ContactMobileModel();
     $emailModel   = new \App\Models\ContactEmailModel();
+    // var_dump("super Danger");
+
+    // return $contactData;
 
     // ✅ If called from form (route)
     if ($contactData === null) {
+    // return $contactData;
+    // var_dump("super Danger");
+    // var_dump($contactData);
+    // exit;
         $contactData = [
             'company_id'  => $this->request->getPost('company_id'),
             'priority'    => $this->request->getPost('priority'),
@@ -1668,6 +1545,7 @@ public function savePerson(array $contactData = null)
             }
         }
 
+
         // ✅ If called from form, redirect
         if ($this->request->getMethod() === 'post') {
             return redirect()->back()->with('success', 'Contact Saved Successfully');
@@ -1680,63 +1558,6 @@ public function savePerson(array $contactData = null)
         return redirect()->back()->with('error', 'Something went wrong');
     }
 }
-
-public function savePersonold()
-{
-    $contactModel = new \App\Models\ContactModel();
-    $mobileModel  = new \App\Models\ContactMobileModel();
-    $emailModel   = new \App\Models\ContactEmailModel();
-
-    // // Collect contact info from POST
-    // $contactData = [
-    //     'company_id'    => $this->request->getPost('company_id') ?? 1,
-    //     'priority'    => $this->request->getPost('priority') ?? 1,
-    //     'name'        => $this->request->getPost('name') ?? '',
-    //     'designation' => $this->request->getPost('designation') ?? '',
-    //     'created_at'  => date('Y-m-d H:i:s')
-    // ];
-
-    if (!$contactData['name']) {
-        return redirect()->back()->with('status', '⚠️ Name is required');
-    }
-
-    try {
-        // Insert main contact
-        $contactId = $contactModel->insert($contactData, true); // true = return insert ID
-
-        if (!$contactId) {
-            return redirect()->back()->with('status', '⚠️ Failed to insert contact');
-        }
-
-        // Insert mobiles
-        $mobiles = array_filter($this->request->getPost('mobiles') ?? []);
-        foreach ($mobiles as $m) {
-            $mobileModel->insert([
-                'contact_id' => $contactId,
-                'mobile'     => $m,
-                'is_primary' => 0,
-                'created_at' => date('Y-m-d H:i:s')
-            ]);
-        }
-
-        // Insert emails
-        $emails = array_filter($this->request->getPost('emails') ?? []);
-        foreach ($emails as $e) {
-            $emailModel->insert([
-                'contact_id' => $contactId,
-                'email'      => $e,
-                'is_primary' => 0,
-                'created_at' => date('Y-m-d H:i:s')
-            ]);
-        }
-
-        return redirect()->back()->with('status', "✅ Contact added successfully");
-    } catch (\Exception $ex) {
-        log_message('error', $ex->getMessage());
-        return redirect()->back()->with('status', "⚠️ Failed to add contact: " . $ex->getMessage());
-    }
-}
-
 
 
 public function addSource(array $values)
@@ -1846,6 +1667,8 @@ public function get_lastSession()
 
         return $lastSession; // or json_encode($lastSession) if you want JSON response
     }
+
+
 public function compare_popup()
 {
     $data = $this->request->getJSON(true);

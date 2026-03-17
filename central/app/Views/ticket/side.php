@@ -96,6 +96,7 @@ if ($segment1 == 'ticket') : ?>
 <select name="ticket_type_select" onchange="this.previousElementSibling.value=this.value;">
     <option value="">--Select Existing Type--</option>
     <option value="Task">Task</option>
+    <option value="SQL">Task</option>
     <option value="Issue">Issue</option>
     <option value="Update">Update</option>
 </select>

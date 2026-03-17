@@ -1,14 +1,15 @@
 {{-- resources/views/mobile/header.blade.php --}}
 
 <div class="menu-grid">
-    <a href="{{ url('mobile/calendar') }}" class="menu-item">
+
+
+
+    <a href="{{ url('calendar') }}" class="menu-item">
         <div class="icon-box">
             <span class="material-icons-round">event_available</span>
         </div>
-        <div class="menu-content">
-            <span class="menu-label">My Events</span>
+            <span class="menu-label">Event List</span>
             <span class="menu-sub">View upcoming shows</span>
-        </div>
     </a>
 
     <a href="#" class="menu-item">
@@ -35,7 +36,7 @@
         <span class="menu-sub">Networking schedule</span>
     </a>
 
-    <a href="{{ url('mobile/layout') }}" class="menu-item">
+    <a href="{{ url('layout') }}" class="menu-item">
         <div class="icon-box">
             <span class="material-icons-round">file_download</span>
         </div>

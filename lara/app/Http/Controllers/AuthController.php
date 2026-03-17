@@ -115,12 +115,17 @@ class AuthController extends Controller
             'message' => 'Failed to save OTP'
         ]);
     }
-    
+
+
+
     public function verifyOtp(Request $request)
 {
+
+
     $mobile = $request->mobile_number;
     // $mobile = '8792548508';
     $otp = $request->otp;
+    $type = $request->type;
 
     if (empty($mobile) || empty($otp)) {
         return response()->json([
@@ -129,7 +134,6 @@ class AuthController extends Controller
         ]);
     }
 
-    // Check if mobile exists
     $user = DB::table('contact_mobile')
         ->where('mobile', $mobile)
         ->first();
@@ -141,7 +145,6 @@ class AuthController extends Controller
         ]);
     }
 
-    // Check if OTP is valid
     $validOtp = DB::table('contact')
         ->where('contact_id', $user->contact_id)
         ->where('otp', $otp)
@@ -150,12 +153,11 @@ class AuthController extends Controller
 
     if (!$validOtp) {
         return response()->json([
-            'status' => 'error',
-            'message' => 'Invalid or expired OTP'
-        ]);
+    'status'  => 'error',
+    'message' => 'Invalid or expired OTP'
+], 422); // 422 is the standard HTTP code for Unprocessable Entity (Validation error)
     }
 
-    // Clear OTP after successful verification
     DB::table('contact')
         ->where('contact_id', $user->contact_id)
         ->update([
@@ -163,11 +165,8 @@ class AuthController extends Controller
             'otp_expiry' => null
         ]);
 
-    // Log the successful login
     Log::info("Login successful for mobile: $mobile");
 
-    // Get contact data
-    // Fetch contact data
     $contact = DB::table('contact')
         ->where('contact_id', $user->contact_id)
         ->first();
@@ -179,21 +178,14 @@ class AuthController extends Controller
         ]);
     }
 
-    // Get all mobiles for the contact
-    $mobiles = DB::table('contact_mobile')
+    $contact->mobiles = DB::table('contact_mobile')
         ->where('contact_id', $user->contact_id)
         ->pluck('mobile');
 
-    // Get all emails for the contact
-    $emails = DB::table('contact_email')
+    $contact->emails = DB::table('contact_email')
         ->where('contact_id', $user->contact_id)
         ->pluck('email');
 
-    // Add mobiles and emails into contact object
-    $contact->mobiles = $mobiles;
-    $contact->emails = $emails;
-
-    // Get company data for this contact
     $company = null;
     if (!empty($contact->company_id)) {
         $company = DB::table('company_data')
@@ -201,11 +193,23 @@ class AuthController extends Controller
             ->first();
     }
 
-    return response()->json([
-        'status' => 'success',
-        'contact' => $contact,
-        'company' => $company
-    ]);
+    var_dump($contact);
+    var_dump($company);
+    // exit;
+    // return route('mobile');
+
+if ($type == "login") {
+    session()->put('contact', $contact);
+    session()->put('company', $company);
+    return redirect()->route('home');
+} else {
+return response()->json([
+    'status' => 'success',
+    'contact' => $contact,
+    'company' => $company
+]);}
+
+
 }
     
     public function getOtp()

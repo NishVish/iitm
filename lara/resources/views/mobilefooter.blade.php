@@ -4,7 +4,7 @@
 @endphp
 
 <nav class="bottom-nav">
-    <a href="{{ url('mobile/home') }}" 
+    <a href="{{ url('home') }}" 
        class="nav-item {{ in_array($segment, ['home', 'calendar', 'layout']) ? 'active' : '' }}">
         <i class="material-icons-round">dashboard</i>
         <span>Home</span>
@@ -20,7 +20,7 @@
         <span>Chat</span>
     </a>
 
-    <a href="{{ url('mobile/profile') }}" 
+    <a href="{{ url('profile') }}" 
        class="nav-item {{ ($segment ?? '') === 'profile' ? 'active' : '' }}">
         <i class="material-icons-round">account_circle</i>
         <span>Profile</span>

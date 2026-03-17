@@ -19,6 +19,8 @@ public function index()
     return view('login');
 }
 
+
+
 public function login()
 {
     $db = \Config\Database::connect();

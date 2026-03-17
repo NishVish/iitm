@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 // $routes->get('mobile', 'Mobile::index');
+$routes->get('mobile', 'Authentication::index');
 
 $routes->get('mobile/home', 'Mobile::index');
 $routes->get('mobile/profile', 'Mobile::index');
