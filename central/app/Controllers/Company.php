@@ -635,21 +635,53 @@ public function getCompanySourcesContactsByFilters($filters = [])
        2. MAIN QUERY (companies)
     ----------------------------*/
 
-    $builder = $db->table('company_data cd')
-        ->select('
-            cd.*,
-            GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
-            c.contact_id,
-            c.name AS contact_name,
-            c.designation,
-            GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
-            GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
-        ', false)
-        ->join('company_sources cs', 'cs.company_id = cd.company_id', 'left')
-        ->join('contact c', 'c.company_id = cd.company_id', 'left')
-        ->join('contact_email ce', 'ce.contact_id = c.contact_id', 'left')
-        ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left')
-        ->groupBy(['cd.company_id','c.contact_id']);
+   $builder = $db->table('company_data cd')
+    ->select('
+        cd.company_id,
+        cd.database_name,
+        cd.category,
+        cd.company_name,
+        cd.address,
+        cd.city,
+        cd.pincode,
+        cd.state,
+        cd.phone,
+        cd.updated_by,
+        cd.updated_at,
+        cd.last_comments,
+        cd.outbound,
+
+        GROUP_CONCAT(DISTINCT cs.notes ORDER BY cs.event_date SEPARATOR ", ") AS source_notes,
+
+        c.contact_id,
+        c.name AS contact_name,
+        c.designation,
+
+        GROUP_CONCAT(DISTINCT ce.email SEPARATOR ", ") AS email_address,
+        GROUP_CONCAT(DISTINCT cm.mobile SEPARATOR ", ") AS mobile_number
+    ', false)
+    ->join('company_sources cs', 'cs.company_id = cd.company_id', 'left')
+    ->join('contact c', 'c.company_id = cd.company_id', 'left')
+    ->join('contact_email ce', 'ce.contact_id = c.contact_id', 'left')
+    ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left')
+    ->groupBy([
+        'cd.company_id',
+        'cd.database_name',
+        'cd.category',
+        'cd.company_name',
+        'cd.address',
+        'cd.city',
+        'cd.pincode',
+        'cd.state',
+        'cd.phone',
+        'cd.updated_by',
+        'cd.updated_at',
+        'cd.last_comments',
+        'cd.outbound',
+        'c.contact_id',
+        'c.name',
+        'c.designation'
+    ]);
 
     if (!empty($where)) {
         $builder->where($where);
