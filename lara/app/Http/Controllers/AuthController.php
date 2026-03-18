@@ -18,26 +18,41 @@ class AuthController extends Controller
     }
 
     // Handle login form submission
-    public function login()
+    public function login(Request $request)
     {
+        // var_dump("super");
+        // exit;
 
-        $mobile = $request->mobile_number;
-        $otp = $request->otp;
-        var_dump($mobile);
-        var_dump($otp);
-        exit;
+        $password = $request->password;
 
-        // Validate input
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+                $mobile = $request->mobile;
+      var_dump($mobile);
+        var_dump($password);
+        // exit;
 
-        // Attempt login
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate(); // Prevent session fixation
-            return redirect()->intended('/dashboard'); // Redirect to intended page
+// // get contact id from mobile number
+// // get company id from contact id
+// // get pin from company id
+
+// check is password is correct
+$response = $this->verifyUser($mobile, $password, 'password');
+$data = $response->getData(true); 
+
+// 1. Check if the 'status' is success AND the keys exist
+        if (isset($data['status']) && $data['status'] === 'success' && isset($data['contact'])) {
+            
+            $contact = $data['contact'];
+            $company = $data['company'];
+
+                session()->put('contact', $contact);
+                session()->put('company', $company);
+                
+                // Use a persistent company_id for middleware checks later
+                session()->put('company_id', $company['company_id']); 
+
+                return redirect()->route('home');
         }
+
 
         // Failed login
         return back()->with('error', 'Invalid credentials')->withInput();
@@ -125,7 +140,6 @@ class AuthController extends Controller
     $mobile = $request->mobile_number;
     // $mobile = '8792548508';
     $otp = $request->otp;
-    $type = $request->type;
 
     if (empty($mobile) || empty($otp)) {
         return response()->json([
@@ -134,68 +148,88 @@ class AuthController extends Controller
         ]);
     }
 
-    $user = DB::table('contact_mobile')
-        ->where('mobile', $mobile)
-        ->first();
+//     $user = DB::table('contact_mobile')
+//         ->where('mobile', $mobile)
+//         ->first();
 
-    if (!$user) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Mobile number not found'
-        ]);
-    }
+//     if (!$user) {
+//         return response()->json([
+//             'status' => 'error',
+//             'message' => 'Mobile number not found'
+//         ]);
+//     }
 
-    $validOtp = DB::table('contact')
-        ->where('contact_id', $user->contact_id)
-        ->where('otp', $otp)
-        ->where('otp_expiry', '>', Carbon::now())
-        ->first();
+//     $validOtp = DB::table('contact')
+//         ->where('contact_id', $user->contact_id)
+//         ->where('otp', $otp)
+//         ->where('otp_expiry', '>', Carbon::now())
+//         ->first();
 
-    if (!$validOtp) {
-        return response()->json([
-    'status'  => 'error',
-    'message' => 'Invalid or expired OTP'
-], 422); // 422 is the standard HTTP code for Unprocessable Entity (Validation error)
-    }
+//     if (!$validOtp) {
+//         return response()->json([
+//     'status'  => 'error',
+//     'message' => 'Invalid or expired OTP'
+// ], 422); // 422 is the standard HTTP code for Unprocessable Entity (Validation error)
+//     }
 
-    DB::table('contact')
-        ->where('contact_id', $user->contact_id)
-        ->update([
-            'otp' => null,
-            'otp_expiry' => null
-        ]);
+//     DB::table('contact')
+//         ->where('contact_id', $user->contact_id)
+//         ->update([
+//             'otp' => null,
+//             'otp_expiry' => null
+//         ]);
 
-    Log::info("Login successful for mobile: $mobile");
+//     Log::info("Login successful for mobile: $mobile");
 
-    $contact = DB::table('contact')
-        ->where('contact_id', $user->contact_id)
-        ->first();
+//     $contact = DB::table('contact')
+//         ->where('contact_id', $user->contact_id)
+//         ->first();
 
-    if (!$contact) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Contact not found'
-        ]);
-    }
+//     if (!$contact) {
+//         return response()->json([
+//             'status' => 'error',
+//             'message' => 'Contact not found'
+//         ]);
+//     }
 
-    $contact->mobiles = DB::table('contact_mobile')
-        ->where('contact_id', $user->contact_id)
-        ->pluck('mobile');
+//     $contact->mobiles = DB::table('contact_mobile')
+//         ->where('contact_id', $user->contact_id)
+//         ->pluck('mobile');
 
-    $contact->emails = DB::table('contact_email')
-        ->where('contact_id', $user->contact_id)
-        ->pluck('email');
+//     $contact->emails = DB::table('contact_email')
+//         ->where('contact_id', $user->contact_id)
+//         ->pluck('email');
 
-    $company = null;
-    if (!empty($contact->company_id)) {
-        $company = DB::table('company_data')
-            ->where('company_id', $contact->company_id)
-            ->first();
-    }
+//     $company = null;
+//     if (!empty($contact->company_id)) {
+//         $company = DB::table('company_data')
+//             ->where('company_id', $contact->company_id)
+//             ->first();
+//     }
+$response = $this->verifyUser($mobile, $otp, 'otp');
+$data = $response->getData(true); 
 
-    var_dump($contact);
-    var_dump($company);
-    // exit;
+// 1. Check if the 'status' is success AND the keys exist
+if (isset($data['status']) && $data['status'] === 'success' && isset($data['contact'])) {
+    
+    $contact = $data['contact'];
+    $company = $data['company'];
+
+        session()->put('contact', $contact);
+        session()->put('company', $company);
+        
+        // Use a persistent company_id for middleware checks later
+        session()->put('company_id', $company['company_id']); 
+
+        return redirect()->route('home');
+}
+
+// 2. If we reached here, something went wrong (Wrong OTP, etc.)
+// We redirect back with the error message returned by your verifyUser function
+return redirect()->back()->with('error', $data['message'] ?? 'Invalid OTP or Verification Failed');
+// Now you can access them (Note: getData() usually returns objects by default)
+// var_dump($contact);
+// var_dump($company);
     // return route('mobile');
 
 if ($type == "login") {
@@ -212,6 +246,93 @@ return response()->json([
 
 }
     
+
+public function verifyUser($mobile, $value, $type)
+{
+    // 1. Find the user by mobile
+    $user = DB::table('contact_mobile')
+        ->where('mobile', $mobile)
+        ->first();
+
+    if (!$user) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Mobile number not found'
+        ]);
+    }
+
+    // 2. Decide if we check OTP or Password
+    if ($type == 'otp') {
+        $valid = DB::table('contact')
+            ->where('contact_id', $user->contact_id)
+            ->where('otp', $value)
+            ->where('otp_expiry', '>', Carbon::now())
+            ->first();
+
+        if ($valid) {
+            // Clear OTP after success as per your logic
+            DB::table('contact')
+                ->where('contact_id', $user->contact_id)
+                ->update([
+                    'otp' => null,
+                    'otp_expiry' => null
+                ]);
+        }
+    } else {
+        // Password check (plain text matching)
+        $valid = DB::table('contact')
+            ->where('contact_id', $user->contact_id)
+            // ->where('password', $value)
+            ->first();
+    }
+
+    // 3. If validation fails for either type
+    if (!$valid) {
+        return response()->json([
+            'status'  => 'error',
+            'message' => 'Invalid ' . ($type == 'otp' ? 'or expired OTP' : 'password')
+        ], 422);
+    }
+
+    Log::info("Login successful via $type for mobile: $mobile");
+
+    // 4. Fetch the contact profile
+    $contact = DB::table('contact')
+        ->where('contact_id', $user->contact_id)
+        ->first();
+
+    if (!$contact) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Contact not found'
+        ]);
+    }
+
+    // 5. Attach mobiles, emails, and company data
+    $contact->mobiles = DB::table('contact_mobile')
+        ->where('contact_id', $user->contact_id)
+        ->pluck('mobile');
+
+    $contact->emails = DB::table('contact_email')
+        ->where('contact_id', $user->contact_id)
+        ->pluck('email');
+
+    $company = null;
+    if (!empty($contact->company_id)) {
+        $company = DB::table('company_data')
+            ->where('company_id', $contact->company_id)
+            ->first();
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'contact' => $contact,
+        'company' => $company
+    ]);
+}
+
+
+
     public function getOtp()
     {
         $otps = DB::table('contact as c')
