@@ -57,6 +57,7 @@ return [
 
 // sss
 
+
             'host' => env('DB_HOST', '21.157.66.148.host.secureserver.net'),
             'database' => env('DB_DATABASE', 'iitminda_testing_server'),
             'username' => env('DB_USERNAME', 'iitminda_master'),
