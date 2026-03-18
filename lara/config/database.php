@@ -43,7 +43,7 @@ return [
             'synchronous' => null,
             'transaction_mode' => 'DEFERRED',
         ],
-'hostname'=>'21.157.66.148.host.secureserver.net','username'=>'iitminda_master','password'=>'gB)%gU}ocn?MCP=}','database'=>'iitminda_testing_server',
+// 'hostname'=>'21.157.66.148.host.secureserver.net','username'=>'iitminda_master','password'=>'gB)%gU}ocn?MCP=}','database'=>'iitminda_testing_server',
 
         'mysql' => [
             'driver' => 'mysql',
@@ -64,7 +64,7 @@ return [
             'password' => env('DB_PASSWORD', 'gB)%gU}ocn?MCP=}'),
 
 
-
+// ss
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
