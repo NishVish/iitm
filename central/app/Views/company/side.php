@@ -97,14 +97,7 @@ dropdown.addEventListener('change', function() {
         Clear Selected Database
     </button> -->
 <!-- Existing buttons -->
-<a href="<?= site_url('clear-matching') ?>" class="action-btn danger">Clear Matching</a>
-<a href="<?= site_url('clear-contacts') ?>" class="action-btn danger">Clear Matching</a>
-
-<a href="<?= site_url('clear-companies/yes') ?>" 
-   class="action-btn danger"
-   onclick="return confirm('🚨 DANGER ZONE 🚨\n\nThis action will permanently delete ALL companies.\nThis cannot be undone.\n\nClick OK only if you are absolutely sure.');">
-   Clear Companies
-</a>
+ 
 
 <!-- New button with dropdown for database selection -->
 
