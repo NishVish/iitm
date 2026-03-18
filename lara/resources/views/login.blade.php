@@ -87,8 +87,9 @@ input:focus{border-color:#6200EE;background:#fff;box-shadow:0 0 0 4px rgba(98,0,
 
 <div class="divider"><span>New here?</span></div>
 
-<a href="{{ route('create') }}" class="secondary-btn">Create an Account</a>
-
+<a href="{{ route('register', ['location' => 'x']) }}" class="secondary-btn">
+    Create an Account
+</a>
 </div>
 </div>
 
