@@ -1,13 +1,6 @@
 RewriteEngine On
-RewriteBase /ci/node/
 
-# 1. Skip rewrite for existing files (lets Express.static work)
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# 2. Forward everything else to your Node app
-RewriteRule ^(.*)$ http://127.0.0.1:8000/ci/node/$1 [P,L]
-
-# 3. Fix redirect URLs in responses from the proxied app
-ProxyPassReverse /ci/node/ http://127.0.0.1:8000/ci/node/
+# Forward all traffic from this folder to your Node app on port 8000
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteRule ^(.*)$ http://localhost:8000/$1 [P,L]   

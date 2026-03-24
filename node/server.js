@@ -80,13 +80,8 @@ console.log("Serving React from:", buildPath); // Check this in cPanel logs (std
 app.use(express.static(buildPath));
 
 // Ensure the catch-all handles the subfolder pathing
-app.get("/api/build-check", (req, res) => {
-    const fs = require("fs");
-    res.json({
-        buildPath,
-        exists: fs.existsSync(buildPath),
-        indexExists: fs.existsSync(path.join(buildPath, "index.html"))
-    });
+app.get(/^(?!\/api).+/, (req, res) => {
+    res.sendFile(path.join(buildPath, "index.html"));
 });
 // --- 5. START SERVER ---
 const PORT = 8000;
