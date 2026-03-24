@@ -1,10 +1,12 @@
 RewriteEngine On
+RewriteBase /ci/node/
 
-# 1. Route React (Frontend) - Port 3000
-# This makes https://iitmindia.com/ci/node/ show your React App
-RewriteCond %{REQUEST_URI} ^/ci/node/ [NC]
-RewriteRule ^(.*)$ http://localhost:3000/$1 [P,L]
-
-# 2. Route Node (API) - Port 8000
-# This keeps your API working at https://iitmindia.com/ci/node/api
+# 1. Route API requests (https://iitmindia.com/ci/node/api/...)
+# Note: We remove 'api/' from the forwarded URL because Node usually handles it
 RewriteRule ^api/(.*)$ http://localhost:8000/api/$1 [P,L]
+
+# 2. Route everything else to React (Port 3000)
+# This ensures static files like bundle.js are found
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ http://localhost:3000/$1 [P,L]
