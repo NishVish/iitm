@@ -1,6 +1,10 @@
 RewriteEngine On
 
-# This forwards all traffic from this folder to your Node app on port 8000
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteRule ^(.*)$ http://localhost:8000/$1 [P,L]
+# 1. Route React (Frontend) - Port 3000
+# This makes https://iitmindia.com/ci/node/ show your React App
+RewriteCond %{REQUEST_URI} ^/ci/node/ [NC]
+RewriteRule ^(.*)$ http://localhost:3000/$1 [P,L]
+
+# 2. Route Node (API) - Port 8000
+# This keeps your API working at https://iitmindia.com/ci/node/api
+RewriteRule ^api/(.*)$ http://localhost:8000/api/$1 [P,L]
