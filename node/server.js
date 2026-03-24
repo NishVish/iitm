@@ -72,18 +72,17 @@ app.get("/api/events/upcoming", (req, res) => {
 });
 
 // --- 4. SERVE REACT BUILD (The Frontend) ---
+// Use path.resolve to get the full system path starting from /home/youruser/...
+const buildPath = path.resolve(__dirname, "iitm-frontend", "build");
 
-const buildPath = path.join(__dirname, "iitm-frontend/build");
+console.log("Serving React from:", buildPath); // Check this in cPanel logs (stderr.log)
 
-// Serve the static files (CSS, JS, Images)
 app.use(express.static(buildPath));
 
-// The Catch-all (Regex version to prevent Node v24 crash)
-// This serves index.html for any route that is NOT an API route
+// Ensure the catch-all handles the subfolder pathing
 app.get(/^(?!\/api).+/, (req, res) => {
     res.sendFile(path.join(buildPath, "index.html"));
 });
-
 // --- 5. START SERVER ---
 const PORT = 8000;
 app.listen(PORT, () => {
