@@ -10,10 +10,18 @@ app.use(cors());
 app.use(express.json());
 
 const dbConfig = {
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "testing_server"
+    // host: "localhost",
+    // user: "root",
+    // password: "",
+    // database: "testing_server"
+
+    host: "21.157.66.148.host.secureserver.net",
+    port: 3306,
+    user: "iitminda_master",
+    password: "gB)%gU}ocn?MCP=} ", // Double check if there's a space at the end!
+    database: "iitminda_testing_server",
+
+
 };
 const db = mysql.createConnection(dbConfig);
 
