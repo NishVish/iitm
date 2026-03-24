@@ -1,28 +1,23 @@
 const express = require("express");
 const mysql = require("mysql2");
-const cors = require("cors"); // 1. Import CORS
+const path = require("path");
+const cors = require("cors");
 
 const app = express();
 
-// 2. USE CORS BEFORE ROUTES
-// This tells the browser: "It's okay for port 3000 to talk to me"
+// --- 1. MIDDLEWARE ---
 app.use(cors());
 app.use(express.json());
 
+// --- 2. DATABASE CONFIGURATION ---
 const dbConfig = {
-    // host: "localhost",
-    // user: "root",
-    // password: "",
-    // database: "testing_server"
-
     host: "21.157.66.148.host.secureserver.net",
     port: 3306,
     user: "iitminda_master",
-    password: "gB)%gU}ocn?MCP=}", // Double check if there's a space at the end!
+    password: "gB)%gU}ocn?MCP=}",
     database: "iitminda_testing_server",
-
-
 };
+
 const db = mysql.createConnection(dbConfig);
 
 db.connect((err) => {
@@ -33,39 +28,7 @@ db.connect((err) => {
     }
 });
 
-// --- ROUTES ---
-
-// 1. Root
-app.get("/", (req, res) => {
-    res.send("Server is alive! Try /api/db-info or /api/tables");
-});
-
-// 2. Database Info
-app.get("/api/db-info", (req, res) => {
-    res.json({
-        database: dbConfig.database,
-        user: dbConfig.user,
-        status: db.threadId ? "Connected" : "Disconnected"
-    });
-});
-
-// 3. Show Tables
-app.get("/api/tables", (req, res) => {
-    db.query("SHOW TABLES", (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-
-        // This maps the complex object to a simple array of strings
-        const tableNames = results.map(row => Object.values(row)[0]);
-
-        res.json({
-            database: "testing_server",
-            total_tables: tableNames.length,
-            tables: tableNames
-        });
-    });
-});
-
-// Helper to keep code DRY (Don't Repeat Yourself)
+// Helper for Database Queries
 const runQuery = (sql, res) => {
     db.query(sql, (err, results) => {
         if (err) return res.status(500).json({ status: "error", error: err.message });
@@ -77,20 +40,53 @@ const runQuery = (sql, res) => {
     });
 };
 
-// Now your routes look like this:
+// --- 3. ALL API ROUTES ---
+
+app.get("/api/db-info", (req, res) => {
+    res.json({
+        database: dbConfig.database,
+        user: dbConfig.user,
+        status: db.threadId ? "Connected" : "Disconnected"
+    });
+});
+
+app.get("/api/tables", (req, res) => {
+    db.query("SHOW TABLES", (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        const tableNames = results.map(row => Object.values(row)[0]);
+        res.json({
+            database: "testing_server",
+            total_tables: tableNames.length,
+            tables: tableNames
+        });
+    });
+});
+
 app.get("/api/events", (req, res) => {
     runQuery("SELECT * FROM events WHERE start_date IS NOT NULL ORDER BY start_date ASC", res);
 });
 
+// RESTORED: The upcoming events API
 app.get("/api/events/upcoming", (req, res) => {
     runQuery("SELECT * FROM events WHERE start_date >= CURDATE() ORDER BY start_date ASC", res);
 });
 
-// 4. Catch-all (This tells you if you missed the URL)
-app.use((req, res) => {
-    res.status(404).send(`Route ${req.originalUrl} not found. Try /api/db-info`);
+// --- 4. SERVE REACT BUILD (The Frontend) ---
+
+const buildPath = path.join(__dirname, "iitm-frontend/build");
+
+// Serve the static files (CSS, JS, Images)
+app.use(express.static(buildPath));
+
+// The Catch-all (Regex version to prevent Node v24 crash)
+// This serves index.html for any route that is NOT an API route
+app.get(/^(?!\/api).+/, (req, res) => {
+    res.sendFile(path.join(buildPath, "index.html"));
 });
 
-app.listen(8000, () => {
-    console.log("🚀 Server running on http://localhost:8000");
+// --- 5. START SERVER ---
+const PORT = 8000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`🔗 API Base: http://localhost:${PORT}/api/events`);
 });

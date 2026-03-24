@@ -1,12 +1,4 @@
 RewriteEngine On
-RewriteBase /ci/node/
-
-# 1. If the file EXISTS on the disk (like bundle.js), serve it directly
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^ - [L]
-
-# 2. Route API calls to Node (Port 8000)
-RewriteRule ^api/(.*)$ http://127.0.0.1:8000/api/$1 [P,L]
-
-# 3. Route everything else to React (Port 3000)
-RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /index.html [L]
