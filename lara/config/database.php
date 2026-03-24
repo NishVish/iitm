@@ -50,18 +50,18 @@ return [
             'url' => env('DB_URL'),
             'port' => env('DB_PORT', '3306'),
 
-            // 'host' => env('DB_HOST', '127.0.0.1'),
-            // 'database' => env('DB_DATABASE', 'testing_server'),
-            // 'username' => env('DB_USERNAME', 'root'),
-            // 'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'database' => env('DB_DATABASE', 'testing_server'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
 
 // sss
 
 
-            'host' => env('DB_HOST', '21.157.66.148.host.secureserver.net'),
-            'database' => env('DB_DATABASE', 'iitminda_testing_server'),
-            'username' => env('DB_USERNAME', 'iitminda_master'),
-            'password' => env('DB_PASSWORD', 'gB)%gU}ocn?MCP=}'),
+            // 'host' => env('DB_HOST', '21.157.66.148.host.secureserver.net'),
+            // 'database' => env('DB_DATABASE', 'iitminda_testing_server'),
+            // 'username' => env('DB_USERNAME', 'iitminda_master'),
+            // 'password' => env('DB_PASSWORD', 'gB)%gU}ocn?MCP=}'),
 
 
 // ss

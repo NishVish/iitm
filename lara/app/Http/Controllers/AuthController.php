@@ -95,6 +95,15 @@ $data = $response->getData(true);
             // var_dump($user);
             // exit;
         if(!$user){
+
+
+            // create an entry with mobile number
+            // first company id is 1
+            // $new_user = DB::table('contact_mobile')->insert([
+            //     'mobile' => $mobile,
+            //     'created_at' => Carbon::now(),
+            //     'updated_at' => Carbon::now()
+            // ]);
             return response()->json([
                 'status' => 'error',
                 'message' => 'Mobile number not found'
@@ -140,7 +149,11 @@ $data = $response->getData(true);
     $mobile = $request->mobile_number;
     // $mobile = '8792548508';
     $otp = $request->otp;
-
+    $type = 'login';
+    // $otp = 508845;
+// var_dump($mobile);
+// var_dump($otp);
+// exit;
     if (empty($mobile) || empty($otp)) {
         return response()->json([
             'status' => 'error',
@@ -148,66 +161,11 @@ $data = $response->getData(true);
         ]);
     }
 
-//     $user = DB::table('contact_mobile')
-//         ->where('mobile', $mobile)
-//         ->first();
-
-//     if (!$user) {
-//         return response()->json([
-//             'status' => 'error',
-//             'message' => 'Mobile number not found'
-//         ]);
-//     }
-
-//     $validOtp = DB::table('contact')
-//         ->where('contact_id', $user->contact_id)
-//         ->where('otp', $otp)
-//         ->where('otp_expiry', '>', Carbon::now())
-//         ->first();
-
-//     if (!$validOtp) {
-//         return response()->json([
-//     'status'  => 'error',
-//     'message' => 'Invalid or expired OTP'
-// ], 422); // 422 is the standard HTTP code for Unprocessable Entity (Validation error)
-//     }
-
-//     DB::table('contact')
-//         ->where('contact_id', $user->contact_id)
-//         ->update([
-//             'otp' => null,
-//             'otp_expiry' => null
-//         ]);
-
-//     Log::info("Login successful for mobile: $mobile");
-
-//     $contact = DB::table('contact')
-//         ->where('contact_id', $user->contact_id)
-//         ->first();
-
-//     if (!$contact) {
-//         return response()->json([
-//             'status' => 'error',
-//             'message' => 'Contact not found'
-//         ]);
-//     }
-
-//     $contact->mobiles = DB::table('contact_mobile')
-//         ->where('contact_id', $user->contact_id)
-//         ->pluck('mobile');
-
-//     $contact->emails = DB::table('contact_email')
-//         ->where('contact_id', $user->contact_id)
-//         ->pluck('email');
-
-//     $company = null;
-//     if (!empty($contact->company_id)) {
-//         $company = DB::table('company_data')
-//             ->where('company_id', $contact->company_id)
-//             ->first();
-//     }
 $response = $this->verifyUser($mobile, $otp, 'otp');
 $data = $response->getData(true); 
+
+// var_dump($data);
+// exit;
 
 // 1. Check if the 'status' is success AND the keys exist
 if (isset($data['status']) && $data['status'] === 'success' && isset($data['contact'])) {
@@ -221,16 +179,6 @@ if (isset($data['status']) && $data['status'] === 'success' && isset($data['cont
         // Use a persistent company_id for middleware checks later
         session()->put('company_id', $company['company_id']); 
 
-        return redirect()->route('home');
-}
-
-// 2. If we reached here, something went wrong (Wrong OTP, etc.)
-// We redirect back with the error message returned by your verifyUser function
-return redirect()->back()->with('error', $data['message'] ?? 'Invalid OTP or Verification Failed');
-// Now you can access them (Note: getData() usually returns objects by default)
-// var_dump($contact);
-// var_dump($company);
-    // return route('mobile');
 
 if ($type == "login") {
     session()->put('contact', $contact);
@@ -242,6 +190,16 @@ return response()->json([
     'contact' => $contact,
     'company' => $company
 ]);}
+
+}
+
+// 2. If we reached here, something went wrong (Wrong OTP, etc.)
+// We redirect back with the error message returned by your verifyUser function
+return redirect()->back()->with('error', $data['message'] ?? 'Invalid OTP or Verification Failed');
+// Now you can access them (Note: getData() usually returns objects by default)
+// var_dump($contact);
+// var_dump($company);
+    // return route('mobile');
 
 
 }
@@ -262,14 +220,14 @@ public function verifyUser($mobile, $value, $type)
     }
 
     // 2. Decide if we check OTP or Password
-    if ($type == 'otp') {
+    if ($type == 'otp' || $type =='pass') {
         $valid = DB::table('contact')
             ->where('contact_id', $user->contact_id)
             ->where('otp', $value)
             ->where('otp_expiry', '>', Carbon::now())
             ->first();
 
-        if ($valid) {
+        if ($valid || $type == 'pass') {
             // Clear OTP after success as per your logic
             DB::table('contact')
                 ->where('contact_id', $user->contact_id)

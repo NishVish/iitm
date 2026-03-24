@@ -38,34 +38,39 @@ class AlldetailsModel extends Model
     public function index(){
 }
 
+
+
 public function search($search)
 {
-            $db = \Config\Database::connect();
+    $db = \Config\Database::connect();
+    $builder = $db->table('company_data c');
 
-     $builder = $db->table('company_data c');
+    // 1. Select the fields
+    // Using double quotes for the separator to handle the newline correctly
+    $builder->select("
+        c.company_id,
+        c.company_name,
+        c.category,
+        c.city,
+        c.state,
+        GROUP_CONCAT(
+            DISTINCT CONCAT(
+                IFNULL(co.name, 'Unknown'), ' (', IFNULL(co.designation, 'N/A'), ') - ',
+                IFNULL(cm.mobile, 'N/A'), ' / ',
+                IFNULL(ce.email, 'N/A')
+            )
+            SEPARATOR '\n'
+        ) AS contacts
+    ", false); // 'false' prevents CI from trying to escape the complex CONCAT string
 
-        $builder->select("
-            c.company_id,
-            c.company_name,
-            c.category,
-            c.city,
-            c.state,
-            GROUP_CONCAT(
-                DISTINCT CONCAT(
-                    co.name, ' (', co.designation, ') - ',
-                    IFNULL(cm.mobile, 'N/A'), ' / ',
-                    IFNULL(ce.email, 'N/A')
-                )
-                SEPARATOR '\\n'
-            ) AS contacts
-        ");
+    // 2. Joins
+    // We use LEFT JOIN so companies without contacts still show up
+    $builder->join('contact co', 'co.company_id = c.company_id', 'left');
+    $builder->join('contact_mobile cm', 'cm.contact_id = co.contact_id AND cm.is_primary = 1', 'left');
+    $builder->join('contact_email ce', 'ce.contact_id = co.contact_id AND ce.is_primary = 1', 'left');
 
-        // Joins
-        $builder->join('contact co', 'co.company_id = c.company_id', 'left');
-        $builder->join('contact_mobile cm', 'cm.contact_id = co.contact_id AND cm.is_primary = 1', 'left');
-        $builder->join('contact_email ce', 'ce.contact_id = co.contact_id AND ce.is_primary = 1', 'left');
-
-        // Search Conditions (Grouped Properly)
+    // 3. Search Conditions (Grouped with groupStart/groupEnd)
+    if (!empty($search)) {
         $builder->groupStart()
                 ->like('c.company_name', $search)
                 ->orLike('c.category', $search)
@@ -77,14 +82,22 @@ public function search($search)
                 ->orLike('ce.email', $search)
                 ->orLike('cm.mobile', $search)
                 ->groupEnd();
+    }
 
-        $builder->groupBy('c.company_id');
-        $builder->orderBy('c.company_name', 'ASC');
+    // 4. Group By (CRITICAL FIX: Include all non-aggregated columns)
+    $builder->groupBy([
+        'c.company_id', 
+        'c.company_name', 
+        'c.category', 
+        'c.city', 
+        'c.state'
+    ]);
 
-        $query = $builder->get();
-        $results = $query->getResult();
-        return $results;
+    // 5. Order and Fetch
+    $builder->orderBy('c.company_name', 'ASC');
 
+    $query = $builder->get();
+    return $query->getResult();
 }
 
 public function getAllCompanyDetails($source, $timerange = null)

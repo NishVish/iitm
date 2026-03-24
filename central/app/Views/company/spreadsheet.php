@@ -229,15 +229,18 @@
                         <th>Fax</th>
 
                         <?php for ($i = 1; $i <= ($maxContacts ?? 1); $i++): 
-                            $suffix = $i === 1 ? '' : "_$i";
-                        ?>
-                            <th>Contact Name<?= $suffix ?></th>
-                            <th>Designation<?= $suffix ?></th>
-                            <th>Mobile <?= $i*2-1 ?></th>
-                            <th>Mobile <?= $i*2 ?></th>
-                            <th>Email <?= $i*2-1 ?></th>
-                            <th>Email <?= $i*2 ?></th>
-                        <?php endfor; ?>
+    $suffix = $i === 1 ? '' : "_$i";
+    // Calculate the starting number for the labels (1, 4, 7...)
+    $startIdx = ($i - 1) * 3; 
+?>
+    <th>Contact Name<?= $suffix ?></th>
+    <th>Designation<?= $suffix ?></th>
+    <th>Mobile <?= $startIdx + 1 ?></th>
+    <th>Mobile <?= $startIdx + 2 ?></th>
+    <th>Mobile <?= $startIdx + 3 ?></th> <th>Email <?= $startIdx + 1 ?></th>
+    <th>Email <?= $startIdx + 2 ?></th>
+    <th>Email <?= $startIdx + 3 ?></th>  <?php endfor; ?>
+
                     </tr>
                 </thead>
 
@@ -291,15 +294,21 @@
                             <td><?= esc($d['fax'] ?? '') ?></td>
 
                             <?php for ($i=0; $i < ($maxContacts ?? 1); $i++):
-                                $c = $cList[$i] ?? [];
-                            ?>
-                                <td><?= esc($c['name'] ?? '-') ?></td>
-                                <td><?= esc($c['designation'] ?? '-') ?></td>
-                                <td><?= esc($c['mobiles'][0] ?? '-') ?></td>
-                                <td><?= esc($c['mobiles'][1] ?? '-') ?></td>
-                                <td><?= esc($c['emails'][0] ?? '-') ?></td>
-                                <td><?= esc($c['emails'][1] ?? '-') ?></td>
-                            <?php endfor; ?>
+    $c = $cList[$i] ?? [];
+    $mobiles = $c['mobiles'] ?? [];
+    $emails  = $c['emails'] ?? [];
+?>
+    <td><?= esc($c['name'] ?? '-') ?></td>
+    <td><?= esc($c['designation'] ?? '-') ?></td>
+    
+    <td><?= esc($mobiles[0] ?? '-') ?></td>
+    <td><?= esc($mobiles[1] ?? '-') ?></td>
+    <td><?= esc($mobiles[2] ?? '-') ?></td> 
+    
+    <td><?= esc($emails[0] ?? '-') ?></td>
+    <td><?= esc($emails[1] ?? '-') ?></td>
+    <td><?= esc($emails[2] ?? '-') ?></td>
+<?php endfor; ?>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

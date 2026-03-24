@@ -1,0 +1,3 @@
+@charset "UTF-8";
+/* https://iitmindia.com/wp-content/plugins/elementor/assets/lib/animations/styles/rotateInDownLeft.min.css?ver=3.32.5 */
+@keyframes rotateInDownLeft{from{transform-origin:left bottom;transform:rotate3d(0,0,1,-45deg);opacity:0}to{transform-origin:left bottom;transform:none;opacity:1}}.rotateInDownLeft{animation-name:rotateInDownLeft}

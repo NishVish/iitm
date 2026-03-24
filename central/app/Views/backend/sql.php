@@ -41,7 +41,7 @@
 <p>Delete queries</p>
 <button type="button" onclick="fillQuery()">Fill Delete Query</button>
 
-<form method="post" action="<?= site_url('backend/sql') ?>">
+<form method="post" action="<?= site_url('backend/sql') ?>" onsubmit="return confirmDelete()">
     <?= csrf_field() ?>
 
     <textarea id="sqlQuery" name="sql" rows="10" style="width:100%; font-family: monospace;">
@@ -55,9 +55,20 @@
 <script>
 function fillQuery() {
     // The query you want to insert
-    const query = "DELETE FROM company_data WHERE session > 1;";
+    const query = "DELETE FROM company_data WHERE session > 1;"; // Example delete query
     // Put it into the textarea
     document.getElementById('sqlQuery').value = query;
+}
+
+function confirmDelete() {
+    const query = document.getElementById('sqlQuery').value;
+    
+    // Check if the query contains "DELETE"
+    if (query.toUpperCase().includes('DELETE')) {
+        // Show a confirmation dialog
+        return confirm("WARNING: You are about to delete records from the database. Are you sure you want to proceed?");
+    }
+    return true; // Allow submission if it's not a delete query
 }
 </script>
 

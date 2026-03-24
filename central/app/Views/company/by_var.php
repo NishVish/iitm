@@ -83,16 +83,23 @@ document.addEventListener('DOMContentLoaded', function() {
         { title: 'fax' }
     ];
 
-    for (let i = 1; i <= maxContacts; i++) {
-        const suffix = i === 1 ? '' : `_${i}`;
-        columns.push({ title: `contact_name${suffix}` });
-        columns.push({ title: `designation${suffix}` });
-        columns.push({ title: `mobile_${i*2-1}` });
-        columns.push({ title: `mobile_${i*2}` });
-        columns.push({ title: `email_${i*2-1}` });
-        columns.push({ title: `email_${i*2}` });
-    }
+for (let i = 1; i <= maxContacts; i++) {
+    const suffix = i === 1 ? '' : `_${i}`;
+    
+    columns.push({ title: `contact_name${suffix}` });
+    columns.push({ title: `designation${suffix}` });
+    
+    // Math logic: (i-1)*3 + 1 gives the starting number for each set
+    const startIdx = (i - 1) * 3;
 
+    columns.push({ title: `mobile_${startIdx + 1}` });
+    columns.push({ title: `mobile_${startIdx + 2}` });
+    columns.push({ title: `mobile_${startIdx + 3}` }); // New Column
+
+    columns.push({ title: `email_${startIdx + 1}` });
+    columns.push({ title: `email_${startIdx + 2}` });
+    columns.push({ title: `email_${startIdx + 3}` });  // New Column
+}
 const data = [
 
 
@@ -102,7 +109,7 @@ const data = [
 foreach ($companies as $comp):
 
 
-
+// var_dump($comp)
     $d = $comp['details'];
     $cList = array_values($comp['contacts']);
    
@@ -181,16 +188,25 @@ if (!empty($d['last_comments'])) {
             '<?= esc($d['state'] ?? '') ?>',
             '<?= esc($d['phone'] ?? '') ?>',
             '<?= esc($d['fax'] ?? '') ?>',
-            <?php for ($i=0; $i < $maxContacts; $i++):
-                $c = $cList[$i] ?? [];
-            ?>
-                '<?= esc($c['name'] ?? '') ?>',
-                '<?= esc($c['designation'] ?? '') ?>',
-                '<?= esc($c['mobiles'][0] ?? '') ?>',
-                '<?= esc($c['mobiles'][1] ?? '') ?>',
-                '<?= esc($c['emails'][0] ?? '') ?>',
-                '<?= esc($c['emails'][1] ?? '') ?>',
-            <?php endfor; ?>
+<?php for ($i = 0; $i < $maxContacts; $i++): 
+    // Fetch the specific contact object or an empty array if it doesn't exist
+    $c = $cList[$i] ?? [];
+    
+    // Ensure nested arrays exist to avoid "offset" errors
+    $mobiles = $c['mobiles'] ?? [];
+    $emails  = $c['emails'] ?? [];
+?>
+    '<?= esc($c['name'] ?? '') ?>',
+    '<?= esc($c['designation'] ?? '') ?>',
+    '<?= esc($mobiles[0] ?? '') ?>',
+    '<?= esc($mobiles[1] ?? '') ?>',
+    '<?= esc($mobiles[2] ?? '') ?>', // Added 3rd Mobile
+    '<?= esc($emails[0] ?? '') ?>',
+    '<?= esc($emails[1] ?? '') ?>',
+    '<?= esc($emails[2] ?? '') ?>', // Added 3rd Email
+<?php endfor; ?>
+
+
         ]
     },
 <?php endforeach; ?>

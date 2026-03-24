@@ -48,7 +48,7 @@
             <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1-768x768.png" width="45" height="45" class="me-3">
             <div>
                 <span class="fw-bold fs-4 d-block text-primary" style="line-height: 1;">IITM India</span>
-                <small class="text-muted uppercase">International Industrial Trade Fair</small>
+                <small class="text-muted uppercase">India International Travel Mart</small>
             </div>
         </a>
     </div>

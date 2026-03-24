@@ -827,7 +827,10 @@ $data =
 
     'filters'       => $filters
 ];
-// var_dump($data);
+
+// echo "<pre style='background: #222; color: #0f0; padding: 20px; border-radius: 10px; line-height: 1.5;'>";
+// print_r($data); // or var_dump($data);
+// echo "</pre>";
 // exit;
 return $data;
 

@@ -20,12 +20,12 @@ Route::post('/verify-otp',[AuthController::class,'verifyOtp'])->name('login.veri
 
 Route::get('/otp-list',[AuthController::class,'getOtp']);
 
-use App\Http\Controllers\MobileController;
+use App\Http\Controllers\App;
 
-Route::get('/home', [MobileController::class, 'index'])->name('home'); // show login form
-Route::get('/profile', [MobileController::class, 'index'])->name('profile'); // submit login
-Route::get('/layout', [MobileController::class, 'index'])->name('layout'); // submit login
-Route::get('/calendar', [MobileController::class, 'index'])->name('calendar'); // submit login    
+Route::get('/home', [App::class, 'index'])->name('home'); // show login form
+Route::get('/profile', [App::class, 'index'])->name('profile'); // submit login
+Route::get('/layout', [App::class, 'index'])->name('layout'); // submit login
+Route::get('/calendar', [App::class, 'index'])->name('calendar'); // submit login    
 
 use App\Http\Controllers\RegisterController;
 Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
