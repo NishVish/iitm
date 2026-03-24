@@ -1,6 +1,10 @@
 RewriteEngine On
 
-# Forward all traffic from this folder to your Node app on port 8000
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteRule ^(.*)$ http://localhost:8000/$1 [P,L]   
+# Let actual static files serve directly
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Proxy everything else to Node
+RewriteRule ^ci/node/(.*)$ http://127.0.0.1:8000/$1 [P,L]
+
+ProxyPassReverse /ci/node/ http://127.0.0.1:8000/
