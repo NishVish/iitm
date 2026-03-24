@@ -78,11 +78,21 @@ const buildPath = path.resolve(__dirname, "iitm-frontend", "build");
 console.log("Serving React from:", buildPath); // Check this in cPanel logs (stderr.log)
 
 app.use(express.static(buildPath));
+const fs = require("fs");
+
+app.get("/api/build-check", (req, res) => {
+    res.json({
+        buildPath,
+        exists: fs.existsSync(buildPath),
+        indexExists: fs.existsSync(path.join(buildPath, "index.html")),
+        files: fs.existsSync(buildPath) ? fs.readdirSync(buildPath) : "folder missing"
+    });
+});
 
 // Ensure the catch-all handles the subfolder pathing
-app.get(/^(?!\/api).+/, (req, res) => {
-    res.sendFile(path.join(buildPath, "index.html"));
-});
+// app.get(/^(?!\/api).+/, (req, res) => {
+//     res.sendFile(path.join(buildPath, "index.html"));
+// });
 // --- 5. START SERVER ---
 const PORT = 8000;
 app.listen(PORT, () => {

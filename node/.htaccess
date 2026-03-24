@@ -1,10 +1,12 @@
 RewriteEngine On
 
-# Let actual static files serve directly
+# Proxy only API calls to Node
+RewriteCond %{REQUEST_URI} ^/ci/node/api/
+RewriteRule ^ci/node/api/(.*)$ http://127.0.0.1:8000/api/$1 [P,L]
+
+# Let Apache serve static files (React build) directly
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# Proxy everything else to Node
-RewriteRule ^ci/node/(.*)$ http://127.0.0.1:8000/$1 [P,L]
-
-ProxyPassReverse /ci/node/ http://127.0.0.1:8000/
+# React client-side routing fallback
+RewriteRule ^ci/node/(.*)$ /ci/node/index.html [L]
