@@ -1,20 +1,14 @@
-# 1. Disable the default directory index search
-DirectoryIndex disabled
-DirectoryIndex server.js
-
-# 2. Ensure Passenger is active
 PassengerEnabled On
 PassengerAppRoot /home/iitminda/public_html/ci/node
 PassengerStartupFile server.js
 PassengerAppType node
 
-# 3. Standard Rewrite Logic
 RewriteEngine On
 RewriteBase /ci/node/
 
-# If the request is for a real file (like index.html or main.css), serve it
+# 1. If it's a real file (like a CSS file or index.html), serve it directly
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# Everything else goes to your Node app (server.js)
+# 2. Everything else goes to the Node app
 RewriteRule ^(.*)$ server.js [L]
