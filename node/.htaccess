@@ -1,8 +1,3 @@
-PassengerEnabled On
-PassengerAppRoot /home/iitminda/public_html/ci/node
-PassengerStartupFile server.js
-PassengerAppType node
-
 RewriteEngine On
 RewriteBase /ci/node/
 
