@@ -1,12 +1,12 @@
 RewriteEngine On
 RewriteBase /ci/node/
 
-# 1. Route API requests (https://iitmindia.com/ci/node/api/...)
-# Note: We remove 'api/' from the forwarded URL because Node usually handles it
-RewriteRule ^api/(.*)$ http://localhost:8000/api/$1 [P,L]
+# 1. If the file EXISTS on the disk (like bundle.js), serve it directly
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
 
-# 2. Route everything else to React (Port 3000)
-# This ensures static files like bundle.js are found
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ http://localhost:3000/$1 [P,L]
+# 2. Route API calls to Node (Port 8000)
+RewriteRule ^api/(.*)$ http://127.0.0.1:8000/api/$1 [P,L]
+
+# 3. Route everything else to React (Port 3000)
+RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
