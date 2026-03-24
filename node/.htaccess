@@ -1,11 +1,13 @@
 RewriteEngine On
 RewriteBase /ci/node/
 
-# 1. Skip rewrite for existing files (this lets Express.static work)
+# 1. Skip rewrite for existing files (lets Express.static work)
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
 # 2. Forward everything else to your Node app
-# Note: cPanel usually maps the app to 127.0.0.1:8000 internally
-RewriteRule ^(.*)$ http://127.0.0.1:8000/$1 [P,L]
+RewriteRule ^(.*)$ http://127.0.0.1:8000/ci/node/$1 [P,L]
+
+# 3. Fix redirect URLs in responses from the proxied app
+ProxyPassReverse /ci/node/ http://127.0.0.1:8000/ci/node/
