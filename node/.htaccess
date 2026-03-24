@@ -1,9 +1,11 @@
-RewriteEngine On
-RewriteBase /ci/node/
+PassengerEnabled On
+PassengerAppRoot /home/iitminda/public_html/ci/node
+PassengerStartupFile server.js
+PassengerAppType node
 
-# 1. If it's a real file (like a CSS file or index.html), serve it directly
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^ - [L]
-
-# 2. Everything else goes to the Node app
-RewriteRule ^(.*)$ server.js [L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Serve static files directly
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+</IfModule>
