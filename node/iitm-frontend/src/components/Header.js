@@ -6,36 +6,24 @@ function Header() {
 
     useEffect(() => {
         fetch("http://localhost:8000/api/events/upcoming")
-            .then(res => res.json())
-            .then(res => {
-                if (res.data && res.data.length > 0) {
-                    setNextEvent(res.data[0]);
-                }
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.data?.length) setNextEvent(res.data[0]);
             })
-            .catch(err => console.error("Error loading events:", err));
+            .catch((err) => console.error("Error loading events:", err));
     }, []);
 
     useEffect(() => {
-        if (!nextEvent || !nextEvent.start_date) return;
+        if (!nextEvent?.start_date) return;
 
         const updateCountdown = () => {
-            const eventDate = new Date(nextEvent.start_date).getTime();
-            const now = new Date().getTime();
-            const diff = eventDate - now;
-
-            if (diff <= 0) {
-                setTimeLeft({ d: "00", h: "00", m: "00" });
-                return;
-            }
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const diff = new Date(nextEvent.start_date) - new Date();
+            if (diff <= 0) return setTimeLeft({ d: "00", h: "00", m: "00" });
 
             setTimeLeft({
-                d: String(days).padStart(2, '0'),
-                h: String(hours).padStart(2, '0'),
-                m: String(mins).padStart(2, '0')
+                d: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, "0"),
+                h: String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, "0"),
+                m: String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0"),
             });
         };
 
@@ -44,52 +32,69 @@ function Header() {
         return () => clearInterval(timer);
     }, [nextEvent]);
 
-    // Helper to format the date range string like "19-20 Mar"
     const formatDateRange = () => {
         if (!nextEvent?.start_date) return "TBA";
         const start = new Date(nextEvent.start_date);
         const end = new Date(nextEvent.end_date);
-        const options = { day: '2-digit' };
-        const monthOptions = { day: '2-digit', month: 'short' };
-        return `${start.toLocaleDateString('en-GB', options)}-${end.toLocaleDateString('en-GB', monthOptions)}`;
+        return `${start.getDate()}-${end.getDate()} ${end.toLocaleString("en-GB", { month: "short" })}`;
     };
 
-    // --- STYLES (Converted from your CSS) ---
     const headerStyle = {
         background: "#a82324",
-        padding: "60px 24px 80px 24px",
-        borderBottomLeftRadius: "40px",
-        borderBottomRightRadius: "40px",
+        padding: "40px 20px 30px 20px", // reduced top & bottom padding
+        borderBottomLeftRadius: "30px",
+        borderBottomRightRadius: "30px",
         color: "white",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        position: "relative",
     };
 
-    const eventDetailsStyle = { display: "flex", flexDirection: "column", fontFamily: "system-ui, sans-serif" };
-    const eventValueStyle = { fontSize: "1.8rem", fontWeight: "600", color: "white" };
-    const eventLabelStyle = { fontSize: "1rem", color: "rgba(255,255,255,0.6)", letterSpacing: "0.5px" };
+    const statsContainerStyle = {
+        position: "relative",
+        top: "-20px", // slightly less floating
+        padding: "0 20px",
+        maxWidth: "1000px",
+        margin: "0 auto",
+    };
 
-    const statsContainerStyle = { padding: "0 20px", marginTop: "-45px" };
     const statsCardStyle = {
         background: "rgba(255, 255, 255, 0.95)",
-        backdropFilter: "blur(10px)",
-        borderRadius: "25px",
-        padding: "20px 10px",
+        backdropFilter: "blur(8px)",
+        borderRadius: "20px",
+        padding: "12px 8px", // smaller padding
         display: "flex",
         justifyContent: "space-around",
-        boxShadow: "0 15px 35px rgba(168, 35, 36, 0.15)",
-        border: "1px solid rgba(255, 255, 255, 0.5)"
+        boxShadow: "0 10px 20px rgba(168, 35, 36, 0.1)",
+        border: "1px solid rgba(255, 255, 255, 0.5)",
     };
 
-    const statItemStyle = { textAlign: "center", flex: 1, display: "flex", flexDirection: "column" };
-    const statValueStyle = { fontWeight: "800", fontSize: "24px", color: "#a82324" };
-    const statLabelStyle = { fontSize: "10px", color: "#7f8c8d", marginTop: "6px", fontWeight: "700", textTransform: "uppercase" };
+    const statItemStyle = {
+        textAlign: "center",
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+    };
+
+    const statValueStyle = {
+        fontWeight: "700",
+        fontSize: "20px", // smaller number
+        color: "#a82324",
+    };
+
+    const statLabelStyle = {
+        fontSize: "9px", // smaller label
+        color: "#7f8c8d",
+        marginTop: "4px",
+        fontWeight: "600",
+        textTransform: "uppercase",
+    };
 
     return (
         <>
             <div style={headerStyle}>
-                <div style={{ width: "60px" }}>
+                <div style={{ width: "50px" }}>
                     <img
                         src="https://iitmindia.com/reg/iitm_chennai/logo.png"
                         alt="Logo"
@@ -97,13 +102,16 @@ function Header() {
                     />
                 </div>
 
-                <div style={eventDetailsStyle}>
-                    <span style={eventValueStyle}>{nextEvent?.name || "Loading..."}</span>
-                    <span style={eventLabelStyle}>
+                <div style={{ display: "flex", flexDirection: "column", fontFamily: "system-ui, sans-serif" }}>
+                    <span style={{ fontSize: "1.5rem", fontWeight: "600", color: "white" }}>
+                        {nextEvent?.name || "Loading..."}
+                    </span>
+                    <span style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.7)", letterSpacing: "0.5px" }}>
                         Next Event || {formatDateRange()}
                     </span>
                 </div>
-                <div style={{ width: "40px" }}></div> {/* Spacer */}
+
+                <div style={{ width: "30px" }}></div>
             </div>
 
             <div style={statsContainerStyle}>
