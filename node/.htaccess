@@ -9,4 +9,4 @@ RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
 # React client-side routing fallback
-RewriteRule ^ci/node/(.*)$ /ci/node/index.html [L]
+RewriteRule ^ci/node/(.*)$ /ci/node/iitm-frontend/build/index.html [L]
