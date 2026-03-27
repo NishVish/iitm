@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql2");
 const path = require("path");
 const cors = require("cors");
+const fs = require("fs");
 
 const app = express();
 
@@ -28,7 +29,7 @@ db.connect((err) => {
     }
 });
 
-// Helper for Database Queries
+// Helper for database queries
 const runQuery = (sql, res) => {
     db.query(sql, (err, results) => {
         if (err) return res.status(500).json({ status: "error", error: err.message });
@@ -40,8 +41,22 @@ const runQuery = (sql, res) => {
     });
 };
 
-// --- 3. ALL API ROUTES ---
+// --- 3. API ROUTES ---
 
+// Base API route
+app.get("/api", (req, res) => {
+    res.json({
+        message: "API is running!",
+        available_routes: [
+            "/db-info",
+            "/tables",
+            "/events",
+            "/events/upcoming"
+        ]
+    });
+});
+
+// Database info
 app.get("/api/db-info", (req, res) => {
     res.json({
         database: dbConfig.database,
@@ -50,36 +65,36 @@ app.get("/api/db-info", (req, res) => {
     });
 });
 
+// List tables
 app.get("/api/tables", (req, res) => {
     db.query("SHOW TABLES", (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         const tableNames = results.map(row => Object.values(row)[0]);
         res.json({
-            database: "testing_server",
+            database: dbConfig.database,
             total_tables: tableNames.length,
             tables: tableNames
         });
     });
 });
 
+// All events
 app.get("/api/events", (req, res) => {
     runQuery("SELECT * FROM events WHERE start_date IS NOT NULL ORDER BY start_date ASC", res);
 });
 
-// RESTORED: The upcoming events API
+// Upcoming events
 app.get("/api/events/upcoming", (req, res) => {
     runQuery("SELECT * FROM events WHERE start_date >= CURDATE() ORDER BY start_date ASC", res);
 });
 
-// --- 4. SERVE REACT BUILD (The Frontend) ---
-// Use path.resolve to get the full system path starting from /home/youruser/...
+// --- 4. SERVE REACT BUILD ---
 const buildPath = path.resolve(__dirname, "iitm-frontend", "build");
-
-console.log("Serving React from:", buildPath); // Check this in cPanel logs (stderr.log)
+console.log("Serving React from:", buildPath);
 
 app.use(express.static(buildPath));
-const fs = require("fs");
 
+// Optional: check build folder contents
 app.get("/api/build-check", (req, res) => {
     res.json({
         buildPath,
@@ -89,13 +104,18 @@ app.get("/api/build-check", (req, res) => {
     });
 });
 
-// Ensure the catch-all handles the subfolder pathing
-// app.get(/^(?!\/api).+/, (req, res) => {
-//     res.sendFile(path.join(buildPath, "index.html"));
-// });
-// --- 5. START SERVER ---
-const PORT = 8000;
+// --- 5. CATCH-ALL ROUTE ---
+// All non-API routes go here
+app.get(/^(?!\/api).*/, (req, res) => {
+    // Test: send Hello for now
+    res.send("Hello, this route works!");
+    // Later, uncomment to serve React SPA
+    // res.sendFile(path.join(buildPath, "index.html"));
+});
+
+// --- 6. START SERVER ---
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`🔗 API Base: http://localhost:${PORT}/api/events`);
+    console.log(`🔗 API Base: http://localhost:${PORT}/api`);
 });
