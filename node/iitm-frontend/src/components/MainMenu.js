@@ -2,11 +2,11 @@ import React from "react";
 
 const MainMenu = () => {
     const menuItems = [
-        { label: "Event List", sub: "Upcoming shows", icon: "event_available", color: "#6c5ce7", link: "/calendar" },
+        { label: "Event List", sub: "Upcoming shows", icon: "event_available", color: "#6c5ce7", link: "ci/node/calendar" },
         { label: "Scan Leads", sub: "Visitor info", icon: "qr_code_scanner", color: "#ff7675", link: "#" },
-        { label: "Stall Booking", sub: "Reserve space", icon: "confirmation_number", color: "#00b894", link: "#" },
+        { label: "Stall Booking", sub: "Reserve space", icon: "confirmation_number", color: "#00b894", link: "" },
         { label: "B2B Meetings", sub: "Networking", icon: "groups", color: "#fdcb6e", link: "#" },
-        { label: "Floor Plan", sub: "Layouts", icon: "file_download", color: "#0984e3", link: "/layout" },
+        { label: "Floor Plan", sub: "Layouts", icon: "file_download", color: "#0984e3", link: "ci/node/layout" },
         { label: "E-Badge", sub: "Entry pass", icon: "badge", color: "#e84393", link: "#" },
     ];
 
