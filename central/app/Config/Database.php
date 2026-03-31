@@ -25,40 +25,47 @@ class Database extends Config
      * @var array<string, mixed>
      */
     public array $default = [
-        'DSN'          => '',
+        'DSN' => '',
 
 
-'hostname'=>'21.157.66.148.host.secureserver.net','username'=>'iitminda_master','password'=>'gB)%gU}ocn?MCP=}','database'=>'iitminda_testing_server',
-
-
-
-
-
-// 'hostname' => 'localhost', 'username' => 'root', 'password' => '', 'database' => 'testing_server',
-// 'hostname' => 'localhost', 'username' => 'root', 'password' => '', 'database' => 'spottesting',
+        // 'hostname'=>'21.157.66.148.host.secureserver.net','username'=>'iitminda_master','password'=>'gB)%gU}ocn?MCP=}','database'=>'iitminda_testing_server',
 
 
 
 
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'database' => 'iitminda_testing_server',
 
-        'DBDriver'     => 'MySQLi',
-        'DBPrefix'     => '',
-        'pConnect'     => false,
-        'DBDebug'      => true,
-        'charset'      => 'utf8mb4',
-        'DBCollat'     => 'utf8mb4_general_ci',
-        'swapPre'      => '',
-        'encrypt'      => false,
-        'compress'     => false,
-        'strictOn'     => false,
-        'failover'     => [],
-        'port'         => 3306,
+        // 'hostname' => 'localhost',
+        // 'username' => 'root',
+        // 'password' => '',
+        // 'database' => 'iitminda_testing_server',
+        // 'hostname' => 'localhost', 'username' => 'root', 'password' => '', 'database' => 'spottesting',
+
+
+
+
+
+        'DBDriver' => 'MySQLi',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug' => true,
+        'charset' => 'utf8mb4',
+        'DBCollat' => 'utf8mb4_general_ci',
+        'swapPre' => '',
+        'encrypt' => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port' => 3306,
         'numberNative' => false,
-        'foundRows'    => false,
-        'dateFormat'   => [
-            'date'     => 'Y-m-d',
+        'foundRows' => false,
+        'dateFormat' => [
+            'date' => 'Y-m-d',
             'datetime' => 'Y-m-d H:i:s',
-            'time'     => 'H:i:s',
+            'time' => 'H:i:s',
         ],
     ];
 
@@ -174,35 +181,35 @@ class Database extends Config
      * @var array<string, mixed>
      */
     public array $tests = [
-        'DSN'         => '',
+        'DSN' => '',
         // 'hostname'    => '127.0.0.1',
         // 'username'    => '',
         // 'password'    => '',
 
-                'hostname'     => '21.157.66.148.host.secureserver.net',
-        'username'     => 'iitminda_master',
-        'password'     => 'gB)%gU}ocn?MCP=}',
+        'hostname' => '21.157.66.148.host.secureserver.net',
+        'username' => 'iitminda_master',
+        'password' => 'gB)%gU}ocn?MCP=}',
 
-        'database'    => ':memory:',
-        'DBDriver'    => 'SQLite3',
-        'DBPrefix'    => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
-        'pConnect'    => false,
-        'DBDebug'     => true,
-        'charset'     => 'utf8',
-        'DBCollat'    => '',
-        'swapPre'     => '',
-        'encrypt'     => false,
-        'compress'    => false,
-        'strictOn'    => false,
-        'failover'    => [],
-        'port'        => 3306,
+        'database' => ':memory:',
+        'DBDriver' => 'SQLite3',
+        'DBPrefix' => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
+        'pConnect' => false,
+        'DBDebug' => true,
+        'charset' => 'utf8',
+        'DBCollat' => '',
+        'swapPre' => '',
+        'encrypt' => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port' => 3306,
         'foreignKeys' => true,
         'busyTimeout' => 1000,
         'synchronous' => null,
-        'dateFormat'  => [
-            'date'     => 'Y-m-d',
+        'dateFormat' => [
+            'date' => 'Y-m-d',
             'datetime' => 'Y-m-d H:i:s',
-            'time'     => 'H:i:s',
+            'time' => 'H:i:s',
         ],
     ];
 

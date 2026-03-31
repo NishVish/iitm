@@ -42,7 +42,30 @@ const runQuery = (sql, res) => {
 };
 
 // --- 3. API ROUTES ---
-
+// // --- Global 404 handler for everything else ---
+// app.use((req, res) => {
+//     res.status(404).send(`
+//         <!DOCTYPE html>
+//         <html lang="en">
+//         <head>
+//             <meta charset="UTF-8">
+//             <title>404 Not Found</title>
+//             <style>
+//                 body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; }
+//                 h1 { font-size: 60px; color: #e74c3c; }
+//                 p { font-size: 24px; color: #333; }
+//                 a { color: #3498db; text-decoration: none; font-size: 20px; }
+//                 a:hover { text-decoration: underline; }
+//             </style>
+//         </head>
+//         <body>
+//             <h1>404</h1>
+//             <p>Oops! The page you are looking for does not exist.</p>
+//             <a href="/">Go back to Home</a>
+//         </body>
+//         </html>
+//     `);
+// });
 // Base API route
 app.get("/api", (req, res) => {
     res.json({
@@ -106,11 +129,37 @@ app.get("/api/build-check", (req, res) => {
 
 // --- 5. CATCH-ALL ROUTE ---
 // All non-API routes go here
+// --- Serve React SPA for all non-API routes, fallback to inline 404 ---
 app.get(/^(?!\/api).*/, (req, res) => {
-    // Test: send Hello for now
-    res.send("Hello, this route works!");
-    // Later, uncomment to serve React SPA
-    // res.sendFile(path.join(buildPath, "index.html"));
+    const indexFile = path.join(buildPath, "index.html");
+
+    if (fs.existsSync(indexFile)) {
+        // Serve React SPA
+        res.sendFile(indexFile);
+    } else {
+        // Inline 404 HTML if React build not found
+        res.status(404).send(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>404 Not Found</title>
+                <style>
+                    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; }
+                    h1 { font-size: 60px; color: #e74c3c; }
+                    p { font-size: 24px; color: #333; }
+                    a { color: #3498db; text-decoration: none; font-size: 20px; }
+                    a:hover { text-decoration: underline; }
+                </style>
+            </head>
+            <body>
+                <h1>404</h1>
+                <p>Oops! The page you are looking for does not exist.</p>
+                <a href="/">Go back to Home</a>
+            </body>
+            </html>
+        `);
+    }
 });
 
 // --- 6. START SERVER ---

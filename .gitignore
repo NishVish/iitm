@@ -13,3 +13,5 @@ central/app/Config/Database.php
 /central/writable/session
 central/app/Config/App.php
 central/app/Config/Database.php
+/node/iitm-frontend/node_modules
+/node/iitm-frontend/node_modules
