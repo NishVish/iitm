@@ -1,65 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-// Add these to your index.css or a <style> tag in your component
-const profileStyles = {
-    container: {
-        fontFamily: "'Plus Jakarta Sans', sans-serif",
-        padding: "40px 20px 100px 20px", // Extra bottom padding for your BottomNav
-        maxWidth: "1100px",
-        margin: "auto",
-        backgroundColor: "#fbfcfe",
-        minHeight: "100vh",
-    },
-    hero: {
-        background: "#fff",
-        borderRadius: "32px",
-        padding: "40px",
-        display: "flex",
-        alignItems: "center",
-        gap: "30px",
-        boxShadow: "0 10px 40px -15px rgba(0,0,0,0.05)",
-        marginBottom: "30px",
-        border: "1px solid #f1f5f9",
-    },
-    avatar: (color) => ({
-        width: "120px",
-        height: "120px",
-        borderRadius: "40px",
-        background: color || "linear-gradient(135deg, #4f46e5, #818cf8)",
-        color: "white",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "44px",
-        fontWeight: "800",
-        boxShadow: "0 15px 30px -10px rgba(79, 70, 229, 0.3)",
-        objectFit: "cover",
-        cursor: "pointer"
-    }),
-    bentoGrid: {
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-        gap: "20px",
-    },
-    card: (isLarge, isLogout) => ({
-        background: isLogout ? "#fff1f0" : (isLarge ? "linear-gradient(135deg, #4f46e5, #6366f1)" : "#fff"),
-        color: isLarge || isLogout ? (isLogout ? "#ff4d4f" : "#fff") : "#475569",
-        padding: "28px",
-        borderRadius: "28px",
-        border: isLogout ? "1px solid #ffa39e" : "1px solid #f1f5f9",
-        gridColumn: isLarge ? "span 2" : "span 1",
-        transition: "all 0.3s ease",
-        cursor: "pointer",
-    })
-};
-
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulate fetching your dataUrl
-        // In production, use: fetch('/userdata').then(res => res.json()).then(data => setUser(data))
+        // Mock fetching user data
         setTimeout(() => {
             setUser({
                 contact: {
@@ -69,7 +15,7 @@ const ProfilePage = () => {
                     mobile: "+1 (555) 000-1234",
                     city: "San Francisco",
                     state: "California",
-                    image: null // null triggers initials
+                    image: null
                 },
                 company: {
                     company_name: "Nexus Systems Intl.",
@@ -80,90 +26,184 @@ const ProfilePage = () => {
         }, 1000);
     }, []);
 
-    if (loading) return <div style={{ padding: "50px", textAlign: "center" }}>Loading Universe...</div>;
+    if (loading) return <div style={{ padding: 50, textAlign: "center", fontFamily: "sans-serif" }}>Loading...</div>;
 
     const getInitials = (name) => {
         const parts = name.trim().split(" ");
-        return parts.length > 1 ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase() : parts[0][0].toUpperCase();
+        return parts.length > 1
+            ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+            : parts[0][0].toUpperCase();
     };
 
     return (
-        <div style={profileStyles.container}>
-            {/* Hero Section */}
-            <div style={profileStyles.hero} className="profile-hero-mobile">
-                <div style={profileStyles.avatar()}>
-                    {user.contact.image ? (
-                        <img src={user.contact.image} alt="Profile" style={profileStyles.avatar()} />
-                    ) : (
-                        getInitials(user.contact.name)
-                    )}
-                </div>
+        <>
+            <style>
+                {`
+                .profile-container {
+                    font-family: 'Plus Jakarta Sans', sans-serif;
+                    max-width: 1100px;
+                    margin: auto;
+                    background-color: #fbfcfe;
+                    min-height: 100vh;
+                    
+                    /* FIXED SPACING FOR YOUR NAVIGATION */
+                    padding: 5x;
+                    padding-bottom: 120px; /* Lifts content above bottom nav */
+                    box-sizing: border-box;
+                }
 
-                <div style={{ flex: 1 }}>
-                    <h1 style={{ margin: 0, fontSize: "32px", color: "#0f172a" }}>{user.contact.name}</h1>
-                    <p style={{ color: "#4f46e5", fontWeight: "700", textTransform: "uppercase", margin: "5px 0" }}>
-                        {user.contact.designation}
-                    </p>
-                    <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "15px" }}>
-                        <Pill icon="fa-envelope" text={user.contact.email} />
-                        <Pill icon="fa-phone" text={user.contact.mobile} />
+                .bento-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 15px;
+                }
+
+                .card-large { grid-column: span 2; }
+                .card-small { grid-column: span 1; }
+
+                @media (max-width: 600px) {
+                    .bento-grid { grid-template-columns: 1fr; }
+                    .card-large, .card-small { grid-column: span 1; }
+                    .pill-container { flex-direction: column; width: 100%; }
+                    .pill { width: 100%; justify-content: center; }
+                    
+                    /* Mobile Specific Spacing */
+                    .profile-container {
+                        // padding-top: 80px; 
+                        padding-bottom: 110px;
+                    }
+                }
+                `}
+            </style>
+
+            <div className="profile-container">
+                {/* Hero Section */}
+                <div style={heroStyle}>
+                    <div style={avatarStyle}>
+                        {user.contact.image ? <img src={user.contact.image} alt="Profile" style={{ width: "100%", height: "100%", borderRadius: "50%" }} /> : getInitials(user.contact.name)}
+                    </div>
+                    <div style={{ textAlign: "center" }}>
+                        <h1 style={{ margin: 0, fontSize: "24px", color: "#0f172a" }}>{user.contact.name}</h1>
+                        <p style={designationStyle}>{user.contact.designation}</p>
+                        <div className="pill-container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", marginTop: "15px" }}>
+                            <div className="pill" style={pillStyle}><i className="fa-solid fa-envelope"></i> {user.contact.email}</div>
+                            <div className="pill" style={pillStyle}><i className="fa-solid fa-phone"></i> {user.contact.mobile}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Bento Grid */}
-            <div style={profileStyles.bentoGrid}>
-                <div style={profileStyles.card(true, false)}>
-                    <IconBox icon="fa-building" light />
-                    <Label text="Primary Organization" light />
-                    <div style={{ fontSize: "24px", fontWeight: "700" }}>{user.company.company_name}</div>
-                </div>
-
-                <div style={profileStyles.card(false, false)}>
-                    <IconBox icon="fa-database" />
-                    <Label text="System Node" />
-                    <div style={{ fontSize: "18px", fontWeight: "700" }}>{user.company.database_name}</div>
-                </div>
-
-                <div style={profileStyles.card(false, false)}>
-                    <IconBox icon="fa-location-dot" />
-                    <Label text="Location" />
-                    <div style={{ fontSize: "18px", fontWeight: "700" }}>{user.contact.city}, {user.contact.state}</div>
-                </div>
-
-                <a href="/logout" style={{ textDecoration: "none" }}>
-                    <div style={profileStyles.card(false, true)}>
-                        <IconBox icon="fa-power-off" danger />
-                        <Label text="Security" />
-                        <div style={{ fontSize: "18px", fontWeight: "700" }}>Terminate Session</div>
+                {/* Bento Grid */}
+                <div className="bento-grid">
+                    <div className="card-large" style={cardStyle(true)}>
+                        <div style={iconBox(true)}><i className="fa-solid fa-building"></i></div>
+                        <div style={labelStyle(true)}>Primary Organization</div>
+                        <div style={{ fontSize: "20px", fontWeight: 700 }}>{user.company.company_name}</div>
                     </div>
-                </a>
+
+                    <div className="card-small" style={cardStyle()}>
+                        <div style={iconBox()}><i className="fa-solid fa-database"></i></div>
+                        <div style={labelStyle()}>System Node</div>
+                        <div style={{ fontSize: "16px", fontWeight: 700 }}>{user.company.database_name}</div>
+                    </div>
+
+                    <div className="card-small" style={cardStyle()}>
+                        <div style={iconBox()}><i className="fa-solid fa-location-dot"></i></div>
+                        <div style={labelStyle()}>Location</div>
+                        <div style={{ fontSize: "16px", fontWeight: 700 }}>{user.contact.city}, {user.contact.state}</div>
+                    </div>
+
+                    <a href="/logout" className="card-large" style={{ textDecoration: "none" }}>
+                        <div style={cardStyle(false, true)}>
+                            <div style={iconBox(false, true)}><i className="fa-solid fa-power-off"></i></div>
+                            <div style={labelStyle()}>Security</div>
+                            <div style={{ fontSize: "16px", fontWeight: 700 }}>Terminate Session</div>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
-// Sub-components for cleaner code
-const Pill = ({ icon, text }) => (
-    <div style={{ background: "#eef2ff", color: "#4f46e5", padding: "8px 15px", borderRadius: "12px", fontSize: "13px", fontWeight: "600", display: "flex", alignItems: "center", gap: "8px" }}>
-        <i className={`fa-solid ${icon}`}></i> {text}
-    </div>
-);
+/* --- CLEANER STYLE OBJECTS --- */
 
-const Label = ({ text, light }) => (
-    <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: "800", marginBottom: "8px", opacity: light ? 0.8 : 0.5 }}>
-        {text}
-    </div>
-);
+const heroStyle = {
+    background: "#fff",
+    borderRadius: "24px",
+    padding: "40px 20px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "15px",
+    boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)",
+    marginBottom: "20px",
+    border: "1px solid #f1f5f9",
+};
 
-const IconBox = ({ icon, light, danger }) => (
-    <div style={{
-        width: "40px", height: "40px", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "15px",
-        background: light ? "rgba(255,255,255,0.2)" : (danger ? "rgba(255,77,79,0.1)" : "#f8fafc"),
-        color: light ? "white" : (danger ? "#ff4d4f" : "#4f46e5")
-    }}>
-        <i className={`fa-solid ${icon}`}></i>
-    </div>
-);
+const avatarStyle = {
+    width: "100px",
+    height: "100px",
+    borderRadius: "50%",
+    background: "linear-gradient(135deg, #4f46e5, #818cf8)",
+    color: "white",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "32px",
+    fontWeight: "800",
+};
+
+const designationStyle = {
+    color: "#4f46e5",
+    fontWeight: 700,
+    textTransform: "uppercase",
+    margin: "5px 0",
+    fontSize: "11px",
+    letterSpacing: "1px"
+};
+
+const pillStyle = {
+    background: "#eef2ff",
+    color: "#4f46e5",
+    padding: "10px 16px",
+    borderRadius: "14px",
+    fontSize: "13px",
+    fontWeight: "600",
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+};
+
+const cardStyle = (isLarge = false, isLogout = false) => ({
+    background: isLogout ? "#fff1f0" : isLarge ? "linear-gradient(135deg, #4f46e5, #6366f1)" : "#fff",
+    color: isLarge || isLogout ? (isLogout ? "#ff4d4f" : "#fff") : "#475569",
+    padding: "24px",
+    borderRadius: "24px",
+    border: isLogout ? "1px solid #ffa39e" : "1px solid #f1f5f9",
+    display: "flex",
+    flexDirection: "column",
+    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05)",
+});
+
+const iconBox = (light = false, danger = false) => ({
+    width: "42px",
+    height: "42px",
+    borderRadius: "12px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: "15px",
+    background: light ? "rgba(255,255,255,0.2)" : danger ? "rgba(255,77,79,0.1)" : "#f8fafc",
+    color: light ? "white" : danger ? "#ff4d4f" : "#4f46e5",
+});
+
+const labelStyle = (light = false) => ({
+    fontSize: "10px",
+    textTransform: "uppercase",
+    letterSpacing: "1px",
+    fontWeight: "800",
+    marginBottom: "6px",
+    opacity: light ? 0.8 : 0.5,
+});
 
 export default ProfilePage;
