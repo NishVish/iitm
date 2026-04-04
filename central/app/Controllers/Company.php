@@ -1194,7 +1194,7 @@ class Company extends BaseController
 
     public function add_details()
     {
-        set_time_limit(300);
+        set_time_limit(400);
 
         $companies = $this->request->getPost('companies');
 
