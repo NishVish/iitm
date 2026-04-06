@@ -26,31 +26,7 @@ const Header = ({ darkMode, setDarkMode }) => {
             )
         ),
         // Hero Section
-        React.createElement("div", { className: "relative pt-32 pb-20 px-8 overflow-hidden" },
-            React.createElement(motion.div, {
-                initial: { y: 50, opacity: 0 },
-                animate: { y: 0, opacity: 1 },
-                transition: { duration: 0.8 },
-                className: "relative z-10 text-center"
-            },
-                React.createElement("span", { className: "font-bold tracking-widest uppercase text-sm", style: { color: "#AA2324" } }, "Beyond Boundaries"), // ✅ hero subtitle
-                React.createElement("h2", { className: "text-6xl md:text-8xl font-extrabold mt-4 mb-6 tracking-tight" },
-                    "Design. ",
-                    React.createElement("span", { className: "text-transparent bg-clip-text", style: { backgroundImage: "linear-gradient(to right, #AA2324, #AA2324)" } }, "Build."), // ✅ hero gradient
-                    " Scale."
-                ),
-                React.createElement("p", { className: "text-xl opacity-70 max-w-xl mx-auto mb-8" },
-                    "The next generation of exhibition organizing. We don't just host events; we build immersive ecosystems."
-                )
-            ),
-            // Animated Background
-            React.createElement(motion.div, {
-                animate: { rotate: 360 },
-                transition: { duration: 20, repeat: Infinity, ease: "linear" },
-                className: "absolute -top-20 -right-20 w-96 h-96 rounded-full blur-3xl",
-                style: { backgroundColor: "rgba(170, 35, 36, 0.1)" } // ✅ bg color
-            })
-        )
+
     );
 };
 

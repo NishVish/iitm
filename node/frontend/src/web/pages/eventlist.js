@@ -126,3 +126,4 @@ const EventList = ({ darkMode }) => {
 };
 
 export default EventList;
+

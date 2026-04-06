@@ -34,7 +34,7 @@ const WebApp = () => {
 
                     // Event List Route (Fixed variable name to match import)
                     React.createElement(Route, {
-                        path: "/eventlist",
+                        path: "/events",
                         element: React.createElement(Event, null)
                     }),
 
