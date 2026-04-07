@@ -41,7 +41,7 @@ Route::get('/register/{location}', [RegisterController::class, 'index'])->name('
 Route::get('/registration/form', [RegisterController::class, 'registration_form'])->name('registration.form');
 
 // ADD THIS ROUTE BELOW:
-Route::post('/registration/submit', [RegisterController::class, 'store'])->name('registration.submit');
+Route::post('/registration/submit', [RegisterController::class, 'registaritonsubmit'])->name('registration.submit');
 // Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
 
 // Route::post('/register', [RegisterController::class, 'store'])->name('register.store'); // submit login 
