@@ -3,15 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OCR Camera</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Camera Improved</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: sans-serif;
             text-align: center;
             background: #f4f4f9;
             margin: 0;
@@ -19,20 +17,16 @@
         }
 
         #video-container {
-            position: relative;
-            width: 100%;
             max-width: 500px;
             margin: 0 auto;
-            border-radius: 15px;
+            border-radius: 10px;
             overflow: hidden;
             background: #000;
-            line-height: 0;
         }
 
         video {
             width: 100%;
             height: auto;
-            /* Mirroring is usually for front cam, but back cam shouldn't be mirrored */
         }
 
         .controls {
@@ -52,7 +46,6 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: opacity 0.2s;
         }
 
         .btn-capture {
@@ -86,7 +79,7 @@
 
 <body>
 
-    <h2>📷 Camera OCR</h2>
+    <h2>📷 Camera OCR Improved</h2>
 
     <div id="video-container">
         <video id="video" autoplay playsinline muted></video>
@@ -107,65 +100,68 @@
         const video = document.getElementById('video');
         const output = document.getElementById('output');
 
-        // Start camera with Back Camera preference
+        // 1️⃣ Initialize Camera
         async function initCamera() {
-            const constraints = {
-                video: {
-                    // 'environment' forces the back camera on mobile
-                    facingMode: { ideal: "environment" },
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 }
-                }
-            };
-
             try {
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } }
+                });
                 video.srcObject = stream;
             } catch (err) {
                 console.error(err);
-                alert("Camera access denied or not available. Please ensure you are using HTTPS.");
+                alert("Camera access denied or not available.");
             }
         }
+        initCamera();
 
+        // 2️⃣ Capture & preprocess image
         function capture() {
             const canvas = document.getElementById('canvas');
-            // Set canvas size to match the actual video stream resolution
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
 
             const ctx = canvas.getContext('2d');
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            imageData = canvas.toDataURL('image/jpeg', 0.8); // Use JPEG for better mobile performance
-            alert("Image captured! Now click 'Extract Text'.");
+            // Preprocess image: grayscale + contrast
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imgData.data;
+            for (let i = 0; i < data.length; i += 4) {
+                const gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+                let c = ((gray - 128) * 1.5 + 128); // contrast
+                c = Math.max(0, Math.min(255, c));
+                data[i] = data[i + 1] = data[i + 2] = c;
+            }
+            ctx.putImageData(imgData, 0, 0);
+
+            imageData = canvas.toDataURL('image/jpeg', 0.9);
+            alert("Image captured! Click 'Extract Text'.");
         }
 
+        // 3️⃣ Run OCR with Tesseract.js
         async function runOCR() {
-            if (!imageData) {
-                alert("Please capture an image first!");
-                return;
-            }
+            if (!imageData) { alert("Capture an image first!"); return; }
 
-            output.innerHTML = '<span class="loading">⏳ Processing... (this may take a moment)</span>';
+            output.innerHTML = '<span class="loading">⏳ Processing... Please wait</span>';
 
             try {
-                const result = await Tesseract.recognize(
-                    imageData,
-                    'eng',
-                    { logger: m => console.log(m) }
-                );
+                const result = await Tesseract.recognize(imageData, 'eng', {
+                    logger: m => {
+                        output.innerText = `Processing: ${Math.floor(m.progress * 100)}%`;
+                    }
+                });
 
-                const text = result.data.text;
+                const text = result.data.text.trim();
                 output.innerText = text || "No text found.";
 
-                // Send to Laravel
-                fetch('/save-ocr', {
+                // 4️⃣ Send to Laravel backend
+                await fetch('/save-ocr', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     },
-                    body: JSON.stringify({ text: text })
+                    body: JSON.stringify({ text })
                 });
 
             } catch (err) {
@@ -173,9 +169,6 @@
                 output.innerText = "Error processing image.";
             }
         }
-
-        // Initialize on load
-        initCamera();
     </script>
 </body>
 
