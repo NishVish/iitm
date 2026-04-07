@@ -166,6 +166,9 @@ class AuthController extends Controller
             session()->put('company', $company);
             session()->put('company_id', $company['company_id'] ?? null);
 
+            //     session(['number' => $request->mobile_number]);
+            // session(['is_verified' => true]);
+
             return response()->json([
                 'status' => 'success',
                 'contact' => $contact,

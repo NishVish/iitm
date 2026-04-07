@@ -37,7 +37,11 @@ use App\Http\Controllers\RegisterController;
 Route::get('/register', [EventController::class, 'showevents']); // Blade page
 
 Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
+// This is your current GET route that shows the form
+Route::get('/registration/form', [RegisterController::class, 'registration_form'])->name('registration.form');
 
+// ADD THIS ROUTE BELOW:
+Route::post('/registration/submit', [RegisterController::class, 'store'])->name('registration.submit');
 // Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
 
 // Route::post('/register', [RegisterController::class, 'store'])->name('register.store'); // submit login 
