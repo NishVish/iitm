@@ -16,22 +16,22 @@ class RegisterController extends Controller
         $events = DB::table('events')->get();
         // where('name', $location); like %location and year is current year
         $events = DB::table('events')->where('name', 'like', '%' . $location . '%')->where('year', date('Y'))->get();
-        
-        
+
+
         var_dump($events);
         // exit;
-        return view('app', ['location' => $location ?? '', 'events' => $events]);
+        return view('web.main', ['location' => $location ?? '', 'events' => $events]);
     }
 
-    
+
     public function index2($location = null)
     {
         // Fetch all records from the "events" table using Laravel's DB facade
         $events = DB::table('events')->get();
         // where('name', $location); like %location and year is current year
         $events = DB::table('events')->where('name', 'like', '%' . $location . '%')->where('year', date('Y'))->get();
-        
-        
+
+
         var_dump($events);
         // exit;
         return view('register.index', ['location' => $location ?? '', 'events' => $events]);

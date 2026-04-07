@@ -8,17 +8,23 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\WebController;
+use App\Http\Controllers\EventController;
 
-Route::get('/', [AuthController::class, 'loginpage'])->name('login'); // show login form
+// Route::get('/', [HomeController::class, 'index'])->name('home'); // show login form
+Route::get('/', [WebController::class, 'index'])->name('web'); // show login form
+
+Route::get('/login', [AuthController::class, 'loginpage'])->name('login'); // show login form
 Route::post('/login', [AuthController::class, 'login'])->name('login.post'); // submit login
 Route::get('/create', [AuthController::class, 'create'])->name('create'); // submit login
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::post('/request-otp',[AuthController::class,'requestOtp'])->name('login.otp');
+Route::post('/request-otp', [AuthController::class, 'requestOtp'])->name('login.otp');
 
-Route::post('/verify-otp',[AuthController::class,'verifyOtp'])->name('login.verify');
+Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('login.verify');
 
-Route::get('/otp-list',[AuthController::class,'getOtp']);
+Route::get('/otp-list', [AuthController::class, 'getOtp']);
 
 use App\Http\Controllers\App;
 
@@ -28,6 +34,8 @@ Route::get('/layout', [App::class, 'index'])->name('layout'); // submit login
 Route::get('/calendar', [App::class, 'index'])->name('calendar'); // submit login    
 
 use App\Http\Controllers\RegisterController;
+Route::get('/register', [EventController::class, 'showevents']); // Blade page
+
 Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
 
 // Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
@@ -38,7 +46,12 @@ use App\Http\Controllers\UserController;
 
 route::get('/userdata', [UserController::class, 'userdata']);
 
-use App\Http\Controllers\EventController;
 
-Route::get('/eventlist', [EventController::class, 'getUpcomingEvents']);
+
+Route::get('/api/events', [EventController::class, 'getUpcomingEvents']); // API-like route
+Route::get('/events', [EventController::class, 'showevents']); // Blade page
 Route::get('/lasteventdetails/{id?}', [EventController::class, 'lastEventDetails']);
+use App\Http\Controllers\Tools;
+
+Route::get('/tools', [Tools::class, 'index']);
+Route::post('/save-ocr', [Tools::class, 'saveOcr']);

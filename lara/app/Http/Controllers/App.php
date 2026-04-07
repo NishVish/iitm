@@ -10,20 +10,20 @@ class App extends Controller
     public function index(Request $request)
     {
         // Use the Model method instead of DB::table
-        $events = Event::getEventsWithLatestLayout(1);     
+        $events = Event::getEventsWithLatestLayout(1);
         // var_dump($events);
         // exit;
-        
+
         // Debugging to see the new structure (it will include 'latest_layout' relationship)
         // dd($events->toArray()); 
 
         $routeName = $request->route()->getName();
-        $path      = $request->path();
+        $path = $request->path();
 
         return view('app', [
-            'events'    => $events,
+            'events' => $events,
             'routeName' => $routeName,
-            'path'      => $path,
+            'path' => $path,
         ]);
     }
 }

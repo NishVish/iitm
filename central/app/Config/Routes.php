@@ -8,16 +8,12 @@ use CodeIgniter\Router\RouteCollection;
 
 // $routes->get('mobile', 'Mobile::index');
 $routes->get('mobile', 'Authentication::index');
-
 $routes->get('mobile/home', 'Mobile::index');
 $routes->get('mobile/profile', 'Mobile::index');
 $routes->get('mobile/layout', 'Mobile::index');
 $routes->get('mobile/calendar', 'Mobile::index');
-
-
 $routes->get('mobile/layoutimage/(:any)', 'Events::getlayout/$1');
 $routes->get('mobile/test-image', 'Events::testImage');
-
 $routes->get('mobile/logout', 'Authentication::logout');
 
 
@@ -35,9 +31,11 @@ $routes->get('mobile/events/upcoming/(:any)', 'Events::upcoming/$1');
 // Default route (landing page)
 // $routes->get('/', 'Home::index');
 
-$routes->get('/', 'Authentication::backendloginpage');
+$routes->get('/', 'Web::index');
+
+
 // $routes->get('/', 'Home::index');
-$routes->get('login', 'Authentication::login');
+$routes->get('login', 'Authentication::index');
 
 $routes->post('login', 'Authentication::login');
 $routes->get('logout', 'Authentication::logout');
@@ -80,7 +78,7 @@ $routes->get('kra', 'Backend::kra_main');
 $routes->get('profile', 'Backend::profile_main');
 
 
-$routes->group('backend', function($routes) {
+$routes->group('backend', function ($routes) {
     $routes->get('', 'Backend::index');                   // backend/ → dashboard/home
     $routes->get('plan', 'Backend::plan');               // backend/plan
     $routes->get('sql', 'Backend::sql');                 // backend/sql
@@ -92,7 +90,6 @@ $routes->group('backend', function($routes) {
     $routes->get('profile', 'Backend::profile');         // backend/profile
     $routes->get('kra', 'Backend::kra_main');         // backend/profile
     $routes->get('modulelist', 'Backend::modulelist');         // backend/profile
-    
     $routes->get('module/(:any)', 'Backend::module/$1');
     $routes->get('tabledata/(:segment)', 'Backend::spreadsheetview/$1');
     $routes->post('tabledata/update', 'Backend::updateCell');
@@ -140,7 +137,7 @@ $routes->get('company/add', 'Company::add'); // Show the form
 $routes->get('company/addexhibitor', 'Company::addexhibitor'); // Show the form
 
 // Preview form data (POST only)
-$routes->post('company/add_check', 'Company::add_check'); 
+$routes->post('company/add_check', 'Company::add_check');
 
 $routes->post('company/store', 'Company::store');
 
@@ -175,7 +172,7 @@ $routes->get('database/(:any)', 'Database::index/$1');
 
 
 
-$routes->group('database/company', function($routes) {
+$routes->group('database/company', function ($routes) {
 
     // Main page
     $routes->get('/', 'Company::index');
@@ -219,7 +216,7 @@ $routes->group('database/company', function($routes) {
 
 
 // Show the add contact form
-$routes->get('contacts/add/(:any)', 'Contacts::add/$1'); 
+$routes->get('contacts/add/(:any)', 'Contacts::add/$1');
 // (:any) is for company_id
 
 // Handle the form submission
@@ -244,14 +241,18 @@ $routes->post('discussion/add', 'Leads::add');
 // ===============================
 // Event routes
 // ===============================
-$routes->get('events', 'Events::index');
-$routes->get('events/create', 'Events::create');
-$routes->post('events/store', 'Events::store');
-$routes->get('events/edit/(:num)', 'Events::edit/$1');
-$routes->post('events/update/(:num)', 'Events::update/$1');
-$routes->get('events/delete', 'Events::delete');
+
+$routes->get('backend/events', 'Events::x');
+$routes->get('backend/events/create', 'Events::create');
+$routes->post('backend/events/store', 'Events::store');
+$routes->get('backend/events/edit/(:num)', 'Events::edit/$1');
+$routes->post('backend/events/update/(:num)', 'Events::update/$1');
+$routes->get('backend/events/delete', 'Events::delete');
+
 $routes->get('events/fetch/iitm', 'Events::fetchiitmdate');
 $routes->post('events/update-cell', 'Events::updateCell');
+// $routes->get('events', 'Events::index');
+// $routes->get('api/events', 'Events::index');
 
 
 
@@ -265,16 +266,16 @@ $routes->group('layout-info', function ($routes) {
 // ===============================
 // Payments routes
 // ===============================
-$routes->group('booking', function($routes) {
+$routes->group('booking', function ($routes) {
 
     // Step 1
     // $routes->get('instructions', 'Exhibitor::instructions');
-$routes->get('instructions/(:segment)', 'Booking::instructions/$1');
+    $routes->get('instructions/(:segment)', 'Booking::instructions/$1');
 
     // Step 2
     $routes->get('company/(:segment)', 'Booking::company/$1');
 
-$routes->post('updatefrombooking/(:segment)', 'Booking::update/$1');
+    $routes->post('updatefrombooking/(:segment)', 'Booking::update/$1');
 
     // $routes->get('company/(:num)', 'Exhibitor::company/$1');
 
@@ -294,12 +295,12 @@ $routes->post('updatefrombooking/(:segment)', 'Booking::update/$1');
 
 
 
-    // // ===============================
-    // // Exhibitor Booking
-    // // ===============================
-    // $routes->get('exhibitor_booking', 'Booking::exhibitor_bookinginstructions');
-    // $routes->get('exhibitor_booking/stallinfo', 'Booking::stallinfo');
-    // $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
+// // ===============================
+// // Exhibitor Booking
+// // ===============================
+// $routes->get('exhibitor_booking', 'Booking::exhibitor_bookinginstructions');
+// $routes->get('exhibitor_booking/stallinfo', 'Booking::stallinfo');
+// $routes->get('exhibitor_booking/details', 'Booking::exhibitor_details');
 // <a href="<?= site_url('booking/exhibitor_booking/stallinfo') 
 
 
@@ -333,19 +334,19 @@ $routes->post('crossvalidation/actioncontact', 'CrossValidation::handleAction');
 
 // $routes->group('db', ['filter' => 'auth'], function ($routes) {
 
-    // Safe
-    $routes->get('clear-matching', 'DatabaseOperation::clearMatchingTables');
+// Safe
+$routes->get('clear-matching', 'DatabaseOperation::clearMatchingTables');
 
-    // Medium risk
-    $routes->get('clear-contacts', 'DatabaseOperation::clearContactTables');
-    // $routes->get('clear-companies', 'DatabaseOperation::clearCompanyTables');
-    $routes->get('clear-companies/(:any)', 'DatabaseOperation::clearCompanyTables/$1');
+// Medium risk
+$routes->get('clear-contacts', 'DatabaseOperation::clearContactTables');
+// $routes->get('clear-companies', 'DatabaseOperation::clearCompanyTables');
+$routes->get('clear-companies/(:any)', 'DatabaseOperation::clearCompanyTables/$1');
 
-    // High risk
-    $routes->get('clear-non-financial', 'DatabaseOperation::clearAllNonFinancial');
+// High risk
+$routes->get('clear-non-financial', 'DatabaseOperation::clearAllNonFinancial');
 
-    // EXTREME (comment this in production)
-     $routes->get('wipe-all', 'DatabaseOperation::clearEverything');
+// EXTREME (comment this in production)
+$routes->get('wipe-all', 'DatabaseOperation::clearEverything');
 // });
 
 $routes->get('tools', 'Tools::index');               // Main page
@@ -365,10 +366,10 @@ $routes->get('tools/download-server', 'Tools::downloadServer');
 
 
 
-$routes->group('ticket', function($routes) {
+$routes->group('ticket', function ($routes) {
     $routes->get('/', 'Ticket::index');
     $routes->post('store', 'Ticket::store');
-        $routes->post('storeajax', 'Ticket::storeajax');
+    $routes->post('storeajax', 'Ticket::storeajax');
 
     $routes->post('update/(:num)', 'Ticket::update/$1');
 
@@ -378,7 +379,7 @@ $routes->group('ticket', function($routes) {
 });
 
 
-$routes->group('registration', function($routes) {
+$routes->group('registration', function ($routes) {
     $routes->get('/', 'Registration::index');
     $routes->get('publicformtv/(:any)', 'Registration::publicformtradevisitor/$1');// multi
     $routes->get('event/(:any)', 'Registration::publicformtradevisitor/$1');// multi
@@ -388,24 +389,24 @@ $routes->group('registration', function($routes) {
 // Routes.php
 // $routes->get('regitersuccess/exhibitor', 'Registration::thankyouexhibitor');
 
-// ✅ Route needs two (:segment) for both $data and $number
-$routes->get('regitersuccess/(:segment)/(:segment)', 'Registration::regitersuccess/$1/$2');
+    // ✅ Route needs two (:segment) for both $data and $number
+    $routes->get('regitersuccess/(:segment)/(:segment)', 'Registration::regitersuccess/$1/$2');
 
 
-$routes->get('generatebadge/(:any)', 'Registration::generatebadge/$1');
+    $routes->get('generatebadge/(:any)', 'Registration::generatebadge/$1');
     $routes->get('spotinterface', 'Registration::getgataforprint');
 
     $routes->get('spotinterface/(:any)/(:any)', 'Registration::getgataforprint/$1/$2');
     // $routes->get('searchentry', 'Registration::searchentry');
-$routes->post('searchentry/(:segment)', 'Registration::searchentry/$1');
-$routes->get('searchentry/(:segment)', 'Registration::searchentry/$1');
+    $routes->post('searchentry/(:segment)', 'Registration::searchentry/$1');
+    $routes->get('searchentry/(:segment)', 'Registration::searchentry/$1');
 
-$routes->get('view/(:segment)', 'Registration::registrationview/$1');
+    $routes->get('view/(:segment)', 'Registration::registrationview/$1');
     // $routes->get('spotform', 'Registration::spotform');
     // $routes->get('spotinterface', 'Registration::spotinterface');
     // $routes->get('spot', 'Registration::publicformtradevisitor');
 
- // $routes->get('publicform', 'Registration::publicform');
+    // $routes->get('publicform', 'Registration::publicform');
     // $routes->post('update/(:num)', 'Issue::update/$1');
 });
 

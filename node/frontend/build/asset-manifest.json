@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "./static/js/main.18401d04.js",
-    "index.html": "./index.html",
-    "main.18401d04.js.map": "./static/js/main.18401d04.js.map"
+    "main.js": "/iitm/node/static/js/main.18401d04.js",
+    "index.html": "/iitm/node/index.html",
+    "main.18401d04.js.map": "/iitm/node/static/js/main.18401d04.js.map"
   },
   "entrypoints": [
     "static/js/main.18401d04.js"
