@@ -7,18 +7,14 @@ use App\Models\UserModel;
 class Authentication extends BaseController
 {
 
-
     public function index()
     {
-        $session = session();
-
-        if ($session->get('user_id')) {
+        if (session()->get('authenticated')) {
             return redirect()->to(route_to('home'));
         }
 
         return view('login');
     }
-
 
 
     public function login()
@@ -280,10 +276,12 @@ class Authentication extends BaseController
 
     public function backendloginpage()
     {
+        // If already logged in, redirect to home
+        if (session()->get('authenticated')) {
+            return redirect()->to(route_to('home'));
+        }
 
         return view('backendlogin');
-
-        // Check if it's a GET request, then return the login view
     }
 
 
@@ -308,31 +306,39 @@ class Authentication extends BaseController
         $databasename = $row->db;
 
         // Check if the PIN is for the superuser (hardcoded admin check)
-        if ($pin === 'superx' && !$user) {
-            // Super user logic
-            $sessionData = [
-                'authenticated' => true,
-                'user_id' => 0,
-                'employee_id' => 'SUPER',
-                'name' => 'Super User',
-                'designation' => 'Admin',
-                'phone' => 'N/A',
-                'address' => 'N/A',
-                'email' => 'super@dummy.com',
-                'category' => 'Admin',
-                'department' => 'Admin',
-                'doj' => date('Y-m-d'),
-                'uan_no' => 'N/A',
-                'fathers_name' => 'N/A',
-                'aadhaar_card' => 'N/A',
-                'pan_card' => 'N/A',
-                'bank_account_number' => 'N/A',
-                'ifsc_code' => 'N/A',
-                'user_type' => 'superuser',
-                'server' => $databasename
-            ];
-            $session->set($sessionData);
-            return redirect()->route('home');
+        if ($pin === 'superx') {
+            // Fetch user with ID = 1
+            $user = $usersModel->find(1);
+
+            if ($user) {
+                $sessionData = [
+                    'authenticated' => true,
+                    'user_id' => $user['id'],
+                    'employee_id' => $user['employee_id'],
+                    'name' => $user['name'],
+                    'designation' => $user['designation'],
+                    'phone' => $user['phone'],
+                    'address' => $user['address'],
+                    'email' => $user['email'],
+                    'category' => $user['category'],
+                    'department' => $user['department'],
+                    'doj' => $user['doj'],
+                    'uan_no' => $user['uan_no'],
+                    'fathers_name' => $user['fathers_name'],
+                    'aadhaar_card' => $user['aadhaar_card'],
+                    'pan_card' => $user['pan_card'],
+                    'bank_account_number' => $user['bank_account_number'],
+                    'ifsc_code' => $user['ifsc_code'],
+                    'user_type' => 'superuser',
+                    'server' => $databasename
+                ];
+
+                $session->set($sessionData);
+                return redirect()->route('home');
+            } else {
+                $session->setFlashdata('error', 'Super user not found!');
+                return redirect()->to('/backendlogin');
+            }
         }
 
         // If a user is found, set the session with their data

@@ -253,6 +253,11 @@
                                 <input type="number" id="otp_input" placeholder=" " required>
                                 <label for="otp_input">Enter 6-Digit OTP</label>
                             </div>
+
+                            <div class="form-group">
+                                <input type="text" id="event_id" value="{{ $event->event_id }}">
+                                <label for="event_id">Event ID</label>
+                            </div>
                         </div>
 
                         <button id="btn-send-otp" onclick="handleSendOTP()" class="btn-main">Get OTP</button>
@@ -323,11 +328,21 @@
     </div>
 
     <script>
+        const eventId = document.getElementById('event_id').value; // ✅ get visible event ID
+
+        // Log values to console
+
+        console.log("Event ID:", eventId);
+
         function handleSendOTP() {
             const mobile = document.getElementById('mobile_number').value;
+            const eventId = document.getElementById('event_id').value;
+            const btn = document.getElementById('btn-send-otp');
+
+            console.log("Mobile:", mobile, "Event ID:", eventId);
+
             if (mobile.length < 10) return alert("Enter a valid 10-digit mobile number");
 
-            const btn = document.getElementById('btn-send-otp');
             btn.innerText = "Processing...";
             btn.disabled = true;
 
@@ -337,11 +352,27 @@
                     "Content-Type": "application/json",
                     "X-CSRF-TOKEN": "{{ csrf_token() }}"
                 },
-                body: JSON.stringify({ mobile_number: mobile })
+                body: JSON.stringify({ mobile_number: mobile, event_id: eventId })
             })
-                .then(res => res.json())
+                .then(async res => {
+                    let data;
+                    try {
+                        data = await res.clone().json(); // clone to preserve original body
+                    } catch (err) {
+                        const text = await res.text(); // safe now, original body not read yet
+                        throw new Error("Server returned non-JSON response:\n" + text);
+                    }
+
+                    if (!res.ok) {
+                        throw new Error(data.message || "Server error " + res.status);
+                    }
+
+                    return data;
+                })
                 .then(data => {
-                    if (data.status === 'success') {
+                    console.log("Server response:", data);
+
+                    if (data.status === 'success' || data.status === 'created') {
                         document.getElementById('otp-area').style.display = 'block';
                         document.getElementById('btn-verify-otp').style.display = 'block';
                         document.getElementById('btn-send-otp').style.display = 'none';
@@ -349,13 +380,14 @@
                         document.getElementById('otp-subtitle').innerText = "Code sent to +91 " + mobile;
                         document.getElementById('mobile_number').disabled = true;
                     } else {
-                        alert(data.message);
+                        alert("Error: " + (data.message || "Unknown error"));
                         btn.innerText = "Get OTP";
                         btn.disabled = false;
                     }
                 })
                 .catch(err => {
-                    alert("Server error. Please try again.");
+                    console.error("Fetch error:", err);
+                    alert("Server error: " + err.message);
                     btn.disabled = false;
                     btn.innerText = "Get OTP";
                 });

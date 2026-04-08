@@ -31,7 +31,7 @@ $routes->get('mobile/events/upcoming/(:any)', 'Events::upcoming/$1');
 // Default route (landing page)
 // $routes->get('/', 'Home::index');
 
-$routes->get('/', 'Web::index');
+$routes->get('/', 'Authentication::backendloginpage');
 
 
 // $routes->get('/', 'Home::index');
@@ -242,12 +242,12 @@ $routes->post('discussion/add', 'Leads::add');
 // Event routes
 // ===============================
 
-$routes->get('backend/events', 'Events::x');
-$routes->get('backend/events/create', 'Events::create');
-$routes->post('backend/events/store', 'Events::store');
-$routes->get('backend/events/edit/(:num)', 'Events::edit/$1');
-$routes->post('backend/events/update/(:num)', 'Events::update/$1');
-$routes->get('backend/events/delete', 'Events::delete');
+$routes->get('events', 'Events::index');
+$routes->get('events/create', 'Events::create');
+$routes->post('events/store', 'Events::store');
+$routes->get('events/edit/(:num)', 'Events::edit/$1');
+$routes->post('events/update/(:num)', 'Events::update/$1');
+$routes->get('events/delete', 'Events::delete');
 
 $routes->get('events/fetch/iitm', 'Events::fetchiitmdate');
 $routes->post('events/update-cell', 'Events::updateCell');

@@ -73,11 +73,42 @@ class AuthController extends Controller
         return redirect('http://localhost/iitm/central/registration/mobile/x');
     }
 
-
     public function requestOtp(Request $request)
     {
+
+
         $mobile = $request->mobile_number;
-        // $mobile = '8792548508';
+        $eventId = $request->event_id;
+        // return response()->json([
+        //     'status' => 'ok',
+        //     'mobile_received' => $mobile,
+        //     'event_id_received' => $eventId
+        // ]);
+        // Validate event_id if sent
+        // $eventId = null;
+        // Fetch all events
+        $allEvents = DB::table('events')->get();
+
+        // Optional: validate event ID
+        $event = null;
+        if ($eventId) {
+            $event = DB::table('events')->where('event_id', $eventId)->first();
+            if (!$event) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid event ID',
+                    'event_id_received' => $eventId,
+                    'all_events' => $allEvents
+                ]);
+            }
+        }
+
+        // return response()->json([
+        //     'status' => 'ok',
+        //     'event_id_received' => $eventId,
+        //     'event_details' => $event,
+        //     'all_events' => $allEvents
+        // ]);
         if (empty($mobile)) {
             return response()->json([
                 'status' => 'error',
@@ -85,33 +116,97 @@ class AuthController extends Controller
             ]);
         }
 
-        // var_dump($mobile);
-        // exit;
-        // Check if mobile exists
+        // 🔍 Check if mobile exists
         $user = DB::table('contact_mobile')
             ->where('mobile', $mobile)
             ->first();
 
-        // var_dump($user);
-        // exit;
+        // 🚨 If NOT found → create dummy data
         if (!$user) {
 
+            DB::beginTransaction();
 
-            // create an entry with mobile number
-            // first company id is 1
-            // $new_user = DB::table('contact_mobile')->insert([
-            //     'mobile' => $mobile,
-            //     'created_at' => Carbon::now(),
-            //     'updated_at' => Carbon::now()
-            // ]);
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Mobile number not found'
-            ]);
-            // return redirect('http://localhost/iitm/central/registration/mobile/notfound');
+            try {
+                $unique_id = 'CMP_' . uniqid();
+
+                // 1. company_data
+                DB::table('company_data')->insert([
+                    'company_id' => $unique_id,
+                    'database_name' => 'demo_db',
+                    'outbound' => 0,
+                    'company_name' => $request->company_name ?? 'Demo Company Pvt Ltd',
+                    'category' => 'IT Services',
+                    'address' => '123 Demo Street',
+                    'city' => $request->city ?? 'Bangalore',
+                    'pincode' => $request->pincode ?? '560001',
+                    'state' => $request->state ?? 'Karnataka',
+                    'country' => $request->country ?? 'India',
+                    'website' => $request->website ?? 'https://example.com',
+                    'phone' => $mobile,
+                    'gst_number' => '29ABCDE1234F1Z5',
+                    'sales_person' => 'John Doe',
+                    'active_inactive' => 'active',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                    'session' => 0,
+                    'cross_validation' => 0,
+                    'entry_type' => 'online_registration'
+                ]);
+
+                // 2. contact
+                $contact_id = DB::table('contact')->insertGetId([
+                    'company_id' => $unique_id,
+                    'priority' => 1,
+                    'name' => 'Demo User',
+                    'designation' => 'Manager',
+                    'created_at' => Carbon::now()
+                ]);
+
+                // 3. contact_mobile
+                DB::table('contact_mobile')->insert([
+                    'contact_id' => $contact_id,
+                    'mobile' => $mobile,
+                    'is_primary' => 1,
+                    'created_at' => Carbon::now()
+                ]);
+
+                // 4. contact_email
+                DB::table('contact_email')->insert([
+                    'contact_id' => $contact_id,
+                    'email' => $request->email ?? 'demo@example.com',
+                    'is_primary' => 1,
+                    'created_at' => Carbon::now()
+                ]);
+                $eventName = $event ? $event->name : 'Unknown Event';
+
+                // 5. company_sources
+                DB::table('company_sources')->insert([
+                    'company_id' => $unique_id,
+                    'source_id' => 1,
+                    'event_date' => date('Y-m-d'),
+                    'notes' => 'Online_registration - ' . $eventName, // ✅ event name included
+                    'created_at' => Carbon::now()
+                ]);
+
+                DB::commit();
+
+                // ✅ Re-fetch user after insert (instead of recursion)
+                $user = DB::table('contact_mobile')
+                    ->where('mobile', $mobile)
+                    ->first();
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Failed to create dummy data',
+                    'error' => $e->getMessage()
+                ]);
+            }
         }
 
-        // Generate OTP
+        // 🔐 Generate OTP
         $otp = rand(100000, 999999);
         $expiry = Carbon::now()->addMinutes(10);
 
@@ -119,18 +214,18 @@ class AuthController extends Controller
             ->where('contact_id', $user->contact_id)
             ->update([
                 'otp' => $otp,
-                'otp_expiry' => $expiry
+                'otp_expiry' => $expiry,
+                'updated_at' => Carbon::now()
             ]);
 
-        // var_dump($updated);
-        // exit;
         if ($updated) {
 
             Log::debug("OTP for $mobile is: $otp");
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'OTP sent successfully'
+                'message' => 'OTP sent successfully',
+                // 'otp' => $otp // enable only for testing
             ]);
         }
 

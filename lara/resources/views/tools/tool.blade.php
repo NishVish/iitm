@@ -1,45 +1,84 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    $workDir = __DIR__ . DIRECTORY_SEPARATOR . 'ocr_temp' . DIRECTORY_SEPARATOR;
+
+    if (!file_exists($workDir))
+        mkdir($workDir, 0777, true);
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    if (!$data || !isset($data['image'])) {
+        echo json_encode(['success' => false, 'error' => 'No image data received']);
+        exit;
+    }
+
+    $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $data['image']));
+    $tempImage = $workDir . 'input.png';
+    $outputBase = $workDir . 'output'; // Tesseract adds .txt automatically
+
+    file_put_contents($tempImage, $imageData);
+
+    // Use SHORT PATHS if possible, or very strict escaping
+    $tesseract = '"C:\Program Files\Tesseract-OCR\tesseract.exe"';
+
+    // Build command with 2>&1 to capture errors
+    $cmd = "$tesseract \"$tempImage\" \"$outputBase\" -l eng --psm 6 2>&1";
+
+    exec($cmd, $output, $returnVar);
+
+    $resultFile = $outputBase . '.txt';
+    if ($returnVar === 0 && file_exists($resultFile)) {
+        $text = file_get_contents($resultFile);
+        // Clean up files after processing
+        unlink($tempImage);
+        unlink($resultFile);
+        echo json_encode(['success' => true, 'text' => trim($text)]);
+    } else {
+        echo json_encode([
+            'success' => false,
+            'error' => 'OCR Failed',
+            'debug' => [
+                'return_code' => $returnVar,
+                'shell_output' => $output,
+                'command' => $cmd
+            ]
+        ]);
+    }
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enterprise OCR Scanner</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <style>
-        :root {
-            --primary: #6366f1;
-            --success: #10b981;
-            --bg: #0f172a;
-        }
-
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: var(--bg);
+            font-family: system-ui;
+            background: #0f172a;
             color: #fff;
-            margin: 0;
             padding: 15px;
+            margin: 0;
         }
 
         #scanner-viewport {
-            position: relative;
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
             border: 2px solid #334155;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
 
         video {
             width: 100%;
             display: block;
-            filter: contrast(1.1);
         }
 
-        /* Guide Overlay */
         .guide-box {
             position: absolute;
             top: 20%;
@@ -53,11 +92,10 @@
 
         .controls {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 10px;
-            margin-top: 20px;
+            margin: 20px auto;
             max-width: 600px;
-            margin-inline: auto;
         }
 
         button {
@@ -66,90 +104,42 @@
             border-radius: 14px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-scan {
-            background: var(--primary);
+            background: #6366f1;
             color: white;
-            grid-column: span 2;
-        }
-
-        .btn-secondary {
-            background: #334155;
-            color: #94a3b8;
-            font-size: 12px;
         }
 
         #output-panel {
-            margin-top: 20px;
+            margin: 10px auto;
             padding: 20px;
             background: #1e293b;
             border-radius: 15px;
-            text-align: left;
-            border-left: 5px solid var(--success);
-            min-height: 100px;
+            max-width: 560px;
+            border-left: 5px solid #10b981;
         }
 
-        .status-badge {
-            font-size: 11px;
-            padding: 4px 8px;
-            border-radius: 5px;
-            background: #334155;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-
-        .loading-ring {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--success);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+        #final-text {
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
         }
     </style>
 </head>
 
 <body>
-
-    <h3 style="text-align:center; margin-bottom:10px;">IITM Document AI</h3>
-
+    <h3 style="text-align:center;">IITM Document AI</h3>
     <div id="scanner-viewport">
         <video id="video" autoplay playsinline muted></video>
         <div class="guide-box"></div>
     </div>
-
     <div class="controls">
-        <button class="btn-scan" onclick="processAll()">🚀 Start Precision Scan</button>
-        <button class="btn-secondary" onclick="location.reload()">Reset Camera</button>
-        <button class="btn-secondary">Settings</button>
+        <button onclick="processAll()">🚀 Start Precision Scan</button>
     </div>
-
     <div id="output-panel">
-        <div id="status"><span class="status-badge">System Ready</span></div>
-        <div id="final-text" style="font-family: monospace; line-height: 1.5; color: #e2e8f0;">
-            Position text inside the box for better results.
-        </div>
+        <div id="status" style="color: #10b981; font-weight: bold; margin-bottom: 10px;">System Ready</div>
+        <div id="final-text">Results will appear here...</div>
     </div>
-
     <canvas id="c_orig" style="display:none;"></canvas>
-    <canvas id="c_binarized" style="display:none;"></canvas>
 
     <script>
         const video = document.getElementById('video');
@@ -157,10 +147,12 @@
         const status = document.getElementById('status');
 
         async function init() {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                video: { facingMode: "environment", width: { ideal: 1920 }, height: { ideal: 1080 } }
-            });
-            video.srcObject = stream;
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "environment", width: { ideal: 1280 } }
+                });
+                video.srcObject = stream;
+            } catch (e) { status.innerText = "Camera error: " + e.message; }
         }
         init();
 
@@ -171,58 +163,27 @@
             c.height = video.videoHeight;
             ctx.drawImage(video, 0, 0);
 
-            status.innerHTML = '<div class="loading-ring"></div><span class="status-badge">Synthesizing Variations...</span>';
+            status.innerHTML = '⏳ Processing OCR...';
+            const imageData = c.toDataURL('image/png');
 
-            // Create Binary Variation
-            const binarizedData = createVariation(ctx, c.width, c.height, 'binary');
-
-            // Run Tesseract
-            await runPrecisionOCR(binarizedData);
-        }
-
-        function createVariation(ctx, w, h, type) {
-            const imgData = ctx.getImageData(0, 0, w, h);
-            const data = imgData.data;
-
-            for (let i = 0; i < data.length; i += 4) {
-                const gray = 0.21 * data[i] + 0.72 * data[i + 1] + 0.07 * data[i + 2];
-                // High Contrast Thresholding
-                const v = gray < 120 ? 0 : 255;
-                data[i] = data[i + 1] = data[i + 2] = v;
-            }
-
-            ctx.putImageData(imgData, 0, 0);
-            return document.getElementById('c_orig').toDataURL('image/png');
-        }
-
-        async function runPrecisionOCR(imgSource) {
             try {
-                const worker = await Tesseract.createWorker('eng');
-
-                // CRITICAL: Set parameters for accuracy
-                await worker.setParameters({
-                    tessedit_char_whitelist: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,-/: ',
-                    tessedit_pageseg_mode: Tesseract.PSM.SINGLE_BLOCK,
-                });
-
-                const { data: { text, confidence } } = await worker.recognize(imgSource);
-
-                status.innerHTML = `<span class="status-badge" style="background:var(--success)">Confidence: ${confidence}%</span>`;
-                finalText.innerText = text.trim() || "No text detected. Try closer.";
-
-                // Send to Laravel
-                fetch('/save-ocr', {
+                const response = await fetch('', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({ text: text, conf: confidence })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: imageData })
                 });
 
-                await worker.terminate();
+                const result = await response.json();
+                if (result.success) {
+                    finalText.innerText = result.text;
+                    status.innerHTML = `✅ OCR Complete`;
+                } else {
+                    finalText.innerText = result.error;
+                    status.innerHTML = `❌ Failed`;
+                    console.error("Debug CMD:", result.debug_cmd);
+                }
             } catch (e) {
-                finalText.innerText = "Error: " + e.message;
+                finalText.innerText = "Fetch error: ".e.message;
             }
         }
     </script>
