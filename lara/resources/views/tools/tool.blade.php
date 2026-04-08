@@ -1,77 +1,30 @@
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json');
-    $workDir = __DIR__ . DIRECTORY_SEPARATOR . 'ocr_temp' . DIRECTORY_SEPARATOR;
-
-    if (!file_exists($workDir))
-        mkdir($workDir, 0777, true);
-
-    $data = json_decode(file_get_contents('php://input'), true);
-    if (!$data || !isset($data['image'])) {
-        echo json_encode(['success' => false, 'error' => 'No image data received']);
-        exit;
-    }
-
-    $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $data['image']));
-    $tempImage = $workDir . 'input.png';
-    $outputBase = $workDir . 'output'; // Tesseract adds .txt automatically
-
-    file_put_contents($tempImage, $imageData);
-
-    // Use SHORT PATHS if possible, or very strict escaping
-    $tesseract = '"C:\Program Files\Tesseract-OCR\tesseract.exe"';
-
-    // Build command with 2>&1 to capture errors
-    $cmd = "$tesseract \"$tempImage\" \"$outputBase\" -l eng --psm 6 2>&1";
-
-    exec($cmd, $output, $returnVar);
-
-    $resultFile = $outputBase . '.txt';
-    if ($returnVar === 0 && file_exists($resultFile)) {
-        $text = file_get_contents($resultFile);
-        // Clean up files after processing
-        unlink($tempImage);
-        unlink($resultFile);
-        echo json_encode(['success' => true, 'text' => trim($text)]);
-    } else {
-        echo json_encode([
-            'success' => false,
-            'error' => 'OCR Failed',
-            'debug' => [
-                'return_code' => $returnVar,
-                'shell_output' => $output,
-                'command' => $cmd
-            ]
-        ]);
-    }
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise OCR Scanner</title>
+    <title>AI Document Scanner (Front/Back Mode)</title>
+
     <style>
         body {
-            font-family: system-ui;
+            font-family: 'Segoe UI', sans-serif;
             background: #0f172a;
-            color: #fff;
-            padding: 15px;
+            color: white;
+            text-align: center;
             margin: 0;
+            padding: 20px;
         }
 
-        #scanner-viewport {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px solid #334155;
-            border-radius: 20px;
-            overflow: hidden;
+        #camera-wrapper {
             position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            border: 3px solid #6366f1;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #000;
         }
 
         video {
@@ -79,113 +32,307 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: block;
         }
 
-        .guide-box {
-            position: absolute;
-            top: 20%;
-            left: 10%;
-            right: 10%;
-            bottom: 20%;
-            border: 2px dashed rgba(16, 185, 129, 0.5);
-            border-radius: 10px;
-            pointer-events: none;
-        }
-
         .controls {
-            display: grid;
-            grid-template-columns: 1fr;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             gap: 10px;
-            margin: 20px auto;
-            max-width: 600px;
         }
 
-        button {
-            padding: 18px;
+        /* Mode Switch Styling */
+        .mode-selector {
+            background: #1e293b;
+            padding: 10px;
+            border-radius: 50px;
+            border: 1px solid #334155;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .mode-btn {
+            background: transparent;
             border: none;
-            border-radius: 14px;
-            font-weight: 800;
-            text-transform: uppercase;
+            color: #94a3b8;
+            padding: 8px 20px;
+            border-radius: 20px;
             cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .mode-btn.active {
             background: #6366f1;
             color: white;
         }
 
-        #output-panel {
-            margin: 10px auto;
-            padding: 20px;
-            background: #1e293b;
-            border-radius: 15px;
-            max-width: 560px;
-            border-left: 5px solid #10b981;
+        button.main-scan {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
         }
 
-        #final-text {
-            font-family: monospace;
+        button:disabled {
+            background: #334155;
+            opacity: 0.7;
+        }
+
+        .status {
+            font-size: 14px;
+            color: #94a3b8;
+            min-height: 20px;
+        }
+
+        .main-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        #result-box {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #334155;
             white-space: pre-wrap;
-            word-break: break-all;
+            font-size: 12px;
+            color: #cbd5e1;
+            text-align: left;
+            height: 400px;
+            overflow-y: auto;
+        }
+
+        .form-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #6366f1;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            display: none;
         }
     </style>
 </head>
 
 <body>
-    <h3 style="text-align:center;">IITM Document AI</h3>
-    <div id="scanner-viewport">
+
+    <h2>📷 AI Document Scanner</h2>
+
+    <div id="camera-wrapper">
         <video id="video" autoplay playsinline muted></video>
-        <div class="guide-box"></div>
     </div>
+
     <div class="controls">
-        <button onclick="processAll()">🚀 Start Precision Scan</button>
+        <div class="mode-selector">
+            <button class="mode-btn active" id="btn-front" onclick="setMode('front')">FRONT ONLY</button>
+            <button class="mode-btn" id="btn-both" onclick="setMode('both')">FRONT & BACK</button>
+        </div>
+        <button id="scan-btn" class="main-scan" onclick="captureAndProcess()">SCAN FRONT</button>
+        <div id="status" class="status">Starting camera...</div>
     </div>
-    <div id="output-panel">
-        <div id="status" style="color: #10b981; font-weight: bold; margin-bottom: 10px;">System Ready</div>
-        <div id="final-text">Results will appear here...</div>
+
+    <div class="main-container">
+        <div id="result-box">Waiting for scan...</div>
+
+        <div class="form-container">
+            <h3>Parsed Details</h3>
+            <form id="data-form">
+                @csrf
+                <div class="form-group"><label>Company</label><input type="text" id="form-company" name="company_name">
+                </div>
+                <div class="form-group"><label>Name</label><input type="text" id="form-name" name="person_name"></div>
+                <div class="form-group"><label>Designation</label><input type="text" id="form-designation"
+                        name="designation"></div>
+                <div class="form-group"><label>Mobile</label><input type="text" id="form-mobile" name="mobile"></div>
+                <div class="form-group"><label>Email</label><input type="text" id="form-email" name="email"></div>
+                <div class="form-group"><label>Address</label><input type="text" id="form-address" name="address"></div>
+
+                <input type="hidden" id="raw_ocr_text" name="raw_ocr_text">
+                <button type="submit" id="save-btn"
+                    style="width: 100%; margin-top: 10px; background: #10b981; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold;">💾
+                    Save Data</button>
+            </form>
+        </div>
     </div>
-    <canvas id="c_orig" style="display:none;"></canvas>
+
+    <canvas id="canvas"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
 
     <script>
-        const video = document.getElementById('video');
-        const finalText = document.getElementById('final-text');
-        const status = document.getElementById('status');
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const status = document.getElementById("status");
+        const resultBox = document.getElementById("result-box");
+        const scanBtn = document.getElementById("scan-btn");
 
-        async function init() {
+        let currentMode = 'front'; // 'front' or 'both'
+        let step = 1; // 1 = Front, 2 = Back
+        let frontText = "";
+        let backText = "";
+
+        async function startCamera() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: "environment", width: { ideal: 1280 } }
-                });
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment", width: 1280 } });
                 video.srcObject = stream;
-            } catch (e) { status.innerText = "Camera error: " + e.message; }
+                status.innerText = "Camera Active";
+            } catch (err) { status.innerText = "Camera Error"; }
         }
-        init();
 
-        async function processAll() {
-            const c = document.getElementById('c_orig');
-            const ctx = c.getContext('2d');
-            c.width = video.videoWidth;
-            c.height = video.videoHeight;
-            ctx.drawImage(video, 0, 0);
+        function setMode(mode) {
+            currentMode = mode;
+            step = 1;
+            frontText = "";
+            backText = "";
+            document.getElementById('btn-front').classList.toggle('active', mode === 'front');
+            document.getElementById('btn-both').classList.toggle('active', mode === 'both');
+            scanBtn.innerText = "SCAN FRONT";
+            status.innerText = `Mode: ${mode === 'front' ? 'Front Only' : 'Front & Back'}`;
+        }
 
-            status.innerHTML = '⏳ Processing OCR...';
-            const imageData = c.toDataURL('image/png');
+        async function captureAndProcess() {
+            scanBtn.disabled = true;
+            status.innerText = "Reading Text...";
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext("2d").drawImage(video, 0, 0);
 
             try {
-                const response = await fetch('', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ image: imageData })
+                const { data: { text } } = await Tesseract.recognize(canvas.toDataURL("image/jpeg"), 'eng');
+                const cleanText = text.trim();
+
+                if (currentMode === 'front') {
+                    // Scenario 1: Front Only
+                    processResults(cleanText);
+                    status.innerText = "Front Scan Done ✅";
+                } else {
+                    // Scenario 2: Front & Back
+                    if (step === 1) {
+                        frontText = cleanText;
+                        resultBox.innerText = "--- FRONT SIDE ---\n" + frontText;
+                        status.innerText = "Front Scanned. Now flip to BACK.";
+                        scanBtn.innerText = "SCAN BACK";
+                        step = 2;
+                    } else {
+                        backText = cleanText;
+                        const combinedText = frontText + "\n\n--- BACK SIDE ---\n" + backText;
+                        processResults(combinedText);
+                        status.innerText = "Both Sides Scanned ✅";
+                        scanBtn.innerText = "SCAN FRONT (NEW)";
+                        step = 1;
+                    }
+                }
+            } catch (err) { status.innerText = "OCR Failed"; }
+            finally { scanBtn.disabled = false; }
+        }
+
+        function processResults(fullText) {
+            resultBox.innerText = fullText;
+            document.getElementById('raw_ocr_text').value = fullText;
+            parseTextToForm(fullText);
+        }
+
+        function parseTextToForm(rawText) {
+            const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 2);
+
+            // Basic Regex
+            const email = rawText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/i);
+            const phone = rawText.match(/(\+?\d[\d\s-]{7,15})/);
+
+            if (email) document.getElementById("form-email").value = email[0];
+            if (phone) document.getElementById("form-mobile").value = phone[0];
+            if (lines.length > 0) document.getElementById("form-name").value = lines[0];
+
+            const jobKeys = ["manager", "director", "engineer", "ceo", "developer", "founder"];
+            const compKeys = ["ltd", "inc", "corp", "group", "solutions", "private"];
+            const addrKeys = ["road", "street", "st.", "floor", "city", "zip", "building"];
+            let addrLines = [];
+
+            lines.forEach(line => {
+                const lower = line.toLowerCase();
+                if (jobKeys.some(k => lower.includes(k))) document.getElementById("form-designation").value = line;
+                if (compKeys.some(k => lower.includes(k))) document.getElementById("form-company").value = line;
+                if (addrKeys.some(k => lower.includes(k))) addrLines.push(line);
+            });
+            if (addrLines.length > 0) document.getElementById("form-address").value = addrLines.join(", ");
+        }
+
+        // AJAX POST
+        document.getElementById('data-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const saveBtn = document.getElementById('save-btn');
+            saveBtn.disabled = true;
+            saveBtn.innerText = "Saving...";
+
+            try {
+                const response = await fetch("{{ route('save.ocr') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Accept": "application/json"
+                    },
+                    body: new FormData(e.target)
                 });
 
+                // 1. Convert the response to JSON
                 const result = await response.json();
-                if (result.success) {
-                    finalText.innerText = result.text;
-                    status.innerHTML = `✅ OCR Complete`;
+
+                // 2. Print it to the console log
+                console.log("Response Data:", result);
+
+                if (response.ok) {
+                    status.innerText = "Saved to Database! 💾";
+                    status.style.color = "#4ade80";
                 } else {
-                    finalText.innerText = result.error;
-                    status.innerHTML = `❌ Failed`;
-                    console.error("Debug CMD:", result.debug_cmd);
+                    // 3. Log errors if the server returns a 422 or 500
+                    console.error("Server Error:", result);
+                    status.innerText = "Save Failed. Check console.";
                 }
-            } catch (e) {
-                finalText.innerText = "Fetch error: ".e.message;
-            }
-        }
+            } catch (err) { status.innerText = "Save Error"; }
+            finally { saveBtn.disabled = false; saveBtn.innerText = "💾 Save Data"; }
+        });
+
+        startCamera();
     </script>
 </body>
 

@@ -55,7 +55,15 @@ route::get('/userdata', [UserController::class, 'userdata']);
 Route::get('/api/events', [EventController::class, 'getUpcomingEvents']); // API-like route
 Route::get('/events', [EventController::class, 'showevents']); // Blade page
 Route::get('/lasteventdetails/{id?}', [EventController::class, 'lastEventDetails']);
+
+
 use App\Http\Controllers\Tools;
 
+// Scanner UI
 Route::get('/tools', [Tools::class, 'index']);
-Route::post('/save-ocr', [Tools::class, 'saveOcr']);
+
+// Save OCR data (AJAX)
+Route::post('/save-ocr', [Tools::class, 'saveOcr'])->name('save.ocr');
+// List all scanned records
+Route::get('/ocrdata', [Tools::class, 'list']);
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Document Scanner & Parser</title>
+    <style>
+        body { font-family: sans-serif; background: #0f172a; color: white; text-align:center; margin:0; padding:20px; }
+        #camera-wrapper { position: relative; width:100%; max-width:500px; margin:auto; border:3px solid #6366f1; border-radius:15px; overflow:hidden; }
+        video { width:100%; display:block; background:#000; }
+        .controls { margin:20px 0; }
+        button { background:#6366f1; color:white; border:none; padding:15px 40px; font-size:18px; font-weight:bold; border-radius:10px; cursor:pointer; }
+        button:active { transform: scale(0.95); background:#4f46e5; }
+        #result-box { background:#1e293b; padding:15px; border-radius:10px; margin-top:20px; min-height:50px; text-align:left; border:1px solid #334155; white-space:pre-wrap; font-size: 12px; opacity: 0.7; }
+        .status { font-size:14px; color:#94a3b8; margin-top:10px; }
+
+        /* Form Styles */
+        .form-container { background: #1e293b; max-width: 500px; margin: 30px auto; padding: 20px; border-radius: 15px; border: 1px solid #6366f1; text-align: left; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 14px; color: #94a3b8; margin-bottom: 5px; }
+        input { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        h3 { color: #6366f1; margin-top: 0; }
+    </style>
+</head>
+<body>
+
+<h2>📷 AI Document Scanner</h2>
+
+<div id="camera-wrapper">
+    <video id="video" autoplay playsinline muted></video>
+</div>
+
+<div class="controls">
+    <button onclick="captureAndProcess()">SCAN & FILL FORM</button>
+    <div id="status" class="status">Camera Ready</div>
+</div>
+
+<div id="result-box">Raw OCR text will appear here...</div>
+
+<div class="form-container">
+    <h3>Parsed Details</h3>
+    <div class="form-group">
+        <label>Company Name</label>
+        <input type="text" id="form-company" placeholder="Company Name">
+    </div>
+    <div class="form-group">
+        <label>Person Name</label>
+        <input type="text" id="form-name" placeholder="Full Name">
+    </div>
+    <div class="form-group">
+        <label>Designation (Destination)</label>
+        <input type="text" id="form-designation" placeholder="e.g. Manager / Director">
+    </div>
+    <div class="form-group">
+        <label>Mobile</label>
+        <input type="text" id="form-mobile" placeholder="Phone Number">
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" id="form-email" placeholder="Email Address">
+    </div>
+</div>
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
+<script>
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const status = document.getElementById("status");
+const resultBox = document.getElementById("result-box");
+
+// Form Fields
+const fieldCompany = document.getElementById("form-company");
+const fieldName = document.getElementById("form-name");
+const fieldDesignation = document.getElementById("form-designation");
+const fieldMobile = document.getElementById("form-mobile");
+const fieldEmail = document.getElementById("form-email");
+
+async function startCamera() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode:"environment", width:1280 } });
+        video.srcObject = stream;
+        status.innerText = "Camera Active";
+    } catch(err) {
+        status.innerText = "Error: " + err.message;
+    }
+}
+
+async function captureAndProcess() {
+    status.innerText = "Capturing...";
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0);
+
+    const base64Image = canvas.toDataURL("image/jpeg", 0.6);
+    status.innerText = "AI Processing Text...";
+
+    try {
+        const { data: { text } } = await Tesseract.recognize(base64Image, 'eng');
+        resultBox.innerText = text.trim();
+        parseTextToForm(text); // RUN THE PARSER
+        status.innerText = "Analysis Complete";
+    } catch(err) {
+        status.innerText = "OCR Failed";
+        resultBox.innerText = "Error: " + err.message;
+    }
+}
+
+function parseTextToForm(rawText) {
+    const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 2);
+    
+    // 1. Extract Email
+    const emailMatch = rawText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+    if (emailMatch) fieldEmail.value = emailMatch[0];
+
+    // 2. Extract Phone (Mobile)
+    const phoneMatch = rawText.match(/(\+?\d{1,4}[\s-])?(\(?\d{3}\)?[\s-]?)?[\d\s-]{7,15}/);
+    if (phoneMatch) fieldMobile.value = phoneMatch[0].trim();
+
+    // 3. Heuristic Parsing for Name/Company/Designation
+    // This assumes Name is usually one of the first lines
+    if (lines.length > 0) fieldName.value = lines[0]; 
+    
+    // Look for common designation keywords
+    const jobKeywords = ["Manager", "Director", "CEO", "Engineer", "Developer", "Consultant", "Founder", "Sales"];
+    lines.forEach(line => {
+        jobKeywords.forEach(word => {
+            if (line.toLowerCase().includes(word.toLowerCase())) {
+                fieldDesignation.value = line;
+            }
+        });
+        
+        // Simple check: if a line has "Inc", "Ltd", "Corp", or "Co", it's likely the company
+        if (line.match(/Ltd|Inc|Corp|Company|Group|Sons/i)) {
+            fieldCompany.value = line;
+        }
+    });
+}
+
+startCamera();
+</script>
+</body>
+</html>

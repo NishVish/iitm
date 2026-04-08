@@ -12,12 +12,44 @@ class Tools extends Controller
 
     public function saveOcr(Request $request)
     {
-        // $request->validate(['text' => 'required|string']);
-        // DB::table('ocr_texts')->insert([
-        //     'text' => $request->text,
-        //     'created_at' => now(),
-        //     'updated_at' => now()
-        // ]);
-        // return response()->json(['status' => 'success']);
+        // return response()->json($request->all()); // This will show you exactly what is arriving
+
+        // Validate incoming data
+        $request->validate([
+            'company_name' => 'nullable|string|max:255',
+            'person_name' => 'nullable|string|max:255',
+            'designation' => 'nullable|string|max:255',
+            'mobile' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'address' => 'nullable|string',
+            'raw_ocr_text' => 'nullable|string'
+        ]);
+
+        // Insert into DB
+        DB::table('scanned_documents')->insert([
+            'company_name' => $request->company_name,
+            'person_name' => $request->person_name,
+            'designation' => $request->designation,
+            'mobile' => $request->mobile,
+            'email' => $request->email,
+            'address' => $request->address,
+            'raw_ocr_text' => $request->raw_ocr_text,
+            'created_at' => now()
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data saved successfully'
+        ]);
     }
+
+    public function list()
+    {
+        $documents = DB::table('scanned_documents')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('tools.list', compact('documents'));
+    }
+
 }
