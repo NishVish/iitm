@@ -59,11 +59,18 @@ Route::get('/lasteventdetails/{id?}', [EventController::class, 'lastEventDetails
 
 use App\Http\Controllers\Tools;
 
-// Scanner UI
-Route::get('/tools/{operator}', [Tools::class, 'index']);
+// Tool Views
+Route::match(['get', 'post'], '/lookuptest', [Tools::class, 'lookuptest']);
+Route::get('/tools', [Tools::class, 'index'])->name('tools.index');
+Route::get('/scanner/{operator}', [Tools::class, 'ocr'])->name('tools.ocr');
 
-// Save OCR data (AJAX)
-Route::post('/save-ocr', [Tools::class, 'saveOcr'])->name('save.ocr');
-// List all scanned records
-Route::get('/ocrdata', [Tools::class, 'list']);
+// API/AJAX Routes
+Route::post('/ocr-lookup', [Tools::class, 'lookup'])->name('ocr.lookup');
+Route::post('/ocr-save', [Tools::class, 'saveOcr'])->name('ocr.save');
 
+// Data Management
+Route::get('/ocrdata/{operator}', [Tools::class, 'list'])->name('documents.list');
+Route::get('/edit/{id}', [Tools::class, 'edit'])->name('documents.edit');
+Route::post('/update/{id}', [Tools::class, 'update'])->name('documents.update');
+// Add this to routes/web.php
+Route::post('/documents/delete/{id}', [Tools::class, 'destroy'])->name('documents.destroy');

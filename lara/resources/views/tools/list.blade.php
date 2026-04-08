@@ -121,38 +121,85 @@
                     <th>Company</th>
                     <th>Name</th>
                     <th>Designation</th>
-                    <th>Contact</th>
+                    <th>Mobile</th>
                     <th>Email</th>
                     <th>Address</th>
                     <th>Scanned At</th>
+                    <th>Actions</th> <!-- New column -->
                 </tr>
             </thead>
             <tbody>
                 @forelse($documents as $doc)
-                    <tr>
+                    <tr data-id="{{ $doc->id }}">
                         <td>{{ $doc->id }}</td>
-                        <td>
-                            <span class="badge-operator">
-                                {{ $doc->operator ?? 'System' }}
-                            </span>
+                        <td><span class="badge-operator">{{ $doc->operator ?? 'System' }}</span></td>
+                        <td contenteditable="true" class="editable" data-field="company_name">{{ $doc->company_name }}</td>
+                        <td contenteditable="true" class="editable" data-field="person_name">
+                            <strong>{{ $doc->person_name }}</strong>
                         </td>
-                        <td>{{ $doc->company_name }}</td>
-                        <td><strong>{{ $doc->person_name }}</strong></td>
-                        <td>{{ $doc->designation }}</td>
-                        <td>{{ $doc->mobile }}</td>
-                        <td>{{ $doc->email }}</td>
-                        <td>{{ $doc->address }}</td>
+                        <td contenteditable="true" class="editable" data-field="designation">{{ $doc->designation }}</td>
+                        <td contenteditable="true" class="editable" data-field="mobile">{{ $doc->mobile }}</td>
+                        <td contenteditable="true" class="editable" data-field="email">{{ $doc->email }}</td>
+                        <td contenteditable="true" class="editable" data-field="address">{{ $doc->address }}</td>
                         <td>{{ \Carbon\Carbon::parse($doc->created_at)->format('d M, Y H:i') }}</td>
+                        <td>
+                            <button class="save-btn back-btn"
+                                style="padding:5px 10px;font-size:12px; background:green;">Save</button>
+                            <form action="{{ route('documents.destroy', $doc->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="back-btn"
+                                    style="padding:5px 10px;font-size:12px; background:red;">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="9" style="text-align: center; padding: 40px;">No documents scanned yet.</td>
+                        <td colspan="10" style="text-align: center; padding: 40px;">No documents scanned yet.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
+    <script>
+        document.querySelectorAll('.save-btn').forEach(btn => {
+            btn.addEventListener('click', async function () {
+                const row = this.closest('tr');
+                const id = row.dataset.id;
+                const data = {};
+
+                row.querySelectorAll('.editable').forEach(td => {
+                    const field = td.dataset.field;
+                    data[field] = td.innerText.trim();
+                });
+
+                try {
+                    const token = '{{ csrf_token() }}';
+                    const baseUrl = '{{ url('/') }}'; // Base URL of your Laravel app
+                    const response = await fetch(`${baseUrl}/tools/update/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        alert('Document updated successfully!');
+                    } else {
+                        const text = await response.text();
+                        console.error(text);
+                        alert('Update failed!');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Error occurred while updating.');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
