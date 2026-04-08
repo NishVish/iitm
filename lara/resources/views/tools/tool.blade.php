@@ -247,6 +247,12 @@
                     <button class="mode-btn" id="btn-both" onclick="setMode('both')">FRONT & BACK</button>
                 </div>
                 <button id="scan-btn" class="main-scan" onclick="captureAndProcess()">SCAN FRONT</button>
+
+                <button type="button" onclick="clearAllData()"
+                    style="background: #475569; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 10px; cursor: pointer; margin-top: -5px; font-size: 12px;">
+                    🗑️ CLEAR ALL DETAILS
+                </button>
+
             </div>
             <textarea id="result-box" placeholder="Waiting for scan..."
                 style="flex-grow: 1; background: #0f172a; padding: 15px; border-radius: 10px; border: 1px solid #334155; color: #cbd5e1; font-size: 13px; font-family: monospace; resize: none;"></textarea>
@@ -265,8 +271,11 @@
                         rows="2"></textarea></div>
                 <div class="form-group"><label>Email</label><textarea id="form-email" name="email" rows="2"></textarea>
                 </div>
-                <div class="form-group"><label>Address</label><input type="text" id="form-address" name="address"></div>
-
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea id="form-address" name="address" rows="3"
+                        style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 13px; resize: vertical;"></textarea>
+                </div>
                 <input type="hidden" name="operator" value="{{ request()->segment(2) }}">
                 <input type="hidden" id="raw_ocr_text" name="raw_ocr_text">
                 <button type="submit" id="save-btn"
@@ -281,6 +290,33 @@
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
 
     <script>
+
+        function clearAllData() {
+            if (confirm("Are you sure you want to clear all scanned data?")) {
+                // 1. Reset the main form (Company, Name, etc.)
+                document.getElementById('data-form').reset();
+
+                // 2. Clear the OCR textarea
+                document.getElementById('result-box').value = "";
+                document.getElementById('raw_ocr_text').value = "";
+
+                // 3. Clear the Preview Image (set back to blank 1x1 gif)
+                document.getElementById('preview-img').src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+                // 4. Reset zoom/pan position
+                resetZoom();
+
+                // 5. Update Status
+                document.getElementById('status').innerText = "Form Cleared 🧹";
+
+                // 6. Reset Scan Step (if in Front/Back mode)
+                step = 1;
+                document.getElementById('scan-btn').innerText = "SCAN FRONT";
+            }
+        }
+
+
+
         const video = document.getElementById("video");
         const canvas = document.getElementById("canvas");
         const status = document.getElementById("status");
@@ -313,7 +349,17 @@
         function setMode(mode) {
             currentMode = mode;
             step = 1;
-            scanBtn.innerText = "SCAN FRONT";
+
+            // Update button visuals
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            if (mode === 'front') {
+                document.getElementById('btn-front').classList.add('active');
+                scanBtn.innerText = "SCAN FRONT";
+            } else {
+                document.getElementById('btn-both').classList.add('active');
+                scanBtn.innerText = "SCAN FRONT (Step 1)";
+            }
+            status.innerText = `Mode: ${mode === 'front' ? 'Single Side' : 'Front & Back'}`;
         }
 
         async function captureAndProcess() {
@@ -445,25 +491,57 @@
         document.getElementById('data-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const saveBtn = document.getElementById('save-btn');
+
+            // Prevent double-clicks
             saveBtn.disabled = true;
+            const originalBtnText = saveBtn.innerText;
             saveBtn.innerText = "Saving...";
+
             try {
                 const response = await fetch("{{ route('save.ocr') }}", {
                     method: "POST",
-                    headers: { "X-Requested-With": "XMLHttpRequest", "Accept": "application/json" },
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Accept": "application/json"
+                    },
                     body: new FormData(e.target)
                 });
+
                 if (response.ok) {
                     status.innerText = "Saved Successfully! 💾";
-                    e.target.reset();
-                    previewImg.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-                    resetZoom();
+
+                    // VISUAL FEEDBACK: Change button color temporarily
+                    saveBtn.style.background = "#059669";
+                    saveBtn.innerText = "SAVED! ✅";
+
+                    // We REMOVED e.target.reset() so details stay preset
+                    // We REMOVED the previewImg.src reset so the image stays visible
+
+                    setTimeout(() => {
+                        saveBtn.style.background = "#10b981";
+                        saveBtn.innerText = originalBtnText;
+                        saveBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    status.innerText = "Server Error ❌";
+                    saveBtn.disabled = false;
+                    saveBtn.innerText = originalBtnText;
                 }
-            } catch (err) { status.innerText = "Network Error"; }
-            finally { saveBtn.disabled = false; saveBtn.innerText = "💾 Save Data"; }
+            } catch (err) {
+                status.innerText = "Network Error ❌";
+                saveBtn.disabled = false;
+                saveBtn.innerText = originalBtnText;
+            }
         });
 
         startCamera();
+
+        // Sync manual edits in the OCR box to the hidden form field
+        resultBox.addEventListener('input', (e) => {
+            document.getElementById('raw_ocr_text').value = e.target.value;
+            // Optional: Re-parse the form fields as you type
+            parseTextToForm(e.target.value);
+        });
     </script>
 </body>
 

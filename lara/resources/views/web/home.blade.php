@@ -1,234 +1,175 @@
-<!DOCTYPE html>
-<html lang="en">
+{{-- Hero Section --}}
+<section class="hero-section position-relative overflow-hidden">
+    {{-- Animated Background Blobs --}}
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IITM Exhibition Platform</title>
+    <div class="container h-100">
+        <div class="row min-vh-100 align-items-center">
+            <div class="col-lg-12 text-center text-lg-start">
+                <span class="badge rounded-pill mb-3 px-3 py-2"
+                    style="background: #fff1f2; color: #AA2324; border: 1px solid rgba(170, 35, 36, 0.1);">
+                    ✨ 20+ Years of Industry Leadership
+                </span>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                <h1 class="display-1 fw-black tracking-tight mb-4">
+                    Next-Gen <br>
+                    <span class="text-gradient">Exhibition Ecosystem</span>
+                </h1>
 
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            overflow-x: hidden;
-        }
-
-        /* ================= HERO ================= */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, #6366f1, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: #64748b;
-            max-width: 600px;
-            margin: auto;
-        }
-
-        /* Floating blobs */
-        .blob {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            animation: float 15s infinite alternate;
-        }
-
-        .blob1 {
-            background: #6366f133;
-            top: -100px;
-            left: -100px;
-        }
-
-        .blob2 {
-            background: #10b98133;
-            bottom: -100px;
-            right: -100px;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translate(0, 0);
-            }
-
-            100% {
-                transform: translate(60px, 80px);
-            }
-        }
-
-        /* ================= ROLE BUTTONS ================= */
-        .role-card {
-            border-radius: 20px;
-            padding: 25px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            transition: 0.4s;
-            cursor: pointer;
-            width: 260px;
-        }
-
-        .role-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        /* ================= INFO BOX ================= */
-        .info-box {
-            display: none;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 30px;
-        }
-
-        /* ================= CITY ================= */
-        .city-card {
-            padding: 20px;
-            border-radius: 15px;
-            background: white;
-            transition: 0.3s;
-            cursor: pointer;
-            border: 1px solid #eee;
-        }
-
-        .city-card:hover {
-            background: #6366f1;
-            color: white;
-            transform: translateX(10px);
-        }
-
-        /* Mouse glow */
-        .cursor-glow {
-            position: fixed;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.2), transparent);
-            pointer-events: none;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="cursor-glow" id="glow"></div>
-
-    <div class="container">
-
-        {{-- HERO --}}
-        <div class="hero">
-            <div class="blob blob1"></div>
-            <div class="blob blob2"></div>
-
-            <div>
-                <h1>India’s Exhibition Platform</h1>
-                <p class="mt-3">
-                    Join IITM exhibitions across India’s major cities.
-                    Connect as an exhibitor or explore as a visitor.
+                <p class="lead text-muted mb-5 max-w-550">
+                    Discover India's most influential trade shows. Whether you're scaling your brand or exploring
+                    innovations, we bridge the gap.
                 </p>
 
-                <div class="d-flex justify-content-center gap-4 mt-5 flex-wrap">
-                    <div class="role-card" onclick="selectRole('exhibitor')">
-                        <h5>🚀 Exhibitor</h5>
-                        <small>Showcase your brand & grow business</small>
+                {{-- Role Selection Cards --}}
+                <div class="d-flex justify-content-center justify-content-lg-start gap-4 flex-wrap">
+                    <div class="role-card shadow-sm" onclick="selectRole('exhibitor')">
+                        <div class="icon-box">🚀</div>
+                        <h5 class="fw-bold">Exhibitor</h5>
+                        <p class="small text-muted mb-0">Showcase products and capture premium business leads.</p>
                     </div>
 
-                    <a href="{{ url('/events') }}" class="text-decoration-none">
-                        <div class="role-card">
-                            <div class="card-icon">🎫</div>
-                            <h5>Visitor</h5>
-                            <small>Explore opportunities & network</small>
-                        </div>
+                    <a href="{{ url('/events') }}" class="role-card shadow-sm text-decoration-none">
+                        <div class="icon-box">🎫</div>
+                        <h5 class="fw-bold">Visitor</h5>
+                        <p class="small text-muted mb-0">Network with leaders and explore latest industry trends.</p>
                     </a>
                 </div>
 
-                {{-- Dynamic Info --}}
-                <div class="info-box" id="infoBox">
-                    <h4 id="roleTitle"></h4>
-                    <p id="roleDesc"></p>
-                    <a href="{{ url('/events') }}" class="btn btn-dark">Explore Events</a>
+                {{-- City Quick-Links --}}
+                <div class="mt-5">
+                    <p class="small fw-bold text-uppercase tracking-widest text-muted mb-3">Explore Major Hubs</p>
+                    <div class="city-grid d-flex flex-wrap justify-content-center justify-content-lg-start gap-2">
+                        @php $cities = ['Mumbai', 'Delhi', 'Bengaluru', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune']; @endphp
+                        @foreach($cities as $city)
+                            <button class="city-chip" onclick="goToCity('{{ strtolower($city) }}')">
+                                {{ $city }}
+                            </button>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
-
-        {{-- CITY SECTION --}}
-        <div class="mt-5">
-            <h3 class="mb-4">Explore Cities</h3>
-
-            @php
-                $cities = ['Mumbai', 'Delhi', 'Bengaluru', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad', 'Jaipur'];
-            @endphp
-
-            <div class="row g-3">
-                @foreach($cities as $city)
-                    <div class="col-md-4">
-                        <div class="city-card" onclick="goToCity('{{ strtolower($city) }}')">
-                            {{ $city }}
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-
     </div>
+</section>
 
-    <script>
-        // ROLE SELECTION
-        function selectRole(role) {
-            const box = document.getElementById('infoBox');
-            const title = document.getElementById('roleTitle');
-            const desc = document.getElementById('roleDesc');
+<style>
+    .fw-black {
+        font-weight: 900;
+    }
 
-            box.style.display = 'block';
+    .tracking-tight {
+        letter-spacing: -0.05em;
+    }
 
-            if (role === 'exhibitor') {
-                title.innerHTML = "Become an Exhibitor";
-                desc.innerText = "Showcase your brand to thousands of visitors and generate business leads.";
-            } else {
-                title.innerHTML = "Join as Visitor";
-                desc.innerText = "Discover opportunities, connect with exhibitors and explore new markets.";
-            }
+    .max-w-550 {
+        max-width: 550px;
+    }
 
-            box.scrollIntoView({ behavior: 'smooth' });
+    .text-gradient {
+        background: linear-gradient(135deg, #AA2324 0%, #4338ca 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Hero Layout */
+    .hero-section {
+        min-height: 90vh;
+    }
+
+    /* Role Cards */
+    .role-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 24px;
+        padding: 30px;
+        width: 280px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+    }
+
+    .role-card:hover {
+        transform: translateY(-10px);
+        background: #fff;
+        border-color: #AA2324;
+        box-shadow: 0 20px 40px rgba(170, 35, 36, 0.1) !important;
+    }
+
+    .icon-box {
+        width: 50px;
+        height: 50px;
+        background: #fff1f2;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    /* City Chips */
+    .city-chip {
+        padding: 8px 20px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 100px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #64748b;
+        transition: all 0.3s ease;
+    }
+
+    .city-chip:hover {
+        background: #AA2324;
+        color: white;
+        border-color: #AA2324;
+        transform: translateY(-2px);
+    }
+
+    /* Blobs */
+    .blob {
+        position: absolute;
+        z-index: -1;
+        filter: blur(100px);
+        opacity: 0.3;
+        animation: blobMove 20s infinite alternate;
+    }
+
+    .blob-1 {
+        width: 500px;
+        height: 500px;
+        background: #AA2324;
+        top: -10%;
+        right: -5%;
+    }
+
+    .blob-2 {
+        width: 400px;
+        height: 400px;
+        background: #6366f1;
+        bottom: 5%;
+        left: -5%;
+    }
+
+    @keyframes blobMove {
+        from {
+            transform: translate(0, 0) rotate(0deg);
         }
 
-        // CITY NAVIGATION
-        function goToCity(city) {
-            window.location.href = `/${city}/events`;
+        to {
+            transform: translate(50px, 100px) rotate(30deg);
         }
+    }
+</style>
 
-        // MOUSE GLOW EFFECT
-        document.addEventListener('mousemove', e => {
-            const glow = document.getElementById('glow');
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
-    </script>
+<script>
+    function selectRole(role) {
+        window.location.href = `/register?role=${role}`;
+    }
 
-</body>
-
-</html>
+    function goToCity(city) {
+        window.location.href = `/${city}/events`;
+    }
+</script>

@@ -17,7 +17,7 @@ class Tools extends Controller
             'operator' => 'nullable|string|max:255', // Correctly validated
             'person_name' => 'nullable|string|max:255',
             'designation' => 'nullable|string|max:255',
-            'mobile' => 'nullable|string|max:20',
+            'mobile' => 'nullable|string|max:255',
             'email' => 'nullable|string|max:255',
             'address' => 'nullable|string',
             'raw_ocr_text' => 'nullable|string'
