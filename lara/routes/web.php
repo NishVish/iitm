@@ -60,7 +60,7 @@ Route::get('/lasteventdetails/{id?}', [EventController::class, 'lastEventDetails
 use App\Http\Controllers\Tools;
 
 // Scanner UI
-Route::get('/tools', [Tools::class, 'index']);
+Route::get('/tools/{operator}', [Tools::class, 'index']);
 
 // Save OCR data (AJAX)
 Route::post('/save-ocr', [Tools::class, 'saveOcr'])->name('save.ocr');

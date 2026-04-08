@@ -9,24 +9,23 @@ class Tools extends Controller
     {
         return view('tools.tool');
     }
-
     public function saveOcr(Request $request)
     {
-        // return response()->json($request->all()); // This will show you exactly what is arriving
-
-        // Validate incoming data
+        // 1. Validation
         $request->validate([
             'company_name' => 'nullable|string|max:255',
+            'operator' => 'nullable|string|max:255', // Correctly validated
             'person_name' => 'nullable|string|max:255',
             'designation' => 'nullable|string|max:255',
             'mobile' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255',
+            'email' => 'nullable|string|max:255',
             'address' => 'nullable|string',
             'raw_ocr_text' => 'nullable|string'
         ]);
 
-        // Insert into DB
+        // 2. Insert into DB
         DB::table('scanned_documents')->insert([
+            'operator' => $request->operator, // ADDED THIS LINE
             'company_name' => $request->company_name,
             'person_name' => $request->person_name,
             'designation' => $request->designation,
@@ -39,7 +38,8 @@ class Tools extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Data saved successfully'
+            'message' => 'Data saved successfully',
+            'received' => $request->all() // Good for console logging
         ]);
     }
 
