@@ -72,5 +72,5 @@ Route::post('/ocr-save', [Tools::class, 'saveOcr'])->name('ocr.save');
 Route::get('/ocrdata/{operator}', [Tools::class, 'list'])->name('documents.list');
 Route::get('/edit/{id}', [Tools::class, 'edit'])->name('documents.edit');
 Route::post('/update/{id}', [Tools::class, 'update'])->name('documents.update');
-// Add this to routes/web.php
-Route::post('/documents/delete/{id}', [Tools::class, 'destroy'])->name('documents.destroy');
+// Changed to DELETE to match the @method('DELETE') in your HTML form
+Route::delete('/documents/delete/{id}', [Tools::class, 'destroy'])->name('documents.destroy');

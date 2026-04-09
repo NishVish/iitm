@@ -13,8 +13,17 @@ class Tools extends Controller
      */
     public function index()
     {
-        return view('tools.tool');
+        // Fetch unique operator names from the table
+        $operators = DB::table('scanned_documents')
+            ->whereNotNull('operator')
+            ->distinct()
+            ->pluck('operator'); // Returns a simple array of names
+
+        // Pass them to the scanner view
+        return view('tools.tool', compact('operators'));
     }
+
+
 
     public function ocr()
     {
@@ -168,12 +177,10 @@ class Tools extends Controller
     /**
      * 4. SAVE (CREATE)
      */
+
+
     public function saveOcr(Request $request)
     {
-        // If validation fails, this will now throw a JSON response 
-        // because we added 'Accept: application/json' in the JS headers.
-
-        // return response()->json($request->all());
         $validated = $request->validate([
             'company_name' => 'nullable|string|max:255',
             'operator' => 'nullable|string|max:255',
@@ -181,23 +188,132 @@ class Tools extends Controller
             'designation' => 'nullable|string|max:255',
             'mobile' => 'nullable|string|max:255',
             'email' => 'nullable|string|max:255',
+            'website' => 'nullable|string|max:255',
             'address' => 'nullable|string',
             'raw_ocr_text' => 'nullable|string'
         ]);
 
+        // Store variables
+        $company_name = $validated['company_name'] ?? null;
+
+        if ($company_name) {
+            // 1. Remove specific OCR symbols at the start or end (=, |, ©, etc.)
+            // This targets common "border" characters picked up by OCR
+            $company_name = preg_replace('/^[\s=|+\-©]+|[\s=|+\-©]+$/u', '', $company_name);
+
+            // 2. Remove extra spaces between words
+            $company_name = preg_replace('/\s+/', ' ', trim($company_name));
+
+            // 3. Optional: Fix casing if it's all uppercase (AROUND THE WORLD -> Around The World)
+            if ($company_name === strtoupper($company_name)) {
+                $company_name = ucwords(strtolower($company_name));
+            }
+        }
+        $operator = $validated['operator'] ?? null;
+        $person_name = $validated['person_name'] ?? null;
+        $designation = $validated['designation'] ?? null;
+        $mobile = $validated['mobile'] ?? null;
+        $email = $validated['email'] ?? null;
+        $website = $validated['website'] ?? null;
+
+        if ($website) {
+            // 1. Split by comma or space in case OCR picked up multiple
+            $sites = preg_split('/[,\s]+/', $website);
+
+            $clean_sites = [];
+            foreach ($sites as $site) {
+                $site = trim(strtolower($site));
+                if (empty($site))
+                    continue;
+
+                // 2. Normalize: remove 'www.' and protocols to find the unique "root"
+                // This makes 'https://www.site.com' and 'site.com' look the same
+                $normalized = preg_replace('/^(https?:\/\/)?(www\.)?/', '', $site);
+                $normalized = rtrim($normalized, '/');
+
+                // 3. Keep the first occurrence of each unique domain
+                if (!isset($clean_sites[$normalized])) {
+                    // Ensure the version we keep has a protocol for the DB
+                    if (!str_starts_with($site, 'http')) {
+                        $site = 'https://' . $site;
+                    }
+                    $clean_sites[$normalized] = $site;
+                }
+            }
+
+            // 4. Return only the first unique website found
+            $website = !empty($clean_sites) ? reset($clean_sites) : null;
+        }
+        $address = $validated['address'] ?? null;
+        $raw_ocr_text = $validated['raw_ocr_text'] ?? null;
+
+        if ($person_name) {
+            // 1. Remove email addresses
+            $person_name = preg_replace('/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/', '', $person_name);
+
+            // 2. Remove Phone Numbers (often found in mashed OCR names)
+            // This looks for patterns like +61..., 0410..., etc.
+            $person_name = preg_replace('/(\+?\d[\d\s-]{7,})/', '', $person_name);
+
+            // 3. Remove OCR/Symbol artifacts
+            // Specifically target: ( ) © [ ] = + |
+            $person_name = preg_replace('/[\(\)©\[\]=\+\|]/u', '', $person_name);
+
+            // 4. Remove leading/trailing non-alphanumeric symbols
+            $person_name = preg_replace('/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/', '', $person_name);
+
+            // 5. Final cleanup: Remove extra spaces
+            $person_name = preg_replace('/\s+/', ' ', trim($person_name));
+        }
+
+        // Clean designation: remove emails and OCR symbols
+        if ($designation) {
+            // Remove email addresses
+            $designation = preg_replace('/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/', '', $designation);
+            // Remove leading/trailing non-alphanumeric symbols (like "(=)")
+            $designation = preg_replace('/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/', '', $designation);
+            // Remove extra spaces
+            $designation = preg_replace('/\s+/', ' ', trim($designation));
+        }
+
         try {
-            // Ensure 'scanned_documents' table has exactly these column names
-            DB::table('scanned_documents')->insert(array_merge($validated, [
-                'created_at' => now(),
-                // 'updated_at' => now() // Add this if your table has it
-            ]));
+            $data = [
+                'company_name' => $company_name,
+                'operator' => $operator,
+                'person_name' => $person_name,
+                'designation' => $designation,
+                'mobile' => $mobile,
+                'email' => $email,
+                'address' => $address,
+                'website' => $website ?? null, // Added website as well
+                'raw_ocr_text' => $raw_ocr_text,
+                'created_at' => now()->toDateTimeString()
+            ];
 
-            return response()->json(['status' => 'success']);
+            // $data = [
+            //     'company_name' => 'TWM TRAVEL WALA Pvt LTD',
+            //     'operator' => 'Nishant',
+            //     'person_name' => 'ALISHA',
+            //     'designation' => 'PRODUCT MANAGER',
+            //     'mobile' => '+91704239303',
+            //     'email' => 'sales@twmtravelwala.com',
+            //     'address' => 'OFFICE NO- 8204, 1st FLOOR, ROSHANARA CLUB ROAD, DELHI-110007',
+            //     'website' => 'www.twmtravelwala.com',
+            //     'raw_ocr_text' => 'i ALISHA (=) sales@twmtravelwala.com PRODUCT MANAGER +91704239303 OFFICE NO- 8204...',
+            //     'created_at' => now()->toDateTimeString()
+            // ];
 
+            // 2. Perform the insert
+            DB::table('scanned_documents')->insert($data);
+
+            // 3. Return the data in the JSON response
+            return response()->json([
+                'status' => 'success',
+                'data' => $data
+            ]);
         } catch (\Exception $e) {
             \Log::error('Save OCR Error: ' . $e->getMessage());
 
-            // Return JSON so the JS 'catch' can read the actual SQL error
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage()
@@ -223,37 +339,43 @@ class Tools extends Controller
     /**
      * 6. UPDATE & EDIT
      */
-    public function edit($id)
-    {
-        $document = DB::table('scanned_documents')->where('id', $id)->first();
-        if (!$document)
-            return redirect()->back()->with('error', 'Not found');
-        return view('tools.edit', compact('document'));
-    }
-
     public function update(Request $request, $id)
     {
         try {
-            $fields = $request->only(['company_name', 'person_name', 'designation', 'mobile', 'email', 'address']);
+            // ADD 'website' TO THIS ARRAY
+            $fields = $request->only([
+                'company_name',
+                'person_name',
+                'designation',
+                'mobile',
+                'email',
+                'address',
+                'website' // <--- MUST BE HERE
+            ]);
+
             DB::table('scanned_documents')->where('id', $id)->update($fields);
+
             return response()->json(['status' => 'success']);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 
-    /**
-     * 7. DELETE
-     */
     public function destroy($id)
     {
         $doc = DB::table('scanned_documents')->where('id', $id)->first();
+
         if ($doc) {
             $operator = $doc->operator;
             DB::table('scanned_documents')->where('id', $id)->delete();
-            return redirect()->route('documents.list', ['operator' => $operator])
-                ->with('success', 'Document deleted.');
+
+            // Ensure 'documents.list' is the correct route name for your history page
+            return redirect()->back()->with('success', 'Document deleted.');
         }
-        return redirect()->back();
+
+        return redirect()->back()->with('error', 'Record not found.');
     }
 }

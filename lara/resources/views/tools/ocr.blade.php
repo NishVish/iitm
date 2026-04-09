@@ -248,6 +248,7 @@
                     <button class="mode-btn" id="btn-both" onclick="setMode('both')">FRONT & BACK</button>
                 </div>
                 <button id="scan-btn" class="main-scan" onclick="captureAndProcess()">SCAN FRONT</button>
+                <button id="scannew-btn" class="main-scan" onclick="scannew()">SCAN NEW</button>
 
                 <button type="button" onclick="clearAllData()"
                     style="background: #475569; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 10px; cursor: pointer; margin-top: -5px; font-size: 12px;">
@@ -295,11 +296,31 @@
                     <textarea id="form-website" name="website" rows="2"></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label>Address</label>
-                    <textarea id="form-address" name="address" rows="3"
-                        style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 13px; resize: vertical;"></textarea>
-                </div>
+                <textarea id="form-address" name="address" rows="3"
+                    style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 13px; resize: vertical;"></textarea>
+
+                <script>
+                    // Select the textarea
+                    const addressTextarea = document.getElementById("form-address");
+
+                    // 1. Clean data only when the user stops interacting with the field
+                    addressTextarea.addEventListener("blur", () => {
+                        addressTextarea.value = addressTextarea.value
+                            .replace(/\r?\n/g, ' ')    // replace line breaks
+                            .replace(/\s{2,}/g, ' ')   // collapse multiple spaces
+                            .trim();                   // clean edges
+                    });
+
+                    // 2. Also clean it immediately if they PASTE a messy address
+                    addressTextarea.addEventListener("paste", () => {
+                        // Timeout ensures we catch the text AFTER it hits the textarea
+                        setTimeout(() => {
+                            addressTextarea.value = addressTextarea.value
+                                .replace(/\r?\n/g, ' ')
+                                .replace(/\s{2,}/g, ' ');
+                        }, 10);
+                    });
+                </script>
 
                 <input type="hidden" name="operator" value="{{ request()->segment(2) }}">
                 <input type="hidden" id="raw_ocr_text" name="raw_ocr_text">
@@ -342,7 +363,29 @@
             }
         }
 
+        function scannew() {
+            // Clear all captured data before scanning
+            document.getElementById('data-form').reset();
 
+            // 2. Clear the OCR textarea
+            document.getElementById('result-box').value = "";
+            document.getElementById('raw_ocr_text').value = "";
+
+            // 3. Clear the Preview Image (set back to blank 1x1 gif)
+            document.getElementById('preview-img').src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+            // 4. Reset zoom/pan position
+            resetZoom();
+
+            // 5. Update Status
+            document.getElementById('status').innerText = "Form Cleared 🧹";
+
+            // 6. Reset Scan Step (if in Front/Back mode)
+            step = 1;
+            document.getElementById('scan-btn').innerText = "SCAN FRONT";
+            // Then start your capture process
+            captureAndProcess();
+        }
 
         const video = document.getElementById("video");
         const canvas = document.getElementById("canvas");
@@ -638,69 +681,101 @@
                 "solutions", "technologies", "group", "company", "services",
                 "pvt", "ltd", "inc", "corp", "builders", "developers"
             ];
-            // 2. Name (after defining keys so we can reuse them)
+
+            // Name Cleanup
             if (lines.length > 0) {
-                let possibleName = lines[0].length < 3 ? lines[1] : lines[0];
+                let possibleName = lines[0].length < 3 && lines[1] ? lines[1] : lines[0];
+
+                // Clean OCR garbage
+                possibleName = possibleName
+                    .replace(/(\+?\d[\d\s\-().]{7,20})/g, '')
+                    .replace(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi, '')
+                    .replace(/\b((https?:\/\/)?(www\.)?[a-z0-9-]+\.(com|in|org|net|co|io))\b/gi, '')
+                    .replace(/^[^a-zA-Z]+/, '')
+                    .replace(/[^a-zA-Z\s'-]+$/g, '')
+                    .replace(/[\s\-_]{2,}/g, ' ');
+
+                let parts = possibleName.split(/\s+/).filter(p => p.length > 1);
+                possibleName = parts.join(' ');
 
                 const lowerName = possibleName.toLowerCase();
-                const emailValue = (document.getElementById("form-email").value || "").toLowerCase();
-                const phoneValue = (document.getElementById("form-mobile").value || "").toLowerCase();
+
+                // --- NEW: Business Keywords Filter ---
+                const businessKeys = [
+                    'holidays', 'travels', 'pvt', 'ltd', 'limited', 'solutions', 'services',
+                    'tours', 'enterprise', 'global', 'group', 'associates', 'agency', 'logistics'
+                ];
 
                 let isInvalidName = false;
 
-                // ❌ Constraint checks
-                if (emailValue && lowerName.includes(emailValue)) {
-                    isInvalidName = true;
-                }
+                // Check against business keywords
+                if (businessKeys.some(k => lowerName.includes(k))) isInvalidName = true;
 
-                if (phoneValue && lowerName.replace(/\D/g, '').includes(phoneValue.replace(/\D/g, ''))) {
-                    isInvalidName = true;
-                }
+                // Existing constraints
+                const emailValue = (document.getElementById("form-email").value || "").toLowerCase();
+                const phoneValue = (document.getElementById("form-mobile").value || "").toLowerCase();
 
-                if (jobKeys.some(k => lowerName.includes(k))) {
-                    isInvalidName = true;
-                }
+                if (emailValue && lowerName.includes(emailValue)) isInvalidName = true;
+                if (phoneValue && lowerName.replace(/\D/g, '').includes(phoneValue.replace(/\D/g, ''))) isInvalidName = true;
+                if (jobKeys.some(k => lowerName.includes(k))) isInvalidName = true;
+                if (invalidNameKeys.some(k => lowerName.includes(k))) isInvalidName = true;
+                if (/\.(com|in|org|net|co|io)/i.test(lowerName)) isInvalidName = true;
+                if (/\d/.test(possibleName)) isInvalidName = true;
 
-                if (invalidNameKeys.some(k => lowerName.includes(k))) {
-                    isInvalidName = true;
-                }
-
-
-                if (compKeys.some(k => lowerName.includes(k))) {
-                    isInvalidName = true;
-                }
-
-                // ✅ Assign only if valid
+                // --- FINAL ACTION ---
                 if (!isInvalidName) {
+                    possibleName = possibleName.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
                     document.getElementById("form-name").value = possibleName;
+                } else {
+                    // If it's a holiday company, the name field should probably be cleared 
+                    // or we should look for the name in other lines.
+                    document.getElementById("form-name").value = "";
                 }
             }
-
             let addrLines = [];
             let detectedCompany = "";
             let detectedDesignation = "";
 
             lines.forEach(line => {
-                const lower = line.toLowerCase();
+                let cleanLine = line.trim();
 
-                // Skip lines that are just icons or emails
-                if (lower.includes('@') || /\b(www\.|\.com|\.in|\.org|\.net)\b/i.test(lower) || lower.length < 3) return;
-                // Constraint: Check Company first because it's usually more specific (Ltd/Pvt)
+                // --- FIX COMMON OCR MISREADS BEFORE LOWERCASE ---
+                cleanLine = cleanLine
+                    .replace(/\bLid\b\.?/gi, 'Ltd')
+                    .replace(/\bLlt\b\.?/gi, 'Ltd')
+                    .replace(/\bPvt\b\.?/gi, 'Pvt')
+                    .replace(/“|”/g, '') // remove fancy quotes
+                    .replace(/¥|¥/g, '') // remove random symbols
+                    .replace(/\s{2,}/g, ' '); // collapse spaces
+
+                const lower = cleanLine.toLowerCase();
+
+                // Skip trivial / email / web / too short
+                if (
+                    lower.includes('@') ||
+                    /\b(www\.|https?:\/\/|\.com|\.in|\.org|\.net)\b/i.test(lower) ||
+                    lower.length < 3
+                ) return;
+
                 const isCompany = compKeys.some(k => lower.includes(k));
                 const isJob = jobKeys.some(k => lower.includes(k));
 
                 if (isCompany) {
-                    detectedCompany = line;
+                    // CLEAN COMPANY
+                    let detected = cleanLine.replace(/[^a-zA-Z0-9\s&.,-]/g, '').trim();
+                    detectedCompany = detected;
                 } else if (isJob) {
-                    // Only set designation if it hasn't been identified as a company line
-                    detectedDesignation = line;
-                }
-
-                if (addrKeys.some(k => lower.includes(k))) {
-                    addrLines.push(line);
+                    let cleanDesignation = cleanLine;
+                    cleanDesignation = cleanDesignation.replace(/^[^a-zA-Z]+/, '').trim();
+                    cleanDesignation = cleanDesignation.replace(/[\d:|+–-]+$/g, '').trim();
+                    cleanDesignation = cleanDesignation.replace(/[\s|]{2,}/g, ' ');
+                    cleanDesignation = cleanDesignation
+                        .split(' ')
+                        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+                        .join(' ');
+                    detectedDesignation = cleanDesignation;
                 }
             });
-
             // Final Constraint: Ensure Company and Designation are not identical
             if (detectedCompany === detectedDesignation) {
                 detectedDesignation = ""; // Clear it so user can manually fix or we pick the next best
@@ -724,7 +799,7 @@
                 return;
             }
 
-            // 2. UI State: Disable button
+            // 2. UI State: Disable buttonad
             saveBtn.disabled = true;
             const originalBtnText = saveBtn.innerText;
             const originalBg = saveBtn.style.background;
