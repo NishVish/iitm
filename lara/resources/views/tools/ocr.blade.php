@@ -208,6 +208,35 @@
         canvas {
             display: none;
         }
+
+        @media (max-width: 768px) {
+            #camera-wrapper {
+                height: 160px;
+                /* adjust to 140–180 as you like */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glass-panel {
+                height: auto;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h3:has(+ #preview-section) {
+                display: none;
+            }
+
+            #preview-section,
+            #preview-container,
+            #preview-img,
+            .preview-controls,
+            #status+p {
+                /* this targets the zoom instruction line */
+                display: none !important;
+            }
+        }
     </style>
 </head>
 
