@@ -55,6 +55,16 @@
             flex-direction: column;
         }
 
+        .glass-panel1 {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 15px;
+            padding: 20px;
+            height: 750px;
+            display: flex;
+            flex-direction: column;
+        }
+
         /* LIVE CAMERA SECTION */
         #camera-wrapper {
             width: 100%;
@@ -217,7 +227,7 @@
         }
 
         @media (max-width: 768px) {
-            .glass-panel {
+            .glass-panel1 {
                 height: auto;
                 padding: 15px;
             }
@@ -245,7 +255,7 @@
     <h1>Operator : {{ request()->segment(2) }}</h1>
 
     <div class="dashboard">
-        <div class="glass-panel">
+        <div class="glass-panel1">
             <h3>Live Feed</h3>
             <div id="camera-wrapper">
                 <video id="video" autoplay playsinline muted></video>
