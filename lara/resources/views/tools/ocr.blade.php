@@ -263,25 +263,51 @@
             <h3>Parsed Details</h3>
             <form id="data-form">
                 @csrf
-                <div class="form-group"><label>Company</label><input type="text" id="form-company" name="company_name">
+
+                <div class="form-group">
+                    <label>Company</label>
+                    <input type="text" id="form-company" name="company_name">
                 </div>
-                <div class="form-group"><label>Name</label><input type="text" id="form-name" name="person_name"></div>
-                <div class="form-group"><label>Designation</label><input type="text" id="form-designation"
-                        name="designation"></div>
-                <div class="form-group"><label>Mobile</label><textarea id="form-mobile" name="mobile"
-                        rows="2"></textarea></div>
-                <div class="form-group"><label>Email</label><textarea id="form-email" name="email" rows="2"></textarea>
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="form-name" name="person_name">
                 </div>
+
+                <div class="form-group">
+                    <label>Designation</label>
+                    <input type="text" id="form-designation" name="designation">
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile</label>
+                    <textarea id="form-mobile" name="mobile" rows="2"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <textarea id="form-email" name="email" rows="2"></textarea>
+                </div>
+
+                <!-- ✅ NEW FIELD -->
+                <div class="form-group">
+                    <label>Website</label>
+                    <textarea id="form-website" name="website" rows="2"></textarea>
+                </div>
+
                 <div class="form-group">
                     <label>Address</label>
                     <textarea id="form-address" name="address" rows="3"
                         style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 13px; resize: vertical;"></textarea>
                 </div>
+
                 <input type="hidden" name="operator" value="{{ request()->segment(2) }}">
                 <input type="hidden" id="raw_ocr_text" name="raw_ocr_text">
+
                 <button type="submit" id="save-btn"
-                    style="width: 100%; background: #10b981; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 5px;">💾
-                    Save Data</button>
+                    style="width: 100%; background: #10b981; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 5px;">
+                    💾 Save Data
+                </button>
             </form>
         </div>
     </div>
@@ -576,6 +602,33 @@
                 document.getElementById("form-mobile").value = [...new Set(validPhones)].join(', ');
             }
 
+            // Website Regex
+            const websiteRegex = /\b((https?:\/\/)?(www\.)?[a-z0-9-]+\.(com|in|org|net|co|io)[^\s]*)\b/gi;
+
+            // Strict website regex (only valid TLDs)
+            // const websiteRegex = /\b((https?:\/\/)?(www\.)?[a-z0-9-]+\.(com|in|org|net|co|io))\b/gi;
+
+            let allWebsites = rawText.match(websiteRegex);
+
+            if (allWebsites) {
+                // Normalize + clean
+                const cleanWebsites = [...new Set(allWebsites.map(w => {
+                    w = w.toLowerCase().trim();
+
+                    // Fix common OCR mistakes
+                    w = w.replace('cofn', 'com')
+                        .replace('ecom', 'com')
+                        .replace('c0m', 'com');
+
+                    if (!w.startsWith('http')) return 'https://' + w;
+                    return w;
+                }))];
+
+                document.getElementById("form-website").value = cleanWebsites.join(', ');
+            }
+
+
+
             // 3. Keywords
             const jobKeys = ["manager", "director", "engineer", "ceo", "developer", "founder", "sales", "executive"];
             const compKeys = ["ltd", "inc", "corp", "group", "solutions", "private", "limited", "builders", "developers pvt"];
@@ -631,8 +684,7 @@
                 const lower = line.toLowerCase();
 
                 // Skip lines that are just icons or emails
-                if (lower.includes('@') || lower.length < 3) return;
-
+                if (lower.includes('@') || /\b(www\.|\.com|\.in|\.org|\.net)\b/i.test(lower) || lower.length < 3) return;
                 // Constraint: Check Company first because it's usually more specific (Ltd/Pvt)
                 const isCompany = compKeys.some(k => lower.includes(k));
                 const isJob = jobKeys.some(k => lower.includes(k));
