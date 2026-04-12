@@ -1,181 +1,363 @@
-```blade
-<div class="registration-container">
-    <form action="{{ route('registration.submit') }}" method="POST">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
 
-        {{-- Hidden Fields --}}
-        <input type="hidden" name="contact_id" value="{{ session('contact.contact_id') }}">
-        <input type="hidden" name="company_db_id" value="{{ session('company.id') }}">
-        <input type="hidden" name="company_id_code" value="{{ session('company_id') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration | {{ $company['company_name'] }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;900&display=swap');
 
-        {{-- ================= PERSONAL PROFILE ================= --}}
-        <div class="form-card">
-            <h3>Personal Profile</h3>
+        :root {
+            --primary: #00f5ff;
+            --bg-deep: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --success: #4caf50;
+        }
 
-            <div class="row">
-                <div class="form-group col-6">
-                    <label>Full Name</label>
-                    <input type="text" name="name" value="{{ session('contact.name') }}" class="form-control">
+        body {
+            background-color: var(--bg-deep);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            padding: 40px 20px;
+        }
+
+        .registration-container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        /* --- STEPPER --- */
+        .stepper-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .step {
+            text-align: center;
+            width: 120px;
+        }
+
+        .step .circle {
+            width: 45px;
+            height: 45px;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-family: 'Syncopate';
+            font-size: 14px;
+            transition: 0.4s;
+        }
+
+        .step span {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555;
+            font-family: 'Syncopate';
+        }
+
+        .step.completed .circle {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .step.active .circle {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+        }
+
+        .step.active span {
+            color: white;
+        }
+
+        .step-line {
+            flex: 0 1 80px;
+            height: 2px;
+            background: #333;
+            margin: 0 10px;
+            transform: translateY(-15px);
+        }
+
+        .step-line.filled {
+            background: var(--success);
+        }
+
+        /* --- CARDS --- */
+        .form-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .form-card.active {
+            display: block;
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h3 {
+            font-family: 'Syncopate';
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin: 30px 0 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+
+        /* --- INPUTS --- */
+        .form-group label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: var(--primary);
+            box-shadow: none;
+            color: #fff;
+        }
+
+        .scroll-box {
+            height: 180px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .opt-label {
+            display: block;
+            font-size: 13px;
+            color: #bbb;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .opt-label input {
+            margin-right: 10px;
+            accent-color: var(--primary);
+        }
+
+        .btn-next,
+        .btn-submit {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-family: 'Syncopate';
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px solid #333;
+            color: #777;
+            padding: 12px 35px;
+            border-radius: 50px;
+            margin-right: 10px;
+            font-family: 'Syncopate';
+            font-size: 11px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="registration-container">
+
+        <div class="stepper-header">
+            <div class="step completed">
+                <div class="circle">✓</div>
+                <span>Verified</span>
+            </div>
+            <div class="step-line filled"></div>
+            <div class="step active" id="node2">
+                <div class="circle">02</div>
+                <span>Personal</span>
+            </div>
+            <div class="step-line" id="line2"></div>
+            <div class="step" id="node3">
+                <div class="circle">03</div>
+                <span>Company</span>
+            </div>
+        </div>
+
+        <form action="{{ route('registration.submit') }}" method="POST">
+            @csrf
+            <input type="hidden" name="contact_id" value="{{ $contact['contact_id'] }}">
+            <input type="hidden" name="company_id" value="{{ $contact['company_id'] }}">
+
+            <div class="form-card active" id="step2">
+                <h3>Personal Profile</h3>
+                <div class="row g-3">
+                    <div class="col-md-6 form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="name" value="{{ $contact['name'] }}" class="form-control">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Designation</label>
+                        <input type="text" name="designation" value="{{ $contact['designation'] }}"
+                            class="form-control">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Mobile</label>
+                        <input type="text" name="mobile" value="{{ $contact['mobiles'][0] ?? '' }}" class="form-control"
+                            readonly>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" value="{{ $contact['emails'][0] ?? '' }}" class="form-control">
+                    </div>
                 </div>
-
-                <div class="form-group col-6">
-                    <label>Designation</label>
-                    <input type="text" name="designation" value="{{ session('contact.designation') }}"
-                        class="form-control">
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn-next" onclick="goToStep(3)">Organization Details →</button>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="form-group col-6">
-                    <label>Mobile</label>
-                    <input type="text" name="mobile" value="{{ session('contact.mobiles.0') }}" class="form-control"
-                        readonly>
+            <div class="form-card" id="step3">
+                <h3>Company & Business Interests</h3>
+
+                <div class="section-title">General Information</div>
+                <div class="row g-3">
+                    <div class="col-12 form-group">
+                        <label>Company Name</label>
+                        <input type="text" name="company_name" value="{{ $company['company_name'] }}"
+                            class="form-control">
+                    </div>
+                    <div class="col-md-4 form-group"><label>City</label><input type="text" name="city"
+                            value="{{ $company['city'] }}" class="form-control"></div>
+                    <div class="col-md-4 form-group"><label>State</label><input type="text" name="state"
+                            value="{{ $company['state'] }}" class="form-control"></div>
+                    <div class="col-md-4 form-group"><label>Country</label><input type="text" name="country"
+                            value="{{ $company['country'] }}" class="form-control"></div>
+                    <div class="col-md-12 form-group"><label>Website</label><input type="text" name="website"
+                            value="{{ $company['website'] }}" class="form-control"></div>
                 </div>
 
-                <div class="form-group col-6">
-                    <label>Email</label>
-                    <input type="email" name="email" value="{{ session('contact.emails.0') }}" class="form-control">
+                <div class="section-title">Business Profile</div>
+                <div class="row g-3">
+                    <div class="col-md-6 form-group">
+                        <label>Buyer Responsibility</label>
+                        <select name="buyer_responsibility" class="form-control">
+                            <option value="Owner" {{ $contact['buyer_responsibility'] == 'Owner' ? 'selected' : '' }}>
+                                Owner</option>
+                            <option value="MD/CEO" {{ $contact['buyer_responsibility'] == 'MD/CEO' ? 'selected' : '' }}>
+                                MD/CEO</option>
+                            <option value="Middle Management" {{ $contact['buyer_responsibility'] == 'Middle Management' ? 'selected' : '' }}>Middle Management</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Reason for Attending</label>
+                        <div class="d-flex gap-4 pt-2">
+                            <label class="opt-label"><input type="radio" name="attending_reason" value="Buy" checked>
+                                Buy</label>
+                            <label class="opt-label"><input type="radio" name="attending_reason" value="Sell">
+                                Sell</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">Travel Segments (Select all that apply)</div>
+                <div class="scroll-box">
+                    @php $segs = ['FIT', 'MICE', 'GIT', 'Ticketing', 'Airlines', 'Cruises', 'Adventure', 'Wellness', 'Religious']; @endphp
+                    @foreach($segs as $s)
+                        <label class="opt-label"><input type="checkbox" name="travel_segments[]" value="{{ $s }}">
+                            {{ $s }}</label>
+                    @endforeach
+                </div>
+
+                <div class="section-title">Event Preferences</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Attended Past Events?</label>
+                        <label class="opt-label"><input type="radio" name="attended_past" value="Yes" {{ $contact['attended_past'] == 'Yes' ? 'checked' : '' }}> Yes</label>
+                        <label class="opt-label"><input type="radio" name="attended_past" value="No" {{ $contact['attended_past'] == 'No' ? 'checked' : '' }}> No</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Interested in Forum?</label>
+                        <label class="opt-label"><input type="radio" name="interest_forum" value="Yes" {{ $contact['interest_forum'] == 'Yes' ? 'checked' : '' }}> Yes</label>
+                        <label class="opt-label"><input type="radio" name="interest_forum" value="No" {{ $contact['interest_forum'] == 'No' ? 'checked' : '' }}> No</label>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-5">
+                    <button type="button" class="btn-back" onclick="goToStep(2)">← Back</button>
+                    <button type="submit" class="btn-submit">Submit Registration ✓</button>
                 </div>
             </div>
-        </div>
+        </form>
+    </div>
 
-        {{-- ================= ORGANIZATION ================= --}}
-        <div class="form-card">
-            <h3>Organization Details</h3>
+    <script>
+        function goToStep(num) {
+            document.querySelectorAll('.form-card').forEach(c => c.classList.remove('active'));
+            document.getElementById('step' + num).classList.add('active');
 
-            <input type="text" name="company_name" value="{{ session('company.company_name') }}"
-                class="form-control mb-2" placeholder="Company Name">
+            if (num === 3) {
+                document.getElementById('node2').classList.replace('active', 'completed');
+                document.getElementById('node2').querySelector('.circle').innerText = '✓';
+                document.getElementById('line2').classList.add('filled');
+                document.getElementById('node3').classList.add('active');
+            } else {
+                document.getElementById('node2').classList.replace('completed', 'active');
+                document.getElementById('node2').querySelector('.circle').innerText = '02';
+                document.getElementById('line2').classList.remove('filled');
+                document.getElementById('node3').classList.remove('active');
+            }
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
 
-            <div class="row">
-                <div class="col-4">
-                    <input type="text" name="city" value="{{ session('company.city') }}" class="form-control"
-                        placeholder="City">
-                </div>
-                <div class="col-4">
-                    <input type="text" name="state" value="{{ session('company.state') }}" class="form-control"
-                        placeholder="State">
-                </div>
-                <div class="col-4">
-                    <input type="text" name="pincode" value="{{ session('company.pincode') }}" class="form-control"
-                        placeholder="Pincode">
-                </div>
-            </div>
-
-            <div class="row mt-2">
-                <div class="col-6">
-                    <input type="text" name="country" value="{{ session('company.country') }}" class="form-control"
-                        placeholder="Country">
-                </div>
-                <div class="col-6">
-                    <input type="text" name="website" value="{{ session('company.website') }}" class="form-control"
-                        placeholder="Website">
-                </div>
-            </div>
-        </div>
-
-        {{-- ================= TRAVEL SEGMENTS ================= --}}
-        <div class="form-card">
-            <h3>Travel Segments</h3>
-            @php $segments = ['FIT', 'MICE', 'GIT', 'Ticketing', 'Airlines', 'Business Travel', 'Health and Wellness', 'Accommodation', 'Cruises', 'Coach', 'Religious', 'Adventure', 'Weddings', 'Railway']; @endphp
-
-            @foreach($segments as $seg)
-                <label><input type="checkbox" name="travel_segments[]" value="{{ $seg }}"> {{ $seg }}</label><br>
-            @endforeach
-        </div>
-
-        {{-- ================= WHO TO MEET ================= --}}
-        <div class="form-card">
-            <h3>Who would you like to meet?</h3>
-            @php $meet = ['Outbound Leisure', 'Domestic MICE', 'DMCs', 'Airlines', 'Tourism Board', 'Hotels', 'Travel Tech', 'Cruise']; @endphp
-
-            @foreach($meet as $m)
-                <label><input type="checkbox" name="meet_profiles[]" value="{{ $m }}"> {{ $m }}</label><br>
-            @endforeach
-        </div>
-
-        {{-- ================= REGIONS ================= --}}
-        <div class="form-card">
-            <h3>Regions</h3>
-            @php $regions = ['America', 'India', 'Europe', 'Asia', 'Middle East', 'Africa', 'Australia']; @endphp
-
-            @foreach($regions as $r)
-                <label><input type="checkbox" name="meet_regions[]" value="{{ $r }}"> {{ $r }}</label><br>
-            @endforeach
-        </div>
-
-        {{-- ================= STATES ================= --}}
-        <div class="form-card">
-            <h3>Interested States (India)</h3>
-            @php $states = ['Gujarat', 'Maharashtra', 'Kerala', 'Goa', 'Rajasthan', 'Delhi NCR', 'South India', 'North East']; @endphp
-
-            @foreach($states as $s)
-                <label><input type="checkbox" name="interested_states[]" value="{{ $s }}"> {{ $s }}</label><br>
-            @endforeach
-        </div>
-
-        {{-- ================= INTENT ================= --}}
-        <div class="form-card">
-            <h3>Main Reason</h3>
-            <label><input type="radio" name="attending_reason" value="Gather Information"> Gather Info</label>
-            <label><input type="radio" name="attending_reason" value="Sell"> Sell</label>
-            <label><input type="radio" name="attending_reason" value="Buy"> Buy</label>
-        </div>
-
-        {{-- ================= BUYER ROLE ================= --}}
-        <div class="form-card">
-            <h3>Buyer Role</h3>
-            <select name="buyer_responsibility" class="form-control">
-                <option>MD/CEO</option>
-                <option>Middle Management</option>
-                <option>Owner</option>
-                <option>Junior Management</option>
-            </select>
-        </div>
-
-        {{-- ================= COMPANY SIZE ================= --}}
-        <div class="form-card">
-            <h3>Company Size</h3>
-
-            <label>Branch Offices</label>
-            <select name="branch_offices" class="form-control">
-                <option>1-5</option>
-                <option>6-10</option>
-                <option>11-20</option>
-                <option>20+</option>
-            </select>
-
-            <label class="mt-2">Total Staff</label>
-            <select name="total_staff" class="form-control">
-                <option>1-10</option>
-                <option>11-25</option>
-                <option>26-50</option>
-                <option>51-100</option>
-                <option>100+</option>
-            </select>
-        </div>
-
-        {{-- ================= EVENT ================= --}}
-        <div class="form-card">
-            <h3>Event Preferences</h3>
-
-            <label>Attended Before?</label>
-            <input type="radio" name="attended_ttf_before" value="Yes"> Yes
-            <input type="radio" name="attended_ttf_before" value="No"> No
-
-            <br>
-
-            <label>Interested in Forum?</label>
-            <input type="radio" name="interested_in_forum" value="Yes"> Yes
-            <input type="radio" name="interested_in_forum" value="No"> No
-        </div>
-
-        {{-- ================= REFERRAL ================= --}}
-        <div class="form-card">
-            <h3>Referral</h3>
-            <textarea name="referral_details" class="form-control" placeholder="Recommend someone..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-submit">Finalize Registration</button>
-    </form>
-</div>
-```
+</html>

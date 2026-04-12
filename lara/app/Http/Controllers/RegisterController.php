@@ -24,32 +24,31 @@ class RegisterController extends Controller
 
         var_dump($events);
         // exit;
-        return view('web.register', ['location' => $location ?? '', 'events' => $events]);
+        return view('web.registration.index', ['location' => $location ?? '', 'events' => $events]);
     }
-
 
     public function registration_form()
     {
-        // This will print all session data in a readable format and stop execution
-        // You should see 'contact', 'company', and 'company_id' here
-        // dd(session()->all());
-
-        // Once you confirm the data is there, you can use this logic:
         $contact = session()->get('contact');
         $company = session()->get('company');
-        // $company_id = session()->get('company_id');
 
-        echo "<pre>";
-        print_r($contact);
-        print_r($company);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($contact);
+        // print_r($company);
+        // echo "</pre>";
         // exit;
-        if ($contact) {
-            return view('web.registration.form', compact('contact'));
+        // It's good practice to ensure both exist before proceeding
+        if ($contact && $company) {
+            return view('web.registration.form', compact('contact', 'company'));
         } else {
-            return redirect()->route('register')->with('error', 'Session expired. Please verify again.');
+            return redirect()->route('register')
+                ->with('error', 'Session expired. Please verify again.');
         }
     }
+
+
+
+
     public function registaritonsubmit(Request $request)
     {
 
@@ -77,12 +76,12 @@ class RegisterController extends Controller
         //     'email' => $request->email,
 
 
-        $company_id = $request->company_id_code;
+        $company_id = $request->company_id;
 
-        return response()->json([
-            'contact_id' => $conctact_id,
-            'company_id' => $company_id,
-        ]);
+        // return response()->json([
+        //     'contact_id' => $conctact_id,
+        //     'company_id' => $company_id,
+        // ]);
         // DB::table('registrations')->insert([
         //     'name' => $request->name,
         //     'designation' => $request->designation,

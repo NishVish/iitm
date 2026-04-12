@@ -328,6 +328,9 @@
     </div>
 
     <script>
+
+
+
         const eventId = document.getElementById('event_id').value; // ✅ get visible event ID
 
         // Log values to console

@@ -369,13 +369,59 @@
                     💾 Save Data
                 </button>
             </form>
+            <div id="stopwatch">
+                ⏱ <span id="time-display">00:00.00</span>
+            </div>
+            <style>
+                #stopwatch {
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #00ff88;
+                    margin: 10px 0;
+                    font-family: monospace;
+                }
+            </style>
+
         </div>
     </div>
 
     <canvas id="canvas"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
+    <script>
+        let startTime;
+        let stopwatchInterval;
 
+        function startStopwatch() {
+            startTime = Date.now();
+
+            clearInterval(stopwatchInterval);
+
+            stopwatchInterval = setInterval(() => {
+                let elapsed = Date.now() - startTime;
+
+                let minutes = Math.floor(elapsed / 60000);
+                let seconds = Math.floor((elapsed % 60000) / 1000);
+                let ms = Math.floor((elapsed % 1000) / 10);
+
+                document.getElementById("time-display").innerText =
+                    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(ms).padStart(2, '0')}`;
+            }, 50);
+        }
+
+        function stopStopwatch() {
+            clearInterval(stopwatchInterval);
+        }
+
+
+        let finalTime = "";
+
+        function stopStopwatch() {
+            clearInterval(stopwatchInterval);
+
+            finalTime = document.getElementById("time-display").innerText;
+        }
+    </script>
     <script>
 
         function clearAllData() {
@@ -403,6 +449,9 @@
         }
 
         function scannew() {
+
+            startStopwatch();
+
             // Clear all captured data before scanning
             document.getElementById('data-form').reset();
 
@@ -825,6 +874,9 @@
             document.getElementById("form-address").value = addrLines.join(", ");
         }
         document.getElementById('data-form').addEventListener('submit', async (e) => {
+
+            stopStopwatch();
+
             e.preventDefault();
 
             const saveBtn = document.getElementById('save-btn');

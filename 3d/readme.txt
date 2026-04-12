@@ -1,0 +1,3 @@
+& "C:\Program Files\Blender Foundation\Blender 5.1\blender.exe" -b scene.blend -P render.py
+
+to run py

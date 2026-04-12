@@ -1,0 +1,12 @@
+SCENE INFO
+Scene: Scene
+Objects: 7
+Camera | CAMERA | <Vector (15.6980, -0.2633, 4.5503)>
+Cube | MESH | <Vector (0.0000, 0.0000, 0.0000)>
+Cube.001 | MESH | <Vector (0.0000, 0.0000, 0.0000)>
+Cube.002 | MESH | <Vector (0.0000, 0.0000, 0.0000)>
+Cube.003 | MESH | <Vector (0.0000, 0.0000, 0.0000)>
+Light | LIGHT | <Vector (0.0000, -5.5300, 2.4900)>
+Light.001 | LIGHT | <Vector (0.0000, 5.2400, 3.2900)>
+
+CENTER: <Vector (0.1475, 0.0875, 1.7550)>

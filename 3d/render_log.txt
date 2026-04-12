@@ -1,0 +1,17 @@
+00:01.562  blend            | Read blend: "C:\xampp\htdocs\iitm\3d\scene.blend"
+00:05.094  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0001.png'
+00:06.047  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0002.png'
+00:06.984  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0003.png'
+00:07.906  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0004.png'
+00:08.609  image.write      | ERROR OpenImageIO write failed: Could not open file "C:\xampp\htdocs\iitm\3d\output\frame_0005.png"
+Traceback (most recent call last):
+  File "C:\xampp\htdocs\iitm\3d\render.py", line 162, in <module>
+    bpy.ops.render.render(animation=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+RuntimeError: Error: Render error (No error) cannot save: 'C:\xampp\htdocs\iitm\3d\output\frame_0005.png'
+
+⚠ SCREEN_MAT not found
+Error: Render error (No error) cannot save: 'C:\xampp\htdocs\iitm\3d\output\frame_0005.png'
+Blender 5.1.0 (hash adfe2921d5f3 built 2026-03-17 01:37:32)
+
+Blender quit

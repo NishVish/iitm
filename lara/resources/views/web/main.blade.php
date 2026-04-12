@@ -10,7 +10,6 @@
 <body>
 
     {{-- Include Header --}}
-    @include('web.header')
 
     <div class="container mt-4">
 
@@ -30,7 +29,7 @@
             @endif
         </div>
     </div>
-    @include('web.footer')
+    <!-- @include('web.footer') -->
 
 </body>
 

@@ -78,12 +78,8 @@ class AuthController extends Controller
 
 
         $mobile = $request->mobile_number;
-        $eventId = $request->event_id;
-        // return response()->json([
-        //     'status' => 'ok',
-        //     'mobile_received' => $mobile,
-        //     'event_id_received' => $eventId
-        // ]);
+        $eventId = 5;
+
         // Validate event_id if sent
         // $eventId = null;
         // Fetch all events
@@ -93,6 +89,8 @@ class AuthController extends Controller
         $event = null;
         if ($eventId) {
             $event = DB::table('events')->where('event_id', $eventId)->first();
+
+
             if (!$event) {
                 return response()->json([
                     'status' => 'error',
@@ -276,6 +274,11 @@ class AuthController extends Controller
             'status' => 'error',
             'message' => $data['message'] ?? 'Invalid OTP or Verification Failed'
         ]);
+    }
+
+    public function temp()
+    {
+        return view('temp');
     }
     //     public function verifyOtp(Request $request)
 // {

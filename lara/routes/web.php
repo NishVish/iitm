@@ -7,14 +7,20 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WebController;
-use App\Http\Controllers\EventController;
 
 // Route::get('/', [HomeController::class, 'index'])->name('home'); // show login form
 Route::get('/', [WebController::class, 'index'])->name('web'); // show login form
 
+
+
+
+
+
+
+use App\Http\Controllers\AuthController;
+Route::get('temp', [AuthController::class, 'temp'])->name('temp'); // show login form
 Route::get('/login', [AuthController::class, 'loginpage'])->name('login'); // show login form
 Route::post('/login', [AuthController::class, 'login'])->name('login.post'); // submit login
 Route::get('/create', [AuthController::class, 'create'])->name('create'); // submit login
@@ -26,35 +32,46 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('login.ve
 
 Route::get('/otp-list', [AuthController::class, 'getOtp']);
 
-use App\Http\Controllers\App;
 
+
+
+
+use App\Http\Controllers\App;
 Route::get('/home', [App::class, 'index'])->name('home'); // show login form
 Route::get('/profile', [App::class, 'index'])->name('profile'); // submit login
 Route::get('/layout', [App::class, 'index'])->name('layout'); // submit login
 Route::get('/calendar', [App::class, 'index'])->name('calendar'); // submit login    
 
+
+
+
+
+
 use App\Http\Controllers\RegisterController;
-Route::get('/register', [EventController::class, 'showevents']); // Blade page
+
+
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store'); // submit login 
 
 Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
 // This is your current GET route that shows the form
 Route::get('/registration/form', [RegisterController::class, 'registration_form'])->name('registration.form');
-
+Route::post('/upload-logo', [RegisterController::class, 'uploadLogo']);
 // ADD THIS ROUTE BELOW:
 Route::post('/registration/submit', [RegisterController::class, 'registaritonsubmit'])->name('registration.submit');
 // Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
 
-// Route::post('/register', [RegisterController::class, 'store'])->name('register.store'); // submit login 
 
 use App\Http\Controllers\UserController;
 
 route::get('/userdata', [UserController::class, 'userdata']);
 
 
+use App\Http\Controllers\EventController;
 
 Route::get('/api/events', [EventController::class, 'getUpcomingEvents']); // API-like route
 Route::get('/events', [EventController::class, 'showevents']); // Blade page
 Route::get('/lasteventdetails/{id?}', [EventController::class, 'lastEventDetails']);
+Route::get('/register', [EventController::class, 'showevents'])->name('register');
 
 
 use App\Http\Controllers\Tools;
@@ -74,3 +91,18 @@ Route::get('/edit/{id}', [Tools::class, 'edit'])->name('documents.edit');
 Route::post('/update/{id}', [Tools::class, 'update'])->name('documents.update');
 // Changed to DELETE to match the @method('DELETE') in your HTML form
 Route::delete('/documents/delete/{id}', [Tools::class, 'destroy'])->name('documents.destroy');
+
+
+use App\Http\Controllers\ExhibitorController;
+Route::get('/visionstudio', [ExhibitorController::class, 'visionstudio'])->name('visionstudio');
+Route::get('/exhibitor', [ExhibitorController::class, 'index'])->name('exhibitor');
+
+
+use App\Http\Controllers\ParticipantController;
+
+Route::get('/exhibiting', [ParticipantController::class, 'index'])->name('exhibiting');
+Route::get('/attending', [ParticipantController::class, 'index'])->name('attending');
+Route::get('/enquiry-form', [ParticipantController::class, 'index'])->name('enquiry');
+Route::post('/visitor-form', [ParticipantController::class, 'fetchentity'])->name('visitor-form');
+
+

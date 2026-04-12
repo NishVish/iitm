@@ -1,0 +1,39 @@
+SCENE INFO
+Scene: Scene
+Objects: 34
+Area | LIGHT | <Vector (-0.0723, -0.0127, 9.2947)>
+Area.001 | LIGHT | <Vector (7.5229, -0.0127, 6.6376)>
+Area.002 | LIGHT | <Vector (-0.0723, -0.0127, 24.1099)>
+Camera | CAMERA | <Vector (10.9116, 0.7707, 1.1974)>
+Chair mutto visu | MESH | <Vector (-0.1377, 0.0235, 0.4133)>
+Chair mutto visu.001 | MESH | <Vector (0.1039, 0.0235, 0.4133)>
+Cube | MESH | <Vector (0.0000, 0.0000, -0.0459)>
+Cube.001 | MESH | <Vector (0.0000, -0.9527, 1.2154)>
+Cube.003 | MESH | <Vector (-0.9540, 0.0014, 1.2154)>
+Cube.004 | MESH | <Vector (0.9587, 0.0014, 2.2818)>
+Cube.005 | MESH | <Vector (0.7696, 0.0000, 0.3758)>
+Cube.006 | MESH | <Vector (0.7696, 0.0000, 0.3758)>
+Cube.007 | MESH | <Vector (0.9587, 0.0014, 2.2818)>
+Cube.008 | MESH | <Vector (0.0000, 0.9571, 1.2154)>
+Cube.009 | MESH | <Vector (0.0000, -0.9527, 1.2154)>
+Cube.010 | MESH | <Vector (-0.9540, 0.0014, 1.2154)>
+Cube.011 | MESH | <Vector (0.0000, 0.0000, -0.0459)>
+Cube.012 | MESH | <Vector (0.7696, 0.0000, 0.3758)>
+Cube.013 | MESH | <Vector (0.7696, 0.0000, 0.3758)>
+Cube.014 | MESH | <Vector (0.0000, -0.9527, 1.2154)>
+Cube.015 | MESH | <Vector (0.0093, 0.9541, 1.2154)>
+Cube.016 | MESH | <Vector (0.0093, 0.9541, 1.2154)>
+Cube.017 | MESH | <Vector (0.0093, 0.9541, 1.2154)>
+Cube.018 | MESH | <Vector (1.0031, 0.9724, 1.0615)>
+Plane | MESH | <Vector (0.0000, 0.0000, -0.0838)>
+Spot | LIGHT | <Vector (-0.7880, -0.4718, 2.2544)>
+Spot lamp-01 | MESH | <Vector (-0.8576, -0.4691, 2.3477)>
+Spot lamp-01.001 | MESH | <Vector (-0.8576, 0.5273, 2.3477)>
+Spot.001 | LIGHT | <Vector (-0.7880, 0.5223, 2.2544)>
+Text | FONT | <Vector (1.0103, -0.9339, 2.2936)>
+Text.001 | FONT | <Vector (1.0103, -0.4977, 2.2306)>
+Text.002 | FONT | <Vector (1.0073, -0.3740, 0.3785)>
+Visu Chair By Muuto | EMPTY | <Vector (0.0000, -0.3141, 0.0000)>
+Visu Chair By Muuto.001 | EMPTY | <Vector (0.0000, 0.3338, 0.0000)>
+
+CENTER: <Vector (0.2404, 0.0866, 1.3057)>
