@@ -138,6 +138,8 @@ class RegisterController extends Controller
         // Referral
         $referral_details = $request->referral_details;
 
+
+
         return view('web.registration.formdata', compact('request'));
     }
     public function index2($location = null)

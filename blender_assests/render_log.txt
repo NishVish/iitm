@@ -1,0 +1,32 @@
+00:01.469  blend            | Read blend: "C:\xampp\htdocs\iitm\blender_assests\scene.blend"
+C:\xampp\htdocs\iitm\blender_assests\render.py:101: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+00:06.266  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0000.png'
+00:07.578  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0001.png'
+00:08.859  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0002.png'
+00:10.109  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0003.png'
+00:11.344  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0004.png'
+00:12.578  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0005.png'
+00:13.750  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0006.png'
+00:14.875  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0007.png'
+00:16.094  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0008.png'
+00:17.422  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0009.png'
+00:18.719  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0010.png'
+00:19.922  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0011.png'
+00:21.156  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0012.png'
+00:22.328  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0013.png'
+00:23.547  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0014.png'
+00:24.750  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0015.png'
+00:25.969  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0016.png'
+00:27.281  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0017.png'
+00:28.734  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0018.png'
+00:30.391  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0019.png'
+00:31.813  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\rendered\frame_0020.png'
+📁 Using image: C:\xampp\htdocs\iitm\blender_assests\var.png
+✅ Reloaded existing image: var.png
+🎨 Connected image → Principled BSDF
+✅ Render complete (20 frames + image applied)
+00:34.281  render           | Saved: 'C:\xampp\htdocs\iitm\blender_assests\output\frame_0001.png'
+Blender 5.1.0 (hash adfe2921d5f3 built 2026-03-17 01:37:32)
+
+Blender quit

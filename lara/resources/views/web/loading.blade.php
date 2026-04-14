@@ -20,9 +20,13 @@
         visibility: hidden;
     }
 
-    .loader h1 {
-        font-size: 44px;
+    /* Change this line */
+    #loader h1 {
+        font-size: 5rem;
+        /* This only hits the "Loading..." text now */
         font-weight: 900;
+        margin: 0;
+        /* Important: Add this to remove default browser spacing */
         background: linear-gradient(90deg, #00f5ff, #ff00d4, #ffe600);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;

@@ -1,0 +1,118 @@
+00:01.391  blend            | Read blend: "C:\xampp\htdocs\iitm\blender_assests\scene.blend"
+
+📦 SCENE INFO
+==================================================
+
+🧱 Objects:
+- Area | LIGHT
+- Area.001 | LIGHT
+- Area.002 | LIGHT
+- Camera | CAMERA
+- Chair mutto visu | MESH
+- Chair mutto visu.001 | MESH
+- Cube | MESH
+- Cube.001 | MESH
+- Cube.002 | MESH
+- Cube.003 | MESH
+- Cube.004 | MESH
+- Cube.005 | MESH
+- Cube.006 | MESH
+- Cube.007 | MESH
+- Cube.008 | MESH
+- Cube.009 | MESH
+- Cube.010 | MESH
+- Cube.011 | MESH
+- Cube.012 | MESH
+- Cube.013 | MESH
+- Cube.014 | MESH
+- Cube.015 | MESH
+- Cube.016 | MESH
+- Cube.017 | MESH
+- Cube.018 | MESH
+- Fuck | MESH
+- Spot | LIGHT
+- Spot lamp-01 | MESH
+- Spot lamp-01.001 | MESH
+- Spot.001 | LIGHT
+- Text | FONT
+- Text.001 | FONT
+- Text.002 | FONT
+- Visu Chair By Muuto | EMPTY
+- Visu Chair By Muuto.001 | EMPTY
+
+🎨 Materials:
+- chrome metal
+- IITM
+- Material.001
+- Material.002
+- Material.005
+- matte black aluminum
+- OakWood
+- pendant light
+- Rubber
+- SCREEN_MAT
+- white  painted  pYWOOD.001
+- white  painted wood
+
+🔗 Material Usage:
+Chair mutto visu → OakWood
+Chair mutto visu → Rubber
+Chair mutto visu → white  painted wood
+Chair mutto visu → white  painted  pYWOOD.001
+Chair mutto visu.001 → OakWood
+Chair mutto visu.001 → Rubber
+Chair mutto visu.001 → white  painted wood
+Chair mutto visu.001 → white  painted  pYWOOD.001
+Cube → ❌ No material
+Cube.001 → Material.001
+Cube.001 → Material.002
+Cube.002 → ❌ No material
+Cube.003 → ❌ No material
+Cube.004 → ❌ No material
+Cube.005 → ❌ No material
+Cube.006 → SCREEN_MAT
+Cube.007 → Material.002
+Cube.008 → Material.002
+Cube.009 → Material.002
+Cube.010 → Material.002
+Cube.011 → Material.002
+Cube.012 → Material.002
+Cube.013 → Material.002
+Cube.014 → Material.001
+Cube.014 → Material.002
+Cube.015 → Material.001
+Cube.015 → Material.002
+Cube.016 → Material.001
+Cube.016 → Material.002
+Cube.017 → Material.001
+Cube.017 → Material.002
+Cube.018 → Material.001
+Cube.018 → Material.002
+Fuck → IITM
+Spot lamp-01 → matte black aluminum
+Spot lamp-01 → pendant light
+Spot lamp-01 → chrome metal
+Spot lamp-01.001 → matte black aluminum
+Spot lamp-01.001 → pendant light
+Spot lamp-01.001 → chrome metal
+
+📷 Cameras:
+- Camera.001
+
+💡 Lights:
+- Area
+- Area.001
+- Area.002
+- Spot
+- Spot.001
+
+📊 SUMMARY:
+Objects: 35
+Materials: 12
+Cameras: 1
+Lights: 5
+
+✅ Done
+Blender 5.1.0 (hash adfe2921d5f3 built 2026-03-17 01:37:32)
+
+Blender quit

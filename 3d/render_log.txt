@@ -1,17 +1,28 @@
-00:01.562  blend            | Read blend: "C:\xampp\htdocs\iitm\3d\scene.blend"
-00:05.094  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0001.png'
-00:06.047  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0002.png'
-00:06.984  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0003.png'
-00:07.906  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0004.png'
-00:08.609  image.write      | ERROR OpenImageIO write failed: Could not open file "C:\xampp\htdocs\iitm\3d\output\frame_0005.png"
-Traceback (most recent call last):
-  File "C:\xampp\htdocs\iitm\3d\render.py", line 162, in <module>
-    bpy.ops.render.render(animation=True)
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
-RuntimeError: Error: Render error (No error) cannot save: 'C:\xampp\htdocs\iitm\3d\output\frame_0005.png'
-
+00:01.703  blend            | Read blend: "C:\xampp\htdocs\iitm\3d\scene.blend"
+00:10.109  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0000.png'
+00:11.437  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0001.png'
+00:12.656  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0002.png'
+00:13.906  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0003.png'
+00:15.094  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0004.png'
+00:16.312  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0005.png'
+00:17.453  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0006.png'
+00:18.640  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0007.png'
+00:19.859  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0008.png'
+00:21.031  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0009.png'
+00:22.219  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0010.png'
+00:23.406  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0011.png'
+00:24.609  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0012.png'
+00:25.812  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0013.png'
+00:27.000  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0014.png'
+00:28.203  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0015.png'
+00:29.453  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0016.png'
+00:30.687  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0017.png'
+00:31.953  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0018.png'
+00:33.234  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0019.png'
+00:34.531  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0020.png'
 ⚠ SCREEN_MAT not found
-Error: Render error (No error) cannot save: 'C:\xampp\htdocs\iitm\3d\output\frame_0005.png'
+✅ Render complete (20 frames + image applied)
+00:36.969  render           | Saved: 'C:\xampp\htdocs\iitm\3d\output\frame_0001.png'
 Blender 5.1.0 (hash adfe2921d5f3 built 2026-03-17 01:37:32)
 
 Blender quit
