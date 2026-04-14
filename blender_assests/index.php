@@ -4,8 +4,8 @@ set_time_limit(0);
 // =========================
 // CONFIGURATION
 // =========================
-$blender_path = "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe";
-
+// $blender_path = "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe";
+$blender_path = "/usr/bin/blender";
 $scene = realpath(__DIR__ . "/scene.blend");
 $script = realpath(__DIR__ . "/render.py");
 $upload_path = __DIR__ . "/var.png";
