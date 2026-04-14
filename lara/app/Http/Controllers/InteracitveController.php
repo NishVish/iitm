@@ -141,38 +141,30 @@ class InteracitveController extends Controller
 
         $result = [
             'os' => $os,
+            'php_version' => PHP_VERSION,
             'blender_found' => false,
             'blender_path' => null,
             'blender_version' => null,
             'error' => null,
-            'php_version' => PHP_VERSION,
         ];
 
         try {
-            $commandCheck = $os === 'Windows'
+            // Detect Blender in PATH
+            $command = $os === 'Windows'
                 ? 'where blender'
                 : 'which blender';
 
-            $pathOutput = [];
-            exec($commandCheck . ' 2>&1', $pathOutput);
+            $output = [];
+            exec($command . ' 2>&1', $output);
 
-            $pathOutput = array_filter($pathOutput);
+            $blenderPath = !empty($output) ? trim($output[0]) : null;
 
-            if (!empty($pathOutput)) {
-                $blenderPath = trim($pathOutput[0]);
-
-                $result['blender_found'] = true;
-                $result['blender_path'] = $blenderPath;
-
-                $versionOutput = [];
-                exec("\"$blenderPath\" --version 2>&1", $versionOutput);
-
-                $result['blender_version'] = implode("\n", $versionOutput);
-            } else {
-                $candidates = $os === 'Windows'
+            // Fallback common locations
+            if (!$blenderPath) {
+                $paths = $os === 'Windows'
                     ? [
                         "C:\\Program Files\\Blender Foundation\\Blender\\blender.exe",
-                        "C:\\Program Files (x86)\\Blender Foundation\\Blender\\blender.exe",
+                        "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
                     ]
                     : [
                         "/usr/bin/blender",
@@ -180,22 +172,37 @@ class InteracitveController extends Controller
                         "/snap/bin/blender",
                     ];
 
-                foreach ($candidates as $path) {
-                    if (file_exists($path)) {
-                        $result['blender_found'] = true;
-                        $result['blender_path'] = $path;
+                foreach ($paths as $p) {
+                    if (file_exists($p)) {
+                        $blenderPath = $p;
+                        break;
+                    }
+                }
+            }
 
-                        $versionOutput = [];
-                        exec("\"$path\" --version 2>&1", $versionOutput);
+            // If found, get ONLY first clean version line
+            if ($blenderPath) {
+                $result['blender_found'] = true;
+                $result['blender_path'] = $blenderPath;
 
-                        $result['blender_version'] = implode("\n", $versionOutput);
+                $versionOutput = [];
+                exec("\"$blenderPath\" --version 2>&1", $versionOutput);
+
+                // Clean: take only first line that contains Blender version
+                foreach ($versionOutput as $line) {
+                    if (stripos($line, 'blender') !== false) {
+                        $result['blender_version'] = trim($line);
                         break;
                     }
                 }
 
-                if (!$result['blender_found']) {
-                    $result['error'] = 'Blender not found on this system.';
+                // fallback if not matched
+                if (!$result['blender_version'] && isset($versionOutput[0])) {
+                    $result['blender_version'] = trim($versionOutput[0]);
                 }
+
+            } else {
+                $result['error'] = 'Blender not found on this system.';
             }
 
         } catch (\Exception $e) {

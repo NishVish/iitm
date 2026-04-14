@@ -6,19 +6,18 @@
 </head>
 
 <body>
+    <h2>Blender System Check</h2>
 
-    <h1>Blender System Check</h1>
+    <p><b>OS:</b> {{ $result['os'] }}</p>
+    <p><b>PHP Version:</b> {{ $result['php_version'] }}</p>
 
-    <p><strong>OS:</strong> {{ $result['os'] }}</p>
-    <p><strong>PHP Version:</strong> {{ $result['php_version'] }}</p>
+    <p><b>Blender Found:</b> {{ $result['blender_found'] ? 'Yes' : 'No' }}</p>
 
     @if($result['blender_found'])
-        <p style="color:green;"><strong>Blender Found:</strong> Yes</p>
-        <p><strong>Path:</strong> {{ $result['blender_path'] }}</p>
-        <pre>{{ $result['blender_version'] }}</pre>
+        <p><b>Path:</b> {{ $result['blender_path'] }}</p>
+        <p><b>Version:</b> {{ $result['blender_version'] }}</p>
     @else
-        <p style="color:red;"><strong>Blender Found:</strong> No</p>
-        <p>{{ $result['error'] }}</p>
+        <p style="color:red;">{{ $result['error'] }}</p>
     @endif
 
 </body>
