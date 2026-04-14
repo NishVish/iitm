@@ -99,7 +99,7 @@ class InteracitveController extends Controller
 
         // Matching your specific folder name: blender_assests
         $scene = base_path('blender_assests' . DIRECTORY_SEPARATOR . 'scene.blend');
-        $script = base_path('blender_assests' . DIRECTORY_SEPARATOR . 'render.py');
+        $script = base_path('blender_assests' . DIRECTORY_SEPARATOR . 'super.py');
 
         $cmd = sprintf(
             '%s -b %s -P %s -- %s 2>&1',

@@ -4,215 +4,88 @@ import os
 import math
 from mathutils import Vector
 
-# =========================================================
-# IMAGE INPUT (CLI OR DEFAULT var.png)
-# =========================================================
 argv = sys.argv
 argv = argv[argv.index("--") + 1:] if "--" in argv else []
+image_path = argv[0] if len(argv) > 0 else os.path.join(os.getcwd(), "var.png")
 
-if len(argv) > 0:
-    image_path = argv[0]
-else:
-    image_path = os.path.join(os.getcwd(), "var.png")
-
-# =========================================================
-# GET MESH OBJECTS
-# =========================================================
-objs = [o for o in bpy.data.objects if o.type == 'MESH']
-
-if not objs:
-    raise Exception("No mesh objects found")
-
-# =========================================================
-# WORLD BOUNDING BOX (CENTER + SIZE)
-# =========================================================
-coords = [o.matrix_world @ Vector(corner)
-          for o in objs
-          for corner in o.bound_box]
-
-min_x = min(v.x for v in coords)
-max_x = max(v.x for v in coords)
-
-min_y = min(v.y for v in coords)
-max_y = max(v.y for v in coords)
-
-min_z = min(v.z for v in coords)
-max_z = max(v.z for v in coords)
-
-center = Vector((
-    (min_x + max_x) / 2,
-    (min_y + max_y) / 2,
-    (min_z + max_z) / 2
-))
-
-size = max(max_x - min_x, max_y - min_y, max_z - min_z)
-
-base_radius = size * 3
-height = size * 0.2
-
-# =========================================================
-# SCENE SETUP
-# =========================================================
 scene = bpy.context.scene
-cam = bpy.data.objects.get("Camera")
 
-if cam is None:
-    raise Exception("Camera not found")
+# ── ENGINE: EEVEE is a rasterizer — no ray tracing overhead ──
+scene.render.engine = 'CYCLES'
+scene.cycles.device = 'CPU'
+scene.cycles.samples = 32
+scene.cycles.use_denoising = False
+scene.cycles.max_bounces = 1
+scene.cycles.diffuse_bounces = 1
+scene.cycles.glossy_bounces = 0
+scene.cycles.transparent_max_bounces = 1
 
-scene.camera = cam
+scene.render.resolution_x = 1280
+scene.render.resolution_y = 720
+scene.render.resolution_percentage = 100   # renders at 320x180
 
-scene.render.engine = 'BLENDER_EEVEE'
-scene.render.image_settings.file_format = 'PNG'
-scene.render.resolution_x = 1920
-scene.render.resolution_y = 1080
+scene.render.threads_mode = 'FIXED'
+scene.render.threads = 4                  # match your core count
 
-# output folder
-output_dir = os.path.dirname(image_path)
+frames = 6                                # minimum for a readable arc
+scene.frame_start, scene.frame_end = 0, frames
+
+# ── FRAME COUNT: 10 frames is enough to read a camera arc ──
+frames = 20
+scene.frame_start, scene.frame_end = 0, frames
+
+output_dir = os.path.join(os.getcwd(), "rendered")
 os.makedirs(output_dir, exist_ok=True)
-
 scene.render.filepath = os.path.join(output_dir, "frame_")
 
-# =========================================================
-# CAMERA TARGET (LOOK AT MODEL CENTER)
-# =========================================================
-if "Target" not in bpy.data.objects:
-    target = bpy.data.objects.new("Target", None)
-    bpy.context.collection.objects.link(target)
+# ── TEXTURE ──
+def apply_tex(mat_name, path):
+    mat = bpy.data.materials.get(mat_name)
+    if mat and mat.use_nodes:
+        nodes = mat.node_tree.nodes
+        tex = next((n for n in nodes if n.type == 'TEX_IMAGE'), None) \
+              or nodes.new("ShaderNodeTexImage")
+        bsdf = next((n for n in nodes if n.type == 'BSDF_PRINCIPLED'), None)
+        if bsdf and not bsdf.inputs[0].is_linked:
+            mat.node_tree.links.new(tex.outputs[0], bsdf.inputs[0])
+        if os.path.exists(path):
+            tex.image = bpy.data.images.load(os.path.abspath(path))
 
-target = bpy.data.objects["Target"]
+apply_tex("SCREEN_MAT", image_path)
+
+# ── CAMERA PATH: insert all keyframes WITHOUT calling frame_set per step ──
+objs = [o for o in bpy.data.objects if o.type == 'MESH']
+coords = [o.matrix_world @ Vector(corner) for o in objs for corner in o.bound_box]
+xs = [v.x for v in coords]; ys = [v.y for v in coords]; zs = [v.z for v in coords]
+center = Vector(((min(xs)+max(xs))/2, (min(ys)+max(ys))/2, (min(zs)+max(zs))/2))
+size = max(max(xs)-min(xs), max(ys)-min(ys))
+
+cam = bpy.data.objects.get("Camera")
+target = bpy.data.objects.get("Target") or bpy.data.objects.new("Target", None)
+if target.name not in scene.collection.objects:
+    scene.collection.objects.link(target)
 target.location = center
 
-if not any(c.type == 'TRACK_TO' for c in cam.constraints):
+if not cam.constraints:
     con = cam.constraints.new(type='TRACK_TO')
     con.target = target
-    con.track_axis = 'TRACK_NEGATIVE_Z'
-    con.up_axis = 'UP_Y'
+    con.track_axis, con.up_axis = 'TRACK_NEGATIVE_Z', 'UP_Y'
 
-
-
-import bpy
-import os
-
-script_dir = os.path.dirname(os.path.abspath(__file__))
-logo_path = os.path.join(script_dir, "logo.png")
-
-mat = bpy.data.materials.get("IITM")
-
-if not mat:
-    print("⚠ IITM material not found")
-else:
-    if not mat.use_nodes:
-        print("⚠ IITM has no nodes enabled")
-    else:
-        nodes = mat.node_tree.nodes
-
-        # try find existing image node
-        img_node = next((n for n in nodes if n.type == 'TEX_IMAGE'), None)
-
-        # if missing → create (BUT don't connect anything)
-        if not img_node:
-            img_node = nodes.new("ShaderNodeTexImage")
-            print("⚠ No image node found → created one (not connected)")
-
-        # load/reuse logo
-        if "IITM_LOGO" in bpy.data.images:
-            img = bpy.data.images["IITM_LOGO"]
-        else:
-            img = bpy.data.images.load(logo_path)
-            img.name = "IITM_LOGO"
-
-        # ONLY change
-        img_node.image = img
-
-        print("✅ IITM logo applied")
-# =========================================================
-# DYNAMIC MATERIAL (SCREEN_MAT - CHANGES DURING PROCESS)
-# =========================================================
-# =========================================================
-# DYNAMIC MATERIAL (SCREEN_MAT - FIXED)
-# =========================================================
-if os.path.exists(image_path):
-
-    mat = bpy.data.materials.get("SCREEN_MAT")
-
-    if mat:
-        mat.use_nodes = True
-        nodes = mat.node_tree.nodes
-        links = mat.node_tree.links
-
-        # try to find EXISTING image node first
-        img_node = next((n for n in nodes if n.type == 'TEX_IMAGE'), None)
-
-        # if missing → create AND connect minimally
-        if not img_node:
-            img_node = nodes.new("ShaderNodeTexImage")
-
-            bsdf = next((n for n in nodes if n.type == 'BSDF_PRINCIPLED'), None)
-
-            if bsdf:
-                links.new(img_node.outputs["Color"], bsdf.inputs["Base Color"])
-                print("⚠ Created and connected new image node")
-
-        img_full_path = os.path.abspath(image_path)
-        base_name = os.path.basename(image_path)
-
-        if base_name in bpy.data.images:
-            img = bpy.data.images[base_name]
-            img.filepath = img_full_path
-            img.reload()
-            print(f"✅ Reloaded existing image: {base_name}")
-        else:
-            img = bpy.data.images.load(img_full_path)
-            img.name = base_name
-            print(f"✅ Loaded new image: {base_name}")
-
-        # ONLY update image
-        img_node.image = img
-
-    else:
-        print("⚠ SCREEN_MAT not found")
-
-else:
-    raise Exception("Image not found: " + image_path)
-# =========================================================
-# CLEAR ANIMATION
-# =========================================================
-cam.animation_data_clear()
-# =========================================================
-# CAMERA ANIMATION (20 FRAMES)
-# =========================================================
-# =========================================================
-# CAMERA ANIMATION (20 FRAMES)
-# =========================================================
-frames = 20
-scene.frame_start = 0
-scene.frame_end = 20
-scene.frame_step = 1
-for i in range(0, frames + 1):
-
+# Build all keyframe data first, then insert — avoids repeated depsgraph flushes
+for i in range(frames + 1):
     t = i / frames
-
-    # smooth front → front-right → left → front loop
-    angle = math.radians(45) * math.sin(t * math.pi * 2)
-
-    # smooth zoom breathing
-    radius = base_radius + math.sin(t * math.pi) * (base_radius * 0.12)
-
-    x = center.x + radius * math.cos(angle)
-    y = center.y + radius * math.sin(angle)
-
-    z = center.z + (size * 0.05)
-
-    cam.location = (x, y, z)
+    angle  = math.radians(45) * math.sin(t * math.pi * 2)
+    radius = (size * 3) + math.sin(t * math.pi) * (size * 0.3)
+    cam.location = (
+        center.x + radius * math.cos(angle),
+        center.y + radius * math.sin(angle),
+        center.z + (size * 0.1),
+    )
     cam.keyframe_insert(data_path="location", frame=i)
-# =========================================================
-# RENDER SETTINGS
-# =========================================================
 
-scene.frame_end = frames
-# =========================================================
-# RENDER
-# =========================================================
+# One frame_set at the end to settle the depsgraph
+scene.frame_set(0)
+
+# ── RENDER ──
 bpy.ops.render.render(animation=True)
-
-print("✅ Render complete (20 frames + image applied)")
+print("✅ Done")
