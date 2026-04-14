@@ -7,7 +7,16 @@ from mathutils import Vector
 argv = sys.argv
 argv = argv[argv.index("--") + 1:] if "--" in argv else []
 image_path = argv[0] if len(argv) > 0 else os.path.join(os.getcwd(), "var.png")
+argv = sys.argv
+argv = argv[argv.index("--") + 1:] if "--" in argv else []
 
+print("=== DEBUG ===")
+print(f"Full sys.argv: {sys.argv}")
+print(f"Args after --: {argv}")
+image_path = argv[0] if len(argv) > 0 else os.path.join(os.getcwd(), "var.png")
+print(f"Image path   : {image_path}")
+print(f"Image exists : {os.path.exists(image_path)}")
+print("=============")
 scene = bpy.context.scene
 
 # ── ENGINE: EEVEE is a rasterizer — no ray tracing overhead ──
@@ -27,15 +36,17 @@ scene.render.resolution_percentage = 100   # renders at 320x180
 scene.render.threads_mode = 'FIXED'
 scene.render.threads = 4                  # match your core count
 
-frames = 6                                # minimum for a readable arc
-scene.frame_start, scene.frame_end = 0, frames
 
 # ── FRAME COUNT: 10 frames is enough to read a camera arc ──
 frames = 20
 scene.frame_start, scene.frame_end = 0, frames
 
-output_dir = os.path.join(os.getcwd(), "rendered")
+
+image_dir = os.path.dirname(os.path.abspath(image_path))
+output_dir = os.path.join(image_dir, "rendered")
+
 os.makedirs(output_dir, exist_ok=True)
+
 scene.render.filepath = os.path.join(output_dir, "frame_")
 
 # ── TEXTURE ──

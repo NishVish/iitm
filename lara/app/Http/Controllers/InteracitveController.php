@@ -37,7 +37,7 @@ class InteracitveController extends Controller
         $baseurl = url('/');
 
         if ($img && $userid) {
-            $framePath = $baseurl . '/public/session/' . $userid . '/frame_';
+            $framePath = $baseurl . '/public/session/' . $userid . '/rendered/frame_';
             $logoPath = $baseurl . '/public/session/' . $userid . '/logo.png';
         } else {
             $framePath = $baseurl . '/public/session/default/frame_';
@@ -59,6 +59,8 @@ class InteracitveController extends Controller
 
     public function uploadLogo(Request $request)
     {
+        echo "hell UploadLogo";
+        // exit;
         // Validate inputs
         $request->validate([
             'logo' => 'required|image|max:2048',
@@ -71,16 +73,21 @@ class InteracitveController extends Controller
 
             // Define the path
             $destinationPath = public_path('session/' . $userid);
+            echo '' . $userid . '' . $destinationPath . '';
+            // exit;
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0777, true);
             }
-
+            echo '<br>';
+            echo '' . $userid . '' . $destinationPath . '/logo.png';
+            echo "<img src='" . $destinationPath . "/logo.png'>";
+            // exit;
             // Save the image
             $image->move($destinationPath, 'logo.png');
             $fullImagePath = $destinationPath . DIRECTORY_SEPARATOR . 'logo.png';
 
 
-            // echo $fullImagePath;
+            echo $fullImagePath;
             // exit;
             // --- THIS IS HOW YOU USE IT ---
             // Pass the absolute path of the newly saved logo to your render function
@@ -92,14 +99,33 @@ class InteracitveController extends Controller
 
         return redirect()->back();
     }
+    protected function getBlenderPath(): string
+    {
+        // If explicitly set in .env, use it first
+        $envPath = env('BLENDER_PATH');
+        if (!empty($envPath)) {
+            return $envPath;
+        }
 
+        // Detect OS
+        if (PHP_OS_FAMILY === 'Windows') {
+            return 'C:\\Program Files\\Blender Foundation\\Blender\\blender.exe';
+        }
+
+        if (PHP_OS_FAMILY === 'Darwin') {
+            return '/Applications/Blender.app/Contents/MacOS/Blender';
+        }
+
+        // Linux default
+        return '/usr/bin/blender';
+    }
     protected function runBlenderRender($imagePath)
     {
-        $blender = env('BLENDER_PATH');
+        $blender = $this->getBlenderPath();
 
         // Matching your specific folder name: blender_assests
         $scene = base_path('blender_assests' . DIRECTORY_SEPARATOR . 'scene.blend');
-        $script = base_path('blender_assests' . DIRECTORY_SEPARATOR . 'super.py');
+        $script = base_path('blender_assests' . DIRECTORY_SEPARATOR . 'render.py');
 
         $cmd = sprintf(
             '%s -b %s -P %s -- %s 2>&1',

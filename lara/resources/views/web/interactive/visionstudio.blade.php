@@ -241,7 +241,7 @@
                         <div class="logo-container">
                             <?php
                 $baseurl = url('/');
-                            ?>
+                                        ?>
 
                             <!-- <p>{{ $baseurl }}/public/session/{{ $userid }}/logo.png</p> -->
 
