@@ -12,15 +12,6 @@ print("\n🎨 Materials:")
 for mat in bpy.data.materials:
     print("-", mat.name)
 
-print("\n🔗 Material Usage:")
-for obj in bpy.data.objects:
-    if obj.type == "MESH":
-        if not obj.material_slots:
-            print(obj.name, "→ ❌ No material")
-        for slot in obj.material_slots:
-            if slot.material:
-                print(obj.name, "→", slot.material.name)
-
 print("\n📷 Cameras:")
 for cam in bpy.data.cameras:
     print("-", cam.name)

@@ -1,4 +1,4 @@
-00:01.391  blend            | Read blend: "C:\xampp\htdocs\iitm\blender_assests\scene.blend"
+00:01.906  blend            | Read blend: "C:\xampp\htdocs\iitm\blender_assests\scene.blend"
 
 📦 SCENE INFO
 ==================================================
@@ -53,48 +53,6 @@
 - SCREEN_MAT
 - white  painted  pYWOOD.001
 - white  painted wood
-
-🔗 Material Usage:
-Chair mutto visu → OakWood
-Chair mutto visu → Rubber
-Chair mutto visu → white  painted wood
-Chair mutto visu → white  painted  pYWOOD.001
-Chair mutto visu.001 → OakWood
-Chair mutto visu.001 → Rubber
-Chair mutto visu.001 → white  painted wood
-Chair mutto visu.001 → white  painted  pYWOOD.001
-Cube → ❌ No material
-Cube.001 → Material.001
-Cube.001 → Material.002
-Cube.002 → ❌ No material
-Cube.003 → ❌ No material
-Cube.004 → ❌ No material
-Cube.005 → ❌ No material
-Cube.006 → SCREEN_MAT
-Cube.007 → Material.002
-Cube.008 → Material.002
-Cube.009 → Material.002
-Cube.010 → Material.002
-Cube.011 → Material.002
-Cube.012 → Material.002
-Cube.013 → Material.002
-Cube.014 → Material.001
-Cube.014 → Material.002
-Cube.015 → Material.001
-Cube.015 → Material.002
-Cube.016 → Material.001
-Cube.016 → Material.002
-Cube.017 → Material.001
-Cube.017 → Material.002
-Cube.018 → Material.001
-Cube.018 → Material.002
-Fuck → IITM
-Spot lamp-01 → matte black aluminum
-Spot lamp-01 → pendant light
-Spot lamp-01 → chrome metal
-Spot lamp-01.001 → matte black aluminum
-Spot lamp-01.001 → pendant light
-Spot lamp-01.001 → chrome metal
 
 📷 Cameras:
 - Camera.001
