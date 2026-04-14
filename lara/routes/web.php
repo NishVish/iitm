@@ -113,3 +113,4 @@ Route::get('/reload', [InteracitveController::class, 'reload'])->name('reload');
 
 Route::post('/upload-logo', [InteracitveController::class, 'uploadLogo'])->name('upload.logo');
 Route::get('/clear-session', [InteracitveController::class, 'clearSession'])->name('session.clear');
+Route::get('/blender-info', [InteracitveController::class, 'blender_info']);

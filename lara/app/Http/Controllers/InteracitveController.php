@@ -137,6 +137,71 @@ class InteracitveController extends Controller
 
     public function blender_info()
     {
+        $os = PHP_OS_FAMILY;
 
+        $result = [
+            'os' => $os,
+            'blender_found' => false,
+            'blender_path' => null,
+            'blender_version' => null,
+            'error' => null,
+            'php_version' => PHP_VERSION,
+        ];
+
+        try {
+            $commandCheck = $os === 'Windows'
+                ? 'where blender'
+                : 'which blender';
+
+            $pathOutput = [];
+            exec($commandCheck . ' 2>&1', $pathOutput);
+
+            $pathOutput = array_filter($pathOutput);
+
+            if (!empty($pathOutput)) {
+                $blenderPath = trim($pathOutput[0]);
+
+                $result['blender_found'] = true;
+                $result['blender_path'] = $blenderPath;
+
+                $versionOutput = [];
+                exec("\"$blenderPath\" --version 2>&1", $versionOutput);
+
+                $result['blender_version'] = implode("\n", $versionOutput);
+            } else {
+                $candidates = $os === 'Windows'
+                    ? [
+                        "C:\\Program Files\\Blender Foundation\\Blender\\blender.exe",
+                        "C:\\Program Files (x86)\\Blender Foundation\\Blender\\blender.exe",
+                    ]
+                    : [
+                        "/usr/bin/blender",
+                        "/usr/local/bin/blender",
+                        "/snap/bin/blender",
+                    ];
+
+                foreach ($candidates as $path) {
+                    if (file_exists($path)) {
+                        $result['blender_found'] = true;
+                        $result['blender_path'] = $path;
+
+                        $versionOutput = [];
+                        exec("\"$path\" --version 2>&1", $versionOutput);
+
+                        $result['blender_version'] = implode("\n", $versionOutput);
+                        break;
+                    }
+                }
+
+                if (!$result['blender_found']) {
+                    $result['error'] = 'Blender not found on this system.';
+                }
+            }
+
+        } catch (\Exception $e) {
+            $result['error'] = $e->getMessage();
+        }
+
+        return view('web.interactive.blender-info', compact('result'));
     }
 }
