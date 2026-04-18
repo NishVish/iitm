@@ -83,11 +83,16 @@ class AuthController extends Controller
         return redirect('http://localhost/iitm/central/registration/mobile/x');
     }
 
-    public function requestOtp(Request $request)
+    public function requestOtp(Request $request, $mobile = null)
     {
+        if ($mobile) {
+        } else {
 
 
-        $mobile = $request->mobile_number;
+            $mobile = $request->mobile_number;
+
+        }
+
 
         // $mobile = 7909075909;
         if ($request->event_id) {

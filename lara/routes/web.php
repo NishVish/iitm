@@ -27,7 +27,7 @@ Route::get('/create', [AuthController::class, 'create'])->name('create'); // sub
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/request-otp', [AuthController::class, 'requestOtp'])->name('login.otp');
-Route::get('/request-otp', [AuthController::class, 'requestOtp'])->name('login.otp');
+Route::get('/request-otp/{mobilenumber}', [AuthController::class, 'requestOtp'])->name('login.otp');
 
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('login.verify');
 Route::get('/verify-otp', [AuthController::class, 'verifyOtp'])->name('login.verify');
