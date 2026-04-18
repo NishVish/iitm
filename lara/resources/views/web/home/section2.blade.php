@@ -115,7 +115,6 @@
         </div>
 
         <div class="content-wrapper">
-            <!-- @include('web.components.cities') -->
             @include('web.components.whyexhibit')
             @include('web.components.vision')
             @include('web.components.exhibit')
