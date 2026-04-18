@@ -28,6 +28,8 @@
             width: 100%;
             max-width: 900px;
             margin: auto;
+            margin-top: 80px;
+
         }
 
         /* --- STEPPER --- */
@@ -213,7 +215,7 @@
 </head>
 
 <body>
-
+    @include('web.header3')
     <div class="registration-container">
 
         <div class="stepper-header">
@@ -232,110 +234,25 @@
                 <span>Company</span>
             </div>
         </div>
-
-        <form action="{{ route('registration.submit') }}" method="POST">
+        <form action="{{ route('registration.submit') }}" method="POST" novalidate>
             @csrf
             <input type="hidden" name="contact_id" value="{{ $contact['contact_id'] }}">
             <input type="hidden" name="company_id" value="{{ $contact['company_id'] }}">
+            @include('web.registration.choosecity')
 
-            <div class="form-card active" id="step2">
-                <h3>Personal Profile</h3>
-                <div class="row g-3">
-                    <div class="col-md-6 form-group">
-                        <label>Full Name</label>
-                        <input type="text" name="name" value="{{ $contact['name'] }}" class="form-control">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Designation</label>
-                        <input type="text" name="designation" value="{{ $contact['designation'] }}"
-                            class="form-control">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Mobile</label>
-                        <input type="text" name="mobile" value="{{ $contact['mobiles'][0] ?? '' }}" class="form-control"
-                            readonly>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" value="{{ $contact['emails'][0] ?? '' }}" class="form-control">
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end mt-4">
-                    <button type="button" class="btn-next" onclick="goToStep(3)">Organization Details →</button>
-                </div>
-            </div>
 
+            @include('web.registration.personalfields')
             <div class="form-card" id="step3">
-                <h3>Company & Business Interests</h3>
 
-                <div class="section-title">General Information</div>
-                <div class="row g-3">
-                    <div class="col-12 form-group">
-                        <label>Company Name</label>
-                        <input type="text" name="company_name" value="{{ $company['company_name'] }}"
-                            class="form-control">
-                    </div>
-                    <div class="col-md-4 form-group"><label>City</label><input type="text" name="city"
-                            value="{{ $company['city'] }}" class="form-control"></div>
-                    <div class="col-md-4 form-group"><label>State</label><input type="text" name="state"
-                            value="{{ $company['state'] }}" class="form-control"></div>
-                    <div class="col-md-4 form-group"><label>Country</label><input type="text" name="country"
-                            value="{{ $company['country'] }}" class="form-control"></div>
-                    <div class="col-md-12 form-group"><label>Website</label><input type="text" name="website"
-                            value="{{ $company['website'] }}" class="form-control"></div>
-                </div>
-
-                <div class="section-title">Business Profile</div>
-                <div class="row g-3">
-                    <div class="col-md-6 form-group">
-                        <label>Buyer Responsibility</label>
-                        <select name="buyer_responsibility" class="form-control">
-                            <option value="Owner" {{ $contact['buyer_responsibility'] == 'Owner' ? 'selected' : '' }}>
-                                Owner</option>
-                            <option value="MD/CEO" {{ $contact['buyer_responsibility'] == 'MD/CEO' ? 'selected' : '' }}>
-                                MD/CEO</option>
-                            <option value="Middle Management" {{ $contact['buyer_responsibility'] == 'Middle Management' ? 'selected' : '' }}>Middle Management</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Reason for Attending</label>
-                        <div class="d-flex gap-4 pt-2">
-                            <label class="opt-label"><input type="radio" name="attending_reason" value="Buy" checked>
-                                Buy</label>
-                            <label class="opt-label"><input type="radio" name="attending_reason" value="Sell">
-                                Sell</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section-title">Travel Segments (Select all that apply)</div>
-                <div class="scroll-box">
-                    @php $segs = ['FIT', 'MICE', 'GIT', 'Ticketing', 'Airlines', 'Cruises', 'Adventure', 'Wellness', 'Religious']; @endphp
-                    @foreach($segs as $s)
-                        <label class="opt-label"><input type="checkbox" name="travel_segments[]" value="{{ $s }}">
-                            {{ $s }}</label>
-                    @endforeach
-                </div>
-
-                <div class="section-title">Event Preferences</div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Attended Past Events?</label>
-                        <label class="opt-label"><input type="radio" name="attended_past" value="Yes" {{ $contact['attended_past'] == 'Yes' ? 'checked' : '' }}> Yes</label>
-                        <label class="opt-label"><input type="radio" name="attended_past" value="No" {{ $contact['attended_past'] == 'No' ? 'checked' : '' }}> No</label>
-                    </div>
-                    <div class="col-md-6">
-                        <label>Interested in Forum?</label>
-                        <label class="opt-label"><input type="radio" name="interest_forum" value="Yes" {{ $contact['interest_forum'] == 'Yes' ? 'checked' : '' }}> Yes</label>
-                        <label class="opt-label"><input type="radio" name="interest_forum" value="No" {{ $contact['interest_forum'] == 'No' ? 'checked' : '' }}> No</label>
-                    </div>
-                </div>
+                <!-- <pre>{{ print_r($company) }}</pre> -->
+                @include('web.registration.companydetails')
 
                 <div class="d-flex justify-content-end mt-5">
                     <button type="button" class="btn-back" onclick="goToStep(2)">← Back</button>
                     <button type="submit" class="btn-submit">Submit Registration ✓</button>
                 </div>
             </div>
+
         </form>
     </div>
 

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IITM Booking Form</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+body {
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+
+    }
+
+   .main {
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1100px; /* Allows full width on small screens, caps on large */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+    .container {
+      background-color: #fff;
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border-radius: 8px;
+    }
+
+    h2 {
+      background-color: #f2f2f2;
+      padding: 12px;
+      margin-top: 0;
+      border-radius: 6px;
+    }
+
+
+    h3 {
+  background-color: #d3d3d3; /* Light grey */
+  border-radius: 0;          /* Remove rounded corners */
+  display: inline-block;
+  width: 100%;
+  margin: 1px 0;
+  height: 40px;
+  font-size: 1.1em;
+  text-align: center;        /* Center the text horizontally */
+  line-height: 40px;         /* Vertically center the text within the height */
+}
+
+
+    .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Optional spacing between columns */
+}
+
+.column {
+  flex: 1;
+  min-width: 280px; /* Minimum before stacking occurs */
+  box-sizing: border-box;
+}
+
+    .form-line {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 11px;
+      flex-wrap: wrap;
+    }
+
+    .form-line label {
+      white-space: nowrap;
+      margin: 0;
+    }
+
+    .form-line input,
+    .form-line textarea {
+      width: auto;
+      flex: 1 1 auto;
+      min-width: 150px;
+    }
+
+    label {
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    textarea {
+      border: none;
+      border-bottom: 1px solid #000;
+      border-radius: 0;
+      background-color: transparent;
+      padding: 4px 0;
+        text-align: center; /* Center the text */
+  /* font-size: 20px;  */
+  
+  /* Increase font size */
+
+    }
+
+    #a-rs, #b-rs, #grand-total {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      padding: 8px;
+    }
+
+    .checkbox-group label {
+      font-weight: normal;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .image-placeholder {
+      width: auto;
+      height: auto;
+      margin: 40px;
+      background-color: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-weight: bold;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+    /* The text container that will adjust automatically */
+.account-info {
+    display: block;    /* Default block-level element behavior */
+    padding: 10px;     /* Optional padding */
+    font-size: 1.1em;  /* Adjust the font size */
+    line-height: 1.5;  /* Ensures line spacing */
+    width: auto;       /* Make width auto adjust to content */
+    height: auto;      /* Allow height to adjust to content */
+    text-align: left;  /* Optional: left-align the text */
+}
+    table{
+        width: 100%;
+    }
+    .note {
+      background-color: #ffffe0;
+      border-left: 4px solid #ccc;
+      border-radius: 4px;
+    }
+    
+.note p {
+  margin: 0;          /* Remove any margin from paragraphs */
+  padding: 0;         /* Remove any padding from paragraphs */
+}
+
+.note ol {
+  margin: 0;          /* Remove margin from the ordered list */
+  padding-left: 20px; /* Default padding for ordered list */
+}
+
+.note li {
+  margin: 0;          /* Remove margin from list items */
+  padding: 0;         /* Remove padding from list items */
+}
+
+    .footer {
+      font-size: 0.9em;
+      color: #333;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .line {
+      border-bottom: 1px solid #000;
+      width: 150px;
+      margin-top: 10px;
+    }
+
+td{
+    text-align: center;
+}
+
+.submit-button {
+    background: none;           /* Removes background color */
+    border: none;               /* Removes border */
+    padding: 0;                 /* Removes padding */
+    font-size: inherit;         /* Inherits font size from parent */
+    font-weight: bold;          /* Keeps the strong text style */
+    text-align: left;           /* Aligns text to the left */
+    cursor: pointer;           /* Ensures the cursor is a pointer if you want interaction */
+}
+
+.submit-button:hover {
+    text-decoration: underline; /* Optional: Add hover effect to indicate it's clickable */
+}
+
+
+.cropped-header {
+  height: 180px;         /* Height of the visible area */
+  overflow: hidden;      /* Hides everything outside the box */
+  position: relative;
+}
+
+
+
+#fascia {
+  text-transform: uppercase;
+}
+.logo,
+.shifted-image {
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: cover;
+}
+
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .form-line {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-line label,
+  .form-line input,
+  .form-line textarea {
+    width: 100%;
+  }
+
+  .footer {
+    font-size: 0.8em;
+  }
+}
+
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.responsive-title {
+  text-align: center;
+  color: white;
+  font-size: clamp(1.5rem, 5vw, 3rem); /* Min: 1.5rem, Ideal: 5% of viewport width, Max: 3rem */
+  margin: 6px;
+  padding: 0;
+  background-color: transparent;
+}
+
+.responsive-subtitle {
+  text-align: center;
+  background-color: #a92324;
+  color: white;
+  font-size: clamp(1rem, 4vw, 2rem); /* Min: 1rem, Max: 2rem */
+  padding: 0;
+}
+
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+    <script>
+
+
+console.log(html2canvas); // This should log the function, not 'undefined'
+
+function captureForm(event) {
+  event.preventDefault(); // Stop default submission
+
+ const submitBtn = document.getElementById("submit-btn");
+ submitBtn.remove();
+
+  // // OPTIONAL: Disable the button temporarily so user can't click again
+  // if (submitBtn) {
+  //   submitBtn.disabled = true;
+  // }
+
+  console.log("Button Removed")
+  const formElement = document.querySelector(".main");
+
+  html2canvas(formElement, {
+    scrollY: -window.scrollY,
+    useCORS: true,
+    scale: 2 // Increases image quality by rendering at 2x resolution
+  }).then(function(canvas) {
+    const imgData = canvas.toDataURL("image/jpeg", 1.0); // High-quality JPG (1.0 = max quality)
+
+    // Create a link to download the image
+    const link = document.createElement('a');
+    link.download = 'booking-form.jpg';
+    link.href = imgData;
+    link.click(); // Auto-trigger download
+
+  }).catch(function(error) {
+    console.error("Capture failed:", error);
+  });
+}
+
+
+
+      </script>
+        <div class="main">
+
+  <div class="container">
+
+    <!-- <form method="POST" action="form2.php"> -->
+        <form method="POST" action="" onsubmit="captureForm(event)">
+
+      <!-- <div class="cropped-header">
+        
+  <img src="https://drive.google.com/u/0/drive-viewer/AKGpihbUdZXXOOuiL-fnLPuQ9lEQHtNdJpCWn4pnGjwl9nkWb5j04IPPlLcW8mNVhDDiTByCHs9TE2bJrv9SZeKF4cGhI02OUzEHI_4=s2560"
+       class="shifted-image" 
+       crossorigin="anonymous">
+</div> -->
+
+<div style="display: flex; align-items: center; background-color: #a92324; height: 180px;">
+    <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" 
+
+       class="logo" 
+       crossorigin="anonymous" style="width: 20%;">
+  <div style="width: 80%; text-align: center;" >
+   <h1 class="responsive-title">BOOKING FORM</h1>
+<h2 class="responsive-subtitle"><strong>India's Premier Travel & Tourism Exhibition</strong></h2>
+</div>
+</div>
+
+
+<!-- 
+      <img src="https://drive.google.com/u/0/drive-viewer/AKGpihaerNETZWNWLFrsIoKPJDcJuuXwsyd79itGiVaTzHjKUMLsdHLa1YRuhIozmKVoPT_0FlANLbNTwLp54ELWwYCaCatKY0dFWoY=s2560"  style="width: 100%;" crossorigin="anonymous">
+       <img src="https://drive.google.com/u/0/drive-viewer/AKGpihaerNETZWNWLFrsIoKPJDcJuuXwsyd79itGiVaTzHjKUMLsdHLa1YRuhIozmKVoPT_0FlANLbNTwLp54ELWwYCaCatKY0dFWoY=s2560"  style="width: 100%;" > 
+ -->
+
+
+
+    <div class="form-section">
+      <div class="row">
+        <div class="column">
+          <h3>A. Booking Information</h3>
+          <table >
+            <thead>
+              <tr>
+                <th></th>
+                <th>Location</th>
+                <th>Year</th>
+                <th>Rate</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td><input type="checkbox" name="locations[]" value="Chennai_2025_32000"></td>
+                  <td>Chennai</td>
+                  <td>2025</td>
+                  <td>₹32,000/m²</td>
+                  <td>m² @ ₹32,000/m²</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="locations[]" value="Bengaluru_2025_35000"></td>
+                  <td>Bengaluru</td>
+                  <td>2025</td>
+                  <td>₹35,000/m²</td>
+                  <td>m² @ ₹35,000/m²</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="locations[]" value="Delhi_2025_35000"></td>
+                  <td>Delhi</td>
+                  <td>2025</td>
+                  <td>₹35,000/m²</td>
+                  <td>m² @ ₹35,000/m²</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="locations[]" value="Mumbai_2025_35000"></td>
+                  <td>Mumbai</td>
+                  <td>2025</td>
+                  <td>₹35,000/m²</td>
+                  <td>m² @ ₹35,000/m²</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="locations[]" value="Pune_2025_32000"></td>
+                  <td>Pune</td>
+                  <td>2025</td>
+                  <td>₹32,000/m²</td>
+                  <td>m² @ ₹32,000/m²</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="locations[]" value="Hyderabad_2025_32000"></td>
+                  <td>Hyderabad</td>
+                  <td>2025</td>
+                  <td>₹32,000/m²</td>
+                  <td>m² @ ₹32,000/m²</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="locations[]" value="Kochi_2026_32000"></td>
+                  <td>Kochi</td>
+                  <td>2026</td>
+                  <td>₹32,000/m²</td>
+                  <td>m² @ ₹32,000/m²</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="locations[]" value="Kolkata_2026_32000"></td>
+                  <td>Kolkata</td>
+                  <td>2026</td>
+                  <td>₹32,000/m²</td>
+                  <td>m² @ ₹32,000/m²</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="locations[]" value="Ahmedabad_2026_32000"></td>
+                  <td>Ahmedabad</td>
+                  <td>2026</td>
+                  <td>₹32,000/m²</td>
+                  <td>m² @ ₹32,000/m²</td>
+                </tr>
+              </tbody>
+          </table>
+          <br>
+        </div>
+
+        <div class="column">
+          <h3>B. Advertising Tariff</h3>
+          <p>For Exhibitor Director</p>
+          <div class="checkbox-group">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Advertising Option</th>
+                  <th>Size</th>
+                  <th>Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="ad_option[]" value="Double Spread">
+                    </td>
+                    <td>Double Spread</td>
+                    <td>420mm x 297mm</td>
+                    <td>₹2,50,000</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" name="ad_option[]" value="Back Cover"></td>
+                    <td>Back Cover</td>
+                    <td>210mm x 297mm</td>
+                    <td>₹1,50,000</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" name="ad_option[]" value="Inner Cover"></td>
+                    <td>Inner Cover</td>
+                    <td>210mm x 297mm</td>
+                    <td>₹75,000</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" name="ad_option[]" value="Full Page Colour"></td>
+                    <td>Full Page Colour</td>
+                    <td>210mm x 297mm</td>
+                    <td>₹20,000</td>
+                  </tr>
+                <!-- Add more advertising options here -->
+              </tbody>
+            </table>
+            <p>   Advertisement artwork will be provided by you</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="row">
+        <div class="column" style="height: 240px;">
+
+            <img src="side-image.png" style="width: 100%; height: 100%;" crossorigin="anonymous">
+        </div>
+        <div class="column" >
+          <div class="form-line"><label for="area">Area Required (m²):</label><input type="number" id="area" name="area"></div>
+          <div class="form-line"><label for="amount">Amount Rs:</label><input type="number" id="amount" name="amount"></div><div class="form-line">
+  <label for="gst-amount">18% GST of the Amount:</label>
+  <input type="number" id="gst-amount" name="gst-amount" readonly>
+</div>
+
+<div class="form-line">
+  <label for="total">Total Amount with 18%:</label>
+  <input type="number" id="total" name="total" readonly>
+</div>
+
+          <div class="form-line"><label>A-Rs:</label><input type="number" id="a-rs" name="a-rs"> + <label>B-Rs:</label><input type="number" id="b-rs" name="b-rs"></div>
+          <div class="form-line"><label><strong>Grand Total:</strong></label><input type="number" id="grand-total" name="grand-total"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="row">
+        <div class="column">
+          <h3>Bank Transfer Details:</h3>
+          <div class="account-info">
+            A/C Name: Sphere Travelmedia & Exhibitions Pvt. Ltd.<br>
+            A/C No: 0184 2320 0013 32<br>
+            Bank: HDFC Bank, CMH Road, Indiranagar, Bangalore - 08<br>
+            IFSC: HDFC0000184 <br>
+            RTGS/NEFT/IFSC Code:HDFC0000184
+        </div>
+        
+        </div>
+        <div class="column">
+          <h3>Payment Particulars:</h3>
+
+          <div class="form-line"><label for="cheque-no">Cheque/DD No:</label><input type="text" id="cheque-no" name="cheque-no"><label for="cheque-date">Dated:</label><input type="date" id="cheque-date" name="cheque-date"></div>
+          <div class="form-line"><label for="payment-amount">Amount Rs:</label><input type="number" id="payment-amount" name="payment-amount"></div>
+          <div class="form-line"><label for="drawn-on">Drawn on:</label><input type="text" id="drawn-on" name="drawn-on"></div>
+<p>In Favour of "Sphere Travelmedia & Exhibitions Pvt. Ltd."<br>
+(Payable at Bangalore)</p>        </div>
+      </div>
+    </div>
+
+    <h3>Organisation Details</h3>
+    <div class="form-line inline-fields">
+      <label for="org-name">Name of Organisation:</label><input type="text" id="org-name" name="org-name">
+    </div>
+    <div class="form-line inline-fields">
+      <label for="contact-person">Contact Person & Designation:</label><input type="text" id="contact-person" name="contact-person">
+    </div>
+    <div class="form-line"><label for="address">Address:</label><textarea id="address" name="address" rows="3"></textarea></div>
+    <div class="form-line inline-fields">
+      <label for="telephone">Telephone:</label><input type="text" id="telephone" name="telephone">
+      <label for="fax">Fax:</label><input type="text" id="fax" name="fax">
+      <label for="email">Email:</label><input type="email" id="email" name="email">
+    </div>
+    <div class="form-line inline-fields">
+      <label for="gst">GST No:</label><input type="text" id="gst" name="gst">
+      <label for="website">Website:</label><input type="text" id="website" name="website">
+      <label for="product-category">Product Category:</label><input type="text" id="product-category" name="product-category">
+    </div>
+
+    <div class="form-line"><label for="fascia">Fascia (Max 30 chars):</label><input type="text" id="fascia" name="fascia" maxlength="30"></div>
+
+
+    <div class="note">
+        <p><strong>Note:</strong> Fascia must be in English, max 30 characters.</p>
+        <p>Email the following to <strong>events@iitmindia.com</strong>:</p>
+        <ol>
+          <li>Company Profile (200 words max)</li>
+          <li>Representative Office / Agent Addresses (if any)</li>
+        </ol>
+      </div>
+      <div class="form-line inline-fields">
+        
+        <table style="width: 100%; table-layout: fixed;">
+            <tr>
+                <td style="width: 50%;">
+                    <input type="text">
+                </td>
+                <td style="width: 50%; text-align: center;">
+                    <img id="company-seal-preview" src="" alt="Company Seal" style="width: 100px; height: 100px; display: none; margin: 0 auto;">
+                    <!-- Upload Image for Company Seal -->
+                    <input type="file" id="company-seal-upload" accept="image/*" onchange="displayImage('company-seal-preview', this)">
+                </td>
+                <td style="width: 50%; text-align: center;">
+                    <img id="signature-preview" src="" alt="Signature" style="width: 100px; height: 100; display: none; margin: 0 auto;">
+                    <!-- Upload Image for Signature -->
+                    <input type="file" id="signature-upload" accept="image/*" onchange="displayImage('signature-preview', this)">
+                </td>
+            </tr>
+            <tr>
+                <td><label for="date">Date</label></td>
+                <td><label for="company-seal">Company Seal</label></td>
+                <td><label for="signature">Signature</label></td>
+            </tr>
+        </table>
+        
+        
+    </div>
+    
+    
+   
+
+
+    <div class="footer">
+<button type="submit" class="" id="submit-btn">Submit</button>
+
+            <br>
+
+            Sphere Travelmedia & Exhibitions Pvt Ltd
+    <br>    #245, “Shivashakthi”, 7th Main, Amarjyothi Layout, Domlur, Bangalore - 560071, India<br>
+        Ph: +91-80-4083 4100 | Fax: +91-80-4083 4101<br>
+        Email: <a href="mailto:info@iitmindia.com">info@iitmindia.com</a>
+      </div>
+    </form>
+    
+</div>
+</div>
+<script>
+
+function displayImage(previewId, inputElement) {
+    const file = inputElement.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        const imageElement = document.getElementById(previewId);
+        imageElement.src = e.target.result;
+        imageElement.style.display = 'block';  // Show the image
+        inputElement.style.display = 'none';  // Hide the upload button
+    };
+
+    if (file) {
+        reader.readAsDataURL(file); // Convert the image to a base64 string and display
+    }
+}
+
+    
+    document.getElementById('amount').addEventListener('input', function() {
+
+      let amount = parseFloat(document.getElementById('amount').value) || 0;
+      let gst = Math.ceil(amount * 0.18); // Round GST up
+  let total = Math.ceil(amount + gst); // Round total up
+
+            document.getElementById('gst-amount').value = gst;
+
+      document.getElementById('gst').value = gst;
+      document.getElementById('total').value = total;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,518 @@
+[
+    {
+        "keyword": "Hospitality",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "hotel",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "resort",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "inn",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "suites",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "stay",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "hostel",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "lodge",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "villa",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "palace",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "heritage",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "boutique",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "homestay",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "bnb",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "motel",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "apartment",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "residence",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "manor",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "chateau",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "cottage",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "cabin",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "bungalow",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "sanctuary",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "retreat",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "spa",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "wellness",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "house",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "luxury",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "grand",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "plaza",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "continental",
+        "category": "Hospitality"
+    },
+    {
+        "keyword": "travel",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "tour",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "tourism",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "vacation",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "holiday",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "expedition",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "voyage",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "trip",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "getaway",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "destination",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "itinerary",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "world",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "global",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "leisure",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "discovery",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "explore",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "pathfinder",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "nomad",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "wander",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "compass",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "horizon",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "dmc",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "inbound",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "outbound",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "domestic",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "international",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "agency",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "operator",
+        "category": "Travel Agency"
+    },
+    {
+        "keyword": "airline",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "airway",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "aviation",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "flight",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "airbus",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "boeing",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "jet",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "heli",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "helicopter",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "aerospace",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "sky",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "airport",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "lounge",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "cargo",
+        "category": "Aviation"
+    },
+    {
+        "keyword": "cab",
+        "category": "Transport"
+    },
+    {
+        "keyword": "taxi",
+        "category": "Transport"
+    },
+    {
+        "keyword": "car rental",
+        "category": "Transport"
+    },
+    {
+        "keyword": "limo",
+        "category": "Transport"
+    },
+    {
+        "keyword": "bus",
+        "category": "Transport"
+    },
+    {
+        "keyword": "cruise",
+        "category": "Transport"
+    },
+    {
+        "keyword": "liner",
+        "category": "Transport"
+    },
+    {
+        "keyword": "ship",
+        "category": "Transport"
+    },
+    {
+        "keyword": "yacht",
+        "category": "Transport"
+    },
+    {
+        "keyword": "fleet",
+        "category": "Transport"
+    },
+    {
+        "keyword": "express",
+        "category": "Transport"
+    },
+    {
+        "keyword": "mice",
+        "category": "MICE"
+    },
+    {
+        "keyword": "event",
+        "category": "MICE"
+    },
+    {
+        "keyword": "expo",
+        "category": "MICE"
+    },
+    {
+        "keyword": "exhibition",
+        "category": "MICE"
+    },
+    {
+        "keyword": "forum",
+        "category": "MICE"
+    },
+    {
+        "keyword": "conference",
+        "category": "MICE"
+    },
+    {
+        "keyword": "summit",
+        "category": "MICE"
+    },
+    {
+        "keyword": "meeting",
+        "category": "MICE"
+    },
+    {
+        "keyword": "incentive",
+        "category": "MICE"
+    },
+    {
+        "keyword": "organizer",
+        "category": "MICE"
+    },
+    {
+        "keyword": "planner",
+        "category": "MICE"
+    },
+    {
+        "keyword": "convention",
+        "category": "MICE"
+    },
+    {
+        "keyword": "venue",
+        "category": "MICE"
+    },
+    {
+        "keyword": "trade fair",
+        "category": "MICE"
+    },
+    {
+        "keyword": "banquet",
+        "category": "MICE"
+    },
+    {
+        "keyword": "gala",
+        "category": "MICE"
+    },
+    {
+        "keyword": "adventure",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "trek",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "safari",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "wildlife",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "camping",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "eco",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "climb",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "hike",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "mountaineer",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "rafting",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "scuba",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "dive",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "surf",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "ski",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "snow",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "backpacker",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "trail",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "wilderness",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "peak",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "summit",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "nature",
+        "category": "Adventure"
+    },
+    {
+        "keyword": "visa",
+        "category": "TA"
+    },
+    {
+        "keyword": "forex",
+        "category": "TA"
+    },
+    {
+        "keyword": "passport",
+        "category": "TA"
+    },
+    {
+        "keyword": "yatra",
+        "category": "TA"
+    },
+    {
+        "keyword": "darshan",
+        "category": "TA"
+    },
+    {
+        "keyword": "cruise",
+        "category": "TA"
+    },
+    {
+        "keyword": "agritourism",
+        "category": "TA"
+    },
+    {
+        "keyword": "vacation",
+        "category": "Travel Agency"
+    }
+]

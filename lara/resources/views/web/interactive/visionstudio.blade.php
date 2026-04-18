@@ -34,7 +34,7 @@
         .header-bar {
             height: 120px;
             top: 0;
-            background: linear-gradient(to bottom, rgba(24, 24, 24, 0.9), rgba(255, 255, 255, 0));
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
         }
 
         .footer-bar {
@@ -46,7 +46,7 @@
             width: 100%;
             padding: 0 60px;
             z-index: 1001;
-            background: linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0));
         }
 
         /* HEADER CONTENT */
@@ -201,7 +201,6 @@
 
             <div class="title">
 
-                <a href="{{ route('reload') }}"> REload</a>
 
 
                 Studio View
@@ -215,12 +214,144 @@
         <div class="left">
             <img id="frame" src="{{ $framePath . '0000.png' }}" />
         </div>
-
         <div class="right">
-            <section class="s1">Section 1</section>
-            <section class="s2">Section 2</section>
-            <section class="s3">Section 3</section>
-            <section class="s4">Section 4</section>
+            <style>
+                /* Keep the sections at 100vh so the JS scroll logic stays accurate */
+                .right section {
+                    height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 40px;
+                    border-bottom: 1px solid #222;
+                }
+
+                /* Glassmorphism Card Styling */
+                .card-content {
+                    background: rgba(255, 255, 255, 0.05);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border-radius: 30px;
+                    padding: 40px;
+                    width: 100%;
+                    max-width: 500px;
+                    transition: all 0.4s ease;
+                    position: relative;
+                }
+
+                /* Hover accent glows */
+                .s1 .card-content:hover {
+                    border-color: #00f5ff;
+                    box-shadow: 0 0 25px rgba(0, 245, 255, 0.2);
+                }
+
+                .s2 .card-content:hover {
+                    border-color: #ff00d4;
+                    box-shadow: 0 0 25px rgba(255, 0, 212, 0.2);
+                }
+
+                .s3 .card-content:hover {
+                    border-color: #ffe600;
+                    box-shadow: 0 0 25px rgba(255, 230, 0, 0.2);
+                }
+
+                .s4 .card-content:hover {
+                    border-color: #00ff88;
+                    box-shadow: 0 0 25px rgba(0, 255, 136, 0.2);
+                }
+
+                .card-content .icon {
+                    font-size: 45px;
+                    margin-bottom: 15px;
+                    display: block;
+                }
+
+                .card-content h2 {
+                    font-size: 2rem;
+                    margin-bottom: 15px;
+                    font-weight: 800;
+                    background: linear-gradient(90deg, #ffffff, #a1a1a1);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+
+                .card-content p,
+                .card-content li {
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    color: rgba(255, 255, 255, 0.8);
+                }
+
+                .card-content ul {
+                    list-style: none;
+                    padding: 0;
+                }
+
+                .card-content li {
+                    margin-bottom: 10px;
+                    padding-left: 25px;
+                    position: relative;
+                }
+
+                .card-content li::before {
+                    content: "→";
+                    position: absolute;
+                    left: 0;
+                    color: inherit;
+                    /* Takes color from hover border logic */
+                    filter: brightness(1.5);
+                }
+            </style>
+
+            <div class="fancy-wrapper">
+
+                <section class="s1">
+                    <div class="card-content">
+                        <div class="icon">🌍</div>
+                        <h2>Global Networking</h2>
+                        <p>
+                            Connect with international exhibitors, buyers, and industry leaders all under one roof.
+                            Build strong business relationships and expand your global reach.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="s2">
+                    <div class="card-content">
+                        <div class="icon">📣</div>
+                        <h2>Brand Visibility</h2>
+                        <p>
+                            Enhance your brand presence by showcasing your products to a highly targeted audience.
+                            Increase recognition and trust in your industry.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="s3">
+                    <div class="card-content">
+                        <div class="icon">📏</div>
+                        <h2>Stall Dimensions</h2>
+                        <ul>
+                            <li>Standard Stall: 3m x 3m (9 sq. meters)</li>
+                            <li>Premium Stall: 6m x 3m (18 sq. meters)</li>
+                            <li>Includes structure, lighting, carpet, table & chairs</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="s4">
+                    <div class="card-content">
+                        <div class="icon">🚀</div>
+                        <h2>Business Opportunities</h2>
+                        <p>
+                            Generate leads, explore new markets, and analyze competitors while showcasing your products
+                            directly to buyers.
+                        </p>
+                    </div>
+                </section>
+
+            </div>
         </div>
 
     </div>
@@ -231,6 +362,7 @@
             <button class="sq-btn">4 SM²</button>
             <button class="sq-btn">6 SM²</button>
             <button class="sq-btn">9 SM²</button>
+
         </div>
 
         <!-- <img src="http://localhost/iitm/lara/public/session/6934/logo.png" alt=""> -->
@@ -241,17 +373,17 @@
                         <div class="logo-container">
                             <?php
                 $baseurl = url('/');
-                                        ?>
+                                                                                                                                                                                        ?>
 
                             <!-- <p>{{ $baseurl }}/public/session/{{ $userid }}/logo.png</p> -->
 
-                            <img src="{{ $baseurl }}/public/session/{{ $userid }}/logo.png" alt="Studio Logo"
+                            <img src="{{ $baseurl }}/public/session/{{ $userid }}/rendered/logo.png" alt="Studio Logo"
                                 style="max-height: 40px; width: auto; display: block; margin: 0 auto;">
                         </div>
-            @else
-                <div class="title">
-                    Studio View
-                </div>
+            @else <a href="{{ route('reload') }}"> Reload</a>
+
+                <div class="">
+                    Upload your Logo </div>
             @endif
 
             <form id="logoForm" action="{{ route('upload.logo') }}" method="POST" enctype="multipart/form-data"

@@ -28,20 +28,24 @@ class Database extends Config
         'DSN' => '',
 
 
-        'hostname' => '21.157.66.148.host.secureserver.net',
-        'username' => 'iitminda_master',
-        'password' => 'gB)%gU}ocn?MCP=}',
-        'database' => 'iitminda_testing_server',
+        // 'hostname' => '21.157.66.148.host.secureserver.net',
+        // 'username' => 'iitminda_master',
+        // 'password' => 'gB)%gU}ocn?MCP=}',
+        // 'database' => 'iitminda_testing_server',
 
         //'hostname' => 'localhost', 'username' => 'root', 'password' => '', 'database' => 'iitminda_testing_server',
 
 
 
-        // 'hostname' => 'localhost',
-        // 'username' => 'root',
-        // 'password' => '',
-        // 'database' => 'iitminda_testing_server',
-        //'hostname' => 'localhost', 'username' => 'root', 'password' => '', 'database' => 'spottesting',
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'database' => 'iitminda_testing_server',
+
+
+
+
+        // 'hostname' => 'localhost', 'username' => 'root', 'password' => '', 'database' => 'iitminda_testing_server',
         // 'hostname' => 'localhost', 'username' => 'root', 'password' => '', 'database' => 'spottesting',
 
 

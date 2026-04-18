@@ -9,13 +9,27 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
+use App\Http\Controllers\DatabaseController;
+
 class AuthController extends Controller
 {
     // Show login form
+
+    protected $database;
+
+    public function __construct(DatabaseController $database)
+    {
+        $this->database = $database;
+    }
     public function loginpage()
     {
         return view('login'); // login.blade.php
     }
+
+
+
+
+
 
     // Handle login form submission
     public function login(Request $request)
@@ -28,11 +42,7 @@ class AuthController extends Controller
         $mobile = $request->mobile;
         var_dump($mobile);
         var_dump($password);
-        // exit;
 
-        // // get contact id from mobile number
-// // get company id from contact id
-// // get pin from company id
 
         // check is password is correct
         $response = $this->verifyUser($mobile, $password, 'password');
@@ -78,10 +88,18 @@ class AuthController extends Controller
 
 
         $mobile = $request->mobile_number;
-        $eventId = 5;
+
+        // $mobile = 7909075909;
+        if ($request->event_id) {
+
+            $eventId = $request->event_id;
+
+        } else {
+            $eventId = null;
+        }
+        // dd($eventId);
 
         // Validate event_id if sent
-        // $eventId = null;
         // Fetch all events
         $allEvents = DB::table('events')->get();
 
@@ -115,93 +133,25 @@ class AuthController extends Controller
         }
 
         // 🔍 Check if mobile exists
-        $user = DB::table('contact_mobile')
-            ->where('mobile', $mobile)
-            ->first();
+        $response = $this->database->getLatestCompanyDatabymobile($mobile);
+        $data = $response->getData()->data ?? null;
+
+        if (empty($data)) {
+            $user = DB::table('contact_mobile')
+                ->where('mobile', $mobile)
+                ->first();
+        } else {
+            $user = $data;
+        }
+
+        // dd($user);
+
 
         // 🚨 If NOT found → create dummy data
         if (!$user) {
 
-            DB::beginTransaction();
+            $contactid = $this->createnewentry($request->company_name, $request->mobile, $request->email);
 
-            try {
-                $unique_id = 'CMP_' . uniqid();
-
-                // 1. company_data
-                DB::table('company_data')->insert([
-                    'company_id' => $unique_id,
-                    'database_name' => 'demo_db',
-                    'outbound' => 0,
-                    'company_name' => $request->company_name ?? 'Demo Company Pvt Ltd',
-                    'category' => 'IT Services',
-                    'address' => '123 Demo Street',
-                    'city' => $request->city ?? 'Bangalore',
-                    'pincode' => $request->pincode ?? '560001',
-                    'state' => $request->state ?? 'Karnataka',
-                    'country' => $request->country ?? 'India',
-                    'website' => $request->website ?? 'https://example.com',
-                    'phone' => $mobile,
-                    'gst_number' => '29ABCDE1234F1Z5',
-                    'sales_person' => 'John Doe',
-                    'active_inactive' => 'active',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                    'session' => 0,
-                    'cross_validation' => 0,
-                    'entry_type' => 'online_registration'
-                ]);
-
-                // 2. contact
-                $contact_id = DB::table('contact')->insertGetId([
-                    'company_id' => $unique_id,
-                    'priority' => 1,
-                    'name' => 'Demo User',
-                    'designation' => 'Manager',
-                    'created_at' => Carbon::now()
-                ]);
-
-                // 3. contact_mobile
-                DB::table('contact_mobile')->insert([
-                    'contact_id' => $contact_id,
-                    'mobile' => $mobile,
-                    'is_primary' => 1,
-                    'created_at' => Carbon::now()
-                ]);
-
-                // 4. contact_email
-                DB::table('contact_email')->insert([
-                    'contact_id' => $contact_id,
-                    'email' => $request->email ?? 'demo@example.com',
-                    'is_primary' => 1,
-                    'created_at' => Carbon::now()
-                ]);
-                $eventName = $event ? $event->name : 'Unknown Event';
-
-                // 5. company_sources
-                DB::table('company_sources')->insert([
-                    'company_id' => $unique_id,
-                    'source_id' => 1,
-                    'event_date' => date('Y-m-d'),
-                    'notes' => 'Online_registration - ' . $eventName, // ✅ event name included
-                    'created_at' => Carbon::now()
-                ]);
-
-                DB::commit();
-
-                // ✅ Re-fetch user after insert (instead of recursion)
-                $user = DB::table('contact_mobile')
-                    ->where('mobile', $mobile)
-                    ->first();
-
-            } catch (\Exception $e) {
-                DB::rollBack();
-
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Failed to create dummy data',
-                    'error' => $e->getMessage()
-                ]);
-            }
         }
 
         // 🔐 Generate OTP
@@ -234,10 +184,90 @@ class AuthController extends Controller
     }
 
 
+    public function createnewentry($company_name = null, $mobile = null, $email = null)
+    {
+
+        echo "<pre>";
+        $data = [
+            'company_name' => $company_name,
+            'mobile' => $mobile,
+            'email' => $email
+        ];
+        print_r($data);
+        echo "</pre>";
+        // exit;
+        DB::beginTransaction();
+
+        try {
+            $unique_id = 'CMP_' . uniqid();
+            // 1. company_data
+            DB::table('company_data')->insert([
+                'company_id' => $unique_id,
+                'database_name' => null,
+                'outbound' => 0,
+                'company_name' => $company_name ?? 'Enter Company Name',
+                'category' => null,
+                'address' => null,
+                'city' => null,
+                'pincode' => null,
+                'state' => null,
+                'country' => null,
+                'website' => null,
+                'phone' => $mobile,
+                'gst_number' => null,
+                'sales_person' => null,
+                'active_inactive' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+                'session' => 0,
+                'cross_validation' => 0,
+                'entry_type' => 'online_registration'
+            ]);
+
+            // 2. contact
+            $contact_id = DB::table('contact')->insertGetId([
+                'company_id' => $unique_id,
+                'priority' => 1,
+                'name' => null,
+                'designation' => null,
+                'created_at' => now()
+            ]);
+
+            // 3. contact_mobile
+            DB::table('contact_mobile')->insert([
+                'contact_id' => $contact_id,
+                'mobile' => $mobile,
+                'is_primary' => 1,
+                'created_at' => now()
+            ]);
+            if (!empty($email)) {
+                DB::table('contact_email')->insert([
+                    'contact_id' => $contact_id,
+                    'email' => $email,
+                    'is_primary' => 1,
+                    'created_at' => now()
+                ]);
+            }
+
+            DB::commit();
+
+            return $contact_id;
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
     public function verifyOtp(Request $request)
     {
         $mobile = $request->mobile_number;
         $otp = $request->otp;
+
 
         if (empty($mobile) || empty($otp)) {
             return response()->json([
@@ -247,6 +277,7 @@ class AuthController extends Controller
         }
 
         $response = $this->verifyUser($mobile, $otp, 'otp');
+        // $response = $this->verifyUser(7909075195, 123456, 'otp');
         $data = $response->getData(true);
 
         if (isset($data['status']) && $data['status'] === 'success' && isset($data['contact'])) {
@@ -280,74 +311,28 @@ class AuthController extends Controller
     {
         return view('temp');
     }
-    //     public function verifyOtp(Request $request)
-// {
 
 
-    //     $mobile = $request->mobile_number;
-//     // $mobile = '8792548508';
-//     $otp = $request->otp;
-//     $type = 'login';
-//     // $otp = 508845;
-// // var_dump($mobile);
-// // var_dump($otp);
-// // exit;
-//     if (empty($mobile) || empty($otp)) {
-//         return response()->json([
-//             'status' => 'error',
-//             'message' => 'Mobile number and OTP are required'
-//         ]);
-//     }
-
-    // $response = $this->verifyUser($mobile, $otp, 'otp');
-// $data = $response->getData(true); 
-
-    // // var_dump($data);
-// // exit;
-
-    // // 1. Check if the 'status' is success AND the keys exist
-// if (isset($data['status']) && $data['status'] === 'success' && isset($data['contact'])) {
-
-    //     $contact = $data['contact'];
-//     $company = $data['company'];
-
-    //         session()->put('contact', $contact);
-//         session()->put('company', $company);
-
-    //         // Use a persistent company_id for middleware checks later
-//         session()->put('company_id', $company['company_id']); 
-
-
-    // if ($type == "login") {
-//     session()->put('contact', $contact);
-//     session()->put('company', $company);
-//     return redirect()->route('home');
-// } else {
-// return response()->json([
-//     'status' => 'success',
-//     'contact' => $contact,
-//     'company' => $company
-// ]);}
-
-    // }
-
-    // // 2. If we reached here, something went wrong (Wrong OTP, etc.)
-// // We redirect back with the error message returned by your verifyUser function
-// return redirect()->back()->with('error', $data['message'] ?? 'Invalid OTP or Verification Failed');
-// // Now you can access them (Note: getData() usually returns objects by default)
-// // var_dump($contact);
-// // var_dump($company);
-//     // return route('mobile');
-
-
-    // }
-
-
-    public function verifyUser($mobile, $value, $type)
+    public function verifyUser($mobile = Null, $value = null, $type = null)
     {
+        // $mobile = 7909075195;
+        // dd($mobile);
+        // $otp = 123456;
         // 1. Find the user by mobile
         $user = DB::table('contact_mobile')
             ->where('mobile', $mobile)
+            ->first();
+        $latestofthatnumber = $this->database->getLatestCompanyDatabymobile($mobile, null, true);
+
+        // echo "<pre>";
+        // // print_r($user);
+        // print_r($latestofthatnumber);
+        // print_r("Thisisis tha data above");
+        // echo "</pre>";
+        // dd($latestofthatnumber);
+        // exit;
+        $user = DB::table('contact_mobile')
+            ->where('contact_id', $latestofthatnumber)
             ->first();
 
         if (!$user) {
@@ -427,8 +412,6 @@ class AuthController extends Controller
         ]);
     }
 
-
-
     public function getOtp()
     {
         $otps = DB::table('contact as c')
@@ -442,3 +425,65 @@ class AuthController extends Controller
     }
 
 }
+
+//     public function verifyOtp(Request $request)
+// {
+
+
+//     $mobile = $request->mobile_number;
+//     // $mobile = '8792548508';
+//     $otp = $request->otp;
+//     $type = 'login';
+//     // $otp = 508845;
+// // var_dump($mobile);
+// // var_dump($otp);
+// // exit;
+//     if (empty($mobile) || empty($otp)) {
+//         return response()->json([
+//             'status' => 'error',
+//             'message' => 'Mobile number and OTP are required'
+//         ]);
+//     }
+
+// $response = $this->verifyUser($mobile, $otp, 'otp');
+// $data = $response->getData(true); 
+
+// // var_dump($data);
+// // exit;
+
+// // 1. Check if the 'status' is success AND the keys exist
+// if (isset($data['status']) && $data['status'] === 'success' && isset($data['contact'])) {
+
+//     $contact = $data['contact'];
+//     $company = $data['company'];
+
+//         session()->put('contact', $contact);
+//         session()->put('company', $company);
+
+//         // Use a persistent company_id for middleware checks later
+//         session()->put('company_id', $company['company_id']); 
+
+
+// if ($type == "login") {
+//     session()->put('contact', $contact);
+//     session()->put('company', $company);
+//     return redirect()->route('home');
+// } else {
+// return response()->json([
+//     'status' => 'success',
+//     'contact' => $contact,
+//     'company' => $company
+// ]);}
+
+// }
+
+// // 2. If we reached here, something went wrong (Wrong OTP, etc.)
+// // We redirect back with the error message returned by your verifyUser function
+// return redirect()->back()->with('error', $data['message'] ?? 'Invalid OTP or Verification Failed');
+// // Now you can access them (Note: getData() usually returns objects by default)
+// // var_dump($contact);
+// // var_dump($company);
+//     // return route('mobile');
+
+
+// }

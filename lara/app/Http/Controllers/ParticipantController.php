@@ -202,8 +202,16 @@ class ParticipantController extends Controller
     }
     /**
      * Handle registration submission.
-     */
-    public function store(Request $request)
+
+    */
+
+    public function enquriyform()
+    {
+        return view('web.participant.index');
+    }
+
+
+    function store(Request $request)
     {
         // TODO: add validation and persistence logic here
 

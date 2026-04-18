@@ -23,6 +23,11 @@ class Tools extends Controller
         return view('tools.tool', compact('operators'));
     }
 
+    public function temptable()
+    {
+
+        return view('tools.temptable');
+    }
 
 
     public function ocr()

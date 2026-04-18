@@ -16,7 +16,7 @@
     }
 
     .section-1.idle {
-        filter: blur(15px) grayscale(20%);
+        filter: blur(200px) grayscale(20%);
         /* Blurs and slightly fades color */
         pointer-events: none;
         /* Prevents accidental clicks while blurred */
@@ -61,6 +61,97 @@
     }
 </style>
 
+<style>
+    #logo-container {
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 40px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        z-index: 2000;
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+
+        transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
+
+    }
+
+    #logo-container.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+</style>
+
+<div id="logo-container">
+    <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" height="50">
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const hero = document.getElementById("hero");
+        const logo = document.getElementById("logo-container");
+
+        if (!hero || !logo) return;
+
+        function updateLogo() {
+            const heroBottom = hero.getBoundingClientRect().bottom;
+
+            // If hero is still visible → allow idle system to control it
+            if (heroBottom > 0) {
+                // do nothing here (idle script can control it)
+                return;
+            }
+
+            // If hero is fully scrolled past → FORCE HIDE forever
+            logo.classList.remove("show");
+            logo.style.opacity = "0";
+            // logo.style.visibility = "hidden";
+            // logo.style.pointerEvents = "none";
+        }
+
+        window.addEventListener("scroll", updateLogo);
+        updateLogo();
+    });
+</script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const logo = document.getElementById("logo-container");
+        let idleTimer;
+
+        function resetIdle() {
+            // user active → hide logo
+            logo.classList.remove("show");
+
+            clearTimeout(idleTimer);
+
+            // after 2 seconds idle → show logo
+            idleTimer = setTimeout(() => {
+                logo.classList.add("show");
+            }, 2000);
+        }
+
+        // user activity listeners (same as your hero method)
+        document.addEventListener("mousemove", resetIdle);
+        document.addEventListener("keydown", resetIdle);
+        document.addEventListener("touchstart", resetIdle);
+
+        // start initially
+        resetIdle();
+    });
+</script>
 <div class="section-1" id="hero">
     <style>
         @keyframes coolGradient {
@@ -77,30 +168,45 @@
             }
         }
     </style>
+
+
+
     <script>
         const hero = document.getElementById('hero');
+        const logo = document.getElementById('logo-container'); // Added this
+
         let idleTimer;
 
-        // This function runs every time the mouse moves
         document.addEventListener('mousemove', () => {
-            // 1. Remove the blur immediately when movement is detected
+            // BRING LOGO BACK: Clear the "force hide" styles and add the show class
+            logo.style.opacity = "";
+            logo.style.visibility = "";
+            logo.style.pointerEvents = "";
+            logo.classList.add('show');
+
+            // 1. Remove the blur
             hero.classList.remove('idle');
 
             // 2. Clear the previous timer
             clearTimeout(idleTimer);
 
-            // 3. Start a new timer for 2 seconds (2000ms)
+            // 3. Start a new timer
             idleTimer = setTimeout(() => {
                 hero.classList.add('idle');
             }, 2000);
         });
 
-        // Also remove blur on touch for mobile users
         document.addEventListener('touchstart', () => {
+            // BRING LOGO BACK for mobile
+            logo.style.opacity = "";
+            logo.style.visibility = "";
+            logo.style.pointerEvents = "";
+            logo.classList.add('show');
+
             hero.classList.remove('idle');
         });
     </script>
-    <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" width="200px"
+    <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" width="180px"
         style="display: block; margin: 0 auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));">
 
     <h1 style="

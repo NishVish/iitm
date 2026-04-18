@@ -153,7 +153,7 @@ else:
 # =========================================================
 cam.animation_data_clear()
 
-frames = 20
+frames = 50
 scene.frame_start = 0
 scene.frame_end = frames
 

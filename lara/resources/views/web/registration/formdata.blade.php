@@ -1,147 +1,257 @@
-```blade id="qz8j3h"
-<!DOCTYPE html>
-<html>
+@extends('web.layouts.app') {{-- Update to your actual layout --}}
 
-<head>
-    <title>Form Data Preview</title>
-    <style>
-        body {
-            font-family: Arial;
-            padding: 20px;
-        }
+@section('content')
+    <div class="section-2">
+        <style>
+            .preview-container {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 80px 20px;
+                color: #ffffff;
+            }
 
-        .card {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
+            .header-box {
+                text-align: center;
+                margin-bottom: 50px;
+            }
 
-        h3 {
-            margin-bottom: 10px;
-        }
+            .header-box h2 {
+                font-size: 2.5rem;
+                font-weight: 800;
+                letter-spacing: -1px;
+                margin-bottom: 10px;
+            }
 
-        .row {
-            margin-bottom: 8px;
-        }
+            .header-box .badge {
+                background: rgba(0, 245, 255, 0.1);
+                color: var(--accent);
+                padding: 5px 15px;
+                border-radius: 50px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                border: 1px solid var(--accent);
+            }
 
-        .label {
-            font-weight: bold;
-        }
-    </style>
-</head>
+            /* Dashboard Grid */
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
 
-<body>
+            .matte-card-mini {
+                background: var(--card-dark);
+                border: 1px solid var(--border-color);
+                padding: 25px;
+                border-radius: 12px;
+                transition: border-color 0.3s ease;
+            }
 
-    <h2>Submitted Registration Data</h2>
+            .matte-card-mini:hover {
+                border-color: var(--accent);
+            }
 
-    {{-- ================= PERSONAL ================= --}}
-    <div class="card">
-        <h3>Personal Info</h3>
+            .matte-card-mini h3 {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: var(--text-muted);
+                margin-bottom: 20px;
+                border-bottom: 1px solid var(--border-color);
+                padding-bottom: 10px;
+            }
 
-        <div class="row"><span class="label">Name:</span> {{ $request->name }}</div>
-        <div class="row"><span class="label">Designation:</span> {{ $request->designation }}</div>
-        <div class="row"><span class="label">Mobile:</span> {{ $request->mobile }}</div>
-        <div class="row"><span class="label">Email:</span> {{ $request->email }}</div>
+            /* Data Rows */
+            .data-row {
+                margin-bottom: 15px;
+            }
+
+            .data-label {
+                display: block;
+                font-size: 0.75rem;
+                color: var(--text-muted);
+                margin-bottom: 2px;
+            }
+
+            .data-value {
+                display: block;
+                font-size: 1rem;
+                font-weight: 600;
+                color: #fff;
+            }
+
+            .data-value.highlight {
+                color: var(--accent);
+            }
+
+            /* Pill Tags for Arrays */
+            .pill-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 10px;
+            }
+
+            .pill {
+                background: #1a1a1e;
+                border: 1px solid var(--border-color);
+                color: var(--accent);
+                padding: 4px 10px;
+                border-radius: 4px;
+                font-size: 0.7rem;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+
+            .wide-card {
+                grid-column: span 3;
+            }
+
+            @media (max-width: 992px) {
+                .dashboard-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+
+                .wide-card {
+                    grid-column: span 2;
+                }
+            }
+
+            @media (max-width: 600px) {
+                .dashboard-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .wide-card {
+                    grid-column: span 1;
+                }
+            }
+        </style>
+
+        <div class="preview-container">
+            <div class="header-box">
+                <h2>Registration Complete</h2>
+                <span class="badge">DATABASE SYNCHRONIZED</span>
+            </div>
+
+            <div class="dashboard-grid">
+
+                {{-- Personal Section (Using DB Data) --}}
+                <div class="matte-card-mini">
+                    <h3>Representative</h3>
+                    <div class="data-row">
+                        <span class="data-label">Name</span>
+                        <span class="data-value highlight">{{ $dbData->name }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Designation</span>
+                        <span class="data-value">{{ $dbData->designation }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Contact</span>
+                        <span class="data-value">{{ $dbData->mobile }}</span>
+                        <span class="data-value">{{ $dbData->email }}</span>
+                    </div>
+                </div>
+
+                {{-- Company Section (Using DB Data) --}}
+                <div class="matte-card-mini">
+                    <h3>Organization</h3>
+                    <div class="data-row">
+                        <span class="data-label">Company Name</span>
+                        <span class="data-value highlight">{{ $dbData->company_name }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Location</span>
+                        <span class="data-value">{{ $dbData->city }}, {{ $dbData->state }}</span>
+                        <span class="data-value">{{ $dbData->country }} - {{ $dbData->pincode }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Website</span>
+                        <span class="data-value" style="font-size: 0.8rem;">{{ $dbData->website }}</span>
+                    </div>
+                </div>
+
+                {{-- Event Status --}}
+                <div class="matte-card-mini">
+                    <h3>Event Engagement</h3>
+                    <div class="data-row">
+                        <span class="data-label">Staff Count</span>
+                        <span class="data-value">{{ $sentData['total_staff'] ?? 'N/A' }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">TTF Alumni</span>
+                        <span class="data-value">{{ $sentData['attended_ttf_before'] ?? 'No' }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Forum Interest</span>
+                        <span class="data-value">{{ $sentData['interested_in_forum'] ?? 'No' }}</span>
+                    </div>
+                </div>
+
+                {{-- Wide Section for Arrays (Travel & Preferences) --}}
+                <div class="matte-card-mini wide-card">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
+
+                        <div>
+                            <h3>Travel Segments</h3>
+                            <div class="pill-container">
+                                @forelse($sentData['travel_segments'] ?? [] as $item)
+                                    <span class="pill">{{ $item }}</span>
+                                @empty
+                                    <span class="data-label">None selected</span>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3>Meet Preferences</h3>
+                            <div class="pill-container">
+                                @forelse($sentData['meet_profiles'] ?? [] as $item)
+                                    <span class="pill">{{ $item }}</span>
+                                @empty
+                                    <span class="data-label">None selected</span>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3>Interested States</h3>
+                            <div class="pill-container">
+                                @forelse($sentData['interested_states'] ?? [] as $item)
+                                    <span class="pill">{{ $item }}</span>
+                                @empty
+                                    <span class="data-label">None selected</span>
+                                @endforelse
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- Business Details --}}
+                <div class="matte-card-mini wide-card">
+                    <h3>Business Narrative & Referral</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                        <div class="data-row">
+                            <span class="data-label">Attending Reason</span>
+                            <p class="data-value" style="font-weight: 400; font-size: 0.9rem;">
+                                {{ $sentData['attending_reason'] }}</p>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Referral Source</span>
+                            <span class="data-value">{{ $sentData['referral_details'] ?? 'Direct / Organic' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="{{ url('/') }}" class="btn-return"
+                    style="background: var(--accent); color: #000; padding: 15px 40px; border-radius: 8px; font-weight: 800; text-decoration: none;">DOWNLOAD
+                    CONFIRMATION</a>
+            </div>
+        </div>
     </div>
-
-    {{-- ================= COMPANY ================= --}}
-    <div class="card">
-        <h3>Company Info</h3>
-
-        <div class="row"><span class="label">Company:</span> {{ $request->company_name }}</div>
-        <div class="row"><span class="label">City:</span> {{ $request->city }}</div>
-        <div class="row"><span class="label">State:</span> {{ $request->state }}</div>
-        <div class="row"><span class="label">Pincode:</span> {{ $request->pincode }}</div>
-        <div class="row"><span class="label">Country:</span> {{ $request->country }}</div>
-        <div class="row"><span class="label">Website:</span> {{ $request->website }}</div>
-    </div>
-
-    {{-- ================= TRAVEL ================= --}}
-    <div class="card">
-        <h3>Travel Segments</h3>
-
-        @if(!empty($request->travel_segments))
-            <ul>
-                @foreach($request->travel_segments as $item)
-                    <li>{{ $item }}</li>
-                @endforeach
-            </ul>
-        @else
-            <p>No selection</p>
-        @endif
-    </div>
-
-    {{-- ================= MEET PROFILES ================= --}}
-    <div class="card">
-        <h3>Meet Preferences</h3>
-
-        @if(!empty($request->meet_profiles))
-            <ul>
-                @foreach($request->meet_profiles as $item)
-                    <li>{{ $item }}</li>
-                @endforeach
-            </ul>
-        @else
-            <p>No selection</p>
-        @endif
-    </div>
-
-    {{-- ================= REGIONS ================= --}}
-    <div class="card">
-        <h3>Regions</h3>
-
-        @if(!empty($request->meet_regions))
-            <ul>
-                @foreach($request->meet_regions as $item)
-                    <li>{{ $item }}</li>
-                @endforeach
-            </ul>
-        @else
-            <p>No selection</p>
-        @endif
-    </div>
-
-    {{-- ================= STATES ================= --}}
-    <div class="card">
-        <h3>Interested States</h3>
-
-        @if(!empty($request->interested_states))
-            <ul>
-                @foreach($request->interested_states as $item)
-                    <li>{{ $item }}</li>
-                @endforeach
-            </ul>
-        @else
-            <p>No selection</p>
-        @endif
-    </div>
-
-    {{-- ================= BUSINESS ================= --}}
-    <div class="card">
-        <h3>Business Info</h3>
-
-        <div class="row"><span class="label">Attending Reason:</span> {{ $request->attending_reason }}</div>
-        <div class="row"><span class="label">Buyer Role:</span> {{ $request->buyer_responsibility }}</div>
-        <div class="row"><span class="label">Branch Offices:</span> {{ $request->branch_offices }}</div>
-        <div class="row"><span class="label">Total Staff:</span> {{ $request->total_staff }}</div>
-    </div>
-
-    {{-- ================= EVENT ================= --}}
-    <div class="card">
-        <h3>Event Info</h3>
-
-        <div class="row"><span class="label">Attended Before:</span> {{ $request->attended_ttf_before }}</div>
-        <div class="row"><span class="label">Interested in Forum:</span> {{ $request->interested_in_forum }}</div>
-    </div>
-
-    {{-- ================= REFERRAL ================= --}}
-    <div class="card">
-        <h3>Referral</h3>
-
-        <div class="row">{{ $request->referral_details ?? 'N/A' }}</div>
-    </div>
-
-</body>
-
-</html>
+@endsection

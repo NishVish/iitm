@@ -27,8 +27,10 @@ Route::get('/create', [AuthController::class, 'create'])->name('create'); // sub
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/request-otp', [AuthController::class, 'requestOtp'])->name('login.otp');
+Route::get('/request-otp', [AuthController::class, 'requestOtp'])->name('login.otp');
 
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('login.verify');
+Route::get('/verify-otp', [AuthController::class, 'verifyOtp'])->name('login.verify');
 
 Route::get('/otp-list', [AuthController::class, 'getOtp']);
 
@@ -58,6 +60,9 @@ Route::get('/registration/form', [RegisterController::class, 'registration_form'
 Route::post('/upload-logo', [RegisterController::class, 'uploadLogo']);
 // ADD THIS ROUTE BELOW:
 Route::post('/registration/submit', [RegisterController::class, 'registaritonsubmit'])->name('registration.submit');
+Route::get('/category/{nameofthecompany}', [RegisterController::class, 'category'])->name('category');
+Route::post('/enquiry', [RegisterController::class, 'register_enquiry'])->name('enquiry');
+Route::get('/emailtemplate', [RegisterController::class, 'emailtemplate'])->name('emailtemplate');
 // Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
 
 
@@ -84,6 +89,7 @@ Route::get('/scanner/{operator}', [Tools::class, 'ocr'])->name('tools.ocr');
 // API/AJAX Routes
 Route::post('/ocr-lookup', [Tools::class, 'lookup'])->name('ocr.lookup');
 Route::post('/ocr-save', [Tools::class, 'saveOcr'])->name('ocr.save');
+Route::get('/temptable', [Tools::class, 'temptable'])->name('temptable');
 
 // Data Management
 Route::get('/ocrdata/{operator}', [Tools::class, 'list'])->name('documents.list');
@@ -102,7 +108,7 @@ use App\Http\Controllers\ParticipantController;
 
 Route::get('/exhibiting', [ParticipantController::class, 'index'])->name('exhibiting');
 Route::get('/attending', [ParticipantController::class, 'index'])->name('attending');
-Route::get('/enquiry-form', [ParticipantController::class, 'index'])->name('enquiry');
+Route::get('/enquiry', [ParticipantController::class, 'enquriyform'])->name('enquiry');
 Route::post('/visitor-form', [ParticipantController::class, 'fetchentity'])->name('visitor-form');
 
 use App\Http\Controllers\InteracitveController;
@@ -114,3 +120,51 @@ Route::get('/reload', [InteracitveController::class, 'reload'])->name('reload');
 Route::post('/upload-logo', [InteracitveController::class, 'uploadLogo'])->name('upload.logo');
 Route::get('/clear-session', [InteracitveController::class, 'clearSession'])->name('session.clear');
 Route::get('/blender-info', [InteracitveController::class, 'blender_info']);
+
+
+
+
+use App\Http\Controllers\GoogleSearchController;
+
+Route::get('/google-search', [GoogleSearchController::class, 'search']);
+
+Route::get('/google-refresh', [GoogleSearchController::class, 'refresh']);
+
+
+
+use App\Http\Controllers\BookingController;
+
+Route::get('/booking', [BookingController::class, 'index'])->name('booking');
+Route::get('/booking/step2', [BookingController::class, 'leadsearchpage'])->name('booking.step2');
+
+Route::get('details/{mobile}', [BookingController::class, 'getDetails']);
+Route::post('details/update', [BookingController::class, 'updatedetails']);
+Route::post('lead/save', [BookingController::class, 'saveleaddetails']);
+Route::get('searchlead/{mobile}', [BookingController::class, 'searchleadapi'])->name('searchlead');
+
+
+
+use App\Http\Controllers\DatabaseController;
+
+
+/* API Routes */
+Route::get('/api/getAllCompanyData/{mobileNumber}', [DatabaseController::class, 'getAllCompanyData']);
+Route::get('/api/getLatestCompanyData/{mobileNumber}', [DatabaseController::class, 'getLatestCompanyDatabymobile']);
+Route::get('/api/getDetails/{mobileNumber}', [DatabaseController::class, 'getDetails']);
+Route::get('backend', [DatabaseController::class, 'index']);
+
+
+
+
+
+use App\Http\Controllers\IdentifycategoryController;
+
+Route::get('api/identifycategory/{nameofthecompany}', [IdentifycategoryController::class, 'category']);
+
+Route::post('/dictionary/update', [IdentifycategoryController::class, 'update'])->name('dictionary.update');
+Route::get('/dictionary', [IdentifycategoryController::class, 'dictionaryEditor'])->name('dictionary.update');
+// Route::post('', [IdentifycategoryController::class,
+
+
+
+

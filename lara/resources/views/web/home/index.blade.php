@@ -26,3 +26,5 @@ sdfsdf
 
 @include('web.home.section1')
 @include('web.home.section2')
+
+@include('web.footer')

@@ -2,9 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Faker\Guesser\Name;
+use Illuminate\Bus\UpdatedBatchJobCounts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Attributes\PostCondition;
+use PHPUnit\Framework\TestSize\Unknown;
+use Symfony\Component\VarDumper\VarDumper;
+use App\Http\Controllers\IdentifycategoryController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DatabaseController;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegistrationSuccessMail;
+
 
 class RegisterController extends Controller
 {
@@ -26,16 +36,24 @@ class RegisterController extends Controller
         // exit;
         return view('web.registration.index', ['location' => $location ?? '', 'events' => $events]);
     }
+    public function emailtemplate($event = null)
+    {
+        $data = [
+            'company_name' => 'Demo Company Pvt Ltd',
+            'eventname' => $event ?? 'Tech Expo 2026',
+        ];
 
-    public function registration_form()
+        return view('emails.registration_success', compact('data'));
+    }
+    public function registration_form($event = null)
     {
         $contact = session()->get('contact');
         $company = session()->get('company');
 
-        // echo "<pre>";
-        // print_r($contact);
-        // print_r($company);
-        // echo "</pre>";
+        echo "<pre>";
+        print_r($contact);
+        print_r($company);
+        echo "</pre>";
         // exit;
         // It's good practice to ensure both exist before proceeding
         if ($contact && $company) {
@@ -47,100 +65,473 @@ class RegisterController extends Controller
     }
 
 
+    public function register_enquiry(request $request)
+    {
+        // dd($request->all());
+        // $database = new DatabaseController();
 
+        // $name = $request->contact_name;
+        // $designation = $request->designation;
+        // $email = $request->email;
+        // $company_name = $request->company_name;
+        // $city = $request->city;
+        // $mobile = $request->phone;
+        // $intrestedcity = $request->cities;
+        // $contactid = $database->getLatestCompanyDatabymobile($mobile, $city, True);
+        // $contactdata = DB::table('contact')->where('contact_id', $contactid)->first();
+        // $companyData = DB::table('company_data')->where('company_id', $contactdata->company_id)->first();
+        // $mobile = DB::table('contact_mobile')->where('contact_id', $contactid)->first();
+        // $email = DB::table('contact_email')->where('contact_id', $contactid)->first();
+
+        // echo "<pre>";
+
+
+        // // print_r($request->all());
+        // // print_r($contactid);
+
+        // // print_r($contactdata);
+        // // print_r($companyData);
+
+
+
+
+        // // print_r($company_name);
+
+        // // $company_name = $request->company_name;
+        // // $city = $request->city;
+
+        // // echo "</pre>";
+        // // dd($companyData);
+        // $newData = (array) $companyData;
+        // $unique_company_id = 'CMP_' . uniqid();
+
+        // $newData['company_id'] = $unique_company_id;
+        // $newData['entry_type'] = 'lead';
+        // $newData['created_at'] = now();
+        // $newData['updated_at'] = now();
+
+        // unset($newData['id']);
+
+        // DB::table('company_data')->insert($newData);
+
+        // /* DUPLICATE CONTACT */
+        // $contactDataArr = (array) $contactdata;
+
+        // unset($contactDataArr['contact_id']); // remove PK
+
+        // $contactDataArr['company_id'] = $unique_company_id;
+        // $contactDataArr['created_at'] = now();
+        // $contactDataArr['updated_at'] = now();
+
+        // $new_contact_id = DB::table('contact')->insertGetId($contactDataArr);
+
+        // /* DUPLICATE MOBILE */
+        // if ($mobile) {
+        //     $mobileArr = (array) $mobile;
+
+        //     unset($mobileArr['mobile_id']); // 🔥 correct PK
+        //     // unset($mobileArr['id']); ❌ not needed if column doesn't exist
+
+        //     $mobileArr['contact_id'] = $new_contact_id;
+        //     $mobileArr['created_at'] = now();
+
+        //     DB::table('contact_mobile')->insert($mobileArr);
+        // }
+        // /* DUPLICATE EMAIL */
+        // if ($email) {
+        //     $emailArr = (array) $email;
+
+        //     unset($emailArr['email_id']); // 🔥 adjust if different
+
+        //     $emailArr['contact_id'] = $new_contact_id;
+        //     $emailArr['created_at'] = now();
+
+        //     DB::table('contact_email')->insert($emailArr);
+        // }
+
+        // $leadgeneration = DB::table('company_data')->where('company_id', $unique_company_id)->first();
+        // // echo "<pre>";
+        // // print_r("Lead Generation");
+
+        // // // print_r($leadgeneration);
+
+        // // print_r("Lead Generation");
+
+        // // echo "</pre>";
+
+
+
+        // if ($company_name != $companyData->company_name) {
+        //     DB::table('company_data')->where('company_id', $companyData->company_id)->update([
+        //         'company_name' => $company_name,
+        //     ]);
+
+        //     // updatelead
+        //     DB::table('company_data')->where('company_id', $unique_company_id)->update([
+        //         'company_name' => $company_name,
+        //     ]);
+
+        //     exit;
+        // }
+        $contactDataArr = [
+            "company_id" => "CMP_69e3590bd9c85",
+            "priority" => 1,
+            "name" => "Nishant Vishwakarma",
+            "designation" => "Data Analyst",
+            "image" => null,
+            "created_at" => "2026-04-18T10:12:27.899816Z",
+            "updated_at" => "2026-04-18T10:12:27.899833Z",
+            "attendance_reason" => null,
+            "buyer_responsibility" => null,
+            "attended_past" => "No",
+            "interest_forum" => "No",
+            "business_card_path" => null,
+            "otp" => null,
+            "otp_expiry" => null
+        ];
+
+        return view('web.registration.enquirysuccess', compact('contactDataArr'));
+
+
+    }
+
+    //     public fucntion checkifleadexist(request $request){
+
+    // use numer to find contact id    
+
+
+
+
+    // }
+
+
+    public function showleads()
+    {
+        $contactDataArr = [
+            "company_id" => "CMP_69e3590bd9c85",
+            "priority" => 1,
+            "name" => "Nishant Vishwakarma",
+            "designation" => "Data Analyst",
+            "image" => null,
+            "created_at" => "2026-04-18T10:12:27.899816Z",
+            "updated_at" => "2026-04-18T10:12:27.899833Z",
+            "attendance_reason" => null,
+            "buyer_responsibility" => null,
+            "attended_past" => "No",
+            "interest_forum" => "No",
+            "business_card_path" => null,
+            "otp" => null,
+            "otp_expiry" => null
+        ];
+        return view('web.registration.view.enquiry', compact('contactDataArr'));
+    }
+
+    public function showtradevisitor()
+    {
+        $contactDataArr = [
+            "company_id" => "CMP_69e3590bd9c85",
+            "priority" => 1,
+            "name" => "Nishant Vishwakarma",
+            "designation" => "Data Analyst",
+            "image" => null,
+            "created_at" => "2026-04-18T10:12:27.899816Z",
+            "updated_at" => "2026-04-18T10:12:27.899833Z",
+            "attendance_reason" => null,
+            "buyer_responsibility" => null,
+            "attended_past" => "No",
+            "interest_forum" => "No",
+            "business_card_path" => null,
+            "otp" => null,
+            "otp_expiry" => null
+        ];
+        return view('web.registration.view.tradevisitor', compact('contactDataArr'));
+    }
 
     public function registaritonsubmit(Request $request)
     {
 
-        // $data = $request->all();
-        // dd($data);
+        // dd($request->all());
 
-        $conctact_id = $request->contact_id;
 
-        DB::table('contact')->where('contact_id', $conctact_id)->update([
+        $contact_id = $request->contact_id;
+        $company_id = $request->company_id;
+        $event_id = $request->event_id;
+
+        // 1. Update Personal Info (Contact Tables)
+        DB::table('contact')->where('contact_id', $contact_id)->update([
             'name' => $request->name,
             'designation' => $request->designation,
-
         ]);
-        DB::table('contact_mobile')->where('contact_id', $conctact_id)->update([
+
+        DB::table('contact_mobile')->where('contact_id', $contact_id)->update([
             'mobile' => $request->mobile,
-
         ]);
-        DB::table('contact_email')->where('contact_id', $conctact_id)->update([
+
+        DB::table('contact_email')->where('contact_id', $contact_id)->update([
             'email' => $request->email,
-            // 'designation' => $request->designation,
-
         ]);
 
-        // db'mobile' => $request->mobile,
-        //     'email' => $request->email,
+        // 2. Update company_data Table (Matching your schema exactly)
+        DB::table('company_data')->where('company_id', $company_id)->update([
+            'company_name' => $request->company_name,
+            'city' => $request->city,
+            'state' => $request->state,
+            'pincode' => $request->pincode,
+            'country' => $request->country,
+            'website' => $request->website,
+
+            // Business Profile Fields
+            'branch_offices' => $request->branch_offices,
+            'total_staff' => $request->total_staff,
+
+            // Checklist / Text Fields (Imploding arrays into strings for 'text' type columns)
+            'travel_segments' => $request->travel_segments,
+            'meet_profiles' => $request->meet_profiles,
+            'meet_regions' => $request->meet_regions,
+            'interested_states' => $request->interested_states,
+            // System Fields
+            'updated_at' => now()->format('Y-m-d H:i:s'),
+            'active_inactive' => 'active'
+        ]);
 
 
+
+        // $category = 'unknown';
+
+        // if ($request->travel_segments == 'domestic') {
+        //     $category = 'domestic';
+        // } else if ($request->travel_segments == 'international') {
+        //     $category = 'international';
+        // }
+
+        // 3. Fetch for Preview
+        $dbData = DB::table('contact')
+            ->join('contact_mobile', 'contact.contact_id', '=', 'contact_mobile.contact_id')
+            ->join('contact_email', 'contact.contact_id', '=', 'contact_email.contact_id')
+            ->leftJoin('company_data', 'contact.company_id', '=', 'company_data.company_id')
+            ->where('contact.contact_id', $contact_id)
+            ->select('contact.*', 'contact_mobile.mobile', 'contact_email.email', 'company_data.*')
+            ->first();
+
+        $event = DB::table('events')
+            ->where('event_id', $event_id)
+            ->first();
+
+        if (!$event) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Event not found'
+            ]);
+        }
+
+
+        $eventName = $event->name;
+        $cityName = $event->name;
+        $eventTime = $event->start_date;
+        $companyName = strtolower($request->company_name);
+        $Categorycontroller = new IdentifycategoryController();
+        $checkcateogory = $Categorycontroller->category($companyName);
+
+        if (in_array($checkcateogory, ['Services', 'MICE', 'Aviation', 'Travel Agency', 'Transport', 'Adventure', 'Hospitality', 'Niche'])) {
+            $status = 'Not Approved';
+            $message = 'Registration closed for Agencies/Hotels.';
+        }
+        // Initialize default values
+        $status = 'approved';
+        $message = 'Registration successful!';
+
+        // 1. Check for existing registration
+        $existing = DB::table('city_event_registrations')
+            ->where('contact_id', $contact_id)
+            ->where('city_name', $cityName)
+            ->first();
+
+        if ($existing) {
+            // return response()->json([
+            //     'status' => false,
+            //     'message' => 'Already registered'
+            // ]);
+            Mail::to($request->email)->send(new RegistrationSuccessMail([
+                'company_name' => $request->company_name,
+                'eventname' => $eventName,
+            ]));
+
+            return view('web.registration.success', [
+                'sentData' => $request->all(),
+                'dbData' => $dbData,
+                'status' => 'approved',
+                'eventname' => $eventName,
+                'nameofthecompany' => $request->company_name
+
+            ]);
+        } else {
+            // 2. Check if company is restricted
+            if (in_array($companyName, ['ta', 'hotel'])) {
+                $status = 'Not Approved';
+                $message = 'Registration closed for Agencies/Hotels.';
+            } else {
+                // 3. Perform Insertion (Removed created_at to fix the SQL error)
+                DB::table('city_event_registrations')->insert([
+                    'contact_id' => $contact_id,
+                    'city_name' => $cityName,
+                    'event_name' => $eventName,
+                    'event_time' => $eventTime,
+                    // registration_time is filled automatically by MySQL
+                ]);
+            }
+        }
+
+        // 4. Return the single view with dynamic data
+        return view('web.registration.success', [
+            'sentData' => $request->all(),
+            'dbData' => $dbData,
+            'eventname' => $eventName,
+            'status' => $status,
+            'message' => $message,
+            'nameofthecompany' => $request->company_name
+        ]);
+
+
+
+
+    }
+    public function category($nameofthecompany)
+    {
+        // 1. Path to dictionary
+        $path = public_path('assets/dictionary.json');
+
+        // 2. Check if file exists
+        if (!file_exists($path)) {
+            return 'Uncategorized';
+        }
+        // 3. Read and decode
+        $json = file_get_contents($path);
+        $dictionary = json_decode($json, true);
+
+        // Ensure company name is a string and clean
+        $companyName = strtolower(trim($nameofthecompany));
+
+        // 4. Keyword Search Logic
+        // foreach ($dictionary as $item) {
+        //     $keyword = strtolower($item['keyword'] ?? '');
+
+        //     // Use stripos to check if the keyword exists ANYWHERE in the company name
+        //     if ($keyword !== '' && stripos($companyName, $keyword) !== false) {
+        //         if (!empty($item['category'])) {
+        //             return $item['category'];
+        //         }
+
+        //         // Fallback: Google search URL
+        //         $query = urlencode($keyword);
+        //         return "https://www.google.com/search?q=" . $query;
+
+        //     }
+        // }
+        // $this->search($nameofthecompany);
+        return view('web.search', compact('nameofthecompany'));
+
+    }
+
+    public function search($nameofthecompany)
+    {
+
+        echo "hello";
+
+        $query = urlencode($nameofthecompany);
+        $url = "https://www.google.com/search?q={$query}";
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0");
+
+        $html = curl_exec($ch);
+        curl_close($ch);
+
+        $results = [];
+
+        // Parse Google results (basic DOM scraping)
+        $dom = new \DOMDocument();
+        @$dom->loadHTML($html);
+
+        $xpath = new \DOMXPath($dom);
+
+        // Google result titles are usually in <h3>
+        $nodes = $xpath->query('//h3');
+
+        foreach ($nodes as $node) {
+            $results[] = $node->textContent;
+        }
+
+        return view('web.search', compact('nameofthecompany', 'results'));
+    }
+
+
+    private function getbackgroundinfo($companyname, $mobile, $email)
+    {
+
+
+
+    }
+
+
+
+    public function registaritonsudbmit(Request $request)
+    {
+        $contact_id = $request->contact_id;
         $company_id = $request->company_id;
 
-        // return response()->json([
-        //     'contact_id' => $conctact_id,
-        //     'company_id' => $company_id,
-        // ]);
-        // DB::table('registrations')->insert([
-        //     'name' => $request->name,
-        //     'designation' => $request->designation,
-        //     'mobile' => $request->mobile,
-        //     'email' => $request->email,
-        //     'company_name' => $request->company_name,
-        //     'city' => $request->city,
-        //     'state' => $request->state,
-        //     'pincode' => $request->pincode,
-        //     'country' => $request->country,
-        //     'website' => $request->website,
-        //     'travel_segments' => $request->travel_segments,
-        //     'meet_profiles' => $request->meet_profiles,
-        //     'meet_regions' => $request->meet_regions,
-        //     'interested_states' => $request->interested_states,
-        //     'attending_reason' => $request->attending_reason,
-        //     'buyer_responsibility' => $request->buyer_responsibility,
-        //     'branch_offices' => $request->branch_offices,
-        //     'total_staff' => $request->total_staff,
-        //     'attended_ttf_before' => $request->attended_ttf_before,
-        //     'interested_in_forum' => $request->interested_in_forum,
-        //     'referral_details' => $request->referral_details,
-        // ]);
-        // Basic fields
-        $name = $request->name;
-        $designation = $request->designation;
-        $mobile = $request->mobile;
-        $email = $request->email;
+        // 1. Update Contact Tables
+        DB::table('contact')->where('contact_id', $contact_id)->update([
+            'name' => $request->name,
+            'designation' => $request->designation,
+        ]);
 
-        // Company
-        $company_name = $request->company_name;
-        $city = $request->city;
-        $state = $request->state;
-        $pincode = $request->pincode;
-        $country = $request->country;
-        $website = $request->website;
+        DB::table('contact_mobile')->where('contact_id', $contact_id)->update([
+            'mobile' => $request->mobile,
+        ]);
 
-        // Arrays (checkbox)
-        $travel_segments = $request->travel_segments ?? [];
-        $meet_profiles = $request->meet_profiles ?? [];
-        $meet_regions = $request->meet_regions ?? [];
-        $interested_states = $request->interested_states ?? [];
-
-        // Business
-        $attending_reason = $request->attending_reason;
-        $buyer_responsibility = $request->buyer_responsibility;
-        $branch_offices = $request->branch_offices;
-        $total_staff = $request->total_staff;
-
-        // Event
-        $attended_ttf_before = $request->attended_ttf_before;
-        $interested_in_forum = $request->interested_in_forum;
-
-        // Referral
-        $referral_details = $request->referral_details;
+        DB::table('contact_email')->where('contact_id', $contact_id)->update([
+            'email' => $request->email,
+        ]);
 
 
 
-        return view('web.registration.formdata', compact('request'));
+        // 2. Update Company Table (Table name corrected to company_data)
+        DB::table('company_data')->where('company_id', $company_id)->update([
+            'company_name' => $request->company_name,
+            'city' => $request->city,
+            'state' => $request->state,
+            'pincode' => $request->pincode,
+            'country' => $request->country,
+            'website' => $request->website,
+        ]);
+
+        // 3. Fetch all updated data using Joins
+        $dbData = DB::table('contact')
+            ->join('contact_mobile', 'contact.contact_id', '=', 'contact_mobile.contact_id')
+            ->join('contact_email', 'contact.contact_id', '=', 'contact_email.contact_id')
+            // Corrected table name to company_data
+            ->leftJoin('company_data', 'contact.company_id', '=', 'company_data.company_id')
+            ->where('contact.contact_id', $contact_id)
+            ->select(
+                'contact.name',
+                'contact.designation',
+                'contact_mobile.mobile',
+                'contact_email.email',
+                'company_data.company_name',
+                'company_data.city',
+                'company_data.website'
+            )
+            ->first();
+
+        // 4. Send to view
+        return view('web.registration.success', [
+            'sentData' => $request->all(),
+            'dbData' => $dbData
+        ]);
+
     }
     public function index2($location = null)
     {
@@ -163,5 +554,155 @@ class RegisterController extends Controller
 
         return redirect()->back()->with('success', 'Registration submitted successfully.');
     }
+
+
+    // categories = {
+//     "Hospitality": [
+//         "hotel", "resort", "inn", "suites", "stay", "hostel", "lodge", "villa", 
+//         "palace", "heritage", "boutique", "homestay", "bnb", "motel", "apartment", 
+//         "residence", "manor", "chateau", "cottage", "cabin", "bungalow", "sanctuary", 
+//         "retreat", "spa", "wellness", "house", "luxury", "grand", "plaza", "continental"
+//     ],
+//     "Travel Agency": [
+//         "travel", "tour", "tourism", "vacation", "holiday", "expedition", "voyage", 
+//         "trip", "getaway", "destination", "itinerary", "world", "global", "leisure", 
+//         "discovery", "explore", "pathfinder", "nomad", "wander", "compass", "horizon", 
+//         "dmc", "inbound", "outbound", "domestic", "international", "agency", "operator"
+//     ],
+//     "Aviation": [
+//         "airline", "airway", "aviation", "flight", "charter", "airbus", "boeing", 
+//         "jet", "heli", "helicopter", "aerospace", "sky", "wing", "propeller", 
+//         "pilot", "airport", "terminal", "lounge", "ground handling", "cargo"
+//     ],
+//     "Transport": [
+//         "shuttle", "cab", "taxi", "transport", "car rental", "limo", "coach", "bus", 
+//         "rail", "train", "ferry", "cruise", "liner", "ship", "yacht", "fleet", 
+//         "logistic", "mover", "transfer", "rideshare", "metro", "express", "way"
+//     ],
+//     "MICE": [
+//         "mice", "event", "expo", "exhibition", "forum", "conference", "summit", 
+//         "meeting", "incentive", "organizer", "planner", "convention", "venue", 
+//         "trade fair", "seminar", "workshop", "banquet", "gala", "association"
+//     ],
+//     "Adventure": [
+//         "adventure", "trek", "safari", "wildlife", "camping", "eco", "climb", 
+//         "hike", "mountaineer", "rafting", "scuba", "dive", "surf", "ski", 
+//         "snow", "backpacker", "trail", "wilderness", "peak", "summit", "nature"
+//     ],
+//     "Services": [
+//         "visa", "forex", "insurance", "passport", "consulate", "guide", "exchange", 
+//         "currency", "concierge", "assistance", "billing", "payment", "booking", 
+//         "reservation", "marketing", "consultancy", "solutions"
+//     ],
+//     "Niche": [
+//         "pilgrim", "spiritual", "yatra", "darshan", "ayurveda", "yoga", "medical", 
+//         "health", "golf", "culinary", "food", "wine", "cruise", "educational", 
+//         "volunteer", "agritourism", "rural"
+//     ]
+// }
+// import json
+// dictionary = []
+// for category, keywords in categories.items():
+//     for word in keywords:
+//         dictionary.append({
+//             "keyword": word,
+//             "category": category
+//         })
+// print(json.dumps(dictionary, indent=2))
 }
 
+
+// public function registaritonsubmit(Request $request)
+// {
+
+//     // $data = $request->all();
+//     // dd($data);
+
+//     $conctact_id = $request->contact_id;
+
+//     DB::table('contact')->where('contact_id', $conctact_id)->update([
+//         'name' => $request->name,
+//         'designation' => $request->designation,
+
+//     ]);
+//     DB::table('contact_mobile')->where('contact_id', $conctact_id)->update([
+//         'mobile' => $request->mobile,
+
+//     ]);
+//     DB::table('contact_email')->where('contact_id', $conctact_id)->update([
+//         'email' => $request->email,
+//         // 'designation' => $request->designation,
+
+//     ]);
+
+//     // db'mobile' => $request->mobile,
+//     //     'email' => $request->email,
+
+
+//     $company_id = $request->company_id;
+
+//     // return response()->json([
+//     //     'contact_id' => $conctact_id,
+//     //     'company_id' => $company_id,
+//     // ]);
+//     // DB::table('registrations')->insert([
+//     //     'name' => $request->name,
+//     //     'designation' => $request->designation,
+//     //     'mobile' => $request->mobile,
+//     //     'email' => $request->email,
+//     //     'company_name' => $request->company_name,
+//     //     'city' => $request->city,
+//     //     'state' => $request->state,
+//     //     'pincode' => $request->pincode,
+//     //     'country' => $request->country,
+//     //     'website' => $request->website,
+//     //     'travel_segments' => $request->travel_segments,
+//     //     'meet_profiles' => $request->meet_profiles,
+//     //     'meet_regions' => $request->meet_regions,
+//     //     'interested_states' => $request->interested_states,
+//     //     'attending_reason' => $request->attending_reason,
+//     //     'buyer_responsibility' => $request->buyer_responsibility,
+//     //     'branch_offices' => $request->branch_offices,
+//     //     'total_staff' => $request->total_staff,
+//     //     'attended_ttf_before' => $request->attended_ttf_before,
+//     //     'interested_in_forum' => $request->interested_in_forum,
+//     //     'referral_details' => $request->referral_details,
+//     // ]);
+//     // Basic fields
+//     $name = $request->name;
+//     $designation = $request->designation;
+//     $mobile = $request->mobile;
+//     $email = $request->email;
+
+//     // Company
+//     $company_name = $request->company_name;
+//     $city = $request->city;
+//     $state = $request->state;
+//     $pincode = $request->pincode;
+//     $country = $request->country;
+//     $website = $request->website;
+
+//     // Arrays (checkbox)
+//     $travel_segments = $request->travel_segments ?? [];
+//     $meet_profiles = $request->meet_profiles ?? [];
+//     $meet_regions = $request->meet_regions ?? [];
+//     $interested_states = $request->interested_states ?? [];
+
+//     // Business
+//     $attending_reason = $request->attending_reason;
+//     $buyer_responsibility = $request->buyer_responsibility;
+//     $branch_offices = $request->branch_offices;
+//     $total_staff = $request->total_staff;
+
+//     // Event
+//     $attended_ttf_before = $request->attended_ttf_before;
+//     $interested_in_forum = $request->interested_in_forum;
+
+//     // Referral
+//     $referral_details = $request->referral_details;
+
+//     var_dump($request->all());
+//     // exit;
+//     // return view('web.registration.formdata', compact('request'));
+//     return view('web.registration.success', compact('request'));
+// }

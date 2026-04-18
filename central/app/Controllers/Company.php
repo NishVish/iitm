@@ -513,7 +513,6 @@ class Company extends BaseController
         $comment = 'all'
     ) {
 
-
         if ($entrytype === "overview") {
             return $this->fulloverview();
         }
@@ -537,7 +536,18 @@ class Company extends BaseController
             return $this->opreation();
         }
 
+        if ($state != "all") {
+            echo $state;
+            // Your current way (Manual)
+            $state = str_replace("and", "&", $state);
+            echo $state;
 
+            // exit;
+
+            // The "Standard" way (Handles all URL characters at once)
+            $state = urldecode($state);
+            // This would automatically handle %26, %20, and any other encoded symbols.
+        }
         $filters = compact(
             'entrytype',
             'database',
