@@ -59,8 +59,12 @@ CI_ENVIRONMENT = development
 # SESSION
 #--------------------------------------------------------------------
 
-# session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
-# session.savePath = null
+#--------------------------------------------------------------------
+# SESSION
+#--------------------------------------------------------------------
+
+session.driver = 'CodeIgniter\Session\Handlers\DatabaseHandler'
+session.savePath = 'sessions'
 
 #--------------------------------------------------------------------
 # LOGGER

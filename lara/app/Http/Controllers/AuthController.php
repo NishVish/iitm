@@ -119,12 +119,6 @@ class AuthController extends Controller
             }
         }
 
-        // return response()->json([
-        //     'status' => 'ok',
-        //     'event_id_received' => $eventId,
-        //     'event_details' => $event,
-        //     'all_events' => $allEvents
-        // ]);
         if (empty($mobile)) {
             return response()->json([
                 'status' => 'error',

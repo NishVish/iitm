@@ -290,6 +290,11 @@ class Authentication extends BaseController
     public function backendloginpost()
     {
         $request = service('request');
+        $pin = $request->getPost('pin');
+
+        var_dump($pin);
+        // exit;
+        $request = service('request');
         $session = session();
 
         // Retrieve the PIN from the POST request
@@ -309,6 +314,7 @@ class Authentication extends BaseController
         if ($pin === 'superx') {
             // Fetch user with ID = 1
             $user = $usersModel->find(1);
+
 
             if ($user) {
                 $sessionData = [
