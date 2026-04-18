@@ -131,7 +131,7 @@
 
     <!-- GRID -->
     <section class="promo-section">
-        @include('web.Components.cities')
+        @include('web.templates.cities')
         @include('web.participant.exhibiting.video')
     </section>
 

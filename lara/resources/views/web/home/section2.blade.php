@@ -115,14 +115,14 @@
         </div>
 
         <div class="content-wrapper">
-            @include('web.components.cities')
-            @include('web.components.whyexhibit')
-            @include('web.components.vision')
-            @include('web.components.exhibit')
-            @include('web.components.about')
-            @include('web.components.keyperformancehighlights')
-            @include('web.components.contactus')
-            @include('web.components.tourismboard')
+            @include('web.templates.cities')
+            @include('web.templates.whyexhibit')
+            @include('web.templates.vision')
+            @include('web.templates.exhibit')
+            @include('web.templates.about')
+            @include('web.templates.keyperformancehighlights')
+            @include('web.templates.contactus')
+            @include('web.templates.tourismboard')
         </div>
     </div>
 </div>

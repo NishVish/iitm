@@ -33,13 +33,13 @@
                 <!-- @include('web.loading2') {{-- includes register.blade.php --}} -->
                 @include('web.header2')
                 @include('web.participant.attending.hook2')
-                @include('web.components.whyvisit')
+                @include('web.templates.whyvisit')
 
                 @include('web.participant.attending.hook')
 
                 @include('web.participant.attending.attending')
 
-                @include('web.components.otp')
+                @include('web.templates.otp')
             @elseif($lastSegment === 'enquiry')
                 @include('web.participant.form.enquiry-form')
 
