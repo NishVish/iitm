@@ -77,6 +77,17 @@ class DatabaseController extends Controller
 
 
     }
+
+    public function getlatestcontactidbymobile($mobileNumber)
+    {
+        $contactId = DB::table('contact as c')
+            ->join('contact_mobile as cm', 'c.contact_id', '=', 'cm.contact_id')
+            ->where('cm.mobile', $mobileNumber)
+            ->orderBy('c.created_at', 'desc')
+            ->value('c.contact_id');
+
+        return $contactId;
+    }
     public function getLatestCompanyDatabymobile($mobileNumber, $fullquery = null, $city = null, $returntype = null)
     {
         $query = DB::table('contact_mobile')

@@ -159,7 +159,7 @@
             btn.innerText = "Processing...";
             btn.disabled = true;
 
-            const url = "{{ url('/request-otp') }}/" + mobile;
+            const url = "{{ url('/request-otp') }}/" + mobile + '/' + eventId;
             console.log("DEBUG: Request URL =", url);
 
             fetch(url, {

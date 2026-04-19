@@ -86,6 +86,7 @@ class AuthController extends Controller
     public function requestOtp(Request $request, $mobile = null, $eventid = null)
     {
 
+
         // dd($mobile, $eventid);
         if ($mobile) {
         } else {
@@ -135,34 +136,30 @@ class AuthController extends Controller
         }
 
         // 🔍 Check if mobile exists
-        $response = $this->database->getLatestCompanyDatabymobile($mobile, null);
-        $data = $response->getData()->data ?? null;
-
-        // dd($data);
-        // if (empty($data)) {
-        //     $user = DB::table('contact_mobile')
-        //         ->where('mobile', $mobile)
-        //         ->first();
-        // } else {
-        //     $user = $data;
-        // }
-
-        // dd($user);
+        // 🔍 Check if mobile exists
+        $contactId = DB::table('contact as c')
+            ->join('contact_mobile as cm', 'c.contact_id', '=', 'cm.contact_id')
+            ->where('cm.mobile', $mobile)
+            ->orderBy('c.created_at', 'desc')
+            ->value('c.contact_id');
 
 
         // 🚨 If NOT found → create dummy data
-        if (!$data) {
-
-            $contactid = $this->createnewentry($request->company_name, $request->mobile, $request->email);
-
+        if (!$contactId) {
+            $contactId = $this->createnewentry(
+                $request->company_name,
+                $request->mobile,
+                $request->email
+            );
         }
+
 
         // 🔐 Generate OTP
         $otp = rand(100000, 999999);
         $expiry = Carbon::now()->addMinutes(10);
 
         $updated = DB::table('contact')
-            ->where('contact_id', $data->contact_id)
+            ->where('contact_id', $contactId)
             ->update([
                 'otp' => $otp,
                 'otp_expiry' => $expiry,
@@ -327,10 +324,8 @@ class AuthController extends Controller
         $user = DB::table('contact_mobile')
             ->where('mobile', $mobile)
             ->first();
-        $latestofthatnumber = $this->database->getLatestCompanyDatabymobile($mobile, null, null, false);
-        $data = json_decode($latestofthatnumber->getContent(), true);
-        $cid = $data['data']['contact_id'];
-        $latestofthatnumber = $cid;
+        $latestofthatnumber = $this->database->getlatestcontactidbymobile($mobile);
+
         // dd($cid);
         // echo "<pre>";
         // // print_r($user);
