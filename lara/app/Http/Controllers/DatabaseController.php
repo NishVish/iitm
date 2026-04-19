@@ -77,29 +77,38 @@ class DatabaseController extends Controller
 
 
     }
-    public function getLatestCompanyDatabymobile($mobileNumber, $city = null, $returntype = null)
+    public function getLatestCompanyDatabymobile($mobileNumber, $fullquery = null, $city = null, $returntype = null)
     {
         $query = DB::table('contact_mobile')
             ->join('contact', 'contact_mobile.contact_id', '=', 'contact.contact_id')
             ->join('company_data', 'contact.company_id', '=', 'company_data.company_id')
             ->where('company_data.entry_type', 'main')
-            ->where('contact_mobile.mobile', $mobileNumber)
-            ->select(
+            ->where('contact_mobile.mobile', $mobileNumber);
+
+        // Select fields based on fullquery flag
+        if ($fullquery) {
+            $query->select(
                 'contact.*',
                 'company_data.*',
                 'contact_mobile.mobile'
             );
+        } else {
+            $query->select(
+                'contact.*'
+            );
+        }
 
-        if ($city) {
+        if ($city && $city != "null") {
             $query->where('company_data.city', $city);
         }
 
         $data = $query->orderBy('contact.updated_at', 'desc')->first();
 
+        // dd($data);
 
         if ($data) {
 
-            if ($returntype == Null) {
+            if ($returntype == Null || $returntype == "false") {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data found',
@@ -107,6 +116,11 @@ class DatabaseController extends Controller
                 ]);
             } else {
                 return $data->contact_id;
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data found',
+                    'data' => $data->contact_id
+                ]);
             }
         } else {
             return response()->json([

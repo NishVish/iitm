@@ -141,59 +141,55 @@
                 toggleModal();
             }
         }
+        console.log("DEBUG: Mobile =");
 
         function handleSendOTP() {
             const mobile = document.getElementById('mobile_number').value;
             const eventId = document.getElementById('event_id').value || 123;
             const btn = document.getElementById('btn-send-otp');
 
-            console.log("DEBUG: Function triggered");
-            console.log("DEBUG: Mobile =", mobile);
-            console.log("DEBUG: Event ID =", eventId);
-
             if (mobile.length !== 10) {
-                console.warn("DEBUG: Invalid mobile number");
                 return alert("Please enter a valid 10-digit mobile number");
             }
 
             btn.innerText = "Processing...";
             btn.disabled = true;
 
-            const url = "{{ url('/request-otp') }}/" + mobile;
+            console.log("DEBUG: Mobile =", mobile);
+            console.log("DEBUG: Event ID =", eventId);
+
+            const url = "{{ url('/api/request-otp') }}?mobile_number=" + mobile + "&event_id=" + eventId;
             console.log("DEBUG: Request URL =", url);
 
             fetch(url, {
-                method: "GET", // FIXED (was "Get")
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                }
-                // ❌ No body for GET
+                },
+                body: JSON.stringify({ mobile_number: mobile, event_id: eventId })
             })
+                .then(response => {
+                    console.log("DEBUG: Raw Response =", response);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("DEBUG: Parsed Response =", data);
+                })
+                .catch(error => {
+                    console.error("DEBUG: Error =", error);
+                })
+                .finally(() => {
+                    btn.innerText = "Submit";
+                    btn.disabled = false;
+                });
                 .then(async res => {
-                    console.log("DEBUG: Raw response =", res);
-
-                    let data;
-                    try {
-                        data = await res.json();
-                    } catch (e) {
-                        console.error("DEBUG: JSON parse error", e);
-                        throw new Error("Invalid JSON response");
-                    }
-
-                    console.log("DEBUG: Parsed response =", data);
-
-                    if (!res.ok) {
-                        console.error("DEBUG: Response not OK", res.status);
-                        throw new Error(data.message || `Error: ${res.status}`);
-                    }
-
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.message || `Error: ${res.status}`);
                     return data;
                 })
                 .then(data => {
-                    console.log("DEBUG: Success block", data);
-
                     if (data.status === 'success' || data.status === 'created') {
                         document.getElementById('otp-area').style.display = 'block';
                         document.getElementById('btn-verify-otp').style.display = 'block';
@@ -201,14 +197,11 @@
                         document.getElementById('otp-subtitle').innerText = "Code sent to +91 " + mobile;
                         document.getElementById('mobile_number').disabled = true;
                     } else {
-                        console.warn("DEBUG: Unexpected status", data.status);
                         throw new Error(data.message || "Unknown error occurred");
                     }
                 })
                 .catch(err => {
-                    console.error("DEBUG: Error caught =", err);
                     alert(err.message);
-
                     btn.innerText = "Get OTP";
                     btn.disabled = false;
                 });

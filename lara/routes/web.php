@@ -28,6 +28,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/request-otp', [AuthController::class, 'requestOtp'])->name('login.otp');
 Route::get('/request-otp/{mobilenumber}', [AuthController::class, 'requestOtp'])->name('login.otp');
+// Route::get('/request-otp/{mobilenumber}', [AuthController::class, 'requestOtp'])->name('login.otp');
 
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('login.verify');
 Route::get('/verify-otp', [AuthController::class, 'verifyOtp'])->name('login.verify');
@@ -149,7 +150,7 @@ use App\Http\Controllers\DatabaseController;
 
 /* API Routes */
 Route::get('/api/getAllCompanyData/{mobileNumber}', [DatabaseController::class, 'getAllCompanyData']);
-Route::get('/api/getLatestCompanyData/{mobileNumber}', [DatabaseController::class, 'getLatestCompanyDatabymobile']);
+Route::get('/api/getLatestCompanyData/{mobileNumber}/{querylength}/{city}/{response}', [DatabaseController::class, 'getLatestCompanyDatabymobile']);
 Route::get('/api/getDetails/{mobileNumber}', [DatabaseController::class, 'getDetails']);
 Route::get('backend', [DatabaseController::class, 'index']);
 

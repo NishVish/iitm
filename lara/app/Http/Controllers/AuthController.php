@@ -83,8 +83,10 @@ class AuthController extends Controller
         return redirect('http://localhost/iitm/central/registration/mobile/x');
     }
 
-    public function requestOtp(Request $request, $mobile = null)
+    public function requestOtp(Request $request, $mobile = null, $eventid = null)
     {
+
+        // dd($mobile, $eventid);
         if ($mobile) {
         } else {
 
@@ -100,9 +102,10 @@ class AuthController extends Controller
             $eventId = $request->event_id;
 
         } else {
-            $eventId = null;
+            $eventId = $eventid;
         }
         // dd($eventId);
+
 
         // Validate event_id if sent
         // Fetch all events
@@ -132,22 +135,23 @@ class AuthController extends Controller
         }
 
         // 🔍 Check if mobile exists
-        $response = $this->database->getLatestCompanyDatabymobile($mobile);
+        $response = $this->database->getLatestCompanyDatabymobile($mobile, null);
         $data = $response->getData()->data ?? null;
 
-        if (empty($data)) {
-            $user = DB::table('contact_mobile')
-                ->where('mobile', $mobile)
-                ->first();
-        } else {
-            $user = $data;
-        }
+        // dd($data);
+        // if (empty($data)) {
+        //     $user = DB::table('contact_mobile')
+        //         ->where('mobile', $mobile)
+        //         ->first();
+        // } else {
+        //     $user = $data;
+        // }
 
         // dd($user);
 
 
         // 🚨 If NOT found → create dummy data
-        if (!$user) {
+        if (!$data) {
 
             $contactid = $this->createnewentry($request->company_name, $request->mobile, $request->email);
 
@@ -158,7 +162,7 @@ class AuthController extends Controller
         $expiry = Carbon::now()->addMinutes(10);
 
         $updated = DB::table('contact')
-            ->where('contact_id', $user->contact_id)
+            ->where('contact_id', $data->contact_id)
             ->update([
                 'otp' => $otp,
                 'otp_expiry' => $expiry,
@@ -267,7 +271,9 @@ class AuthController extends Controller
         $mobile = $request->mobile_number;
         $otp = $request->otp;
 
-
+        // $mobile = 7909075195;
+        // // dd($mobile);
+        // $otp = 123456;
         if (empty($mobile) || empty($otp)) {
             return response()->json([
                 'status' => 'error',
@@ -314,15 +320,18 @@ class AuthController extends Controller
 
     public function verifyUser($mobile = Null, $value = null, $type = null)
     {
-        // $mobile = 7909075195;
+        $mobile = 7909075195;
         // dd($mobile);
-        // $otp = 123456;
+        $otp = 123456;
         // 1. Find the user by mobile
         $user = DB::table('contact_mobile')
             ->where('mobile', $mobile)
             ->first();
-        $latestofthatnumber = $this->database->getLatestCompanyDatabymobile($mobile, null, true);
-
+        $latestofthatnumber = $this->database->getLatestCompanyDatabymobile($mobile, null, null, false);
+        $data = json_decode($latestofthatnumber->getContent(), true);
+        $cid = $data['data']['contact_id'];
+        $latestofthatnumber = $cid;
+        // dd($cid);
         // echo "<pre>";
         // // print_r($user);
         // print_r($latestofthatnumber);

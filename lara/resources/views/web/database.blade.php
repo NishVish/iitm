@@ -40,26 +40,52 @@
                 return;
             }
 
+            console.log("🚀 Starting fetch...");
+
             document.getElementById('latestData').innerHTML = "Loading...";
             document.getElementById('allData').innerHTML = "Loading...";
-            fetch(`{{ url('/api/getLatestCompanyData/${mobile}') }}`)
-                .then(res => res.json())
+
+            const url = `{{ url('/api/getLatestCompanyData/${mobile}/null/null/false') }}`;
+
+            console.log("📡 Request URL:", url);
+
+            const startTime = performance.now();
+
+            fetch(url)
                 .then(res => {
+                    console.log("📥 Raw response received:", res);
+                    console.log("📊 Status:", res.status);
+
+                    return res.json();
+                })
+                .then(res => {
+                    const endTime = performance.now();
+                    console.log("⏱️ Total response time:", (endTime - startTime).toFixed(2), "ms");
+
+                    console.log("📦 Parsed JSON:", res);
+
                     let box = document.getElementById('latestData');
 
                     if (res.status && res.data) {
+                        console.log("✅ Data found");
+
                         let html = '';
 
                         Object.keys(res.data).forEach(key => {
+                            console.log(`🔑 ${key}:`, res.data[key]);
+
                             html += `<p><b>${key}:</b> ${res.data[key] ?? ''}</p>`;
                         });
 
                         box.innerHTML = html;
                     } else {
+                        console.warn("⚠️ No data found in response");
                         box.innerHTML = `<p>No data found</p>`;
                     }
                 })
-                .catch(() => {
+                .catch(err => {
+                    console.error("❌ Fetch error:", err);
+
                     document.getElementById('latestData').innerHTML = `<p>Error loading data</p>`;
                 });
 
