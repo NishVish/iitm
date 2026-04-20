@@ -61,7 +61,17 @@
             </ul>
         </div>
     @endif
+    <h3>⚙️ SMTP Configuration</h3>
 
+    <div style="background:#f4f4f4; padding:15px; margin-bottom:20px;">
+        <strong>Mailer:</strong> {{ $smtp['mailer'] }} <br>
+        <strong>Host:</strong> {{ $smtp['host'] }} <br>
+        <strong>Port:</strong> {{ $smtp['port'] }} <br>
+        <strong>Encryption:</strong> {{ $smtp['encryption'] }} <br>
+        <strong>Username:</strong> {{ $smtp['username'] }} <br>
+        <strong>From Address:</strong> {{ $smtp['from_address'] }} <br>
+        <strong>From Name:</strong> {{ $smtp['from_name'] }} <br>
+    </div>
     <form method="POST" action="{{ url('/mail-test/send') }}">
         @csrf
 

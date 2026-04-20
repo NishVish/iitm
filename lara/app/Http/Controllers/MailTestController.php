@@ -10,7 +10,17 @@ class MailTestController extends Controller
 {
     public function index()
     {
-        return view('mail.test');
+        $smtp = [
+            'mailer' => config('mail.default'),
+            'host' => config('mail.mailers.smtp.host'),
+            'port' => config('mail.mailers.smtp.port'),
+            'encryption' => config('mail.mailers.smtp.encryption'),
+            'username' => config('mail.mailers.smtp.username'),
+            'from_address' => config('mail.from.address'),
+            'from_name' => config('mail.from.name'),
+        ];
+
+        return view('mail.test', compact('smtp'));
     }
 
     public function send(Request $request)
