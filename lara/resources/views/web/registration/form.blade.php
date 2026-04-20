@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration | {{ $company['company_name'] }}</title>
+    <title>Registration | {{ $contact['company_id'] ?? 'NEW_COMPANY' }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;900&display=swap');
@@ -237,7 +237,7 @@
         <form action="{{ route('registration.submit') }}" method="POST" novalidate>
             @csrf
             <input type="hidden" name="contact_id" value="{{ $contact['contact_id'] }}">
-            <input type="hidden" name="company_id" value="{{ $contact['company_id'] }}">
+            <input type="hidden" name="company_id" value="{{ $contact['company_id'] ?? 'Enter You Company Name' }}">
             @include('web.registration.choosecity')
 
 

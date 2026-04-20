@@ -45,7 +45,7 @@
             document.getElementById('latestData').innerHTML = "Loading...";
             document.getElementById('allData').innerHTML = "Loading...";
 
-            const url = `{{ url('/api/getLatestCompanyData/${mobile}/null/null/false') }}`;
+            const url = `{{ url('/api/getCompanyByMobileOrEmail/${mobile}/null') }}`;
 
             console.log("📡 Request URL:", url);
 

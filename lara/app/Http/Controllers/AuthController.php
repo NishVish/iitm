@@ -83,12 +83,27 @@ class AuthController extends Controller
         return redirect('http://localhost/iitm/central/registration/mobile/x');
     }
 
-    public function requestOtp(Request $request, $mobile = null, $eventid = null)
+    public function requestOtp(Request $request, $input = null, $eventid = null)
     {
 
 
-        // dd($mobile, $eventid);
-        if ($mobile) {
+        $mobile = null;
+        $email = null;
+
+        if (preg_match('/^[0-9]{10}$/', $input)) {
+            $mobile = $input;
+        } elseif (filter_var($input, FILTER_VALIDATE_EMAIL)) {
+            $email = $input;
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Invalid mobile number or email'
+            ]);
+        }
+
+
+        // dd($mobile, $email, $eventid);
+        if ($input) {
         } else {
 
 
@@ -106,7 +121,7 @@ class AuthController extends Controller
             $eventId = $eventid;
         }
         // dd($eventId);
-
+        // if Mobile is 
 
         // Validate event_id if sent
         // Fetch all events
@@ -128,35 +143,44 @@ class AuthController extends Controller
             }
         }
 
-        if (empty($mobile)) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Mobile number is required'
-            ]);
-        }
-
+        // echo $mobile;
         // 🔍 Check if mobile exists
         // 🔍 Check if mobile exists
-        $contactId = DB::table('contact as c')
-            ->join('contact_mobile as cm', 'c.contact_id', '=', 'cm.contact_id')
-            ->where('cm.mobile', $mobile)
-            ->orderBy('c.created_at', 'desc')
-            ->value('c.contact_id');
+        $contactId = $this->database->getlatestcontactid($mobile, $email);
 
+        $allmatch = DB::table('contact_email')->where('email', $email)->get();
 
+        // echo ($contactId);
+        // echo "<br>";
+        // echo ($allmatch);
+        // echo "<br>";
+        // echo "then Back one is contactid";
+        // echo "SUper NO";
+        // exit;
         // 🚨 If NOT found → create dummy data
         if (!$contactId) {
+
+            // echo "New Number Creating New Number";
             $contactId = $this->createnewentry(
                 $request->company_name,
-                $request->mobile,
-                $request->email
+                $mobile,
+                $email
             );
+
+            // echo "new number created";
+            // echo $contactId;
+            // echo "new number created";
+            // exit;
         }
+        // echo "Generating OTP";
 
-
-        // 🔐 Generate OTP
         $otp = rand(100000, 999999);
         $expiry = Carbon::now()->addMinutes(10);
+        // echo "OTP Generated";
+        // echo $otp;
+        // echo "Expiry";
+        // echo $expiry;
+        // echo "contactid ";
 
         $updated = DB::table('contact')
             ->where('contact_id', $contactId)
@@ -166,6 +190,20 @@ class AuthController extends Controller
                 'updated_at' => Carbon::now()
             ]);
 
+        // echo $updated;
+
+        $optdata = DB::table('contact')
+            ->whereNotNull('otp')
+            ->get();
+        // echo ($optdata);
+        // echo "SUper NO";
+        $newdata = DB::table('contact')->where('contact_id', $contactId)->first();
+
+        // $monbildata = DB::table('contact_mobile')->where('contact_id', $contactId)->first();
+        // print_r($monbildata);
+        // print_r($newdata);
+        // exit;
+
         if ($updated) {
 
             Log::debug("OTP for $mobile is: $otp");
@@ -173,6 +211,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'OTP sent successfully',
+                'contactid' => $contactId
                 // 'otp' => $otp // enable only for testing
             ]);
         }
@@ -183,23 +222,18 @@ class AuthController extends Controller
         ]);
     }
 
-
     public function createnewentry($company_name = null, $mobile = null, $email = null)
     {
 
-        echo "<pre>";
-        $data = [
-            'company_name' => $company_name,
-            'mobile' => $mobile,
-            'email' => $email
-        ];
-        print_r($data);
-        echo "</pre>";
-        // exit;
+
         DB::beginTransaction();
 
         try {
+
+
+
             $unique_id = 'CMP_' . uniqid();
+
             // 1. company_data
             DB::table('company_data')->insert([
                 'company_id' => $unique_id,
@@ -230,16 +264,23 @@ class AuthController extends Controller
                 'priority' => 1,
                 'name' => null,
                 'designation' => null,
-                'created_at' => now()
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
 
-            // 3. contact_mobile
-            DB::table('contact_mobile')->insert([
-                'contact_id' => $contact_id,
-                'mobile' => $mobile,
-                'is_primary' => 1,
-                'created_at' => now()
-            ]);
+
+            // 4. contact_email (optional)
+            if (!empty($mobile)) {
+                // 3. contact_mobile
+                DB::table('contact_mobile')->insert([
+                    'contact_id' => $contact_id,
+                    'mobile' => $mobile,
+                    'is_primary' => 1,
+                    'created_at' => now()
+                ]);
+            }
+
+            // 4. contact_email (optional)
             if (!empty($email)) {
                 DB::table('contact_email')->insert([
                     'contact_id' => $contact_id,
@@ -253,32 +294,40 @@ class AuthController extends Controller
 
             return $contact_id;
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
 
             DB::rollBack();
 
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
+            \Log::error("CreateNewEntry failed", [
+                'error' => $e->getMessage(),
+                'line' => $e->getLine()
             ]);
+
+            return null;
         }
     }
+
     public function verifyOtp(Request $request)
     {
-        $mobile = $request->mobile_number;
+        // $this->requestOtp
+
+        // dd($request->all());
+        // $contactid = 317940;
+
+        $contactid = $request->contact_id;
         $otp = $request->otp;
 
         // $mobile = 7909075195;
         // // dd($mobile);
-        // $otp = 123456;
-        if (empty($mobile) || empty($otp)) {
+        // $otp = 762890;
+        if (empty($contactid) || empty($otp)) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Mobile number and OTP are required'
             ]);
         }
 
-        $response = $this->verifyUser($mobile, $otp, 'otp');
+        $response = $this->verifyUser($contactid, $otp, 'otp');
         // $response = $this->verifyUser(7909075195, 123456, 'otp');
         $data = $response->getData(true);
 
@@ -286,11 +335,12 @@ class AuthController extends Controller
 
             $contact = $data['contact'];
             $company = $data['company'] ?? null;
-
+            // dd($company, $contact);
+            // exit;
             // Save in session
             session()->put('contact', $contact);
             session()->put('company', $company);
-            session()->put('company_id', $company['company_id'] ?? null);
+            // session()->put('company_id', $company['company_id'] ?? null);
 
             //     session(['number' => $request->mobile_number]);
             // session(['is_verified' => true]);
@@ -313,117 +363,197 @@ class AuthController extends Controller
     {
         return view('temp');
     }
-
-
-    public function verifyUser($mobile = Null, $value = null, $type = null)
+    public function verifyUser($contactid = null, $value = null, $type = null)
     {
-        $mobile = 7909075195;
-        // dd($mobile);
-        $otp = 123456;
-        // 1. Find the user by mobile
-        $user = DB::table('contact_mobile')
-            ->where('mobile', $mobile)
-            ->first();
-        $latestofthatnumber = $this->database->getlatestcontactidbymobile($mobile);
-
-        // dd($cid);
-        // echo "<pre>";
-        // // print_r($user);
-        // print_r($latestofthatnumber);
-        // print_r("Thisisis tha data above");
-        // echo "</pre>";
-        // dd($latestofthatnumber);
-        // exit;
-        $user = DB::table('contact_mobile')
-            ->where('contact_id', $latestofthatnumber)
+        // 1. Find the contact
+        $user = DB::table('contact')
+            ->where('contact_id', $contactid)
             ->first();
 
         if (!$user) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Mobile number not found'
-            ]);
-        }
-
-        // 2. Decide if we check OTP or Password
-        if ($type == 'otp' || $type == 'pass') {
-            $valid = DB::table('contact')
-                ->where('contact_id', $user->contact_id)
-                ->where('otp', $value)
-                ->where('otp_expiry', '>', Carbon::now())
-                ->first();
-
-            if ($valid || $type == 'pass') {
-                // Clear OTP after success as per your logic
-                DB::table('contact')
-                    ->where('contact_id', $user->contact_id)
-                    ->update([
-                        'otp' => null,
-                        'otp_expiry' => null
-                    ]);
-            }
-        } else {
-            // Password check (plain text matching)
-            $valid = DB::table('contact')
-                ->where('contact_id', $user->contact_id)
-                // ->where('password', $value)
-                ->first();
-        }
-
-        // 3. If validation fails for either type
-        if (!$valid) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Invalid ' . ($type == 'otp' ? 'or expired OTP' : 'password')
-            ], 422);
-        }
-
-        Log::info("Login successful via $type for mobile: $mobile");
-
-        // 4. Fetch the contact profile
-        $contact = DB::table('contact')
-            ->where('contact_id', $user->contact_id)
-            ->first();
-
-        if (!$contact) {
-            return response()->json([
-                'status' => 'error',
                 'message' => 'Contact not found'
-            ]);
+            ], 404);
         }
 
-        // 5. Attach mobiles, emails, and company data
-        $contact->mobiles = DB::table('contact_mobile')
-            ->where('contact_id', $user->contact_id)
+        // // 2. Validate OTP or skip validation for 'pass' type
+        // $valid = false;
+
+        // if ($type == 'otp') {
+        //     $valid = DB::table('contact')
+        //         ->where('contact_id', $contactid)
+        //         ->where('otp', $value)
+        //         ->where('otp_expiry', '>', Carbon::now())
+        //         ->exists();
+
+        //     if ($valid) {
+        //         DB::table('contact')
+        //             ->where('contact_id', $contactid)
+        //             ->update([
+        //                 'otp' => null,
+        //                 'otp_expiry' => null
+        //             ]);
+        //     }
+
+        // } elseif ($type == 'pass') {
+        //     // Plain text match against the contact record
+        //     // Replace with Hash::check($value, $user->password) if hashed
+        //     $valid = ($user->password ?? null) === $value;
+
+        // } else {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'Invalid verification type'
+        //     ], 422);
+        // }
+
+        // // 3. Return error if validation failed
+        // if (!$valid) {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => $type == 'otp' ? 'Invalid or expired OTP' : 'Invalid password'
+        //     ], 422);
+        // }
+
+        // Log::info("Login successful via {$type} for contact_id: {$contactid}");
+
+        // 4. Attach mobiles and emails
+        $user->mobiles = DB::table('contact_mobile')
+            ->where('contact_id', $contactid)
             ->pluck('mobile');
 
-        $contact->emails = DB::table('contact_email')
-            ->where('contact_id', $user->contact_id)
+        $user->emails = DB::table('contact_email')
+            ->where('contact_id', $contactid)
             ->pluck('email');
 
+        // 5. Fetch company using contact's company_id (not contactid)
         $company = null;
-        if (!empty($contact->company_id)) {
+        if (!empty($user->company_id)) {
             $company = DB::table('company_data')
-                ->where('company_id', $contact->company_id)
+                ->where('company_id', $user->company_id)  // ← was wrongly using $contactid
                 ->first();
         }
 
         return response()->json([
             'status' => 'success',
-            'contact' => $contact,
+            'contact' => $user,
             'company' => $company
         ]);
     }
 
+    // public function verifyUser($contactid = Null, $value = null, $type = null)
+    // {
+    //     // echo $contactid;
+
+    //     // $contactdata = DB::table('contact')
+    //     //     ->where('contact_id', $contactid)
+    //     //     ->get();
+    //     // dd($contactdata);
+    //     // exit;
+    //     $user = DB::table('contact')
+    //         ->where('contact_id', $contactid)
+    //         ->first();
+
+    //     // dd($user);
+    //     if (!$user) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'Mobile number not found'
+    //         ]);
+    //     }
+    //     // echo ($user);
+    //     // exit;
+    //     // 2. Decide if we check OTP or Password
+    //     if ($type == 'otp' || $type == 'pass') {
+    //         $valid = DB::table('contact')
+    //             ->where('contact_id', $contactid)
+    //             ->where('otp', $value)
+    //             ->where('otp_expiry', '>', Carbon::now())
+    //             ->first();
+
+    //         if ($valid || $type == 'pass') {
+    //             // Clear OTP after success as per your logic
+    //             DB::table('contact')
+    //                 ->where('contact_id', $contactid)
+    //                 ->update([
+    //                     'otp' => null,
+    //                     'otp_expiry' => null
+    //                 ]);
+    //         }
+    //     } else {
+    //         // Password check (plain text matching)
+    //         $valid = DB::table('contact')
+    //             ->where('contact_id', $contactid)
+    //             // ->where('password', $value)
+    //             ->first();
+    //     }
+
+    //     // 3. If validation fails for either type
+    //     if (!$valid) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'Invalid ' . ($type == 'otp' ? 'or expired OTP' : 'password')
+    //         ], 422);
+    //     }
+
+    //     Log::info("Login successful via $type for mobile: $contactid");
+
+    //     // 4. Fetch the contact profile
+    //     $contact = DB::table('contact')
+    //         ->where('contact_id', $contactid)
+    //         ->first();
+
+    //     if (!$contact) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'Contact not found'
+    //         ]);
+    //     }
+
+    //     // 5. Attach mobiles, emails, and company data
+    //     $contact->mobiles = DB::table('contact_mobile')
+    //         ->where('contact_id', $contactid)
+    //         ->pluck('mobile');
+
+    //     $contact->emails = DB::table('contact_email')
+    //         ->where('contact_id', $contactid)
+    //         ->pluck('email');
+
+    //     $company = null;
+    //     if (!empty($contact->company_id)) {
+    //         $company = DB::table('company_data')
+    //             ->where('company_id', $contactid)
+    //             ->first();
+    //     }
+
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'contact' => $contact,
+    //         'company' => $company
+    //     ]);
+    // }
+
     public function getOtp()
     {
+        // $rawotplist = DB::table('contact')->whereNotNull('otp')->get();
+        // echo ($rawotplist);
+        // exit;
         $otps = DB::table('contact as c')
-            ->select('c.contact_id', 'c.name', 'c.otp', 'c.otp_expiry', 'cm.mobile')
+            ->select(
+                'c.contact_id',
+                'c.name',
+                'c.otp',
+                'c.otp_expiry',
+                'cm.mobile',
+                'ce.email'
+            )
             ->leftJoin('contact_mobile as cm', 'cm.contact_id', '=', 'c.contact_id')
+            ->leftJoin('contact_email as ce', 'ce.contact_id', '=', 'c.contact_id')
             ->whereNotNull('c.otp')
-            ->orderBy('c.otp_expiry', 'desc')
+            ->orderByDesc('c.otp_expiry')
+            ->limit(100)
             ->get();
-
         return view('otp_list_view', compact('otps'));
     }
 

@@ -77,13 +77,16 @@
 
                         <div>
                             <label
-                                style="display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 4px; text-transform: uppercase;">
-                                Mobile Number or Email
-                            </label>
-
-                            <input type="text" id="user_input"
-                                style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 16px; outline: none;"
-                                placeholder="Enter mobile or email">
+                                style="display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 4px; text-transform: uppercase;">Mobile
+                                Number</label>
+                            <div style="position: relative; display: flex; align-items: center;">
+                                <span
+                                    style="position: absolute; left: 12px; color: #9ca3af; font-weight: 500;">+91</span>
+                                <input type="tel" id="mobile_number"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                    style="width: 100%; padding: 10px 10px 10px 45px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 16px; outline: none;"
+                                    placeholder="9876543210" maxlength="10">
+                            </div>
                         </div>
 
                         <div id="otp-area" style="display: none; text-align: center;">
@@ -121,8 +124,6 @@
     </div>
 
     <script>
-
-        let contactId = null;
         // TOGGLE MODAL FUNCTION
         function toggleModal() {
             const modal = document.getElementById('auth-modal');
@@ -142,36 +143,23 @@
         }
 
         function handleSendOTP() {
-            const input = document.getElementById('user_input').value.trim();
-
-            const isMobile = /^[0-9]{10}$/.test(input);
-            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
-
-            if (!isMobile && !isEmail) {
-                alert("Enter a valid 10-digit mobile number or email");
-                return;
-            }
-
-            console.log("Valid input:", input, isMobile ? "Mobile" : "Email"); const eventId = document.getElementById('event_id').value || 123;
+            const mobile = document.getElementById('mobile_number').value;
+            const eventId = document.getElementById('event_id').value || 123;
             const btn = document.getElementById('btn-send-otp');
 
             console.log("DEBUG: Function triggered");
-            console.log("DEBUG: Mobile =", input);
+            console.log("DEBUG: Mobile =", mobile);
             console.log("DEBUG: Event ID =", eventId);
 
-
-            if (
-                !/^[0-9]{10}$/.test(input) &&
-                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)
-            ) {
-                console.warn("DEBUG: Invalid input");
-                return alert("Please enter a valid 10-digit mobile number or email");
+            if (mobile.length !== 10) {
+                console.warn("DEBUG: Invalid mobile number");
+                return alert("Please enter a valid 10-digit mobile number");
             }
 
             btn.innerText = "Processing...";
             btn.disabled = true;
 
-            const url = "{{ url('/request-otp') }}/" + input + '/' + eventId;
+            const url = "{{ url('/request-otp') }}/" + mobile + '/' + eventId;
             console.log("DEBUG: Request URL =", url);
 
             fetch(url, {
@@ -205,16 +193,13 @@
                 })
                 .then(data => {
                     console.log("DEBUG: Success block", data);
-                    if (data.status === 'success') {
-                        contactId = data.contactid;   // ⭐ store globally
-                        console.log("📌 Stored contactId:", contactId);
-                    }
+
                     if (data.status === 'success' || data.status === 'created') {
                         document.getElementById('otp-area').style.display = 'block';
                         document.getElementById('btn-verify-otp').style.display = 'block';
                         document.getElementById('btn-send-otp').style.display = 'none';
-                        document.getElementById('otp-subtitle').innerText = "Code sent to +91 " + input;
-                        document.getElementById('user_input').disabled = true;
+                        document.getElementById('otp-subtitle').innerText = "Code sent to +91 " + mobile;
+                        document.getElementById('mobile_number').disabled = true;
                     } else {
                         console.warn("DEBUG: Unexpected status", data.status);
                         throw new Error(data.message || "Unknown error occurred");
@@ -231,24 +216,13 @@
 
         function handleVerifyOTP() {
             const otp = document.getElementById('otp_input').value;
-            const input = document.getElementById('user_input').value;
+            const mobile = document.getElementById('mobile_number').value;
             const btn = document.getElementById('btn-verify-otp');
 
-            console.log("🚀 Verify OTP clicked");
-            console.log("📥 Input:", input);
-            console.log("🔐 OTP:", otp);
-            console.log("🔐 Contactid:", contactId);
-
-            if (otp.length < 6) {
-                console.warn("⚠️ OTP length invalid");
-                return alert("Enter the 6-digit OTP");
-            }
+            if (otp.length < 6) return alert("Enter the 6-digit OTP");
 
             btn.innerText = "Verifying...";
             btn.disabled = true;
-
-            const payload = { contact_id: contactId, input: input, otp: otp };
-            console.log("📤 Sending payload:", payload);
 
             fetch("{{ route('login.verify') }}", {
                 method: "POST",
@@ -257,33 +231,25 @@
                     "Accept": "application/json",
                     "X-CSRF-TOKEN": "{{ csrf_token() }}"
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({ mobile_number: mobile, otp: otp })
             })
-                .then(res => {
-                    console.log("📡 Raw response:", res);
-                    console.log("📊 Status:", res.status);
-                    return res.json();
-                })
+                .then(res => res.json())
                 .then(data => {
-                    console.log("📦 Parsed response:", data);
-
                     if (data.status === 'success') {
-                        console.log("✅ OTP Verified, redirecting...");
                         window.location.href = "{{ route('registration.form') }}";
                     } else {
-                        console.warn("❌ OTP verification failed:", data.message);
                         alert(data.message || "Invalid OTP");
                         btn.innerText = "Verify & Proceed";
                         btn.disabled = false;
                     }
                 })
                 .catch(err => {
-                    console.error("🔥 Fetch error:", err);
                     alert("Verification failed.");
                     btn.disabled = false;
                     btn.innerText = "Verify & Proceed";
                 });
         }
+
         document.addEventListener("DOMContentLoaded", function () {
             @if(session('authenticated_mobile'))
                 toggleModal(); // Open automatically if session exists

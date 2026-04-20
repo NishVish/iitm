@@ -51,150 +51,198 @@ class RegisterController extends Controller
         $company = session()->get('company');
 
         echo "<pre>";
-        print_r($contact);
+        // print_r($contact);
         print_r($company);
         echo "</pre>";
+        return view('web.registration.form', compact('contact', 'company'));
+
         // exit;
         // It's good practice to ensure both exist before proceeding
         if ($contact && $company) {
-            return view('web.registration.form', compact('contact', 'company'));
         } else {
             return redirect()->route('register')
                 ->with('error', 'Session expired. Please verify again.');
         }
     }
 
-
-    public function register_enquiry(request $request)
+    public function register_enquiry(Request $request)
     {
+
+
+
         // dd($request->all());
-        // $database = new DatabaseController();
+        $database = new DatabaseController();
 
-        // $name = $request->contact_name;
-        // $designation = $request->designation;
-        // $email = $request->email;
-        // $company_name = $request->company_name;
-        // $city = $request->city;
-        // $mobile = $request->phone;
-        // $intrestedcity = $request->cities;
-        // $contactid = $database->getLatestCompanyDatabymobile($mobile, $city, True);
-        // $contactdata = DB::table('contact')->where('contact_id', $contactid)->first();
-        // $companyData = DB::table('company_data')->where('company_id', $contactdata->company_id)->first();
-        // $mobile = DB::table('contact_mobile')->where('contact_id', $contactid)->first();
-        // $email = DB::table('contact_email')->where('contact_id', $contactid)->first();
+        $email = $request->email;
+        $mobile = $request->phone;
+        $company_name = $request->company_name;
 
-        // echo "<pre>";
+        // $email = 'nishwakarma3@gmail.com';
+        // $mobile = '7909075195';
+        // $company_name = 'Nishwakaram';
 
+        // dd($mobile, $email, $company_name);
+        // ---------------------------------------------------------------
+        // STEP 1: Get the latest contact ID by mobile or email
+        // ---------------------------------------------------------------
+        $contactid = $database->getLatestContactId($mobile, $email);
 
-        // // print_r($request->all());
-        // // print_r($contactid);
+        // dd($contactid);
+        if (!$contactid) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Contact not found for provided email or mobile'
+            ], 404);
+        }
 
-        // // print_r($contactdata);
-        // // print_r($companyData);
+        // ---------------------------------------------------------------
+        // STEP 2: Load existing contact, mobile, email, company records
+        // ---------------------------------------------------------------
+        $contactdata = DB::table('contact')
+            ->where('contact_id', $contactid)
+            ->first();
 
+        if (!$contactdata) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Contact record not found'
+            ], 404);
+        }
 
+        $companyData = null;
+        if (!empty($contactdata->company_id)) {
+            $companyData = DB::table('company_data')
+                ->where('company_id', $contactdata->company_id)  // ← was using $contactid
+                ->first();
+        }
 
+        $mobileRecord = DB::table('contact_mobile')
+            ->where('contact_id', $contactid)
+            ->where('is_primary', 1)
+            ->first();
 
-        // // print_r($company_name);
+        $emailRecord = DB::table('contact_email')
+            ->where('contact_id', $contactid)
+            ->where('is_primary', 1)
+            ->first();
 
-        // // $company_name = $request->company_name;
-        // // $city = $request->city;
+        DB::beginTransaction();
 
-        // // echo "</pre>";
-        // // dd($companyData);
-        // $newData = (array) $companyData;
-        // $unique_company_id = 'CMP_' . uniqid();
+        try {
+            // ---------------------------------------------------------------
+            // STEP 3: Duplicate company as a new lead
+            // ---------------------------------------------------------------
+            $unique_company_id = 'CMP_' . uniqid();
 
-        // $newData['company_id'] = $unique_company_id;
-        // $newData['entry_type'] = 'lead';
-        // $newData['created_at'] = now();
-        // $newData['updated_at'] = now();
+            if ($companyData) {
+                $newCompanyData = (array) $companyData;
+                unset($newCompanyData['id']);                          // remove auto-increment PK
+                $newCompanyData['company_id'] = $unique_company_id;
+                $newCompanyData['company_name'] = $company_name ?? $companyData->company_name;
+                $newCompanyData['entry_type'] = 'lead';
+                $newCompanyData['created_at'] = now();
+                $newCompanyData['updated_at'] = now();
+            } else {
+                // No existing company — create a fresh one from request
+                $newCompanyData = [
+                    'company_id' => $unique_company_id,
+                    'company_name' => $company_name ?? 'Unknown',
+                    'entry_type' => 'lead',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
 
-        // unset($newData['id']);
+            DB::table('company_data')->insert($newCompanyData);
 
-        // DB::table('company_data')->insert($newData);
+            // ---------------------------------------------------------------
+            // STEP 4: Duplicate contact under the new lead company
+            // ---------------------------------------------------------------
+            $contactDataArr = (array) $contactdata;
+            unset($contactDataArr['contact_id']);             // remove PK — auto-incremented
+            $contactDataArr['company_id'] = $unique_company_id;
+            $contactDataArr['created_at'] = now();
+            $contactDataArr['updated_at'] = now();
+            $contactDataArr['otp'] = null;           // clear sensitive fields
+            $contactDataArr['otp_expiry'] = null;
 
-        // /* DUPLICATE CONTACT */
-        // $contactDataArr = (array) $contactdata;
+            $new_contact_id = DB::table('contact')->insertGetId($contactDataArr);
 
-        // unset($contactDataArr['contact_id']); // remove PK
+            // ---------------------------------------------------------------
+            // STEP 5: Duplicate primary mobile to new contact
+            // ---------------------------------------------------------------
+            if ($mobileRecord) {
+                $mobileArr = (array) $mobileRecord;
+                unset($mobileArr['mobile_id']);
+                $mobileArr['contact_id'] = $new_contact_id;
+                $mobileArr['created_at'] = now();
+                DB::table('contact_mobile')->insert($mobileArr);
+            } elseif ($mobile) {
+                // No existing record — insert raw value from request
+                DB::table('contact_mobile')->insert([
+                    'contact_id' => $new_contact_id,
+                    'mobile' => $mobile,
+                    'is_primary' => 1,
+                    'created_at' => now(),
+                ]);
+            }
 
-        // $contactDataArr['company_id'] = $unique_company_id;
-        // $contactDataArr['created_at'] = now();
-        // $contactDataArr['updated_at'] = now();
+            // ---------------------------------------------------------------
+            // STEP 6: Duplicate primary email to new contact
+            // ---------------------------------------------------------------
+            if ($emailRecord) {
+                $emailArr = (array) $emailRecord;
+                unset($emailArr['email_id']);
+                $emailArr['contact_id'] = $new_contact_id;
+                $emailArr['created_at'] = now();
+                DB::table('contact_email')->insert($emailArr);
+            } elseif ($email) {
+                // No existing record — insert raw value from request
+                DB::table('contact_email')->insert([
+                    'contact_id' => $new_contact_id,
+                    'email' => $email,
+                    'is_primary' => 1,
+                    'created_at' => now(),
+                ]);
+            }
 
-        // $new_contact_id = DB::table('contact')->insertGetId($contactDataArr);
+            // ---------------------------------------------------------------
+            // STEP 7: If company_name changed, update both original + lead
+            // ---------------------------------------------------------------
+            if ($companyData && !empty($company_name) && $company_name !== $companyData->company_name) {
+                DB::table('company_data')
+                    ->where('company_id', $companyData->company_id)
+                    ->update(['company_name' => $company_name, 'updated_at' => now()]);
 
-        // /* DUPLICATE MOBILE */
-        // if ($mobile) {
-        //     $mobileArr = (array) $mobile;
+                DB::table('company_data')
+                    ->where('company_id', $unique_company_id)
+                    ->update(['company_name' => $company_name, 'updated_at' => now()]);
+            }
 
-        //     unset($mobileArr['mobile_id']); // 🔥 correct PK
-        //     // unset($mobileArr['id']); ❌ not needed if column doesn't exist
+            DB::commit();
 
-        //     $mobileArr['contact_id'] = $new_contact_id;
-        //     $mobileArr['created_at'] = now();
+            // ---------------------------------------------------------------
+            // STEP 8: Return the new lead contact for the success view
+            // ---------------------------------------------------------------
+            $leadContact = DB::table('contact')
+                ->where('contact_id', $new_contact_id)
+                ->first();
 
-        //     DB::table('contact_mobile')->insert($mobileArr);
-        // }
-        // /* DUPLICATE EMAIL */
-        // if ($email) {
-        //     $emailArr = (array) $email;
+            $contactDataArr = (array) $leadContact;
 
-        //     unset($emailArr['email_id']); // 🔥 adjust if different
+            return view('web.registration.enquirysuccess', compact('contactDataArr'));
 
-        //     $emailArr['contact_id'] = $new_contact_id;
-        //     $emailArr['created_at'] = now();
+        } catch (\Throwable $e) {
+            DB::rollBack();
 
-        //     DB::table('contact_email')->insert($emailArr);
-        // }
+            Log::error('register_enquiry failed: ' . $e->getMessage());
 
-        // $leadgeneration = DB::table('company_data')->where('company_id', $unique_company_id)->first();
-        // // echo "<pre>";
-        // // print_r("Lead Generation");
-
-        // // // print_r($leadgeneration);
-
-        // // print_r("Lead Generation");
-
-        // // echo "</pre>";
-
-
-
-        // if ($company_name != $companyData->company_name) {
-        //     DB::table('company_data')->where('company_id', $companyData->company_id)->update([
-        //         'company_name' => $company_name,
-        //     ]);
-
-        //     // updatelead
-        //     DB::table('company_data')->where('company_id', $unique_company_id)->update([
-        //         'company_name' => $company_name,
-        //     ]);
-
-        //     exit;
-        // }
-        $contactDataArr = [
-            "company_id" => "CMP_69e3590bd9c85",
-            "priority" => 1,
-            "name" => "Nishant Vishwakarma",
-            "designation" => "Data Analyst",
-            "image" => null,
-            "created_at" => "2026-04-18T10:12:27.899816Z",
-            "updated_at" => "2026-04-18T10:12:27.899833Z",
-            "attendance_reason" => null,
-            "buyer_responsibility" => null,
-            "attended_past" => "No",
-            "interest_forum" => "No",
-            "business_card_path" => null,
-            "otp" => null,
-            "otp_expiry" => null
-        ];
-
-        return view('web.registration.enquirysuccess', compact('contactDataArr'));
-
-
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Registration failed. Please try again.'
+            ], 500);
+        }
     }
-
     //     public fucntion checkifleadexist(request $request){
 
     // use numer to find contact id    
@@ -249,29 +297,34 @@ class RegisterController extends Controller
 
     public function registaritonsubmit(Request $request)
     {
-
-        // dd($request->all());
-
-
         $contact_id = $request->contact_id;
         $company_id = $request->company_id;
         $event_id = $request->event_id;
+        $event = DB::table('events')
+            ->where('event_id', $event_id)
+            ->first();
+        // dd($event);
+        echo '<pre>';
+        print_r($request->all());
+        echo '</pre>';
+        // die();      
+        $eventname = $event->name;
+        // 1. UPDATE Master Records
 
-        // 1. Update Personal Info (Contact Tables)
+        // dd($request->all());
         DB::table('contact')->where('contact_id', $contact_id)->update([
             'name' => $request->name,
-            'designation' => $request->designation,
+            'designation' => $request->designation
         ]);
 
         DB::table('contact_mobile')->where('contact_id', $contact_id)->update([
-            'mobile' => $request->mobile,
+            'mobile' => $request->mobile
         ]);
 
         DB::table('contact_email')->where('contact_id', $contact_id)->update([
-            'email' => $request->email,
+            'email' => $request->email
         ]);
 
-        // 2. Update company_data Table (Matching your schema exactly)
         DB::table('company_data')->where('company_id', $company_id)->update([
             'company_name' => $request->company_name,
             'city' => $request->city,
@@ -279,19 +332,67 @@ class RegisterController extends Controller
             'pincode' => $request->pincode,
             'country' => $request->country,
             'website' => $request->website,
-
-            // Business Profile Fields
             'branch_offices' => $request->branch_offices,
             'total_staff' => $request->total_staff,
-
-            // Checklist / Text Fields (Imploding arrays into strings for 'text' type columns)
             'travel_segments' => $request->travel_segments,
             'meet_profiles' => $request->meet_profiles,
             'meet_regions' => $request->meet_regions,
             'interested_states' => $request->interested_states,
-            // System Fields
-            'updated_at' => now()->format('Y-m-d H:i:s'),
-            'active_inactive' => 'active'
+            'updated_at' => now()
+        ]);
+
+
+
+        $unique_id = 'CMP_' . uniqid();
+
+        // 1. company_data
+        // DB::table('company_data')->insert([
+        //     'company_id' => $unique_id,
+        // 2. INSERT Duplicate Registration Entry
+        $newCompanyId = DB::table('company_data')->insertGetId([
+            'company_id' => $unique_id,
+            'company_name' => $request->company_name,
+            'city' => $request->city,
+            'state' => $request->state,
+            'pincode' => $request->pincode,
+            'country' => $request->country,
+            'website' => $request->website,
+            'branch_offices' => $request->branch_offices,
+            'total_staff' => $request->total_staff,
+            'travel_segments' => $request->travel_segments,
+            'meet_profiles' => $request->meet_profiles,
+            'meet_regions' => $request->meet_regions,
+            'interested_states' => $request->interested_states,
+            'entry_type' => 'online_Registration',
+            'cross_validation' => '0',
+            'database_name' => $eventname,
+            'active_inactive' => 'active',
+            'created_at' => now(),
+            'updated_at' => now()
+
+        ]);
+
+
+
+        $newContactId = DB::table('contact')->insertGetId([
+            'company_id' => $unique_id,
+            'name' => $request->name,
+            'designation' => $request->designation,
+            'created_at' => now()
+        ]);
+
+        DB::table('contact_mobile')->insert([
+            'contact_id' => $newContactId,
+            'mobile' => $request->mobile,
+            'is_primary' => 1,
+            'created_at' => now()
+        ]);
+
+        DB::table('contact_email')->insert([
+            'contact_id' => $newContactId,
+            'email' => $request->email,
+            'is_primary' => 1,
+            'created_at' => now()
         ]);
 
 

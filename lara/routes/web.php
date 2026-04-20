@@ -63,6 +63,7 @@ Route::post('/upload-logo', [RegisterController::class, 'uploadLogo']);
 Route::post('/registration/submit', [RegisterController::class, 'registaritonsubmit'])->name('registration.submit');
 Route::get('/category/{nameofthecompany}', [RegisterController::class, 'category'])->name('category');
 Route::post('/enquiry', [RegisterController::class, 'register_enquiry'])->name('enquiry');
+Route::get('/register_enquiry', [RegisterController::class, 'register_enquiry'])->name('register_enquiry');
 Route::get('/emailtemplate', [RegisterController::class, 'emailtemplate'])->name('emailtemplate');
 // Route::get('/register/{location}', [RegisterController::class, 'index'])->name('register');
 
@@ -151,6 +152,7 @@ use App\Http\Controllers\DatabaseController;
 /* API Routes */
 Route::get('/api/getAllCompanyData/{mobileNumber}', [DatabaseController::class, 'getAllCompanyData']);
 Route::get('/api/getLatestCompanyData/{mobileNumber}/{querylength}/{city}/{response}', [DatabaseController::class, 'getLatestCompanyDatabymobile']);
+Route::get('/api/getCompanyByMobileOrEmail/{mobileNumber}/{email}', [DatabaseController::class, 'getCompanyByMobileOrEmail']);
 Route::get('/api/getDetails/{mobileNumber}', [DatabaseController::class, 'getDetails']);
 Route::get('backend', [DatabaseController::class, 'index']);
 

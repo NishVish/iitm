@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-6 form-group">
             <label>Mobile</label>
-            <input type="text" name="mobile" value="{{ $contact['mobiles'][0] ?? '' }}" class="form-control" readonly>
+            <input type="text" name="mobile" value="{{ $contact['mobiles'][0] ?? '' }}" class="form-control">
         </div>
         <div class="col-md-6 form-group">
             <label>Email</label>

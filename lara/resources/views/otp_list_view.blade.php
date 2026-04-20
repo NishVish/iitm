@@ -19,8 +19,10 @@
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
+                        <th>Contact ID</th>
                         <th>Contact Name</th>
                         <th>Mobile</th>
+                        <th>Email</th>
                         <th>OTP</th>
                         <th>Expiry</th>
                     </tr>
@@ -29,8 +31,10 @@
                     @foreach($otps as $index => $otp)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $otp->contact_name ?? 'N/A' }}</td>
+                            <td>{{ $otp->contact_id }}</td>
+                            <td>{{ $otp->name ?? 'N/A' }}</td>
                             <td>{{ $otp->mobile ?? 'N/A' }}</td>
+                            <td>{{ $otp->email ?? 'N/A' }}</td>
                             <td>{{ $otp->otp }}</td>
                             <td>{{ $otp->otp_expiry }}</td>
                         </tr>
