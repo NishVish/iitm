@@ -171,3 +171,7 @@ Route::get('/dictionary', [IdentifycategoryController::class, 'dictionaryEditor'
 
 
 
+use App\Http\Controllers\MailTestController;
+
+Route::get('/mail-test', [MailTestController::class, 'index']);
+Route::post('/mail-test/send', [MailTestController::class, 'send']);
