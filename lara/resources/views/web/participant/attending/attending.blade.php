@@ -283,7 +283,9 @@
 
     </div>
 
+
 </div>
+    @include('web.participant.attending.visitorprofile')
 
 
 <script>

@@ -2,6 +2,10 @@
 
 
 <style>
+    body {
+        background-color: white;
+    }
+
     .section-1 {
         height: 100vh;
         display: flex;
@@ -129,8 +133,8 @@
     document.addEventListener("DOMContentLoaded", () => {
 
         const logo = document.getElementById("logo-container");
+        logo.style.display = "none";
         let idleTimer;
-
         function resetIdle() {
             // user active → hide logo
             logo.classList.remove("show");
@@ -140,7 +144,7 @@
             // after 2 seconds idle → show logo
             idleTimer = setTimeout(() => {
                 logo.classList.add("show");
-            }, 2000);
+            }, 4000);
         }
 
         // user activity listeners (same as your hero method)
@@ -183,7 +187,8 @@
             logo.style.visibility = "";
             logo.style.pointerEvents = "";
             logo.classList.add('show');
-
+        logo.style.display = "block";
+ 
             // 1. Remove the blur
             hero.classList.remove('idle');
 
@@ -193,7 +198,7 @@
             // 3. Start a new timer
             idleTimer = setTimeout(() => {
                 hero.classList.add('idle');
-            }, 2000);
+            }, 4000);
         });
 
         document.addEventListener('touchstart', () => {
@@ -236,32 +241,53 @@
     <!-- //         <button onclick="location.href='{{ route('exhibitor') }}'" style="
  -->
     <div style="text-align: center;">
-        <button onclick="location.href='{{ route('exhibiting') }}'" style="
-            padding: 12px 28px; 
-            background: #23a6d5; 
-            color: white; 
-            border: none; 
-            border-radius: 50px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(35, 166, 213, 0.3); 
-            margin-right: 10px; 
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 20px rgba(35, 166, 213, 0.5)';"
+        <button onclick="location.href='{{ route('exhibiting') }}'" id="stallbookingbutton"
+            onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 20px rgba(255, 34, 30, 0.5)';"
             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';">
             Stall Booking
         </button>
+        <style>
+            #stallbookingbutton {
+                padding: 12px 28px;
+                /* Primary: Red Background, White Text */
+                background: var(--iitm-background2);
+                color: var(--iitm-text2);
+                border: none;
+                border-radius: 50px;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 4px 15px rgba(170, 35, 36, 0.3);
+                margin-right: 10px;
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
 
-        <button onclick="location.href='{{ route('attending') }}'" style="
-            padding: 12px 28px; 
-            background: white; 
-            color: #23a6d5; 
-            border: 2px solid #23a6d5; 
-            border-radius: 50px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: all 0.3s ease;
-        " onmouseover="this.style.background='#f0f9ff'; this.style.transform='translateY(-3px)';"
+            #stallbookingbutton:hover {
+                transform: scale(1.05);
+                filter: brightness(1.1);
+            }
+
+            #tradvisitorbutton {
+                padding: 12px 28px;
+                /* Secondary: White Background, Red Text/Border */
+                background: var(--iitm-background);
+                color: var(--iitm-text);
+                box-shadow: 0 4px 15px rgba(170, 35, 36, 0.3);
+
+                border: 2px solid var(--iitm-text);
+                border-radius: 50px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            #tradvisitorbutton:hover {
+                background: var(--iitm-background2);
+                color: var(--iitm-text);
+                border-color: var(--iitm-background2);
+            }
+        </style>
+        <button onclick="location.href='{{ route('attending') }}'" id="tradvisitorbutton" " onmouseover="
+            this.style.background='#f0f9ff' ; this.style.transform='translateY(-3px)' ;"
             onmouseout="this.style.background='white'; this.style.transform='translateY(0)';">
             Trade Visitor
         </button>

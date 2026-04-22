@@ -126,14 +126,6 @@ Route::get('/blender-info', [InteracitveController::class, 'blender_info']);
 
 
 
-use App\Http\Controllers\GoogleSearchController;
-
-Route::get('/google-search', [GoogleSearchController::class, 'search']);
-
-Route::get('/google-refresh', [GoogleSearchController::class, 'refresh']);
-
-
-
 use App\Http\Controllers\BookingController;
 
 Route::get('/booking', [BookingController::class, 'index'])->name('booking');
@@ -173,5 +165,29 @@ Route::get('/dictionary', [IdentifycategoryController::class, 'dictionaryEditor'
 
 use App\Http\Controllers\MailTestController;
 
+
+Route::get('/Registrationcompletetemplate', [MailTestController::class, 'Registrationcomplete']);
+
 Route::get('/mail-test', [MailTestController::class, 'index']);
 Route::post('/mail-test/send', [MailTestController::class, 'send']);
+
+use App\Mail\RegistrationSuccessMail;
+
+Route::get('/Registrationcompletetemplate', [RegisterController::class, 'registrationsuccestemplate']);
+
+
+
+use App\Http\Controllers\BadgeController;
+
+Route::get('/badge-preview', [BadgeController::class, 'badgepreview']);
+
+Route::get('/download-badge', [BadgeController::class, 'downloadBadge']);
+route::get('generatebadge/{companyid}/{contactid}/{database}', [BadgeController::class, 'generatebadge']);
+
+
+use App\Http\Controllers\AssetsController;
+
+Route::get('/assets', [AssetsController::class, 'index']);
+
+
+

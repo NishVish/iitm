@@ -1369,8 +1369,8 @@ class Company extends BaseController
                         for ($m = 1; $m <= 3; $m++) {
 
                             $mobileKey = "contact{$i}_mobile{$m}";
-                            var_dump($contactData);
-
+                            var_dump($contactData["mobiles"]);
+$contactData["mobiles"][] = $m;
 
                             if (!empty($company[$mobileKey])) {
                                 $contactData['mobiles'][] = trim($company[$mobileKey]);

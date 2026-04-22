@@ -12,7 +12,7 @@ sdfsdf
 
  -->
 
-
+@include('css')
 
 @include('web.home.header')
 

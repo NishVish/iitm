@@ -371,21 +371,14 @@ $label = $categoryMap[$category] ?? '';
 
    <div class="company-header">
     <div class="company-top">
-        <h1>
+        <h1>            <?= esc($company['company_id']) ?> | 
+
             <?= esc($company['category'] ?? 'No Category') ?> | 
             <strong><?= esc($company['company_name']) ?></strong> | 
             <?= esc($company['city']) ?>
         </h1>
     </div>
 
-    <div class="company-location">
-        <p>
-            <?= esc($company['address']) ?>, 
-            <?= esc($company['city']) ?>, 
-            <?= esc($company['state']) ?> - <?= esc($company['pincode']) ?>, 
-            <?= esc($company['country']) ?>
-        </p>
-    </div>
 
     <div class="company-contact">
         <p>

@@ -24,29 +24,26 @@
             @endphp
             @if($lastSegment === 'exhibiting')
 
-                <!-- @include('web.loading2') {{-- includes register.blade.php --}} -->
+                @include('web.loading2') {{-- includes register.blade.php --}}
                 @include('web.header2') {{-- includes register.blade.php --}}
 
                 @include('web.participant.exhibiting.exhibiting') {{-- includes register.blade.php --}}
             @elseif($lastSegment === 'attending')
 
-                <!-- @include('web.loading2') {{-- includes register.blade.php --}} -->
                 @include('web.header2')
-                @include('web.participant.attending.hook2')
-                @include('web.templates.whyvisit')
-
-                @include('web.participant.attending.hook')
+                @include('web.participant.attending.section1')
 
                 @include('web.participant.attending.attending')
 
-                @include('web.templates.otp')
+                @include('web.templates.otpless')
             @elseif($lastSegment === 'enquiry')
+                @include('web.header2') {{-- includes register.blade.php --}}
+
                 @include('web.participant.form.enquiry-form')
 
 
                 <!-- @include('web.loading2') {{-- includes register.blade.php --}} -->
 
-                @include('web.header2') {{-- includes register.blade.php --}}
 
                 <!-- Header 2 -->
             @elseif($lastSegment === 'visitor-form')

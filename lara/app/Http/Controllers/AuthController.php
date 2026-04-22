@@ -85,142 +85,99 @@ class AuthController extends Controller
 
     public function requestOtp(Request $request, $input = null, $eventid = null)
     {
+        $inputValue = $request->input('input');
 
+        if (!$inputValue) {
+            return back()->with('error', 'Input is required');
+        }
 
         $mobile = null;
         $email = null;
 
-        if (preg_match('/^[0-9]{10}$/', $input)) {
-            $mobile = $input;
-        } elseif (filter_var($input, FILTER_VALIDATE_EMAIL)) {
-            $email = $input;
+        if (preg_match('/^[0-9]{10}$/', $inputValue)) {
+            $mobile = $inputValue;
+        } elseif (filter_var($inputValue, FILTER_VALIDATE_EMAIL)) {
+            $email = $inputValue;
         } else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Invalid mobile number or email'
-            ]);
+            return back()->with('error', 'Invalid mobile or email');
         }
 
+        $eventId = $request->input('event_id') ?? $eventid;
 
-        // dd($mobile, $email, $eventid);
-        if ($input) {
-        } else {
-
-
-            $mobile = $request->mobile_number;
-
-        }
-
-
-        // $mobile = 7909075909;
-        if ($request->event_id) {
-
-            $eventId = $request->event_id;
-
-        } else {
-            $eventId = $eventid;
-        }
-        // dd($eventId);
-        // if Mobile is 
-
-        // Validate event_id if sent
-        // Fetch all events
-        $allEvents = DB::table('events')->get();
-
-        // Optional: validate event ID
-        $event = null;
         if ($eventId) {
-            $event = DB::table('events')->where('event_id', $eventId)->first();
-
+            $event = DB::table('events')
+                ->where('event_id', $eventId)
+                ->first();
 
             if (!$event) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Invalid event ID',
-                    'event_id_received' => $eventId,
-                    'all_events' => $allEvents
-                ]);
+                return back()->with('error', 'Invalid event ID');
             }
         }
 
-        // echo $mobile;
-        // 🔍 Check if mobile exists
-        // 🔍 Check if mobile exists
         $contactId = $this->database->getlatestcontactid($mobile, $email);
 
-        $allmatch = DB::table('contact_email')->where('email', $email)->get();
 
-        // echo ($contactId);
-        // echo "<br>";
-        // echo ($allmatch);
-        // echo "<br>";
-        // echo "then Back one is contactid";
-        // echo "SUper NO";
-        // exit;
-        // 🚨 If NOT found → create dummy data
+        $companydata = DB::table('company_data')->where('company_id', $contactId)->first();
+        // $entry_type = $companydata->entry_type;
+        // do we have any match 
+        // yes 
+
+        // is it main lead or online reistration 
+
+
         if (!$contactId) {
 
-            // echo "New Number Creating New Number";
+
             $contactId = $this->createnewentry(
-                $request->company_name,
+                $request->company_name ?? null,
                 $mobile,
                 $email
             );
-
-            // echo "new number created";
-            // echo $contactId;
-            // echo "new number created";
-            // exit;
-        }
-        // echo "Generating OTP";
-
-        $otp = rand(100000, 999999);
-        $expiry = Carbon::now()->addMinutes(10);
-        // echo "OTP Generated";
-        // echo $otp;
-        // echo "Expiry";
-        // echo $expiry;
-        // echo "contactid ";
-
-        $updated = DB::table('contact')
-            ->where('contact_id', $contactId)
-            ->update([
-                'otp' => $otp,
-                'otp_expiry' => $expiry,
-                'updated_at' => Carbon::now()
-            ]);
-
-        // echo $updated;
-
-        $optdata = DB::table('contact')
-            ->whereNotNull('otp')
-            ->get();
-        // echo ($optdata);
-        // echo "SUper NO";
-        $newdata = DB::table('contact')->where('contact_id', $contactId)->first();
-
-        // $monbildata = DB::table('contact_mobile')->where('contact_id', $contactId)->first();
-        // print_r($monbildata);
-        // print_r($newdata);
-        // exit;
-
-        if ($updated) {
-
-            Log::debug("OTP for $mobile is: $otp");
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'OTP sent successfully',
-                'contactid' => $contactId
-                // 'otp' => $otp // enable only for testing
-            ]);
         }
 
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Failed to save OTP'
+        $contactid = $contactId;
+
+        $user = DB::table('contact')
+            ->where('contact_id', $contactid)
+            ->first();
+
+        if (!$user) {
+            return back()->with('error', 'Contact not found');
+        }
+
+        $user = (array) $user;
+
+        $user['mobiles'] = DB::table('contact_mobile')
+            ->where('contact_id', $contactid)
+            ->pluck('mobile')
+            ->toArray();
+
+        $user['emails'] = DB::table('contact_email')
+            ->where('contact_id', $contactid)
+            ->pluck('email')
+            ->toArray();
+
+        $company = null;
+
+        if (!empty($user['company_id'])) {
+            $company = DB::table('company_data')
+                ->where('company_id', $user['company_id'])
+                ->first();
+
+            $company = $company ? (array) $company : null;
+        }
+
+        session()->put('contact', $user);
+        session()->put('company', $company);
+
+        // dd($user, $company, $event);
+        return view('web.registration.form', [
+            'contact' => $user,
+            'company' => $company,
+            'eventinfo' => $event,
         ]);
     }
+
 
     public function createnewentry($company_name = null, $mobile = null, $email = null)
     {
@@ -255,7 +212,7 @@ class AuthController extends Controller
                 'updated_at' => now(),
                 'session' => 0,
                 'cross_validation' => 0,
-                'entry_type' => 'online_registration'
+                'entry_type' => 'main'
             ]);
 
             // 2. contact
@@ -417,7 +374,10 @@ class AuthController extends Controller
         // }
 
         // Log::info("Login successful via {$type} for contact_id: {$contactid}");
-
+// 1. Find the contact
+        $user = DB::table('contact')
+            ->where('contact_id', $contactid)
+            ->first();
         // 4. Attach mobiles and emails
         $user->mobiles = DB::table('contact_mobile')
             ->where('contact_id', $contactid)

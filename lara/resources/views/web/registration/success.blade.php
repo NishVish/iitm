@@ -1,249 +1,194 @@
-<div class="section-2">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
-        rel="stylesheet">
+@if ($data['emailpage'])
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Registration Success</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
 
-    <style>
-        .section-2 {
-            padding: 80px 20px;
-            text-align: center;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at top right, #ffffff, #eef2f5);
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+<body style="margin:0; padding:0; background-color:#333333; font-family:Arial, sans-serif;">
 
-        .logo img {
-            width: 180px;
-            margin-bottom: 40px;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.05));
-        }
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+<td align="center" style="background:#333333 url('https://iitmindia.com/assets/creatives/1.jpg') no-repeat center/cover; padding:60px 0;">
 
-        /* Pulsing Badge */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 20px;
-            background: rgba(197, 137, 64, 0.1);
-            color: #c58940;
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: 50px;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(197, 137, 64, 0.2);
-            animation: pulse-border 2s infinite;
-        }
+<table width="70%" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:14px; overflow:hidden;">
 
-        @keyframes pulse-border {
-            0% {
-                box-shadow: 0 0 0 0 rgba(197, 137, 64, 0.4);
-            }
+<!-- Logo -->
+<tr>
+<td align="center" style="padding:30px 0 20px;">
+<img src="https://iitmindia.com/assets/iitm3.png" width="150" />
+</td>
+</tr>
 
-            70% {
-                box-shadow: 0 0 0 10px rgba(197, 137, 64, 0);
-            }
+<!-- Content -->
+<tr>
+<td style="padding:20px 40px 40px;">
 
-            100% {
-                box-shadow: 0 0 0 0 rgba(197, 137, 64, 0);
-            }
-        }
+<table width="100%" cellpadding="0" cellspacing="0">
 
-        .title {
-            font-size: 32px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
-        }
+<tr>
+<td style="font-size:22px; font-weight:bold; text-align:center; color:#111;">
+You’re Invited to {{ $data['eventname'] ?? 'the Event' }}
+</td>
+</tr>
 
-        /* Fancy Glass Card */
-        .card {
-            position: relative;
-            margin-top: 10px;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
-            max-width: 480px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: transform 0.3s ease;
-        }
+<tr>
+<td style="padding:15px 0; text-align:center; color:#555; font-size:15px;">
+{{ $data['message'] ?? 'We are pleased to confirm your registration.' }}
+</td>
+</tr>
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+<!-- Info Box -->
+<tr>
+<td style="background:#f3f4f6; padding:20px; border-radius:10px;">
 
-        .card::before {
-            content: "✓";
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            background: #10b981;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-        }
+<table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px; color:#333;">
 
-        .text {
-            font-size: 17px;
-            color: #475569;
-            line-height: 1.8;
-        }
+<tr>
+<td style="padding-bottom:10px;">
+<strong>👤 Name:</strong> {{ $data['sentData']['contactName'] ?? 'N/A' }}
+</td>
+</tr>
 
-        .highlight {
-            color: #c58940;
-            font-weight: 700;
-            position: relative;
-            display: inline-block;
-        }
+<tr>
+<td style="padding-top:10px; line-height:22px; font-family: Arial, sans-serif;">
 
-        .highlight::after {
-            content: "";
-            position: absolute;
-            bottom: 2px;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: rgba(197, 137, 64, 0.1);
-            z-index: -1;
-        }
+  <p>Dear <strong>{{ $data['sentData']['contactName'] ?? 'Guest' }}</strong>,</p>
 
-        .footer-note {
-            margin-top: 30px;
-            font-size: 13px;
-            color: #94a3b8;
-        }
-    </style>
+  <p>
+    We are delighted to inform you that your registration for the 
+    <strong>IITM Bengaluru</strong> event has been successfully received.
+  </p>
 
-    <div class="logo">
-        <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="Logo">
-    </div>
+  <p>
+    This email serves as an official confirmation of your participation in the event scheduled from 
+    <strong>23 – 25 July 2026</strong>.
+  </p>
 
-    <div class="badge">
-        <span style="width: 8px; height: 8px; background: #c58940; border-radius: 50%;"></span>
-        {{ $status }}
-    </div>
+  <p>
+    Please find your event badge attached. Kindly print and wear it during the event.
+  </p>
 
-    <div class="title">
-        Profile Submitted
-    </div>
+  <p>
+    <strong>Note:</strong> This event is strictly for <strong>B2B participants</strong>.
+  </p>
 
-    <div class="card">
-        <div class="text">
-            @if(!empty($dbData->name))
-                Hello <span class="highlight">{{ $dbData->name }}</span>,
-            @endif
-            <br><br>
-            Your application is now with our verification team.
-            We take quality seriously, so we'll review your details carefully.
-            <br><br>
-            @if($status == 'approved')
-                <strong>Your registration has been approved. Mail Confirmation Already Sent.</strong>
+  <p>
+    Your Reference ID: <strong>{{ $data['dbData']['reference_no'] ?? 'N/A' }}</strong>
+  </p>
 
-            @elseif($status == 'Under Review')
-                <strong>Your application is under review. Expect an update via email shortly.</strong>
+  <p>
+    We look forward to welcoming you.
+  </p>
 
-            @elseif($status == 'rejected')
-                <strong>Your application was not approved. You will receive details via email.</strong>
+  <br>
 
-            @else
-                <strong>Expect an update via email shortly.</strong>
-            @endif
-        </div>
-    </div>
+  <p>
+    Best Regards,<br>
+    <strong>Team IITM</strong>
+  </p>
 
-    <div>
-        {{ $eventname }}
-    </div>
+</td>
+</tr>
 
-    <div class="footer-note">
-        Reference ID: #{{ time() }}
-    </div>
-    <button id="sendMailBtn" class="btn btn-primary mt-4">
-        Send Confirmation Mail
-        <style>
-            #sendMailBtn {
-                margin-top: 25px;
-                padding: 12px 22px;
-                background: linear-gradient(135deg, #c58940, #e0a85a);
-                color: #fff;
-                border: none;
-                border-radius: 10px;
-                font-weight: 700;
-                font-size: 14px;
-                cursor: pointer;
-                letter-spacing: 0.5px;
-                transition: all 0.3s ease;
-                box-shadow: 0 10px 20px rgba(197, 137, 64, 0.25);
-            }
+</table>
+</td>
+</tr>
 
-            #sendMailBtn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 14px 28px rgba(197, 137, 64, 0.35);
-            }
+<!-- Button -->
+<tr>
+<td align="center" style="padding-top:30px;">
+<a href="{{ url('generatebadge/' .$data['company_id'] . '/' . $data['contact_id'] . '/' . $data['databasename']) }}"
+    
 
-            #sendMailBtn:disabled {
-                opacity: 0.6;
-                cursor: not-allowed;
-                transform: none;
-            }
-        </style>
-    </button>
+    style="background:#4f46e5; color:#ffffff; padding:14px 25px; text-decoration:none; border-radius:8px; font-weight:bold; display:inline-block;">
+DOWNLOAD ENTRY BADGE
+</a>
+</td>
+</tr>
 
-    <div id="mailStatus" style="margin-top:10px;font-weight:600;"></div>
+</table>
+</td>
+</tr>
+
+<!-- Footer -->
+<tr>
+<td style="padding:20px; text-align:center; font-size:11px; color:#999; background:#f9fafb;">
+Ref ID: #{{ $data['dbData']['reference_no'] ?? '' }}<br>
+© 2026 IITM India. All rights reserved.
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+@endif
 
 
-    <div style="display: none;">
-        @include('web.search')
+
+@if ($data['preview'])
+<div
+id="preview">
+        @include('web.registration.successpage.badge')
+
+</div>
+
+@endif
+
+@if ($data['print'])
+
+<div style="height: 0; width: 0; overflow: hidden; position: absolute; top: 0; left: 0;">
+    <div id="badge" style="width: 210mm; background: white; color: black;">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+        @include('web.registration.successpage.badge')
     </div>
 </div>
 
 <script>
-    document.getElementById("sendMailBtn").addEventListener("click", function () {
+function downloadPDF() {
+    const element = document.querySelector("#badge");
 
-        let eventName = "{{ $eventName ?? '' }}"; // or pass from backend
-        let btn = this;
-        let status = document.getElementById("mailStatus");
+    const opt = {
+        margin: 0,
+        filename: 'iitm-entry-badge.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: {
+            scale: 2, // Start with 2 to ensure it works, increase to 4 once it's confirmed
+            useCORS: true,
+            allowTaint: true, // Helps with cross-origin images
+            letterRendering: true,
+            logging: true // Check console for errors if it's still blank
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        }
+    };
 
-        btn.disabled = true;
-        status.innerText = "Sending mail...";
+    html2pdf().set(opt).from(element).save();
+}
 
-        fetch(`{{ url('/send-confirmation') }}/${encodeURIComponent(eventName)}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-
-                if (data.status) {
-                    status.innerText = "Mail sent successfully!";
-                    status.style.color = "green";
-                } else {
-                    status.innerText = "Failed to send mail.";
-                    status.style.color = "red";
-                }
-
-                btn.disabled = false;
-            })
-            .catch(err => {
-                status.innerText = "Error sending mail.";
-                status.style.color = "red";
-                btn.disabled = false;
-            });
-
-    });
+window.addEventListener("load", function () {
+    // Check if the element exists and has content before running
+    if(document.querySelector("#badge")) {
+        setTimeout(downloadPDF, 2000); 
+    }
+});
 </script>
+
+@endif
+
+
+
+</body>
+
+
+
+</html>
+
+

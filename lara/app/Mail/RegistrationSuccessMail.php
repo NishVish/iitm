@@ -49,4 +49,6 @@ class RegistrationSuccessMail extends Mailable
     {
         return [];
     }
+
+
 }

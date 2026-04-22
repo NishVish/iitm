@@ -4,42 +4,43 @@
 <div class="row g-3">
     <div class="col-12 form-group">
         <label>Company Name</label>
-        <input type="text" name="company_name" value="{{ $company['company_name'] ?? '' }}" class="form-control">
+        <input type="text" name="company_name" value="{{ $company['company_name'] ?? '' }}" class="form-control"
+            required>
     </div>
 
     <div class="col-md-4 form-group">
         <label>City</label>
-        <input type="text" name="city" value="{{ $company['city'] ?? '' }}" class="form-control">
+        <input type="text" name="city" value="{{ $company['city'] ?? '' }}" class="form-control" required>
     </div>
 
     <div class="col-md-4 form-group">
         <label>State</label>
-        <input type="text" name="state" value="{{ $company['state'] ?? '' }}" class="form-control">
+        <input type="text" name="state" value="{{ $company['state'] ?? '' }}" class="form-control" required>
     </div>
 
     <div class="col-md-4 form-group">
         <label>Country</label>
-        <input type="text" name="country" value="{{ $company['country'] ?? '' }}" class="form-control">
+        <input type="text" name="country" value="{{ $company['country'] ?? '' }}" class="form-control" required>
     </div>
 
     <div class="col-md-12 form-group">
         <label>Address</label>
-        <textarea name="address" class="form-control">{{ $company['address'] ?? '' }}</textarea>
+        <textarea name="address" class="form-control" required>{{ $company['address'] ?? '' }}</textarea>
     </div>
 
     <div class="col-md-4 form-group">
         <label>Pincode</label>
-        <input type="text" name="pincode" value="{{ $company['pincode'] ?? '' }}" class="form-control">
+        <input type="text" name="pincode" value="{{ $company['pincode'] ?? '' }}" class="form-control" required>
     </div>
 
     <div class="col-md-4 form-group">
         <label>Phone</label>
-        <input type="text" name="phone" value="{{ $company['phone'] ?? '' }}" class="form-control">
+        <input type="text" name="phone" value="{{ $company['phone'] ?? '' }}" class="form-control" required>
     </div>
 
     <div class="col-md-4 form-group">
         <label>Website</label>
-        <input type="text" name="website" value="{{ $company['website'] ?? '' }}" class="form-control">
+        <input type="text" name="website" value="{{ $company['website'] ?? '' }}" class="form-control" required>
     </div>
 </div>
 
@@ -47,25 +48,105 @@
 <div class="row g-3">
     <div class="col-md-4 form-group">
         <label>Category</label>
-        <input type="text" name="category" value="{{ $company['category'] ?? '' }}" class="form-control">
+        <select id="categoryDropdown" name="category" class="form-control" required>
+            <option value="">Loading...</option>
+        </select>
     </div>
 
-    <!-- <div class="col-md-4 form-group">
+    <div class="col-md-4 form-group" id="otherCategoryBox" style="display:none;">
+        <label>Other (Travel / Hospitality)</label>
+        <input type="text" id="otherCategoryInput" class="form-control" placeholder="Enter your category">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dropdown = document.getElementById("categoryDropdown");
+            const otherBox = document.getElementById("otherCategoryBox");
+            const otherInput = document.getElementById("otherCategoryInput");
+            const form = dropdown.closest("form");
+
+            fetch("{{ url('public/assets/dictionary.json') }}")
+                .then(res => res.json())
+                .then(data => {
+                    dropdown.innerHTML = '<option value="">Select Keyword</option>';
+
+                    const grouped = {};
+                    data.forEach(item => {
+                        if (!grouped[item.category]) {
+                            grouped[item.category] = [];
+                        }
+                        grouped[item.category].push(item.keyword);
+                    });
+
+                    Object.keys(grouped).forEach(category => {
+                        const optgroup = document.createElement("optgroup");
+                        optgroup.label = category;
+
+                        grouped[category].forEach(keyword => {
+                            const option = document.createElement("option");
+                            option.value = keyword;
+                            option.textContent = keyword.charAt(0).toUpperCase() + keyword.slice(1);
+                            optgroup.appendChild(option);
+                        });
+
+                        dropdown.appendChild(optgroup);
+                    });
+
+                    const otherOption = document.createElement("option");
+                    otherOption.value = "__other__";
+                    otherOption.textContent = "Other (Travel / Hospitality related)";
+                    dropdown.appendChild(otherOption);
+
+                    const selected = "{{ $company['category'] ?? '' }}";
+                    if (selected) dropdown.value = selected;
+                });
+
+            // ONLY change → make "other" required when visible
+            dropdown.addEventListener("change", function () {
+                if (this.value === "__other__") {
+                    otherBox.style.display = "block";
+                    otherInput.setAttribute("required", "required");
+                } else {
+                    otherBox.style.display = "none";
+                    otherInput.removeAttribute("required");
+                }
+            });
+
+            form.addEventListener("submit", function () {
+                if (dropdown.value === "__other__") {
+                    const val = otherInput.value.trim();
+
+                    if (val !== "") {
+                        let hidden = document.createElement("input");
+                        hidden.type = "hidden";
+                        hidden.name = "category";
+                        hidden.value = "other - " + val;
+
+                        form.appendChild(hidden);
+                        dropdown.removeAttribute("name");
+                    }
+                }
+            });
+        });
+    </script>
+</div>
+
+<!-- <div class="col-md-4 form-group">
         <label>GST Number</label>
         <input type="text" name="gst_number" value="{{ $company['gst_number'] ?? '' }}" class="form-control">
     </div> -->
-    <!-- 
+<!-- 
     <div class="col-md-4 form-group">
         <label>Sales Person</label>
         <input type="text" name="sales_person" value="{{ $company['sales_person'] ?? '' }}" class="form-control">
     </div> -->
 
-    <!-- <div class="col-md-4 form-group">
+<!-- <div class="col-md-4 form-group">
         <label>Branch Offices</label>
         <input type="text" name="branch_offices" value="{{ $company['branch_offices'] ?? '' }}" class="form-control">
     </div> -->
 
-    <div class="col-md-4 form-group">
+<!-- <div class="col-md-4 form-group">
         <label>Total Staff</label>
         <input type="text" name="total_staff" value="{{ $company['total_staff'] ?? '' }}" class="form-control">
     </div>
@@ -74,12 +155,12 @@
         <label>Association Membership</label>
         <input type="text" name="association_membership" value="{{ $company['association_membership'] ?? '' }}"
             class="form-control">
-    </div>
-</div>
-
-<div class="section-title">Business Profile</div>
-<div class="row g-3">
-    <!-- <div class="col-md-6 form-group">
+    </div>-->
+<!-- </div> -->
+<!--
+<div class="section-title">Business Profile</div> 
+    <div class="row g-3"> -->
+<!-- <div class="col-md-6 form-group">
         <label>Buyer Responsibility</label>
         <select name="buyer_responsibility" class="form-control">
             <option value="Owner" {{ ($contact->buyer_responsibility ?? '') == 'Owner' ? 'selected' : '' }}>Owner</option>
@@ -89,7 +170,7 @@
         </select>
     </div> -->
 
-    <div class="col-md-6 form-group">
+<!-- <div class="col-md-6 form-group">
         <label>Reason for Attending</label>
         <div class="d-flex gap-4 pt-2">
             <label>
@@ -103,8 +184,8 @@
             </label>
         </div>
     </div>
-</div>
-
+</div> -->
+<!-- 
 <div class="section-title">Travel Segments</div>
 <div class="row g-3">
     <div class="col-md-12">
@@ -117,8 +198,8 @@
             </label>
         @endforeach
     </div>
-</div>
-
+</div> -->
+<!-- 
 <div class="section-title">Meeting Preferences</div>
 <div class="row g-3">
     <div class="col-md-6 form-group">
@@ -163,4 +244,4 @@
             No
         </label>
     </div>
-</div>
+</div> -->
