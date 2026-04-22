@@ -299,210 +299,210 @@ class RegisterController extends Controller
     public function registaritonsubmit(Request $request)
     {
 
-//         $subcategory = $request->category;
-//         $Categorycontroller = new IdentifycategoryController();
-//         $checkcateogory = $Categorycontroller->category($subcategory);
-//         $checkedcategroyvalue = $checkcateogory->getData()->category;
-//         // dd($checkedcategroyvalue);
+        $subcategory = $request->category;
+        $Categorycontroller = new IdentifycategoryController();
+        $checkcateogory = $Categorycontroller->category($subcategory);
+        $checkedcategroyvalue = $checkcateogory->getData()->category;
+        // dd($checkedcategroyvalue);
 
 
-//         $map = [
-//             "Hospitality" => "Hotel",
-//             "Travel Agency" => "TA",
-//             "Aviation" => "TA",
-//             "Transport" => "TA",
-//             "MICE" => "TA",
-//             "Adventure" => "TA",
-//             "TA" => "TA",
-//         ];
+        $map = [
+            "Hospitality" => "Hotel",
+            "Travel Agency" => "TA",
+            "Aviation" => "TA",
+            "Transport" => "TA",
+            "MICE" => "TA",
+            "Adventure" => "TA",
+            "TA" => "TA",
+        ];
 
-//         $final_category = $map[$checkedcategroyvalue] ?? "Other";
-//         // $subcategory = $request->category;
+        $final_category = $map[$checkedcategroyvalue] ?? "Other";
+        // $subcategory = $request->category;
 
-//         // dd($final_category);
+        // dd($final_category);
 
-//         $contact_id = $request->contact_id;
-//         $company_id = $request->company_id;
-//         $event_id = $request->event_id;
-//         $event = DB::table('events')
-//             ->where('event_id', $event_id)
-//             ->first();
-//         // dd($request->all());
-//         // echo '<pre>';
-//         // print_r($request->all());
-//         // echo '</pre>';
-//         // die();      
-//         $eventname = $event->name;
-//         // dd($eventname);
-//         // 1. UPDATE Master Records
+        $contact_id = $request->contact_id;
+        $company_id = $request->company_id;
+        $event_id = $request->event_id;
+        $event = DB::table('events')
+            ->where('event_id', $event_id)
+            ->first();
+        // dd($request->all());
+        // echo '<pre>';
+        // print_r($request->all());
+        // echo '</pre>';
+        // die();      
+        $eventname = $event->name;
+        // dd($eventname);
+        // 1. UPDATE Master Records
 
-//         // dd($request->all());
-//         DB::table('contact')->where('contact_id', $contact_id)->update([
-//             'name' => $request->name,
-//             'designation' => $request->designation
-//         ]);
+        // dd($request->all());
+        DB::table('contact')->where('contact_id', $contact_id)->update([
+            'name' => $request->name,
+            'designation' => $request->designation
+        ]);
 
-//         DB::table('contact_mobile')->where('contact_id', $contact_id)->update([
-//             'mobile' => $request->mobile
-//         ]);
+        DB::table('contact_mobile')->where('contact_id', $contact_id)->update([
+            'mobile' => $request->mobile
+        ]);
 
-//         DB::table('contact_email')->where('contact_id', $contact_id)->update([
-//             'email' => $request->email
-//         ]);
+        DB::table('contact_email')->where('contact_id', $contact_id)->update([
+            'email' => $request->email
+        ]);
 
-//         DB::table('company_data')->where('company_id', $company_id)->update([
-//             'company_name' => $request->company_name,
-//             'city' => $request->city,
-//             'state' => $request->state,
-//             'pincode' => $request->pincode,
+        DB::table('company_data')->where('company_id', $company_id)->update([
+            'company_name' => $request->company_name,
+            'city' => $request->city,
+            'state' => $request->state,
+            'pincode' => $request->pincode,
 
-//             'subcategory' => $request->category,
-//             'category' => $final_category,
-//             'country' => $request->country,
-//             'website' => $request->website,
-//             'branch_offices' => $request->branch_offices,
-//             'total_staff' => $request->total_staff,
-//             'travel_segments' => $request->travel_segments,
-//             'meet_profiles' => $request->meet_profiles,
-//             'meet_regions' => $request->meet_regions,
-//             'interested_states' => $request->interested_states,
-//             'database_name' => "online_registration ".$eventname. date('Y'),
-//             'entry_type' => 'main',
-//             'updated_at' => now()
-//         ]);
-// // dd($company_id);
-// echo $company_id;
-// DB::table('company_sources')->insert([
-//     'company_id' => $company_id,
-//     'notes' => "Online Registration " . $eventname . " " . date('Y'),
-//     'event_date' => $event->start_date
-// ]);
+            'subcategory' => $request->category,
+            'category' => $final_category,
+            'country' => $request->country,
+            'website' => $request->website,
+            'branch_offices' => $request->branch_offices,
+            'total_staff' => $request->total_staff,
+            'travel_segments' => $request->travel_segments,
+            'meet_profiles' => $request->meet_profiles,
+            'meet_regions' => $request->meet_regions,
+            'interested_states' => $request->interested_states,
+            'database_name' => "online_registration ".$eventname. date('Y'),
+            'entry_type' => 'main',
+            'updated_at' => now()
+        ]);
+// dd($company_id);
+echo $company_id;
+DB::table('company_sources')->insert([
+    'company_id' => $company_id,
+    'notes' => "Online Registration " . $eventname . " " . date('Y'),
+    'event_date' => $event->start_date
+]);
     
-// // dd(request()->all());
-// // $allsouce = db::table('company_sources')->where('company_id', "CAC84066E")->get();
-// // dd($allsouce);
-//         $unique_id = 'CMP_' . uniqid();
+// dd(request()->all());
+// $allsouce = db::table('company_sources')->where('company_id', "CAC84066E")->get();
+// dd($allsouce);
+        $unique_id = 'CMP_' . uniqid();
 
-//         // 1. company_data
-//         // DB::table('company_data')->insert([
-//         //     'company_id' => $unique_id,
-//         // 2. INSERT Duplicate Registration Entry
-//         $databasenew = $eventname." ". date('Y');
-//         $newCompanyId = DB::table('company_data')->insertGetId([
-//             'company_id' => $unique_id,
-//             'company_name' => $request->company_name,
-//             'city' => $request->city,
-//             'state' => $request->state,
-//             'pincode' => $request->pincode,
-//             'country' => $request->country,
-//             'category' => $final_category,
-//             'subcategory' => $request->category,
-//             'address' => $request->address,
-//             'website' => $request->website,
-//             'branch_offices' => $request->branch_offices,
-//             'total_staff' => $request->total_staff,
-//             'travel_segments' => $request->travel_segments,
-//             'meet_profiles' => $request->meet_profiles,
-//             'meet_regions' => $request->meet_regions,
-//             'interested_states' => $request->interested_states,
-//             'entry_type' => 'online_Registration',
-//             'cross_validation' => '0',
-//             'database_name' => $databasenew,
-//             'active_inactive' => 'active',
-//             'created_at' => now(),
-//             'updated_at' => now()
+        // 1. company_data
+        // DB::table('company_data')->insert([
+        //     'company_id' => $unique_id,
+        // 2. INSERT Duplicate Registration Entry
+        $databasenew = $eventname." ". date('Y');
+        $newCompanyId = DB::table('company_data')->insertGetId([
+            'company_id' => $unique_id,
+            'company_name' => $request->company_name,
+            'city' => $request->city,
+            'state' => $request->state,
+            'pincode' => $request->pincode,
+            'country' => $request->country,
+            'category' => $final_category,
+            'subcategory' => $request->category,
+            'address' => $request->address,
+            'website' => $request->website,
+            'branch_offices' => $request->branch_offices,
+            'total_staff' => $request->total_staff,
+            'travel_segments' => $request->travel_segments,
+            'meet_profiles' => $request->meet_profiles,
+            'meet_regions' => $request->meet_regions,
+            'interested_states' => $request->interested_states,
+            'entry_type' => 'online_Registration',
+            'cross_validation' => '0',
+            'database_name' => $databasenew,
+            'active_inactive' => 'active',
+            'created_at' => now(),
+            'updated_at' => now()
 
-//         ]);
+        ]);
 
 
         
 
-//         $newContactId = DB::table('contact')->insertGetId([
-//             'company_id' => $unique_id,
-//             'name' => $request->name,
-//             'designation' => $request->designation,
-//             'created_at' => now()
-//         ]);
+        $newContactId = DB::table('contact')->insertGetId([
+            'company_id' => $unique_id,
+            'name' => $request->name,
+            'designation' => $request->designation,
+            'created_at' => now()
+        ]);
 
-//         DB::table('contact_mobile')->insert([
-//             'contact_id' => $newContactId,
-//             'mobile' => $request->mobile,
-//             'is_primary' => 1,
-//             'created_at' => now()
-//         ]);
+        DB::table('contact_mobile')->insert([
+            'contact_id' => $newContactId,
+            'mobile' => $request->mobile,
+            'is_primary' => 1,
+            'created_at' => now()
+        ]);
 
-//         DB::table('contact_email')->insert([
-//             'contact_id' => $newContactId,
-//             'email' => $request->email,
-//             'is_primary' => 1,
-//             'created_at' => now()
-//         ]);
-
-
-
-//         // $category = 'unknown';
-
-//         // if ($request->travel_segments == 'domestic') {
-//         //     $category = 'domestic';
-//         // } else if ($request->travel_segments == 'international') {
-//         //     $category = 'international';
-//         // }
-
-//         // 3. Fetch for Preview
-//         $dbData = DB::table('contact')
-//             ->join('contact_mobile', 'contact.contact_id', '=', 'contact_mobile.contact_id')
-//             ->join('contact_email', 'contact.contact_id', '=', 'contact_email.contact_id')
-//             ->leftJoin('company_data', 'contact.company_id', '=', 'company_data.company_id')
-//             ->where('contact.contact_id', $newContactId)
-//             ->select('contact.*', 'contact_mobile.mobile', 'contact_email.email', 'company_data.*')
-//             ->first();
-
-//         $event = DB::table('events')
-//             ->where('event_id', $event_id)
-//             ->first();
-
-//         if (!$event) {
-//             return response()->json([
-//                 'status' => false,
-//                 'message' => 'Event not found'
-//             ]);
-//         }
+        DB::table('contact_email')->insert([
+            'contact_id' => $newContactId,
+            'email' => $request->email,
+            'is_primary' => 1,
+            'created_at' => now()
+        ]);
 
 
-//         $eventName = $event->name;
-//         $cityName = $event->name;
-//         $eventTime = $event->start_date;
-//         $companyName = strtolower($request->company_name);
-//         $Categorycontroller = new IdentifycategoryController();
-//         $checkcateogorycompanyname = $Categorycontroller->category($companyName);
-//         $checkedcategroy = $Categorycontroller->category($subcategory);
-//         $checkcateogorycompanynamevalue = $checkcateogorycompanyname->getData()->category;
-//         $checkedcategroyvalue = $checkcateogory->getData()->category;
 
-//         $final_category_from_company_name = $map[$checkcateogorycompanynamevalue] ?? "Other";
-//         $final_category_from_category = $map[$checkedcategroyvalue] ?? "Other";
+        // $category = 'unknown';
 
-//         echo "Final Category: " . $final_category . "<br>";
-//         echo "Category from Company: " . $final_category_from_company_name . "<br>";
-//         echo "Category from Category: " . $final_category_from_category . "<br>";
+        // if ($request->travel_segments == 'domestic') {
+        //     $category = 'domestic';
+        // } else if ($request->travel_segments == 'international') {
+        //     $category = 'international';
+        // }
 
-//         // Use strtolower to make the check case-insensitive
-//         if (
-//             strtolower($final_category) == 'other' &&
-//             strtolower($final_category_from_company_name) == 'other' &&
-//             strtolower($final_category_from_category) == 'other'
-//         ) {
-//             echo "this Is Completely Other";
-//             $status = 'Under Review';
-//             $message = 'Registration under review...';
-//         } else {
-//             echo "this Is Completely Approved";
-//             $status = 'approved';
-//             $message = 'Registration successful!';
-//         }
-        // dd($status, $message);
+        // 3. Fetch for Preview
+        $dbData = DB::table('contact')
+            ->join('contact_mobile', 'contact.contact_id', '=', 'contact_mobile.contact_id')
+            ->join('contact_email', 'contact.contact_id', '=', 'contact_email.contact_id')
+            ->leftJoin('company_data', 'contact.company_id', '=', 'company_data.company_id')
+            ->where('contact.contact_id', $newContactId)
+            ->select('contact.*', 'contact_mobile.mobile', 'contact_email.email', 'company_data.*')
+            ->first();
 
-       // 4. Mail ONLY if status is 'approved'
+        $event = DB::table('events')
+            ->where('event_id', $event_id)
+            ->first();
+
+        if (!$event) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Event not found'
+            ]);
+        }
+
+
+        $eventName = $event->name;
+        $cityName = $event->name;
+        $eventTime = $event->start_date;
+        $companyName = strtolower($request->company_name);
+        $Categorycontroller = new IdentifycategoryController();
+        $checkcateogorycompanyname = $Categorycontroller->category($companyName);
+        $checkedcategroy = $Categorycontroller->category($subcategory);
+        $checkcateogorycompanynamevalue = $checkcateogorycompanyname->getData()->category;
+        $checkedcategroyvalue = $checkcateogory->getData()->category;
+
+        $final_category_from_company_name = $map[$checkcateogorycompanynamevalue] ?? "Other";
+        $final_category_from_category = $map[$checkedcategroyvalue] ?? "Other";
+
+        echo "Final Category: " . $final_category . "<br>";
+        echo "Category from Company: " . $final_category_from_company_name . "<br>";
+        echo "Category from Category: " . $final_category_from_category . "<br>";
+
+        // Use strtolower to make the check case-insensitive
+        if (
+            strtolower($final_category) == 'other' &&
+            strtolower($final_category_from_company_name) == 'other' &&
+            strtolower($final_category_from_category) == 'other'
+        ) {
+            echo "this Is Completely Other";
+            $status = 'Under Review';
+            $message = 'Registration under review...';
+        } else {
+            echo "this Is Completely Approved";
+            $status = 'approved';
+            $message = 'Registration successful!';
+        }
+        dd($status, $message);
+
+    // /// /// ///// ///    4. Mail ONLY if status is 'approved'
      
 
 // Mail::to('marketing1@iitmindia.com')
@@ -543,8 +543,6 @@ $data = [
 //     ->send(new RegistrationSuccessMail($data));
 
 //         }
-$heool = "heool";
-// dd($heool);
 
 
      $data['print']=true;

@@ -79,7 +79,7 @@ if (!$contactid) {
 
 public function generatebadge($company_id, $contact_id, $db)
 {
-    $company_id = 'CMP_69e8618721e5b';     
+    // $company_id = 'CMP_69e8618721e5b';     
     $contactdatafromcompanyid=  DB::table('contact')->where('company_id', $company_id)->first();
     
     // dd($contactdatafromcompanyid);
