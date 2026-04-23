@@ -206,8 +206,8 @@
             <a href="{{ route('exhibiting') }}">Exhibit</a>
             <a href="{{ route('attending') }}">Visit</a>
             <a href="/resources">Resources</a>
-            <a href="/gallery">Gallery</a>
-                    <a href="/about-us">About</a>
+            <a href="{{ route('gallery') }}">Gallery</a>
+            <a href="/about-us">About</a>
 
             <a href="/contact-us">Contact</a>
         </nav>

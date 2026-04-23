@@ -72,73 +72,88 @@
             z-index: 9998 !important;
         }
     </style>
-
     <div class="matte-card">
         <div class="section-wrapper">
             <style>
                 .section-wrapper {
-                    padding: 15px 5px;
+                    padding: 30px 10px 20px;
+                    /* Increased breathing room */
                     text-align: center;
-                    background-color: #0a0a0b;
+                    background-color: #ffffff;
+                    /* Prestigious white background */
                     font-family: 'Inter', sans-serif;
+                    background-image: radial-gradient(#eee 1px, transparent 1px);
+                    background-size: 30px 30px;
+                    /* Subtle architectural grid */
                 }
 
                 .section-header {
-                    max-width: 900px;
+                    max-width: 1000px;
                     margin: 0 auto;
                 }
 
-                /* Fancy Animated Title */
+                /* High-End Serif Title */
                 .section-header h2 {
-                    font-size: clamp(2.5rem, 5vw, 4rem);
-                    font-weight: 900;
-                    margin-bottom: 20px;
+                    font-family: Georgia, serif;
+                    font-size: clamp(2.5rem, 6vw, 4.5rem);
+                    font-weight: normal;
+                    margin-bottom: 30px;
                     letter-spacing: -1px;
-                    color: #ffffff;
-                    line-height: 1.1;
+                    color: #111;
+                    /* Sharp black */
+                    line-height: 1;
                 }
 
-                /* Highlighting the keywords with your brand variable */
+                /* The IITM Crimson Highlight */
                 .highlight-text {
-                    color: var(--iitm-background2);
-                    text-shadow: 0 0 30px color-mix(in srgb, var(--iitm-background2), transparent 60%);
+                    color: #aa2324;
+                    /* Official IITM Red */
                     display: inline-block;
                     position: relative;
+                    padding: 0 5px;
                 }
 
-                .intro-text {
-                    color: #94a3b8;
-                    font-size: 1.25rem;
-                    line-height: 1.6;
-                    max-width: 700px;
+                /* Clean Corporate Subtext */
+                .intro-textx {
+                    color: #aa2324;
+                    font-size: 1.35rem;
+                    line-height: 1.8;
+                    max-width: 750px;
                     margin: 0 auto;
-                    position: relative;
+                    font-weight: 300;
                 }
 
-                /* Subtle decorative line under the header */
+                /* Formal decorative line - No Glow, just Solid Brand Red */
                 .section-header::after {
                     content: '';
                     display: block;
-                    width: 60px;
+                    width: 80%;
                     height: 4px;
-                    background: var(--iitm-background2);
-                    margin: 30px auto 0;
-                    border-radius: 2px;
-                    box-shadow: 0 0 15px var(--iitm-background2);
+                    background: #aa2324;
+                    margin: 20px auto 0;
+                    border-radius: 0px;
+                    /* Sharp, professional edges */
                 }
 
-                /* Animated Entrance */
+                /* Subtle Professional Entrance */
                 .section-header {
                     opacity: 0;
-                    transform: translateY(20px);
-                    animation: fadeInUp 1s ease forwards;
+                    transform: translateY(15px);
+                    animation: formalFadeIn 1.2s ease-out forwards;
                 }
 
-                @keyframes fadeInUp {
+                @keyframes formalFadeIn {
                     to {
                         opacity: 1;
                         transform: translateY(0);
                     }
+                }
+
+                /* Container for the included templates */
+                .content-wrapper {
+                    background: #fff;
+                    position: relative;
+                    z-index: 2;
                 }
             </style>
 
@@ -157,13 +172,17 @@
             @include('web.templates.intro')
             @include('web.templates.cities')
             @include('web.templates.whyexhibit')
-            @include('web.templates.vision')
+            <!-- @include('web.templates.vision')
             @include('web.templates.exhibit')
             @include('web.templates.about')
             @include('web.templates.contactus')
-            @include('web.templates.tourismboard')
+            @include('web.templates.tourismboard') -->
         </div>
     </div>
+
+
+
+
 </div>
 <style>
     .side-menu {

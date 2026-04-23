@@ -85,6 +85,8 @@ class AuthController extends Controller
 
     public function requestOtp(Request $request, $input = null, $eventid = null)
     {
+
+        // dd($request->all());
         $inputValue = $request->input('input');
 
         if (!$inputValue) {
@@ -102,13 +104,14 @@ class AuthController extends Controller
             return back()->with('error', 'Invalid mobile or email');
         }
 
-        $eventId = $request->input('event_id') ?? $eventid;
-
-        if ($eventId) {
+        // dd($mobile, $email);
+        $event = null;
+        if ($request->event_id) {
             $event = DB::table('events')
-                ->where('event_id', $eventId)
+                ->where('event_id', $request->event_id)
                 ->first();
 
+            // dd($event);
             if (!$event) {
                 return back()->with('error', 'Invalid event ID');
             }
@@ -179,6 +182,7 @@ class AuthController extends Controller
     }
 
 
+
     public function createnewentry($company_name = null, $mobile = null, $email = null)
     {
 
@@ -194,7 +198,7 @@ class AuthController extends Controller
             // 1. company_data
             DB::table('company_data')->insert([
                 'company_id' => $unique_id,
-                'database_name' => null,
+                'database_name' => "main",
                 'outbound' => 0,
                 'company_name' => $company_name ?? 'Enter Company Name',
                 'category' => null,

@@ -158,6 +158,7 @@ Route::get('api/identifycategory/{nameofthecompany}', [IdentifycategoryControlle
 
 Route::post('/dictionary/update', [IdentifycategoryController::class, 'update'])->name('dictionary.update');
 Route::get('/dictionary', [IdentifycategoryController::class, 'dictionaryEditor'])->name('dictionary.update');
+Route::get('/dictionary/json', [IdentifycategoryController::class, 'getDictionaryJson']);
 // Route::post('', [IdentifycategoryController::class,
 
 
@@ -189,5 +190,10 @@ use App\Http\Controllers\AssetsController;
 
 Route::get('/assets', [AssetsController::class, 'index']);
 
+
+
+use App\Http\Controllers\GalleryController;
+
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 

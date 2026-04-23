@@ -1,125 +1,198 @@
-<div id="iitm-hero">
+<section class="iitm-about-section">
     <style>
-        #iitm-hero {
-            width: 100%;
-            height: 85vh;
-            /* Optimized height for focus */
+        .iitm-about-section {
+            padding: 100px 20px;
+            background: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        .iitm-about-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
-                url('https://plus.unsplash.com/premium_photo-1685199652070-bbb3f17b2eda?q=80&w=735&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            color: #ffffff;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            gap: 60px;
         }
 
-        .glass-container {
-            max-width: 900px;
-            padding: 60px 40px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .logo-box {
-            margin-bottom: 30px;
-        }
-
-        .logo-box img {
-            height: 60px;
-            /* Adjust based on your logo aspect ratio */
-            filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.3));
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin: 0 0 20px;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-        }
-
-        .intro-text {
-            font-size: 1.25rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.85);
-            max-width: 700px;
-            margin: 0 auto 40px;
-            font-weight: 400;
-        }
-
-        .cta-group {
+        /* The Visual "Heritage" Side */
+        .iitm-about-visual {
+            flex: 1;
+            position: relative;
             display: flex;
-            gap: 15px;
             justify-content: center;
         }
 
-        .main-btn {
-            padding: 14px 32px;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .image-stack {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            height: 550px;
         }
 
-        .btn-gold {
-            background: #fbbf24;
-            color: #0f172a;
+        .main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 20px 20px 0px #aa2324;
+            /* Brand Red Offset */
         }
 
-        .btn-outline {
-            background: transparent;
+        .experience-badge {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: #111;
             color: #fff;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
-        .main-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-            border-color: #fff;
+        .experience-badge .years {
+            font-family: Georgia, serif;
+            font-size: 3rem;
+            display: block;
+            line-height: 1;
+            color: #aa2324;
         }
 
-        /* Responsive Fixes */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.2rem;
-            }
+        .experience-badge .text {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
 
-            .intro-text {
-                font-size: 1.1rem;
-            }
+        /* The "Content" Side */
+        .iitm-about-content {
+            flex: 1;
+            text-align: left;
+        }
 
-            .cta-group {
+        .iitm-tagline {
+            color: #aa2324;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .iitm-about-content h2 {
+            font-family: Georgia, serif;
+            font-size: 3rem;
+            color: #111;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .iitm-about-content p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        /* Feature Grid for the "If you strive..." section */
+        .iitm-benefit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .benefit-icon {
+            width: 12px;
+            height: 12px;
+            background: #aa2324;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #222;
+        }
+
+        @media (max-width: 992px) {
+            .iitm-about-container {
                 flex-direction: column;
+                text-align: center;
+            }
+
+            .iitm-about-content {
+                text-align: center;
+            }
+
+            .iitm-about-visual {
+                margin-bottom: 60px;
+            }
+
+            .benefit-item {
+                justify-content: center;
+            }
+
+            .iitm-benefit-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 
-    <div class="glass-container">
-        <div class="logo-box">
-            <img src="http://iitmindia.com/assets/iitm2.png">
+    <div class="iitm-about-container">
+        <div class="iitm-about-visual">
+            <div class="image-stack">
+
+                <img src="{{ url('public/assets/5.jpg') }}" class="main-img" alt="Exhibition Hall">
+                <div class="experience-badge">
+                    <span class="years">25+</span>
+                    <span class="text">Years of<br>Legacy</span>
+                </div>
+            </div>
         </div>
 
-        <h1 class="hero-title">Experience the Best of Travel Industry</h1>
+        <div class="iitm-about-content">
+            <span class="iitm-tagline">About IITM India</span>
+            <h2>Strengthening the <span style="color:#aa2324">Travel Community</span> Since 1998</h2>
 
-        <p class="intro-text">
-            IITM is India's premier platform for travel-trade exhibitions, fostering
-            meaningful B2B and B2C interactions across major metropolitan hubs.
-        </p>
+            <p>
+                IITM is a pioneer in travel-trade exhibitions, facilitating a platform for enthusiasts and experts of
+                the global travel community to meet, showcase, and trade the future of travel services.
+            </p>
 
-        <div class="cta-group">
-            <a href="#register" class="main-btn btn-gold">Get Visitor Pass</a>
-            <a href="#events" class="main-btn btn-outline">Explore Exhibitions</a>
+            <p>
+                We provide the catalyst to accelerate your business by bridging the gap between potential collaborators
+                and premium customers across India’s major metropolitan hubs.
+            </p>
+
+            <div class="iitm-benefit-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <div class="benefit-text">Connect with Industry Leaders</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <div class="benefit-text">Reinforce Brand Presence</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <div class="benefit-text">Escalate Market Visibility</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <div class="benefit-text">Establish New Partnerships</div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>

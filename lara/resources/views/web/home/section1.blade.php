@@ -187,8 +187,8 @@
             logo.style.visibility = "";
             logo.style.pointerEvents = "";
             logo.classList.add('show');
-        logo.style.display = "block";
- 
+            logo.style.display = "block";
+
             // 1. Remove the blur
             hero.classList.remove('idle');
 
@@ -300,6 +300,6 @@
 
         setTimeout(() => {
             section.classList.add('show');
-        }, 3000); // 3 seconds
+        }, 2000); // 3 seconds
     });
 </script>

@@ -1,147 +1,183 @@
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@300;400;700;900&display=swap');
+
     :root {
-        --accent-cyan: #00f5ff;
-        --accent-pink: #ff00d4;
-        --accent-yellow: #ffe600;
-        --glass: rgba(255, 255, 255, 0.05);
+        --iitm-red: #aa2324;
+        --iitm-gold: #c5a059;
+        --iitm-black: #0a0a0a;
+        --iitm-white: #ffffff;
     }
 
     body {
         margin: 0;
-        background-color: #050505;
-        color: #fff;
+        background-color: var(--iitm-black);
+        color: var(--iitm-white);
         font-family: 'Inter', sans-serif;
     }
 
-    /* HERO */
+    /* --- BACKGROUND IMAGE LAYER --- */
+    .iitm-bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+            url('public/assets/4.jpg') no-repeat center center;
+        background-size: cover;
+        transition: opacity 0.8s ease, transform 1.2s ease;
+    }
+
+    .bg-hidden {
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(1.1);
+    }
+
+    /* --- HERO CONTENT --- */
     .hero-promo {
-        height: 85vh;
+        height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-        background: radial-gradient(circle at center, #111 0%, #000 100%);
-        position: relative;
-        overflow: hidden;
-        padding-top: 60px;
+        padding: 0 20px;
     }
 
     .media-tag {
-        display: block;
-        margin-bottom: 15px;
-        font-size: 0.9rem;
-        font-weight: 700;
-        letter-spacing: 4px;
+        display: inline-block;
+        margin-bottom: 25px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 6px;
         text-transform: uppercase;
-        color: var(--accent-pink);
+        color: var(--iitm-gold);
+        position: relative;
+    }
+
+    .media-tag::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 25%;
+        width: 50%;
+        height: 2px;
+        background: var(--iitm-red);
     }
 
     .hero-content h1 {
-        font-size: clamp(2.5rem, 8vw, 5rem);
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(3rem, 10vw, 7rem);
+        line-height: 0.85;
+        margin-bottom: 35px;
+        font-weight: 600;
+    }
+
+    .hero-content h1 em {
+        font-style: italic;
+        color: var(--iitm-white);
+    }
+
+    .hero-content h1 span {
+        display: block;
+        font-family: 'Inter', sans-serif;
         font-weight: 900;
+        font-style: normal;
+        color: var(--iitm-red);
         text-transform: uppercase;
-        line-height: 0.9;
-        margin-bottom: 30px;
-        background: linear-gradient(to bottom, #fff 50%, #888);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        letter-spacing: -2px;
     }
 
-    /* DESCRIPTION (removed inline style) */
     .hero-description {
-        color: #aaa;
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto 35px;
-        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.15rem;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.8;
+        font-weight: 300;
     }
 
-    /* STATS */
+    /* --- COMPACT STATS (IITM STYLE) --- */
     .stats-bar {
+        background: rgba(10, 10, 10, 0.8);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-top: 1px solid rgba(197, 160, 89, 0.2);
+        /* Gold subtle tint */
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .stats-inner {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        background: var(--glass);
-        backdrop-filter: blur(10px);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 40px 0;
-    }
-
-    .stat-item {
+        max-width: 1200px;
+        width: 100%;
         text-align: center;
     }
 
+    /* Target the highlights include specifically */
     .stat-number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: var(--accent-yellow);
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 3.5rem;
+        color: var(--iitm-gold);
+        margin-bottom: 5px;
     }
 
     .stat-label {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         text-transform: uppercase;
-        color: #888;
-        letter-spacing: 1px;
+        letter-spacing: 3px;
+        color: var(--iitm-red);
+        font-weight: 800;
     }
 </style>
 
 <div class="promotion-page">
 
-    <!-- HERO -->
+    <div class="iitm-bg-layer" id="iitmBg"></div>
+
     <section class="hero-promo">
         <div class="hero-content">
-
-            <span class="media-tag">2026 Pan-India Exhibition Series</span>
-
+            <span class="media-tag">Pan-India Series 2026</span>
             <h1>
-                Connecting the <br>
-                Travel Ecosystem
+                <em>Connecting the</em><br>
+                <span>Travel Ecosystem</span>
             </h1>
-
             <p class="hero-description">
-                The premier media and networking platform for tourism professionals across 9 major business hubs.
+                India's premier networking platform, bridging the gap between global exhibitors and the travel trade
+                community across 9 major business hubs.
             </p>
-
         </div>
     </section>
 
-    <!-- STATS -->
-    <section class="stats-bar">
-        <div class="stat-item">
-            <span class="stat-number">500+</span>
-            <span class="stat-label">Exhibitors</span>
-        </div>
+    @include('web.templates.keyperformancehighlights')
 
-        <div class="stat-item">
-            <span class="stat-number">9</span>
-            <span class="stat-label">Major Cities</span>
-        </div>
+    <!-- @include('web.templates.whyexhibit') -->
 
-        <div class="stat-item">
-            <span class="stat-number">50K+</span>
-            <span class="stat-label">Expected Buyers</span>
-        </div>
+    @include('web.templates.cities')
 
-        <div class="stat-item">
-            <span class="stat-number">B2B</span>
-            <span class="stat-label">Media Reach</span>
-        </div>
-    </section>
 
-    <!-- GRID -->
-    <section class="promo-section">
-        @include('web.templates.cities')
-        @include('web.participant.exhibiting.video')
+
+    <!-- @include('web.participant.exhibiting.video') -->
+
+
+
+    <section style="background:#fff; color:#000; padding:60px 0;">
+
     </section>
 
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const video = document.getElementById('promoVideo');
-        if (video) {
-            video.playbackRate = 0.5;
+    window.addEventListener('scroll', () => {
+        const bg = document.getElementById('iitmBg');
+        const scrollPos = window.scrollY;
+
+        // Hide background when user scrolls down
+        if (scrollPos > 120) {
+            bg.classList.add('bg-hidden');
+        } else {
+            bg.classList.remove('bg-hidden');
         }
     });
 </script>

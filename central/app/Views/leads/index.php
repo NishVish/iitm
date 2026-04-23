@@ -1,6 +1,6 @@
-<?= view('leads/side') ?>  <!-- loads app/Views/header.php -->
+<?= view('leads/side') ?> <!-- loads app/Views/header.php -->
 
-<h2>Leads 
+<h2>Leads
     <form action="<?= site_url('leads/clear') ?>" method="post" style="display:inline-block; margin-left:20px;">
         <?= csrf_field() ?>
         <button type="submit" onclick="return confirm('Are you sure you want to delete all leads?');">
@@ -52,109 +52,76 @@
 
 
 <!-- ================= LEADS TABLE ================= -->
-<table border="1" cellpadding="8" style="display:none;">
+<table id="leadsTable" border="1" cellpadding="8" style="width:100%; border-collapse:collapse;">
     <thead>
         <tr>
             <th>Lead ID</th>
             <th>Company</th>
             <th>Location</th>
             <th>Year</th>
-            <th>contact Person</th>
+            <th>Contact Person</th>
             <th>Sales Person</th>
             <th>Status</th>
             <th>Payment</th>
             <th>Action</th>
         </tr>
     </thead>
+
     <tbody>
         <?php if (!empty($leads)): ?>
             <?php foreach ($leads as $lead): ?>
                 <tr>
                     <td><?= esc($lead['lead_id']) ?></td>
                     <td><?= esc($lead['company_id']) ?></td>
-                    <!-- Safe check for all_locations -->
-
                     <td><?= esc($lead['all_locations'] ?? '-') ?></td>
                     <td><?= esc($lead['exhibition_year'] ?? '-') ?></td>
-                                         <td><?= esc($lead['contact_name']) ?>
-<?= esc($lead['designation']) ?>
-<?= esc($lead['primary_email']) ?>
-<?= esc($lead['primary_mobile']) ?>
-</td>
-
+                    <td>
+                        <?= esc($lead['contact_name']) ?>
+                        <?= esc($lead['designation']) ?>
+                        <?= esc($lead['primary_email']) ?>
+                        <?= esc($lead['primary_mobile']) ?>
+                    </td>
                     <td><?= esc($lead['sales_person'] ?? '-') ?></td>
                     <td><?= esc($lead['status'] ?? '-') ?></td>
                     <td><?= esc($lead['payment_status'] ?? '-') ?></td>
                     <td>
-                        <a href="<?= site_url('lead/details/' . esc($lead['lead_id'])) ?>">View Company</a>
-                        &nbsp;|&nbsp;
-                        <a href="<?= site_url('booking/instructions/'.$lead['lead_id']) ?>" class="btn btn-success btn-sm">Book Exhibitor</a>
+                        <a href="<?= site_url('lead/details/' . esc($lead['lead_id'])) ?>">View Company</a> |
+                        <a href="<?= site_url('booking/instructions/' . $lead['lead_id']) ?>">Book</a>
                     </td>
                 </tr>
             <?php endforeach ?>
         <?php else: ?>
             <tr>
-                <td colspan="8" style="text-align:center;">No leads found</td>
+                <td colspan="9" style="text-align:center;">No leads found</td>
             </tr>
         <?php endif ?>
     </tbody>
 </table>
 
 
-<!-- ================= LEADS TABLE ================= -->
-<div id="spreadsheet"></div>
-<button id="copyAllBtn">Copy All</button>
 
 <script>
-/* ================= PASS PHP DATA TO JS ================= */
-const leadsData = <?= json_encode(array_map(function($lead) {
-    // Generate the HTML string for the Action column
-    $actionHTML = '<a href="' . site_url('lead/details/' . $lead['lead_id']) . '">View Company</a> | ' .
-                  '<a href="' . site_url('booking/instructions/' . $lead['lead_id']) . '" class="btn btn-success btn-sm">Book Exhibitor</a>';
+    document.getElementById('copyAllBtn').addEventListener('click', function () {
+        let table = document.getElementById('leadsTable');
+        let rows = table.querySelectorAll('tr');
+        let text = '';
 
-    return [
-        $lead['lead_id'],
-        $lead['company_id'],
-        $lead['all_locations'] ?? '-',
-        $lead['exhibition_year'] ?? '-',
-        trim(($lead['contact_name'] ?? '') . ' ' . ($lead['designation'] ?? '') . ' ' . ($lead['primary_email'] ?? '') . ' ' . ($lead['primary_mobile'] ?? '')),
-        $lead['sales_person'] ?? '-',
-        $lead['status'] ?? '-',
-        $lead['payment_status'] ?? '-',
-        $actionHTML // The 9th column (index 8) containing the HTML
-    ];
-}, $leads)); ?>;
+        rows.forEach((row, rowIndex) => {
+            let cols = row.querySelectorAll('th, td');
+            let rowData = [];
 
-const columns = [
-    { title: "Lead ID" },
-    { title: "Company" },
-    { title: "Location" },
-    { title: "Year" },
-    { title: "Contact Details" },
-    { title: "Sales Person" },
-    { title: "Status" },
-    { title: "Payment" },
-    { title: "Action" } // This header will be used for the table but ignored in copy
-];
+            cols.forEach((col, colIndex) => {
+                // Skip last column (Action)
+                if (colIndex !== cols.length - 1) {
+                    rowData.push(col.innerText.trim());
+                }
+            });
 
-// Initialize with your real data
-const sheet = new Spreadsheet('spreadsheet', { 
-    data: leadsData, 
-    columns: columns 
-});
+            text += rowData.join('\t') + '\n';
+        });
 
-document.getElementById('copyAllBtn').addEventListener('click', () => sheet.copyAll());
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Copied!');
+        });
+    });
 </script>
-
-<style>
-
-
-    .adv-spreadsheet {
-        /* Force the table to be at least as wide as the container */
-        min-width: 100%; 
-        border-collapse: collapse;
-    }
-</style>
-
-<div id="spreadsheet"></div>
-<button id="copyAllBtn">Copy All</button>

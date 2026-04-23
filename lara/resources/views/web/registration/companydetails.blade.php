@@ -52,6 +52,13 @@
             <option value="">Loading...</option>
         </select>
     </div>
+    <div class="col-md-4 form-group">
+        <label>Sub Category</label>
+        <select id="subcategoryDropdown" name="subcategory" class="form-control" required>
+            <option value="">Loading...</option>
+        </select>
+    </div>
+
 
     <div class="col-md-4 form-group" id="otherCategoryBox" style="display:none;">
         <label>Other (Travel / Hospitality)</label>
@@ -60,60 +67,79 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const dropdown = document.getElementById("categoryDropdown");
+            const categoryDropdown = document.getElementById("categoryDropdown");
+            const subcategoryDropdown = document.getElementById("subcategoryDropdown");
             const otherBox = document.getElementById("otherCategoryBox");
             const otherInput = document.getElementById("otherCategoryInput");
-            const form = dropdown.closest("form");
+            const form = categoryDropdown.closest("form");
+
+            let categoryMap = {}; // store category → subcategories
 
             fetch("{{ url('public/assets/dictionary.json') }}")
                 .then(res => res.json())
                 .then(data => {
-                    dropdown.innerHTML = '<option value="">Select Keyword</option>';
+                    categoryDropdown.innerHTML = '<option value="">Select Category</option>';
 
-                    const grouped = {};
+                    // Build mapping
                     data.forEach(item => {
-                        if (!grouped[item.category]) {
-                            grouped[item.category] = [];
+                        if (!categoryMap[item.category]) {
+                            categoryMap[item.category] = [];
                         }
-                        grouped[item.category].push(item.keyword);
+                        categoryMap[item.category].push(item.keyword); // subcategory
                     });
 
-                    Object.keys(grouped).forEach(category => {
-                        const optgroup = document.createElement("optgroup");
-                        optgroup.label = category;
-
-                        grouped[category].forEach(keyword => {
-                            const option = document.createElement("option");
-                            option.value = keyword;
-                            option.textContent = keyword.charAt(0).toUpperCase() + keyword.slice(1);
-                            optgroup.appendChild(option);
-                        });
-
-                        dropdown.appendChild(optgroup);
+                    // Populate category dropdown
+                    Object.keys(categoryMap).forEach(category => {
+                        const option = document.createElement("option");
+                        option.value = category;
+                        option.textContent = category;
+                        categoryDropdown.appendChild(option);
                     });
 
+                    // Add "Other"
                     const otherOption = document.createElement("option");
                     otherOption.value = "__other__";
                     otherOption.textContent = "Other (Travel / Hospitality related)";
-                    dropdown.appendChild(otherOption);
-
-                    const selected = "{{ $company['category'] ?? '' }}";
-                    if (selected) dropdown.value = selected;
+                    categoryDropdown.appendChild(otherOption);
                 });
 
-            // ONLY change → make "other" required when visible
-            dropdown.addEventListener("change", function () {
-                if (this.value === "__other__") {
+            categoryDropdown.addEventListener("change", function () {
+                const selectedCategory = this.value;
+
+                // Reset subcategory
+                subcategoryDropdown.innerHTML = '<option value="">Select Sub Category</option>';
+
+                if (selectedCategory === "__other__") {
                     otherBox.style.display = "block";
                     otherInput.setAttribute("required", "required");
+
+                    // 👉 Set subcategory to "other" automatically
+                    const option = document.createElement("option");
+                    option.value = "other";
+                    option.textContent = "Other";
+                    option.selected = true;
+
+                    subcategoryDropdown.appendChild(option);
+
+                    return;
                 } else {
                     otherBox.style.display = "none";
                     otherInput.removeAttribute("required");
                 }
-            });
 
+                // Populate normal subcategories
+                if (categoryMap[selectedCategory]) {
+                    categoryMap[selectedCategory].forEach(sub => {
+                        const option = document.createElement("option");
+                        option.value = sub;
+                        option.textContent = sub.charAt(0).toUpperCase() + sub.slice(1);
+                        subcategoryDropdown.appendChild(option);
+                    });
+                }
+            });
+            // Handle form submit
             form.addEventListener("submit", function () {
-                if (dropdown.value === "__other__") {
+                if (categoryDropdown.value === "__other__") {
                     const val = otherInput.value.trim();
 
                     if (val !== "") {
@@ -123,7 +149,7 @@
                         hidden.value = "other - " + val;
 
                         form.appendChild(hidden);
-                        dropdown.removeAttribute("name");
+                        categoryDropdown.removeAttribute("name");
                     }
                 }
             });

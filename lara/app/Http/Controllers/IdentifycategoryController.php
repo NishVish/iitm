@@ -24,6 +24,34 @@ class IdentifycategoryController extends Controller
 
         return view('dictionaryeditor', compact('dictionary'));
     }
+
+
+    public function getDictionaryJson()
+    {
+        $path = public_path('assets/dictionary.json');
+
+        if (!file_exists($path)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Dictionary file not found.'
+            ], 404);
+        }
+
+        $json = file_get_contents($path);
+        $dictionary = json_decode($json, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid JSON format.'
+            ], 500);
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => $dictionary
+        ]);
+    }
     public function update(Request $request)
     {
         $keywords = $request->keyword;

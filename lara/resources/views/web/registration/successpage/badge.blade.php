@@ -12,17 +12,15 @@
     }
 
     /* A4 page */
-    .a4 {
-      width: 21cm;
-      height: 29.7cm;
-      background: white;
-      margin: auto;
-      box-sizing: border-box;
-
-      flex-direction: column;
-      justify-content: space-between; /* top + bottom separation */
-      padding: 1cm;
-    }
+.a4 {
+  width: 21cm;
+  height: 29.7cm;
+  padding: 1cm;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: white;
+  margin: 0 auto;
+}
 
     /* top wrapper */
     .wrapper {
