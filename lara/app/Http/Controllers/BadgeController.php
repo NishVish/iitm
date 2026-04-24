@@ -84,7 +84,7 @@ class BadgeController extends Controller
     {
         // $company_id = 'CMP_69e8b4a410b8b';
 
-        // dd($company_id,$contact_id,$db);    
+        // dd($company_id, $contact_id, $db);
 
         $contactdatafromcompanyid = DB::table('contact')
             ->where('company_id', $company_id)
@@ -101,7 +101,7 @@ class BadgeController extends Controller
         // -----------------------------
         // EVENT PARSING (NAME + YEAR)
         // -----------------------------
-        $parts = preg_split('/\s+/', trim($db));
+        $parts = explode('-', $db);
         $year = array_pop($parts);
         $name = implode(' ', $parts);
 
@@ -110,23 +110,25 @@ class BadgeController extends Controller
             ->where('year', $year)
             ->first();
 
+        // dd($contactdatafromcompanyid, $comapnydata, $db, $parts, $year, $name, $eventdetails);
+
         if (!$eventdetails) {
             return view('web.registration.fail');
         }
 
         // ✅ VALIDATION (rebuild and compare)
         $expected = trim($eventdetails->name . ' ' . $eventdetails->year);
+        $normalizedDb = strtolower(str_replace('-', ' ', trim($db)));
+        $normalizedExpected = strtolower(trim($eventdetails->name . ' ' . $eventdetails->year));
 
-        // dd($expected, $eventdetails->name, $db);
         if (
             !$eventdetails ||
-            strtolower(trim($db)) !== strtolower(trim($eventdetails->name . ' ' . $eventdetails->year)) ||
+            $normalizedDb !== $normalizedExpected ||
             !$contactdatafromcompanyid ||
             !$comapnydata
         ) {
             return view('web.registration.fail');
         }
-
         if ($eventdetails) {
 
             $startdate = $eventdetails->start_date;

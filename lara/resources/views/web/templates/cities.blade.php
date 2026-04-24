@@ -2,7 +2,7 @@
     <style>
         #iitm-compact-ledger {
             max-width: 900px;
-            margin: 20px auto;
+            margin: 0px auto;
             font-family: 'Inter', sans-serif;
             background: #fff;
             border: 1px solid #e0e0e0;
@@ -107,6 +107,30 @@
 
     <div id="ledger-body">
     </div>
+    <div class="button" style="text-align: center;">
+        <a href="{{ url('enquiry') }}" class="enquire-btn">
+            Enquire Now
+        </a>
+    </div>
+
+    <style>
+        .enquire-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #aa2324;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .enquire-btn:hover {
+            background: #8f1d1e;
+            transform: translateY(-2px);
+        }
+    </style>
 </div>
 
 <script>

@@ -1,158 +1,100 @@
 <div class="portal-container">
     <style>
         :root {
-            --iitm-text: #AA2324;
-            --iitm-background: #ffffff;
-            --iitm-text2: #ffffff;
-            --iitm-background2: #AA2324;
+            --iitm-red: #AA2324;
+            --iitm-white: #ffffff;
+            --iitm-gradient: linear-gradient(135deg, #AA2324, #7a1a1a);
         }
 
         .portal-container {
             width: 100%;
-            min-height: 70vh;
+            min-height: 60vh;
             display: flex;
             justify-content: center;
             align-items: center;
-
-            background: radial-gradient(circle at top left,
-                var(--iitm-background),
-                var(--iitm-background2)
-            );
-
+            /* background: #f4f4f4; */
+            /* Neutral outer background to make the card pop */
+            padding: 20px;
             box-sizing: border-box;
         }
 
         .portal-card {
             width: 100%;
-            max-width: 1100px;
-
-            background: linear-gradient(135deg,
-                var(--iitm-background2),
-                var(--iitm-text)
-            );
-
-            color: var(--iitm-text2);
-            font-family: 'Inter', system-ui, sans-serif;
-            padding: 40px;
+            max-width: 1000px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--iitm-white);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            padding: 50px;
+            border-radius: 24px;
             position: relative;
             overflow: hidden;
-            box-sizing: border-box;
+            box-shadow: 0 25px 50px -12px rgba(170, 35, 36, 0.3);
         }
 
-        /* .glow {
+        /* The dynamic spotlight effect */
+        .glow {
             position: absolute;
-            width: 300px;
-            height: 300px;
-
-            background: radial-gradient(circle,
-                var(--iitm-background2),
-                transparent 70%
-            );
-
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            top: 0;
-            left: 0;
-        } */
+            z-index: 1;
+        }
 
         h2 {
-            margin: 0 0 16px;
-            font-size: 42px;
+            margin: 0 0 20px;
+            font-size: clamp(32px, 5vw, 48px);
             font-weight: 800;
-
-            background: linear-gradient(to right,
-                var(--iitm-text2),
-                var(--iitm-background)
-            );
-
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .description {
-            font-size: 18px;
-            line-height: 1.6;
-            color: var(--iitm-background);
-            max-width: 700px;
-        }
-
-        .sub-text {
-            margin-top: 10px;
-            font-size: 14px;
-            color: var(--iitm-background);
-            opacity: 0.8;
-            max-width: 600px;
-        }
-
-        .urgency {
-            margin-top: 18px;
-            font-size: 15px;
-            color: var(--iitm-background2);
-            font-weight: 600;
-        }
-
-        .features {
-            margin-top: 24px;
-            font-size: 16px;
-            line-height: 1.9;
-            color: var(--iitm-text2);
-        }
-
-        .portal-register-btn {
-            display: inline-block;
-            margin-top: 28px;
-            padding: 14px 28px;
-
-            background: var(--iitm-background2);
-            color: var(--iitm-text2);
-
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 16px;
-            transition: 0.25s ease;
+            letter-spacing: -1px;
             position: relative;
             z-index: 2;
         }
 
-        .portal-register-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-3px);
+        .description {
+            font-size: 20px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            z-index: 2;
         }
 
-        .portal-card::before {
-            content: "";
-            position: absolute;
-            width: 500px;
-            height: 500px;
-
-            background: radial-gradient(circle,
-                var(--iitm-background2),
-                transparent 60%
-            );
-
-            top: -180px;
-            right: -180px;
-            animation: float 8s ease-in-out infinite;
+        .urgency {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            backdrop-filter: blur(4px);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(25px); }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
         }
 
         @media (max-width: 768px) {
             .portal-card {
-                padding: 25px;
-            }
-
-            h2 {
-                font-size: 28px;
+                padding: 30px;
             }
 
             .features {
-                font-size: 14px;
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -160,27 +102,26 @@
     <div class="portal-card" id="card">
         <div class="glow" id="glow"></div>
 
+        <div class="urgency" id="urgencyText">
+            ⚡ Visitor passes available...
+        </div>
+
         <h2>Visitor Portal</h2>
 
         <p class="description">
-            Explore the most influential gatherings in the <b>Hospitality & Travel Industry</b>.
-        </p>
-
-        <p class="sub-text">
-            Discover events, connect with exhibitors, and experience world-class networking opportunities.
-        </p>
-
-        <p class="urgency" id="urgencyText">
-            ⚡ Limited visitor passes available...
+            Explore the most influential gatherings in the <br>
+            <strong style="color: #FFD700;">Hospitality & Travel Industry</strong>.
         </p>
 
         <div class="features">
-            🚀 Discover top events<br />
-            🎯 Connect with industry leaders<br />
-            📈 Experience premium networking
+            <div class="feature-item">🚀 Discover top events</div>
+            <div class="feature-item">🎯 Connect with leaders</div>
+            <div class="feature-item">📈 Premium networking</div>
         </div>
 
-        @include('web.templates.whyvisit')
+        <div style="margin-top: 40px; position: relative; z-index: 2;">
+            @include('web.templates.whyvisit')
+        </div>
     </div>
 
     <script>
@@ -188,17 +129,20 @@
         const glow = document.getElementById("glow");
         const urgencyText = document.getElementById("urgencyText");
 
-        // card.addEventListener("mousemove", (e) => {
-        //     const rect = card.getBoundingClientRect();
-        //     glow.style.left = (e.clientX - rect.left) + "px";
-        //     glow.style.top = (e.clientY - rect.top) + "px";
-        // });
+        // Subtle spotlight follows mouse
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            glow.style.left = `${x}px`;
+            glow.style.top = `${y}px`;
+        });
 
+        // Animated ellipsis for urgency
+        let dots = 0;
         setInterval(() => {
-            let dots = (urgencyText.textContent.match(/\./g) || []).length;
             dots = (dots + 1) % 4;
-            urgencyText.textContent =
-                "⚡ Limited visitor passes available" + ".".repeat(dots);
-        }, 500);
+            urgencyText.textContent = `⚡ Visitor passes available${'.'.repeat(dots)}`;
+        }, 600);
     </script>
 </div>

@@ -25,6 +25,7 @@
   }
 </style>
 <?php
+include('agreement.php');
 
 include('header.php');
 include('section1.php');
@@ -46,9 +47,11 @@ include('section1.php');
       <img src="side-image.png" style="width: 100%; height: 100%;" crossorigin="anonymous">
     </div>
     <div class="column">
-      <div class="form-line"><label for="area">Area Required (m²):</label><input type="number" id="area" name="area">
+      <div class="form-line"><label for="area">Area Required (m²):</label><input type="number" id="area" name="area"
+          required>
       </div>
-      <div class="form-line"><label for="amount">Amount Rs:</label><input type="number" id="amount" name="amount">
+      <div class="form-line"><label for="amount">Amount Rs:</label><input type="number" id="amount" name="amount"
+          required>
       </div>
       <div class="form-line">
         <label for="gst-amount">18% GST of the Amount:</label>
@@ -103,29 +106,48 @@ include('section1.php');
 </div>
 
 <h3>Organisation Details</h3>
+
 <div class="form-line inline-fields">
-  <label for="org-name">Name of Organisation:</label><input type="text" id="org-name" name="org-name">
-</div>
-<div class="form-line inline-fields">
-  <label for="contact-person">Contact Person & Designation:</label><input type="text" id="contact-person"
-    name="contact-person">
-</div>
-<div class="form-line"><label for="address">Address:</label><textarea id="address" name="address" rows="3"></textarea>
-</div>
-<div class="form-line inline-fields">
-  <label for="telephone">Telephone:</label><input type="text" id="telephone" name="telephone">
-  <label for="fax">Fax:</label><input type="text" id="fax" name="fax">
-  <label for="email">Email:</label><input type="email" id="email" name="email">
-</div>
-<div class="form-line inline-fields">
-  <label for="gst">GST No:</label><input type="text" id="gst" name="gst">
-  <label for="website">Website:</label><input type="text" id="website" name="website">
-  <label for="product-category">Product Category:</label><input type="text" id="product-category"
-    name="product-category">
+  <label for="org-name">Name of Organisation:</label>
+  <input type="text" id="org-name" name="org-name" required>
 </div>
 
-<div class="form-line"><label for="fascia">Fascia Name:</label><input type="text" id="fascia" name="fascia"
-    maxlength="60"></div>
+<div class="form-line inline-fields">
+  <label for="contact-person">Contact Person & Designation:</label>
+  <input type="text" id="contact-person" name="contact-person" required>
+</div>
+
+<div class="form-line">
+  <label for="address">Address:</label>
+  <textarea id="address" name="address" rows="3" required></textarea>
+</div>
+
+<div class="form-line inline-fields">
+  <label for="telephone">Telephone:</label>
+  <input type="text" id="telephone" name="telephone" required>
+
+  <label for="fax">Fax:</label>
+  <input type="text" id="fax" name="fax">
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+</div>
+
+<div class="form-line inline-fields">
+  <label for="gst">GST No:</label>
+  <input type="text" id="gst" name="gst" required>
+
+  <label for="website">Website:</label>
+  <input type="text" id="website" name="website">
+
+  <label for="product-category">Product Category:</label>
+  <input type="text" id="product-category" name="product-category" required>
+</div>
+
+<div class="form-line">
+  <label for="fascia">Fascia Name:</label>
+  <input type="text" id="fascia" name="fascia" maxlength="60" required>
+</div>
 
 <!-- 
 <div class="note">

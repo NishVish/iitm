@@ -28,7 +28,6 @@
 
     .bg-hidden {
         opacity: 0;
-        visibility: hidden;
         transform: scale(1.1);
     }
 
@@ -153,18 +152,42 @@
     @include('web.templates.keyperformancehighlights')
 
     <!-- @include('web.templates.whyexhibit') -->
+    <div>
+        <div class="shecdule">
 
-    @include('web.templates.cities')
+            <div id="scheduel_heading">Shecdule</div>
+
+            <style>
+                .shecdule {
+                    width: 100%;
+                    height: 100%;
+                    background-color: #ffffffff;
+                }
+
+                #scheduel_heading {
+                    text-align: center;
+                    margin: none !important;
+                    color: #000;
+                    font-size: 2rem;
+                    font-weight: 700;
+                }
+            </style>
+            <div class="row">
+                <div class="col-md-12">
+                    @include('web.templates.cities')
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @include('web.participant.exhibiting.video')
+    </div>
 
 
 
-    <!-- @include('web.participant.exhibiting.video') -->
 
 
-
-    <section style="background:#fff; color:#000; padding:60px 0;">
-
-    </section>
 
 </div>
 

@@ -86,6 +86,7 @@ class AuthController extends Controller
     public function requestOtp(Request $request, $input = null, $eventid = null)
     {
 
+        // dd("super");
         // dd($request->all());
         $inputValue = $request->input('input');
 
@@ -174,7 +175,7 @@ class AuthController extends Controller
         session()->put('company', $company);
 
         // dd($user, $company, $event);
-        return view('web.registration.form', [
+        return view('web.participant.index', [
             'contact' => $user,
             'company' => $company,
             'eventinfo' => $event,

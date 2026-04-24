@@ -26,8 +26,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post'); // 
 Route::get('/create', [AuthController::class, 'create'])->name('create'); // submit login
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::post('/request-otp', [AuthController::class, 'requestOtp'])->name('login.otp');
-Route::get('/request-otp/{mobilenumber}/{eventid}', [AuthController::class, 'requestOtp'])->name('login.otp');
+Route::post('/visitor-form', [AuthController::class, 'requestOtp'])->name('login.otp');
+// Route::get('/visitor-form/{mobilenumber}/{eventid}', [AuthController::class, 'requestOtp'])->name('login.otp');
 // Route::get('/request-otp/{mobilenumber}', [AuthController::class, 'requestOtp'])->name('login.otp');
 
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('login.verify');
@@ -111,7 +111,7 @@ use App\Http\Controllers\ParticipantController;
 Route::get('/exhibiting', [ParticipantController::class, 'index'])->name('exhibiting');
 Route::get('/attending', [ParticipantController::class, 'index'])->name('attending');
 Route::get('/enquiry', [ParticipantController::class, 'enquriyform'])->name('enquiry');
-Route::post('/visitor-form', [ParticipantController::class, 'fetchentity'])->name('visitor-form');
+// Route::post('/visitor-form', [ParticipantController::class, 'fetchentity'])->name('visitor-form');
 
 use App\Http\Controllers\InteracitveController;
 

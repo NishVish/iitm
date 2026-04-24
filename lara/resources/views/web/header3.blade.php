@@ -1,35 +1,49 @@
 <header id="simple-header">
-    <div class="logo-container">
-        <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="logo">
+    <div class="header-content">
+        <span class="brand">IITM</span>
+        <span class="divider">|</span>
+        <span class="name">{{ $eventinfo->name }}</span>
+        <span class="divider">|</span>
+        <span class="year">{{ $eventinfo->year }}</span>
     </div>
 </header>
 
 <style>
     #simple-header {
-        top: 20px;
-        left: 50%;
-
+        margin: 30px auto 0;
+        padding: 10px 25px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #851919;
+        border-radius: 50px;
         display: flex;
         justify-content: center;
-        align-items: center;
-
-        /* Sizing & Shape */
-        padding: 12px 40px;
-        border-radius: 100px;
-
-        /* Glassmorphism Effect */
-        -webkit-backdrop-filter: blur(10px);
-
+        width: fit-content;
     }
 
-    .logo-container img {
-        height: 50px;
-        width: auto;
-        display: block;
-        transition: height 0.3s ease;
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
+
+    .brand {
+        font-weight: 700;
+        color: #851919;
+        font-size: 16px;
+    }
+
+    .divider {
+        color: #bbb;
+    }
+
+    .name {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .year {
+        color: #666;
     }
 </style>
-
-<script>
-
-</script>

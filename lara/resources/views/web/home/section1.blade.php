@@ -231,7 +231,7 @@
     /* Attach the animation defined in the <style> tag */
     animation: coolGradient 10s ease infinite; 
 ">
-        IITM India Biggest Travel Show
+        India Biggest Travel Show
     </h1>
 
     <p

@@ -94,10 +94,12 @@
 
                 /* High-End Serif Title */
                 .section-header h2 {
+                    height: 10vh;
                     font-family: Georgia, serif;
                     font-size: clamp(2.5rem, 6vw, 4.5rem);
                     font-weight: normal;
-                    margin-bottom: 30px;
+                    margin-bottom: 10px;
+                    margin-top: 10px;
                     letter-spacing: -1px;
                     color: #111;
                     /* Sharp black */

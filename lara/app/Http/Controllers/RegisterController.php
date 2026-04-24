@@ -921,7 +921,7 @@ class RegisterController extends Controller
 
 
         $data['print'] = true;
-        $data['preview'] = true;
+        // $data['preview'] = true;
         $data['emailpage'] = true;
         //  echo "<pre>";
         //  echo "<div

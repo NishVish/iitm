@@ -107,6 +107,12 @@
 
                                 <tr>
                                     <td align="center" style="padding-bottom:10px;">
+                                        @php
+
+                                            $data['databasename'] = strtolower(trim($data['databasename']));
+                                            $data['databasename'] = preg_replace('/[^a-z0-9]+/', '-', $data['databasename']);
+                                            $data['databasename'] = trim($data['databasename'], '-');
+                                        @endphp
                                         <a href="{{ url('generatebadge/' . $data['company_id'] . '/' . $data['contact_id'] . '/' . $data['databasename']) }}"
                                             style="background:#aa2324; color:#ffffff; padding:16px 32px; font-size:14px; font-weight: bold;
                                            text-decoration:none; border-radius:6px; display:inline-block; letter-spacing:1px; box-shadow: 0 4px 12px rgba(170, 35, 36, 0.3);">

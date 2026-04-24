@@ -30,25 +30,28 @@
 
                 <!-- {{-- includes register.blade.php --}} -->
             @elseif($lastSegment === 'attending')
+                @include('web.loading2') {{-- includes register.blade.php --}}
 
-                @include('web.header2')
+                @include('web.header2') {{-- includes register.blade.php --}}
 
-                @include('web.participant.attending.attending') {{-- includes register.blade.php --}}
+                @include('web.participant.attending.attending')
+
+                {{-- includes register.blade.php --}}
 
                 <!-- @#include('web.templates.otpless') -->
                 <!-- @include('web.templates.registercitis') -->
             @elseif($lastSegment === 'enquiry')
+                @include('web.loading2') {{-- includes register.blade.php --}}
 
                 @include('web.header2')
 
-
-
                 @include('web.participant.form.enquiry-form')
-                <!-- Header 2 -->
+
             @elseif($lastSegment === 'visitor-form')
+                @include('web.loading2') {{-- includes register.blade.php --}}
 
                 @include('web.header2') {{-- includes register.blade.php --}}
-                @include('web.participant.visitor-form');
+                @include('web.participant.form.visitor')
             @else
                 @include('web.loading2') {{-- includes register.blade.php --}}
                 @include('web.participant.attending')
