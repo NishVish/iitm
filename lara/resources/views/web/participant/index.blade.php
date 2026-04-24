@@ -23,6 +23,7 @@
                 $secondlastSegment = request()->segment(count(request()->segments()) - 1);
             @endphp
             @if($lastSegment === 'exhibiting')
+                @include('web.loading2') {{-- includes register.blade.php --}}
 
                 @include('web.header2') {{-- includes register.blade.php --}}
 
