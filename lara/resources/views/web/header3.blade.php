@@ -2,7 +2,7 @@
     <div class="header-content">
         <span class="brand">IITM</span>
         <span class="divider">|</span>
-        <span class="name">{{ $eventinfo->name }}</span>
+        <span class="name">{{ trim(str_replace(['IITM', 'iitm'], '', $eventinfo->name)) }}</span>
         <span class="divider">|</span>
         <span class="year">{{ $eventinfo->year }}</span>
     </div>

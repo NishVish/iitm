@@ -3,6 +3,7 @@
 <div class="section-title">General Information</div>
 <div class="row g-3">
     <div class="col-12 form-group">
+        <input type="hidden" name="company_id" value="{{ $company['company_id'] }}" class="form-control">
         <label>Company Name</label>
         <input type="text" name="company_name" value="{{ $company['company_name'] ?? '' }}" class="form-control"
             required>

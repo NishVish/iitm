@@ -595,8 +595,9 @@ class RegisterController extends Controller
         // dd($request->all());
         // echo '<pre>';
         // print_r($request->all());
+        // print_r($event);
         // echo '</pre>';
-        // die();      
+        // die();
         $eventname = $event->name;
         // dd($eventname);
         // 1. UPDATE Master Records

@@ -1,6 +1,8 @@
 <div class="form-card active" id="step2">
     <h3>Personal Profile</h3>
     <div class="row g-3">
+        <input type="hidden" name="contact_id" value="{{ $contact['contact_id'] }}" class="form-control">
+
         <div class="col-md-6 form-group">
             <label>Full Name</label>
             <input type="text" name="name" value="{{ $contact['name'] }}" class="form-control">

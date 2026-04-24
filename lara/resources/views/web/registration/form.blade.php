@@ -4,8 +4,7 @@
 
 <form action="{{ route('registration.submit') }}" method="POST">
     @csrf
-
-
+    <input type="hidden" name="event_id" value="{{ $eventinfo->event_id }}">
     @include('web.registration.personalfields')
 
 

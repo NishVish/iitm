@@ -49,7 +49,7 @@
                 @include('web.participant.form.enquiry-form')
 
             @elseif($lastSegment === 'visitor-form')
-                @include('web.loading2') {{-- includes register.blade.php --}}
+                @include('web.loading3') {{-- includes register.blade.php --}}
 
                 @include('web.header2') {{-- includes register.blade.php --}}
                 @include('web.participant.form.visitor')
