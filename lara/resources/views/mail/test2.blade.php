@@ -9,11 +9,52 @@
 
     <h2>Send Email</h2>
 
+    <!-- STATUS -->
     @if(session('status'))
         <p style="color: green;">
-            {{ session('status') }}
+            <strong>Status:</strong> {{ session('status') }}
         </p>
     @endif
+
+    <!-- EMAIL -->
+    @if(session('email'))
+        <p>
+            <strong>Email:</strong> {{ session('email') }}
+        </p>
+    @endif
+
+    <!-- SUBJECT -->
+    @if(session('subject'))
+        <p>
+            <strong>Subject:</strong> {{ session('subject') }}
+        </p>
+    @endif
+
+    <!-- MESSAGE -->
+    @if(session('message'))
+        <p>
+            <strong>Message:</strong><br>
+            {!! session('message') !!}
+        </p>
+    @endif
+
+    <!-- HEADERS -->
+    @if(session('headers'))
+        <p>
+            <strong>Headers:</strong><br>
+        <pre>{{ session('headers') }}</pre>
+        </p>
+    @endif
+
+    <!-- SENT FLAG -->
+    @if(session('sent') !== null)
+        <p>
+            <strong>Sent Flag:</strong>
+            {{ session('sent') ? 'true' : 'false' }}
+        </p>
+    @endif
+
+    <hr>
 
     <label>Email:</label><br>
     <input type="email" id="email" required style="width:300px;" value="nishwakarma3@gmail.com"><br><br>

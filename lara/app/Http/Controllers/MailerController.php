@@ -15,15 +15,11 @@ class MailerController extends Controller
     }
     public function sendRegistrationMaitest($email, $data)
     {
-
-        // dd($email, $data);
         $subject = "Registration Successful";
 
-        // ✅ render blade view into HTML string
         $html2 = $data;
 
         $to = $email;
-
         $message = $html2;
 
         $headers = "From: events@iitmindia.com\r\n";
@@ -33,10 +29,15 @@ class MailerController extends Controller
 
         $sent = mail($to, $subject, $message, $headers);
 
-        return back()->with('status', $sent ? 'Mail Sent' : 'Mail Failed');
+        return back()->with([
+            'status' => $sent ? 'Mail Sent' : 'Mail Failed',
+            'email' => $to,
+            'subject' => $subject,
+            'message' => $message,
+            'headers' => $headers,
+            'sent' => $sent
+        ]);
     }
-
-
     public function sendRegistrationMail($email, $data)
     {
         // dd($email, $data);
