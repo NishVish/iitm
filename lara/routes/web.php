@@ -200,7 +200,7 @@ Route::get('/mailtest2', [MailerController::class, 'index']);
 Route::get('/mail/send/{email}/{data}', [MailerController::class, 'sendRegistrationMail']);
 
 Route::get('/mail/sendtest/{email}/{data}', [MailerController::class, 'sendRegistrationMaitest']);
-Route::get('quickmailtest', [MailerController::class, 'quickmailtest']);
+Route::get('quickmailtest/{preview}', [MailerController::class, 'quickmailtest']);
 
 use App\Http\Controllers\InfopagesController;
 

@@ -13,22 +13,22 @@ class MailerController extends Controller
     {
         return view('mail.test2');
     }
-    // public function quickmailtest()
-    // {
-    //     $headers = "From: events@iitmindia.com\r\n";
-    //     $headers .= "Cc: nishwakarma3@gmail.com\r\n";
-    //     $headers .= "MIME-Version: 1.0\r\n";
-    //     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+    public function quickmailtest2()
+    {
+        $headers = "From: events@iitmindia.com\r\n";
+        $headers .= "Cc: nishwakarma3@gmail.com\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 
-    //     $sent = mail('marketing1@iitmindia.com', "test", "test", $headers);
-    //     if ($sent) {
-    //         return back()->with('status', 'Mail Sent');
-    //     } else {
-    //         return back()->with('status', 'Mail Failed');
-    //     }
+        $sent = mail('marketing1@iitmindia.com', "test", "test", $headers);
+        if ($sent) {
+            return back()->with('status', 'Mail Sent');
+        } else {
+            return back()->with('status', 'Mail Failed');
+        }
 
-    // }
-    public function quickmailtest()
+    }
+    public function quickmailtest($preview = false)
     {
         // dd($email, $data);
         $data = null;
@@ -73,7 +73,9 @@ class MailerController extends Controller
 
 
         $subject = "Registration Successful";
-        // return view('emails.registration_success', compact('data'));
+        if ($preview) {
+            return view('emails.registration_success', compact('data'));
+        }
         // dd($data);
 
         // ✅ render blade view into HTML string
@@ -91,6 +93,7 @@ class MailerController extends Controller
         $sent = mail($to, $subject, $message, $headers);
         $sendtstatus = $sent ? 'Mail Sent' : 'Mail Failed';
         echo $sendtstatus;
+        $this->quickmailtest2();
         exit;
 
     }
