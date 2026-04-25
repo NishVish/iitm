@@ -13,6 +13,21 @@ class MailerController extends Controller
     {
         return view('mail.test2');
     }
+    public function quickmailtest()
+    {
+        $headers = "From: events@iitmindia.com\r\n";
+        $headers .= "Cc: nishwakarma3@gmail.com\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+
+        $sent = mail('marketing1@iitminda.com', "test", "test", $headers);
+        if ($sent) {
+            return back()->with('status', 'Mail Sent');
+        } else {
+            return back()->with('status', 'Mail Failed');
+        }
+
+    }
     public function sendRegistrationMaitest($email, $data)
     {
         $subject = "Registration Successful";
