@@ -73,9 +73,9 @@ class MailerController extends Controller
 
 
         $subject = "Registration Successful";
-        if ($preview) {
-            return view('emails.registration_success', compact('data'));
-        }
+        // if ($preview) {
+        //     return view('emails.registration_success', compact('data'));
+        // }
         // dd($data);
 
         // ✅ render blade view into HTML string
