@@ -57,7 +57,10 @@
             letter-spacing:-1px;
             line-height:1.1;
         ">
-            Explore Travel Industry Events
+            A Marketplace that Satisfies all your
+            <span style="color: #AA2324; text-shadow: 2px 2px 0px #ffffff;">
+                Business Needs
+            </span>
         </div>
 
         <div style="
@@ -67,12 +70,10 @@
             max-width:700px;
             line-height:1.5;
         ">
-            Connect with leading travel brands, discover exhibitions,
-            and experience the future of tourism networking.
+            Persistently striving to strengthen the travel & tourism community through India's largest trade platform.
         </div>
 
         <div style="margin-top:40px;">
-            @include('web.participant.attending.hook2')
         </div>
 
         <div style="margin-top:20px;">

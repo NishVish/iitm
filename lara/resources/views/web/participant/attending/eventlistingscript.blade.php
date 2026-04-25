@@ -168,7 +168,7 @@
                 const venueText = (ev.venue_details || "").toUpperCase();
 
                 if (venueText.includes("TBA")) {
-                    btn.innerText = "Registration Opening Soon";
+                    btn.innerText = "Opening Soon";
                     btn.disabled = true;
                     btn.style.opacity = "0.6";
                     btn.style.cursor = "not-allowed";

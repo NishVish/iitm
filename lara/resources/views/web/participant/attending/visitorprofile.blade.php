@@ -50,19 +50,45 @@
     <div class="wrap">
 
         <h2>Visitors Profile</h2>
-        <p>Global travel ecosystem overview</p>
+        <p>Comprehensive global travel, tourism & hospitality ecosystem</p>
 
         <div class="grid">
 
-            <div class="chip"><strong>Air</strong> & Transport</div>
-            <div class="chip"><strong>Travel</strong> Operators</div>
-            <div class="chip"><strong>Hotel</strong> Tech</div>
-            <div class="chip"><strong>Eco</strong> Tourism</div>
-            <div class="chip"><strong>Adventure</strong> Sports</div>
-            <div class="chip"><strong>Forex</strong></div>
-            <div class="chip"><strong>MICE</strong></div>
-            <div class="chip"><strong>Travel</strong> Tech</div>
-            <div class="chip">Other Travel & Hospitality</div>
+            <span class="chip">Travel & Tourism Professionals</span>
+            <span class="chip">Tour Operators</span>
+            <span class="chip">Travel Agents</span>
+            <span class="chip">Online Travel Agencies (OTA)</span>
+
+            <span class="chip">Airlines & Aviation Industry</span>
+            <span class="chip">Airport Authorities</span>
+            <span class="chip">Cruise Operators</span>
+            <span class="chip">Rail & Transport Tourism</span>
+
+            <span class="chip">Hotels & Resorts</span>
+            <span class="chip">Hospitality Chains</span>
+            <span class="chip">Boutique & Luxury Hotels</span>
+            <span class="chip">Resort Developers</span>
+
+            <span class="chip">Adventure Tourism Operators</span>
+            <span class="chip">Eco Tourism & Wildlife Tourism</span>
+            <span class="chip">Destination Management Companies (DMCs)</span>
+
+            <span class="chip">Forex & Travel Finance Services</span>
+            <span class="chip">Travel Insurance Providers</span>
+            <span class="chip">Visa & Immigration Consultants</span>
+
+            <span class="chip">MICE Industry Professionals</span>
+            <span class="chip">Event & Exhibition Organizers</span>
+
+            <span class="chip">Technology Providers (Travel Tech / Booking Platforms)</span>
+            <span class="chip">Startups in Travel & Hospitality</span>
+
+            <span class="chip">Government Tourism Boards</span>
+            <span class="chip">Tourism Promotion Councils</span>
+
+            <span class="chip">Travel Media</span>
+
+            <span class="chip">Education & Hospitality Institutes</span>
 
         </div>
 

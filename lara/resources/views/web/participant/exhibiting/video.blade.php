@@ -13,7 +13,10 @@
         <p class="cta-subtext">Limited premium slots available for the 2026 series.</p>
     </div>
 </div>
-
+<script>
+    const video = document.getElementById('promoVideo');
+    video.playbackRate = 0.4; // slower (0.5 = half speed)
+</script>
 <style>
     /* Video CTA Section */
     .cta-video-section {
@@ -76,7 +79,7 @@
     .main-cta:hover {
         background: var(--accent-cyan);
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(0, 245, 255, 0.4);
+        box-shadow: 0 10px 30px rgba(200, 25, 10, 0.4);
     }
 
     .cta-subtext {

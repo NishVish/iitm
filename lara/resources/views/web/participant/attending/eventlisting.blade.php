@@ -20,13 +20,13 @@
                 <div id="eventDate">Date: 10 Jan 2026</div>
                 <div id="eventVenue">Venue: Chennai Trade Centre</div>
             </div>
-
+            <div class="info">
+                <button id="regBtn" class="primary-btn" onclick="toggleModal()">Register Interest</button>
+                <div class="tagline">Global Marketplace • Tourism • Business Networking</div>
+            </div>
         </div>
 
-        <div class="info">
-            <button id="regBtn" class="primary-btn" onclick="toggleModal()">Register Interest</button>
-            <div class="tagline">Global Marketplace • Tourism • Business Networking</div>
-        </div>
+
 
     </div>
 

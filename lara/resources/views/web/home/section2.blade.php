@@ -174,11 +174,7 @@
             @include('web.templates.intro')
             @include('web.templates.cities')
             @include('web.templates.whyexhibit')
-            <!-- @include('web.templates.vision')
-            @include('web.templates.exhibit')
-            @include('web.templates.about')
-            @include('web.templates.contactus')
-            @include('web.templates.tourismboard') -->
+            @include('web.templates.tourismboard')
         </div>
     </div>
 

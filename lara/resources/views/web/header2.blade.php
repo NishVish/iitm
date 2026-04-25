@@ -205,11 +205,11 @@
             <a href="{{ route('web') }}">Home</a>
             <a href="{{ route('exhibiting') }}">Exhibit</a>
             <a href="{{ route('attending') }}">Visit</a>
-            <a href="/resources">Resources</a>
+            <a href="{{ route('resourcepage') }}">Resources</a>
             <a href="{{ route('gallery') }}">Gallery</a>
-            <a href="/about-us">About</a>
+            <a href="{{ route('aboutus') }}">About</a>
 
-            <a href="/contact-us">Contact</a>
+            <a href="{{ route('contactus') }}">Contact</a>
         </nav>
 
         <div class="cta">
@@ -261,5 +261,82 @@
                 document.body.style.overflow = "auto";
             }
         };
+    })();
+</script>
+<style>
+    /* Add this to your existing style section */
+    .header2.hidden {
+        transform: translateY(-100%);
+        pointer-events: none;
+    }
+</style>
+<script>
+    (function () {
+        const iitmHeader = document.getElementById("iitmHeader");
+        const iitmLogo = document.getElementById("iitmLogoImg");
+        const iitmSideMenu = document.getElementById("iitmSideMenu");
+        const iitmOverlay = document.getElementById("iitmOverlay");
+
+        let idleTimer;
+        const idleTimeLimit = 3000; // 3 seconds
+
+        // --- 1. Scroll Logic ---
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                iitmHeader.classList.add("scrolled");
+                iitmLogo.src = "https://iitmindia.com/assets/iitm2.png";
+            } else {
+                iitmHeader.classList.remove("scrolled");
+                iitmLogo.src = "https://iitmindia.com/assets/iitm3.png";
+            }
+            // Show header when scrolling
+            resetIdleTimer();
+        });
+
+        // --- 2. Inactivity Logic ---
+        function resetIdleTimer() {
+            // Remove hidden class to show header
+            iitmHeader.classList.remove("hidden");
+
+            // Clear existing timer
+            clearTimeout(idleTimer);
+
+            // Don't hide the header if the mobile menu is open or mouse is over it
+            if (iitmSideMenu.classList.contains("open")) return;
+
+            // Start new 3-second timer
+            idleTimer = setTimeout(() => {
+                // Only hide if the user has scrolled down a bit
+                if (window.scrollY > 100) {
+                    iitmHeader.classList.add("hidden");
+                }
+            }, idleTimeLimit);
+        }
+
+        // Listen for mouse movement
+        window.addEventListener('mousemove', resetIdleTimer);
+        // Listen for touch starts (for mobile)
+        window.addEventListener('touchstart', resetIdleTimer);
+
+        // --- 3. Mobile Menu Logic ---
+        window.iitmToggleMenu = function () {
+            iitmSideMenu.classList.toggle("open");
+            iitmOverlay.classList.toggle("show");
+
+            if (iitmSideMenu.classList.contains("open")) {
+                document.body.style.overflow = "hidden";
+                clearTimeout(idleTimer); // Don't hide while menu is active
+            } else {
+                document.body.style.overflow = "auto";
+                resetIdleTimer();
+            }
+        };
+
+        // Prevent hiding if mouse is physically over the header
+        iitmHeader.addEventListener('mouseenter', () => clearTimeout(idleTimer));
+        iitmHeader.addEventListener('mouseleave', resetIdleTimer);
+
+        // Initialize timer
+        resetIdleTimer();
     })();
 </script>

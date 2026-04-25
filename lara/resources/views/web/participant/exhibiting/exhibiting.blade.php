@@ -150,44 +150,62 @@
     </section>
 
     @include('web.templates.keyperformancehighlights')
+    <div style="background-color: white; color: black; padding: 20px;">
+        <style>
+            .white-box {
+                background-color: white;
+                color: black;
+                padding: 20px;
+            }
+        </style>
 
-    <!-- @include('web.templates.whyexhibit') -->
-    <div>
-        <div class="shecdule">
+        <div class="white-box">
+            This section is white
+        </div>
+        <!-- @include('web.templates.whyexhibit') -->
+        <div>
+            <div class="shecdule">
 
-            <div id="scheduel_heading">Shecdule</div>
+                <div id="scheduel_heading">Shecdule</div>
 
-            <style>
-                .shecdule {
-                    width: 100%;
-                    height: 100%;
-                    background-color: #ffffffff;
-                }
+                <style>
+                    .shecdule {
+                        width: 100%;
+                        height: 100%;
+                        background-color: #ffffffff;
+                    }
 
-                #scheduel_heading {
-                    text-align: center;
-                    margin: none !important;
-                    color: #000;
-                    font-size: 2rem;
-                    font-weight: 700;
-                }
-            </style>
-            <div class="row">
-                <div class="col-md-12">
-                    @include('web.templates.cities')
+                    #scheduel_heading {
+                        text-align: center;
+                        margin: none !important;
+                        color: #000;
+                        font-size: 2rem;
+                        font-weight: 700;
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-md-12">
+                        @include('web.templates.cities')
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div>
+            @include('web.participant.exhibiting.hook')
+        </div>
+
+        <div>
+            @include('web.participant.exhibiting.video')
+        </div>
+
+
+        <div>
+            @include('web.templates.whyexhibit')
+        </div>
+
+
     </div>
-
-    <div>
-        @include('web.participant.exhibiting.video')
-    </div>
-
-
-
-
-
 
 </div>
 

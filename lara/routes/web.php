@@ -192,9 +192,6 @@ Route::get('/assets', [AssetsController::class, 'index']);
 
 
 
-use App\Http\Controllers\GalleryController;
-
-Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 
 use App\Http\Controllers\MailerController;
@@ -205,6 +202,12 @@ Route::get('/mail/send/{email}/{data}', [MailerController::class, 'sendRegistrat
 Route::get('/mail/sendtest/{email}/{data}', [MailerController::class, 'sendRegistrationMaitest']);
 Route::get('quickmailtest', [MailerController::class, 'quickmailtest']);
 
+use App\Http\Controllers\InfopagesController;
+
+Route::get('/contactus', [InfopagesController::class, 'contactus'])->name('contactus');
+Route::get('/aboutus', [InfopagesController::class, 'aboutus'])->name('aboutus');
+Route::get('/resourcepage', [InfopagesController::class, 'resourcepage'])->name('resourcepage');
+Route::get('/gallery', [InfopagesController::class, 'gallery'])->name('gallery');
 
 
 

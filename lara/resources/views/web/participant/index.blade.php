@@ -23,15 +23,32 @@
                 $secondlastSegment = request()->segment(count(request()->segments()) - 1);
             @endphp
             @if($lastSegment === 'exhibiting')
-                @include('web.loading2') {{-- includes register.blade.php --}}
 
-                @include('web.header2') {{-- includes register.blade.php --}}
+                @include('web.header2')
 
                 @include('web.participant.exhibiting.exhibiting')
 
-                <!-- {{-- includes register.blade.php --}} -->
+                <script>
+
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const wrapper = document.getElementById('iitmHeader');
+                        wrapper.style.display = 'none';
+                        if (wrapper) {
+                            setTimeout(() => {
+                                // Force display block with zero spacing
+                                wrapper.style.display = 'block';
+
+                                setTimeout(() => {
+                                    wrapper.style.opacity = '1';
+
+                                }, 50);
+
+                            }, 5000);
+                        }
+                    });
+                </script>
             @elseif($lastSegment === 'attending')
-                @include('web.loading2') {{-- includes register.blade.php --}}
+                {{-- Your Attending Content Here --}}
 
                 @include('web.header2') {{-- includes register.blade.php --}}
 

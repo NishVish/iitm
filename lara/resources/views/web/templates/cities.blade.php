@@ -111,6 +111,12 @@
         <a href="{{ url('enquiry') }}" class="enquire-btn">
             Enquire Now
         </a>
+        <style>
+            .button {
+
+                margin-bottom: 20px;
+            }
+        </style>
     </div>
 
     <style>

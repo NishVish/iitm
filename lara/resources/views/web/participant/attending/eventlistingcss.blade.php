@@ -12,7 +12,6 @@
     .split-layout {
         display: flex;
         width: 100%;
-        height: 80vh;
         font-family: system-ui, sans-serif;
         background: var(--iitm-background);
         color: var(--iitm-text);
@@ -83,7 +82,6 @@
 
 
 
-    /* =========================
 
     /* =========================
    INFO BADGES (more structured)
@@ -93,12 +91,14 @@
    INFO STRIP (expo footer bar)
 ========================= */
     .info {
+        padding-top: 5px;
+        border-top: 1px solid var(--iitm-background2);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 24px 40px;
-        border-top: 2px solid var(--iitm-background2);
-        background: var(--iitm-background);
+        flex-wrap: wrap;
+        /* prevents overflow */
+        gap: 12px;
     }
 
     /* =========================
