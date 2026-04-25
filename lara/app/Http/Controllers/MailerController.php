@@ -16,7 +16,7 @@ class MailerController extends Controller
     public function sendRegistrationMaitest($email, $data)
     {
 
-        dd($email, $data);
+        // dd($email, $data);
         $subject = "Registration Successful";
 
         // ✅ render blade view into HTML string
