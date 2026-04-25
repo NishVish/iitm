@@ -73,7 +73,9 @@ class MailerController extends Controller
         $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 
         $sent = mail($to, $subject, $message, $headers);
-
-        return back()->with('status', $sent ? 'Mail Sent' : 'Mail Failed');
+        $sendtstatus = $sent ? 'Mail Sent' : 'Mail Failed';
+        echo $sendtstatus;
+        exit;
+        return back()->with('status', $sendtstatus);
     }
 }
