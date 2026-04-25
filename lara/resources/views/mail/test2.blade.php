@@ -9,6 +9,12 @@
 
     <h2>Send Email</h2>
 
+    @if(session('status'))
+        <p style="color: green;">
+            {{ session('status') }}
+        </p>
+    @endif
+
     <label>Email:</label><br>
     <input type="email" id="email" required style="width:300px;" value="nishwakarma3@gmail.com"><br><br>
 
@@ -26,7 +32,9 @@
                 data = 'xyz';
             }
 
-            let url = "{{   url('mail/sendtest') }}/" + encodeURIComponent(email) + "/" + encodeURIComponent(data);
+            let url = "{{ url('mail/sendtest') }}/"
+                + encodeURIComponent(email) + "/"
+                + encodeURIComponent(data);
 
             window.location.href = url;
         }
