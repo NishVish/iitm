@@ -9,24 +9,28 @@
 
     <h2>Send Email</h2>
 
-    @if(session('status'))
-        <p style="color:green;">{{ session('status') }}</p>
-    @endif
+    <label>Email:</label><br>
+    <input type="email" id="email" required style="width:300px;" value="nishwakarma3@gmail.com"><br><br>
 
-    <form method="POST" action="{{ url('mail/send') }}">
-        @csrf
+    <label>Data:</label><br>
+    <textarea id="data" rows="6" cols="50"></textarea><br><br>
 
-        <label>Email:</label><br>
-        <input type="email" name="email" required style="width:300px;"><br><br>
+    <a href="#" onclick="sendMail()">Send Mail</a>
 
-        <label>Subject:</label><br>
-        <input type="text" name="subject" required style="width:300px;"><br><br>
+    <script>
+        function sendMail() {
+            let email = document.getElementById('email').value;
+            let data = document.getElementById('data').value;
 
-        <label>Message (HTML allowed):</label><br>
-        <textarea name="message" rows="8" cols="50" required></textarea><br><br>
+            if (!data) {
+                data = 'xyz';
+            }
 
-        <button type="submit">Send Mail</button>
-    </form>
+            let url = "{{   url('mail/send') }}/" + encodeURIComponent(email) + "/" + encodeURIComponent(data);
+
+            window.location.href = url;
+        }
+    </script>
 
 </body>
 

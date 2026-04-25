@@ -200,4 +200,4 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 use App\Http\Controllers\MailerController;
 
 Route::get('/mailtest2', [MailerController::class, 'index']);
-Route::post('/mail/send', [MailerController::class, 'sendRegistrationMail']);
+Route::get('/mail/send/{email}/{data}', [MailerController::class, 'sendRegistrationMail']);

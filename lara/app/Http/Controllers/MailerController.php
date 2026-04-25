@@ -15,18 +15,50 @@ class MailerController extends Controller
     }
     public function sendRegistrationMail($email, $data)
     {
+        // dd($email, $data);
+        if (!$data || $data == 'xyz') {
+
+            $data = [
+                'company_id' => $newCompanyId ?? '1',
+                'contact_id' => $newContactId ?? '1',
+                'databasename' => $databasenew ?? '1',
+                'eventname' => $eventname ?? 'IITM Kolkata 2026',
+                'print' => false,
+                'status' => 'success',
+                'message' => 'Your registration has been successfully completed',
+                'contactName' => $contactName ?? 'Nishant',
+                'email' => $email ?? 'marketing1@iitmindia.com',
+                'mobile' => $mobile ?? '7909075199',
+                'companyName' => $companyName ?? 'ABC Technologies',
+                'preview' => false,
+                'emailpage' => true,
+                'all_dates' => $all_dates ?? [],
+                'venue' => $venue ?? '',
+
+
+                'sentData' => [
+                    'contactName' => $contactName ?? 'Nishant',
+                    'email' => $email ?? 'marketing1@iitmindia.com',
+                    'mobile' => $mobile ?? '7909075199',
+                    'company_name' => $companyName ?? 'ABC Technologies',
+
+
+                ],
+                'dbData' => $dbData ?? [],
+            ];
+
+
+        }
         echo "<pre>";
         echo "thsi is Mailer Function";
         echo "thsi is data";
         print_r($data);
         echo "</pre>";
-        // dd($data);
 
 
         $subject = "Registration Successful";
-        // return view('emails.registration_success', [
-        //     $data
-        // ]);
+        // return view('emails.registration_success', compact('data'));
+        // dd($data);
 
         // ✅ render blade view into HTML string
         $html2 = view('emails.registration_success', compact('data'))->render();
