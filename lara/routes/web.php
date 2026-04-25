@@ -197,3 +197,7 @@ use App\Http\Controllers\GalleryController;
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 
+use App\Http\Controllers\MailerController;
+
+Route::get('/mailtest2', [MailerController::class, 'index']);
+Route::post('/mail/send', [MailerController::class, 'sendRegistrationMail']);

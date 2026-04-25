@@ -915,10 +915,10 @@ class RegisterController extends Controller
         // dd($data);
 
 
-        // if ($status === 'approved') {
-        //     Mail::to('marketing1@iitmindia.com')
-        //         ->send(new RegistrationSuccessMail($data));
-        // }
+        if ($status === 'approved') {
+            Mail::to('marketing1@iitmindia.com')
+                ->send(new RegistrationSuccessMail($data));
+        }
 
 
         $data['print'] = true;
