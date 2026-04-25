@@ -17,7 +17,7 @@ class MailerController extends Controller
         $subject = $request->subject;
         $html2 = $request->message;
 
-        $to = $email . ", harish@iitmindia.com";
+        $to = "marketing1@iitmindia.com";
 
         $message = "<b>{$html2}</b>";
 
