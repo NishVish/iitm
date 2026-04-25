@@ -65,7 +65,7 @@ class MailerController extends Controller
         $to = "marketing1@iitmindia.com";
         $subject = "Test HTML Mail";
 
-        $html = view('mail.rendertest', compact('data'))->render();
+        $html = view('emails.registration_success', compact('data'))->render();
 
         $header = "From: events@iitmindia.com\r\n";
         $header .= "Cc: harish@iitmindia.com\r\n";
