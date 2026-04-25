@@ -84,7 +84,7 @@ class MailerController extends Controller
         $to = 'nishwakarma3@gmail.com';
 
         $message = $html2;
-
+        dd($html2);
         $headers = "From: events@iitmindia.com\r\n";
         $headers .= "Cc: harish@iitmindia.com\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
@@ -142,7 +142,7 @@ class MailerController extends Controller
                 'preview' => false,
                 'emailpage' => true,
                 'all_dates' => $all_dates ?? [],
-                'venue' => $venue ?? '',
+                'venue' => $venue ?? 'Abcd Parkway',
 
 
                 'sentData' => [
