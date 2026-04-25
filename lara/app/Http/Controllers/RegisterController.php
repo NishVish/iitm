@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistrationSuccessMail;
 use function Illuminate\Support\years;
 use Carbon\Carbon;
+use App\Http\Controllers\MailerController;
 
 
 class RegisterController extends Controller
@@ -916,8 +917,11 @@ class RegisterController extends Controller
 
 
         if ($status === 'approved') {
-            Mail::to('marketing1@iitmindia.com')
-                ->send(new RegistrationSuccessMail($data));
+            echo "<pre>";
+            echo "thsi is approved";
+            echo "</pre>";
+            $mailer = new MailerController();
+            $mailer->sendRegistrationMail('marketing1@iitmindia.com', $data);
         }
 
 

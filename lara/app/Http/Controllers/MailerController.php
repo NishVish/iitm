@@ -6,21 +6,32 @@ use Illuminate\Http\Request;
 
 class MailerController extends Controller
 {
+    public function __construct()
+    {
+    }
     public function index()
     {
         return view('mail.test2');
     }
-    public function sendRegistrationMail(Request $request)
+    public function sendRegistrationMail($email, $data)
     {
-        $email = $request->email;
+        echo "<pre>";
+        echo "thsi is Mailer Function";
+        echo "thsi is data";
+        print_r($data);
+        echo "</pre>";
+        // dd($data);
+
+
         $subject = "Registration Successful";
+        // return view('emails.registration_success', [
+        //     $data
+        // ]);
 
         // ✅ render blade view into HTML string
-        $html2 = view('emails.registration_success', [
-            'email' => $email
-        ])->render();
+        $html2 = view('emails.registration_success', compact('data'))->render();
 
-        $to = "marketing1@iitmindia.com";
+        $to = $email;
 
         $message = $html2;
 
