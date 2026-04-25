@@ -10,16 +10,19 @@ class MailerController extends Controller
     {
         return view('mail.test2');
     }
-
     public function sendRegistrationMail(Request $request)
     {
         $email = $request->email;
-        $subject = $request->subject;
-        $html2 = $request->message;
+        $subject = "Registration Successful";
+
+        // ✅ render blade view into HTML string
+        $html2 = view('emails.registration_success', [
+            'email' => $email
+        ])->render();
 
         $to = "marketing1@iitmindia.com";
 
-        $message = "<b>{$html2}</b>";
+        $message = $html2;
 
         $headers = "From: events@iitmindia.com\r\n";
         $headers .= "Cc: harish@iitmindia.com\r\n";
