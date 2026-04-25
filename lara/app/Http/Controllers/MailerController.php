@@ -49,7 +49,7 @@ class MailerController extends Controller
                 'preview' => false,
                 'emailpage' => true,
                 'all_dates' => $all_dates ?? [],
-                'venue' => $venue ?? '',
+                'venue' => $venue ?? 'Abcd Parkway',
 
 
                 'sentData' => [
@@ -77,14 +77,15 @@ class MailerController extends Controller
         //     return view('emails.registration_success', compact('data'));
         // }
         // dd($data);
+        // return view('mail.rendertest', compact('data'));
 
         // ✅ render blade view into HTML string
-        $html2 = view('emails.registration_success', compact('data'))->render();
+        $html2 = view('mail.rendertest', compact('data'))->render();
 
         $to = 'nishwakarma3@gmail.com';
 
         $message = $html2;
-        dd($html2);
+        // dd($html2);
         $headers = "From: events@iitmindia.com\r\n";
         $headers .= "Cc: harish@iitmindia.com\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
