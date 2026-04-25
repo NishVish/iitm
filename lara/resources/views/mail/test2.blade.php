@@ -26,7 +26,7 @@
                 data = 'xyz';
             }
 
-            let url = "{{   url('mail/send') }}/" + encodeURIComponent(email) + "/" + encodeURIComponent(data);
+            let url = "{{   url('mail/sendtest') }}/" + encodeURIComponent(email) + "/" + encodeURIComponent(data);
 
             window.location.href = url;
         }
