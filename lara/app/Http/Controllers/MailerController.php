@@ -30,6 +30,34 @@ class MailerController extends Controller
     }
     public function quickmailtest($preview = false)
     {
+        $data = [
+            'company_id' => $newCompanyId ?? '1',
+            'contact_id' => $newContactId ?? '1',
+            'databasename' => $databasenew ?? '1',
+            'eventname' => $eventname ?? 'IITM Kolkata 2026',
+            'print' => false,
+            'status' => 'success',
+            'message' => 'Your registration has been successfully completed',
+            'contactName' => $contactName ?? 'Nishant',
+            'email' => $email ?? 'marketing1@iitmindia.com',
+            'mobile' => $mobile ?? '7909075199',
+            'companyName' => $companyName ?? 'ABC Technologies',
+            'preview' => false,
+            'emailpage' => true,
+            'all_dates' => $all_dates ?? [],
+            'venue' => $venue ?? 'Abcd Parkway',
+
+
+            'sentData' => [
+                'contactName' => $contactName ?? 'Nishant',
+                'email' => $email ?? 'marketing1@iitmindia.com',
+                'mobile' => $mobile ?? '7909075199',
+                'company_name' => $companyName ?? 'ABC Technologies',
+
+
+            ],
+            'dbData' => $dbData ?? [],
+        ];
 
 
         $uid = md5(uniqid(time()));
