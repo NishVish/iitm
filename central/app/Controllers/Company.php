@@ -537,10 +537,10 @@ class Company extends BaseController
         }
 
         if ($state != "all") {
-            echo $state;
+            // echo $state;
             // Your current way (Manual)
             $state = str_replace("and", "&", $state);
-            echo $state;
+            // echo $state;
 
             // exit;
 
@@ -1204,7 +1204,7 @@ class Company extends BaseController
 
     public function add_details()
     {
-        set_time_limit(400);
+        set_time_limit(500);
 
         $companies = $this->request->getPost('companies');
 
@@ -1248,9 +1248,9 @@ class Company extends BaseController
                     // var_dump($currentType); // Debug: Check the current entry type being processed
                     // exit; // Uncomment to stop execution and see the result
                     $company_id = 'C' . strtoupper(bin2hex(random_bytes(4))); // Generate new company ID
-// echo "<pre>";
-// var_dump($companies);
-// echo "</pre>";
+                    // echo "<pre>";
+                    // var_dump($companies);
+                    // echo "</pre>";
                     $updatedAt = !empty($company['updated_at'])
                         ? str_replace('T', ' ', $company['updated_at']) . ':00'
                         : date('Y-m-d H:i:s');
@@ -1276,8 +1276,12 @@ class Company extends BaseController
 
                     $database_name = $company['database_name'] ?? '';
                     $entry_type = $company['entry_type'] ?? '';
-                    $contact = $company['contact1_name'] ?? '';
-                    // var_dump($contact);
+                    // var_dump($entry_type);
+                    // exit;
+
+                    // $contact = $company['contact1_name'] ?? '';
+                    // $contact = $company['contact1_mobile'] ?? '';
+                    // var_dump($company);
                     // exit;
 
 
@@ -1340,15 +1344,11 @@ class Company extends BaseController
 
                     }
 
-                    // var_dump("super");
 
-                    // Insert contacts dynamically (up to 3 contacts)
                     for ($i = 1; $i <= 3; $i++) {
 
                         $name = trim($company["contact{$i}_name"] ?? '');
-                        var_dump("super");
-                        var_dump($company["contact1_name"]);
-                        // exit;
+
                         // Skip if no name
                         if ($name === '') {
                             continue;
@@ -1363,41 +1363,27 @@ class Company extends BaseController
                             'emails' => []
                         ];
 
-                        // var_dump($contactData);
-                        // exit;
                         // Collect mobiles (up to 3 per contact)
                         for ($m = 1; $m <= 3; $m++) {
-
                             $mobileKey = "contact{$i}_mobile{$m}";
-                            var_dump($contactData["mobiles"]);
-$contactData["mobiles"][] = $m;
 
                             if (!empty($company[$mobileKey])) {
                                 $contactData['mobiles'][] = trim($company[$mobileKey]);
-
-
                             }
                         }
 
                         // Collect emails (up to 3 per contact)
                         for ($e = 1; $e <= 3; $e++) {
-
                             $emailKey = "contact{$i}_email{$e}";
-                            // exit;
 
                             if (!empty($company[$emailKey])) {
                                 $contactData['emails'][] = trim($company[$emailKey]);
                             }
                         }
 
-                        // var_dump($contactData);
-                        // exit;
-                        // Insert contact using your working function
+                        // Save contact
                         $inserted = $this->savePerson($contactData);
-                        // var_dump("super1000");
-                        // var_dump($inserted);
 
-                        // exit;
                         if ($inserted === true) {
                             $success++;
                         } else {
@@ -1490,6 +1476,15 @@ $contactData["mobiles"][] = $m;
 // var_dump($part1);
 // var_dump($part2);
 // exit;
+                // 1. Break the source by "-"
+                $parts = explode('_', $database_name);
+
+                // Normalize part 1
+                $part1 = isset($parts[0]) ? strtolower(trim($parts[0])) : 'EMPTY';
+
+                // Normalize part 2 (Safe check to avoid "Offset 1" error)
+                $part2 = (count($parts) > 2) ? strtolower(trim($parts[2])) : 'NO HYPHEN FOUND';
+
                 if ($entry_type === "spot" || $part1 === "online") {
 
                     // var_dump($part1);

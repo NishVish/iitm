@@ -56,7 +56,7 @@ $entryType = $type;
 
 
                 foreach ($pivot as $rowKey => $row):
-                    echo "hello";
+                    // echo "hello";
                     $rowTotal = 0;
                     foreach ($columns as $col) {
                         $rowTotal += $row[$col] ?? 0;

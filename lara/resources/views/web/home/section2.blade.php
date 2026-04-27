@@ -170,6 +170,7 @@
         </div>
 
         <div class="content-wrapper">
+            @include('web.templates.statistics')
             @include('web.templates.keyperformancehighlights')
             @include('web.templates.intro')
             @include('web.templates.cities')

@@ -183,6 +183,8 @@ class MailerController extends Controller
     public function sendRegistrationMail($email, $data)
     {
         // dd($email, $data);
+
+
         if (!$data || $data == 'xyz') {
 
             $data = [
@@ -223,26 +225,29 @@ class MailerController extends Controller
         echo "</pre>";
 
 
-        $subject = "Registration Successful";
-        // return view('emails.registration_success', compact('data'));
-        // dd($data);
-
-        // ✅ render blade view into HTML string
-        $html2 = view('emails.registration_success', compact('data'))->render();
+        $uid = md5(uniqid(time()));
 
         $to = $email;
+        $subject = "Test HTML Mail";
 
-        $message = $html2;
+        $html = view('emails.registration_success', compact('data'))->render();
 
-        $headers = "From: events@iitmindia.com\r\n";
-        $headers .= "Cc: harish@iitmindia.com\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+        $header = "From: events@iitmindia.com\r\n";
+        // $header .= "Cc: harish@iitmindia.com\r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-Type: multipart/alternative; boundary=\"$uid\"\r\n";
 
-        $sent = mail($to, $subject, $message, $headers);
-        $sendtstatus = $sent ? 'Mail Sent' : 'Mail Failed';
+        $body = "--$uid\r\n";
+        $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+        $body .= $html . "\r\n\r\n";
+        $body .= "--$uid--";
+
+        $staus = mail($to, $subject, $body, $header);
+        // echo $staus;
+        $sendtstatus = $staus ? 'Mail Sent' : 'Mail Failed';
         echo $sendtstatus;
-        exit;
+        // exit;
         return back()->with('status', $sendtstatus);
     }
 }

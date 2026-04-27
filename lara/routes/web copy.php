@@ -1,7 +1,6 @@
-<?php
-
+<!-- 
 use Illuminate\Support\Facades\Route;
-require __DIR__ . '/backend.php';
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -150,7 +149,6 @@ use App\Http\Controllers\DatabaseController;
 Route::get('/api/getAllCompanyData/{mobileNumber}', [DatabaseController::class, 'getAllCompanyData']);
 Route::get('/api/getLatestCompanyData/{mobileNumber}/{querylength}/{city}/{response}', [DatabaseController::class, 'getLatestCompanyDatabymobile']);
 Route::get('/api/getCompanyByMobileOrEmail/{mobileNumber}/{email}', [DatabaseController::class, 'getCompanyByMobileOrEmail']);
-Route::get('/api/getLatestContactId/{mobileNumber}', [DatabaseController::class, 'getLatestContactId']);
 Route::get('/api/getDetails/{mobileNumber}', [DatabaseController::class, 'getDetails']);
 // Route::get('backend', [DatabaseController::class, 'index']);
 
@@ -217,6 +215,7 @@ Route::get('/gallery', [InfopagesController::class, 'gallery'])->name('gallery')
 
 
 
+@include('backend.php');
 
 
 
@@ -227,3 +226,7 @@ Route::get('/gallery', [InfopagesController::class, 'gallery'])->name('gallery')
 
 
 
+
+
+
+ -->

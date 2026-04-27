@@ -45,6 +45,7 @@
             border-radius:10px;
         ">
             <div style="width:100%;">
+
                 @include('web.participant.attending.eventlisting')
             </div>
         </div>
