@@ -81,78 +81,7 @@ class MailerController extends Controller
         $staus = mail($to, $subject, $body, $header);
         echo $staus;
         // // dd($email, $data);
-        // $data = null;
-        // if (!$data || $data == 'xyz') {
 
-        //     $data = [
-        //         'company_id' => $newCompanyId ?? '1',
-        //         'contact_id' => $newContactId ?? '1',
-        //         'databasename' => $databasenew ?? '1',
-        //         'eventname' => $eventname ?? 'IITM Kolkata 2026',
-        //         'print' => false,
-        //         'status' => 'success',
-        //         'message' => 'Your registration has been successfully completed',
-        //         'contactName' => $contactName ?? 'Nishant',
-        //         'email' => $email ?? 'marketing1@iitmindia.com',
-        //         'mobile' => $mobile ?? '7909075199',
-        //         'companyName' => $companyName ?? 'ABC Technologies',
-        //         'preview' => false,
-        //         'emailpage' => true,
-        //         'all_dates' => $all_dates ?? [],
-        //         'venue' => $venue ?? 'Abcd Parkway',
-
-
-        //         'sentData' => [
-        //             'contactName' => $contactName ?? 'Nishant',
-        //             'email' => $email ?? 'marketing1@iitmindia.com',
-        //             'mobile' => $mobile ?? '7909075199',
-        //             'company_name' => $companyName ?? 'ABC Technologies',
-
-
-        //         ],
-        //         'dbData' => $dbData ?? [],
-        //     ];
-
-
-        // }
-        // echo "<pre>";
-        // echo "thsi is Mailer Function";
-        // echo "thsi is data";
-        // print_r($data);
-        // echo "</pre>";
-        // // ✅ render blade view into HTML string
-        // $html2 = view('mail.rendertest', compact('data'))->render();
-        // $html3 = view('emails.registration_success', compact('data'))->render();
-        // echo "<pre>";
-        // print_r($html2);
-        // echo "</pre>";
-        // echo "<pre>";
-        // print_r($html3);
-        // echo "</pre>";
-
-        // $subject = "Registration Successful";
-        // // if ($preview) {
-        // return view('emails.registration_success', compact('data'));
-        // // }
-        // // dd($data);
-        // // return view('mail.rendertest', compact('data'));
-
-
-        // // exit;
-        // $to = 'nishwakarma3@gmail.com';
-
-        // $message = $html2;
-        // // dd($html2);
-        // $headers = "From: events@iitmindia.com\r\n";
-        // $headers .= "Cc: harish@iitmindia.com\r\n";
-        // $headers .= "MIME-Version: 1.0\r\n";
-        // $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-
-        // $sent = mail($to, $subject, $message, $headers);
-        // $sendtstatus = $sent ? 'Mail Sent' : 'Mail Failed';
-        // echo $sendtstatus;
-        // $this->quickmailtest2();
-        // exit;
 
     }
     public function sendRegistrationMaitest($email, $data)
@@ -218,17 +147,17 @@ class MailerController extends Controller
 
 
         }
-        echo "<pre>";
-        echo "thsi is Mailer Function";
-        echo "thsi is data";
-        print_r($data);
-        echo "</pre>";
+        // echo "<pre>";
+        // echo "thsi is Mailer Function";
+        // echo "thsi is data";
+        // print_r($data);
+        // echo "</pre>";
 
 
         $uid = md5(uniqid(time()));
 
         $to = $email;
-        $subject = "Test HTML Mail";
+        $subject = "Registration Successful";
 
         $html = view('emails.registration_success', compact('data'))->render();
 
@@ -246,8 +175,40 @@ class MailerController extends Controller
         $staus = mail($to, $subject, $body, $header);
         // echo $staus;
         $sendtstatus = $staus ? 'Mail Sent' : 'Mail Failed';
-        echo $sendtstatus;
+        // echo $sendtstatus;
         // exit;
         return back()->with('status', $sendtstatus);
     }
+
+
+    public function sendmail(Request $request)
+    {
+        dd($request->all());
+
+
+        $uid = md5(uniqid(time()));
+
+        $to = "marketing1@iitmindia.com";
+        $subject = "Test HTML Mail";
+
+        $html = view('emails.registration_success', compact('data'))->render();
+
+        $header = "From: events@iitmindia.com\r\n";
+        // $header .= "Cc: harish@iitmindia.com\r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-Type: multipart/alternative; boundary=\"$uid\"\r\n";
+
+        $body = "--$uid\r\n";
+        $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+        $body .= $html . "\r\n\r\n";
+        $body .= "--$uid--";
+
+        $staus = mail($to, $subject, $body, $header);
+        echo $staus;
+
+
+    }
+
+
 }

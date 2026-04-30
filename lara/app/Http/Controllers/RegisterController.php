@@ -90,7 +90,8 @@ class RegisterController extends Controller
         $category = $request->category;
         $cities = $request->cities; // array
 
-
+        $this->createentry($request, 'lead');
+        $this->createentry($request, 'main');
         return view('web.registration.enquirysuccess', compact('company_name', 'contact_name', 'designation', 'email', 'phone', 'category', 'cities'));
 
 
@@ -917,11 +918,11 @@ class RegisterController extends Controller
 
 
         if ($status === 'approved') {
-            echo "<pre>";
-            echo "thsi is approved";
-            echo "</pre>";
+            // echo "<pre>";
+            // echo "thsi is approved";
+            // echo "</pre>";
             $mailer = new MailerController();
-            $mailer->sendRegistrationMail('marketing1@iitmindia.com', $data);
+            $mailer->sendRegistrationMail($email, $data);
         }
 
 

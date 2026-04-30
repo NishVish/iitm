@@ -3,8 +3,11 @@
 
     <h3>Lead Details</h3>
 
+
     <label>Company ID</label>
     <input type="text" name="company_id" value="{{ $lead->company_id ?? '' }}"><br><br>
+    <label>Lead_id ID</label>
+    <input type="text" name="lead_id" value="{{ $lead->lead_id ?? '' }}"><br><br>
 
     <label>Contact ID</label>
     <input type="text" name="contact_id" value="{{ $lead->contact_id ?? '' }}"><br><br>

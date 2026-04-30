@@ -164,43 +164,14 @@
             <a href="{{ url('/backend/exhibitors') }}">EXHIBITORS</a>
             <a href="{{ url('/backend/activity') }}">ACTIVITY</a>
         </div>
+        <div style="margin-left:auto; display:flex; align-items:center; gap:10px;">
 
-        <form class="search-box" method="GET" action="{{ url('/backend/search') }}">
-            <input type="text" name="q" placeholder="Search leads...">
-            <button type="submit">GO</button>
-        </form>
+            <form method="POST" action="{{ url('/logout') }}">
+                @csrf
+                <button type="submit" class="logout-btn">LOGOUT</button>
+            </form>
+        </div>
     </div>
+
 
     <div class="container">
-        <h2>System Administration Dashboard</h2>
-        @php
-            $user = session('user')[0] ?? null;
-
-            $name = $user->name ?? null;
-            $mobile = $user->phone ?? null;
-            $email = $user->email ?? null;
-        @endphp
-        <div class="box">
-            @if(!session()->has('user'))
-                <span class="session-badge badge-error">Status: ❌ No Active Session</span>
-                <p>Please authenticate to access administrator tools.</p>
-            @else
-                <span class="session-badge badge-success">Status: ✅ Operator Authenticated</span>
-                <p><strong>Current Operator:</strong> {{ session('user') }}</p>
-            @endif
-            @php
-                $salesPerson = session('user.name');
-
-            @endphp
-        </div>
-
-        <div class="box">
-            <h3>Operator Session Trace</h3>
-            @php $sessionData = session()->all(); @endphp
-            <pre>{{ print_r($sessionData, true) }}</pre>
-        </div>
-    </div>
-
-</body>
-
-</html>

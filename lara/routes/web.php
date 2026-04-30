@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 require __DIR__ . '/backend.php';
+require __DIR__ . '/sales.php';
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -207,6 +208,7 @@ Route::get('/mail/send/{email}/{data}', [MailerController::class, 'sendRegistrat
 
 Route::get('/mail/sendtest/{email}/{data}', [MailerController::class, 'sendRegistrationMaitest']);
 Route::get('quickmailtest/{preview}', [MailerController::class, 'quickmailtest']);
+Route::post('/sendmail', [MailerController::class, 'sendmail'])->name('sendmail');
 
 use App\Http\Controllers\InfopagesController;
 
@@ -214,6 +216,12 @@ Route::get('/contactus', [InfopagesController::class, 'contactus'])->name('conta
 Route::get('/aboutus', [InfopagesController::class, 'aboutus'])->name('aboutus');
 Route::get('/resourcepage', [InfopagesController::class, 'resourcepage'])->name('resourcepage');
 Route::get('/gallery', [InfopagesController::class, 'gallery'])->name('gallery');
+
+
+use App\Http\Controllers\RazorpayTestController;
+Route::get('/razorpay-test', [RazorpayTestController::class, 'test']);
+
+
 
 
 

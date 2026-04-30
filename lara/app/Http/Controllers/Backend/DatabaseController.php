@@ -121,120 +121,109 @@ class DatabaseController extends Controller
             'query' => $query,
         ]);
 
-        // Table: company_data						
-// Column Name	Type	Max Length	Primary Key	Nullable	Default	
-// id	int		Yes	No	NULL	
-// company_id	varchar	50	No	No	NULL	
-// database_name	varchar	100	No	Yes	NULL	
-// outbound	tinyint		No	Yes	0	
-// company_name	varchar	255	No	No	NULL	
-// category	varchar	100	No	Yes	NULL	
-// address	text		No	Yes	NULL	
-// city	varchar	100	No	Yes	NULL	
-// pincode	varchar	20	No	Yes	NULL	
-// state	varchar	100	No	Yes	NULL	
-// country	varchar	100	No	Yes	NULL	
-// website	varchar	255	No	Yes	NULL	
-// phone	varchar	50	No	Yes	NULL	
-// gst_number	varchar	50	No	Yes	NULL	
-// sales_person	varchar	100	No	Yes	NULL	
-// active_inactive	enum		No	Yes	active	
-// created_at	timestamp		No	No	CURRENT_TIMESTAMP	
-// updated_at	varchar	25	No	Yes	NULL	
-// last_confirmed_at	datetime		No	Yes	NULL	
-// session	int		No	No	0	
-// cross_validation	tinyint	1	No	No	NULL	
-// last_comments	text		No	Yes	NULL	
-// second_last_comments	text		No	Yes	NULL	
-// updated_by	text		No	Yes	NULL	
-// second_last_comments_updated_by	text		No	Yes	NULL	
-// entry_type	enum		No	No	NULL	
-// pin	varchar	20	No	Yes	NULL	
-// travel_segments	text		No	Yes	NULL	
-// meet_profiles	text		No	Yes	NULL	
-// meet_regions	text		No	Yes	NULL	
-// interested_states	text		No	Yes	NULL	
-// branch_offices	varchar	50	No	Yes	NULL	
-// total_staff	varchar	50	No	Yes	NULL	
-// association_membership	varchar	255	No	Yes	NULL	
-// subcategory	varchar	100	No	Yes	NULL	
-// Table: company_sources						
-// Column Name	Type	Max Length	Primary Key	Nullable	Default	
-// id	int		Yes	No	NULL	
-// company_id	varchar	50	No	No	NULL	
-// source_id	int		No	Yes	NULL	
-// event_date	date		No	Yes	NULL	
-// notes	varchar	255	No	Yes	NULL	
-// created_at	timestamp		No	No	CURRENT_TIMESTAMP	
-// Table: contact						
-// Column Name	Type	Max Length	Primary Key	Nullable	Default	
-// contact_id	int		Yes	No	NULL	
-// company_id	varchar	50	No	No	NULL	
-// priority	tinyint		No	Yes	1	
-// name	varchar	255	No	Yes	NULL	
-// designation	varchar	100	No	Yes	NULL	
-// image	varchar	255	No	Yes	NULL	
-// created_at	timestamp		No	No	CURRENT_TIMESTAMP	
-// updated_at	datetime		No	Yes	NULL	
-// attendance_reason	varchar	100	No	Yes	NULL	
-// buyer_responsibility	varchar	100	No	Yes	NULL	
-// attended_past	enum		No	Yes	No	
-// interest_forum	enum		No	Yes	No	
-// business_card_path	varchar	255	No	Yes	NULL	
-// otp	varchar	6	No	Yes	NULL	
-// otp_expiry	datetime		No	Yes	NULL	
-// self_verified	tinyint	1	No	Yes	NULL	
-// Table: contact_email						
-// Column Name	Type	Max Length	Primary Key	Nullable	Default	
-// email_id	int		Yes	No	NULL	
-// contact_id	int		No	No	NULL	
-// email	varchar	100	No	No	NULL	
-// is_primary	tinyint		No	Yes	0	
-// created_at	timestamp		No	No	CURRENT_TIMESTAMP	
-// updated_at	timestamp		No	Yes	NULL	
-// Table: contact_mobile						
-// Column Name	Type	Max Length	Primary Key	Nullable	Default	
-// mobile_id	int		Yes	No	NULL	
-// contact_id	int		No	No	NULL	
-// mobile	varchar	50	No	No	NULL	
-// is_primary	tinyint		No	Yes	0	
-// created_at	timestamp		No	No	CURRENT_TIMESTAMP	
-// updated_at	timestamp		No	Yes	NULL	
 
+    }
 
-        // Table: lead_locations						
-// Column Name	Type	Max Length	Primary Key	Nullable	Default	
-// location_id	int		No	No	NULL	
-// lead_id	int		No	No	NULL	
-// location	varchar	100	No	Yes	NULL	
-// stall_location	varchar	100	No	Yes	NULL	
-// size	varchar	50	No	Yes	NULL	
-// price	decimal	10	No	Yes	0	
-// gst_amount	decimal	10	No	Yes	0	
-// discount_amount	decimal	10	No	Yes	0	
-// grand_total	decimal	10	No	Yes	0	
-// created_at	timestamp		No	No	CURRENT_TIMESTAMP	
-// updated_at	datetime		No	Yes	CURRENT_TIMESTAMP	
-// Table: leads						
-// Column Name	Type	Max Length	Primary Key	Nullable	Default	
-// lead_id	int		Yes	No	NULL	
-// company_id	varchar	50	No	No	NULL	
-// contact_id	int		No	Yes	NULL	
-// exhibition_year	int		No	Yes	NULL	
-// fascia	varchar	100	No	Yes	NULL	
-// sales_person	varchar	100	No	Yes	NULL	
-// exhibitor	varchar	255	No	Yes	NULL	
-// booking_form	varchar	255	No	Yes	NULL	
-// status	enum		No	Yes	draft	
-// payment_status	enum		No	Yes	pending	
-// created_at	timestamp		No	No	CURRENT_TIMESTAMP	
-// updated_at	datetime		No	Yes	NULL	
+    public function createduplicate($companyid, $contactid, $type)
+    {
+        // Get existing company
+        $oldCompanydata = DB::table('company_data')
+            ->where('company_id', $companyid)
+            ->first();
 
+        // Get contact
+        $contact = DB::table('contact')
+            ->where('contact_id', $contactid)
+            ->first();
 
+        $contactMobile = DB::table('contact_mobile')
+            ->where('contact_id', $contactid)
+            ->first();
 
-        // return view('backend.index', [
-        //     'results' => $leads,
-        //     'query' => $query
-        // ]);
+        $contactEmail = DB::table('contact_email')
+            ->where('contact_id', $contactid)
+            ->first();
+
+        if (!$oldCompanydata) {
+            return response()->json(['message' => 'Company not found'], 404);
+        }
+
+        // Check if any change needed (you can adjust logic)
+        $isChanged = true; // since no request, assume duplicate flow always creates new
+
+        if ($isChanged) {
+
+            $unique_id = 'CMP_' . uniqid();
+            $databasenew = "Online Registration " . date('Y');
+
+            // 🔵 Create new company
+            DB::table('company_data')->insert([
+                'company_id' => $unique_id,
+                'company_name' => $oldCompanydata->company_name,
+                'city' => $oldCompanydata->city,
+                'state' => $oldCompanydata->state,
+                'pincode' => $oldCompanydata->pincode,
+                'country' => $oldCompanydata->country,
+                'subcategory' => $oldCompanydata->subcategory,
+                'category' => $oldCompanydata->category,
+                'address' => $oldCompanydata->address,
+                'website' => $oldCompanydata->website,
+                'branch_offices' => $oldCompanydata->branch_offices,
+                'total_staff' => $oldCompanydata->total_staff,
+                'travel_segments' => $oldCompanydata->travel_segments,
+                'meet_profiles' => $oldCompanydata->meet_profiles,
+                'meet_regions' => $oldCompanydata->meet_regions,
+                'interested_states' => $oldCompanydata->interested_states,
+                'entry_type' => $type,
+                'cross_validation' => 0,
+                'database_name' => $databasenew,
+                'active_inactive' => 'active',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+
+            // 🔵 Create new contact
+            $newContactId = DB::table('contact')->insertGetId([
+                'company_id' => $unique_id,
+                'name' => $contact->name ?? null,
+                'designation' => $contact->designation ?? null,
+                'created_at' => now()
+            ]);
+
+            // 🔵 Copy mobile
+            if ($contactMobile) {
+                DB::table('contact_mobile')->insert([
+                    'contact_id' => $newContactId,
+                    'mobile' => $contactMobile->mobile,
+                    'is_primary' => 1,
+                    'created_at' => now()
+                ]);
+            }
+
+            // 🔵 Copy email
+            if ($contactEmail) {
+                DB::table('contact_email')->insert([
+                    'contact_id' => $newContactId,
+                    'email' => $contactEmail->email,
+                    'is_primary' => 1,
+                    'created_at' => now()
+                ]);
+            }
+
+            // 🔵 Company source
+            DB::table('company_sources')->insert([
+                'company_id' => $unique_id,
+                'notes' => "Lead Generation " . $companyid . " - " . date('Y'),
+                'event_date' => now()
+            ]);
+
+            return response()->json([
+                'message' => 'Duplicate created successfully',
+                'new_company_id' => $unique_id,
+                'new_contact_id' => $newContactId
+            ]);
+        }
+
+        return response()->json(['message' => 'No action taken']);
     }
 }

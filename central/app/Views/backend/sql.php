@@ -1,45 +1,44 @@
-<?= view('backend/sidemenu') ?>  <!-- loads app/Views/header.php -->
+<?= view('backend/sidemenu') ?> <!-- loads app/Views/header.php -->
 
 <h3>Saved SQL Tickets</h3>
 
 <?php if (!empty($sql_tickets)): ?>
 
-<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
-<tr style="background:#f2f2f2">
-    <th>ID</th>
-    <th>Title</th>
-    <th>Description (SQL)</th>
-    <th>Created</th>
-    <th>Use</th>
-</tr>
+    <table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+        <tr style="background:#f2f2f2">
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description (SQL)</th>
+            <th>Created</th>
+            <th>Use</th>
+        </tr>
 
-<?php foreach ($sql_tickets as $ticket): ?>
+        <?php foreach ($sql_tickets as $ticket): ?>
 
-<tr>
-    <td><?= esc($ticket['id']) ?></td>
-    <td><?= esc($ticket['title']) ?></td>
-    <td style="font-family:monospace;">
-        <?= esc($ticket['description']) ?>
-    </td>
-    <td><?= esc($ticket['created_at']) ?></td>
+            <tr>
+                <td><?= esc($ticket['id']) ?></td>
+                <td><?= esc($ticket['title']) ?></td>
+                <td style="font-family:monospace;">
+                    <?= esc($ticket['description']) ?>
+                </td>
+                <td><?= esc($ticket['created_at']) ?></td>
 
-    <td>
-        <button onclick="useQuery(`<?= esc($ticket['description'], 'js') ?>`)">
-            Use
-        </button>
-    </td>
-</tr>
+                <td>
+                    <button onclick="useQuery(`<?= esc($ticket['description'], 'js') ?>`)">
+                        Use
+                    </button>
+                </td>
+            </tr>
 
-<?php endforeach; ?>
+        <?php endforeach; ?>
 
-</table>
+    </table>
 
 <?php else: ?>
-<p>No SQL tickets found.</p>
+    <p>No SQL tickets found.</p>
 <?php endif; ?>
 <h2>SQL Query Runner</h2>
 <p>Delete queries</p>
-<button type="button" onclick="fillQuery()">Fill Delete Query</button>
 
 <form method="post" action="<?= site_url('backend/sql') ?>" onsubmit="return confirmDelete()">
     <?= csrf_field() ?>
@@ -53,23 +52,23 @@
 </form>
 
 <script>
-function fillQuery() {
-    // The query you want to insert
-    const query = "DELETE FROM company_data WHERE session > 1;"; // Example delete query
-    // Put it into the textarea
-    document.getElementById('sqlQuery').value = query;
-}
-
-function confirmDelete() {
-    const query = document.getElementById('sqlQuery').value;
-    
-    // Check if the query contains "DELETE"
-    if (query.toUpperCase().includes('DELETE')) {
-        // Show a confirmation dialog
-        return confirm("WARNING: You are about to delete records from the database. Are you sure you want to proceed?");
+    function fillQuery() {
+        // The query you want to insert
+        const query = "DELETE FROM company_data WHERE session > 1;"; // Example delete query
+        // Put it into the textarea
+        document.getElementById('sqlQuery').value = query;
     }
-    return true; // Allow submission if it's not a delete query
-}
+
+    function confirmDelete() {
+        const query = document.getElementById('sqlQuery').value;
+
+        // Check if the query contains "DELETE"
+        if (query.toUpperCase().includes('DELETE')) {
+            // Show a confirmation dialog
+            return confirm("WARNING: You are about to delete records from the database. Are you sure you want to proceed?");
+        }
+        return true; // Allow submission if it's not a delete query
+    }
 </script>
 
 

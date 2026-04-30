@@ -60,17 +60,26 @@
         </div>
 
     </div>
-
     <!-- Footer Card -->
     <div class="card full-width">
-        <p>
-            By clicking <strong>“Proceed to Step 2”</strong>, you confirm that you have read and understood
-            the instructions and agree to continue with the exhibitor registration process.
-        </p>
+        <form method="GET" onsubmit="return goToLead(event)">
 
-        <div style="text-align: right; padding-right: 10px;">
-            <a href="{{ route('booking.step2') }}" class="btn-next">Proceed to Step 2</a>
-        </div>
+            <p>
+                By clicking <strong>“Proceed to Step 2”</strong>, you confirm that you have read and understood
+                the instructions and agree to continue with the exhibitor registration process.
+            </p>
+
+            <br>
+
+            <label><strong>Enter Your Booking ID</strong></label><br>
+            <input type="text" id="booking_id" placeholder="Enter booking ID"
+                style="padding:8px; width:250px; margin-top:5px;" required>
+
+            <br><br>
+
+            <div style="text-align: right; padding-right: 10px;">
+                <button type="submit" class="btn-next">Proceed to Step 2</button>
+            </div>
+
+        </form>
     </div>
-
-</div>

@@ -8,14 +8,23 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\Backend\HomeController as BackendHomeController;
-use App\Http\Controllers\Backend\AuthController as BackendAuthController;
+use App\Http\Controllers\Backend\BackendAuthController;
 use App\Http\Controllers\Backend\MasterBackendController;
+use App\Http\Controllers\Backend\FormController;
+use App\Http\Controllers\Backend\Sales\LeadController;
+
+Route::post('/testform', [FormController::class, 'index']);
 
 Route::get('/backend', [BackendAuthController::class, 'login']);
 Route::post('/backend/login', [BackendAuthController::class, 'verifyPin'])->name('backend.login');
 Route::get('/backend/home', [BackendAuthController::class, 'home']);
 
-use App\Http\Controllers\Backend\LeadsController;
+
+Route::post('/logout', function () {
+    session()->flush();
+    return redirect('/backend')->with('success', 'Logged out');
+});
+
 
 Route::get('/backend/leads', [LeadsController::class, 'index']);
 Route::post('/backend/mark-lead', [LeadsController::class, 'markaslead'])->name('backend.mark-lead');
@@ -40,12 +49,26 @@ Route::prefix('masterbackend')->group(function () {
 });
 
 use App\Http\Controllers\Backend\DatabaseController;
+use App\Http\Controllers\Backend\SearchController;
+use App\Http\Controllers\Backend\Sales\BookingController;
 
-Route::get('/backend/search', [DatabaseController::class, 'index']);
+Route::get('/backend/search', [SearchController::class, 'index'])->name('backend.search');
+Route::get('/backend/searchleads', [SearchController::class, 'searchleads']);
+Route::get('/salesportal', [LeadController::class, 'index']);
+Route::get('/allleads', [LeadController::class, 'allleads']);
+Route::post('/backend/save-lead', [LeadController::class, 'createlead']);
+Route::post('/backend/save-lead', [LeadController::class, 'createlead']);
+Route::post('/backend/booking/{lead_id}', [LeadController::class, 'booking']);
+Route::get('/bookingportal', [BookingController::class, 'index'])->name('bookingportal');
+Route::get('/leadsdetails/{id}', [LeadController::class, 'leadsdetails'])->name('searchlead');
 
+route::post('finalize-lead', [LeadController::class, 'finalizelead'])->name('finalizelead');
 
-
-
+// use App\Http\Controllers\Backend\BookingController;
+Route::get('/backend/bookingportal', [BookingController::class, 'index']);
+Route::get('/backend/bookingportal/instruction', [BookingController::class, 'instruction']);
+Route::get('/backend/bookingportal/payment', [BookingController::class, 'payment']);
+Route::post('/backend/bookingportal/processbooking', [BookingController::class, 'processbooking']);
 
 
 

@@ -18,7 +18,7 @@
     </div>
 
     <!-- FORM -->
-    <form action="" method="POST">
+    <form action="{{ url('/enquiry') }}" method="POST">
         @csrf
 
         <div class="form-grid">
