@@ -12,85 +12,96 @@ class SearchController extends Controller
 {
     public function search(Request $request)
     {
+
+        // dd($request->all());
+        $query = $request->input('q');
+
+        // 🔐 check session
         if (!session()->has('user')) {
             return redirect('/backend')->with('error', 'Login required');
         }
 
-        $query = trim($request->input('q', ''));
-
-        if (empty($query)) {
-            return response()->json(['success' => true, 'query' => '', 'results' => []]);
+        // ❌ empty search
+        if (!$query) {
+            return response()->json([
+                'success' => true,
+                'query' => '',
+                'results' => []
+            ]);
         }
 
-        [$email, $mobile, $name] = $this->classifyQuery($query);
+        // 🔍 detect type
+        $email = null;
+        $mobile = null;
+        $name = null;
 
-        $results = $this->fetchResults($email, $mobile, $name);
-
-        if ($results->isEmpty() && ($email || $mobile)) {
-            $this->handleMissingContact($email, $mobile);
-            $results = $this->fetchResults($email, $mobile, $name);
-        }
-
-        return response()->json(['success' => true, 'query' => $query, 'results' => $results]);
-    }
-
-    private function classifyQuery(string $query): array
-    {
         if (filter_var($query, FILTER_VALIDATE_EMAIL)) {
-            return [$query, null, null]; // [email, mobile, name]
+            $email = $query;
+        } elseif (is_numeric($query)) {
+            $mobile = $query;
+        } else {
+            $name = $query;
         }
 
-        if (is_numeric($query)) {
-            return [null, $query, null];
+        // dd($mobile, $email);
+        $database = new DatabaseControllerApp();
+        $contactId = null;
+
+        if ($mobile || $email) {
+            $contactId = $database->getLatestContactId($mobile, $email);
         }
 
-        return [null, null, $query];
-    }
-
-    private function buildBaseQuery(): \Illuminate\Database\Query\Builder
-    {
-        return DB::table('contact')
+        // 🧠 base query
+        $resultQuery = DB::table('contact')
             ->leftJoin('company_data', 'contact.company_id', '=', 'company_data.company_id')
             ->leftJoin('contact_email', 'contact.contact_id', '=', 'contact_email.contact_id')
             ->leftJoin('contact_mobile', 'contact.contact_id', '=', 'contact_mobile.contact_id')
             ->where('company_data.entry_type', 'main')
-            ->select('contact.*', 'company_data.*', 'contact_email.*', 'contact_mobile.*');
-    }
+            ->select(
+                'contact.*',
+                'company_data.*',
+                'contact_email.*',
+                'contact_mobile.*'
+            );
+        // dd($resultQuery->get());
 
-    private function fetchResults(?string $email, ?string $mobile, ?string $name)
-    {
-        $query = $this->buildBaseQuery();
-
+        // 🎯 condition handling
         if ($email) {
-            $query->where('contact_email.email', $email);
+            $resultQuery->where('contact_email.email', $email);
         } elseif ($mobile) {
-            $query->where('contact_mobile.mobile', $mobile);
+            $resultQuery->where('contact_mobile.mobile', $mobile);
+        } elseif ($contactId) {
+            $resultQuery->where('contact.contact_id', $contactId);
         } else {
-            $query->where(function ($q) use ($name) {
+            $resultQuery->where(function ($q) use ($name) {
                 $q->where('contact.name', 'LIKE', "%{$name}%")
                     ->orWhere('company_data.company_name', 'LIKE', "%{$name}%");
             });
         }
 
-        return $query->get();
-    }
+        $result = $resultQuery->get();
+        // dd($result, $mobile, $email, $name, $contactId, $resultQuery->get());
 
-    private function handleMissingContact(?string $email, ?string $mobile): void
-    {
-        $database = new DatabaseControllerApp();
-        $contactId = $database->getLatestContactId($mobile, $email);
+        if ($result->isEmpty()) {
 
-        if (!$contactId) {
-            return;
+            $latest_id = new DatabaseControllerApp();
+            $latest_contact_id = $latest_id->getLatestContactId($mobile, $email);
+            // dd($latest_contact_id);
+            $companyId = DB::table('contact')
+                ->where('contact_id', $latest_contact_id)
+                ->value('company_id');
+
+            $db = new BackendDatabaseController();
+            $db->createduplicate($companyId, $latest_contact_id, 'main');
+
+            // re-run query instead of recursion
+            $result = $resultQuery->get();
         }
-
-        $companyId = DB::table('contact')
-            ->where('contact_id', $contactId)
-            ->value('company_id');
-
-        if ($companyId) {
-            (new BackendDatabaseController())->createduplicate($companyId, $contactId, 'main');
-        }
+        return response()->json([
+            'success' => true,
+            'query' => $query,
+            'results' => $result,
+        ]);
     }
 
     public function searchleads(Request $request)
