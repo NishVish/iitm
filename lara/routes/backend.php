@@ -85,6 +85,10 @@ Route::get('/example/bookingprocess', [ExampleController::class, 'bookingprocess
 
 
 
+use App\Http\Controllers\Backend\InvoiceController;
+
+Route::get('/download-invoice/{id}', [InvoiceController::class, 'gererateInvoice']);
+
 
 
 

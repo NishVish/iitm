@@ -85,6 +85,8 @@ class LeadController extends Controller
             ];
         });
 
+
+
         return response()->json([
             'status' => 'success',
             'data' => $leads->values(), // clean index

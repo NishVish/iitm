@@ -203,10 +203,10 @@
                                     📄 Download Invoice
                                 </a>
 
-                                <a href="{{ url('favorite-stall/' . $leadinfo->lead_id) }}"
-                                    class="btn btn-outline-secondary w-100">
-                                    ⭐ Add Stall to Favorites
-                                </a>
+                                <!-- <a href="{{ url('favorite-stall/' . $leadinfo->lead_id) }}"
+                                        class="btn btn-outline-secondary w-100">
+                                        ⭐ Add Stall to Favorites
+                                    </a> -->
 
                             </div>
 
