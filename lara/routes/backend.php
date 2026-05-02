@@ -56,13 +56,14 @@ Route::get('/backend/search', [SearchController::class, 'index'])->name('backend
 Route::get('/backend/searchleads', [SearchController::class, 'searchleads']);
 Route::get('/salesportal', [LeadController::class, 'index']);
 Route::get('/allleads', [LeadController::class, 'allleads']);
-Route::post('/backend/save-lead', [LeadController::class, 'createlead']);
-Route::post('/backend/save-lead', [LeadController::class, 'createlead']);
+Route::post('/backend/createlead', [LeadController::class, 'createlead']);
 Route::post('/backend/booking/{lead_id}', [LeadController::class, 'booking']);
 Route::get('/bookingportal', [BookingController::class, 'index'])->name('bookingportal');
 Route::get('/leadsdetails/{id}', [LeadController::class, 'leadsdetails'])->name('searchlead');
 
+
 route::post('finalize-lead', [LeadController::class, 'finalizelead'])->name('finalizelead');
+Route::get('/lead-search', [LeadController::class, 'index']);
 
 // use App\Http\Controllers\Backend\BookingController;
 Route::get('/backend/bookingportal', [BookingController::class, 'index']);
@@ -70,12 +71,16 @@ Route::get('/backend/bookingportal/instruction', [BookingController::class, 'ins
 Route::get('/backend/bookingportal/payment', [BookingController::class, 'payment']);
 Route::post('/backend/bookingportal/processbooking', [BookingController::class, 'processbooking']);
 
+use App\Http\Controllers\Backend\PaymentController;
+
+Route::get('/payment-success', [PaymentController::class, 'handleSuccess'])
+    ->name('payment.success');
 
 
 
+use App\Http\Controllers\Backend\ExampleController;
 
-
-
+Route::get('/example/bookingprocess', [ExampleController::class, 'bookingprocess']);
 
 
 

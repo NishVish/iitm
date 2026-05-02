@@ -25,7 +25,9 @@ class LeadsController extends Controller
             ->where('sales_person', $salesPerson)
             ->orderBy('lead_id', 'desc')
             ->get();
-
+        $mobile = DB::table('contact_mobile')
+            ->where('contact_id', $leads->contact_id)
+            ->get();
         // 📦 get lead IDs
         $leadIds = $leads->pluck('lead_id');
 
@@ -34,15 +36,23 @@ class LeadsController extends Controller
             ->whereIn('lead_id', $leadIds)
             ->get()
             ->groupBy('lead_id');
+        $orders = DB::table('orders')
+            ->whereIn('lead_id', $leadIds)
+            ->get()
+            ->groupBy('lead_id');
+
 
         // 🔗 attach locations
         foreach ($leads as $lead) {
             $lead->locations = $locations[$lead->lead_id] ?? collect();
+            $lead->orders = $orders[$lead->lead_id] ?? collect();
         }
 
+        dd($lead, $salesPerson, $mobile);
         return view('backend.index', [
             'leads' => $leads,
-            'salesPerson' => $salesPerson
+            'salesPerson' => $salesPerson,
+            'mobile' => $mobile
         ]);
     }
 

@@ -170,9 +170,8 @@
         </div>
 
         <div class="content-wrapper">
-            @include('web.templates.stats2')
-            @include('web.templates.statistics')
-            @include('web.templates.keyperformancehighlights')
+
+            @include('web.templates.statistics.index')
             @include('web.templates.intro')
             @include('web.templates.cities')
             @include('web.templates.whyexhibit')

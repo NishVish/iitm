@@ -1,13 +1,6 @@
-<style>
-    body {
-        margin: 0;
-    }
-</style>
-
-
 <div class="thank-you-wrapper" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; 
     background: #f4f4f4 url('https://iitmindia.com/assets/creatives/4.jpg') center/cover no-repeat; 
-    padding: 0px; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    padding: 20px; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 
     <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1;"></div>
 

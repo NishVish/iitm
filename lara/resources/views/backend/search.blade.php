@@ -123,7 +123,7 @@
         });
     </script>
 
-    <form method="POST" action="{{ url('backend/save-lead') }}">
+    <form method="POST" action="{{ url('backend/createlead') }}">
         @csrf
 
         <div id="leadFormContainer" style="display:none; margin-top:30px; border:1px solid #ccc; padding:15px;">
@@ -137,6 +137,8 @@
 
             <label>Name</label><br>
             <input type="text" name="name" id="name"><br><br>
+            <label>exhibition_year</label><br>
+            <input type="text" name="exhibition_year" id="exhibition_year"><br><br>
 
             <label>Email</label><br>
             <input type="email" name="email" id="email"><br><br>

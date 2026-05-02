@@ -1,8 +1,3 @@
-<form method="POST" action="{{ url('/logout') }}">
-    @csrf
-    <button type="submit" class="logout-btn">LOGOUT</button>
-</form>
-
 @include('backend.home')
 
 
@@ -20,3 +15,19 @@
 
     @include('backend.search')
 @endif
+
+<style>
+    .logout-btn {
+        background-color: #f44336;
+        border: none;
+        color: white;
+        padding: 12px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+</style>

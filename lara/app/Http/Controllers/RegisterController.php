@@ -100,9 +100,9 @@ class RegisterController extends Controller
     public function createentry($request, $type)
     {
 
-        echo "<pre>";
-        print_r($type);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($type);
+        // echo "</pre>";
         $company_name = $request->company_name;
         $contact_name = $request->contact_name;
         $designation = $request->designation;
@@ -202,39 +202,51 @@ class RegisterController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+        if ($type == 'lead') {
+            // dd($type);
+
+            $lead_id = DB::table('leads')->insertGetId([
+                'company_id' => $unique_id,
+                'contact_id' => $contact_id,
+                'exhibition_year' => date('Y'),
+                'fascia' => null,
+                'sales_person' => null,
+                'exhibitor' => $company_name,
+                'status' => 'draft',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+
+            if (!empty($cities)) {
+                foreach ($cities as $loc) {
 
 
-        $lead_id = DB::table('leads')->insertGetId([
-            'company_id' => $unique_id,
-            'contact_id' => $contact_id,
-            'exhibition_year' => date('Y'),
-            'fascia' => null,
-            'sales_person' => null,
-            'exhibitor' => $company_name,
-            'booking_form' => null,
-            'status' => 'draft',
-            'payment_status' => 'pending',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+                    // DB::table('orders')->insert([
+                    //     'lead_id' => $lead_id,
+                    //     'type' => 'stall',
+                    //     'specification' => null,
 
-        if (!empty($cities)) {
-            foreach ($cities as $loc) {
+                    //     'price' => 0,
+                    //     'gst' => 0,
+                    //     'discount' => 0,
 
-                DB::table('lead_locations')->insert([
-                    'lead_id' => $lead_id,
-                    'location' => $loc,     // Delhi, Ahmedabad, etc.
-                    'stall_location' => null,
-                    'size' => null,
-                    'price' => 0,
-                    'gst_amount' => 0,
-                    'discount_amount' => 0,
-                    'grand_total' => 0,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]);
+                    //     'paid_amount' => 0,
+
+                    //     'status' => 'pending',
+                    // ]);
+
+                    DB::table('lead_locations')->insert([
+                        'lead_id' => $lead_id,
+                        'location' => $loc,     // Delhi, Ahmedabad, etc.
+                        'stall_location' => null,
+                        'size' => null,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
             }
         }
+
 
 
 

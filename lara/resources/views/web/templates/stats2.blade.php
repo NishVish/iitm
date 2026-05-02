@@ -1,21 +1,71 @@
-Analytics Type What it means Travel & Tourism Industry (based on your data)
-Descriptive (What is happening?) Summarizes current situation - Global travel & tourism is a $11.7 trillion industry
-(~10% of global GDP)
-- People spend about $8.6 trillion yearly on travel
-- India is a fast-growing tourism market creating ~42 million jobs
-- Major players include hotel and airline companies like Taj Hotels (IHCL) and IndiGo
-Diagnostic (Why is it happening?) Explains reasons behind trends - Growth driven by rising incomes and global mobility
-- Post-COVID recovery increased international travel
-- India’s growth due to domestic tourism demand and expanding middle class
-- Fast growth in business travel and wellness tourism
-- Technology and AI are improving booking, pricing, and customer experience
-Predictive (What will happen next?) Forecasts future trends - Industry likely to continue growing at ~5–6% annually
-- Business travel (6–8%) and wellness tourism (~16%) will grow faster than average
-- AI in travel (~33% growth) will strongly reshape bookings and personalization
-- India will become a key global tourism hub with rising international travel demand
-Prescriptive (What should be done?) Recommended actions - Airlines and hotels should invest in AI-driven personalization
-and automation
-- India should improve tourism infrastructure and connectivity
-- Companies like IndiGo and Taj Hotels should expand capacity for rising demand
-- Focus on wellness tourism, eco-tourism, and business travel services
-- Governments should promote sustainable tourism and visa ease policies
+<section style="font-family:Arial; padding:20px; background:#0f172a; color:#fff;">
+
+    <h2 style="text-align:center; margin-bottom:20px;">
+        📊 Travel Expo Insights
+    </h2>
+
+    <!-- TOP STATS -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:20px;">
+        <div style="background:#1e293b; padding:12px; border-radius:8px;">
+            <strong style="color:#38bdf8;">50K+</strong><br>Visitors
+        </div>
+        <div style="background:#1e293b; padding:12px; border-radius:8px;">
+            <strong style="color:#34d399;">500+</strong><br>Exhibitors
+        </div>
+        <div style="background:#1e293b; padding:12px; border-radius:8px;">
+            <strong style="color:#fbbf24;">25+</strong><br>Countries
+        </div>
+        <div style="background:#1e293b; padding:12px; border-radius:8px;">
+            <strong style="color:#f87171;">₹1000Cr+</strong><br>Business
+        </div>
+    </div>
+
+    <!-- GROWTH BARS -->
+    <div style="margin-bottom:20px;">
+        <h4 style="margin-bottom:8px;">📈 Growth</h4>
+        <div style="display:flex; gap:10px; align-items:flex-end; height:120px;">
+            <div style="flex:1; text-align:center;">
+                <div style="height:60px; background:#38bdf8; border-radius:5px;"></div>
+                <small>2024</small>
+            </div>
+            <div style="flex:1; text-align:center;">
+                <div style="height:90px; background:#34d399; border-radius:5px;"></div>
+                <small>2025</small>
+            </div>
+            <div style="flex:1; text-align:center;">
+                <div style="height:120px; background:#fbbf24; border-radius:5px;"></div>
+                <small>2026</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- INSIGHTS -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px;">
+
+        <div style="background:#1e293b; padding:12px; border-radius:8px;">
+            <strong>🟦 Market</strong><br>
+            $11.7T Industry<br>
+            $8.6T Spending
+        </div>
+
+        <div style="background:#1e293b; padding:12px; border-radius:8px;">
+            <strong>🟨 Drivers</strong><br>
+            Income Growth<br>
+            Post-COVID Demand
+        </div>
+
+        <div style="background:#1e293b; padding:12px; border-radius:8px;">
+            <strong>🟩 Trends</strong><br>
+            5–6% Growth<br>
+            AI Expansion
+        </div>
+
+        <div style="background:#1e293b; padding:12px; border-radius:8px;">
+            <strong>🟥 Focus</strong><br>
+            AI Personalization<br>
+            Eco Tourism
+        </div>
+
+    </div>
+
+</section>

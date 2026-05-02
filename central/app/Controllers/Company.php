@@ -650,6 +650,7 @@ class Company extends BaseController
         $builder = $db->table('company_data cd')
             ->select('
         cd.company_id,
+        cd.entry_type,
         cd.database_name,
         cd.category,
         cd.company_name,
@@ -678,6 +679,7 @@ class Company extends BaseController
             ->join('contact_mobile cm', 'cm.contact_id = c.contact_id', 'left')
             ->groupBy([
                 'cd.company_id',
+                'cd.entry_type',
                 'cd.database_name',
                 'cd.category',
                 'cd.company_name',
@@ -695,6 +697,7 @@ class Company extends BaseController
                 'c.designation'
             ]);
 
+
         if (!empty($where)) {
             $builder->where($where);
         }
@@ -705,6 +708,9 @@ class Company extends BaseController
 
         $rows = $builder->get()->getResultArray();
 
+
+        // var_dump($rows);
+        // exit;
         /* ---------------------------
            3. GROUP COMPANIES
         ----------------------------*/

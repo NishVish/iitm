@@ -1,0 +1,96 @@
+<div id="leadContainer" style="display: grid; gap: 15px;">
+    <div>Loading...</div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const container = document.getElementById("leadContainer");
+
+        fetch("{{ url('/allleads') }}")
+            .then(res => res.json())
+            .then(res => {
+
+                if (!container) return;
+
+                if (res.status !== 'success') {
+                    container.innerHTML = "<div>Invalid response</div>";
+                    return;
+                }
+
+                let html = "";
+
+                res.data.forEach(item => {
+
+                    let lead = item.lead || {};
+
+                    let company = item.company || {};
+                    let contact = item.contact || {};
+                    let mobile = item.mobile || {};
+                    let email = item.email || {};
+                    let orders = item.orders || [];
+
+                    html += `
+                    <div style="
+                        border: 1px solid #ddd;
+                        padding: 15px;
+                        border-radius: 10px;
+                        background: #fff;
+                    ">
+
+                        <h3>Lead #${lead.id ?? '—'}</h3>
+
+                        <p><strong>Lead Info:</strong></p>
+                        <div>Exhibitor: ${lead.exhibitor ?? '—'}</div>
+                        <div>Year: ${lead.exhibition_year ?? '—'}</div>
+                        <div>Sales Person: ${lead.sales_person ?? '—'}</div>
+                        <div>Status: ${lead.status ?? '—'}</div>
+                        <div>Created At: ${lead.created_at ?? '—'}</div>
+
+                        <hr>
+
+                        <p><strong>Company:</strong></p>
+                        <div>Name: ${company.company_name ?? '—'}</div>
+                        <div>ID: ${company.company_id ?? '—'}</div>
+
+                        <hr>
+
+                        <p><strong>Contact:</strong></p>
+                        <div>Name: ${contact.contact_name ?? '—'}</div>
+                        <div>Contact ID: ${contact.contact_id ?? '—'}</div>
+
+                        <hr>
+
+                        <p><strong>Communication:</strong></p>
+                        <div>Mobile: ${mobile.mobile ?? '—'}</div>
+                        <div>Email: ${email.email ?? '—'}</div>
+
+                        <hr>
+
+                        <p><strong>Orders (${orders.length}):</strong></p>
+
+                        ${orders.length > 0
+                            ? orders.map(o => `
+                                <div style="margin-bottom:8px; padding:8px; background:#f7f7f7; border-radius:5px;">
+                                    <div>Order ID: ${o.id ?? '—'}</div>
+                                    <div>Status: ${o.status ?? '—'}</div>
+                                    <div>Amount: ${o.amount ?? '—'}</div>
+                                    <div>Date: ${o.created_at ?? '—'}</div>
+                                </div>
+                            `).join('')
+                            : "<div>No Orders</div>"
+                        }
+
+                    </div>
+                `;
+                });
+
+                container.innerHTML = html;
+            })
+            .catch(err => {
+                console.error(err);
+                container.innerHTML = "<div>Error loading data</div>";
+            });
+
+    });
+</script>

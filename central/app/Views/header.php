@@ -299,7 +299,7 @@ $server = $session->get('server') ?? '';
     <nav>
         <div class="nav-links">
             <!-- <a href="<?= base_url('') ?>">Login</a> -->
-            <a href="<?= base_url('home') ?>">Home</a>
+            <a href="http://localhost/iitm/lara/backend">Home</a>
 
             <!-- Backend dropdown -->
             <a href="<?= base_url('backend') ?>">Backend</a>

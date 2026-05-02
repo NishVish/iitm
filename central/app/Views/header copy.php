@@ -1,29 +1,28 @@
-
 <?php
 $uri = service('uri');
 $currentSegment = $uri->getSegment(1); // Gets the first segment
 
 $session = session();
 
-$user_id             = $session->get('user_id');
-$employee_id         = $session->get('employee_id');
-$name                = ucfirst(strtolower($session->get('name')));
-$designation         = $session->get('designation');
-$phone               = $session->get('phone');
-$address             = $session->get('address');
-$email               = $session->get('email');
-$category            = $session->get('category');
-$department          = $session->get('department');
-$doj                 = $session->get('doj');
-$uan_no              = $session->get('uan_no');
-$fathers_name        = $session->get('fathers_name');
-$aadhaar_card        = $session->get('aadhaar_card');
-$pan_card            = $session->get('pan_card');
+$user_id = $session->get('user_id');
+$employee_id = $session->get('employee_id');
+$name = ucfirst(strtolower($session->get('name')));
+$designation = $session->get('designation');
+$phone = $session->get('phone');
+$address = $session->get('address');
+$email = $session->get('email');
+$category = $session->get('category');
+$department = $session->get('department');
+$doj = $session->get('doj');
+$uan_no = $session->get('uan_no');
+$fathers_name = $session->get('fathers_name');
+$aadhaar_card = $session->get('aadhaar_card');
+$pan_card = $session->get('pan_card');
 $bank_account_number = $session->get('bank_account_number');
-$ifsc_code           = $session->get('ifsc_code');
-$user_type           = $session->get('user_type');
-$journal             = $session->get('journal') ?? '';
-$server             = $session->get('server') ?? '';
+$ifsc_code = $session->get('ifsc_code');
+$user_type = $session->get('user_type');
+$journal = $session->get('journal') ?? '';
+$server = $session->get('server') ?? '';
 
 
 // $user_id     = $session->get('user_id');
@@ -35,13 +34,14 @@ $server             = $session->get('server') ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Management | Dashboard</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --primary: #a82324;
@@ -91,7 +91,7 @@ $server             = $session->get('server') ?? '';
             padding: 25px;
             font-size: 1.2rem;
             font-weight: 700;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
         }
 
@@ -104,7 +104,7 @@ $server             = $session->get('server') ?? '';
         .nav-menu a {
             display: flex;
             align-items: center;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             padding: 12px 15px;
             margin-bottom: 5px;
@@ -115,7 +115,7 @@ $server             = $session->get('server') ?? '';
         }
 
         .nav-menu a:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
         }
 
@@ -240,89 +240,95 @@ $server             = $session->get('server') ?? '';
             .main-sidebar {
                 transform: translateX(-100%);
             }
+
             .main-content {
                 margin-left: 0;
             }
+
             .sidebar-open .main-sidebar {
                 transform: translateX(0);
             }
         }
     </style>
 </head>
+
 <body>
 
-<div class="app-container">
-    <aside class="main-sidebar">
-        <div class="sidebar-brand">IITM CMS</div>
-        <nav class="nav-menu">
-            <a href="<?= base_url('home') ?>">🏠 Home</a>
-            <a href="<?= base_url('backend') ?>">⚙️ Backend</a>
-            <a href="<?= base_url('company') ?>" class="active">📊 Database</a>
-            <a href="<?= base_url('events') ?>">📅 Events</a>
-            <a href="<?= base_url('leads') ?>">🎯 Leads</a>
-            <a href="<?= site_url('ticket') ?>">🎟️ Ticket</a>
-            <a href="<?= site_url('registration') ?>">📝 Registration</a>
-            <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
-            <a href="http://localhost/phpmyadmin/index.php" target="_blank">🗄️ PHPMyAdmin</a>
-            <a href="<?= site_url('logout') ?>" style="color: #ffb3b3;">🚪 Logout</a>
-        </nav>
-    </aside>
+    <div class="app-container">
+        <aside class="main-sidebar">
+            <div class="sidebar-brand">IITM CMS</div>
+            <nav class="nav-menu">
+                <a href="<?= base_url('home') ?>">🏠 Home</a>
+                <a href="<?= base_url('backend') ?>">⚙️ Backend</a>
+                <a href="<?= base_url('company') ?>" class="active">📊 Database</a>
+                <a href="<?= base_url('events') ?>">📅 Events</a>
+                <a href="<?= base_url('leads') ?>">🎯 Leads</a>
+                <a href="<?= site_url('ticket') ?>">🎟️ Ticket</a>
+                <a href="<?= site_url('registration') ?>">📝 Registration</a>
+                <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+                <a href="http://localhost/phpmyadmin/index.php" target="_blank">🗄️ PHPMyAdmin</a>
+                <a href="<?= site_url('logout') ?>" style="color: #ffb3b3;">🚪 Logout</a>
+            </nav>
+        </aside>
 
-    <div class="main-content">
-        <header>
-            <div class="header-title">
-                <h2>Welcome, <?= htmlspecialchars($session->get('name') ?? 'Admin') ?></h2>
-            </div>
-            <div class="user-controls">
-                <span style="font-size: 12px; color: var(--text-muted);"><?= esc($server) ?></span>
-                <button class="btn-settings" id="openTheme">
-                    Customize ⚙️
-                </button>
-            </div>
-        </header>
+        <div class="main-content">
+            <header>
+                <div class="header-title">
+                    <h2>Welcome, <?= htmlspecialchars($session->get('name') ?? 'Admin') ?></h2>
+                </div>
+                <div class="user-controls">
+                    <span style="font-size: 12px; color: var(--text-muted);"><?= esc($server) ?></span>
+                    <button class="btn-settings" id="openTheme">
+                        Customize ⚙️
+                    </button>
+                </div>
+            </header>
 
-        <main class="page-content">
-            <div class="data-card">
-                <div id="spreadsheet" class="Spreadsheet">
+            <main class="page-content">
+                <div class="data-card">
+                    <div id="spreadsheet" class="Spreadsheet">
                     </div>
-            </div>
-        </main>
+                </div>
+            </main>
 
 
-<div id="themeWindow" class="theme-panel">
-    <div class="panel-header">
-        Theme Settings
-        <button id="closeTheme" style="background:none; border:none; cursor:pointer; font-size:18px;">&times;</button>
-    </div>
-    <div class="panel-body">
-        <div class="color-group">
-            <label>Navbar Color</label>
-            <input type="color" id="navColor" value="#a82324">
-        </div>
-        <div class="color-group">
-            <label>Body Background</label>
-            <input type="color" id="bodyColor" value="#f8fafc">
-        </div>
-        <div class="color-group">
-            <label>Button/Brand Color</label>
-            <input type="color" id="buttonColor" value="#a82324">
-        </div>
-        <button id="resetTheme" style="width:100%; padding:10px; border-radius:6px; border:none; background:#eee; cursor:pointer;">Reset Defaults</button>
-    </div>
+            <div id="themeWindow" class="theme-panel">
+                <div class="panel-header">
+                    Theme Settings
+                    <button id="closeTheme"
+                        style="background:none; border:none; cursor:pointer; font-size:18px;">&times;</button>
+                </div>
+                <div class="panel-body">
+                    <div class="color-group">
+                        <label>Navbar Color</label>
+                        <input type="color" id="navColor" value="#a82324">
+                    </div>
+                    <div class="color-group">
+                        <label>Body Background</label>
+                        <input type="color" id="bodyColor" value="#f8fafc">
+                    </div>
+                    <div class="color-group">
+                        <label>Button/Brand Color</label>
+                        <input type="color" id="buttonColor" value="#a82324">
+                    </div>
+                    <button id="resetTheme"
+                        style="width:100%; padding:10px; border-radius:6px; border:none; background:#eee; cursor:pointer;">Reset
+                        Defaults</button>
+                </div>
 
-<script>
-    // Theme Logic remains similar but targets root vars better
-    document.addEventListener("DOMContentLoaded", function () {
-        const themeWindow = document.getElementById("themeWindow");
-        const openBtn = document.getElementById("openTheme");
-        const closeBtn = document.getElementById("closeTheme");
-        
-        openBtn.onclick = () => themeWindow.style.display = "block";
-        closeBtn.onclick = () => themeWindow.style.display = "none";
+                <script>
+                    // Theme Logic remains similar but targets root vars better
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const themeWindow = document.getElementById("themeWindow");
+                        const openBtn = document.getElementById("openTheme");
+                        const closeBtn = document.getElementById("closeTheme");
 
-        // Logic for input/localstorage here is the same as your previous script
-        // just make sure to set the correct variables like '--primary' or '--bg-body'
-    });
-</script>
+                        openBtn.onclick = () => themeWindow.style.display = "block";
+                        closeBtn.onclick = () => themeWindow.style.display = "none";
 
-<?=view('sidemenu')?>
+                        // Logic for input/localstorage here is the same as your previous script
+                        // just make sure to set the correct variables like '--primary' or '--bg-body'
+                    });
+                </script>
+
+                <?= view('sidemenu') ?>

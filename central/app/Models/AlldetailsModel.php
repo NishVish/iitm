@@ -35,19 +35,20 @@ class AlldetailsModel extends Model
         // $this->updationModel = new UpdationModel();
     }
 
-    public function index(){
-}
+    public function index()
+    {
+    }
 
 
 
-public function search($search)
-{
-    $db = \Config\Database::connect();
-    $builder = $db->table('company_data c');
+    public function search($search)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('company_data c');
 
-    // 1. Select the fields
-    // Using double quotes for the separator to handle the newline correctly
-    $builder->select("
+        // 1. Select the fields
+        // Using double quotes for the separator to handle the newline correctly
+        $builder->select("
         c.company_id,
         c.company_name,
         c.category,
@@ -63,15 +64,15 @@ public function search($search)
         ) AS contacts
     ", false); // 'false' prevents CI from trying to escape the complex CONCAT string
 
-    // 2. Joins
-    // We use LEFT JOIN so companies without contacts still show up
-    $builder->join('contact co', 'co.company_id = c.company_id', 'left');
-    $builder->join('contact_mobile cm', 'cm.contact_id = co.contact_id AND cm.is_primary = 1', 'left');
-    $builder->join('contact_email ce', 'ce.contact_id = co.contact_id AND ce.is_primary = 1', 'left');
+        // 2. Joins
+        // We use LEFT JOIN so companies without contacts still show up
+        $builder->join('contact co', 'co.company_id = c.company_id', 'left');
+        $builder->join('contact_mobile cm', 'cm.contact_id = co.contact_id', 'left');
+        $builder->join('contact_email ce', 'ce.contact_id = co.contact_id', 'left');
 
-    // 3. Search Conditions (Grouped with groupStart/groupEnd)
-    if (!empty($search)) {
-        $builder->groupStart()
+        // 3. Search Conditions (Grouped with groupStart/groupEnd)
+        if (!empty($search)) {
+            $builder->groupStart()
                 ->like('c.company_name', $search)
                 ->orLike('c.category', $search)
                 ->orLike('c.company_id', $search)
@@ -82,100 +83,100 @@ public function search($search)
                 ->orLike('ce.email', $search)
                 ->orLike('cm.mobile', $search)
                 ->groupEnd();
-    }
-
-    // 4. Group By (CRITICAL FIX: Include all non-aggregated columns)
-    $builder->groupBy([
-        'c.company_id', 
-        'c.company_name', 
-        'c.category', 
-        'c.city', 
-        'c.state'
-    ]);
-
-    // 5. Order and Fetch
-    $builder->orderBy('c.company_name', 'ASC');
-
-    $query = $builder->get();
-    return $query->getResult();
-}
-
-public function getAllCompanyDetails($source, $timerange = null)
-{
-    $limit = 10;
-
-    $companyModel       = new CompanyModel();
-    $leadsModel         = new LeadModel();
-    $leadsLocationModel = new LeadLocationModel();
-    $contactModel       = new ContactModel();
-    $contactEmailModel  = new ContactEmailModel();
-    $contactMobileModel = new ContactMobileModel();
-    $sourceModel        = new SourceModel();
-if ($source == "leads") {
-    // 1️⃣ Get companies that have leads
-    $company_ids = $leadsModel
-                        ->select('company_id')
-                        ->groupBy('company_id')
-                        ->findAll($limit);
-
-    // Extract only the company IDs
-    $company_ids = array_column($company_ids, 'company_id');
-
-    // Get company details for these IDs
-    $companies = $companyModel->whereIn('company_id', $company_ids)->findAll();
-
-} else {
-    // 1️⃣ Get companies filtered by company_sources notes
-    $companyModelQuery = $companyModel
-                            ->join('company_sources', 'company_sources.company_id = company_data.company_id')
-                            ->like('company_sources.notes', $source)
-                            ->limit($limit);
-
-    if ($timerange) {
-        $companyModelQuery->where('company_sources.event_date >=', $timerange['from'])
-                          ->where('company_sources.event_date <=', $timerange['to']);
-    }
-
-    $companies = $companyModelQuery->findAll();
-}
-
-// 2️⃣ Fetch leads, contacts, locations, and sources for each company
-$result = [];
-
-foreach ($companies as $company) {
-    $company_id = $company['company_id'];
-
-    // Leads
-    $leads = $leadsModel->where('company_id', $company_id)->findAll();
-
-    foreach ($leads as &$lead) {
-        // Locations
-        $lead['locations'] = $leadsLocationModel->where('lead_id', $lead['lead_id'])->findAll();
-
-        // Contact details
-        $contact = $contactModel->where('contact_id', $lead['contact_id'])->first();
-        if ($contact) {
-            $contact['emails']  = $contactEmailModel->where('contact_id', $contact['contact_id'])->findAll();
-            $contact['mobiles'] = $contactMobileModel->where('contact_id', $contact['contact_id'])->findAll();
         }
-        $lead['contact'] = $contact;
+
+        // 4. Group By (CRITICAL FIX: Include all non-aggregated columns)
+        $builder->groupBy([
+            'c.company_id',
+            'c.company_name',
+            'c.category',
+            'c.city',
+            'c.state'
+        ]);
+
+        // 5. Order and Fetch
+        $builder->orderBy('c.company_name', 'ASC');
+
+        $query = $builder->get();
+        return $query->getResult();
     }
 
-    // Company sources with notes
-    $sources = $sourceModel
+    public function getAllCompanyDetails($source, $timerange = null)
+    {
+        $limit = 10;
+
+        $companyModel = new CompanyModel();
+        $leadsModel = new LeadModel();
+        $leadsLocationModel = new LeadLocationModel();
+        $contactModel = new ContactModel();
+        $contactEmailModel = new ContactEmailModel();
+        $contactMobileModel = new ContactMobileModel();
+        $sourceModel = new SourceModel();
+        if ($source == "leads") {
+            // 1️⃣ Get companies that have leads
+            $company_ids = $leadsModel
+                ->select('company_id')
+                ->groupBy('company_id')
+                ->findAll($limit);
+
+            // Extract only the company IDs
+            $company_ids = array_column($company_ids, 'company_id');
+
+            // Get company details for these IDs
+            $companies = $companyModel->whereIn('company_id', $company_ids)->findAll();
+
+        } else {
+            // 1️⃣ Get companies filtered by company_sources notes
+            $companyModelQuery = $companyModel
+                ->join('company_sources', 'company_sources.company_id = company_data.company_id')
+                ->like('company_sources.notes', $source)
+                ->limit($limit);
+
+            if ($timerange) {
+                $companyModelQuery->where('company_sources.event_date >=', $timerange['from'])
+                    ->where('company_sources.event_date <=', $timerange['to']);
+            }
+
+            $companies = $companyModelQuery->findAll();
+        }
+
+        // 2️⃣ Fetch leads, contacts, locations, and sources for each company
+        $result = [];
+
+        foreach ($companies as $company) {
+            $company_id = $company['company_id'];
+
+            // Leads
+            $leads = $leadsModel->where('company_id', $company_id)->findAll();
+
+            foreach ($leads as &$lead) {
+                // Locations
+                $lead['locations'] = $leadsLocationModel->where('lead_id', $lead['lead_id'])->findAll();
+
+                // Contact details
+                $contact = $contactModel->where('contact_id', $lead['contact_id'])->first();
+                if ($contact) {
+                    $contact['emails'] = $contactEmailModel->where('contact_id', $contact['contact_id'])->findAll();
+                    $contact['mobiles'] = $contactMobileModel->where('contact_id', $contact['contact_id'])->findAll();
+                }
+                $lead['contact'] = $contact;
+            }
+
+            // Company sources with notes
+            $sources = $sourceModel
                 ->select('id, company_id, source_id, event_date, notes, created_at')
                 ->where('company_id', $company_id)
                 ->findAll();
 
-    $result[] = [
-        'company' => $company,
-        'leads'   => $leads,
-        'sources' => $sources
-    ];
-}
+            $result[] = [
+                'company' => $company,
+                'leads' => $leads,
+                'sources' => $sources
+            ];
+        }
 
-return $result;
-}
+        return $result;
+    }
 
 }
 

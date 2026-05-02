@@ -80,7 +80,6 @@
             background: #e0a800;
         }
     </style>
-    ```
 
 </head>
 
@@ -89,18 +88,17 @@
     <div class="container">
         <h1>Portal Dashboard</h1>
 
-        ```
         <div class="btn-group">
             <a href="{{ url('salesportal') }}" class="big-btn sales">Sales Portal</a>
-            <a href="{{ url('salesportal') }}" class="big-btn sales">Sales Portal</a>
-            <a href="{{ url('ci/central') }}" class="big-btn admin">Admin Portal</a>
-            <a href="{{ url('ci/operations') }}" class="big-btn ops">Operations</a>
-            <a href="https://iitmindia.com/ci/lara" class="big-btn ops">website</a>
+            <a href="{{ url('bookingportal') }}" class="big-btn sales">Booking Portal</a>
+            <a href="{{ url('admin') }}" class="big-btn admin">Admin Portal</a>
+            <a href="{{ url('../central') }}" class="big-btn ops">Operations</a> <a href="{{ url('/') }}"
+                class="big-btn ops">website</a>
+
+            <form method="POST" action="{{ url('/logout') }}">
+                @csrf
+                <button type="submit" class="logout-btn">LOGOUT</button>
+            </form>
         </div>
-        ```
 
     </div>
-
-</body>
-
-</html>

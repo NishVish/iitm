@@ -2,26 +2,40 @@
 
 @php
     $lastsegment = request()->segment(count(request()->segments()));
-
-    echo $lastsegment;
-
     $secondlastSegment = request()->segment(count(request()->segments()) - 1);
-    echo $secondlastSegment;
-
+    $step = request('step', 1);
 @endphp
 
 @if($lastsegment == 'bookingportal')
+
     @include('booking.enterbookingid')
 
-@elseif($secondlastSegment == 'leadsdetails')
-    @include('booking.status')
-    @include('booking.form')
+@elseif($secondlastSegment == 'leadsdetails' || $lastsegment == 'payment-success')
 
-    @include('booking.payment')
+    <div id="div1" style="{{ $step == 2 ? 'display:none;' : '' }}">
+
+        @include('booking.status2')
+
+        <button onclick="goNext()"
+            style="padding:10px 15px; background:#007bff; color:#fff; border:none; border-radius:5px;">
+            Process
+        </button>
+    </div>
+
+    <div id="div2" style="{{ $step == 2 ? '' : 'display:none;' }}">
+        <h3>Step 2</h3>
+
+        @include('booking.form')
+    </div>
+
+    <script>
+        function goNext() {
+            const url = new URL(window.location.href);
+            url.searchParams.set('step', '2');
+            window.location.href = url.toString();
+        }
+    </script>
+
 @else
-
-
-
-
 
 @endif
