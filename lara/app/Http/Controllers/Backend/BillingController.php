@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\backend\sales\leadcontroller;
+use App\Http\Controllers\Backend\Sales\LeadController;
 
 
 class BillingController extends Controller
