@@ -80,7 +80,7 @@ Route::get('/payment-success', [PaymentController::class, 'handleSuccess'])
 
 use App\Http\Controllers\Backend\ExampleController;
 
-Route::get('/example/bookingprocess', [ExampleController::class, 'bookingprocess']);
+Route::get('/example/bookingprocess', [ExampleController::class, 'bookingprocess'])->name('example.bookingprocess');
 
 
 

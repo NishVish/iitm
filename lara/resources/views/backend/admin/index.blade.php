@@ -147,7 +147,7 @@
         </tbody>
 
     </table>
-
+    <iframe src="{{route('example.bookingprocess')}}" frameborder="0" style="width:100%; height:400px;"></iframe>
 </body>
 
 </html>

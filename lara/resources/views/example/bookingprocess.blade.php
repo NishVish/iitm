@@ -151,7 +151,7 @@
                 You can complete your booking using the link below:
             </p>
 
-            <a href="{{ $url }}" class="btn">Complete Booking</a>
+            <a href="{{ $url }}" target="_blank" class="btn">Complete Booking</a>
 
             <p class="small">
                 Or use:<br>
