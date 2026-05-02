@@ -165,7 +165,6 @@
 
                 <div class="card border-success">
                     <div class="card-header bg-success text-white">
-                        🎉 Booking Benefits (Paid Only)
                     </div>
 
                     <div class="card-body">
@@ -192,21 +191,16 @@
                                     </button>
                                 </form>
                             </div>
-
                             {{-- Invoice + Favorites --}}
                             <div class="col-md-6 mb-3">
 
                                 <h6>Actions</h6>
 
-                                <a href="{{ url('download-invoice/' . $leadinfo->lead_id) }}"
+                                <a href="{{ url('invoice/' . $leadinfo->lead_id) }}"
                                     class="btn btn-outline-primary w-100 mb-2">
                                     📄 Download Invoice
                                 </a>
 
-                                <!-- <a href="{{ url('favorite-stall/' . $leadinfo->lead_id) }}"
-                                        class="btn btn-outline-secondary w-100">
-                                        ⭐ Add Stall to Favorites
-                                    </a> -->
 
                             </div>
 
@@ -216,22 +210,39 @@
                 </div>
 
             @endif
-            {{-- Actions --}}
-            <!-- <div class="text-center mt-4">
 
-                <a href="{{ url('/') }}" class="btn btn-primary">Home</a>
+            @if(!$isPaid)
 
-                @if(!$isPaid)
-                    <a href="{{ url('/retry-payment?lead_id=' . $leadinfo->lead_id) }}" class="btn btn-warning">
-                        Retry Payment
-                    </a>
-                @endif
+                <hr class="my-4">
 
-                <button onclick="window.print()" class="btn btn-outline-secondary">
-                    Print
-                </button>
+                <div class="card border-warning">
 
-            </div> -->
+
+
+                    <div class="card-body" style="background:#fffdf5;">
+
+                        <div class="row">
+
+                            {{-- Actions --}}
+                            <div class="col-md-6 mb-3">
+
+                                <h6 style="color:#b45309;">Actions</h6>
+
+                                <a href="{{ url('perfoma/' . $leadinfo->lead_id) }}"
+                                    class="btn btn-outline-warning w-100 mb-2">
+                                    📄 Download Proforma Invoice
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            @endif
+
 
         </div>
     </div>

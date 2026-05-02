@@ -62,7 +62,7 @@ Route::get('/bookingportal', [BookingController::class, 'index'])->name('booking
 Route::get('/leadsdetails/{id}', [LeadController::class, 'leadsdetails'])->name('searchlead');
 
 
-route::post('finalize-lead', [LeadController::class, 'finalizelead'])->name('finalizelead');
+route::post('proforma_invoice', [LeadController::class, 'proforma_invoice'])->name('proforma_invoice');
 Route::get('/lead-search', [LeadController::class, 'index']);
 
 // use App\Http\Controllers\Backend\BookingController;
@@ -85,9 +85,10 @@ Route::get('/example/bookingprocess', [ExampleController::class, 'bookingprocess
 
 
 
-use App\Http\Controllers\Backend\InvoiceController;
+use App\Http\Controllers\Backend\BillingController;
 
-Route::get('/download-invoice/{id}', [InvoiceController::class, 'gererateInvoice']);
+Route::get('/invoice/{id}', [BillingController::class, 'invoice']);
+Route::get('/perfoma/{id}', [BillingController::class, 'performa']);
 
 
 

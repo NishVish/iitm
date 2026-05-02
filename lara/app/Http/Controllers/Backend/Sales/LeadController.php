@@ -473,6 +473,7 @@ class LeadController extends Controller
 
     public function getdetails($id, $review)
     {
+        // dd($id, $review);
         $lead = DB::table('leads as l')
             ->leftJoin('company_data as c', 'l.company_id', '=', 'c.company_id')
             ->leftJoin('contact as ct', 'l.contact_id', '=', 'ct.contact_id')
@@ -527,8 +528,23 @@ class LeadController extends Controller
             ->where('company_id', $lead->company_id ?? '')
             ->get();
 
-        if ($review) {
-            return view('booking.review', compact(
+        if ($review == 'performa') {
+            return view('booking.billing.index', compact(
+                'leadinfo',
+                'locations',
+                'orders',
+                'emails',
+                'mobiles',
+                'sources',
+                'company',
+                'contact',
+                'lead'
+            ));
+        } elseif ($review == 'invoice') {
+            // echo "Hello";
+            // exit;
+
+            return view('booking.billing.index', compact(
                 'leadinfo',
                 'locations',
                 'orders',
@@ -554,7 +570,7 @@ class LeadController extends Controller
         ));
     }
 
-    public function finalizelead(Request $request)
+    public function proforma_invoice(Request $request)
     {
         // echo "<pre>";
         // print_r($request->all());

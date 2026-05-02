@@ -1,4 +1,4 @@
-<form method="POST" action="{{url('/finalize-lead')}}">
+<form method="POST" action="{{url('/proforma_invoice')}}">
     @csrf
 
     <style>
