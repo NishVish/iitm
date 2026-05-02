@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\DatabaseController as DatabaseControllerApp;
+use App\Http\Controllers\Backend\DatabaseController as BackendDatabaseController;
 
 class SearchController extends Controller
 {
-    public function index(Request $request)
+    public function search(Request $request)
     {
 
         // dd($request->all());
@@ -42,6 +43,7 @@ class SearchController extends Controller
             $name = $query;
         }
 
+        // dd($mobile, $email);
         $database = new DatabaseControllerApp();
         $contactId = null;
 
@@ -61,13 +63,16 @@ class SearchController extends Controller
                 'contact_email.*',
                 'contact_mobile.*'
             );
+        // dd($resultQuery->get());
 
         // 🎯 condition handling
-        if ($contactId) {
-            // exact match (email/mobile)
+        if ($email) {
+            $resultQuery->where('contact_email.email', $email);
+        } elseif ($mobile) {
+            $resultQuery->where('contact_mobile.mobile', $mobile);
+        } elseif ($contactId) {
             $resultQuery->where('contact.contact_id', $contactId);
         } else {
-            // 🔎 search by name OR company_name
             $resultQuery->where(function ($q) use ($name) {
                 $q->where('contact.name', 'LIKE', "%{$name}%")
                     ->orWhere('company_data.company_name', 'LIKE', "%{$name}%");
@@ -75,7 +80,23 @@ class SearchController extends Controller
         }
 
         $result = $resultQuery->get();
+        // dd( $mobile, $email, $name, $contactId, $resultQuery->get());
 
+        if ($result->isEmpty()) {
+
+            $latest_id = new DatabaseControllerApp();
+            $latest_contact_id = $latest_id->getLatestContactId($mobile, $email);
+            // dd($latest_contact_id);
+            $companyId = DB::table('contact')
+                ->where('contact_id', $latest_contact_id)
+                ->value('company_id');
+
+            $db = new BackendDatabaseController();
+            $db->createduplicate($companyId, $latest_contact_id, 'main');
+
+            // re-run query instead of recursion
+            $result = $resultQuery->get();
+        }
         return response()->json([
             'success' => true,
             'query' => $query,

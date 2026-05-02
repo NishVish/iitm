@@ -52,7 +52,7 @@ use App\Http\Controllers\Backend\DatabaseController;
 use App\Http\Controllers\Backend\SearchController;
 use App\Http\Controllers\Backend\Sales\BookingController;
 
-Route::get('/backend/search', [SearchController::class, 'index'])->name('backend.search');
+Route::get('/backend/search', [SearchController::class, 'search'])->name('backend.search');
 Route::get('/backend/searchleads', [SearchController::class, 'searchleads']);
 Route::get('/salesportal', [LeadController::class, 'index']);
 Route::get('/allleads', [LeadController::class, 'allleads']);

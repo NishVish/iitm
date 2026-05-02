@@ -7,15 +7,16 @@ class LeadLocationModel extends Model
 {
     protected $table = 'lead_locations';
     protected $primaryKey = 'location_id';
+
     protected $allowedFields = [
-        'lead_id', 
-        'location', 
-        'stall_location', 
-        'size', 
-        'price', 
-        'gst_amount', 
-        'discount_amount', 
-        'grand_total'
+        'lead_id',
+        'location',
+        'stall_location',
+        'size',
+        'amount',   // ✅ correct
+        'gst',      // ✅ correct
+        'created_at',
+        'updated_at'
     ];
 
     public function getByLeadId($leadId)

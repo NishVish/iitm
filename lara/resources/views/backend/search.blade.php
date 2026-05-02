@@ -37,7 +37,6 @@
         <input type="text" name="q" placeholder="Search by email, phone, or name">
         <button type="submit">Search</button>
     </form>
-    auto
 
 
 
@@ -85,42 +84,49 @@
                 container.innerHTML += card;
             });
         }
-
         function searchAll() {
-            let query = document.getElementById('searchInput').value;
+            let query = document.getElementById('searchInput').value.trim();
 
             if (!query) {
                 alert('Enter something');
                 return;
             }
 
-            // 🔎 MAIN SEARCH
+            document.getElementById('mainResults').innerHTML = "Loading...";
+            document.getElementById('leadResults').innerHTML = "Loading...";
+
+            // MAIN
             fetch(`{{ url('backend/search') }}?q=${encodeURIComponent(query)}`)
-                .then(res => res.json())
-                .then(data => {
+                .then(async res => {
+                    let data = await res.json();
+
+                    if (!res.ok || !data.success) {
+                        throw new Error(data.message || "Main API failed");
+                    }
+
                     renderResults('mainResults', data.results);
-
                 })
-                .catch(err => console.error(err));
-            // console.log(data.results);
+                .catch(err => {
+                    console.error("Main search error:", err);
+                    document.getElementById('mainResults').innerHTML = "Error loading results";
+                });
 
-            // 🔎 LEADS SEARCH
+            // LEADS
             fetch(`{{ url('backend/searchleads') }}?q=${encodeURIComponent(query)}`)
-                .then(res => res.json())
-                .then(data => {
+                .then(async res => {
+                    let data = await res.json();
+
+                    if (!res.ok || !data.success) {
+                        throw new Error(data.message || "Lead API failed");
+                    }
+
                     renderResults('leadResults', data.results);
                 })
-                .catch(err => console.error(err));
+                .catch(err => {
+                    console.error("Lead search error:", err);
+                    document.getElementById('leadResults').innerHTML = "Error loading results";
+                });
         }
-        // console.log(data.results);
-
-
-        // 🔥 optional: press Enter to search
-        document.getElementById('searchInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                searchAll();
-            }
-        });
     </script>
 
     <form method="POST" action="{{ url('backend/createlead') }}">

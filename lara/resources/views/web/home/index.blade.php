@@ -12,6 +12,8 @@ sdfsdf
 
  -->
 
+@include('web.loading3')
+
 @include('css')
 
 @include('web.home.header')
