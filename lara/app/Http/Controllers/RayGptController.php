@@ -27,7 +27,7 @@ class RayGptController extends Controller
 
         // ALMA LINUX SERVER
         if ($host === 'iitmindia.com') {
-            $this->model = 'phi3:mini';
+            $this->model = 'tinyllama';
             $this->ollamaUrl = 'http://127.0.0.1:11434';
             return;
         }
