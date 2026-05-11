@@ -4,41 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
 class RayGptController extends Controller
 {
     protected $model;
+    protected $ollamaUrl;
 
-    /**
-     * Constructor
-     */
     public function __construct(Request $request)
     {
-        $this->model = $this->selectModel($request);
+        $this->detectConfig($request);
     }
 
-    /**
-     * Select model based on URL
-     */
-    private function selectModel(Request $request)
+    private function detectConfig(Request $request)
     {
-        $url = $request->fullUrl();
-        echo $url;
+        $host = $request->getHost();
 
-        // localhost → llama3
-        if (str_contains($url, 'localhost')) {
-            echo 'llama3';
-            return 'llama3';
+        // LOCAL MACHINE
+        if ($host === 'localhost' || $host === '127.0.0.1') {
+            $this->model = 'llama3';
+            $this->ollamaUrl = 'http://127.0.0.1:11434';
+            return;
         }
 
-        // production URL → phi3:mini
-        if (str_contains($url, 'iitmindia.com/ci/lara/bot')) {
-            echo 'phi3:mini';
-            return 'phi3:mini';
+        // ALMA LINUX SERVER
+        if ($host === 'iitmindia.com') {
+            $this->model = 'phi3:mini';
+            $this->ollamaUrl = 'http://127.0.0.1:11434';
+            return;
         }
-        // echo $url;
 
-        return 'llama3';
+        // fallback
+        $this->model = 'llama3';
+        $this->ollamaUrl = 'http://127.0.0.1:11434';
     }
 
     public function index()
@@ -71,8 +67,7 @@ class RayGptController extends Controller
 
             $ch = curl_init();
 
-            curl_setopt($ch, CURLOPT_URL, 'http://localhost:11434/api/generate');
-
+            curl_setopt($ch, CURLOPT_URL, $this->ollamaUrl . '/api/generate');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
 
             curl_setopt($ch, CURLOPT_POST, true);
@@ -134,7 +129,7 @@ class RayGptController extends Controller
         $response = Http::connectTimeout(30)
             ->timeout(300)
             ->post(
-                'http://localhost:11434/api/generate',
+                $this->ollamaUrl . '/api/generate',
                 [
                     'model' => $this->model,
                     'prompt' => $text,
@@ -158,5 +153,42 @@ class RayGptController extends Controller
         $prompt = "what is the color of this emotion only answer in hex code " . $text;
 
         return $this->bot($prompt);
+    }
+    public function ollamaDebug(Request $request)
+    {
+        $data = [];
+
+        // 🔹 Server info
+        $data['hostname'] = gethostname();
+        $data['ip'] = request()->server('SERVER_ADDR');
+        $data['host'] = $request->getHost();
+        $data['time'] = now()->toDateTimeString();
+
+        // 🔹 Your selected config
+        $data['selected_model'] = $this->model ?? 'not-set';
+        $data['ollama_url'] = $this->ollamaUrl ?? 'not-set';
+
+        // 🔹 Check Ollama models
+        try {
+            $tags = Http::timeout(5)->get($this->ollamaUrl . '/api/tags');
+            $data['models'] = $tags->json();
+        } catch (\Exception $e) {
+            $data['models_error'] = $e->getMessage();
+        }
+
+        // 🔹 Check generate endpoint
+        try {
+            $gen = Http::timeout(10)->post($this->ollamaUrl . '/api/generate', [
+                'model' => $this->model,
+                'prompt' => 'ping',
+                'stream' => false,
+            ]);
+
+            $data['generate_test'] = $gen->json();
+        } catch (\Exception $e) {
+            $data['generate_error'] = $e->getMessage();
+        }
+
+        return response()->json($data, JSON_PRETTY_PRINT);
     }
 }

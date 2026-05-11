@@ -13,3 +13,6 @@ Route::get('/emotionofthis/{text}', [RayGptController::class, 'emotionofthis']);
 Route::get('/colorofthisemotion/{text}', [RayGptController::class, 'colorofthisemotion']);
 
 Route::get('/bot', [RayGptController::class, 'bot']);
+
+
+Route::get('/debug/ollama', [RayGptController::class, 'ollamaDebug']);
