@@ -150,7 +150,13 @@ class RayGptController extends Controller
 
     public function colorofthisemotion($text)
     {
-        $prompt = "what is the color of this emotion only answer in hex code " . $text;
+        // 🔹 Extract emotion inside quotes ""
+        preg_match('/"([^"]+)"/', $text, $matches);
+
+        // If found, use it; otherwise fallback to original text
+        $emotion = $matches[1] ?? $text;
+
+        $prompt = "What is the color of this emotion? Only answer in HEX code: " . $emotion;
 
         return $this->bot($prompt);
     }
