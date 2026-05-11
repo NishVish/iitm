@@ -23,16 +23,20 @@ class RayGptController extends Controller
     private function selectModel(Request $request)
     {
         $url = $request->fullUrl();
+        echo $url;
 
         // localhost → llama3
         if (str_contains($url, 'localhost')) {
+            echo 'llama3';
             return 'llama3';
         }
 
         // production URL → phi3:mini
         if (str_contains($url, 'iitmindia.com/ci/lara/bot')) {
+            echo 'phi3:mini';
             return 'phi3:mini';
         }
+        // echo $url;
 
         return 'llama3';
     }
