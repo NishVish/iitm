@@ -99,7 +99,7 @@ class RegisterController extends Controller
 
     public function createentry($request, $type)
     {
-
+        // dd($request->all());
         // echo "<pre>";
         // print_r($type);
         // echo "</pre>";
@@ -140,7 +140,7 @@ class RegisterController extends Controller
             // 1. company_data
             DB::table('company_data')->insert([
                 'company_id' => $unique_id,
-                'database_name' => "main",
+                'database_name' => "Online_enquiry_" . date('Y'),
                 'outbound' => 0,
                 'company_name' => $company_name ?? 'Enter Company Name',
                 'category' => $category, // FIXED
@@ -190,6 +190,11 @@ class RegisterController extends Controller
                     'created_at' => now()
                 ]);
             }
+            DB::table("company_sources")->insert([
+                "company_id" => $unique_id,
+                "notes" => "Online Enquiry -" . date('Y'),
+                "created_at" => now()
+            ]);
 
             DB::commit();
 
@@ -592,9 +597,9 @@ class RegisterController extends Controller
     public function registaritonsubmit(Request $request)
     {
 
-        $subcategory = $request->subcategory;
+        // $subcategory = $request->subcategory;
 
-        $final_category = $this->getFinalCategory($subcategory);
+        $final_category = $this->getFinalCategory($request->category);
         // $subcategory = $request->category;
 
         // dd($final_category);
@@ -629,6 +634,34 @@ class RegisterController extends Controller
         DB::table('contact_email')->where('contact_id', $contact_id)->update([
             'email' => $request->email
         ]);
+
+        DB::table('company_data')->where('company_id', $company_id)->update([
+            'company_name' => $request->company_name,
+            'city' => $request->city,
+            'state' => $request->state,
+            'pincode' => $request->pincode,
+            // 'subcategory' => $request->subcategory,
+            'category' => $request->final_category,
+            'country' => $request->country,
+            'website' => $request->website,
+            'branch_offices' => $request->branch_offices,
+            'total_staff' => $request->total_staff,
+            'travel_segments' => $request->travel_segments,
+            'meet_profiles' => $request->meet_profiles,
+            'meet_regions' => $request->meet_regions,
+            'interested_states' => $request->interested_states,
+            'database_name' => "online_registration " . $eventname . date('Y'),
+            'entry_type' => 'main',
+            'updated_at' => now()
+        ]);
+        // dd($company_id);
+        // echo $company_id;
+        DB::table('company_sources')->insert([
+            'company_id' => $company_id,
+            'notes' => "Online Registration " . $eventname . " " . date('Y'),
+            'event_date' => $event->start_date
+        ]);
+
 
         $oldCompanydata = DB::table('company_data')->where('company_id', $company_id)->first();
         $isChanged =
@@ -861,7 +894,6 @@ class RegisterController extends Controller
         $subcategory = $request->subcategory ?? '';
 
         $companyFinal = strtolower($this->getFinalCategory($companyName) ?? '');
-        $subcategoryFinal = strtolower($this->getFinalCategory($subcategory) ?? '');
         $categoryFinal = strtolower($this->getFinalCategory($category) ?? '');
 
         // dd([
@@ -881,8 +913,7 @@ class RegisterController extends Controller
 
         if (
             $categoryFinal === 'uncategorized' &&
-            $companyFinal === 'uncategorized' &&
-            $subcategoryFinal === 'uncategorized'
+            $companyFinal === 'uncategorized'
         ) {
             $status = 'Under Review';
             $message = 'Registration under review...';
@@ -902,12 +933,13 @@ class RegisterController extends Controller
             'contact_id' => $newContactId ?? '1',
             'databasename' => $databasenew ?? '1',
             'eventname' => $eventname ?? 'IITM Kolkata 2026',
-            'print' => false,
+            'print' => true,
             'status' => 'success',
             'message' => 'Your registration has been successfully completed',
             'contactName' => $contactName ?? 'Nishant',
             'email' => $email ?? 'marketing1@iitmindia.com',
             'mobile' => $mobile ?? '7909075199',
+            'city' => $request->city ?? 'N/A',
             'companyName' => $companyName ?? 'ABC Technologies',
             'preview' => false,
             'emailpage' => true,
@@ -935,12 +967,22 @@ class RegisterController extends Controller
             // echo "</pre>";
             $mailer = new MailerController();
             $mailer->sendRegistrationMail($email, $data);
+
+
+
+
+            // $data['print'] = true;
+            // $data['preview'] = true;
+            // $data['emailpage'] = true;
+
+
+
+            return view('web.registration.successpage.index', compact('data'));     // 5. Final Return
+
         }
 
+        return view('web.registration.underreview', compact('data'));     // 5. Final Return
 
-        $data['print'] = true;
-        // $data['preview'] = true;
-        $data['emailpage'] = true;
         //  echo "<pre>";
         //  echo "<div
         //  style='background-color:black;'>";
@@ -949,7 +991,6 @@ class RegisterController extends Controller
         //  echo "</pre>";
 
 
-        return view('web.registration.success', compact('data'));     // 5. Final Return
 
 
 

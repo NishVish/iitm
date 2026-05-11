@@ -2,7 +2,7 @@
     <style>
         .stats-wrapper {
             background-color: #ffffff;
-            padding: 30px 10px;
+            padding: 10px 5px;
             font-family: 'Inter', sans-serif;
             text-align: center;
             overflow: hidden;
@@ -14,7 +14,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
@@ -22,12 +22,11 @@
 
         .stat-card {
             background: #ffffff;
-            padding: 40px 15px;
+            padding: 20px 9px;
             border-radius: 6px;
             opacity: 0;
             transform: translateY(30px);
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, opacity 0.6s ease;
-            border: 1px solid #f0f0f0;
             position: relative;
             will-change: transform;
         }
@@ -62,7 +61,7 @@
 
         .stat-num-wrap {
             font-family: Georgia, serif;
-            font-size: 3.2rem;
+            font-size: 2.2rem;
             color: #111;
             display: flex;
             justify-content: center;
@@ -126,7 +125,7 @@
     <div class="stats-grid">
         <div class="stat-card">
             <span class="stat-num-wrap">
-                <span class="count-me" data-target="40000">0</span>
+                <span class="count-me" data-target="10200">0</span>
                 <span class="plus-sign">+</span>
             </span>
             <div class="stat-label">Annual Visitors</div>
@@ -134,7 +133,7 @@
 
         <div class="stat-card">
             <span class="stat-num-wrap">
-                <span class="count-me" data-target="2500">0</span>
+                <span class="count-me" data-target="1250">0</span>
                 <span class="plus-sign">+</span>
             </span>
             <div class="stat-label">Exhibitors</div>
@@ -142,7 +141,7 @@
 
         <div class="stat-card">
             <span class="stat-num-wrap">
-                <span class="count-me" data-target="25">0</span>
+                <span class="count-me" data-target="24">0</span>
                 <span class="plus-sign">+</span>
             </span>
             <div class="stat-label">States Represented</div>
@@ -150,10 +149,17 @@
 
         <div class="stat-card">
             <span class="stat-num-wrap">
-                <span class="count-me" data-target="23">0</span>
+                <span class="count-me" data-target="8">0</span>
                 <span class="plus-sign">+</span>
             </span>
             <div class="stat-label">Annual Trade Shows</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num-wrap">
+                <span class="count-me" data-target="15">0</span>
+                <span class="plus-sign">+</span>
+            </span>
+            <div class="stat-label">Country Represented</div>
         </div>
     </div>
 

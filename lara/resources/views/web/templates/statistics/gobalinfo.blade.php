@@ -1,7 +1,7 @@
 <section style="font-family:Arial; padding:20px; background:#ffffff; color:#1f2937;">
 
     <!-- INSIGHTS -->
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:9px;">
 
         <div
             style="background:#fff; padding:12px; border-radius:8px; border:1px solid #fee2e2; border-top:4px solid #aa2324;">

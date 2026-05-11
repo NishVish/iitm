@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     {{-- Include Header --}}
     <div class="container mt-4">
 
@@ -66,7 +67,6 @@
                 @include('web.participant.form.enquiry-form')
 
             @elseif($lastSegment === 'visitor-form')
-                @include('web.loading3') {{-- includes register.blade.php --}}
 
                 @include('web.header2') {{-- includes register.blade.php --}}
                 @include('web.participant.form.visitor')
@@ -77,6 +77,13 @@
             @endif
         </div>
     </div>
+    @php
+        // echo "<pre>";
+        // print_r($contact);
+        // print_r($company);
+        // print_r($eventinfo);
+        // echo "</pre>";
+    @endphp
     @include('web.footer')
 
 </body>

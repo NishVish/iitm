@@ -5,35 +5,28 @@
     const ctx = document.getElementById('growthChart').getContext('2d');
 
     const growthChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: ['2022', '2023', '2024', '2025', '2026 (Pred)'],
-            datasets: [{
-                label: 'Visitors',
-                data: [30000, 34000, 40000, 40000, 55000],
-                borderColor: '#aa2324',
-                backgroundColor: 'rgba(170,35,36,0.1)',
-                tension: 0.4,
-                fill: true,
-                pointRadius: 6,
-                // The "segment" object allows conditional styling of the line
-                segment: {
-                    borderDash: ctx => ctx.p0DataIndex >= 3 ? [5, 5] : undefined,
-                    borderColor: ctx => ctx.p0DataIndex >= 3 ? '#fbbf24' : undefined
+            datasets: [
+                {
+                    label: 'Domestic Visitors',
+                    data: [20000, 24000, 28000, 27000, 35000],
+                    backgroundColor: '#aa2324'
                 },
-                // Style individual points to match the prediction color
-                pointBackgroundColor: (context) => {
-                    return context.dataIndex === 4 ? '#fbbf24' : '#aa2324';
-                },
-                pointBorderColor: (context) => {
-                    return context.dataIndex === 4 ? '#fbbf24' : '#aa2324';
+                {
+                    label: 'International Visitors',
+                    data: [10000, 10000, 12000, 13000, 20000],
+                    backgroundColor: '#fbbf24'
                 }
-            }]
+            ]
         },
         options: {
             responsive: true,
             plugins: {
                 tooltip: {
+                    mode: 'index',
+                    intersect: false,
                     callbacks: {
                         label: function (context) {
                             let label = context.dataset.label || '';
@@ -44,7 +37,11 @@
                 }
             },
             scales: {
+                x: {
+                    stacked: true
+                },
                 y: {
+                    stacked: true,
                     beginAtZero: true,
                     ticks: {
                         callback: value => value.toLocaleString()

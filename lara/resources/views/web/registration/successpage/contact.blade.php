@@ -54,8 +54,18 @@
                             <tr>
                                 <td
                                     style="padding: 10px; border: 1px solid #aa2324; border-radius: 4px; background-color: #ffffff;">
-                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&color=aa2324&bgcolor=ffffff&data={{ $data['mobile'] }}"
-                                        width="130" height="130" alt="QR Code" style="display: block; border: 0;" />
+                                    @php
+                                        $qrData = json_encode([
+                                            "name" => $data['contactName'],
+                                            "mobile" => $data['mobile'],
+                                            "email" => $data['email'],
+                                            "city" => $data['city'],
+                                            "company" => $data['companyName'],
+                                        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+                                    @endphp
+
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&color=aa2324&bgcolor=ffffff&data={{ urlencode($qrData) }}"
+                                        width="130" height="130" alt="QR Code" style="display:block; border:0;" />
                                 </td>
                             </tr>
                             <tr>

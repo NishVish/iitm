@@ -173,6 +173,7 @@
 
             @include('web.templates.statistics.index')
             @include('web.templates.intro')
+
             @include('web.templates.cities')
             @include('web.templates.whyexhibit')
             @include('web.templates.tourismboard')
@@ -183,14 +184,7 @@
 
 
 </div>
-<style>
-    .side-menu {
-        height: auto !important;
-    }
-</style>
-<div id="iitmStickyHeader">
-    @include('web.header2')
-</div>
+
 
 <script>
     (function () {

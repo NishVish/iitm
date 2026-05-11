@@ -99,12 +99,11 @@
         }
     </style>
 
-    <div class="ledger-head">
+    <div id="ledger-head" class="ledger-head">
         <div>Location</div>
         <div>Dates</div>
         <div style="text-align: right;">Year</div>
     </div>
-
     <div id="ledger-body">
     </div>
     <div class="button" style="text-align: center;">

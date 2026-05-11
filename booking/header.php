@@ -263,16 +263,16 @@
         }
 
 
-
+        @media (max-width: 768px) {
+            .responsive-title {
+                font-size: 3.0vh;
+                /* adjust this value as needed */
+            }
+        }
 
         @media screen and (max-width: 600px) {
-            h1 {
-                font-size: 30px;
-            }
 
-            h2 {
-                font-size: 20px;
-            }
+
 
             .form-line {
                 flex-direction: column;
@@ -305,33 +305,15 @@
         .responsive-title {
             text-align: center;
             color: var(--primary);
-            font-size: 6vh;
             font-weight: 900;
             margin: 6px auto;
             text-decoration: none;
-
-            /* Required for positioning the line */
             display: block;
             position: relative;
             padding-bottom: 5px;
-            /* Space for the line */
-        }
 
-        .responsive-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            /* Keeps the line centered */
-
-            /* --- CONTROL LENGTH HERE --- */
-            width: 60%;
-            /* Change to 100px, 50%, etc. */
-            height: 5px;
-            /* Thickness of the line */
-
-            background-color: var(--primary);
+            /* 👇 Responsive font size */
+            font-size: clamp(22px, 4vw, 48px);
         }
     </style>
 </head>

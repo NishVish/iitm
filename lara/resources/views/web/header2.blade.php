@@ -14,9 +14,11 @@
 
     body {
         margin: 0;
-        padding-top: 64px;
+        padding-top: clamp(60px, 8vw, 90px);
+        font-family: 'Inter', sans-serif;
     }
 
+    /* HEADER */
     .header2 {
         position: fixed;
         top: 0;
@@ -25,7 +27,6 @@
         z-index: 1000;
         background: #ffffff;
         transition: var(--transition);
-        font-family: 'Inter', sans-serif;
         border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     }
 
@@ -34,40 +35,30 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
+    /* INNER CONTAINER */
     .header-inner {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 5%;
+        padding: clamp(10px, 2vw, 18px) 5%;
         max-width: 1400px;
         margin: 0 auto;
         width: 100%;
-        overflow: hidden;
     }
 
-    .logo {
-        height: 42px;
-        display: flex;
-        align-items: center;
-        flex-shrink: 0;
-    }
 
-    .logo img {
-        height: 100%;
-        transition: var(--transition);
-    }
 
+    /* NAV */
     .nav-links {
         display: flex;
-        gap: 24px;
+        gap: clamp(16px, 2vw, 28px);
         align-items: center;
-        min-width: 0;
     }
 
     .nav-links a {
         text-decoration: none;
         color: var(--primary-red);
-        font-size: 15px;
+        font-size: clamp(13px, 1.2vw, 16px);
         font-weight: 500;
         transition: var(--transition);
         white-space: nowrap;
@@ -81,16 +72,17 @@
         opacity: 0.7;
     }
 
+    /* CTA BUTTON */
     .cta a {
         background: transparent;
         color: var(--primary-red);
-        padding: 10px 22px;
+        padding: clamp(6px, 1vw, 10px) clamp(12px, 2vw, 22px);
         border-radius: 999px;
         border: 2px solid var(--primary-red);
         text-decoration: none;
         font-weight: 700;
         transition: var(--transition);
-        font-size: 14px;
+        font-size: clamp(12px, 1.2vw, 14px);
         white-space: nowrap;
     }
 
@@ -100,13 +92,13 @@
         border: 2px solid #ffffff;
     }
 
+    /* HAMBURGER */
     .hamburger {
         display: none;
-        font-size: 28px;
+        font-size: clamp(22px, 3vw, 28px);
         cursor: pointer;
         color: var(--primary-red);
         user-select: none;
-        flex-shrink: 0;
         margin-left: 12px;
     }
 
@@ -114,11 +106,12 @@
         color: #ffffff;
     }
 
+    /* SIDE MENU */
     .side-menu {
         position: fixed;
         top: 0;
         right: -280px;
-        width: 280px;
+        width: min(80vw, 280px);
         height: 100%;
         background: #1a1a1a;
         padding: 80px 30px;
@@ -137,12 +130,13 @@
     .side-menu a {
         color: #ffffff;
         text-decoration: none;
-        font-size: 18px;
+        font-size: clamp(16px, 2vw, 18px);
         font-weight: 500;
         border-bottom: 1px solid #333;
         padding-bottom: 10px;
     }
 
+    /* CLOSE BUTTON */
     .close-menu {
         position: absolute;
         top: 20px;
@@ -152,6 +146,7 @@
         cursor: pointer;
     }
 
+    /* OVERLAY */
     .overlay {
         position: fixed;
         inset: 0;
@@ -168,6 +163,7 @@
         visibility: visible;
     }
 
+    /* RESPONSIVE */
     @media (max-width: 992px) {
         .nav-links {
             display: none;
@@ -176,21 +172,11 @@
         .hamburger {
             display: block;
         }
-
-        .cta a {
-            padding: 8px 14px;
-            font-size: 13px;
-        }
     }
 
     @media (max-width: 400px) {
-        .cta a {
-            padding: 7px 10px;
-            font-size: 12px;
-        }
-
-        .logo {
-            height: 34px;
+        .logo img {
+            height: clamp(28px, 6vw, 40px);
         }
     }
 </style>
@@ -198,6 +184,20 @@
 <header class="header2" id="iitmHeader">
     <div class="header-inner">
         <div class="logo">
+            <style>
+                /* LOGO */
+                .logo {
+                    display: flex;
+                    align-items: center;
+                    flex-shrink: 0;
+                }
+
+                .logo img {
+                    height: clamp(32px, 5vw, 60px);
+                    width: auto;
+                    transition: var(--transition);
+                }
+            </style>
             <img id="iitmLogoImg" src="https://iitmindia.com/assets/iitm3.png" alt="Logo">
         </div>
 
@@ -219,6 +219,7 @@
         <div class="hamburger" onclick="iitmToggleMenu()">☰</div>
     </div>
 </header>
+@include('web.templates.chatbot.chatbot')
 
 <div class="side-menu" id="iitmSideMenu">
     <span class="close-menu" onclick="iitmToggleMenu()">&times;</span>
@@ -270,7 +271,7 @@
         pointer-events: none;
     }
 </style>
-<script>
+<!-- <script>
     (function () {
         const iitmHeader = document.getElementById("iitmHeader");
         const iitmLogo = document.getElementById("iitmLogoImg");
@@ -339,4 +340,4 @@
         // Initialize timer
         resetIdleTimer();
     })();
-</script>
+</script> -->

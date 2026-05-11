@@ -1,131 +1,83 @@
-<div class="fancy-about-section">
+<div class="about-iitm">
+
     <style>
-        .fancy-about-section {
-            padding: 100px 20px;
+        .about-iitm {
             max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        /* Left Side: Decorative Branding */
-        .about-visual {
-            position: relative;
+            margin: 30px auto;
             padding: 20px;
-        }
-
-        .about-visual::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 80px;
-            height: 80px;
-            border-top: 4px solid var(--accent);
-            border-left: 4px solid var(--accent);
-        }
-
-        .about-visual h3 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1;
-            margin: 0;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-        }
-
-        .about-visual .sub-text {
-            display: block;
-            margin-top: 15px;
-            font-size: 1rem;
-            color: var(--accent);
-            font-weight: 600;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        /* Right Side: Content */
-        .about-content {
-            position: relative;
-        }
-
-        .about-p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        /* Highlight feature tags */
-        .feature-tags {
+            font-family: Arial, sans-serif;
             display: flex;
-            gap: 15px;
+            gap: 25px;
+            align-items: center;
             flex-wrap: wrap;
         }
 
-        .tag {
-            background: #1a1a1e;
-            border: 1px solid var(--border-color);
-            padding: 8px 18px;
-            border-radius: 4px;
-            font-size: 0.8rem;
+        .about-images {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .about-images img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-title {
+            font-size: 24px;
             font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            color: #A92324;
+            margin-bottom: 10px;
         }
 
-        .tag:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-3px);
+        .about-subtitle {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
         }
 
-        /* Responsive */
-        @media (max-width: 992px) {
-            .fancy-about-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 40px;
-            }
-
-            .about-visual::before {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .about-visual h3 {
-                font-size: 2.5rem;
-            }
-
-            .feature-tags {
-                justify-content: center;
-            }
+        .about-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
         }
     </style>
 
-    <div class="about-visual">
-        <h3>About<br>IITM India</h3>
-        <span class="sub-text">Est. 1998</span>
+    <!-- IMAGES -->
+    <div class="about-images">
+        <img src="https://iitmindia.com/wp-content/uploads/2023/01/1024-X-1024-1-1.jpg" alt="IITM Image 1">
+        <img src="https://iitmindia.com/wp-content/uploads/2023/01/imeage-12-1.jpg" alt="IITM Image 2">
+        <img src="https://iitmindia.com/wp-content/uploads/2023/01/imeage-23-1.jpg" alt="IITM Image 3">
     </div>
 
+    <!-- CONTENT -->
     <div class="about-content">
-        <p class="about-p">
-            As a <span style="color: #fff; font-weight: 600;">pioneer in travel exhibitions</span>, we connect global
-            industry professionals, enhance brand visibility, and facilitate sustainable business growth within the
-            tourism sector.
-        </p>
+        <div class="about-title">ABOUT IITM INDIA</div>
 
-        <div class="feature-tags">
-            <span class="tag">B2B Networking</span>
-            <span class="tag">Global Strategy</span>
-            <span class="tag">Market Growth</span>
-            <span class="tag">Innovation</span>
+        <div class="about-subtitle">
+            IITM is a pioneer in travel-trade exhibitions
+        </div>
+
+        <div class="about-text">
+            IITM is facilitating a platform for enthusiasts and experts of the global travel community to meet up and
+            showcase, discuss, and trade existing as well as upcoming products and services. It provides participants a
+            platform to connect and accelerate their business by reaching potential customers, collaborators, and other
+            businesses.
+            <br><br>
+            If you strive to reach out to prominent industry leaders, decision makers, and experts, then IITM is the
+            right place for you. It gives you opportunities to escalate your visibility and reinforce brand presence.
+            Whether you want to conduct business, introduce yourself, establish your brand, or simply understand the
+            travel industry — IITM is the perfect platform to connect.
         </div>
     </div>
+
 </div>

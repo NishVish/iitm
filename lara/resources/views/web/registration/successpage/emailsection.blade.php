@@ -52,9 +52,12 @@
                                         </div>
 
                                         @php
+                                            // echo "<pre>";
+                                            // print_r($data['all_dates']);
+                                            // echo "</pre>";
                                             use Carbon\Carbon;
-                                            $start = Carbon::parse($data['all_date'][0] ?? null);
-                                            $end = Carbon::parse($data['all_date'][1] ?? null);
+                                            $start = Carbon::parse($data['all_dates'][0] ?? null);
+                                            $end = Carbon::parse($data['all_dates'][1] ?? null);
                                             $formattedDate = '';
 
                                             if ($start && $end) {

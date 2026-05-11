@@ -226,4 +226,62 @@ class DatabaseController extends Controller
 
         return response()->json(['message' => 'No action taken']);
     }
+
+
+    public function getcompanydetail($company_id)
+    {
+        $company_detail = DB::table('company_data')
+            ->where('company_id', $company_id)
+            ->first();
+        return response()->json($company_detail);
+    }
+
+    public function getcompanybyentrytype($entrytype)
+    {
+        $company_detail = DB::table('company_data')
+            ->where('entry_type', $entrytype)
+            ->get();
+        return response()->json($company_detail);
+    }
+
+    public function databaseportal()
+    {
+        return view('backend.data.index');
+    }
+    public function otherregistration()
+    {
+        $company_detail = DB::table('company_data')
+            ->leftjoin('contact', 'company_data.company_id', '=', 'contact.company_id')
+            ->leftjoin('contact_mobile', 'contact.contact_id', '=', 'contact_mobile.contact_id')
+            ->leftjoin('contact_email', 'contact.contact_id', '=', 'contact_email.contact_id')
+            ->where('category', 'other')
+            ->where('entry_type', 'online_registration')
+            ->get();
+
+        return response()->json($company_detail);
+    }
+
+    public function updateCategory($companyid, $contactid, $email, $category)
+    {
+
+
+
+        DB::table('company_data')
+            ->where('company_id', $companyid)
+            ->update([
+                'category' => $category,
+            ]);
+
+
+    }
+
+    public function rejectCompany($companyid, $contactid, $email)
+    {
+        DB::table('company_data')
+            ->where('company_id', $companyid)
+            ->update([
+                'category' => 'rejected',
+            ]);
+        return redirect()->back();
+    }
 }

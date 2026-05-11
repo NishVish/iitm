@@ -134,7 +134,15 @@
             <a href="{{ url('salesportal') }}" class="big-btn">SALES PORTAL</a>
             <a href="{{ url('bookingportal') }}" class="big-btn">BOOKING PORTAL</a>
             <a href="{{ url('admin') }}" class="big-btn admin">ADMINSTRATION</a>
+            <a href="{{ url('database') }}" class="big-btn admin">DATABASE PORTAL</a>
+            <a href="{{ url('highlightpage-edit') }}" class="big-btn admin">Highlight Page Edit</a>
+            <!-- badge Layout :  http://localhost/iitm/lara/generatebadge/CMP_6a0171efbfa73/318339/iitm-bengaluru-2026 -->
+            <a href="{{ url('generatebadge/CMP_6a0171efbfa73/318339/iitm-bengaluru-2026') }}"
+                class="big-btn admin">Badge
+                Layout</a>
+            <a href="http://localhost/iitm/lara/leadsdetails/33?mobile=7909075195" class="big-btn admin">Leads Edit</a>
 
+            <a href="http://localhost/iitm/hr/" class="big-btn admin">HR Portal</a>
             <div style="display: flex; gap: 10px;">
                 <a href="{{ url('../central') }}" class="big-btn ops" style="flex: 1;">OPERATIONS</a>
                 <a href="{{ url('/') }}" class="big-btn ops" style="flex: 1;">WEBSITE</a>

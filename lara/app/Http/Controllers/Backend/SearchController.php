@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\DatabaseController as DatabaseControllerApp;
-use App\Http\Controllers\Backend\DatabaseController as BackendDatabaseController;
 
 class SearchController extends Controller
 {
-    public function search(Request $request)
+    public function index(Request $request)
     {
 
         // dd($request->all());
@@ -35,6 +34,8 @@ class SearchController extends Controller
         $mobile = null;
         $name = null;
 
+
+
         if (filter_var($query, FILTER_VALIDATE_EMAIL)) {
             $email = $query;
         } elseif (is_numeric($query)) {
@@ -43,15 +44,15 @@ class SearchController extends Controller
             $name = $query;
         }
 
-        // dd($mobile, $email);
         $database = new DatabaseControllerApp();
         $contactId = null;
-
-        if ($mobile || $email) {
-            $contactId = $database->getLatestContactId($mobile, $email);
-        }
-
+        $contactId = $database->getLatestContactId($mobile, $email);
+        // dd($contactId);
+        $contact_data = DB::table('contact')->where('contact_id', $contactId)->get();
         // 🧠 base query
+        dd($contact_data);
+        $company_data = DB::table('company_data')->where('company_id', $contact_data->company_id)->get();
+        dd($company_data);
         $resultQuery = DB::table('contact')
             ->leftJoin('company_data', 'contact.company_id', '=', 'company_data.company_id')
             ->leftJoin('contact_email', 'contact.contact_id', '=', 'contact_email.contact_id')
@@ -63,16 +64,13 @@ class SearchController extends Controller
                 'contact_email.*',
                 'contact_mobile.*'
             );
-        dd($resultQuery->get());
 
         // 🎯 condition handling
-        if ($email) {
-            $resultQuery->where('contact_email.email', $email);
-        } elseif ($mobile) {
-            $resultQuery->where('contact_mobile.mobile', $mobile);
-        } elseif ($contactId) {
+        if ($contactId) {
+            // exact match (email/mobile)
             $resultQuery->where('contact.contact_id', $contactId);
         } else {
+            // 🔎 search by name OR company_name
             $resultQuery->where(function ($q) use ($name) {
                 $q->where('contact.name', 'LIKE', "%{$name}%")
                     ->orWhere('company_data.company_name', 'LIKE', "%{$name}%");
@@ -81,21 +79,6 @@ class SearchController extends Controller
 
         $result = $resultQuery->get();
 
-        // if ($result->isEmpty()) {
-
-        //     $latest_id = new DatabaseControllerApp();
-        //     $latest_contact_id = $latest_id->getLatestContactId($mobile, $email);
-        //     // dd($latest_contact_id);
-        //     $companyId = DB::table('contact')
-        //         ->where('contact_id', $latest_contact_id)
-        //         ->value('company_id');
-
-        //     $db = new BackendDatabaseController();
-        //     $db->createduplicate($companyId, $latest_contact_id, 'main');
-
-        //     // re-run query instead of recursion
-        //     $result = $resultQuery->get();
-        // }
         return response()->json([
             'success' => true,
             'query' => $query,

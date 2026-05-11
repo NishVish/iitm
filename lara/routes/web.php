@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/backend.php';
 require __DIR__ . '/sales.php';
 require __DIR__ . '/admin.php';
+require __DIR__ . '/data.php';
+require __DIR__ . '/tools.php';
+require __DIR__ . '/ray.php';
+require __DIR__ . '/hr.php';
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -88,7 +92,7 @@ Route::get('/lasteventdetails/{id?}', [EventController::class, 'lastEventDetails
 Route::get('/register', [EventController::class, 'showevents'])->name('register');
 
 
-use App\Http\Controllers\Tools;
+use App\Http\Controllers\Tools\Tools;
 
 // Tool Views
 Route::match(['get', 'post'], '/lookuptest', [Tools::class, 'lookuptest']);
@@ -210,6 +214,7 @@ Route::get('/mail/send/{email}/{data}', [MailerController::class, 'sendRegistrat
 Route::get('/mail/sendtest/{email}/{data}', [MailerController::class, 'sendRegistrationMaitest']);
 Route::get('quickmailtest/{preview}', [MailerController::class, 'quickmailtest']);
 Route::post('/sendmail', [MailerController::class, 'sendmail'])->name('sendmail');
+Route::post('/sendmail/{eventid}/{companyid}/{contactid}/{email}', [MailerController::class, 'sendmailtothiscontact']);
 
 use App\Http\Controllers\InfopagesController;
 
@@ -224,15 +229,33 @@ Route::get('/razorpay-test', [RazorpayTestController::class, 'test']);
 
 
 
+use App\Http\Controllers\ContentController;
+
+Route::get('/keyhighlights', [ContentController::class, 'keyhighlights'])->name('keyhighlights');
 
 
 
+use App\Http\Controllers\Web\SponsorshipController;
+
+Route::get('/sponsorship', [SponsorshipController::class, 'index']);
 
 
 
+use App\Http\Controllers\HighlightsController;
 
 
 
+Route::get('/highlights-imgaes', [HighlightsController::class, 'imgaes']);
+Route::get('/getHighlights', [HighlightsController::class, 'getHighlights']);
 
+Route::get('/highlights/create', [HighlightsController::class, 'create']);
 
+Route::get('/highlights/edit/{id}', [HighlightsController::class, 'edit']);
 
+Route::post('/highlights-store', [HighlightsController::class, 'store']);
+
+Route::get('/highlightpage-edit', [HighlightsController::class, 'highlightpage']);
+
+Route::put('/highlights/{id}', [HighlightsController::class, 'update']);
+
+Route::delete('/highlights/{id}', [HighlightsController::class, 'destroy']);

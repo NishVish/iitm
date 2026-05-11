@@ -26,8 +26,8 @@ Route::post('/logout', function () {
 });
 
 
-Route::get('/backend/leads', [LeadsController::class, 'index']);
-Route::post('/backend/mark-lead', [LeadsController::class, 'markaslead'])->name('backend.mark-lead');
+Route::get('/backend/leads', [LeadController::class, 'index']);
+Route::post('/backend/mark-lead', [LeadController::class, 'markaslead'])->name('backend.mark-lead');
 
 Route::prefix('masterbackend')->group(function () {
 
@@ -52,7 +52,7 @@ use App\Http\Controllers\Backend\DatabaseController;
 use App\Http\Controllers\Backend\SearchController;
 use App\Http\Controllers\Backend\Sales\BookingController;
 
-Route::get('/backend/search', [SearchController::class, 'search'])->name('backend.search');
+Route::get('/backend/search', [SearchController::class, 'index'])->name('backend.search');
 Route::get('/backend/searchleads', [SearchController::class, 'searchleads']);
 Route::get('/salesportal', [LeadController::class, 'index']);
 Route::get('/allleads', [LeadController::class, 'allleads']);

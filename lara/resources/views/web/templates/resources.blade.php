@@ -1,3 +1,1 @@
-Booking form link
-
-Brouchers
+@include('web.templates.resources.layout')

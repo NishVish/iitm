@@ -103,14 +103,14 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-num-wrap">
-                    <span class="count-me" data-target="40000">0</span>+
+                    <span class="count-me" data-target="50000">0</span>+
                 </div>
                 <div class="stat-label">Annual Visitors</div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-num-wrap">
-                    <span class="count-me" data-target="2500">0</span>+
+                    <span class="count-me" data-target="3500">0</span>+
                 </div>
                 <div class="stat-label">Exhibitors</div>
             </div>

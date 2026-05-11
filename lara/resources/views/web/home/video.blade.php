@@ -13,6 +13,7 @@
         height: 100vh;
         overflow: hidden;
         z-index: -1;
+        background-color: grey;
     }
 
     .video-container video {
@@ -40,7 +41,7 @@
         video.addEventListener('canplay', () => {
             setTimeout(() => {
                 video.classList.add('loaded');
-            }, 4000);
+            }, 2000);
         });
     });
 </script>
