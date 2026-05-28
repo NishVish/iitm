@@ -1231,24 +1231,16 @@ class Company extends BaseController
 
                 $entryTypesToInsert = [];
 
-                // var_dump($company['entry_type']); 
-                // exit;// Debug: Check the original entry type
-                if (!empty($company['entry_type']) && strtolower($company['entry_type']) !== 'main') {
-                    // First run with original entry_type
+                $entryType = strtolower(trim($company['entry_type'] ?? 'main'));
 
-                    // Second run as 'main'
+                if ($entryType === 'main') {
+                    // MAIN → only once
                     $entryTypesToInsert[] = 'main';
-                    $entryTypesToInsert[] = $company['entry_type'];
-                    // var_dump($entryTypesToInsert); // Debug: Check the entry types to be inserted
-                    // exit; // Uncomment to stop execution and see the result  
-
                 } else {
-                    // Only run once with whatever entry_type it has
-                    $entryTypesToInsert[] = $company['entry_type'] ?? 'main';
+                    // LEAD / ONLINE / OTHERS → main + original
+                    $entryTypesToInsert[] = 'main';
+                    $entryTypesToInsert[] = $entryType;
                 }
-                // var_dump($entryTypesToInsert); // Debug: Check the final entry types array before insertion
-                // 2. Loop through each entry_type and insert
-
 
                 foreach ($entryTypesToInsert as $currentType) {
                     // var_dump($currentType); // Debug: Check the current entry type being processed
@@ -1282,14 +1274,6 @@ class Company extends BaseController
 
                     $database_name = $company['database_name'] ?? '';
                     $entry_type = $company['entry_type'] ?? '';
-                    // var_dump($entry_type);
-                    // exit;
-
-                    // $contact = $company['contact1_name'] ?? '';
-                    // $contact = $company['contact1_mobile'] ?? '';
-                    // var_dump($company);
-                    // exit;
-
 
 
                     // 1. Break the source by "-"
@@ -1305,9 +1289,6 @@ class Company extends BaseController
 
                     if ($part1 === "Online") {
 
-                        // exit;
-
-                        // 2. Logic for Online Trade Visitor (Single entry)
                         $values = [
                             'company_id' => $company_id,
                             'source_id' => $company['source_id'] ?? 0,
@@ -1350,13 +1331,56 @@ class Company extends BaseController
 
                     }
 
+                    // 🔥 DETERMINE MAX CONTACT INDEX (dynamic instead of fixed 3)
+                    $maxContacts = 0;
 
-                    for ($i = 1; $i <= 3; $i++) {
+                    // detect how many contacts exist in this company row
+                    for ($i = 1; $i <= 10; $i++) {
+                        if (!empty($company["contact{$i}_name"])) {
+                            $maxContacts = $i;
+                        }
+                    }
+
+                    if ($maxContacts == 0) {
+                        $maxContacts = 3; // fallback default
+                    }
+
+                    // ✅ INSERT CONTACTS
+                    for ($i = 1; $i <= $maxContacts; $i++) {
 
                         $name = trim($company["contact{$i}_name"] ?? '');
 
-                        // Skip if no name
                         if ($name === '') {
+                            continue;
+                        }
+
+                        $designation = trim($company["contact{$i}_designation"] ?? '');
+
+                        $mobiles = [];
+                        $emails = [];
+
+                        // Collect mobiles (safe + cleaned)
+                        for ($m = 1; $m <= 3; $m++) {
+                            $mobileKey = "contact{$i}_mobile{$m}";
+                            $mobile = trim($company[$mobileKey] ?? '');
+
+                            if ($mobile !== '') {
+                                $mobiles[] = $mobile;
+                            }
+                        }
+
+                        // Collect emails (safe + cleaned)
+                        for ($e = 1; $e <= 3; $e++) {
+                            $emailKey = "contact{$i}_email{$e}";
+                            $email = trim($company[$emailKey] ?? '');
+
+                            if ($email !== '') {
+                                $emails[] = $email;
+                            }
+                        }
+
+                        // 🚨 SKIP IF EVERYTHING EMPTY
+                        if (empty($name) && empty($mobiles) && empty($emails)) {
                             continue;
                         }
 
@@ -1364,28 +1388,10 @@ class Company extends BaseController
                             'company_id' => $company_id,
                             'priority' => $i,
                             'name' => $name,
-                            'designation' => $company["contact{$i}_designation"] ?? '',
-                            'mobiles' => [],
-                            'emails' => []
+                            'designation' => $designation,
+                            'mobiles' => array_values(array_unique($mobiles)),
+                            'emails' => array_values(array_unique($emails)),
                         ];
-
-                        // Collect mobiles (up to 3 per contact)
-                        for ($m = 1; $m <= 3; $m++) {
-                            $mobileKey = "contact{$i}_mobile{$m}";
-
-                            if (!empty($company[$mobileKey])) {
-                                $contactData['mobiles'][] = trim($company[$mobileKey]);
-                            }
-                        }
-
-                        // Collect emails (up to 3 per contact)
-                        for ($e = 1; $e <= 3; $e++) {
-                            $emailKey = "contact{$i}_email{$e}";
-
-                            if (!empty($company[$emailKey])) {
-                                $contactData['emails'][] = trim($company[$emailKey]);
-                            }
-                        }
 
                         // Save contact
                         $inserted = $this->savePerson($contactData);
@@ -1396,7 +1402,6 @@ class Company extends BaseController
                             $failed++;
                         }
                     }
-
 
                     $allowedCities = [
                         'ahmedabad',
@@ -1476,12 +1481,7 @@ class Company extends BaseController
 
                 }
 
-                // exit;
-// var_dump($entry_type);
-// var_dump("Super");
-// var_dump($part1);
-// var_dump($part2);
-// exit;
+
                 // 1. Break the source by "-"
                 $parts = explode('_', $database_name);
 

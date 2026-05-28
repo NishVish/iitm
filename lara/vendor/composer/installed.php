@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'a035d50ff792d9df51b5bd3e81de4a65bec5b32b',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -98,7 +98,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../fakerphp/faker',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'filp/whoops' => array(
             'pretty_version' => '2.18.4',
@@ -107,7 +107,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../filp/whoops',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'fruitcake/php-cors' => array(
             'pretty_version' => 'v1.4.0',
@@ -388,6 +388,15 @@
                 0 => 'v12.54.1',
             ),
         ),
+        'knuckleswtf/scribe' => array(
+            'pretty_version' => '5.10.0',
+            'version' => '5.10.0.0',
+            'reference' => 'd4da86e57e49dac4694b200354cfa962bfae3168',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../knuckleswtf/scribe',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -413,9 +422,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'a035d50ff792d9df51b5bd3e81de4a65bec5b32b',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -556,6 +565,21 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'mpociot/laravel-apidoc-generator' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '*',
+            ),
+        ),
+        'mpociot/reflection-docblock' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'reference' => 'c8b2e2b1f5cebbb06e2b5ccbf2958f2198867587',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mpociot/reflection-docblock',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'mtdowling/cron-expression' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -614,7 +638,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../nunomaduro/collision',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'nunomaduro/termwind' => array(
             'pretty_version' => 'v2.4.0',
@@ -622,6 +646,15 @@
             'reference' => '712a31b768f5daea284c2169a7d227031001b9a8',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nunomaduro/termwind',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'parsedown/parsedown' => array(
+            'pretty_version' => '1.8.0',
+            'version' => '1.8.0.0',
+            'reference' => '96baaad00f71ba04d76e45b4620f54d3beabd6f7',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../parsedown/parsedown',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -1031,6 +1064,24 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'shalvah/upgrader' => array(
+            'pretty_version' => '0.6.0',
+            'version' => '0.6.0.0',
+            'reference' => 'd95ed17fe9f5e1ee7d47ad835595f1af080a867f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../shalvah/upgrader',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'smalot/pdfparser' => array(
+            'pretty_version' => 'v2.12.5',
+            'version' => '2.12.5.0',
+            'reference' => '2cfa0d92bd557875c9f52a75fde0e8392302a354',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../smalot/pdfparser',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'spatie/once' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -1328,6 +1379,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'symfony/var-exporter' => array(
+            'pretty_version' => 'v7.4.9',
+            'version' => '7.4.9.0',
+            'reference' => '22e03a49c95ef054a43601cd159b222bfab1c701',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/var-exporter',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'symfony/yaml' => array(
             'pretty_version' => 'v7.4.6',
             'version' => '7.4.6.0',
@@ -1335,7 +1395,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/yaml',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.3.1',

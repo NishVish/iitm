@@ -128,4 +128,26 @@ class IdentifycategoryController extends Controller
             'keyword' => $matchedKeyword
         ]);
     }
+    public function isInDictionary($input): ?string
+    {
+        $path = public_path('assets/dictionary.json');
+        if (!file_exists($path))
+            return null;
+
+        $dictionary = json_decode(file_get_contents($path), true);
+        if (!is_array($dictionary))
+            return null;
+
+        $input = strtolower(trim($input));
+
+        foreach ($dictionary as $item) {
+            $keyword = strtolower($item['keyword'] ?? '');
+            // If the keyword is found in the input, return the associated category
+            if ($keyword !== '' && stripos($input, $keyword) !== false) {
+                return strtolower($item['category'] ?? 'uncategorized');
+            }
+        }
+
+        return null;
+    }
 }

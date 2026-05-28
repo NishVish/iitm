@@ -9,12 +9,14 @@
     .backpage {
       width: 100%;
       height: 100%;
-      background-image: url("{{   url('public/assets/1.jpg') }}");
+      /* background-image: url("{{   url('public/assets/1.jpg') }}"); */
+      background-color: white;
       background-size: cover;
       background-position: center;
       position: relative;
       font-family: Arial, sans-serif;
-      color: white;
+      /* background-color: #aa2324; */
+      color: #aa2324;
 
       display: flex;
       justify-content: center;
@@ -30,7 +32,7 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(224, 8, 8, 0.84));
+      /* background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(224, 8, 8, 0.84)); */
       gap: 12px;
       padding-top: 15px;
       padding-bottom: 15px;
@@ -101,19 +103,6 @@
 
         This document serves as your access badge. Please keep it safe, as it will allow you to enter the exhibition.
         The badge is non-transferable.
-        <style>
-          #qrimage {
-            height: auto;
-            width: 120px;
-            display: block;
-            margin: 10px auto 0 auto;
-          }
-        </style>
-        <div style="text-align: center;">
-
-          <img id="qrimage" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ $data['mobile'] }}"
-            alt="QR Code">
-        </div>
 
       </div>
 
@@ -131,21 +120,7 @@ Banglore 22-23-24 July
 </div> -->
 
     <div class="back-badge-section">
-      <div id="venuebox">
-
-        <style>
-          #venuebox {
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #ffffffff;
-
-
-          }
-        </style>
-        {{ $data['venue'] }}
-      </div>
+      @include('web.registration.successpage.badgecomponent.eventinfofull')
 
       <div style="line-height:22px; font-family: Arial, sans-serif; text-align:left; padding-left:10px">
         <!-- <strong>Instructions:</strong> -->
@@ -169,7 +144,7 @@ Banglore 22-23-24 July
         </style>
 
       </div>
-      <hr style="width:90%; height:1px; background-color:white; border:none; margin:6px auto;">
+      <hr style="width:90%; height:1px; background-color:#aa2324; border:none; margin:6px auto;">
 
       <span style="font-weight: bold;font-size:30px ;justify-content:centre;">TRADE VISITOR</span>
     </div>

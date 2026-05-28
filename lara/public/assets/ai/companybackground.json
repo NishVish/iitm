@@ -1,0 +1,44 @@
+{
+    "company_name": "Sphere Travel Media Pvt Ltd",
+    "what_we_do": "We organize travel trade shows, exhibitions, and conferences across India.",
+    "website": "https://spheretravelmedia.com",
+    "documents": [
+        {
+            "name": "spherebouchere.pdf",
+            "type": "company_brochure",
+            "related_to": "Sphere Travel Media Pvt Ltd"
+        }
+    ],
+    "products": [
+        {
+            "name": "OTR",
+            "website": "https://www.otrglobe.in/",
+            "document": "otr_brochure.pdf",
+            "description": "Travel trade event and exhibition platform."
+        },
+        {
+            "name": "IITM India",
+            "website": "https://www.iitmindia.com/",
+            "document": "iitm_india_brochure.pdf",
+            "description": "India International Travel Mart."
+        },
+        {
+            "name": "Holiday Expo",
+            "website": "https://www.holidayexpoindia.com/",
+            "document": "holiday_expo_brochure.pdf",
+            "description": "Travel and tourism exhibition platform."
+        },
+        {
+            "name": "Voyager World",
+            "website": "https://voyagerworldmagazine.com/",
+            "document": "voyager_world_media_kit.pdf",
+            "description": "Travel magazine and media publication."
+        },
+        {
+            "name": "MICE Point",
+            "website": "https://micepoint.com/",
+            "document": "micepoint_profile.pdf",
+            "description": "Meetings, incentives, conferences, and exhibitions platform."
+        }
+    ]
+}

@@ -85,9 +85,11 @@
 
         @include('web.templates.statistics.index')
         @include('web.templates.intro')
-        @include('web.templates.keyhighlights')
+        @include('web.highlights.index')
         @include('web.templates.cities')
         @include('web.templates.whyexhibit')
+        @include('web.testimonials.index')
+
         @include('web.templates.tourismboard')
     </div>
     <style>

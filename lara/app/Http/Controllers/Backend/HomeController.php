@@ -11,4 +11,18 @@ class HomeController extends Controller
     {
         return view('backend.index');
     }
+    public function table()
+    {
+        return view('backend.table');
+    }
+    public function sql()
+    {
+        return view('backend.sql');
+    }
+    public function operation()
+    {
+        return view('backend.operation');
+    }
+
+
 }

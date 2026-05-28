@@ -910,7 +910,7 @@ class DatabaseController extends Controller
     public function getDetails($value)
     {
 
-        dd($value);
+        // dd($value);
         // 1. Try mobile
         $mobileRow = DB::table('contact_mobile')
             ->where('mobile', $value)

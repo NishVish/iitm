@@ -30,7 +30,10 @@
 
             <!-- {{-- includes register.blade.php --}} -->
         @elseif($lastSegment === 'aboutus')
+            <div style="height:40px;"></div>
             @include('web.templates.aboutus')
+            @include('web.templates.faq')
+
 
         @elseif($lastSegment === 'resourcepage')
             @include('web.templates.resources')

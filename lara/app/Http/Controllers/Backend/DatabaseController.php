@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\DatabaseController as DatabaseControllerApp;
+use Illuminate\Support\Facades\Route; // ✅ ADD THIS
 
 class DatabaseController extends Controller
 {
@@ -228,6 +229,48 @@ class DatabaseController extends Controller
     }
 
 
+    public function categorizedRoutes()
+    {
+        $groups = [];
+
+        foreach (Route::getRoutes() as $route) {
+
+            $uri = $route->uri();
+
+            // Skip system routes
+            if (str_contains($uri, '_ignition') || str_contains($uri, 'sanctum')) {
+                continue;
+            }
+
+            // 🎯 dynamic group name = first segment of URI
+            $segments = explode('/', $uri);
+            $group = $segments[0] ?? 'root';
+
+            // normalize empty or "/" routes
+            if ($group === '' || $group === null) {
+                $group = 'root';
+            }
+
+            // route name fallback
+            $name = $route->getName();
+            if (!$name) {
+                $name = ucwords(str_replace(['/', '-', '_'], ' ', $uri));
+            }
+
+            // init group if not exists
+            if (!isset($groups[$group])) {
+                $groups[$group] = [];
+            }
+
+            $groups[$group][] = [
+                'name' => $name,
+                'uri' => $uri,
+                'url' => url($uri),
+            ];
+        }
+
+        return response()->json($groups);
+    }
     public function getcompanydetail($company_id)
     {
         $company_detail = DB::table('company_data')
@@ -236,6 +279,84 @@ class DatabaseController extends Controller
         return response()->json($company_detail);
     }
 
+    public function runQuery(Request $request)
+    {
+        try {
+
+            $sql = $request->input('sql') ?? '';
+
+            if (!$sql) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'SQL is empty'
+                ], 400);
+            }
+
+
+
+            $result = DB::select($sql);
+            return response()->json([
+                'success' => true,
+                'data' => $result
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function getDatabaseSchema()
+    {
+        $database = DB::getDatabaseName();
+
+        // Pull EVERYTHING in one go. Much faster than looping queries.
+        $rows = DB::select("
+        SELECT 
+            TABLE_NAME,
+            COLUMN_NAME,
+            DATA_TYPE,
+            CHARACTER_MAXIMUM_LENGTH,
+            COLUMN_KEY,
+            IS_NULLABLE,
+            COLUMN_DEFAULT
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_SCHEMA = ?
+        ORDER BY TABLE_NAME, ORDINAL_POSITION
+    ", [$database]);
+
+        // Group the flat rows into the nested structure you want
+        $result = collect($rows)->groupBy('TABLE_NAME')->map(function ($columns, $tableName) {
+            return [
+                'Table' => $tableName,
+                'Columns' => $columns->map(function ($col) {
+                    return [
+                        'Column Name' => $col->COLUMN_NAME,
+                        'Type' => $col->DATA_TYPE,
+                        'Max Length' => $col->CHARACTER_MAXIMUM_LENGTH,
+                        'Primary Key' => ($col->COLUMN_KEY === 'PRI') ? 'Yes' : 'No',
+                        'Nullable' => ($col->IS_NULLABLE === 'YES') ? 'Yes' : 'No',
+                        'Default' => $col->COLUMN_DEFAULT,
+                    ];
+                })
+            ];
+        })->values(); // Reset keys to make it a clean array for JSON
+
+        return response()->json($result);
+    }
+    public function allRoutes()
+    {
+        $routes = collect(Route::getRoutes())->map(function ($route) {
+            return [
+                'uri' => $route->uri(),
+                'url' => url($route->uri()),
+            ];
+        });
+
+        return response()->json($routes);
+    }
     public function getcompanybyentrytype($entrytype)
     {
         $company_detail = DB::table('company_data')

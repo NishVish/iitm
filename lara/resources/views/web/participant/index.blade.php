@@ -29,25 +29,25 @@
 
                 @include('web.participant.exhibiting.exhibiting')
 
-                <script>
+                <!-- <script>
 
-                    document.addEventListener("DOMContentLoaded", function () {
-                        const wrapper = document.getElementById('iitmHeader');
-                        wrapper.style.display = 'none';
-                        if (wrapper) {
-                            setTimeout(() => {
-                                // Force display block with zero spacing
-                                wrapper.style.display = 'block';
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const wrapper = document.getElementById('iitmHeader');
+                                wrapper.style.display = 'none';
+                                if (wrapper) {
+                                    setTimeout(() => {
+                                        // Force display block with zero spacing
+                                        wrapper.style.display = 'block';
 
-                                setTimeout(() => {
-                                    wrapper.style.opacity = '1';
+                                        setTimeout(() => {
+                                            wrapper.style.opacity = '1';
 
-                                }, 50);
+                                        }, 50);
 
-                            }, 5000);
-                        }
-                    });
-                </script>
+                                    }, 5000);
+                                }
+                            });
+                        </script> -->
             @elseif($lastSegment === 'attending')
                 {{-- Your Attending Content Here --}}
 
@@ -70,9 +70,10 @@
 
                 @include('web.header2') {{-- includes register.blade.php --}}
                 @include('web.participant.form.visitor')
-            @else
-                @include('web.loading2') {{-- includes register.blade.php --}}
-                @include('web.participant.attending')
+            @elseif($lastSegment === 'register-now')
+
+                @include('web.participant.choosecity')
+            @else @include('web.loading2') {{-- includes register.blade.php --}}
                 @include('web.home.index') {{-- includes home.blade.php --}}
             @endif
         </div>

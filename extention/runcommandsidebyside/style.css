@@ -1,0 +1,54 @@
+
+#cmd-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100vh;
+    background: #111;
+    color: #fff;
+    z-index: 999999;
+    padding: 10px;
+    font-family: Arial;
+    box-shadow: -3px 0 10px rgba(0,0,0,0.4);
+}
+
+#cmd-title {
+    font-size: 18px;
+    color: #00ff88;
+    margin-bottom: 10px;
+}
+
+#cmd-input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+}
+
+#cmd-run {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: #00aa55;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#cmd-run:hover {
+    background: #00cc66;
+}
+
+#cmd-output {
+    margin-top: 10px;
+    background: black;
+    color: #00ff00;
+    padding: 10px;
+    height: calc(100vh - 160px);
+    overflow: auto;
+    white-space: pre-wrap;
+    border: 1px solid #333;
+}

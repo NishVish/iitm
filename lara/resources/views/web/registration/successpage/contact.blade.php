@@ -54,18 +54,10 @@
                             <tr>
                                 <td
                                     style="padding: 10px; border: 1px solid #aa2324; border-radius: 4px; background-color: #ffffff;">
-                                    @php
-                                        $qrData = json_encode([
-                                            "name" => $data['contactName'],
-                                            "mobile" => $data['mobile'],
-                                            "email" => $data['email'],
-                                            "city" => $data['city'],
-                                            "company" => $data['companyName'],
-                                        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-                                    @endphp
+                                    @include('web.registration.successpage.badgecomponent.qr')
 
-                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&color=aa2324&bgcolor=ffffff&data={{ urlencode($qrData) }}"
-                                        width="130" height="130" alt="QR Code" style="display:block; border:0;" />
+
+
                                 </td>
                             </tr>
                             <tr>

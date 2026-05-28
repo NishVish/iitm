@@ -11,8 +11,8 @@
 @if ($data['print'])
     <div id="print-wrapper" style="position: fixed; left: -9999px; top: 0;">
 
-        <!-- A4 EXACT SIZE -->
-        <div id="badge" style="width:210mm; height:297mm; margin:0; padding:0; background:#fff; color:#000;">
+        <!-- FIXED A4 CONTAINER -->
+        <div id="badge">
             @include('web.registration.successpage.badge')
         </div>
 
@@ -27,24 +27,40 @@
                 margin: 0,
                 filename: 'iitm-entry-badge.pdf',
                 image: { type: 'jpeg', quality: 1 },
+
                 html2canvas: {
-                    scale: 2,
+                    scale: 4,
                     useCORS: true,
-                    scrollY: 0
+                    scrollY: 0,
+                    letterRendering: true
                 },
+
                 jsPDF: {
                     unit: 'mm',
                     format: 'a4',
                     orientation: 'portrait'
                 },
-                pagebreak: { mode: ['avoid-all'] }
+
+                pagebreak: { mode: [] }
             };
 
             html2pdf().set(opt).from(element).save();
         }
 
-        window.addEventListener("load", function () {
-            setTimeout(downloadPDF, 500);
+        window.addEventListener("load", async function () {
+
+            // wait for fonts
+            if (document.fonts) {
+                await document.fonts.ready;
+            }
+
+            // wait for layout paint cycle
+            await new Promise(requestAnimationFrame);
+            await new Promise(requestAnimationFrame);
+
+            setTimeout(() => {
+                downloadPDF();
+            }, 1000);
         });
     </script>
 @endif
@@ -52,15 +68,36 @@
 <!-- LIBRARY -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- GLOBAL RESET -->
 <style>
     body {
         margin: 0;
         padding: 0;
     }
 
+    /* FIX: DO NOT LOCK HEIGHT TO 297mm */
     #badge {
+        width: 210mm;
+
+        /* FIX: do NOT force full page height */
+        height: 980px;
+
+        /* IMPORTANT: avoid extra canvas space */
+        min-height: unset;
+
+        margin: 0;
+        padding: 0;
         box-sizing: border-box;
-        overflow: hidden;
+
+        background: #fff;
+        color: #000;
+
+        /* safer for html2canvas */
+        overflow: visible;
+    }
+
+    /* Prevent internal shifting */
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 </style>

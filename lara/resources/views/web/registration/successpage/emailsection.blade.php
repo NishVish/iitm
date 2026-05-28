@@ -22,6 +22,7 @@
                         <td align="center" style="padding:40px 0 20px;">
                             <img src="https://iitmindia.com/assets/iitm3.png" width="140"
                                 style="display:block; margin-bottom: 15px;" alt="Logo" />
+                            <hr style="width:90%; height:1px; background-color:#aa2324; border:none; margin:6px auto;">
                             <div
                                 style="font-size:11px; letter-spacing:4px; color:#aa2324; font-weight:bold; text-transform: uppercase;">
                                 Official Invitation
@@ -30,7 +31,7 @@
                     </tr>
 
                     <tr>
-                        <td style="padding:0 45px 30px;">
+                        <td style="padding:0 25px 10px;">
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
 
                                 @include('web.registration.successpage.contact')

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>A4 Page with Two Divs + Instructions</title>
@@ -12,15 +13,15 @@
     }
 
     /* A4 page */
-.a4 {
-  width: 21cm;
-  height: 29.7cm;
-  padding: 1cm;
-  box-sizing: border-box;
-  overflow: hidden;
-  background: white;
-  margin: 0 auto;
-}
+    .a4 {
+      width: 21cm;
+      height: 29.7cm;
+      padding: 1cm;
+      box-sizing: border-box;
+      overflow: hidden;
+      background: white;
+      margin: 0 auto;
+    }
 
     /* top wrapper */
     .wrapper {
@@ -36,7 +37,7 @@
       box-sizing: border-box;
     }
 
-   
+
 
     @media print {
       body {
@@ -64,53 +65,53 @@
         @include('web.registration.successpage.badgeback')
       </div>
     </div>
-<!-- Instruction Box Styles -->
-<style>
-#instructionbox {
-  border: 1px solid #d1d5db;
-  background: #f9fafb;
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin: 12px;
-  font-size: 12px;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
+    <!-- Instruction Box Styles -->
+    <style>
+      #instructionbox {
+        border: 1px solid #d1d5db;
+        background: #f9fafb;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin: 12px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
 
-#instructionbox h4 {
-  margin: 0 0 8px 0;
-  font-size: 13px;
-  color: #111827;
-  text-align: center;
-  letter-spacing: 0.5px;
-}
+      #instructionbox h4 {
+        margin: 0 0 8px 0;
+        font-size: 13px;
+        color: #111827;
+        text-align: center;
+        letter-spacing: 0.5px;
+      }
 
-#instructionbox ul {
-  padding-left: 18px;
-  margin: 0;
-  line-height: 1.6;
-  color: #374151;
-}
+      #instructionbox ul {
+        padding-left: 18px;
+        margin: 0;
+        line-height: 1.6;
+        color: #374151;
+      }
 
-#instructionbox li {
-  margin-bottom: 4px;
-}
+      #instructionbox li {
+        margin-bottom: 4px;
+      }
 
-#instructionbox .note {
-  margin-top: 10px;
-  padding: 8px;
-  border-top: 1px solid #e5e7eb;
-  font-size: 11px;
-  color: #b91c1c;
-  text-align: center;
-  font-weight: bold;
-}
-</style>
+      #instructionbox .note {
+        margin-top: 10px;
+        padding: 8px;
+        border-top: 1px solid #e5e7eb;
+        font-size: 11px;
+        color: #b91c1c;
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
 
-<!-- Instruction Box -->
-<div id="instructionbox">
-    <h4>Visitor Instructions</h4>
-    <ul>
+    <!-- Instruction Box -->
+    <div id="instructionbox">
+      <h4>Visitor Instructions</h4>
+      <ul>
         <li>Carry your badge at all times.</li>
         <li>The badge is non-transferable.</li>
         <li>Photography is allowed only in designated areas.</li>
@@ -118,14 +119,15 @@
         <li>Entry rights are reserved by Team IITM.</li>
         <li>Please bring your business card.</li>
         <li>Submit your business card at the registration desk to verify your badge.</li>
-    </ul>
+      </ul>
 
-    <div class="note">
-        Note: This event is strictly for B2B attendees only. No general public entry. A business card is required for verification.
+      <div class="note">
+        Note: This event is strictly for B2B attendees only. No general public entry. A business card is required for
+        verification.
+      </div>
     </div>
-</div>
 
-<!-- <script>
+    <!-- <script>
 function downloadPDF() {
     const element = document.querySelector("#badge");
 
@@ -158,4 +160,5 @@ window.addEventListener("load", function () {
 });
 </script> -->
 </body>
+
 </html>

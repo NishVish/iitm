@@ -109,7 +109,7 @@
     }
 
     #chat-body {
-        height: 200px;
+        height: 40vh;
         overflow-y: auto;
         padding: 10px;
         font-size: 14px;
@@ -135,31 +135,46 @@
         cursor: pointer;
     }
 </style>
-
 <script>
+
     let idleTimer;
 
     function toggleChat() {
+
         let box = document.getElementById("chatbox");
-        box.style.display = (box.style.display === "none" || box.style.display === "")
-            ? "block"
-            : "none";
+
+        box.style.display =
+            (box.style.display === "none" || box.style.display === "")
+                ? "block"
+                : "none";
     }
 
     function showTip() {
-        document.getElementById("chatbot-tip").classList.add("show");
+        document
+            .getElementById("chatbot-tip")
+            .classList
+            .add("show");
     }
 
     function hideTip() {
-        document.getElementById("chatbot-tip").classList.remove("show");
+        document
+            .getElementById("chatbot-tip")
+            .classList
+            .remove("show");
     }
 
     function resetIdleTimer() {
+
         clearTimeout(idleTimer);
 
         idleTimer = setTimeout(() => {
-            let tip = document.getElementById("chatbot-tip");
-            tip.innerText = "👋 Need help? I'm here!";
+
+            let tip =
+                document.getElementById("chatbot-tip");
+
+            tip.innerText =
+                "👋 Need help? I'm here!";
+
             tip.classList.add("show");
 
             setTimeout(() => {
@@ -171,87 +186,164 @@
 
     window.addEventListener("mousemove", resetIdleTimer);
     window.addEventListener("keydown", resetIdleTimer);
+
     resetIdleTimer();
 
-    function sendMessage() {
-        let input = document.getElementById("chat-input");
-        let message = input.value.trim();
+    /*
+    |--------------------------------------------------------------------------
+    | SEND MESSAGE
+    |--------------------------------------------------------------------------
+    */
+
+    async function sendMessage() {
+
+        let input =
+            document.getElementById("chat-input");
+
+        let message =
+            input.value.trim();
+
         if (!message) return;
 
-        let body = document.getElementById("chat-body");
+        let body =
+            document.getElementById("chat-body");
 
-        // show user message
-        body.innerHTML += "<p><b>You:</b> " + message + "</p>";
+        /*
+        |--------------------------------------------------------------------------
+        | USER MESSAGE
+        |--------------------------------------------------------------------------
+        */
+
+        body.innerHTML += `
+            <p>
+                <b>You:</b> ${message}
+            </p>
+        `;
 
         input.value = "";
 
-        // bot placeholder
+        /*
+        |--------------------------------------------------------------------------
+        | BOT PLACEHOLDER
+        |--------------------------------------------------------------------------
+        */
+
         let botMsg = document.createElement("p");
-        botMsg.innerHTML = "<b>Bot:</b> <i>typing...</i>";
+
+        botMsg.innerHTML =
+            "<b>Bot:</b> <i>Thinking...</i>";
+
         body.appendChild(botMsg);
+
         body.scrollTop = body.scrollHeight;
 
-        fetch("{{ route('iitmbot') }}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: JSON.stringify({
-                message: message
-            })
-        })
-            .then(response => {
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder("utf-8");
+        /*
+        |--------------------------------------------------------------------------
+        | STOPWATCH
+        |--------------------------------------------------------------------------
+        */
 
-                let botText = "";
+        let startTime = Date.now();
 
-                function readStream() {
-                    return reader.read().then(({ done, value }) => {
-                        if (done) return;
+        try {
 
-                        let chunk = decoder.decode(value, { stream: true });
-                        botText += chunk;
+            /*
+            |--------------------------------------------------------------------------
+            | CALL RAG API
+            |--------------------------------------------------------------------------
+            */
 
-                        botMsg.innerHTML = "<b>Bot:</b> " + botText;
+            let response = await fetch(
+                "{{ url('/ai/rag/ask') }}",
+                {
+                    method: "POST",
 
-                        body.scrollTop = body.scrollHeight;
+                    headers: {
+                        "Content-Type": "application/json",
 
-                        return readStream();
-                    });
+                        "Accept": "application/json",
+
+                        "X-CSRF-TOKEN":
+                            "{{ csrf_token() }}"
+                    },
+
+                    body: JSON.stringify({
+                        question: message
+                    })
                 }
+            );
 
-                return readStream();
-            })
-            .catch(err => {
-                botMsg.innerHTML = "<b>Bot:</b> Error getting response.";
-            });
+            let data = await response.json();
+
+            /*
+            |--------------------------------------------------------------------------
+            | RESPONSE TIME
+            |--------------------------------------------------------------------------
+            */
+
+            let seconds =
+                ((Date.now() - startTime) / 1000)
+                    .toFixed(2);
+
+            /*
+            |--------------------------------------------------------------------------
+            | SHOW ANSWER
+            |--------------------------------------------------------------------------
+            */
+
+            if (data.status) {
+
+                botMsg.innerHTML = `
+                    <b>Bot:</b>
+                    ${data.answer}
+
+                    <br><br>
+
+                    <small style="color:gray;">
+                        ⏱ ${seconds}s
+                    </small>
+                `;
+            }
+            else {
+
+                botMsg.innerHTML = `
+                    <b>Bot:</b>
+                    ${data.message || 'No answer found'}
+                `;
+            }
+
+        } catch (err) {
+
+            console.log(err);
+
+            botMsg.innerHTML =
+                "<b>Bot:</b> Server Error";
+
+        }
+
+        body.scrollTop = body.scrollHeight;
     }
 
-    function getBotReply(message) {
-        message = message.toLowerCase();
+    /*
+    |--------------------------------------------------------------------------
+    | ENTER KEY SUPPORT
+    |--------------------------------------------------------------------------
+    */
 
-        if (message.includes("hello") || message.includes("hi")) {
-            return "Hi there! 👋 How can I help you?";
-        }
-        else if (message.includes("price")) {
-            return "Our pricing depends on the service. Can you tell me what you're looking for?";
-        }
-        else if (message.includes("contact")) {
-            return "You can contact us at support@example.com 📧";
-        }
-        else if (message.includes("help")) {
-            return "Sure! Tell me what you need help with.";
-        }
-        else if (message.includes("event") || message.includes("events")) {
-            return `Next event is IITM Chennai (16 to 18 July).<br>
-            <a href="#ledger-head">View Details</a>`;
-        }
-        else {
-            return "Hmm, I didn't understand that. Can you rephrase?";
-        }
-    }
+    document
+        .getElementById("chat-input")
+        .addEventListener("keydown", function (event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                sendMessage();
+            }
+        });
+
+</script>
+<script>
 
     document.getElementById("chat-input").addEventListener("keydown", function (event) {
         if (event.key === "Enter") {

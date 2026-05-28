@@ -1,5 +1,7 @@
-@include('web.registration.formheader')
+<div style="height:30px"></div>
 
+
+@include('web.registration.formheader')
 
 
 <form action="{{ route('registration.submit') }}" method="POST">

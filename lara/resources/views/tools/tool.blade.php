@@ -134,6 +134,8 @@
     <div class="container">
         <h1>🛠️ Admin Tools</h1>
 
+        @include('tools.whatsapp')
+
         <div class="card">
             <h3>🖨️ Badge Printing</h3>
             <p>Direct thermal printing for event attendee badges and labels.</p>

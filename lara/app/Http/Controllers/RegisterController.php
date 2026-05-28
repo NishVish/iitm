@@ -683,8 +683,8 @@ class RegisterController extends Controller
                 'state' => $request->state,
                 'pincode' => $request->pincode,
                 'country' => $request->country,
-                'subcategory' => $request->subcategory,
-                'category' => $request->category,
+                // 'subcategory' => $request->subcategory,
+                'category' => $request->final_category,
                 'address' => $request->address,
                 'website' => $request->website,
                 'branch_offices' => $request->branch_offices,
@@ -732,8 +732,8 @@ class RegisterController extends Controller
                 'city' => $request->city,
                 'state' => $request->state,
                 'pincode' => $request->pincode,
-                'subcategory' => $request->subcategory,
-                'category' => $request->category,
+                // 'subcategory' => $request->subcategory,
+                'category' => $request->final_category,
                 'country' => $request->country,
                 'website' => $request->website,
                 'branch_offices' => $request->branch_offices,
@@ -893,34 +893,43 @@ class RegisterController extends Controller
         $category = $request->category ?? '';
         $subcategory = $request->subcategory ?? '';
 
-        $companyFinal = strtolower($this->getFinalCategory($companyName) ?? '');
-        $categoryFinal = strtolower($this->getFinalCategory($category) ?? '');
+        // $companyFinal = strtolower($this->getFinalCategory('travel') ?? '');
 
-        // dd([
-        //     'company_name' => $companyName,
-        //     'category' => $category,
-        //     'subcategory' => $subcategory,
+        // // doesthis
+        // // companynamecontains
+        // // theses
+        // // keyords
+        // $categoryFinal = strtolower($this->getFinalCategory($category) ?? '');
 
-        //     'final_category_from_company_name' => $companyFinal,
-        //     'final_category_from_subcategory' => $subcategoryFinal,
-        //     'final_category_from_category' => $categoryFinal,
 
-        //     'condition_check' =>
-        //         $categoryFinal === 'other' &&
-        //         $companyFinal === 'other' &&
-        //         $subcategoryFinal === 'other'
-        // ]);
 
-        if (
-            $categoryFinal === 'uncategorized' &&
-            $companyFinal === 'uncategorized'
-        ) {
+        // echo "</pre>";
+        // die;
+
+        // echo "<pre>";
+        // print_r($companyName);
+        // echo "<br>";
+        // print_r($category);
+        // Logic check
+        $companyFinal = $this->getFinalCategory($companyName); // e.g. "Hilton" -> "hotel"
+        $categoryFinal = $this->getFinalCategory($category); // e.g. "MICE" -> "ta"
+
+        if ($categoryFinal === 'uncategorized' && $companyFinal === 'uncategorized') {
             $status = 'Under Review';
             $message = 'Registration under review...';
         } else {
             $status = 'approved';
             $message = 'Registration successful!';
         }
+
+        if ($category == "other_general") {
+            $status = 'Under Review';
+            $message = 'Registration under review...';
+        }
+        // echo "<pre>";
+        // print_r($categoryFinal);
+        // echo "<br>";
+        // print_r($companyFinal);
         // dd($status);
 
         // dd($email);
@@ -995,27 +1004,46 @@ class RegisterController extends Controller
 
 
     }
+    public function register_now(Request $request)
+    {
+        return view('web.participant.index');
+    }
     private function getFinalCategory($input)
     {
-        $Categorycontroller = new IdentifycategoryController();
-        $response = $Categorycontroller->category($input);
+        if ($input == "other_general") {
+            return 'uncategorized';
+        }
+        $input = strtolower(trim($input));
 
-        $categoryValue = strtolower($response->getData()->category ?? '');
+        // 1. Direct bypass case
+        if ($input === 'other_general' || empty($input)) {
+            return 'uncategorized';
+        }
 
+        // 2. Define Map (Moved to top so it's accessible)
         $map = [
-            'hospitality' => 'Hotel',
-            'hotel' => 'Hotel',
-            'resort' => 'Hotel',
-
+            'hospitality' => 'hotel',
+            'hotel' => 'hotel',
+            'resort' => 'hotel',
             'travel agency' => 'ta',
             'aviation' => 'ta',
             'transport' => 'ta',
             'mice' => 'ta',
             'adventure' => 'ta',
             'ta' => 'ta',
+            'travel' => 'ta',
         ];
 
-        return $map[$categoryValue] ?? 'uncategorized';
+        // 3. Call category API
+        $Categorycontroller = new IdentifycategoryController();
+        $foundCategory = $Categorycontroller->isInDictionary($input);
+
+        // 4. Return mapped value or fallback
+        if ($foundCategory && isset($map[$foundCategory])) {
+            return $map[$foundCategory];
+        }
+
+        return 'uncategorized';
     }
     public function category($nameofthecompany)
     {

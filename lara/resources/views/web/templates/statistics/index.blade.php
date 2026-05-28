@@ -4,7 +4,6 @@
     .iitm-dashboard-wrapper {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 20px;
         font-family: 'Segoe UI', Arial, sans-serif;
     }
 
@@ -57,11 +56,20 @@
                 </div>
 
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-5" style="margin-top:0px">
                 <div class="side-column-content d-flex flex-column h-100">
 
 
                     <div class="pie-wrapper mt-auto">
+                        <style>
+                            .mt-auto {
+                                margin-top: 30px !important;
+                            }
+
+                            .pie-wrapper {
+                                padding-top: 10px;
+                            }
+                        </style>
                         @include('web.templates.statistics.piechart')
                     </div>
                 </div>

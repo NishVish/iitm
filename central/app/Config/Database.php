@@ -41,7 +41,13 @@ class Database extends Config
         // 'hostname' => 'localhost',
         // 'username' => 'root',
         // 'password' => '',
-        // 'database' => 'iitminda_testing_server',
+
+        // 'database' => 'localtesting',
+
+        // // 'database' => 'iitminda_testing_server',
+
+
+
 
 
 

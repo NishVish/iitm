@@ -1,0 +1,345 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/identifycategory/{nameofthecompany}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      nameofthecompany:
+        custom: []
+        name: nameofthecompany
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      nameofthecompany: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"company_name":"consequatur","category":"Uncategorized","keyword":null}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IlhFUTZxQXhkT0sxUC9hTG9LUjZsbEE9PSIsInZhbHVlIjoiZEx5cDlnUTlxSlYxOENwT1FwUklZdTRhQVB0NHBkQVRDbzRYdzNLWXhVRUpIbnh4UmNVOWNjQ3RLcDloeGM4MnB3eGRQZkxIYm84L2JMZ1gyVDkrOGJtS1NYVXhHcmgvSUY1TjhUY3hFRjhaSk83aTROT0NaeFNHc09NTFdtQU4iLCJtYWMiOiIxNmNkMTRjYjY4ODVlZmQ2MTk5NDI5ZTg1MGE2Y2E2YzU5M2RhYjU5ZGE3OTM0MTNhYmI3OTJlMGYzYjI2YzEyIiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:19 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6Im4wTTJoTDR1QlF3V082elRhMnNvMWc9PSIsInZhbHVlIjoiNStrVWNRWXh0ZXdUdVZxaTVVdlhPZlpYTjNaOHpqRWNVdTNjSlNlVm5CNy94QUNRWHZuQlFUZEhnb3lyQUdmMUoyVFNNaFNyZXc2Ynd1NWRobjQ2S2E5MDNpZFN0YXF5SGs4eWZQOEZFaWwrQTh0N2krYy9mdXN5NHBDYXIzMjkiLCJtYWMiOiI1MzRkZDRlOGQxYmIzOTMzZjgzZTExMzg2NTJjM2FlN2M4OGJmZWJiYTE4NjU2MzdlOWU5MDYwM2ExZGY0MzE1IiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:19 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/getAllCompanyData/{mobileNumber}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      mobileNumber:
+        custom: []
+        name: mobileNumber
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      mobileNumber: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":false,"message":"No data found","count":0,"data":[]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IkRJeExFcjhqZ1lTaHB2R2tlcWdzTlE9PSIsInZhbHVlIjoiMWdML1prUFd0cUZSem0wWVViZVJpdGl6MDFQTithYWVRVCs0VXZ5aXZzdmxlNFU4L2lmc3BsTWU1RldxbERQYmdYVFV2VkUrZERHSlg0VWtybDE4NDlBQko4Z0xiaUZDdVlTQXc1VXM0NXdkZG9HcjZKcUFQUmlrbnZvcjZhdmEiLCJtYWMiOiIwMTQ2MjZjZDU1N2Y1ZTY1Yjc1ZWQ0MWRjODU3NzExYjNlMTM2YjIwYjk0OWJhNjU1MWYxZTRhZGYxZmY5ZmJiIiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:19 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IjNGRnRvVmJZdkV0WWRPY3lBNlY0OWc9PSIsInZhbHVlIjoiWWx2Z2JWd05NYUhKTWZ1cUJFelpSRUdnSXRJeW1rM2dFZk5RUjhPaVhEV1NzQnBlWkZraTE3cUpQZ0hQMEx2c3JIYnJPVDU5ZjMrbHZJd2JTcTlQTm1JL2VSVE4yRkprQ3l5Njd5SUVjRkRzRkMvTVBhQTh3cXVvY1lrR0lCaEYiLCJtYWMiOiI1Mzg0NzcyMzVhMDU3N2NhZDJmZTdjZmY4YmQ4NzIyZmQxZDNkNmFjMDQwZjdlNzA1NWY1MGU3YmIyOGIxMDczIiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:19 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/getLatestCompanyData/{mobileNumber}/{querylength}/{city}/{response}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      mobileNumber:
+        custom: []
+        name: mobileNumber
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      querylength:
+        custom: []
+        name: querylength
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      city:
+        custom: []
+        name: city
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      response:
+        custom: []
+        name: response
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      mobileNumber: consequatur
+      querylength: consequatur
+      city: consequatur
+      response: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":false,"message":"No data found","data":null}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6InRaWXNVT2NwQWMwQzdFNVMxSFJLbGc9PSIsInZhbHVlIjoiTkhjQ3NFQU42aGcvT2VBVWFuRzNnQzZGMngvSTNLSFNzdXo3YlRrVnU4NGlRWldIeXUzN0t3dUFFMTVBcUNUQXN3SnNseEpiWWdLZXhoZXA2U2N1OHVDUzlabWhsVGdYUjlSQlJxZTIvYmlpR1NEcjdscVZvdS9scnZHSkNEeVIiLCJtYWMiOiIxZjQ2OTA3OTA2ZjhlZjQ4Y2Q5N2E0MjE4ODU2ODNjMTAwYjMzOWM1ZTdiZmRjOTRiY2MzMDQ5MWVhZmEyOTU3IiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:19 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IlhzTThnRkxNYmxFWHpvd2N4WnRiclE9PSIsInZhbHVlIjoiWGx2ME02c1Y2Y1RscDhFMm5TVUttQWF0N1JIcjJ5VUxIdzdGV1VmNzFHSWJiN0hKd2RTRTJwMnRKbFM3cVVZRHExbXpNVjJ6REo5eFd2aXFXRUZFWTBRN0QrQXUxUmJTaHZ6UEExS3BVNFdSdzE3M3B3OHc0bXh3Z1RuR3d3WFEiLCJtYWMiOiI3ODE2Yzg3YmI0MjAyMmQxOWZhYzBmZjY2NmM0ZmQyYWI5YmJiZDg3NWM3M2YxNWU5OWNjYmJiNDFhZTMwM2MxIiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:19 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/getLatestContactId/{mobileNumber}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      mobileNumber:
+        custom: []
+        name: mobileNumber
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      mobileNumber: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: ''
+        headers:
+          content-type: 'text/html; charset=utf-8'
+          cache-control: 'no-cache, private'
+          access-control-allow-origin: '*'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IlFqWWxqWjBQT3NScE5tZnhlaEhUVlE9PSIsInZhbHVlIjoieTF3T2J3M1gzb1JzZWR4NTlIeDNsb2NYYnVFelNUcm04M2s5d01VMC84em5KZVFvQWs2bFUzNjdGd2ZUblVqMlU1ajRoU1Y5eDE0UGVpa1dSR3hiWEc2ZlBDOW43ZWVkOHVLRU9Sb055eUJPc2MvREdnYjVWZi91ckhHTmZRaksiLCJtYWMiOiJhZWQzMzU0YmVlMzU5M2EzZTExYjMzMmVhYTNhMjljZjM1ZDFiNDkxYmFjYWE3MjUyOWJjZmIwZWNmMjdhNDE2IiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:19 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IndoYmJVaEZSbEdUVmJjZHk1c3BnVGc9PSIsInZhbHVlIjoiclFkY1ozeTdGKzAyUjBVYU9aSkRiWWtjK1RVejlRUkpqZlY4b3VyQ3VycmU0VzlsSHE1cFNwcWtPOEpIMnE4RzU1NFEzTXlrckc5QVpxTXFwQUVBbEFJU2YreWVjWjNzVDNubXlkU0xXYlhQWVpadDFmT3o3M0JvZ2VWeDhSbSsiLCJtYWMiOiIwNWUxNDRmNjY1YTJmMmY0NDliNzcwMmEzZTljYWU0YmJkZjNhNjJkYWE2NjU4ZmYwNDRlNmVkZmVjZmRiMGI2IiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:19 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/getDetails/{mobileNumber}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      mobileNumber:
+        custom: []
+        name: mobileNumber
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      mobileNumber: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"mobile":null,"contact":null,"company":null,"email":null,"othercontacts":[]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IlRrSHlJQnVqb2JBeXJxN2ZNamxkb0E9PSIsInZhbHVlIjoiK0FsTXVwUjU1U2VzYW5iQml1eW96QllEYkFmc2ZiUEh3bkhIV0JrVjZ2Nkd1NGVNV1NtVVFGREFKZ050RXhPeXBkdzd5b3FEbkU1ZkZReVRGMVNKR09COGtlWWlBRGFVMjlid3MvclF6a1NDOWorVGpicC9keXJDaEdSS0dtN28iLCJtYWMiOiIzMjI2Mjk0NmRjZWJiNjdmMWM3MjBhOWYxMGFhMTk0NmFiZTJiYjQyYzIxMmFkYjUxNWEwYWYwMzIzMzEyMGQzIiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:20 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IjZZVnpSRGFmcWdJUHE1eWZ1NkFJRlE9PSIsInZhbHVlIjoiYVFaNk0vWFh1dzlWKzdtaE5xTTNZNjZsTURGSS9sSU5NZ3dNN0tvM2VpSExpb2ZDUGNxZGZ4TUduUGhIOTFQN2Vocmpnc3pEeVRBWTE3bVRGeU5KL1JlTnlTSXoxSExLYmFBdnRkcEEyOXFvL2tEcVhmblErUXFxaERXK3V1UEciLCJtYWMiOiI2NDBiOTJiN2E4ZDVkZTQ2YzAxZjliYmZjYWJmYTNiZGYyNWNhYzQ0YWU1MzcwNGE5YzFiOGRhYTIxYjY1MmU1IiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:20 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/events
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"event_id":1,"b2b_constrain":"B2B-IITM","year":2026,"name":"IITM Chennai","price":null,"event_image":"https:\/\/iitmindia.com\/wp-content\/uploads\/2023\/05\/2-1-1.jpg","venue_details":"Convention Center, Chennai Trade Center, CTC Complex, Nandambakkam, Chennai \u2013 600089","venue_booking_details":"Trade Visitor Registration","coordinator":"","start_date":"2026-07-16","end_date":"2026-07-18","created_at":"2026-04-24 11:07:13","updated_at":"2026-04-24 16:21:30","active":1,"info":"Chennai, formerly known as Madras, is the main business, commercial, and financial hub of southern India and one of the major cities in the country. It serves as the capital of the Indian state of Tamil Nadu and is home to a bustling port, an international airport, and several prestigious colleges and institutions that focus on providing a highly skilled workforce. The city''s economic output, measured by gross domestic product, has been significant, and it ranks among the top cities in India. Chennai''s strategic location on the eastern coast has made it a crucial port of communication for trade and commerce, and it plays a pivotal role in connecting the southern states with the rest of the country. Chennai has also emerged as a prominent IT hub, attracting various Indian and international software firms, making it a significant center for the IT industry in India. Companies like TCS, Infosys, Wipro, HCL Technologies, and others have established their presence in the city''s vibrant IT sector. With the recent economic boom, Tamil Nadu, as a whole, has experienced substantial growth, and Chennai''s economy has played a crucial role in contributing to the state''s progress. In addition to its economic significance, Chennai also offers a platform for both B2B and B2C travel businesses and general visitors to explore the global travel community, products, services, and advancements in the industry. In summary, Chennai has emerged as a major economic and technological powerhouse in India, akin to Kolkata''s position in eastern India. It has a strong IT sector, contributes significantly to the country''s economy, and attracts businesses and institutions from around the world. The city''s strategic location and thriving industries have cemented its status as a vital player in India''s economic landscape.\r\n\r\nIITM CHENNAI is a platform for B2B and B2C travel businesses and general visitors to know about the global travel community, products, services, and advancements."},{"event_id":2,"b2b_constrain":"B2B-IITM","year":2026,"name":"IITM Bengaluru","price":null,"event_image":"https:\/\/iitmindia.com\/wp-content\/uploads\/2023\/05\/1-1-1.jpg","venue_details":"Gate No-2, Tripura Vasini, Palace Ground, Bengaluru \u2013 560006, Karnataka","venue_booking_details":"Trade Visitor Registration","coordinator":"","start_date":"2026-07-23","end_date":"2026-07-25","created_at":"2026-04-24 11:07:13","updated_at":"2026-05-14 14:30:50","active":1,"info":"Bengaluru, also known as Bangalore, is the main business, commercial, and financial hub of southern India and one of the major cities in the country. It is home to a major international airport, numerous reputed colleges, and institutions that focus on providing a highly skilled workforce. The city has a thriving IT sector and is considered the technology capital of India. As of recent years, Bengaluru''s economic output, measured by gross domestic product, has been significant and ranks among the top cities in India. It has attracted various Indian and international software firms, making it a prominent center for the IT industry in the country. Regarding the IT sector, prominent companies like Wipro, Infosys, TCS, Tech Mahindra, HCL Technologies, and others have established their operations in Bengaluru. The city''s economy has experienced substantial growth, contributing to Karnataka state being one of the fastest-growing economies in India. Furthermore, Bengaluru serves as a key platform for both B2B and B2C travel businesses and general visitors, providing information about the global travel community, products, services, and advancements. In summary, Bengaluru has emerged as a significant economic and technological powerhouse in India, akin to Kolkata''s position in eastern India. It has a robust IT sector, contributes significantly to the country''s economy, and attracts various businesses and institutions from around the world.\r\n\r\nIITM BENGALURU is a platform for B2B and B2C travel businesses and general visitors to know about the global travel community, products, services, and advancements.\r\n\r\n"},{"event_id":3,"b2b_constrain":"B2B-IITM","year":2026,"name":"IITM Delhi NCR","price":null,"event_image":"https:\/\/iitmindia.com\/wp-content\/uploads\/2023\/05\/1-1-1.jpg","venue_details":"TBA","venue_booking_details":"TBA","coordinator":"","start_date":"2026-09-24","end_date":"2026-09-26","created_at":"2026-04-24 11:07:13","updated_at":"2026-04-24 16:21:30","active":1,"info":"Delhi, the capital city of India, serves as the main business, commercial, and political hub of the nation. It holds immense significance as the administrative center of the country and hosts various government offices, embassies, and diplomatic missions. With a rich historical and cultural heritage, Delhi is home to iconic landmarks like the Red Fort, India Gate, and Qutub Minar, attracting tourists from around the world. As an economic powerhouse, Delhi''s gross domestic product ranks among the highest in India. The city''s diverse economy encompasses a wide range of industries, including finance, manufacturing, IT, tourism, and services. Delhi is well-connected by air, with an international airport catering to both domestic and international flights. Its extensive transportation network, comprising metro, buses, and other modes, facilitates smooth movement within the city. The IT sector in Delhi has seen substantial growth in recent years, with various Indian and international software companies establishing their presence in the city. This has contributed significantly to the city''s economic prosperity and made it a prominent center for IT services. Furthermore, Delhi serves as a platform for businesses and general visitors to engage in B2B and B2C interactions, fostering collaboration and promoting advancements in various industries, including travel and tourism. In conclusion, Delhi holds a vital position in India''s economic landscape and governance. It is a city of historical importance, a thriving economic hub, and a melting pot of diverse cultures, making it a dynamic metropolis and a key player in shaping the country''s future.\r\n\r\nIITM DELHI is a platform for B2B and B2C travel businesses and general visitors to know about the global travel community, products, services, and advancements."},{"event_id":4,"b2b_constrain":"B2B-IITM","year":2026,"name":"IITM Mumbai","price":null,"event_image":"https:\/\/iitmindia.com\/wp-content\/uploads\/2023\/05\/4-1-1.jpg","venue_details":"TBA","venue_booking_details":"TBA","coordinator":"","start_date":"2026-10-29","end_date":"2026-10-31","created_at":"2026-04-24 11:07:13","updated_at":"2026-04-24 16:21:30","active":1,"info":"Mumbai, also known as Bombay, is the financial, commercial, and entertainment capital of India. As the largest city in the country, Mumbai holds immense significance and serves as a bustling metropolis with a diverse and vibrant population. The city''s economic importance is unparalleled, and it is considered the financial hub of India. Mumbai houses the Reserve Bank of India, the Bombay Stock Exchange (BSE), and numerous major financial institutions and corporate headquarters. Its economy is diversified, with thriving industries such as finance, banking, IT, film, media, and entertainment. Mumbai''s strategic location on the western coast has made it a major port and a crucial center for trade and commerce. It is well-connected by sea, air, and rail, and its Chhatrapati Shivaji Maharaj International Airport is one of the busiest airports in the country, facilitating both domestic and international travel. The city is renowned for its prolific film industry, Bollywood, which produces a vast number of movies each year, making Mumbai a major cultural hub and a center of artistic expression in India. Mumbai''s skyline is adorned with iconic landmarks, including the Gateway of India, Marine Drive, and the Bandra-Worli Sea Link, making it a popular tourist destination. In addition to its economic and cultural significance, Mumbai is home to a diverse workforce, attracting people from various regions and communities, making it a melting pot of cultures and traditions. Overall, Mumbai''s dynamic and fast-paced environment, coupled with its economic prowess and cultural diversity, has cemented its position as a key player in India''s development and growth. It continues to be a city of opportunities, attracting individuals and businesses from all over the country and the world.\r\n\r\nIITM MUMBAI is a platform for B2B and B2C travel businesses and general visitors to know about the global travel community, products, services, and advancements."},{"event_id":5,"b2b_constrain":"B2B-IITM","year":2026,"name":"IITM Pune","price":null,"event_image":"https:\/\/iitmindia.com\/wp-content\/uploads\/2023\/05\/5-1-1.jpg","venue_details":"TBA","venue_booking_details":"Time 11:00 AM - 6:00 PM","coordinator":"","start_date":"2026-11-26","end_date":"2026-11-28","created_at":"2026-04-24 11:07:13","updated_at":"2026-04-24 16:21:30","active":1,"info":"Pune, often referred to as the \"Oxford of the East,\" is a major city in the state of Maharashtra, India. It holds significant importance as an educational, industrial, and cultural center. The city is renowned for its prestigious educational institutions, including universities, colleges, and research centers. Students from all over the country and even abroad come to Pune to pursue higher education, earning it the moniker \"Oxford of the East.\" Pune is also a thriving industrial hub with a diverse economy. It is home to various manufacturing industries, including automotive, information technology, and engineering. The Hinjewadi IT Park, located in Pune, is one of the largest IT hubs in India and houses numerous IT companies. The city''s economy has experienced substantial growth, and its strategic location on the Deccan Plateau has contributed to its significance as a major trade and transportation center. Pune''s rich history and cultural heritage are evident in its numerous historical monuments, temples, and landmarks. The Aga Khan Palace, Shaniwar Wada, and Sinhagad Fort are among the prominent historical sites that attract tourists and history enthusiasts. Additionally, Pune''s pleasant climate, lush green surroundings, and vibrant cultural scene make it an attractive destination for residents and visitors alike. The city fosters a spirit of innovation and entrepreneurship, with a burgeoning startup ecosystem and a supportive environment for new businesses to flourish. In conclusion, Pune''s blend of education, industry, culture, and history makes it a city of opportunities and a significant contributor to Maharashtra''s growth and development. Its reputation as an educational and industrial hub continues to attract talent and investment, ensuring its position as a key player in India''s progress.\r\n\r\nIITM PUNE is a platform for B2B and B2C travel businesses and general visitors to know about the global travel community, products, services, and advancements.\r\n\r\n"},{"event_id":6,"b2b_constrain":"B2B-IITM","year":2026,"name":"IITM Hyderabad","price":null,"event_image":"https:\/\/iitmindia.com\/wp-content\/uploads\/2023\/05\/6-1-1.jpg","venue_details":"TBA","venue_booking_details":"Time 11:00 AM - 6:00 PM","coordinator":"","start_date":"2026-12-03","end_date":"2026-12-05","created_at":"2026-04-24 11:07:13","updated_at":"2026-04-24 16:21:30","active":1,"info":"Hyderabad, the capital city of the Indian state of Telangana, is a major center for technology, education, and culture in southern India. It is often referred to as \"Cyberabad\" due to its prominence in the IT and software industry. The city has a rich history and is known for its iconic landmarks such as the Charminar, Golconda Fort, and Qutb Shahi Tombs, reflecting its glorious past as a center of power and culture during the Qutb Shahi and Nizam periods. In recent years, Hyderabad has emerged as a prominent IT and technology hub, attracting numerous national and international software companies. The HITEC City (Hyderabad Information Technology and Engineering Consultancy City) is a major IT park that houses a plethora of IT and IT-enabled services companies, making it one of the largest IT clusters in India. The city''s economic growth has been remarkable, and it has diversified industries including information technology, pharmaceuticals, biotechnology, manufacturing, and services. Hyderabad''s strategic location, excellent infrastructure, and favorable business environment have contributed to its economic success. Hyderabad is also renowned for its world-class educational institutions and research centers. The city''s universities and colleges attract students from across the country and the globe, making it an important center for education and research. Culturally, Hyderabad is known for its rich traditions, cuisine, and arts. The city''s unique blend of traditions from different regions is reflected in its festivals, music, and dance forms. Additionally, Hyderabad''s growing reputation as a tourist destination is evident from its vibrant markets, modern shopping malls, and culinary delights. In conclusion, Hyderabad''s rapid development in technology, education, and culture has propelled it to the forefront of India''s cities. Its strong presence in the IT industry, coupled with its historical charm and cultural heritage, make it a unique and dynamic metropolis, contributing significantly to the growth and progress of the country.\r\n\r\nIITM HYDERABAD is a platform for B2B and B2C travel businesses and general visitors to know about the global travel community, products, services, and advancements."},{"event_id":7,"b2b_constrain":"B2B-IITM","year":2027,"name":"IITM Kochi","price":null,"event_image":"https:\/\/iitmindia.com\/wp-content\/uploads\/2023\/05\/7-1-1.jpg","venue_details":"TBA","venue_booking_details":"Time 11:00 AM - 6:00 PM","coordinator":"","start_date":"2027-01-07","end_date":"2027-01-09","created_at":"2026-04-24 11:07:13","updated_at":"2026-04-24 16:21:30","active":1,"info":"Kochi, also known as Cochin, is a vibrant port city located in the state of Kerala, India. It is situated along the southwest coast and holds immense historical, economic, and cultural significance.As a major port city, Kochi has been a crucial center for trade and commerce for centuries. Its strategic location on the Arabian Sea has facilitated maritime trade and attracted merchants and traders from various parts of the world. Even today, the Port of Kochi remains an important hub for international trade.Kochi''s rich history is evident in its colonial architecture, ancient landmarks, and cultural heritage. The city has been influenced by various civilizations, including the Portuguese, Dutch, and British, which is reflected in its diverse architecture and cultural practices. The city''s economy is diverse and dynamic. While trade and fishing remain important industries, Kochi has also embraced modernization and developed into a significant commercial and business hub. The Information Technology Park in Kochi (Infopark) is a prime example of the city''s foray into the IT sector, attracting IT companies and contributing to the growth of the technology industry in Kerala. Kochi is a popular tourist destination, drawing visitors with its scenic backwaters, beautiful beaches, and historical landmarks. The Chinese fishing nets at Fort Kochi, Mattancherry Palace, and the Jewish Synagogue are some of the attractions that showcase the city''s cultural heritage. Culturally, Kochi is a melting pot of various communities, and festivals like Onam and Vishu are celebrated with great enthusiasm and fervor. The city''s friendly and welcoming atmosphere, along with its rich cultural tapestry, makes it an attractive place to live, work, and visit. In conclusion, Kochi''s blend of history, trade, technology, and culture has made it a dynamic and significant city in southern India. Its vibrant economy, diverse culture, and beautiful landscapes continue to draw people from different parts of the world, contributing to its growth and prosperity.\r\n\r\nIITM KOCHI is a platform for B2B and B2C travel businesses and general visitors to know about the global travel community, products, services, and advancements."},{"event_id":8,"b2b_constrain":"B2B-IITM","year":2027,"name":"IITM Kolkata","price":null,"event_image":"https:\/\/iitmindia.com\/wp-content\/uploads\/2023\/05\/8-1-1.jpg","venue_details":"TBA","venue_booking_details":"Time 11:00 AM - 6:00 PM","coordinator":"","start_date":"2027-02-18","end_date":"2027-02-19","created_at":"2026-04-24 11:07:13","updated_at":"2026-04-24 16:21:30","active":1,"info":"Kolkata is the main business, commercial and financial hub of eastern India and the main port of communication for the North-East Indian states. Kolkata is home to a major port, an international airport and many nationally and internationally reputed colleges and Institutions aimed at supplying a highly skilled workforce. According to a Price water house Cooper\u2019s report, as of 2009, Kolkata\u2019s economic output as measured by gross domestic product as 104 US dollars, and ranks third among South Asian cities, behind Mumbai and Delhi. However, As of 2010, Kolkata, with an estimated Gross domestic product (GDP) by purchasing power parity of 150 billion dollars, ranked third among South Asian cities, after Mumbai and Delhi.\r\n\r\nIITM Kolkata is a platform for B2B and B2C travel businesses and general visitors to know about the global travel community, products, services, and advancements."}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6ImptTnJGZGxyRjZEWjVGTGRMa3hYRHc9PSIsInZhbHVlIjoiQzBHOXF1dEtNZFNaUVNPQVFNTUFFK0Y4VGdEZDN1QkhoVlNlL1NZbHRkUlhPVU9wbm9Id2dKWnkwWExxSHFkU3V0UG9LMW5BaUk4THRrMlJQUm1Pd1Fmei9KbGRRRG0wa09Ha2JCSGhNbVYvNnpJdEloZmJDd3l3eTBQSGpEaDgiLCJtYWMiOiI3ODk1NDQ5MWY0MDEwZDllNWU4YmNmOTBmYjNkNWIyN2JiZTNmZjIzNWNkNzNhNDkxNmI4NWE2MWVhOWYzMjA4IiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:20 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IlhhWllUZWM0RytBQnFoVGdZeitLRGc9PSIsInZhbHVlIjoiR3J1eHorWjdLTDJ4VTRObUczZ2Q1anpFQ2JINkN6cnU4bG9CRDBrMm5jeW13VkFCc2dOYnhwSVArNFUvblRsN0xYemJlWUR3bmJzZEliejErdXo2S2daLytkTWVUaHVmd3VxYlNWSWpJSWp2NTMxQmlUb3FzUTcwTitHZGlCMWgiLCJtYWMiOiIyMjFkZTk5YjliOTM3YTU2NTJmYjY2MjM4MTNkOTVkZDExODYyN2ZiNjEwNzNjMTA0Yzc2MWQ0YzAyNzFmZjY2IiwidGFnIjoiIn0%3D; expires=Wed, 27 May 2026 09:06:20 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

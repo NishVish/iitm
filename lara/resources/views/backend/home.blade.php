@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IITM India - Portal Dashboard</title>
+
     <style>
         :root {
             --iitm-blue: #0076bd;
@@ -15,74 +16,101 @@
 
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Montserrat', sans-serif, Arial;
+            padding: 20px;
+            font-family: Arial, sans-serif;
             background-color: var(--iitm-bg);
             color: var(--iitm-dark);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
 
         .container {
-            width: 100%;
-            max-width: 500px;
+            max-width: 900px;
+            margin: auto;
             background: var(--iitm-white);
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-            text-align: center;
         }
 
-        /* IITM Branding Header */
         h1 {
             font-size: 24px;
             font-weight: 800;
             color: var(--iitm-blue);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             text-transform: uppercase;
-            letter-spacing: -0.5px;
         }
 
         .sub-header {
             font-size: 14px;
             color: #666;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             display: block;
         }
 
+        /* GRID LAYOUT */
         .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
         }
 
+        /* CARD STYLE BUTTONS */
         .big-btn {
             display: block;
-            padding: 16px;
-            font-size: 15px;
+            padding: 18px 16px;
+            font-size: 14px;
             font-weight: 700;
-            color: var(--iitm-white);
+            color: var(--iitm-dark);
             text-decoration: none;
-            border-radius: 8px;
-            background: var(--iitm-blue);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 118, 189, 0.2);
+            border-radius: 12px;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            transition: all 0.25s ease;
+            position: relative;
         }
 
         .big-btn:hover {
-            background: #005fa0;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 118, 189, 0.3);
+            transform: translateY(-4px);
+            border-color: var(--iitm-blue);
+            color: var(--iitm-blue);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
         }
 
-        /* Secondary style for "Website" and "Operations" */
-        .ops {
-            background: #ffffff;
+        .big-btn::after {
+            content: "›";
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        .big-btn:hover::after {
             color: var(--iitm-blue);
+        }
+
+        /* ADMIN CARDS */
+        .admin {
+            background: linear-gradient(135deg, #2d3436, #1e272e);
+            color: #fff !important;
+            border: none;
+        }
+
+        .admin::after {
+            color: #fff;
+        }
+
+        .admin:hover {
+            background: linear-gradient(135deg, #0076bd, #005fa0);
+            color: #fff !important;
+        }
+
+        /* OPS STYLE */
+        .ops {
+            background: #fff;
             border: 2px solid var(--iitm-blue);
-            box-shadow: none;
+            color: var(--iitm-blue);
         }
 
         .ops:hover {
@@ -90,36 +118,23 @@
             color: #fff;
         }
 
-        /* Admin style */
-        .admin {
-            background: #2d3436;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
         .logout-btn {
-            margin-top: 30px;
+            margin-top: 20px;
             background: transparent;
             border: none;
             color: #e74c3c;
             font-weight: 800;
-            font-size: 13px;
             cursor: pointer;
             text-decoration: underline;
-            letter-spacing: 1px;
         }
 
-        .logout-btn:hover {
-            color: #c0392b;
-        }
-
-        /* Footer Decoration like the site */
         .footer-logo {
             margin-top: 30px;
             border-top: 1px solid #eee;
-            padding-top: 20px;
+            padding-top: 15px;
             font-size: 12px;
-            font-weight: bold;
             color: #999;
+            text-align: center;
         }
     </style>
 </head>
@@ -127,34 +142,45 @@
 <body>
 
     <div class="container">
+
         <h1>IITM INDIA</h1>
         <span class="sub-header">Internal Management Portal</span>
 
         <div class="btn-group">
+
             <a href="{{ url('salesportal') }}" class="big-btn">SALES PORTAL</a>
             <a href="{{ url('bookingportal') }}" class="big-btn">BOOKING PORTAL</a>
-            <a href="{{ url('admin') }}" class="big-btn admin">ADMINSTRATION</a>
+
+            <a href="{{ url('admin') }}" class="big-btn admin">ADMINISTRATION</a>
             <a href="{{ url('database') }}" class="big-btn admin">DATABASE PORTAL</a>
-            <a href="{{ url('highlightpage-edit') }}" class="big-btn admin">Highlight Page Edit</a>
-            <!-- badge Layout :  http://localhost/iitm/lara/generatebadge/CMP_6a0171efbfa73/318339/iitm-bengaluru-2026 -->
+            <a href="{{ url('highlightpage-edit') }}" class="big-btn admin">HIGHLIGHT EDIT</a>
+            <a href="{{ url('sponsorship') }}" class="big-btn admin">SPONSORSHIP</a>
+
             <a href="{{ url('generatebadge/CMP_6a0171efbfa73/318339/iitm-bengaluru-2026') }}"
-                class="big-btn admin">Badge
-                Layout</a>
-            <a href="http://localhost/iitm/lara/leadsdetails/33?mobile=7909075195" class="big-btn admin">Leads Edit</a>
+                class="big-btn admin">BADGE LAYOUT</a>
 
-            <a href="http://localhost/iitm/hr/" class="big-btn admin">HR Portal</a>
-            <div style="display: flex; gap: 10px;">
-                <a href="{{ url('../central') }}" class="big-btn ops" style="flex: 1;">OPERATIONS</a>
-                <a href="{{ url('/') }}" class="big-btn ops" style="flex: 1;">WEBSITE</a>
-            </div>
+            <a href="http://localhost/iitm/lara/leadsdetails/33?mobile=7909075195" class="big-btn admin">LEADS EDIT</a>
 
-            <form method="POST" action="{{ url('/logout') }}">
-                @csrf
-                <button type="submit" class="logout-btn">SECURE LOGOUT</button>
-            </form>
+            <a href="http://localhost/iitm/hr/" class="big-btn admin">HR PORTAL</a>
+
+            <a href="{{ url('../central') }}" class="big-btn ops">OPERATIONS</a>
+            <a href="{{ url('/') }}" class="big-btn ops">WEBSITE</a>
+
         </div>
+
+        <form method="POST" action="{{ url('/logout') }}">
+            @csrf
+            <button type="submit" class="logout-btn">SECURE LOGOUT</button>
+        </form>
 
         <div class="footer-logo">
-            IITM &copy; 2026 | Travel & Trade Shows
+            IITM © 2026 | Travel & Trade Shows
         </div>
+
     </div>
+
+    @include('backend.operation')
+
+</body>
+
+</html>

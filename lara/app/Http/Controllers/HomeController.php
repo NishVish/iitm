@@ -16,4 +16,5 @@ class HomeController extends Controller
         return redirect('https://iitmindia.com');
     }
 
+
 }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File Explorer</title>
+
+<style>
+body {
+    font-family: Arial;
+    display: flex;
+}
+
+#left {
+    width: 60%;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+}
+
+#right {
+    width: 40%;
+    padding: 20px;
+}
+
+.file {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.file:hover {
+    background: #f0f0f0;
+}
+
+.folder {
+    font-weight: bold;
+    color: blue;
+}
+</style>
+</head>
+
+<body>
+
+<div id="left">
+    <h3>Files</h3>
+    <div id="fileList"></div>
+</div>
+
+<div id="right">
+    <h3>AI Chat (later RAG)</h3>
+    <textarea id="chat" rows="20" cols="40"></textarea>
+    <br>
+    <input id="msg" placeholder="Ask something..." />
+    <button onclick="send()">Send</button>
+</div>
+
+<script>
+
+let currentPath = "";
+
+function loadFiles(path="") {
+    fetch(`/list?path=${path}`)
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById("fileList");
+            list.innerHTML = "";
+
+            data.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "file " + (item.is_dir ? "folder" : "");
+
+                div.innerHTML = item.name;
+
+                if (item.is_dir) {
+                    div.onclick = () => {
+                        currentPath = path + "/" + item.name;
+                        loadFiles(currentPath);
+                    }
+                } else {
+                    div.onclick = () => {
+                        window.open(`/download?file=${path}/${item.name}`);
+                    }
+                }
+
+                list.appendChild(div);
+            });
+        });
+}
+
+function send() {
+    const msg = document.getElementById("msg").value;
+    document.getElementById("chat").value += "\nYou: " + msg;
+
+    fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({message: msg})
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("chat").value += "\nAI: " + data.reply;
+    });
+}
+
+loadFiles("");
+
+</script>
+
+</body>
+</html>

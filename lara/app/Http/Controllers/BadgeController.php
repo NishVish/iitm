@@ -188,10 +188,10 @@ class BadgeController extends Controller
             'print' => true,
             'preview' => true,
         ];
-
+        // dd($data);
         // $data['emailpage'] = true;
         $nosuccespage = true;
 
-        return view('web.registration.success', compact('data', 'nosuccespage'));
+        return view('web.registration.successpage.index', compact('data', 'nosuccespage'));
     }
 }

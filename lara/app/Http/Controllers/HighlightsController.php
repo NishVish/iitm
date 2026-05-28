@@ -48,12 +48,16 @@ class HighlightsController extends Controller
             Log::info('Highlights Store Request', [
                 'all' => $request->all(),
                 'files' => $request->file(),
+                'type' => 'nullable|string|max:255',
+
             ]);
 
             // VALIDATION
             $request->validate([
                 'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
                 'text' => 'required|string',
+                'type' => 'nullable|string|max:255',
+
             ]);
 
             // CHECK DIRECTORY
@@ -95,7 +99,7 @@ class HighlightsController extends Controller
             $image->move($destinationPath, $imageName);
 
             // SAVE PATH
-            $imagePath = 'public/asset/highlights/' . $imageName;
+            $imagePath = '/assets/highlights/' . $imageName;
 
             Log::info('Image moved successfully', [
                 'path' => $imagePath
@@ -105,6 +109,8 @@ class HighlightsController extends Controller
             $id = DB::table('highlights')->insertGetId([
                 'image' => $imagePath,
                 'text' => $request->text,
+                'type' => $request->type, // ✅ ADD THIS
+
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
@@ -147,11 +153,15 @@ class HighlightsController extends Controller
     }
 
 
-    public function getHighlights()
+    public function getHighlights($type)
     {
         try {
+            Log::info('Highlights Type', [
+                'type' => $type
+            ]);
 
             $highlights = DB::table('highlights')
+                ->where('type', $type)
                 ->orderBy('id', 'desc')
                 ->get();
 
@@ -194,6 +204,8 @@ class HighlightsController extends Controller
 
                 $request->validate([
                     'image' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+                    'type' => 'nullable|string|max:255',
+
                 ]);
 
                 if (
@@ -218,6 +230,8 @@ class HighlightsController extends Controller
                 ->update([
                     'image' => $imagePath,
                     'text' => $request->text,
+                    'type' => $request->type, // ✅ ADD THIS
+
                     'updated_at' => Carbon::now(),
                 ]);
 
@@ -283,15 +297,27 @@ class HighlightsController extends Controller
         }
     }
 
-    public function highlightpage()
+    public function highlightpageedit($type = null)
     {
-        $highlights = DB::table('highlights')
-            ->orderBy('id', 'desc')
+        if ($type == null) {
+
+            $highlights = DB::table('highlights')
+                ->orderBy('id', 'desc')
+                ->get();
+        } else {
+
+            $highlights = DB::table('highlights')
+                ->where('type', $type)
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+        $alltypesofhightlight = DB::table('highlights')
+            ->distinct()
             ->get();
 
         return view(
             'backend.highlights.index',
-            compact('highlights')
+            compact('highlights', 'alltypesofhightlight')
         );
     }
 }

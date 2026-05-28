@@ -30,8 +30,11 @@
                 <div class="f-link-group">
                     <a href="#">Events</a>
                     <a href="#">Exhibitors</a>
-                    <a href="#">Gallery</a>
-                    <a href="#">About Us</a>
+                    <a href="{{ route('attending') }}">Visit</a>
+                    <a href="{{ route('resourcepage') }}">Resources</a>
+                    <a href="{{ route('gallery') }}">Gallery</a>
+                    <a href="{{ route('aboutus') }}">About us</a>
+                    <a href="{{ url('faq') }}">FAQ</a>
                 </div>
             </div>
         </div>

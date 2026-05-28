@@ -1,11 +1,9 @@
 <style>
     :root {
-        --iitm-blue: #8F1D1E;
-        --iitm-dark: #1a1a1a;
-        --iitm-grey: #6b7280;
-        --iitm-light-bg: #f3f7fa;
-        /* Light blueish grey */
-        --iitm-accent: #00a8ff;
+        --primary-color: #AA2D2C;
+        --dark-color: #1a1a1a;
+        --grey-color: #6b7280;
+        --light-bg: #f3f7fa;
     }
 
     * {
@@ -16,100 +14,93 @@
     .why-section {
         max-width: 1200px;
         margin: auto;
-        padding: 80px 20px;
-        background-color: #ffffff;
+        padding: 60px 20px;
+        background: #fff;
     }
 
     .ex-label {
-        font-size: 13px;
-        letter-spacing: 3px;
+        font-size: 11px;
+        letter-spacing: 2px;
         text-transform: uppercase;
-        color: var(--iitm-blue);
+        color: var(--primary-color);
         font-weight: 700;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         display: block;
     }
 
     .why-title {
-        font-size: 42px;
+        font-size: 36px;
         font-weight: 800;
-        color: var(--iitm-dark);
-        margin: 0 0 40px;
-        letter-spacing: -1px;
+        color: var(--dark-color);
+        margin: 0 0 30px;
         line-height: 1.2;
     }
 
     .why-title em {
-        color: var(--iitm-blue);
+        color: var(--primary-color);
         font-style: normal;
-        position: relative;
     }
 
-    /* Modern Bento-style Grid */
     .why-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
+        gap: 18px;
     }
 
     .why-item {
-        background: var(--iitm-light-bg);
-        padding: 35px;
-        border-radius: 20px;
-        border: 1px solid rgba(0, 118, 189, 0.05);
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        display: flex;
-        flex-direction: column;
+        background: var(--light-bg);
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
     }
 
     .why-item:hover {
         background: #fff;
-        box-shadow: 0 20px 40px rgba(0, 118, 189, 0.1);
-        transform: translateY(-8px);
-        border-color: var(--iitm-blue);
+        border-color: var(--primary-color);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
     }
 
-    /* Subtle number accent behind the text */
     .why-num {
-        font-size: 14px;
-        font-weight: 800;
-        color: var(--iitm-blue);
-        background: rgba(0, 118, 189, 0.1);
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: rgba(170, 45, 44, 0.1);
+        color: var(--primary-color);
+        font-size: 12px;
+        font-weight: 700;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 8px;
-        margin-bottom: 20px;
+        margin-bottom: 14px;
     }
 
     .why-item strong {
         display: block;
-        font-size: 20px;
-        color: var(--iitm-dark);
-        margin-bottom: 12px;
+        font-size: 18px;
+        color: var(--dark-color);
+        margin-bottom: 8px;
         font-weight: 700;
     }
 
     .why-item p {
-        font-size: 15px;
-        color: var(--iitm-grey);
-        line-height: 1.6;
+        font-size: 14px;
+        color: var(--grey-color);
+        line-height: 1.5;
         margin: 0;
     }
 
-    /* Bottom accent line on hover */
     .why-item::after {
         content: "";
         position: absolute;
-        bottom: 0;
         left: 0;
+        bottom: 0;
         width: 0;
-        height: 4px;
-        background: var(--iitm-blue);
+        height: 3px;
+        background: var(--primary-color);
         transition: width 0.3s ease;
     }
 
@@ -117,19 +108,23 @@
         width: 100%;
     }
 
-    @media(max-width:992px) {
+    @media (max-width: 992px) {
         .why-grid {
             grid-template-columns: repeat(2, 1fr);
         }
     }
 
-    @media(max-width:600px) {
+    @media (max-width: 600px) {
         .why-grid {
             grid-template-columns: 1fr;
         }
 
         .why-title {
-            font-size: 32px;
+            font-size: 28px;
+        }
+
+        .why-section {
+            padding: 45px 16px;
         }
     }
 </style>
@@ -152,8 +147,12 @@
 
         @foreach($reasons as $i => $reason)
             <div class="why-item">
-                <div class="why-num">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</div>
+                <div class="why-num">
+                    {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
+                </div>
+
                 <strong>{{ $reason[0] }}</strong>
+
                 <p>{{ $reason[1] }}</p>
             </div>
         @endforeach

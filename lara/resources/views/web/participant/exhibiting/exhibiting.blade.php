@@ -149,7 +149,7 @@
         </div>
     </section>
 
-    @include('web.templates.keyperformancehighlights')
+    @include('web.templates.statistics.internalkpi')
     <div style="background-color: white; color: black; padding: 20px;">
         <style>
             .white-box {
@@ -196,7 +196,7 @@
         </div>
 
         <div>
-            @include('web.participant.exhibiting.video')
+            <!-- @include('web.participant.exhibiting.video') -->
         </div>
 
 

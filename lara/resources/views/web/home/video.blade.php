@@ -1,6 +1,14 @@
 <div class="video-container">
     <video id="bg-video" autoplay muted loop playsinline>
-        <source src="https://iitmindia.com/wp-content/uploads/2025/07/Untitled-design-6.mp4" type="video/mp4">
+        <!-- <source src="https://iitmindia.com/wp-content/uploads/2025/07/Untitled-design-6.mp4" type="video/mp4"> -->
+
+
+
+
+
+
+        <source src="https://iitmindia.com/assets/video1.MP4" type="video/mp4">
+
     </video>
 </div>
 

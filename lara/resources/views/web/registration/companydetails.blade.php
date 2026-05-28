@@ -319,7 +319,17 @@
                     otherOption.value = "other";
                     otherOption.textContent =
                         "Other (Travel / Hospitality related)";
+                    // Add Other (General) option
+                    const otherGeneralOption = document.createElement("option");
 
+                    otherGeneralOption.value = "other_general";
+                    otherGeneralOption.textContent = "Other (Not related to Travel / Hospitality)";
+
+                    if (selectedCategory === "other_general") {
+                        otherGeneralOption.selected = true;
+                    }
+
+                    categoryDropdown.appendChild(otherGeneralOption);
                     // Select if saved value is other
                     if (selectedCategory === "other") {
                         otherOption.selected = true;

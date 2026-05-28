@@ -53,6 +53,14 @@ class RayGptController extends Controller
 
     public function chat(Request $request)
     {
+
+        $page = $this->detectPage($request);
+        $page_context = $page;
+        $sendthisurl = $this->bot("what is url of this page" . $page_context);
+        $request->session()->put('page_context', $page_context);
+        // $request->session()->put('sendthisurl', $sendthisurl);
+
+
         return $this->streameroutput($request);
     }
 
@@ -197,4 +205,89 @@ class RayGptController extends Controller
 
         return response()->json($data, JSON_PRETTY_PRINT);
     }
+
+
+    public function detectPage($request)
+    {
+        $url = $request->fullUrl();
+
+        if ($url == 'http://localhost/iitm/lara/iitmbot') {
+
+            return 'iitm_bot';
+
+        } elseif ($url == 'http://localhost/iitm/lara/') {
+
+            return 'home';
+
+        } elseif ($url == 'http://localhost/iitm/lara/home') {
+
+            return 'home_dashboard';
+
+        } elseif ($url == 'http://localhost/iitm/lara/exhibitor') {
+
+            return 'exhibitor';
+
+        } elseif ($url == 'http://localhost/iitm/lara/visionstudio') {
+
+            return 'visionstudio';
+
+        } elseif ($url == 'http://localhost/iitm/lara/interactive') {
+
+            return 'interactive';
+
+        } elseif ($url == 'http://localhost/iitm/lara/stalldemo') {
+
+            return 'stalldemo';
+
+        } elseif ($url == 'http://localhost/iitm/lara/booking') {
+
+            return 'booking';
+
+        } elseif ($url == 'http://localhost/iitm/lara/booking/step2') {
+
+            return 'booking_step2';
+
+        } elseif ($url == 'http://localhost/iitm/lara/contactus') {
+
+            return 'contactus';
+
+        } elseif ($url == 'http://localhost/iitm/lara/aboutus') {
+
+            return 'aboutus';
+
+        } elseif ($url == 'http://localhost/iitm/lara/gallery') {
+
+            return 'gallery';
+
+        } elseif ($url == 'http://localhost/iitm/lara/resourcepage') {
+
+            return 'resourcepage';
+
+        } elseif ($url == 'http://localhost/iitm/lara/login') {
+
+            return 'login';
+
+        } elseif ($url == 'http://localhost/iitm/lara/register') {
+
+            return 'register';
+
+        } elseif ($url == 'http://localhost/iitm/lara/profile') {
+
+            return 'profile';
+
+        } elseif ($url == 'http://localhost/iitm/lara/calendar') {
+
+            return 'calendar';
+
+        } elseif ($url == 'http://localhost/iitm/lara/tools') {
+
+            return 'tools';
+
+        } else {
+
+            return 'unknown';
+        }
+    }
+
+
 }

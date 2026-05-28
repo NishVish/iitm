@@ -28,7 +28,11 @@
 <body>
 
     <div class="container py-5">
-
+        @foreach($alltypesofhightlight as $alltypesofhightlight)
+            <a href="{{ url('/highlightpage-edit/' . $alltypesofhightlight->type) }}">
+                {{ $alltypesofhightlight->type }}
+            </a>
+        @endforeach
         <h2 class="mb-4">
             Highlights Manager
         </h2>
@@ -86,7 +90,12 @@
                                     required>{{ $highlight->text }}</textarea>
 
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Type</label>
 
+                                <input type="text" name="type" class="form-control" value="{{ $highlight->type }}"
+                                    placeholder="e.g. image / video / banner">
+                            </div>
                             <button type="submit" class="btn btn-primary w-100 mb-2">
                                 Update
                             </button>
@@ -124,7 +133,7 @@
                 Add New Highlight
             </h3>
 
-            <form action="{{ url('/highlights') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/highlights-store') }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
 
@@ -147,7 +156,12 @@
                     <textarea name="text" class="form-control" rows="4" required></textarea>
 
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Type</label>
 
+                    <input type="text" name="type" class="form-control" placeholder="e.g. image / video / banner"
+                        required>
+                </div>
                 <button type="submit" class="btn btn-success">
                     Add Highlight
                 </button>

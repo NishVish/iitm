@@ -135,10 +135,7 @@
         "keyword": "tourism",
         "category": "Travel Agency"
     },
-    {
-        "keyword": "vacation",
-        "category": "Travel Agency"
-    },
+
     {
         "keyword": "holiday",
         "category": "Travel Agency"
@@ -309,14 +306,6 @@
     },
     {
         "keyword": "bus",
-        "category": "Transport"
-    },
-    {
-        "keyword": "cruise",
-        "category": "Transport"
-    },
-    {
-        "keyword": "liner",
         "category": "Transport"
     },
     {
