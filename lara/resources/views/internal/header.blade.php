@@ -106,21 +106,25 @@
     <!-- CENTER NAV (CORE SYSTEM) -->
     <div class="center nav">
 
-        <a href="/internal">Dashboard</a>
+        <a href="internal">Dashboard</a>
 
-        <a href="/internal/knowledge">
+        <a href="{{ url('internal/knowledge') }}">
             Knowledge Base
         </a>
 
-        <a href="/internal/leaves">
+        <a href="{{ url('internal/mail') }}">
+            Mail
+        </a>
+
+        <a href="{{ url('internal/leaves') }}">
             Leaves <span class="badge">new</span>
         </a>
 
-        <a href="/internal/suggestions">
+        <a href="{{ url('internal/suggestions') }}">
             Suggestions
         </a>
 
-        <a href="/internal/chat">
+        <a href="{{ url('internal/chat') }}">
             Chat
         </a>
 

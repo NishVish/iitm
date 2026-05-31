@@ -24,4 +24,4 @@ Route::get('/internal/logout', [InternalController::class, 'logout'])
     ->name('internal.logout');
 
 
-Route::get('/internal/knowledge', [InternalController::class, 'knowledge'])->name('internal.knowledge');
+Route::get('/internal/{page}', [InternalController::class, 'pages']);

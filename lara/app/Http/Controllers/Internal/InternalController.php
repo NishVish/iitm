@@ -83,71 +83,9 @@ class InternalController extends Controller
         return redirect()->route('internal.login');
     }
 
-    public function knowledge()
+    public function pages($pages)
     {
-
-
-        // // 📚 Recommended Database Design
-// // ✅ 1. Main Table: knowledge_articles
-
-        // // This stores every training / SOP / guide.
-
-        // // CREATE TABLE knowledge_articles (
-// //     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-
-        // //     title VARCHAR(255) NOT NULL,
-// //     slug VARCHAR(255) UNIQUE,
-
-        // //     category VARCHAR(100), 
-// //     -- sales, hotel, payment, volunteer, onboarding, etc.
-
-        // //     content LONGTEXT,
-// //     -- main text / HTML content
-
-        // //     content_type VARCHAR(50) DEFAULT 'text',
-// //     -- text | mixed | video | pdf | guide
-
-        // //     cover_image VARCHAR(255) NULL,
-
-        // //     created_by BIGINT UNSIGNED NULL,
-
-        // //     is_published TINYINT(1) DEFAULT 1,
-
-        // //     created_at TIMESTAMP NULL,
-// //     updated_at TIMESTAMP NULL
-// // );
-// // 📎 2. Media Table (VERY IMPORTANT)
-
-        // // Because one article can have multiple files/videos/images.
-
-        // // CREATE TABLE knowledge_media (
-// //     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-
-        // //     article_id BIGINT UNSIGNED,
-
-        // //     media_type VARCHAR(50),
-// //     -- image | video | pdf | link
-
-        // //     media_url TEXT,
-
-        // //     title VARCHAR(255) NULL,
-
-        // //     created_at TIMESTAMP NULL,
-
-        // //     FOREIGN KEY (article_id)
-// //         REFERENCES knowledge_articles(id)
-// //         ON DELETE CASCADE
-// // );
-// // 🧠 3. Optional (Advanced but powerful)
-// // Categories Table
-// // CREATE TABLE knowledge_categories (
-// //     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-// //     name VARCHAR(100),
-// //     slug VARCHAR(100)
-// // );
-
-        //         pdf,text, link,video,images
-
+        return view('internal.index', compact('pages'));
 
     }
 }
