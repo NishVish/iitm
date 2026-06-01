@@ -43,7 +43,6 @@
         justify-content: space-between;
         align-items: center;
         padding: clamp(10px, 2vw, 18px) 5%;
-        max-width: 1400px;
         margin: 0 auto;
         width: 100%;
 
