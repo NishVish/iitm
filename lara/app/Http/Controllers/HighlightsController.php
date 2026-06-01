@@ -99,7 +99,7 @@ class HighlightsController extends Controller
             $image->move($destinationPath, $imageName);
 
             // SAVE PATH
-            $imagePath = '/assets/highlights/' . $imageName;
+            $imagePath = 'assets/highlights/' . $imageName;
 
             Log::info('Image moved successfully', [
                 'path' => $imagePath
@@ -143,7 +143,7 @@ class HighlightsController extends Controller
                 'trace' => $e->getTraceAsString(),
             ]);
 
-            dd($e);
+            // dd($e);
 
             return redirect()->back()->with(
                 'error',
