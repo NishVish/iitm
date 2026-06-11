@@ -14,30 +14,31 @@ class MailServices extends Controller
 
         $view = $template['view'];
         $subject = $template['subject'];
+        $uid = md5(uniqid(time()));
+        $html2 = view('mail.test');
 
-        // Render blade file as HTML
-        $html = view($view, [
-            'name' => $name,
-            'email' => $email,
-        ])->render();
+        $file_name = "hello";
 
-        // Generate MIME boundary
-        $uid = md5(uniqid((string) microtime(), true));
-
-        // Headers
-        $headers = "From: events@iitmindia.com\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: multipart/alternative; boundary=\"{$uid}\"\r\n";
-
-        // Body
-        $body = "--{$uid}\r\n";
-        $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $to = "$email";
+        $subject = "Confirmation Mail | India International Travel Mart | Chennai | 16 - 18 Jul 2026";
+        $message = "<b>$html2</b>";
+        $header = "From: events@iitmindia.com\r\n";
+        $header .= "Cc: harish@iitmindia.com\r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-type: multipart/mixed; boundary=\"$uid\"\r\n";
+        $body = "--$uid\r\n";
+        $body .= "Content-type:text/html; charset=iso-8859-1\r\n";
         $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-        $body .= $html . "\r\n\r\n";
-        $body .= "--{$uid}--";
+        $body .= $message . "\r\n\r\n";
+        $body .= "--$uid\r\n";
+        $body .= "Content-Type: application/pdf; name=\"$file_name\"\r\n";
+        $body .= "Content-Transfer-Encoding: base64\r\n";
+        $body .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n\r\n";
+        $body .= "--$uid--";
+        // $retval = mail($to, $subject, $body, $header);
 
         // Send Mail
-        $status = mail($email, $subject, $body, $headers);
+        $status = mail($to, $subject, $body, $header);
 
         return [
             'status' => $status,
