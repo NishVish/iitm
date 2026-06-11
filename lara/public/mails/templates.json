@@ -1,0 +1,12 @@
+[
+    {
+        "id": 0,
+        "view": "mail.test",
+        "subject": "Test Email"
+    },
+    {
+        "id": 1,
+        "view": "mail.welcome",
+        "subject": "Welcome to IITM"
+    }
+]

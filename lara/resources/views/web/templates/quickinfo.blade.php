@@ -123,7 +123,7 @@
         (function () {
             const displayDiv = document.getElementById("iitmDynamicEvent");
 
-            fetch("http://localhost/iitm/lara/api/events")
+            fetch("{{ url('api/events') }}")
                 .then(res => {
                     if (!res.ok) throw new Error('API Offline');
                     return res.json();

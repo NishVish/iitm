@@ -293,6 +293,8 @@ class AssistantController extends Controller
             array_column($topChunks, 'content')
         );
 
+
+
         $prompt = <<<PROMPT
 You are a RAG AI assistant.
 

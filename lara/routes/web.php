@@ -23,6 +23,7 @@ require __DIR__ . '/hr.php';
 require __DIR__ . '/interactive.php';
 require __DIR__ . '/internal.php';
 require __DIR__ . '/mailer.php';
+require __DIR__ . '/mail.php';
 require __DIR__ . '/mailtest.php';
 require __DIR__ . '/mcp.php';
 require __DIR__ . '/layout.php';
