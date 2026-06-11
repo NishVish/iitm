@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utility\MailingController;
 use App\Http\Controllers\Mail\MailServices;
+use Illuminate\Validation\Rules\Email;
 
 
 class MailApi extends Controller
@@ -37,6 +38,9 @@ class MailApi extends Controller
 
         return json_encode([
             "status" => true,
+            "to" => "nishant",
+            "email" => "nishwakarma3@gmail.com",
+            "templateid" => 0,
             "message" => "Mail Sent"
         ]);
 
