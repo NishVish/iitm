@@ -183,7 +183,7 @@ class MailerController extends Controller
 
     public function sendmail(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
 
         $uid = md5(uniqid(time()));
