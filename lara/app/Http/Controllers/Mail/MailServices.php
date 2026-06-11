@@ -50,7 +50,7 @@ class MailServices extends Controller
 
     private function templateSelection($templateId)
     {
-        $jsonFile = public_path('mails/template.json');
+        $jsonFile = public_path('mails/templates.json');
 
         if (!file_exists($jsonFile)) {
             throw new Exception(
