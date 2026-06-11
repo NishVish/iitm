@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Brochure",
+    "link": "/assets/resource/brochure.pdf",
+    "image": "/assets/resource/1.png"
+  },
+  {
+    "title": "Sponsorship Packages",
+    "link": "/assets/resource/sponsorship.pdf",
+    "image": "/assets/resource/2.png"
+  },
+  {
+    "title": "Booking Form",
+    "link": "/assets/resource/bookingform",
+    "image": "/assets/resource/2.jpg"
+  }
+]

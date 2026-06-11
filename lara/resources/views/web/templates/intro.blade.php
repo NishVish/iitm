@@ -1,7 +1,8 @@
 <section class="iitm-about-section">
     <style>
         .iitm-about-section {
-            padding: 100px 20px;
+            padding: 50px 20px;
+            /* reduced height */
             background: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow: hidden;
@@ -12,10 +13,10 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 60px;
+            gap: 50px;
+            /* slightly reduced */
         }
 
-        /* The Visual "Heritage" Side */
         .iitm-about-visual {
             flex: 1;
             position: relative;
@@ -26,8 +27,9 @@
         .image-stack {
             position: relative;
             width: 100%;
-            max-width: 450px;
-            height: 550px;
+            max-width: 420px;
+            height: 480px;
+            /* reduced height */
         }
 
         .main-img {
@@ -35,38 +37,38 @@
             height: 100%;
             object-fit: cover;
             border-radius: 4px;
-            box-shadow: 20px 20px 0px #aa2324;
-            /* Brand Red Offset */
+            box-shadow: 16px 16px 0px #aa2324;
         }
 
         .experience-badge {
             position: absolute;
-            bottom: -30px;
-            right: -30px;
+            bottom: -25px;
+            right: -25px;
             background: #111;
             color: #fff;
-            padding: 30px;
+            padding: 22px;
+            /* slightly reduced */
             border-radius: 4px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
         }
 
         .experience-badge .years {
             font-family: Georgia, serif;
-            font-size: 3rem;
+            font-size: 2.4rem;
+            /* reduced */
             display: block;
             line-height: 1;
             color: #aa2324;
         }
 
         .experience-badge .text {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 700;
         }
 
-        /* The "Content" Side */
         .iitm-about-content {
             flex: 1;
             text-align: left;
@@ -77,50 +79,52 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
             display: block;
         }
 
         .iitm-about-content h2 {
             font-family: Georgia, serif;
-            font-size: 3rem;
+            font-size: 2.4rem;
+            /* reduced */
             color: #111;
             line-height: 1.2;
-            margin-bottom: 25px;
+            margin-bottom: 18px;
         }
 
         .iitm-about-content p {
             color: #555;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 25px;
+            font-size: 1rem;
+            /* reduced */
+            line-height: 1.7;
+            margin-bottom: 18px;
         }
 
-        /* Feature Grid for the "If you strive..." section */
         .iitm-benefit-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 40px;
+            gap: 16px;
+            /* reduced */
+            margin-top: 30px;
         }
 
         .benefit-item {
             display: flex;
             align-items: flex-start;
-            gap: 15px;
+            gap: 12px;
         }
 
         .benefit-icon {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             background: #aa2324;
-            margin-top: 8px;
+            margin-top: 7px;
             flex-shrink: 0;
         }
 
         .benefit-text {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: #222;
         }
@@ -136,11 +140,7 @@
             }
 
             .iitm-about-visual {
-                margin-bottom: 60px;
-            }
-
-            .benefit-item {
-                justify-content: center;
+                margin-bottom: 40px;
             }
 
             .iitm-benefit-grid {
@@ -152,7 +152,6 @@
     <div class="iitm-about-container">
         <div class="iitm-about-visual">
             <div class="image-stack">
-
                 <img src="{{ url('public/assets/5.jpg') }}" class="main-img" alt="Exhibition Hall">
                 <div class="experience-badge">
                     <span class="years">25+</span>

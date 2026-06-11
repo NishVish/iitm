@@ -1,3 +1,4 @@
+</div>
 <footer id="immersive-footer">
     <div class="f-hero-image">
         <div class="f-overlay"></div>
@@ -56,6 +57,7 @@
             position: relative;
             overflow: hidden;
             padding-bottom: 40px;
+            width: 100% !important;
         }
 
         /* Hero Image with Darker Travel Overlay */

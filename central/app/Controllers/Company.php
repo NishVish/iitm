@@ -1214,9 +1214,9 @@ class Company extends BaseController
 
         $companies = $this->request->getPost('companies');
 
-        // echo "<pre>";
-        // var_dump($companies);
-        // echo "</pre>";
+        echo "<pre>";
+        var_dump($companies);
+        echo "</pre>";
         // exit;
         if (empty($companies)) {
             return redirect()->back()->with('status', '⚠️ No company data found!');
@@ -1332,12 +1332,29 @@ class Company extends BaseController
                     }
 
                     // 🔥 DETERMINE MAX CONTACT INDEX (dynamic instead of fixed 3)
+                    // $maxContacts = 0;
+
+                    // // detect how many contacts exist in this company row
+                    // for ($i = 1; $i <= 10; $i++) {
+                    //     if (!empty($company["contact{$i}_name"])) {
+                    //         $maxContacts = $i;
+                    //     }
+                    // }
                     $maxContacts = 0;
 
-                    // detect how many contacts exist in this company row
                     for ($i = 1; $i <= 10; $i++) {
-                        if (!empty($company["contact{$i}_name"])) {
+                        $mobileKey = "contact{$i}_mobile1";
+                        $nameKey = "contact{$i}_name";
+
+                        if (!empty(trim($company[$mobileKey] ?? ''))) {
+
+                            $name = trim($company[$nameKey] ?? '');
+                            if ($name === '') {
+                                $name = 'Missing';
+                            }
+
                             $maxContacts = $i;
+                            break;
                         }
                     }
 
@@ -1345,13 +1362,13 @@ class Company extends BaseController
                         $maxContacts = 3; // fallback default
                     }
 
-                    // ✅ INSERT CONTACTS
+                    // INSERT CONTACTS
                     for ($i = 1; $i <= $maxContacts; $i++) {
 
                         $name = trim($company["contact{$i}_name"] ?? '');
-
                         if ($name === '') {
-                            continue;
+                            $name = "missing";
+                            // continue;
                         }
 
                         $designation = trim($company["contact{$i}_designation"] ?? '');
@@ -1359,28 +1376,24 @@ class Company extends BaseController
                         $mobiles = [];
                         $emails = [];
 
-                        // Collect mobiles (safe + cleaned)
+                        // Collect mobiles
                         for ($m = 1; $m <= 3; $m++) {
-                            $mobileKey = "contact{$i}_mobile{$m}";
-                            $mobile = trim($company[$mobileKey] ?? '');
-
+                            $mobile = trim($company["contact{$i}_mobile{$m}"] ?? '');
                             if ($mobile !== '') {
                                 $mobiles[] = $mobile;
                             }
                         }
 
-                        // Collect emails (safe + cleaned)
+                        // Collect emails
                         for ($e = 1; $e <= 3; $e++) {
-                            $emailKey = "contact{$i}_email{$e}";
-                            $email = trim($company[$emailKey] ?? '');
-
+                            $email = trim($company["contact{$i}_email{$e}"] ?? '');
                             if ($email !== '') {
                                 $emails[] = $email;
                             }
                         }
 
-                        // 🚨 SKIP IF EVERYTHING EMPTY
-                        if (empty($name) && empty($mobiles) && empty($emails)) {
+                        // skip if nothing
+                        if (empty($mobiles) && empty($emails) && $name === '') {
                             continue;
                         }
 
@@ -1393,7 +1406,6 @@ class Company extends BaseController
                             'emails' => array_values(array_unique($emails)),
                         ];
 
-                        // Save contact
                         $inserted = $this->savePerson($contactData);
 
                         if ($inserted === true) {

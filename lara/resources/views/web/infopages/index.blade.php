@@ -27,6 +27,7 @@
 
 
             @include('web.templates.contactus')
+            @include('web.templates.faq')
 
             <!-- {{-- includes register.blade.php --}} -->
         @elseif($lastSegment === 'aboutus')
@@ -40,12 +41,12 @@
 
         @elseif($lastSegment === 'gallery')
             @include('web.templates.gallery')
-
+        @elseif($lastSegment === 'faq')
+            @include('web.templates.faq')
         @endif
-    </div>
 
-    {{-- Footer --}}
-    @include('web.footer')
+        {{-- Footer --}}
+        @include('web.footer')
 
 </body>
 

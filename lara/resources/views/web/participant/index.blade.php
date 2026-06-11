@@ -31,23 +31,23 @@
 
                 <!-- <script>
 
-                            document.addEventListener("DOMContentLoaded", function () {
-                                const wrapper = document.getElementById('iitmHeader');
-                                wrapper.style.display = 'none';
-                                if (wrapper) {
-                                    setTimeout(() => {
-                                        // Force display block with zero spacing
-                                        wrapper.style.display = 'block';
-
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    const wrapper = document.getElementById('iitmHeader');
+                                    wrapper.style.display = 'none';
+                                    if (wrapper) {
                                         setTimeout(() => {
-                                            wrapper.style.opacity = '1';
+                                            // Force display block with zero spacing
+                                            wrapper.style.display = 'block';
 
-                                        }, 50);
+                                            setTimeout(() => {
+                                                wrapper.style.opacity = '1';
 
-                                    }, 5000);
-                                }
-                            });
-                        </script> -->
+                                            }, 50);
+
+                                        }, 5000);
+                                    }
+                                });
+                            </script> -->
             @elseif($lastSegment === 'attending')
                 {{-- Your Attending Content Here --}}
 
@@ -73,7 +73,8 @@
             @elseif($lastSegment === 'register-now')
 
                 @include('web.participant.choosecity')
-            @else @include('web.loading2') {{-- includes register.blade.php --}}
+            @else
+                @include('web.loading2') {{-- includes register.blade.php --}}
                 @include('web.home.index') {{-- includes home.blade.php --}}
             @endif
         </div>

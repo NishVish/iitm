@@ -3,7 +3,6 @@
     <style>
         .download-section {
             max-width: 1200px;
-            /* Expanded max-width for grid layout */
             margin: 40px auto;
             padding: 20px;
             font-family: Arial, sans-serif;
@@ -16,29 +15,28 @@
             color: #A92324;
         }
 
-        /* GRID CONTAINER */
         #download-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 18px;
         }
 
-        /* CARD */
         .download-item {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px;
+            padding: 14px;
+            gap: 10px;
             border-radius: 12px;
             background: #fff;
             border: 1px solid #eee;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             transition: 0.25s ease;
         }
 
         .download-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10);
         }
 
         .download-top {
@@ -46,24 +44,24 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 14px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
         .download-icon {
-            width: 80px;
-            /* Made the image slightly larger for card layouts */
-            height: 80px;
+            width: 100%;
+            height: 180px;
             object-fit: cover;
             border-radius: 10px;
             border: 1px solid #eee;
         }
 
         .download-name {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             color: #333;
-            line-height: 1.4;
+            line-height: 1.3;
+            min-height: 40px;
         }
 
         .pdf-tag {
@@ -74,7 +72,6 @@
             border-radius: 4px;
             display: inline-block;
             margin-top: 4px;
-            vertical-align: middle;
         }
 
         .download-btn {
@@ -120,7 +117,12 @@
 
                 container.innerHTML = data.map(item => {
 
-                    const isPdf = item.link.toLowerCase().includes('.pdf');
+                    const link = item.link.toLowerCase();
+                    const isPdf = link.includes('.pdf');
+
+                    const finalUrl = item.link.startsWith('http')
+                        ? item.link
+                        : baseUrl + item.link;
 
                     return `
                     <div class="download-item">
@@ -128,18 +130,18 @@
                         <div class="download-top">
                             <img class="download-icon"
                                  src="${baseUrl + item.image}"
-                                 onerror="this.src='https://via.placeholder.com/80'">
+                                 onerror="this.src='https://via.placeholder.com/300x180'">
 
                             <div class="download-name">
-                                ${item.title} <br>
+                                ${item.title}
                                 ${isPdf ? '<span class="pdf-tag">PDF</span>' : ''}
                             </div>
                         </div>
 
-                        <a href="${baseUrl + item.link}"
+                        <a href="${finalUrl}"
                            target="_blank"
                            class="download-btn">
-                            Download
+                            ${isPdf ? 'Download' : 'Open'}
                         </a>
 
                     </div>

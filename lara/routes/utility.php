@@ -38,3 +38,14 @@ Route::get('quickmailtest/{preview}', [MailerController::class, 'quickmailtest']
 Route::post('/sendmail', [MailerController::class, 'sendmail'])->name('sendmail');
 Route::post('/sendmail/{eventid}/{companyid}/{contactid}/{email}', [MailerController::class, 'sendmailtothiscontact']);
 
+
+
+use App\Http\Controllers\Utility\LayoutController;
+
+Route::get('layout', [LayoutController::class, 'index']);
+use App\Http\Controllers\Utility\DocumentationController;
+
+Route::get('docs', [DocumentationController::class, 'index']);
+Route::get('documentlist', [DocumentationController::class, 'documentlist']);
+
+

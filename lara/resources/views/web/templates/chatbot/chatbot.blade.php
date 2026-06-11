@@ -11,8 +11,11 @@
         <span onclick="toggleChat()" style="float:right; cursor:pointer;">✖</span>
     </div>
 
-    <div id="chat-body">
-        <p>Hi this is Help Service chatbot 👋</p>
+    <div id="chat-body" style="color:black;">
+        <p>Hi this is Usha from iitm 👋</p>
+        <p>Contacts</p>
+        <p>Email : info@iitmindia.com</p>
+        <p>Call : +91 9742942009</p>
     </div>
 
     <div id="chat-footer">

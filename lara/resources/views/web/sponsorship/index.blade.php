@@ -7,6 +7,11 @@
     <title>IITM Sponsorship Prospectus</title>
 
     <style>
+        * {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
         @include('web.sponsorship.css')
         .page-image {
             height: 550px;

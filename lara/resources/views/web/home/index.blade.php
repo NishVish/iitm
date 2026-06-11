@@ -78,16 +78,34 @@
 <div>
     <!-- section 3 -->
     <div class="content-wrapper">
+        <style>
+            .content-wrapper-inner {
+                max-width: 1000px;
+                margin: auto;
+            }
+        </style>
 
+        <div class="content-wrapper-inner">
+
+            @include('web.templates.quickinfo')
+
+            @include('web.templates.statistics.index')
+            @include('web.templates.intro')
+
+        </div>
 
         <!-- quick info -->
-        @include('web.templates.quickinfo')
 
-        @include('web.templates.statistics.index')
-        @include('web.templates.intro')
         @include('web.highlights.index')
-        @include('web.templates.cities')
-        @include('web.templates.whyexhibit')
+
+        <div class="content-wrapper-inner">
+
+            @include('web.templates.cities')
+            @include('web.templates.whyexhibit')
+
+        </div>
+
+
         @include('web.testimonials.index')
 
         @include('web.templates.tourismboard')

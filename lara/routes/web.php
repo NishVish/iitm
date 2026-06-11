@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/admin.php';
 require __DIR__ . '/assets.php';
+require __DIR__ . '/assistant.php';
 require __DIR__ . '/auth.php';
 require __DIR__ . '/backend.php';
 require __DIR__ . '/badge.php';
@@ -24,8 +25,10 @@ require __DIR__ . '/internal.php';
 require __DIR__ . '/mailer.php';
 require __DIR__ . '/mailtest.php';
 require __DIR__ . '/mcp.php';
+require __DIR__ . '/layout.php';
 require __DIR__ . '/pages.php';
 require __DIR__ . '/participant.php';
+require __DIR__ . '/promotion.php';
 require __DIR__ . '/payments.php';
 require __DIR__ . '/programs.php';
 require __DIR__ . '/ray.php';

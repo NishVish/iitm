@@ -1,97 +1,107 @@
 <style>
     :root {
-        --iitm-text: #AA2324;
-        --iitm-background: #ffffff;
+        --c: #AA2324
     }
 
-    .expo {
-        padding: 50px 20px;
-        font-family: Inter, sans-serif;
-        background: var(--iitm-background);
-        color: var(--iitm-text);
+    .sec {
+        padding: 30px 15px;
+        font-family: Inter, sans-serif
     }
 
     .wrap {
         max-width: 1000px;
-        margin: auto;
+        margin: auto
+    }
+
+    .title {
         text-align: center;
+        margin-bottom: 15px
     }
 
-    h2 {
+    .title h2 {
         margin: 0;
-        font-size: 28px;
-        font-weight: 800;
+        color: var(--c);
+        font-size: 28px
     }
 
-    p {
-        margin: 6px 0 25px;
-        font-size: 13px;
-        opacity: .8;
+    .title p {
+        margin: 5px 0 0;
+        color: #666;
+        font-size: 13px
     }
 
     .grid {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 10px;
-        justify-content: center;
     }
 
-    .chip {
-        padding: 7px 12px;
-        border-radius: 999px;
-        font-size: 12px;
-        border: 1px solid var(--iitm-text);
-        color: var(--iitm-text);
+    .card {
+        border: 1px solid rgba(170, 35, 36, .12);
+        border-radius: 10px;
+        padding: 10px 12px;
+        background: #fafafa;
+    }
+
+    .card ul {
+        margin: 0;
+        padding-left: 14px;
+    }
+
+    .card li {
+        font-size: 12.5px;
+        line-height: 1.35;
+        margin: 2px 0;
+        color: #444;
     }
 </style>
 
-<div class="expo">
-
+<section class="sec">
     <div class="wrap">
 
-        <h2>Visitors Profile</h2>
-        <p>Comprehensive global travel, tourism & hospitality ecosystem</p>
+        <div class="title">
+            <h2>Who Can Visit</h2>
+            <p>Key stakeholders in travel & hospitality ecosystem</p>
+        </div>
 
         <div class="grid">
 
-            <span class="chip">Travel & Tourism Professionals</span>
-            <span class="chip">Tour Operators</span>
-            <span class="chip">Travel Agents</span>
-            <span class="chip">Online Travel Agencies (OTA)</span>
+            <div class="card">
+                <ul>
+                    <li>Travel Agents & Tour Operators</li>
+                </ul>
+            </div>
 
-            <span class="chip">Airlines & Aviation Industry</span>
-            <span class="chip">Airport Authorities</span>
-            <span class="chip">Cruise Operators</span>
-            <span class="chip">Rail & Transport Tourism</span>
+            <div class="card">
+                <ul>
+                    <li>MICE Specialists</li>
+                    <li>Wedding Planners</li>
+                    <li>Event Managers</li>
+                </ul>
+            </div>
 
-            <span class="chip">Hotels & Resorts</span>
-            <span class="chip">Hospitality Chains</span>
-            <span class="chip">Boutique & Luxury Hotels</span>
-            <span class="chip">Resort Developers</span>
+            <div class="card">
+                <ul>
+                    <li>Corporate Travel Decision Makers</li>
+                    <li>Business Travel Heads</li>
+                </ul>
+            </div>
 
-            <span class="chip">Adventure Tourism Operators</span>
-            <span class="chip">Eco Tourism & Wildlife Tourism</span>
-            <span class="chip">Destination Management Companies (DMCs)</span>
+            <div class="card">
+                <ul>
+                    <li>Hotel Owners</li>
+                    <li>Senior Hospitality Professionals</li>
+                    <li>Hotel Managers</li>
+                </ul>
+            </div>
 
-            <span class="chip">Forex & Travel Finance Services</span>
-            <span class="chip">Travel Insurance Providers</span>
-            <span class="chip">Visa & Immigration Consultants</span>
-
-            <span class="chip">MICE Industry Professionals</span>
-            <span class="chip">Event & Exhibition Organizers</span>
-
-            <span class="chip">Technology Providers (Travel Tech / Booking Platforms)</span>
-            <span class="chip">Startups in Travel & Hospitality</span>
-
-            <span class="chip">Government Tourism Boards</span>
-            <span class="chip">Tourism Promotion Councils</span>
-
-            <span class="chip">Travel Media</span>
-
-            <span class="chip">Education & Hospitality Institutes</span>
+            <div class="card">
+                <ul>
+                    <li>Media</li>
+                </ul>
+            </div>
 
         </div>
 
     </div>
-
-</div>
+</section>

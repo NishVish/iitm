@@ -8,12 +8,6 @@
         --iitm-white: #ffffff;
     }
 
-    body {
-        margin: 0;
-        background-color: var(--iitm-black);
-        color: var(--iitm-white);
-        font-family: 'Inter', sans-serif;
-    }
 
     /* --- BACKGROUND IMAGE LAYER --- */
     .iitm-bg-layer {
@@ -33,7 +27,7 @@
 
     /* --- HERO CONTENT --- */
     .hero-promo {
-        height: 100vh;
+        height: 30vh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -129,28 +123,22 @@
         color: var(--iitm-red);
         font-weight: 800;
     }
+
+    .exhibitcontent {
+        background-color: white;
+    }
 </style>
 
 <div class="promotion-page">
 
-    <div class="iitm-bg-layer" id="iitmBg"></div>
+    @include('web.participant.exhibiting.hero')
 
-    <section class="hero-promo">
-        <div class="hero-content">
-            <span class="media-tag">Pan-India Series 2026</span>
-            <h1>
-                <em>Connecting the</em><br>
-                <span>Travel Ecosystem</span>
-            </h1>
-            <p class="hero-description">
-                India's premier networking platform, bridging the gap between global exhibitors and the travel trade
-                community across 9 major business hubs.
-            </p>
-        </div>
-    </section>
 
-    @include('web.templates.statistics.internalkpi')
-    <div style="background-color: white; color: black; padding: 20px;">
+
+
+
+
+    <div style="background-color: white; color: black; padding:0px;">
         <style>
             .white-box {
                 background-color: white;
@@ -160,13 +148,12 @@
         </style>
 
         <div class="white-box">
-            This section is white
         </div>
         <!-- @include('web.templates.whyexhibit') -->
         <div>
             <div class="shecdule">
 
-                <div id="scheduel_heading">Shecdule</div>
+                <div id="scheduel_heading">Event Overview</div>
 
                 <style>
                     .shecdule {
@@ -185,14 +172,14 @@
                 </style>
                 <div class="row">
                     <div class="col-md-12">
-                        @include('web.templates.cities')
+                        @include('web.participant.exhibiting.eventlist')
                     </div>
                 </div>
             </div>
         </div>
 
         <div>
-            @include('web.participant.exhibiting.hook')
+            <!-- @include('web.participant.exhibiting.hook') -->
         </div>
 
         <div>
@@ -202,11 +189,102 @@
 
         <div>
             @include('web.templates.whyexhibit')
+            @include('web.templates.statistics.stats2')
+
         </div>
+
+        <div class="exhibitcontent">
+            @include('web.participant.exhibiting.whoshouldexhibit')
+        </div>
+    </div>
+    <div class="exhibitcontent">
+        <!-- @include('web.participant.exhibiting.highlights') -->
+    </div>
+    <div class="exhibitcontent">
+        @include('web.participant.exhibiting.stallcategory')
+        <style>
+            :root {
+                --primary-color: #AA2D2C;
+                --dark-color: #1a1a1a;
+                --grey-color: #6b7280;
+                --light-bg: #f3f7fa;
+            }
+
+            * {
+                box-sizing: border-box;
+                font-family: 'Inter', -apple-system, sans-serif;
+            }
+
+            .sponsor-section {
+                max-width: 900px;
+                margin: auto;
+                padding: 50px 20px;
+                background: #fff;
+                text-align: center;
+            }
+
+            .sponsor-label {
+                font-size: 11px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: var(--primary-color);
+                font-weight: 700;
+                margin-bottom: 10px;
+                display: block;
+            }
+
+            .sponsor-text {
+                font-size: 16px;
+                color: var(--grey-color);
+                line-height: 1.6;
+                margin-bottom: 25px;
+            }
+
+            .sponsor-text strong {
+                color: var(--dark-color);
+            }
+
+            .sponsor-btn {
+                display: inline-block;
+                padding: 12px 18px;
+                background: var(--primary-color);
+                color: #fff;
+                font-size: 13px;
+                font-weight: 700;
+                text-transform: uppercase;
+                border-radius: 10px;
+                text-decoration: none;
+                transition: 0.3s ease;
+            }
+
+            .sponsor-btn:hover {
+                background: #8d1f1e;
+                transform: translateY(-2px);
+            }
+        </style>
+
+        <section class="sponsor-section">
+
+            <span class="sponsor-label">Sponsorship Opportunities</span>
+
+            <p class="sponsor-text">
+                Gain premium brand visibility at <strong>IITM 2026</strong>, connecting you with
+                thousands of trade visitors, exhibitors, and industry leaders across India.
+                Position your brand in the <strong>travel, tourism, MICE, and corporate travel ecosystem</strong>
+                through high-impact sponsorship opportunities for maximum exposure and growth.
+            </p>
+
+            <a href="{{ url('public/assets/resource/sponsorship.pdf') }}" class="sponsor-btn">Explore Sponsorship
+                Opportunities</a>
+
+        </section>
+    </div>
+    <div class="exhibitcontent">
+        @include('web.participant.exhibiting.howtoparticipate')
 
 
     </div>
-
+    @include('web.templates.faq')
 </div>
 
 <script>

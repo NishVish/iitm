@@ -1,0 +1,42 @@
+{
+    "data_operation": {
+        "title": "Data Operation",
+        "description": "Basic data handling operations like create, read, update, delete (CRUD).",
+        "methods": [
+            "create",
+            "read",
+            "update",
+            "delete"
+        ]
+    },
+    "collection": {
+        "title": "Collection",
+        "description": "Handles grouping and managing multiple records or objects.",
+        "methods": [
+            "list_all",
+            "filter",
+            "group_by",
+            "sort"
+        ]
+    },
+    "updation": {
+        "title": "Updation",
+        "description": "Rules and logic for updating existing data safely.",
+        "methods": [
+            "update_by_id",
+            "bulk_update",
+            "partial_update",
+            "validate_before_update"
+        ]
+    },
+    "cross_validation": {
+        "title": "Cross Validation",
+        "description": "Validates data consistency across multiple modules or tables.",
+        "methods": [
+            "check_dependencies",
+            "validate_relations",
+            "verify_integrity",
+            "sync_validation"
+        ]
+    }
+}

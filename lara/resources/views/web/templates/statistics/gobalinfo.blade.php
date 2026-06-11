@@ -1,4 +1,4 @@
-<section style="font-family:Arial; padding:20px; background:#ffffff; color:#1f2937;">
+<section style="font-family:Arial; padding:3px; background:#ffffff; color:#1f2937;">
 
     <!-- INSIGHTS -->
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:9px;">

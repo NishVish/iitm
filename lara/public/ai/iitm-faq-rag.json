@@ -32,7 +32,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -67,7 +68,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -102,7 +104,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -137,7 +140,8 @@
         "score": 4,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -172,7 +176,8 @@
         "score": 3,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -207,7 +212,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -242,7 +248,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -277,7 +284,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -312,7 +320,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -347,7 +356,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -383,7 +393,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -418,7 +429,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "exhibitor"
   },
   {
     "status": true,
@@ -453,7 +465,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -488,7 +501,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "exhibitor"
   },
   {
     "status": true,
@@ -523,7 +537,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "exhibitor"
   },
   {
     "status": true,
@@ -558,7 +573,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -593,7 +609,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -629,7 +646,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -655,7 +673,8 @@
         "score": 1,
         "file_name": "spheretravelmedia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -690,7 +709,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -725,7 +745,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -761,7 +782,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -796,13 +818,15 @@
         "score": 3,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "question": "Is parking available?",
     "answer": "",
     "matched_files": [],
-    "top_matches": []
+    "top_matches": [],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -837,7 +861,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -872,7 +897,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -907,13 +933,15 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "question": "Is Wi-Fi available?",
     "answer": "",
     "matched_files": [],
-    "top_matches": []
+    "top_matches": [],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -948,7 +976,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -983,7 +1012,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -1018,7 +1048,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "exhibitor"
   },
   {
     "status": true,
@@ -1053,7 +1084,8 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -1089,7 +1121,8 @@
         "score": 2,
         "file_name": "spheretravelmedia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -1124,7 +1157,8 @@
         "score": 3,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -1160,13 +1194,15 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "exhibitor"
   },
   {
     "question": "Can I edit my registration details?",
     "answer": "",
     "matched_files": [],
-    "top_matches": []
+    "top_matches": [],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -1201,7 +1237,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "exhibitor"
   },
   {
     "status": true,
@@ -1221,7 +1258,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -1256,7 +1294,8 @@
         "score": 1,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   },
   {
     "status": true,
@@ -1292,6 +1331,7 @@
         "score": 2,
         "file_name": "iitmindia.json"
       }
-    ]
+    ],
+    "category_type": "visitor"
   }
 ]

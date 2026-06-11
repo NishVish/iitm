@@ -1,4 +1,13 @@
 @php
+    $segments = request()->segments();
+
+    $lastSegment = end($segments);
+    $secondlastSegment = count($segments) > 1
+        ? $segments[count($segments) - 2]
+        : null;
+@endphp
+
+@php
 
     $faqPath = public_path('ai/iitm-faq-rag.json');
 
@@ -10,6 +19,32 @@
             file_get_contents($faqPath),
             true
         );
+
+        $buyer = ['attending', "buyer"];
+        $seller = ['exhibiting', "seller"];
+
+        if (in_array($lastSegment, $buyer) || $secondlastSegment == "promotion") {
+
+            $faqData = array_filter(
+                $faqData,
+                fn($faq) => ($faq['category_type'] ?? '') === 'visitor'
+            );
+
+        } elseif (in_array($lastSegment, $seller)) {
+
+            $faqData = array_filter(
+                $faqData,
+                fn($faq) => ($faq['category_type'] ?? '') === 'exhibitor'
+            );
+
+        } elseif ($lastSegment == 'buyer') {
+
+            $faqData = array_filter(
+                $faqData,
+                fn($faq) => ($faq['category_type'] ?? '') === 'buyer'
+            );
+
+        }
 
     }
 
@@ -27,14 +62,7 @@
     <title>FAQ - IITM India</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
+        .containerfaq {
             max-width: 1000px;
             margin: auto;
             padding: 60px 20px;
@@ -128,7 +156,7 @@
 
 <body>
 
-    <div class="container">
+    <div class="containerfaq">
 
         <h1>Frequently Asked Questions</h1>
 

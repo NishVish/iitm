@@ -244,11 +244,15 @@ max-width: 600px;
 background: #3a1a1a;
 color: #f88;
 }
-
+@media print {
+* {
+-webkit-print-color-adjust: exact;
+print-color-adjust: exact;
+}
+}
 /* ─── PRINT STYLES ─────────────────────────────────────── */
 @media print {
 body {
-background: white;
 }
 
 #toolbar {

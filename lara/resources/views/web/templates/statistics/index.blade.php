@@ -49,39 +49,15 @@
     <div class="iitm-main-card">
         <span class="iitm-box-label">Exhibition Statistics & Global Overview</span>
 
-        <div class="row g-4">
-            <div class="col-lg-7">
-                <div class="chart-container">
-                    @include('web.templates.statistics.bothseprated')
-                </div>
-
-            </div>
-            <div class="col-lg-5" style="margin-top:0px">
-                <div class="side-column-content d-flex flex-column h-100">
 
 
-                    <div class="pie-wrapper mt-auto">
-                        <style>
-                            .mt-auto {
-                                margin-top: 30px !important;
-                            }
+        @include('web.templates.statistics.piechart')
 
-                            .pie-wrapper {
-                                padding-top: 10px;
-                            }
-                        </style>
-                        @include('web.templates.statistics.piechart')
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        @include('web.templates.statistics.bothsepratedhorizontal')
 
         <div class="row">
             <div class="col-12">
-                <div class="stats-wrapper">
-                    <!-- @include('web.templates.statistics.stats') -->
-                </div>
+
                 @include('web.templates.statistics.gobalinfo')
             </div>
         </div>

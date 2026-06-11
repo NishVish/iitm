@@ -26,15 +26,13 @@
         width: 100%;
         z-index: 1000;
         background: #ffffff;
-        transition: all 0.3s ease;
+        transition: var(--transition);
         border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
     .header2.scrolled {
         background: var(--primary-red);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     /* INNER CONTAINER */
@@ -43,11 +41,11 @@
         justify-content: space-between;
         align-items: center;
         padding: clamp(10px, 2vw, 18px) 5%;
+        max-width: 1400px;
         margin: 0 auto;
         width: 100%;
-
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+
 
 
 

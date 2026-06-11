@@ -70,5 +70,3 @@
     </div>
 
 </div>
-
-@include('web.templates.resources.sponsership')

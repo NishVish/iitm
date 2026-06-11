@@ -30,7 +30,7 @@ class InfopagesController extends Controller
 
     public function resourceinventory()
     {
-        $json = file_get_contents(public_path('assets/resource.json'));
+        $json = file_get_contents(public_path('assets/resource/resource.json'));
         $data = json_decode($json, true);
         return $data;
     }

@@ -30,9 +30,12 @@
                 Upcoming & Attending Listings
             </h3>
 
-            <p style="margin:6px auto 0; font-size:13px; color:#666; max-width:500px;">
+            <!-- <p style="margin:6px auto 0; font-size:13px; color:#666; max-width:500px;">
                 Discover active IITM event participation in real time
-            </p>
+            </p> -->
+
+
+
 
         </div>
 
