@@ -598,6 +598,7 @@ class RegisterController extends Controller
     public function registaritonsubmit(Request $request)
     {
 
+
         // $subcategory = $request->subcategory;
 
         $final_category = $this->getFinalCategory($request->category);
@@ -970,29 +971,31 @@ class RegisterController extends Controller
 
         // dd($data);
 
+echo "<pre>";
+print_r($data);
+echo "</pre>";
+        // if ($status === 'approved') {
+        //     // echo "<pre>";
+        //     // echo "thsi is approved";
+        //     // echo "</pre>";
+        //     $mailer = new MailServices();
 
-        if ($status === 'approved') {
-            // echo "<pre>";
-            // echo "thsi is approved";
-            // echo "</pre>";
-            $mailer = new MailServices();
-
-            $mailer->sendRegistrationMail($data);
-
-
-
-
-            // $data['print'] = true;
-            // $data['preview'] = true;
-            // $data['emailpage'] = true;
+        //     $mailer->sendRegistrationMail($data);
 
 
 
-            return view('web.registration.successpage.index', compact('data'));     // 5. Final Return
 
-        }
+        //     // $data['print'] = true;
+        //     // $data['preview'] = true;
+        //     // $data['emailpage'] = true;
 
-        return view('web.registration.underreview', compact('data'));     // 5. Final Return
+
+
+        //     return view('web.registration.successpage.index', compact('data'));     // 5. Final Return
+
+        // }
+
+        // return view('web.registration.underreview', compact('data'));     // 5. Final Return
 
         //  echo "<pre>";
         //  echo "<div
