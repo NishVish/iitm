@@ -77,6 +77,74 @@
 
     </div>
 
+    <form method="POST" action="{{ url('api/mail/registration') }}">
+
+        <h3>Event Registration Email Form</h3>
+
+        <label>Company ID</label>
+        <input type="text" name="company_id" value="CMP_6a2d28f2da56b">
+
+        <label>Contact ID</label>
+        <input type="text" name="contact_id" value="353320">
+
+        <label>Database Name</label>
+        <input type="text" name="databasename" value="iitm-chennai-2026">
+
+        <label>Event Name</label>
+        <input type="text" name="eventname" value="iitm-chennai-2026">
+
+        <label>Status</label>
+        <input type="text" name="status" value="success">
+
+        <label>Message</label>
+        <input type="text" name="message" value="Your registration has been successfully completed">
+
+        <hr>
+
+        <h4>Contact Details</h4>
+
+        <label>Contact Name</label>
+        <input type="text" name="contactName" value="Nishant">
+
+        <label>Email</label>
+        <input type="email" name="email" value="nishwakarma3@gmail.com">
+
+        <label>Mobile</label>
+        <input type="text" name="mobile" value="7909075199">
+
+        <label>Company Name</label>
+        <input type="text" name="companyName" value="ABC Technologies">
+
+        <label>Venue</label>
+        <input type="text" name="venue" value="Abcd Parkway">
+
+        <hr>
+
+        <h4>Flags</h4>
+
+        <label>
+            <input type="checkbox" name="print" checked>
+            Print
+        </label>
+
+        <label>
+            <input type="checkbox" name="preview">
+            Preview
+        </label>
+
+        <label>
+            <input type="checkbox" name="emailpage" checked>
+            Email Page
+        </label>
+
+        <hr>
+
+        <button type="submit">Send Registration Mail</button>
+
+    </form>
+
+
+
 </body>
 
 </html>

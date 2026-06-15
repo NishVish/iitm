@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Mail;
+use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use Exception;
@@ -74,9 +75,10 @@ class MailServices extends Controller
     
 
 
-    public function sendRegistrationMail($data = null)
-    {
-      
+
+public function sendRegistrationMail(array $data)    {
+        // dd("hello");
+      // dd($data);
  // VALIDATION 1: block + in email
     if (strpos($data['email'], '+') !== false) {
         return back()->with('status', 'Invalid email format');
