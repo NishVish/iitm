@@ -113,7 +113,10 @@ class MailServices extends Controller
 
     public function sendRegistrationMail($data = null)
     {
-      
+       if ($request->header('X-API-TOKEN') !== env('MAIL_API_TOKEN')) {
+        abort(403, 'Unauthorized');
+    }
+
 
         // dd($data);
         $to = $data['email'] ?? null;
