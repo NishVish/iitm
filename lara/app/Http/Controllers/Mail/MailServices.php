@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Mail;
+use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use Exception;
@@ -111,12 +112,11 @@ class MailServices extends Controller
         );
     }
 
-    public function sendRegistrationMail($data = null)
+    public function sendRegistrationMail(Request $request, $data = null)
     {
-       if ($request->header('X-API-TOKEN') !== env('MAIL_API_TOKEN')) {
-        abort(403, 'Unauthorized');
-    }
-
+        if ($request->header('X-API-TOKEN') !== env('MAIL_API_TOKEN')) {
+            abort(403, 'Unauthorized');
+        }
 
         // dd($data);
         $to = $data['email'] ?? null;
