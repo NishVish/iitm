@@ -974,6 +974,9 @@ class RegisterController extends Controller
 echo "<pre>";
 print_r($data);
 echo "</pre>";
+        $mailer = new MailServices();
+
+        $mailer->sendRegistrationMail($data);
         // if ($status === 'approved') {
         //     // echo "<pre>";
         //     // echo "thsi is approved";
