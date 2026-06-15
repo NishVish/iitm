@@ -46,7 +46,7 @@
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
             <td class="iitm-logo-cell">
-                <img src="{{ asset('public/assets/iitm3.png') }}" alt="IITM Logo" class="iitm-logo-img">
+                <img src="https://iitmindia.com/ci/lara/public/assets/iitm3.png" alt="IITM Logo" class="iitm-logo-img">
             </td>
 
             <td class="iitm-text-cell">

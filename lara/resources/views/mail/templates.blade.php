@@ -1,18 +1,31 @@
-@include('mail.header')
-
-
 @php
     $lastSegment = request()->segment(count(request()->segments()));
     $secondlastSegment = request()->segment(count(request()->segments()) - 1);
+
+    // echo $lastSegment;
+    // echo "<br>";
+    // echo $secondlastSegment;
 @endphp
-@if($lastSegment === 'buy')
 
-    @include('mail.templates.buy')
+@if($lastSegment != 'registration' && $secondlastSegment != 'registration')
+    @include('mail.header')
+@endif
 
-@elseif($lastSegment === 'mail')
+@if($lastSegment === 'general')
 
+    @include('mail.templates.general')
 
+@elseif($lastSegment === 'registration' || $secondlastSegment == 'registration')
 
+    @include('mail.templates.registration')
+
+@elseif($lastSegment === 'enquiry')
+
+    @include('mail.templates.enquiry')
+
+@elseif($lastSegment === 'test')
+
+    @include('mail.templates.test')
 
 @elseif($lastSegment === 'home')
 
@@ -20,4 +33,6 @@
 @endif
 
 
-@include('mail.footer')
+@if($lastSegment != 'registration' && $secondlastSegment != 'registration')
+    @include('mail.footer')
+@endif

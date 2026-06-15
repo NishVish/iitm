@@ -9,35 +9,58 @@ class MailServices extends Controller
 {
     public function sendmail($name, $email, $templateId)
     {
-        // Get template configuration
         $template = $this->templateSelection($templateId);
 
         $view = $template['view'];
-        $subject = $template['subject'];
         $uid = md5(uniqid(time()));
-        $html2 = view('mail.test');
 
-        $file_name = "hello";
+        // 1. Render raw blade template view
+        $htmlRaw = view('mail.templates')->render();
+
+        // 2. Parse styles directly inline to ensure email engines render formatting
+        $dom = new \DOMDocument();
+        // Use libxml to suppress HTML5 tag warnings cleanly
+        @$dom->loadHTML(mb_convert_encoding($htmlRaw, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        // Basic extraction tool matching CSS properties into elements safely
+        $styles = [];
+        $styleTags = $dom->getElementsByTagName('style');
+        foreach ($styleTags as $tag) {
+            if (preg_match_all('/\.([a-zA-Z0-9_-]+)\s*\{([^}]+)\}/', $tag->nodeValue, $matches)) {
+                foreach ($matches[1] as $key => $className) {
+                    $styles[$className] = trim($matches[2][$key]);
+                }
+            }
+        }
+
+        // Inline matching classes directly on DOM elements
+        $xpath = new \DOMXPath($dom);
+        foreach ($styles as $class => $rules) {
+            $elements = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $class ')]");
+            foreach ($elements as $element) {
+                $currentStyle = $element->getAttribute('style');
+                $element->setAttribute('style', $currentStyle ? $currentStyle . '; ' . $rules : $rules);
+            }
+        }
+
+        $htmlFinal = $dom->saveHTML();
 
         $to = "$email";
         $subject = "Confirmation Mail | India International Travel Mart | Chennai | 16 - 18 Jul 2026";
-        $message = "<b>$html2</b>";
-        $header = "From: events@iitmindia.com\r\n";
-        $header .= "Cc: harish@iitmindia.com\r\n";
+
+        $fromName = "Nishant Mail";
+        $fromAddress = "events@iitmindia.com";
+
+        $header = "From: {$fromName} <{$fromAddress}>\r\n";
         $header .= "MIME-Version: 1.0\r\n";
         $header .= "Content-type: multipart/mixed; boundary=\"$uid\"\r\n";
+
         $body = "--$uid\r\n";
         $body .= "Content-type:text/html; charset=iso-8859-1\r\n";
         $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-        $body .= $message . "\r\n\r\n";
-        $body .= "--$uid\r\n";
-        $body .= "Content-Type: application/pdf; name=\"$file_name\"\r\n";
-        $body .= "Content-Transfer-Encoding: base64\r\n";
-        $body .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n\r\n";
+        $body .= $htmlFinal . "\r\n\r\n";
         $body .= "--$uid--";
-        // $retval = mail($to, $subject, $body, $header);
 
-        // Send Mail
         $status = mail($to, $subject, $body, $header);
 
         return [
@@ -48,7 +71,6 @@ class MailServices extends Controller
             'template' => $templateId
         ];
     }
-
     private function templateSelection($templateId)
     {
         $jsonFile = public_path('mails/templates.json');
@@ -86,6 +108,38 @@ class MailServices extends Controller
 
         throw new Exception(
             "Template ID {$templateId} not found in mailtemplate.json"
+        );
+    }
+
+    public function sendRegistrationMail($data = null)
+    {
+      
+
+        // dd($data);
+        $to = $data['email'] ?? null;
+
+        if (empty($to)) {
+            return back()->with('status', 'Mail Failed: Email address missing');
+        }
+
+        $subject = 'Registration Successful';
+
+        $html = view('mail.templates', compact('data'))->render();
+
+        $fromName = "IITM";
+        $fromAddress = "events@iitmindia.com";
+
+        $header = "From: {$fromName} <{$fromAddress}>\r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+        $status = mail($to, $subject, $html, $header);
+        // $status = true;
+
+
+        return back()->with(
+            'status',
+            $status ? 'Mail Sent' : 'Mail Failed'
         );
     }
 }

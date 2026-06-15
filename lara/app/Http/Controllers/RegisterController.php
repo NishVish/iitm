@@ -17,6 +17,7 @@ use App\Mail\RegistrationSuccessMail;
 use function Illuminate\Support\years;
 use Carbon\Carbon;
 use App\Http\Controllers\MailerController;
+use App\Http\Controllers\Mail\MailServices;
 
 
 class RegisterController extends Controller
@@ -974,8 +975,9 @@ class RegisterController extends Controller
             // echo "<pre>";
             // echo "thsi is approved";
             // echo "</pre>";
-            $mailer = new MailerController();
-            $mailer->sendRegistrationMail($email, $data);
+            $mailer = new MailServices();
+
+            $mailer->sendRegistrationMail($data);
 
 
 

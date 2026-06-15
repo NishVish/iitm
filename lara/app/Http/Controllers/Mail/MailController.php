@@ -26,4 +26,12 @@ class MailController extends Controller
 
         return view('mail.test');
     }
+
+    public function MassMailDashboard()
+    {
+
+        return view('mail.massmail.index');
+
+
+    }
 }

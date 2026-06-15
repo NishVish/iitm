@@ -1,0 +1,9 @@
+# Use this workspace to collaborate
+workspace:
+  id: 1228d2d8-340c-4bf2-88c2-1fa36ee9d5e1
+
+localResources:
+  collections:
+    - ..\lara\storage\app\private\scribe\collection.json
+  specs:
+    - ..\lara\storage\app\private\scribe\openapi.yaml

@@ -1,0 +1,10 @@
+$kind: collection
+name: 'API Health Checks'
+description: 'Basic health checks for CodeIgniter 4 apps: corp, central, and central2.'
+variables:
+  - key: corp_base_url
+    value: 'http://localhost/iitm/corp'
+  - key: central_base_url
+    value: 'http://localhost/iitm/central/public'
+  - key: central2_base_url
+    value: 'http://localhost/iitm/central2/public'
