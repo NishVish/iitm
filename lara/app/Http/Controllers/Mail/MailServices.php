@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Mail;
-use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use Exception;
@@ -112,12 +111,20 @@ class MailServices extends Controller
         );
     }
 
-    public function sendRegistrationMail(Request $request, $data = null)
-    {
-        if ($request->header('X-API-TOKEN') !== env('MAIL_API_TOKEN')) {
-            abort(403, 'Unauthorized');
-        }
 
+
+    public function sendRegistrationMail($data = null)
+    {
+      
+ // VALIDATION 1: block + in email
+    if (strpos($data['email'], '+') !== false) {
+        return back()->with('status', 'Invalid email format');
+    }
+
+    // VALIDATION 2: block specific email
+    if ($data['email'] === 'admin@iitmindia.com') {
+        return back()->with('status', 'Email not allowed');
+    }
         // dd($data);
         $to = $data['email'] ?? null;
 

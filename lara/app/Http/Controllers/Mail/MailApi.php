@@ -107,10 +107,33 @@ class MailApi extends Controller
             'dbData' => [],
         ];
 
-        // Uses constructor service property
+        // call the formvalidation using postmetodn if pass continue else return validation fail
+        // fetch post method api/mail/registration 
+
+  // Uses constructor service property
+
+
+
+
         $result = $this->mailServices->sendRegistrationMail($data);
 
         return view('mail.templates', compact('data'));
+      
+    }
+
+
+    public function send(Request $request,$type){
+
+        dd(request->all());
+
+
+    }
+
+
+
+    public function formvalidation(Request $request){
+
+
     }
 
     public function sendEnquiryMail()
@@ -138,15 +161,11 @@ class MailApi extends Controller
             ]
         ];
 
-        $response = Http::asJson()
-            ->withHeaders([
-                'X-API-TOKEN' => 'IITM_secure_98321_key',
-            ])
-            ->post(url('/api/massmail'), [
-                'recipients' => $data,
-                'subject' => 'Test Mass Mail',
-                'message' => 'This is a test message.',
-            ]);
+        $response = Http::asJson()->post(url('/api/massmail'), [
+            'recipients' => $data,
+            'subject' => 'Test Mass Mail',
+            'message' => 'This is a test message.'
+        ]);
 
         dd($response->body());
     }
