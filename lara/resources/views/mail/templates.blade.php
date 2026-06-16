@@ -7,7 +7,7 @@
     // echo $secondlastSegment;
 @endphp
 
-@if($lastSegment != 'registration' && $secondlastSegment != 'registration')
+@if($lastSegment != 'registration' || $secondlastSegment != 'registration')
     @include('mail.header')
 @endif
 
@@ -33,6 +33,6 @@
 @endif
 
 
-@if($lastSegment != 'registration' && $secondlastSegment != 'registration')
+@if($lastSegment != 'registration' || $secondlastSegment != 'registration')
     @include('mail.footer')
 @endif

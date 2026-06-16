@@ -3,12 +3,113 @@
 namespace App\Http\Controllers\Mail;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Exception;
 
 class MailServices extends Controller
 {
+
+
+
     public function sendmail($name, $email, $templateId)
+    {
+        $template = $this->templateSelection($templateId);
+
+        $view = $template['view'];
+
+        // Render Blade template
+        $htmlRaw = view('mail.templates', [
+            'name' => $name,
+            'template' => $template
+        ])->render();
+
+        // Inline CSS
+        $dom = new \DOMDocument();
+
+        @$dom->loadHTML(
+            mb_convert_encoding($htmlRaw, 'HTML-ENTITIES', 'UTF-8'),
+            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+        );
+
+        $styles = [];
+
+        $styleTags = $dom->getElementsByTagName('style');
+
+        foreach ($styleTags as $tag) {
+            if (
+                preg_match_all(
+                    '/\.([a-zA-Z0-9_-]+)\s*\{([^}]+)\}/',
+                    $tag->nodeValue,
+                    $matches
+                )
+            ) {
+                foreach ($matches[1] as $key => $className) {
+                    $styles[$className] = trim($matches[2][$key]);
+                }
+            }
+        }
+
+        $xpath = new \DOMXPath($dom);
+
+        foreach ($styles as $class => $rules) {
+            $elements = $xpath->query(
+                "//*[contains(concat(' ', normalize-space(@class), ' '), ' {$class} ')]"
+            );
+
+            foreach ($elements as $element) {
+                $currentStyle = $element->getAttribute('style');
+
+                $element->setAttribute(
+                    'style',
+                    $currentStyle
+                        ? $currentStyle . '; ' . $rules
+                        : $rules
+                );
+            }
+        }
+
+        $htmlFinal = $dom->saveHTML();
+
+        $subject = "Confirmation Mail | India International Travel Mart | Chennai | 16 - 18 Jul 2026";
+
+        try {
+
+            Mail::html($htmlFinal, function ($message) use ($email, $subject) {
+
+                $message->to($email)
+                        ->subject($subject);
+
+                // Optional if MAIL_FROM_* is set in .env
+                $message->from(
+                    env('MAIL_FROM_ADDRESS'),
+                    env('MAIL_FROM_NAME')
+                );
+            });
+
+            return [
+                'status'   => true,
+                'subject'  => $subject,
+                'email'    => $email,
+                'template' => $templateId
+            ];
+
+        } catch (\Exception $e) {
+
+            Log::error('Mail Error: ' . $e->getMessage());
+
+            return [
+                'status' => false,
+                'error'  => $e->getMessage(),
+                'email'  => $email
+            ];
+        }
+    }
+
+
+
+    public function sendmailold($name, $email, $templateId)
     {
         $template = $this->templateSelection($templateId);
 

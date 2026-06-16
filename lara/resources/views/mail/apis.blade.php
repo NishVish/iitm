@@ -107,7 +107,7 @@
         <input type="text" name="contactName" value="Nishant">
 
         <label>Email</label>
-        <input type="email" name="email" value="nishwakarma3@gmail.com">
+        <input type="email" name="email" value="noreply@iitmindia.com">
 
         <label>Mobile</label>
         <input type="text" name="mobile" value="7909075199">
