@@ -13,7 +13,7 @@ class MailServices extends Controller
 
 
 
-    public function sendmail($name, $email, $templateId)
+    public function sendmailsmtp($name, $email, $templateId)
     {
         $template = $this->templateSelection($templateId);
 
@@ -85,7 +85,7 @@ class MailServices extends Controller
               $message->to($email)
         ->subject($subject);
 
-        
+
             });
 
             return [
@@ -109,7 +109,7 @@ class MailServices extends Controller
 
 
 
-    public function sendmailold($name, $email, $templateId)
+    public function sendmail($name, $email, $templateId)
     {
         $template = $this->templateSelection($templateId);
 
