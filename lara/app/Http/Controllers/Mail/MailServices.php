@@ -113,11 +113,46 @@ class MailServices extends Controller
     {
         $template = $this->templateSelection($templateId);
 
-        $view = $template['view'];
+
+$name = 'Nishant';
+        $email = 'marketing1@iitmindia.com';
+        $template = 1;
+
+        $data = [
+            'company_id' => 'CMP_6a2d28f2da56b',
+            'contact_id' => '353320',
+            'databasename' => 'iitm-chennai-2026',
+            'eventname' => 'iitm-chennai-2026',
+            // /353320/
+            'print' => false,
+            'status' => 'success',
+            'message' => 'Your registration has been successfully completed',
+
+            'contactName' => 'Nishant',
+            'email' => 'nishwakarma3@gmail.com',
+            'mobile' => '7909075199',
+            'companyName' => 'ABC Technologies',
+
+            'preview' => false,
+            'emailpage' => true,
+            'all_dates' => [],
+            'venue' => 'Abcd Parkway',
+
+            'sentData' => [
+                'contactName' => 'Nishant',
+                'email' => 'nishwakarma3@gmail.com',
+                'mobile' => '7909075199',
+                'company_name' => 'ABC Technologies',
+            ],
+
+            'dbData' => [],
+        ];
+        // $view = $template['view'];
         $uid = md5(uniqid(time()));
 
         // 1. Render raw blade template view
-        $htmlRaw = view('mail.templates')->render();
+        // $htmlRaw = view('mail.templates')->render();
+        $htmlRaw = view('mail.templates', compact('data'))->render();
 
         // 2. Parse styles directly inline to ensure email engines render formatting
         $dom = new \DOMDocument();
@@ -168,7 +203,7 @@ class MailServices extends Controller
         return [
             'status' => $status,
             'subject' => $subject,
-            'view' => $view,
+            // 'view' => $view,
             'email' => $email,
             'template' => $templateId
         ];
