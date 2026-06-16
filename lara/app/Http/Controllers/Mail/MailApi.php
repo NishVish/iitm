@@ -70,56 +70,39 @@ class MailApi extends Controller
         $this->mailServices->sendmail($name, $email, $template);
     }
 
-    public function sendRegistrationMail()
-    {
-        // Placeholders fallback to avoid undefined variable faults
-        $name = 'Nishant';
-        $email = 'marketing1@iitmindia.com';
-        $template = 1;
+public function sendRegistrationMail(Request $request)
+{
 
-        $data = [
-            'company_id' => 'CMP_6a2d28f2da56b',
-            'contact_id' => '353320',
-            'databasename' => 'iitm-chennai-2026',
-            'eventname' => 'iitm-chennai-2026',
-            // /353320/
-            'print' => false,
-            'status' => 'success',
-            'message' => 'Your registration has been successfully completed',
+    
+    $input = $request->all();
 
-            'contactName' => 'Nishant',
-            'email' => 'nishwakarma3@gmail.com',
-            'mobile' => '7909075199',
-            'companyName' => 'ABC Technologies',
+    $data = [
+        'company_id'   => $input['company_id'] ?? null,
+        'contact_id'   => $input['contact_id'] ?? null,
+        'databasename' => $input['databasename'] ?? null,
+        'eventname'    => $input['eventname'] ?? null,
 
-            'preview' => false,
-            'emailpage' => true,
-            'all_dates' => [],
-            'venue' => 'Abcd Parkway',
+        'status'       => $input['status'] ?? 'success',
+        'message'      => $input['message'] ?? '',
 
-            'sentData' => [
-                'contactName' => 'Nishant',
-                'email' => 'nishwakarma3@gmail.com',
-                'mobile' => '7909075199',
-                'company_name' => 'ABC Technologies',
-            ],
+        'contactName'  => $input['contactName'] ?? null,
+        'email'        => $input['email'] ?? null,
+        'mobile'       => $input['mobile'] ?? null,
+        'companyName'  => $input['companyName'] ?? null,
+        'venue'        => $input['venue'] ?? null,
 
-            'dbData' => [],
-        ];
+        // normalize checkboxes
+        'print'        => $request->boolean('print'),
+        'preview'      => $request->boolean('preview'),
+        'emailpage'    => $request->boolean('emailpage'),
 
-        // call the formvalidation using postmetodn if pass continue else return validation fail
-        // fetch post method api/mail/registration 
+        'all_dates'    => $input['all_dates'] ?? [],
+    ];
 
-  // Uses constructor service property
+    $result = $this->mailServices->sendRegistrationMail($data);
 
-
-
-
-        $result = $this->mailServices->sendRegistrationMail($data);
-
-        return view('mail.templates', compact('data'));
-      
-    }
+    return view('mail.templates', compact('data'));
+}
 
 
     public function send(Request $request,$type){

@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mail API List</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -78,9 +79,11 @@
     </div>
 
     <form method="POST" action="{{ url('api/mail/registration') }}">
-
+        @csrf
+        <h1>
+            {{ csrf_token() }}
+        </h1>
         <h3>Event Registration Email Form</h3>
-
         <label>Company ID</label>
         <input type="text" name="company_id" value="CMP_6a2d28f2da56b">
 
@@ -136,7 +139,6 @@
             <input type="checkbox" name="emailpage" checked>
             Email Page
         </label>
-
         <hr>
 
         <button type="submit">Send Registration Mail</button>

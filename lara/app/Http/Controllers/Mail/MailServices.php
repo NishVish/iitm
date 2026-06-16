@@ -12,109 +12,12 @@ class MailServices extends Controller
 {
 
 
-
-    public function sendmailsmtp($name, $email, $templateId)
-    {
-        $template = $this->templateSelection($templateId);
-
-        $view = $template['view'];
-
-        // Render Blade template
-        $htmlRaw = view('mail.templates', [
-            'name' => $name,
-            'template' => $template
-        ])->render();
-
-        // Inline CSS
-        $dom = new \DOMDocument();
-
-        @$dom->loadHTML(
-            mb_convert_encoding($htmlRaw, 'HTML-ENTITIES', 'UTF-8'),
-            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-        );
-
-        $styles = [];
-
-        $styleTags = $dom->getElementsByTagName('style');
-
-        foreach ($styleTags as $tag) {
-            if (
-                preg_match_all(
-                    '/\.([a-zA-Z0-9_-]+)\s*\{([^}]+)\}/',
-                    $tag->nodeValue,
-                    $matches
-                )
-            ) {
-                foreach ($matches[1] as $key => $className) {
-                    $styles[$className] = trim($matches[2][$key]);
-                }
-            }
-        }
-
-        $xpath = new \DOMXPath($dom);
-
-        foreach ($styles as $class => $rules) {
-            $elements = $xpath->query(
-                "//*[contains(concat(' ', normalize-space(@class), ' '), ' {$class} ')]"
-            );
-
-            foreach ($elements as $element) {
-                $currentStyle = $element->getAttribute('style');
-
-                $element->setAttribute(
-                    'style',
-                    $currentStyle
-                        ? $currentStyle . '; ' . $rules
-                        : $rules
-                );
-            }
-        }
-
-        $htmlFinal = $dom->saveHTML();
-
-        $subject = "Confirmation Mail | India International Travel Mart | Chennai | 16 - 18 Jul 2026";
-
-        try {
-
-            Mail::html($htmlFinal, function ($message) use ($email, $subject) {
-
-                $message->to($email)
-                        ->subject($subject);
-
-                // Optional if MAIL_FROM_* is set in .env
-              $message->to($email)
-        ->subject($subject);
-
-
-            });
-
-            return [
-                'status'   => true,
-                'subject'  => $subject,
-                'email'    => $email,
-                'template' => $templateId
-            ];
-
-        } catch (\Exception $e) {
-
-            Log::error('Mail Error: ' . $e->getMessage());
-
-            return [
-                'status' => false,
-                'error'  => $e->getMessage(),
-                'email'  => $email
-            ];
-        }
-    }
-
-
-
     public function sendmail($name, $email, $templateId)
     {
         $template = $this->templateSelection($templateId);
 
 
-$name = 'Nishant';
+        $name = 'Nishant';
         $email = 'marketing1@iitmindia.com';
         $template = 1;
 
@@ -208,52 +111,84 @@ $name = 'Nishant';
             'template' => $templateId
         ];
     }
-    
 
 
 
-public function sendRegistrationMail(array $data)    {
-        // dd("hello");
-      // dd($data);
- // VALIDATION 1: block + in email
-    if (strpos($data['email'], '+') !== false) {
-        return back()->with('status', 'Invalid email format');
-    }
+    public function sendRegistrationMail($data )
+    {
 
-    // VALIDATION 2: block specific email
-    if ($data['email'] === 'admin@iitmindia.com') {
-        return back()->with('status', 'Email not allowed');
-    }
-        // dd($data);
-        $to = $data['email'] ?? null;
+        
 
-        if (empty($to)) {
-            return back()->with('status', 'Mail Failed: Email address missing');
+
+        // $template = $this->templateSelection($templateId);
+
+       
+        // $view = $template['view'];
+        $uid = md5(uniqid(time()));
+
+        // 1. Render raw blade template view
+        // $htmlRaw = view('mail.templates')->render();
+        $htmlRaw = view('mail.templates', compact('data'))->render();
+
+        // 2. Parse styles directly inline to ensure email engines render formatting
+        $dom = new \DOMDocument();
+        // Use libxml to suppress HTML5 tag warnings cleanly
+        @$dom->loadHTML(mb_convert_encoding($htmlRaw, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        // Basic extraction tool matching CSS properties into elements safely
+        $styles = [];
+        $styleTags = $dom->getElementsByTagName('style');
+        foreach ($styleTags as $tag) {
+            if (preg_match_all('/\.([a-zA-Z0-9_-]+)\s*\{([^}]+)\}/', $tag->nodeValue, $matches)) {
+                foreach ($matches[1] as $key => $className) {
+                    $styles[$className] = trim($matches[2][$key]);
+                }
+            }
         }
 
-        $subject = 'Registration Successful';
+        // Inline matching classes directly on DOM elements
+        $xpath = new \DOMXPath($dom);
+        foreach ($styles as $class => $rules) {
+            $elements = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $class ')]");
+            foreach ($elements as $element) {
+                $currentStyle = $element->getAttribute('style');
+                $element->setAttribute('style', $currentStyle ? $currentStyle . '; ' . $rules : $rules);
+            }
+        }
 
-        $html = view('mail.templates', compact('data'))->render();
+        $htmlFinal = $dom->saveHTML();
 
-        $fromName = "IITM";
+        $to = $data['email'];
+        // dd($to);
+        $subject = "Confirmation Mail | India International Travel Mart | Chennai | 16 - 18 Jul 2026";
+
+        $fromName = "Nishant Mail";
         $fromAddress = "events@iitmindia.com";
 
         $header = "From: {$fromName} <{$fromAddress}>\r\n";
         $header .= "MIME-Version: 1.0\r\n";
-        $header .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $header .= "Content-type: multipart/mixed; boundary=\"$uid\"\r\n";
 
-        $status = mail($to, $subject, $html, $header);
-        // $status = true;
+        $body = "--$uid\r\n";
+        $body .= "Content-type:text/html; charset=iso-8859-1\r\n";
+        $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+        $body .= $htmlFinal . "\r\n\r\n";
+        $body .= "--$uid--";
 
+        $status = mail($to, $subject, $body, $header);
 
-        return back()->with(
-            'status',
-            $status ? 'Mail Sent' : 'Mail Failed'
-        );
+        return [
+            'status' => $status,
+            'subject' => $subject,
+            // 'view' => $view,
+            'email' => $data['email'],
+            // 'template' => $templateId
+        ];
     }
 
 
-private function templateSelection($templateId)
+
+    private function templateSelection($templateId)
     {
         $jsonFile = public_path('mails/templates.json');
 

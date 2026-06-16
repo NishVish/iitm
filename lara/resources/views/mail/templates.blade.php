@@ -7,8 +7,8 @@
     // echo $secondlastSegment;
 @endphp
 
-@if($lastSegment != 'registration' || $secondlastSegment != 'registration')
-    <!-- @include('mail.header') -->
+@if($lastSegment != 'registration' && $secondlastSegment != 'registration')
+    @include('mail.header')
 @endif
 
 @if($lastSegment === 'general')
@@ -21,13 +21,11 @@
 
 @elseif($lastSegment === 'enquiry')
 
-
     @include('mail.templates.enquiry')
 
 @elseif($lastSegment === 'test')
-    @include('mail.templates.registration')
 
-    <!-- @include('mail.templates.test') -->
+    @include('mail.templates.test')
 
 @elseif($lastSegment === 'home')
 
@@ -35,6 +33,6 @@
 @endif
 
 
-@if($lastSegment != 'registration' || $secondlastSegment != 'registration')
+@if($lastSegment != 'registration' && $secondlastSegment != 'registration')
     @include('mail.footer')
 @endif

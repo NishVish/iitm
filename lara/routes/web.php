@@ -48,3 +48,13 @@ Route::get('/', [WebController::class, 'index'])->name('web'); // show login for
 
 
 
+Route::get('/csrf-test', function () {
+
+    session()->regenerateToken();
+
+    return [
+        'session_id' => session()->getId(),
+        'session_token' => session()->token(),
+        'csrf_token' => csrf_token(),
+    ];
+});

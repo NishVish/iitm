@@ -974,9 +974,12 @@ class RegisterController extends Controller
 echo "<pre>";
 print_r($data);
 echo "</pre>";
-        $mailer = new MailServices();
 
-        $mailer->sendRegistrationMail($data);
+
+   $result = \Illuminate\Support\Facades\Http::post(url('/mail/registration'), $data);
+
+// dd($result);
+
         // if ($status === 'approved') {
         //     // echo "<pre>";
         //     // echo "thsi is approved";
@@ -994,7 +997,9 @@ echo "</pre>";
 
 
 
-        //     return view('web.registration.successpage.index', compact('data'));     // 5. Final Return
+            return view('web.registration.successpage.index', compact('data'));
+
+                 // 5. Final Return
 
         // }
 
