@@ -82,10 +82,10 @@ class MailServices extends Controller
                         ->subject($subject);
 
                 // Optional if MAIL_FROM_* is set in .env
-                $message->from(
-                    env('MAIL_FROM_ADDRESS'),
-                    env('MAIL_FROM_NAME')
-                );
+              $message->to($email)
+        ->subject($subject);
+
+        
             });
 
             return [
