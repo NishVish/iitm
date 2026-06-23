@@ -12,6 +12,7 @@ require __DIR__ . '/booking.php';
 require __DIR__ . '/category.php';
 require __DIR__ . '/content.php';
 require __DIR__ . '/cmd.php';
+require __DIR__ . '/centraldatabase.php';
 require __DIR__ . '/data.php';
 require __DIR__ . '/database.php';
 require __DIR__ . '/download.php';
@@ -26,6 +27,7 @@ require __DIR__ . '/mailer.php';
 require __DIR__ . '/mail.php';
 require __DIR__ . '/mailtest.php';
 require __DIR__ . '/mcp.php';
+require __DIR__ . '/mongocontroller.php';
 require __DIR__ . '/layout.php';
 require __DIR__ . '/pages.php';
 require __DIR__ . '/participant.php';
@@ -57,4 +59,20 @@ Route::get('/csrf-test', function () {
         'session_token' => session()->token(),
         'csrf_token' => csrf_token(),
     ];
+});
+
+use MongoDB\Client;
+
+Route::get('/mongo-test', function () {
+
+    $client = new Client("mongodb://127.0.0.1:27017");
+
+    $db = $client->testdb;
+
+    $db->users->insertOne([
+        'name' => 'Test User',
+        'created_at' => now()->toDateTimeString()
+    ]);
+
+    return $db->users->find()->toArray();
 });

@@ -43,7 +43,15 @@ return [
             'synchronous' => null,
             'transaction_mode' => 'DEFERRED',
         ],
-// 'hostname'=>'21.157.66.148.host.secureserver.net','username'=>'iitminda_master','password'=>'gB)%gU}ocn?MCP=}','database'=>'iitminda_testing_server',
+
+
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'host' => env('MONGODB_HOST', '127.0.0.1'),
+            'port' => env('MONGODB_PORT', 27017),
+            'database' => env('MONGODB_DATABASE', 'testdb'),
+        ],
+        // 'hostname'=>'21.157.66.148.host.secureserver.net','username'=>'iitminda_master','password'=>'gB)%gU}ocn?MCP=}','database'=>'iitminda_testing_server',
 
         'mysql' => [
             'driver' => 'mysql',
@@ -55,7 +63,7 @@ return [
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
 
-// sss
+            // sss
 
 
             // 'host' => env('DB_HOST', '21.157.66.148.host.secureserver.net'),
@@ -64,7 +72,7 @@ return [
             // 'password' => env('DB_PASSWORD', 'gB)%gU}ocn?MCP=}'),
 
 
-// ss
+            // ss
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -162,7 +170,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-database-'),
+            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')) . '-database-'),
             'persistent' => env('REDIS_PERSISTENT', false),
         ],
 

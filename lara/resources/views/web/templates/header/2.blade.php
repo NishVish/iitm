@@ -44,7 +44,7 @@
         left: 0;
         width: 100%;
         z-index: 1000;
-        background: #ffffff;
+        background: #ffffffff;
         transition: var(--transition);
         border-bottom: 2px solid rgba(0, 0, 0, 0.06);
     }

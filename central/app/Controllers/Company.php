@@ -1214,10 +1214,10 @@ class Company extends BaseController
 
         $companies = $this->request->getPost('companies');
 
-        echo "<pre>";
-        var_dump($companies);
-        echo "</pre>";
-        // exit;
+        // echo "<pre>";
+        // var_dump($companies);
+        // echo "</pre>";
+        // // exit;
         if (empty($companies)) {
             return redirect()->back()->with('status', '⚠️ No company data found!');
         }
@@ -1331,46 +1331,49 @@ class Company extends BaseController
 
                     }
 
-                    // 🔥 DETERMINE MAX CONTACT INDEX (dynamic instead of fixed 3)
-                    // $maxContacts = 0;
-
-                    // // detect how many contacts exist in this company row
-                    // for ($i = 1; $i <= 10; $i++) {
-                    //     if (!empty($company["contact{$i}_name"])) {
-                    //         $maxContacts = $i;
-                    //     }
-                    // }
+                    // STEP 1: Find max contact index dynamically
                     $maxContacts = 0;
 
                     for ($i = 1; $i <= 10; $i++) {
-                        $mobileKey = "contact{$i}_mobile1";
-                        $nameKey = "contact{$i}_name";
 
-                        if (!empty(trim($company[$mobileKey] ?? ''))) {
+                        $name = trim($company["contact{$i}_name"] ?? '');
+                        $mobile = trim($company["contact{$i}_mobile1"] ?? '');
+                        $email = trim($company["contact{$i}_email1"] ?? '');
 
-                            $name = trim($company[$nameKey] ?? '');
-                            if ($name === '') {
-                                $name = 'Missing';
-                            }
-
+                        if ($name !== '' || $mobile !== '' || $email !== '') {
                             $maxContacts = $i;
-                            break;
                         }
                     }
 
+                    // fallback
                     if ($maxContacts == 0) {
-                        $maxContacts = 3; // fallback default
+                        $maxContacts = 3;
                     }
 
-                    // INSERT CONTACTS
+
+                    // STEP 2: LOOP FOR DISPLAY (optional debug/output)
                     for ($i = 1; $i <= $maxContacts; $i++) {
 
                         $name = trim($company["contact{$i}_name"] ?? '');
-                        if ($name === '') {
-                            $name = "missing";
-                            // continue;
+                        $mobile = trim($company["contact{$i}_mobile1"] ?? '');
+                        $email = trim($company["contact{$i}_email1"] ?? '');
+
+                        if ($name === '' && $mobile === '' && $email === '') {
+                            continue;
                         }
 
+                        $name = $name ?: 'Missing';
+                        $mobile = $mobile ?: 'Missing';
+                        $email = $email ?: 'Missing';
+
+                        echo "Contact {$i}: {$name} | {$mobile} | {$email}<br>";
+                    }
+
+
+                    // STEP 3: INSERT CONTACTS
+                    for ($i = 1; $i <= $maxContacts; $i++) {
+
+                        $name = trim($company["contact{$i}_name"] ?? '');
                         $designation = trim($company["contact{$i}_designation"] ?? '');
 
                         $mobiles = [];
@@ -1392,10 +1395,14 @@ class Company extends BaseController
                             }
                         }
 
-                        // skip if nothing
-                        if (empty($mobiles) && empty($emails) && $name === '') {
-                            continue;
-                        }
+                        // SKIP ONLY IF EVERYTHING EMPTY
+                        // if ($name === '' && empty($mobiles) && empty($emails) && $designation === '') {
+                        //     continue;
+                        // }
+
+                        // fill missing
+                        $name = $name ?: "Missing";
+                        $designation = $designation ?: "Missing";
 
                         $contactData = [
                             'company_id' => $company_id,
@@ -1414,6 +1421,7 @@ class Company extends BaseController
                             $failed++;
                         }
                     }
+                    // die;
 
                     $allowedCities = [
                         'ahmedabad',
@@ -1427,6 +1435,7 @@ class Company extends BaseController
                     ];
 
                 }
+                // exit;
                 // var_dump($note);
 
                 if ($database_name === "Registered Exhibitor 2026") {
@@ -1621,7 +1630,7 @@ class Company extends BaseController
                 }
             }
 
-
+            // echo ;
             // ✅ If called from form, redirect
             if ($this->request->getMethod() === 'post') {
                 return redirect()->back()->with('success', 'Contact Saved Successfully');

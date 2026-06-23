@@ -35,6 +35,7 @@ return array(
     '91892b814db86b8442ad76273bb7aec5' => $vendorDir . '/laravel/framework/src/Illuminate/Reflection/helpers.php',
     '493c6aea52f6009bab023b26c21a386a' => $vendorDir . '/laravel/framework/src/Illuminate/Support/functions.php',
     '58571171fd5812e6e447dce228f52f4d' => $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
+    '3a37ebac017bc098e9a86b35401e7a68' => $vendorDir . '/mongodb/mongodb/src/functions.php',
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     'a1cfe24d14977df6878b9bf804af2d1c' => $vendorDir . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
     '2a3c2110e8e0295330dc3d11a4cbc4cb' => $vendorDir . '/php-webdriver/webdriver/lib/Exception/TimeoutException.php',

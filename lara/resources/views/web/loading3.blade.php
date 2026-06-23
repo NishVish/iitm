@@ -6,7 +6,7 @@
         position: fixed;
         inset: 0;
         z-index: 99999;
-        background: #ffffff;
+        background: #8c0808ff;
 
         display: flex;
         align-items: center;
