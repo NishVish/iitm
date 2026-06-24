@@ -12,6 +12,6 @@ class AiController extends Controller
 
     public function questionanswer()
     {
-        return view('ai.questionanswer');
+        return view('ai.iitmchat');
     }
 }

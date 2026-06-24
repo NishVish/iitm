@@ -188,26 +188,17 @@
                 aiBubble.innerText = "";
 
                 try {
-                    const response = await fetch('{{ url("/chat") }}', {
+                    const response = await fetch('{{ url("api/ai/rag/ask") }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
-                        body: JSON.stringify({ message: msg })
+                        body: JSON.stringify({ question: msg })
                     });
 
-                    const reader = response.body.getReader();
-                    const decoder = new TextDecoder();
-
-                    while (true) {
-                        const { value, done } = await reader.read();
-                        if (done) break;
-
-                        const chunk = decoder.decode(value, { stream: true });
-                        aiBubble.innerText += chunk;
-                        responseBox.scrollTop = responseBox.scrollHeight;
-                    }
+                    const data = await response.json();
+                    aiBubble.innerText = data.answer;
 
                 } catch (err) {
                     aiBubble.innerText = "Connection lost.";

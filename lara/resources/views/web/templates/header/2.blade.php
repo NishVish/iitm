@@ -308,6 +308,10 @@
     });
 </script>
 
-@include('web.templates.chatbot.chatbot')
+@if(env('CHATBOT', false))
+    @include('web.templates.chatbot.chatbot')
+
+@endif
+
 
 <div style="margin-top:125px"></div>

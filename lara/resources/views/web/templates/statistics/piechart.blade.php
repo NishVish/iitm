@@ -47,13 +47,11 @@
                 The visitor profile represents a strong mix of tourism professionals,
                 ensuring industry-wide participation and networking opportunities.
             </p>
-
             <ul style="line-height:1.9;padding-left:18px;margin:10px 0;">
-                <li><b>15%</b> Others</li>
+                <li><b>35%</b> Others</li>
                 <li><b>20%</b> Hotels & Resorts</li>
                 <li><b>40%</b> Travel & Tourism Professionals</li>
                 <li><b>5%</b> Airlines & Aviation</li>
-
             </ul>
 
             <p style="line-height:1.7;color:#555;">
@@ -139,17 +137,13 @@
                 'Hotels & Resorts',
                 'Others'
             ],
-
             datasets: [{
-                data: [40, 5, 20, 15, 5],
+                data: [40, 5, 20, 35], // Total = 100
                 backgroundColor: [
                     '#aa2324',
                     '#fbbf24',
                     '#3b82f6',
-                    '#10b981',
-                    '#8b5cf6',
-                    '#f97316',
-                    '#9ca3af'
+                    '#10b981'
                 ],
                 borderColor: '#fff',
                 borderWidth: 3,

@@ -10,5 +10,6 @@ use App\Http\Controllers\Assistant\AssistantController;
 //     ]);
 // });
 require __DIR__ . '/mailapi.php';
+require __DIR__ . '/ragapi.php';
 
 Route::post('/assistant/ask/web', [AssistantController::class, 'ask']);

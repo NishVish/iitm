@@ -189,7 +189,7 @@
                 */
 
                 let response = await fetch(
-                    '{{ url("/ai/rag/ask") }}',
+                    '{{ url("api/ai/rag/ask") }}',
                     {
                         method: 'POST',
 

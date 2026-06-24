@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+// require __DIR__ . '/ai.php';
+
 require __DIR__ . '/admin.php';
 require __DIR__ . '/assets.php';
 require __DIR__ . '/assistant.php';
@@ -34,12 +37,12 @@ require __DIR__ . '/participant.php';
 require __DIR__ . '/promotion.php';
 require __DIR__ . '/payments.php';
 require __DIR__ . '/programs.php';
+require __DIR__ . '/ragcontroller.php';
 require __DIR__ . '/ray.php';
 require __DIR__ . '/register.php';
 require __DIR__ . '/sales.php';
 require __DIR__ . '/tools.php';
 require __DIR__ . '/user.php';
-require __DIR__ . '/ai.php';
 require __DIR__ . '/utility.php';
 
 

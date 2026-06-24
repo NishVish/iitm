@@ -7,19 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Smalot\PdfParser\Parser;
-class RagServices extends Controller
+class RagController extends Controller
 {
     private string $dbPath;
     private string $ragPath;
-    private string $model;
-
-
+    private string $model = env('OLLAMA_MODEL', 'tinyllama:latest');
     public function __construct()
     {
         $this->ragPath = public_path('ai/rag');
         $this->dbPath = $this->ragPath . '/data.sqlite3';
         $this->ragTestDbPath = $this->ragPath . '/ragtest.sqlite3';
-        $this->model = config('ai.model');
 
     }
 
@@ -31,13 +28,7 @@ class RagServices extends Controller
 
     public function ask(Request $request)
     {
-
-        // echo "helo";
-
-        // die();
-
-
-               $request->validate([
+        $request->validate([
             'question' => 'required|string|min:3|max:1000'
         ]);
 
@@ -71,32 +62,19 @@ QUESTION:
 {$question}
 ";
 
-// echo $context ." | " . $question;
-// echo $this->model;
-
-// echo "<br>";
-// echo $prompt;
-
-// die();
         $response = Http::timeout(120)->post('http://localhost:11434/api/generate', [
             'model' => $this->model,
             'prompt' => $prompt,
             'stream' => false
         ]);
 
-// echo "<br>";
-// echo $response;
-
-// die();
         if ($response->failed()) {
             return $this->error('LLM generation failed: ' . $response->body(), 500);
         }
 
         $answer = $response->json('response') ?? 'No answer generated';
-// echo $answer;
 
-   // die();
-     return response()->json([
+        return response()->json([
             'status' => true,
             'question' => $question,
             'answer' => $answer,
@@ -290,7 +268,7 @@ QUESTION:
     ");
 
         $prompt = "
-Generate 20 FAQ questions about IITMINDIA Website.
+Generate 20 interview questions about IITMINDIA Website.
 Return ONLY one question per line.
 No numbering, no extra text.
 ";

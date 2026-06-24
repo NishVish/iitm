@@ -22,6 +22,9 @@ Route::get('/chat', function () {
     return view('ai.chat');
 
 });
+
+
+
 Route::get('/ai', [AiController::class, 'index']);
 Route::get('/questionanswer', [AiController::class, 'questionanswer']);
 Route::get('/ai/companybg', [AiController::class, 'CompanyBackground']);
