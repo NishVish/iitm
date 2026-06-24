@@ -94,9 +94,9 @@
         <h1>Laravel RAG AI</h1>
 
         <div class="links">
-            <a href="{{ url('ai/rag/ask') }}">Ask</a>
+            <a href="{{ url('api/ai/rag/ask') }}">Ask</a>
 
-            <a href="{{ url('ai/rag/updatedata') }}">
+            <a href="{{ url('api/ai/rag/updatedata') }}">
                 Update Data
             </a>
         </div>
