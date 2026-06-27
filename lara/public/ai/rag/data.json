@@ -1,0 +1,28 @@
+{
+    "documents": [
+        {
+            "id": 1,
+            "name": "document 1",
+            "source": "iitmindia.com",
+            "type": "website"
+        },
+        {
+            "id": 2,
+            "name": "document 2",
+            "source": "spheretravelmedia.com",
+            "type": "website"
+        },
+        {
+            "id": 3,
+            "name": "document 3",
+            "source": "assets/sponsor.json",
+            "type": "json"
+        }
+ {
+            "id": 4,
+            "name": "brochure",
+            "source": "assets/resource/brouhure.pdf",
+            "type": "json"
+        }
+    ]
+}

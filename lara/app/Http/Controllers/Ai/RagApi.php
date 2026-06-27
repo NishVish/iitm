@@ -4,33 +4,58 @@ namespace App\Http\Controllers\Ai;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Ai\RagServices;
+use App\Http\Controllers\Ai\RagServicesTrainer;
+use App\Http\Controllers\Ai\RagServicesQuery;
 
 class RagApi extends Controller
 {
-    private RagServices $rag;
+    private RagServicesTrainer $trainer;
+    private RagServicesQuery $query;
 
-    public function __construct(RagServices $rag)
-    {
-        $this->rag = $rag;
+    public function __construct(
+        RagServicesTrainer $ragTrainer,
+        RagServicesQuery $ragQuery
+    ) {
+        $this->trainer = $ragTrainer;
+        $this->query = $ragQuery;
     }
 
     public function ask(Request $request)
     {
-
-        return $this->rag->ask($request);
+        return $this->query->ask($request);
     }
 
-    public function updateData()
+    public function train()
     {
-        return $this->rag->updateData();
+        return $this->trainer->train();
     }
 
     public function ragTest()
     {
-        return $this->rag->ragTest();
+        return $this->query->ragTest();
     }
 
+    public function ragresource()
+    {
+        return $this->trainer->updateData2();
+    }
+
+
+public function porcess(){
+
+//     learining_resoures
+//     html,txt,urls,pdf 
+// read the resource path 
+
+// use all the document 
+// do emmbedding and chunking and
+// remove the old sqlite entires and store in new data in sqlite
+
+//     update learing details 
+
+
+
+}
 public function ragapi()
 {
     echo '<!DOCTYPE html>

@@ -117,6 +117,7 @@
 <body>
 
     <div class="main-stage">
+        <a href="{{ url('/api/ai/rag/train') }}">Train</a>
         <div class="chat-card">
             <div class="header">
                 <img src="https://iitmindia.com/assets/iitm3.png" alt="IITM Logo">
@@ -198,10 +199,27 @@
                     });
 
                     const data = await response.json();
+                    console.log(data);
                     aiBubble.innerText = data.answer;
 
                 } catch (err) {
-                    aiBubble.innerText = "Connection lost.";
+                    try {
+                        const response = await fetch('{{ url("api/ai/rag/ask") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({ question: "Give Brief Info About the Company" })
+                        });
+
+                        const data = await response.json();
+                        console.log(data);
+                        aiBubble.innerText = data.answer;
+
+                    } catch (err) {
+                        aiBubble.innerText = "Please Provide more info";
+                    }
                 }
             });
         });

@@ -19,6 +19,19 @@ return [
 
     'default' => env('DB_CONNECTION', 'sqlite'),
 
+    'special_db' => [
+        'driver' => 'mysql',
+        'host' => env('DB_SPECIAL_HOST'),
+        'port' => env('DB_SPECIAL_PORT', '3306'),
+        'database' => env('DB_SPECIAL_DATABASE'),
+        'username' => env('DB_SPECIAL_USERNAME'),
+        'password' => env('DB_SPECIAL_PASSWORD'),
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_unicode_ci',
+        'prefix' => '',
+        'strict' => true,
+        'engine' => null,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -31,7 +44,19 @@ return [
     */
 
     'connections' => [
-
+        'special_db' => [
+            'driver' => 'mysql',
+            'host' => env('DB_SPECIAL_HOST'),
+            'port' => env('DB_SPECIAL_PORT', '3306'),
+            'database' => env('DB_SPECIAL_DATABASE'),
+            'username' => env('DB_SPECIAL_USERNAME'),
+            'password' => env('DB_SPECIAL_PASSWORD'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),

@@ -1,0 +1,418 @@
+[
+  {
+    "page_no": 1,
+    "category": "Cover Page",
+    "text_type": "Title / Branding",
+    "title": "Sponsorship 2026",
+    "bgimage": "public/assets/1.jpg",
+    "logo": "public/assets/iitm2.png",
+    "important_info": {
+      "event": "India’s Premier Travel & Tourism Exhibition",
+      "website": "www.iitmindia.com"
+    }
+  },
+  {
+    "page_no": 2,
+    "category": "Sponsorship Opportunities",
+    "section_type": "Overview / Benefits",
+    "title": "Why Sponsor IITM",
+    "important_info": {
+      "benefits": [
+        {
+          "title": "Targeted Audience Impact",
+          "description": "Reach a highly specific audience using cost-effective strategies designed for maximum relevance, resonance, and engagement."
+        },
+        {
+          "title": "Multi-Channel Branding",
+          "description": "Enhance brand visibility beyond the booth through integrated exposure across multiple media platforms and communication channels."
+        },
+        {
+          "title": "Industry Leadership",
+          "description": "Strengthen your brand positioning by increasing visibility and establishing thought leadership within your core industry audience."
+        },
+        {
+          "title": "Innovation & Promotion",
+          "description": "Leverage innovative, modern promotional opportunities tailored to evolving marketing and engagement needs."
+        }
+      ],
+      "note": "We tailor-make solutions based on your specific needs and budget constraints."
+    }
+  },
+  {
+    "page_no": 3,
+    "category": "Main Sponsorship Packages",
+    "text_type": "Pricing / Packages",
+    "title": "IITM Sponsorship Opportunities",
+    "subtitle": "Be a premium partner at one of India’s largest Travel & Tourism Exhibitions",
+    "packages": [
+      {
+        "name": "Platinum Partner",
+        "price": "₹25,00,000",
+        "slots_per_city": 1,
+        "stall_size": "54 Sq. Mtrs (6m x 9m)",
+        "benefits": [
+          "Exclusive premium branding across all marketing channels (Pre & Post-event EDMs, social media, print, outdoor, and venue branding)",
+          "Featured recognition as Platinum Partner in official press release",
+          "Premium exhibition stall (54 Sq. Mtrs) in prime location",
+          "Full-page 4-page advertisement in official event directory (circulation: 1500+ industry leaders)",
+          "Priority MC announcements during exhibition days",
+          "12 VIP passes to networking lunches and dinners",
+          "Special recognition at the IITM Awards Night ceremony"
+        ]
+      },
+      {
+        "name": "Gold Partner",
+        "price": "₹15,00,000",
+        "slots_per_city": 2,
+        "stall_size": "27 Sq. Mtrs (3m x 9m)",
+        "benefits": [
+          "Strong branding visibility across event marketing platforms (EDMs, social media, print, outdoor, and venue branding)",
+          "Official recognition as Gold Partner in press release",
+          "27 Sq. Mtrs exhibition stall in premium zone",
+          "Full-page advertisement in official event directory (circulation: 1500+ industry professionals)",
+          "MC announcements during exhibition",
+          "8 VIP passes for networking lunches and dinners",
+          "Recognition at IITM Awards Night ceremony"
+        ]
+      },
+      {
+        "name": "Silver Partner",
+        "price": "₹8,00,000",
+        "slots_per_city": 3,
+        "stall_size": "12 Sq. Mtrs (3m x 4m)",
+        "benefits": [
+          "Brand visibility across selected event marketing channels (social media, print, and venue branding)",
+          "Official recognition as Silver Partner in press release",
+          "12 Sq. Mtrs exhibition stall space",
+          "Quarter-page advertisement in official event directory (circulation: 2000+ industry stakeholders)",
+          "MC announcements during the event",
+          "5 VIP passes to networking lunches and dinners",
+          "Recognition at IITM Awards Night ceremony"
+        ]
+      }
+    ]
+  },
+  {
+    "page_no": 4,
+    "category": "Event Sponsorship",
+    "text_type": "Pricing / Event Branding",
+    "title": "High-Impact Event Sponsorship Opportunities",
+    "items": [
+      {
+        "name": "Awards & Networking Dinner",
+        "price": "₹15,00,000",
+        "slots_per_city": 1,
+        "description": "Exclusive opportunity to host IITM Awards Ceremony followed by an elite Networking Dinner attended by leading tourism professionals.",
+        "benefits": [
+          "Opportunity to present your brand for 10 minutes before 250–300 senior tourism industry leaders",
+          "Exclusive hosting rights for IITM Awards Ceremony and Networking Dinner",
+          "Premium branding visibility across event venue and stage during the entire evening",
+          "18 Sq. Mtrs (3m x 6m) premium exhibition stall",
+          "Brand presence across all marketing collaterals (Pre & Post event EDMs, social media, print, outdoor campaigns, and venue branding)",
+          "High-impact engagement with top inbound and outbound tour operators, hoteliers, and media representatives"
+        ]
+      },
+      {
+        "name": "Registration Desk Branding Partner",
+        "price": "₹2,00,000",
+        "slots_per_city": 1,
+        "description": "Position your brand at the first point of interaction for all exhibitors, delegates, and visitors.",
+        "benefits": [
+          "High-visibility 360° branding at registration and entry zones",
+          "Strategic brand exposure during peak footfall hours",
+          "9 Sq. Mtrs (3m x 3m) exhibition stall",
+          "Brand presence across select event marketing collaterals",
+          "Strong recall impact through continuous visitor interaction zone visibility"
+        ]
+      }
+    ]
+  },
+  {
+    "page_no": 5,
+    "category": "On-Site Sponsorship",
+    "text_type": "Venue Branding",
+    "title": "Drop Downs / Hanging Banners",
+    "image": "public/assets/1.jpg",
+    "price": "₹50,000",
+    "quantity": "3 locations",
+    "side_description": "Maximize visibility with strategically placed hanging banners across high-footfall zones within the venue.",
+    "benefits": [
+      "High visibility across exhibition halls",
+      "Continuous brand exposure throughout event days",
+      "Strategic placement at key visitor movement areas"
+    ]
+  },
+  {
+    "page_no": 6,
+    "category": "On-Site Sponsorship",
+    "text_type": "Venue Branding",
+    "title": "Walkway Billboard Branding",
+    "image": "public/assets/1.jpg",
+    "price": "₹75,000",
+    "details": "High-Footfall Walkway Placement",
+    "side_description": "Strategic billboard placement along main visitor walkways ensuring continuous brand visibility during foot traffic movement.",
+    "benefits": [
+      "High visibility in peak movement zones",
+      "Repeated exposure during entry and exit flows",
+      "Strong brand recall through directional foot traffic",
+      "Continuous engagement throughout event hours"
+    ]
+  },
+  {
+    "page_no": 7,
+    "category": "On-Site Sponsorship",
+    "text_type": "Venue Branding",
+    "title": "Temporary Walk-Way Display",
+    "image": "public/assets/1.jpg",
+    "price": "₹50,000",
+    "quantity": "3 locations",
+    "side_description": "Capture audience attention through branded walkway installations along visitor movement corridors.",
+    "benefits": [
+      "High engagement during peak footfall movement",
+      "Strong recall through repeated exposure",
+      "Ideal for directional messaging"
+    ]
+  },
+  {
+    "page_no": 8,
+    "category": "On-Site Sponsorship",
+    "text_type": "Venue Branding",
+    "title": "Prominent Bill Boards",
+    "image": "public/assets/1.jpg",
+    "price": "₹50,000",
+    "quantity": "3 locations",
+    "side_description": "Large-format billboards offering dominant visual presence at key venue points.",
+    "benefits": [
+      "High-impact static visibility",
+      "Premium positioning at strategic junctions",
+      "Strong brand recall through scale"
+    ]
+  },
+  {
+    "page_no": 9,
+    "category": "On-Site Sponsorship",
+    "text_type": "Access & Branding",
+    "title": "Lanyard Branding",
+    "image": "public/assets/1.jpg",
+    "price": "₹5,00,000",
+    "details": "Exclusive Branding for All Delegate Lanyards",
+    "side_description": "Your brand will be prominently displayed on all visitor and delegate lanyards distributed throughout the event.",
+    "benefits": [
+      "Exclusive branding on all attendee lanyards",
+      "Continuous brand visibility throughout event duration",
+      "High-frequency exposure in all networking zones",
+      "Strong recall among delegates, exhibitors, and visitors",
+      "Premium association with every participant badge"
+    ]
+  },
+  {
+    "page_no": 10,
+    "category": "On-Site Sponsorship",
+    "text_type": "Access & Branding",
+    "title": "Badge Branding",
+    "image": "public/assets/1.jpg",
+    "price": "₹2,00,000",
+    "details": "Exclusive Branding on Delegate Badges",
+    "side_description": "Your brand will be featured on all visitor and exhibitor badges used for entry and identification throughout the event.",
+    "benefits": [
+      "High-visibility branding on all attendee badges",
+      "Continuous exposure during entire event duration",
+      "Brand recall through constant attendee interaction",
+      "Association with official event identification credentials",
+      "Visibility across all networking and exhibition zones"
+    ]
+  },
+  {
+    "page_no": 11,
+    "category": "On-Site Sponsorship",
+    "text_type": "Digital Branding",
+    "title": "LED Display Branding",
+    "image": "public/assets/1.jpg",
+    "price": "₹1,00,000",
+    "details": "3 days × 20 spots",
+    "side_description": "Dynamic LED screen branding across multiple high-traffic display zones.",
+    "benefits": [
+      "Dynamic digital visibility",
+      "Multiple ad rotations across event days",
+      "High engagement through motion content"
+    ]
+  },
+  {
+    "page_no": 12,
+    "category": "On-Site Sponsorship",
+    "text_type": "Venue Branding",
+    "title": "Pillar Branding",
+    "image": "public/assets/1.jpg",
+    "price": "₹1,00,000",
+    "details": "Minimum 4 Pillars",
+    "side_description": "Prominent branding on venue pillars placed across high-footfall exhibition areas for continuous attendee visibility.",
+    "benefits": [
+      "Strategic branding across key visitor movement zones",
+      "High-frequency visual exposure throughout the event",
+      "Strong on-ground brand recall",
+      "Visibility across all 3 event days"
+    ]
+  },
+  {
+    "page_no": 13,
+    "category": "On-Site Sponsorship",
+    "text_type": "Presentation Opportunity",
+    "title": "Presentation at the Show",
+    "image": "public/assets/1.jpg",
+    "price": "₹1,50,000",
+    "details": "One Presentation Slot",
+    "side_description": "Showcase your products, services, or destination offerings through a dedicated presentation session during the exhibition.",
+    "benefits": [
+      "Direct engagement with travel trade professionals and buyers",
+      "Dedicated time slot for brand presentation",
+      "Opportunity to highlight products, services, and business offerings",
+      "Enhanced visibility among exhibitors and industry stakeholders"
+    ]
+  },
+  {
+    "page_no": 14,
+    "category": "On-Site Sponsorship",
+    "text_type": "Engagement Zone",
+    "title": "Selfie Counter Branding",
+    "image": "public/assets/1.jpg",
+    "price": "₹100,000",
+    "side_description": "Interactive selfie zone designed to drive visitor engagement and social media sharing.",
+    "benefits": [
+      "High social media exposure",
+      "Strong visitor interaction",
+      "Organic brand amplification"
+    ]
+  },
+  {
+    "page_no": 16,
+    "category": "Buyer Merchandise Sponsorship",
+    "text_type": "Content",
+    "title": "Souvenirs",
+    "image": "public/assets/1.jpg",
+    "price": "₹2,00,000",
+    "side_description": "Branded souvenir merchandise for high recall and visibility.",
+    "benefits": [
+      "Strong brand recall",
+      "Physical brand presence",
+      "Long-term visibility"
+    ]
+  },
+  {
+    "page_no": 17,
+    "category": "Buyer Merchandise Sponsorship",
+    "text_type": "Content",
+    "title": "Branded Backpacks",
+    "image": "public/assets/1.jpg",
+    "price": "₹1,00,000",
+    "side_description": "Daily-use branded backpacks ensuring repeated brand exposure.",
+    "benefits": [
+      "Everyday visibility",
+      "Long-term usage",
+      "High audience exposure"
+    ]
+  },
+  {
+    "page_no": 18,
+    "category": "Buyer Merchandise Sponsorship",
+    "text_type": "Content",
+    "title": "Branded T-Shirts",
+    "image": "public/assets/1.jpg",
+    "price": "₹50,000",
+    "side_description": "Wearable branding for maximum public exposure.",
+    "benefits": [
+      "High visibility",
+      "Walking advertisement effect",
+      "Mass audience reach"
+    ]
+  },
+  {
+    "page_no": 19,
+    "category": "Buyer Merchandise Sponsorship",
+    "text_type": "Content",
+    "title": "Carry Bags",
+    "image": "public/assets/1.jpg",
+    "price": "₹2,50,000",
+    "side_description": "Reusable branded carry bags for continuous exposure.",
+    "benefits": [
+      "Repeated usage",
+      "High visibility",
+      "Long-term brand recall"
+    ]
+  },
+  {
+    "page_no": 20,
+    "category": "Buyer Merchandise Sponsorship",
+    "text_type": "Content",
+    "title": "Coffee Mugs",
+    "image": "public/assets/1.jpg",
+    "price": "₹75,000",
+    "side_description": "Everyday desk visibility through branded mugs.",
+    "benefits": [
+      "Daily usage",
+      "Office exposure",
+      "Strong recall value"
+    ]
+  },
+  {
+    "page_no": 21,
+    "category": "Buyer Merchandise Sponsorship",
+    "text_type": "Content",
+    "title": "Water Bottles",
+    "image": "public/assets/1.jpg",
+    "price": "₹1,50,000",
+    "side_description": "Reusable bottles ensuring continuous brand exposure.",
+    "benefits": [
+      "Daily utility",
+      "High repeat visibility",
+      "Sustainable branding"
+    ]
+  },
+  {
+    "page_no": 22,
+    "category": "Buyer Merchandise Sponsorship",
+    "text_type": "Content",
+    "title": "Branded Pens",
+    "image": "public/assets/1.jpg",
+    "price": "₹75,000",
+    "side_description": "Low-cost high-reach promotional stationery.",
+    "benefits": [
+      "Mass distribution",
+      "High usage frequency",
+      "Affordable branding"
+    ]
+  },
+  {
+    "page_no": 23,
+    "category": "Special Sponsorship",
+    "title": "VIP & Media Lounge",
+    "text_type": "Media / Networking",
+    "items": [
+      {
+        "name": "Interactive VIP & Media Lounge",
+        "price": "Rs 3,00,000",
+        "duration": "3 Days",
+        "benefits": [
+          "Media coverage",
+          "10-minute media interaction",
+          "VIP lounge branding",
+          "Premium networking access"
+        ]
+      }
+    ]
+  },
+  {
+    "page_no": 24,
+    "category": "lastpage",
+    "text_type": "Organizer Details",
+    "bgimage": "public/assets/5.jpg",
+    "logo": "public/assets/iitm3.png",
+    "logo2": "public/assets/sphere3.png",
+    "organizer": "Sphere Travelmedia & Exhibitions Pvt. Ltd.",
+    "address": "#245 Amar Jyothi Layout, Bangalore - 560071, Karnataka, India",
+    "phone": "+91 80 40834100",
+    "websites": [
+      "spheretravelmedia.com",
+      "iitmindia.com"
+    ]
+  }
+]

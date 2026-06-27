@@ -96,7 +96,7 @@
 
         <!-- quick info -->
 
-        @include('web.highlights.index')
+        <!-- @include('web.highlights.index') -->
 
         <div class="content-wrapper-inner">
 
