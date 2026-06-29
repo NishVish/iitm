@@ -74,7 +74,7 @@ class RegistrationController extends Controller
 
 			$db = DB::connection('special_db');
 			$key = "exh" . substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'), 0, 2) . str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
-			if ($Exhibitingin == "lara") {
+			if ($Exhibitingin == "lara" || $Exhibitingin == "form") {
 				$Exhibitingin = $lastSegment;
 			}
 
