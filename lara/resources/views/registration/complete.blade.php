@@ -4,35 +4,47 @@
 
 <div class="container">
 
-
     <p><strong>Company:</strong> {{ $company }}</p>
     <p><strong>Mobile:</strong> {{ $mobile }}</p>
     <p><strong>Stall No:</strong> {{ $stallno }}</p>
 
     <h3>Delegates</h3>
 
+    @php
+        $lastsegment = basename($_SERVER['REQUEST_URI']);
+        $check = !in_array($lastsegment, ['sanjay', 'usha', 'dilip', 'rohit', 'indira']);
+    @endphp
+
     @if(!empty($delegates))
         @foreach($delegates as $d)
-            <h2>{{ $d['name'] }}</h2>
 
-            <div class="qr-code" style="text-align:center;">
+            <div class="delegate" style="margin-bottom:30px;">
 
+                <h2>{{ $d['name'] }}</h2>
 
-                <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ urlencode($d['key']) }}"
-                    alt="QR Code" style="display:block; margin:10px auto;">
+                @if($check)
+                    <div class="qr-code" style="text-align:center;">
 
-                <a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={{ urlencode($d['key']) }}"
-                    download="qr-code.png">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ urlencode($d['key']) }}"
+                            alt="QR Code" style="display:block;margin:10px auto;">
 
+                        <a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={{ urlencode($d['key']) }}"
+                            download="qr-code.png">
 
+                            <button class="btn btn-submit" type="button" style="margin-top:10px;">
+                                Download QR Code
+                            </button>
 
-                </a>
-                <h2>Key: {{ $d['key'] }}</h2>
+                        </a>
+
+                    </div>
+                    <h2>Key: {{ $d['key'] }}</h2>
+
+                @endif
+
 
             </div>
-            <button class="btn btn-submit" type="button" style="margin-top:10px;">
-                Download QR Code
-            </button>
+
         @endforeach
     @else
         <p>No delegates found</p>
@@ -42,8 +54,8 @@
 
         <p><strong>Registration Key QR Code:</strong></p>
 
-        <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ urlencode($mobile) }}"
-            alt="QR Code" style="display:block; margin:10px auto;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ urlencode($mobile) }}" alt="QR Code"
+            style="display:block;margin:10px auto;">
 
         <a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={{ urlencode($mobile) }}"
             download="qr-code.png">
@@ -60,7 +72,7 @@
 
     <h2 style="text-align:center;">🎉 You're All Set!</h2>
 
-    <p style="font-size: 1.05em; font-weight: 500; text-align: center; margin: 10px 0;">
+    <p style="font-size:1.05em;font-weight:500;text-align:center;margin:10px 0;">
         📲 <strong>Final Step:</strong> Please mention your <strong>mobile number</strong> at the
         <strong>registration counter</strong> to print your entry pass.
     </p>

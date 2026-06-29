@@ -67,7 +67,7 @@ class RegistrationController extends Controller
 			);
 			$Exhibitingin = $exhibitInRestore;
 
-			if ($Exhibitingin != "lara") {
+			if ($Exhibitingin != "lara" && $Exhibitingin != "iitm") {
 
 				$prefix = strtolower(substr($sourcename, 0, 3));
 
@@ -98,17 +98,7 @@ class RegistrationController extends Controller
 
 				$key = "exh" . substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'), 0, 2) . str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
 
-				if (
-					!in_array($Exhibitingin, [
-						'bangalore',
-						'chennai',
-						'hyderabad',
-						'kolkata',
-						'ahmedabad',
-						'kochi',
-						'pune'
-					])
-				) {
+				if (!in_array($Exhibitingin, ['bangalore', 'chennai', 'hyderabad', 'kolkata', 'ahmedabad', 'kochi', 'pune'])) {
 					$newMobile = $key;
 				}
 				$this->service->storeOne(

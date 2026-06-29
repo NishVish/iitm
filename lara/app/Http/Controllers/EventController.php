@@ -12,6 +12,8 @@ class EventController extends Controller
         // Fetch all upcoming events ordered by date
         $events = DB::table('events')
             ->where('start_date', '>=', date('Y-m-d'))
+            ->whereNotNull('start_date')
+            ->whereNotNull('name')
             ->orderBy('start_date', 'asc')
             ->get();
         // var_dump($events);
