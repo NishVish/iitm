@@ -1,15 +1,14 @@
 @include('registration.header')
 <h2>Exhibitor Registration</h2>
 
+
 @php
     $lastsegment = basename($_SERVER['REQUEST_URI']);
     $secondlastSegment = basename(dirname($_SERVER['REQUEST_URI']));
-    if ($lastsegment == "form") {
-        $lastsegment = "exhibitor";
+    if (!$secondlastSegment) {
         $secondlastSegment = "spot";
+        $lastsegment = "exhibitor";
     }
-    echo $lastsegment;
-    echo $secondlastSegment;
 
 
 @endphp
