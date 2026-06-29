@@ -22,7 +22,11 @@
         <div class="f-main-info">
             <div class="f-info-col">
                 <img src="https://iitmindia.com/assets/iitm3.png" width="120" alt="IITM Logo" class="f-logo">
-                <p class="f-addr">245, 7th Main Rd, Domlur, Bengaluru, KA <a href="{{ url('/backend') }}">560071 </a>
+                <p class="f-addr">245, 7th Main Rd, Domlur, Bengaluru, KA
+
+                    <a href="{{ url('/backend') }}" style="color: inherit; text-decoration: none;">
+                        560071
+                    </a>
                 </p>
                 <a href="mailto:info@iitmindia.com" class="f-email">info@iitmindia.com</a>
             </div>

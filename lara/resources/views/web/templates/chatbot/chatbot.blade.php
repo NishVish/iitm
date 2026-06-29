@@ -7,15 +7,21 @@
 <!-- CHATBOX -->
 <div id="chatbox">
     <div id="chat-header">
-        Help Service
-        <span onclick="toggleChat()" style="float:right; cursor:pointer;">✖</span>
+        Support <span onclick="toggleChat()" style="float:right; cursor:pointer;">✖</span>
     </div>
 
     <div id="chat-body" style="color:black;">
-        <p>Hi this is Usha from iitm 👋</p>
-        <p>Contacts</p>
+        <p>Hi this is Orbit from iitm 👋</p>
         <p>Email : info@iitmindia.com</p>
-        <p>Call : +91 9742942009</p>
+        <p>Executive : +91 9742942009</p>
+        <p>
+            <a href="https://wa.me/919742942009" target="_blank" style="text-decoration: none; color: inherit;">
+                Open in WhatsApp :
+                <img src="https://cdn-icons-png.flaticon.com/128/3536/3536445.png" alt="WhatsApp"
+                    style="width:20px; vertical-align:middle; margin-right:6px;">
+
+            </a>
+        </p>
     </div>
 
     <div id="chat-footer">

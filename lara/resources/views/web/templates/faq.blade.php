@@ -50,171 +50,174 @@
 
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
+@if(false)
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
+    <head>
 
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FAQ - IITM India</title>
+        <title>FAQ - IITM India</title>
 
-    <style>
-        .containerfaq {
-            max-width: 1000px;
-            margin: auto;
-            padding: 60px 20px;
-        }
+        <style>
+            .containerfaq {
+                max-width: 1000px;
+                margin: auto;
+                padding: 60px 20px;
+            }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 50px;
-            color: #1a237e;
-        }
+            h1 {
+                text-align: center;
+                margin-bottom: 50px;
+                color: #1a237e;
+            }
 
-        .faq-item {
-            background: white;
-            margin-bottom: 18px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
+            .faq-item {
+                background: white;
+                margin-bottom: 18px;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            }
 
-        .faq-question {
+            .faq-question {
 
-            width: 100%;
+                width: 100%;
 
-            background: white;
+                background: white;
 
-            border: none;
+                border: none;
 
-            padding: 22px;
+                padding: 22px;
 
-            text-align: left;
+                text-align: left;
 
-            font-size: 18px;
+                font-size: 18px;
 
-            font-weight: bold;
+                font-weight: bold;
 
-            cursor: pointer;
+                cursor: pointer;
 
-            position: relative;
+                position: relative;
 
-            color: #222;
-        }
+                color: #222;
+            }
 
-        .faq-question:hover {
-            background: #f3f4ff;
-        }
+            .faq-question:hover {
+                background: #f3f4ff;
+            }
 
-        .faq-question::after {
+            .faq-question::after {
 
-            content: "+";
+                content: "+";
 
-            position: absolute;
+                position: absolute;
 
-            right: 20px;
+                right: 20px;
 
-            top: 18px;
+                top: 18px;
 
-            font-size: 24px;
+                font-size: 24px;
 
-            color: #1a237e;
-        }
+                color: #1a237e;
+            }
 
-        .faq-item.active .faq-question::after {
-            content: "−";
-        }
+            .faq-item.active .faq-question::after {
+                content: "−";
+            }
 
-        .faq-answer {
+            .faq-answer {
 
-            display: none;
+                display: none;
 
-            padding: 0 22px 22px;
+                padding: 0 22px 22px;
 
-            color: #555;
+                color: #555;
 
-            line-height: 1.8;
+                line-height: 1.8;
 
-            font-size: 16px;
-        }
+                font-size: 16px;
+            }
 
-        .faq-item.active .faq-answer {
-            display: block;
-        }
+            .faq-item.active .faq-answer {
+                display: block;
+            }
 
-        .empty {
-            text-align: center;
-            color: #888;
-            margin-top: 80px;
-        }
-    </style>
+            .empty {
+                text-align: center;
+                color: #888;
+                margin-top: 80px;
+            }
+        </style>
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <div class="containerfaq">
+        <div class="containerfaq">
 
-        <h1>Frequently Asked Questions</h1>
+            <h1>Frequently Asked Questions</h1>
 
-        @if(!empty($faqData))
+            @if(!empty($faqData))
 
-            @foreach($faqData as $index => $faq)
+                @foreach($faqData as $index => $faq)
 
-                <div class="faq-item">
+                    <div class="faq-item">
 
-                    <button class="faq-question">
+                        <button class="faq-question">
 
-                        {{ $faq['question'] ?? '' }}
+                            {{ $faq['question'] ?? '' }}
 
-                    </button>
+                        </button>
 
-                    <div class="faq-answer">
+                        <div class="faq-answer">
 
-                        {!! nl2br(e($faq['answer'] ?? '')) !!}
+                            {!! nl2br(e($faq['answer'] ?? '')) !!}
+
+                        </div>
 
                     </div>
 
+                @endforeach
+
+            @else
+
+                <div class="empty">
+
+                    FAQ data file not found
+                    <br><br>
+
+                    public/ai/iitm-faq-rag.json
+
                 </div>
 
-            @endforeach
+            @endif
 
-        @else
+        </div>
 
-            <div class="empty">
+        <script>
 
-                FAQ data file not found
-                <br><br>
+            document
+                .querySelectorAll(".faq-question")
+                .forEach(button => {
 
-                public/ai/iitm-faq-rag.json
+                    button.addEventListener("click", () => {
 
-            </div>
+                        const item = button.parentElement;
 
-        @endif
+                        item.classList.toggle("active");
 
-    </div>
-
-    <script>
-
-        document
-            .querySelectorAll(".faq-question")
-            .forEach(button => {
-
-                button.addEventListener("click", () => {
-
-                    const item = button.parentElement;
-
-                    item.classList.toggle("active");
+                    });
 
                 });
 
-            });
+        </script>
 
-    </script>
+    </body>
 
-</body>
+    </html>
 
-</html>
+@endif

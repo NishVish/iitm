@@ -43,9 +43,16 @@
         input.type = "text";
         input.name = "delegates[]";
         input.placeholder = "Enter delegate name";
+        input.required = true;
 
         container.appendChild(input);
     }
+
+    // Add one delegate field by default
+    window.onload = function () {
+        addDelegate();
+    };
+
 </script>
 
 </body>
