@@ -16,9 +16,9 @@ class RagServicesQuery extends Controller
     private string $ragPath;
     private string $model;
 
- public function __construct()
+    public function __construct()
     {
-        $this->ragPath =  storage_path('app/rag');
+        $this->ragPath = storage_path('app/rag');
         $this->dbPath = $this->ragPath . '/data.sqlite3';
         $this->ragTestDbPath = $this->ragPath . '/ragtest.sqlite3';
         $this->model = config('ai.model');
@@ -44,8 +44,8 @@ class RagServicesQuery extends Controller
 
         // die();
 
-
-               $request->validate([
+        $topChunks = [];
+        $request->validate([
             'question' => 'required|string|min:3|max:1000'
         ]);
 
@@ -54,15 +54,15 @@ class RagServicesQuery extends Controller
         // $question = "what company do";
         if (!file_exists($this->dbPath)) {
             //return $this->error('RAG database not found', 404);
-		
 
-     return response()->json([
-            'status' => true,
-            'question' => $question,
-            'answer' => "please Give More Info",
-            'matched_files' => array_unique(array_column($topChunks, 'file_name')),
-            'top_matches' => $topChunks
-        ]);
+
+            return response()->json([
+                'status' => true,
+                'question' => $question,
+                'answer' => "please Give More Info",
+                'matched_files' => array_unique(array_column($topChunks, 'file_name')),
+                'top_matches' => $topChunks
+            ]);
         }
 
         $sqlite = new \SQLite3($this->dbPath);
@@ -71,21 +71,21 @@ class RagServicesQuery extends Controller
 
         if (empty($matches)) {
             //return $this->error('No relevant context found', 404);
-			
-			return response()->json([
-            'status' => true,
-            'question' => $question,
-            'answer' => "please Give More Info",
-            'matched_files' => array_unique(array_column($topChunks, 'file_name')),
-            'top_matches' => $topChunks
-        ]);
-			
+
+            return response()->json([
+                'status' => true,
+                'question' => $question,
+                'answer' => "please Give More Info",
+                'matched_files' => array_unique(array_column($topChunks, 'file_name')),
+                'top_matches' => $topChunks
+            ]);
+
         }
 
         $topChunks = array_slice($matches, 0, 5);
         $context = implode("\n\n", array_column($topChunks, 'content'));
 
-$prompt = "
+        $prompt = "
 You are a helpful assistant.
 
 Rules:
@@ -104,32 +104,32 @@ CONTEXT:
 QUESTION:
 {$question}
 ";
-// echo $context ." | " . $question;
+        // echo $context ." | " . $question;
 // echo $this->model;
 
-// echo "<br>";
+        // echo "<br>";
 // echo $prompt;
 
-// die();
+        // die();
         $response = Http::timeout(120)->post('http://localhost:11434/api/generate', [
             'model' => $this->model,
             'prompt' => $prompt,
             'stream' => false
         ]);
 
-// echo "<br>";
+        // echo "<br>";
 // echo $response;
 
-// die();
+        // die();
         if ($response->failed()) {
             return $this->error('LLM generation failed: ' . $response->body(), 500);
         }
 
         $answer = $response->json('response') ?? 'No answer generated';
-// echo $answer;
+        // echo $answer;
 
-   // die();
-     return response()->json([
+        // die();
+        return response()->json([
             'status' => true,
             'question' => $question,
             'answer' => $answer,
@@ -208,7 +208,7 @@ QUESTION:
 
     // }
 
-   
+
 
     /*
     |--------------------------------------------------------------------------

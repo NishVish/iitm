@@ -240,7 +240,7 @@
         let botMsg = document.createElement("p");
 
         botMsg.innerHTML =
-            "<b>Bot:</b> <i>Thinking...</i>";
+            "<b>Orbit:</b> <i>Thinking...</i>";
 
         body.appendChild(botMsg);
 
