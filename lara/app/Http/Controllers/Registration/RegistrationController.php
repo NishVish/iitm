@@ -20,9 +20,31 @@ class RegistrationController extends Controller
 	}
 
 
+
+	// CONTROLLER (FIX: keep data but DO NOT reuse globally for both cities)
+// CONTROLLER (RETURN DATA GROUPED BY CITY)
+
 	public function index()
 	{
-		return view('registration.home');
+		$rows = DB::connection('special_db')
+			->table('exhibitor')
+			->select('city', 'state', DB::raw('COUNT(*) as total'))
+			->groupBy('city', 'state')
+			->get();
+
+		$data = $rows->groupBy('city')->map(function ($items, $city) {
+			return [
+				'city' => $city,
+				'data' => collect($items)->mapWithKeys(function ($item) {
+					return [
+						strtolower($item->state) => (int) $item->total
+					];
+				}),
+			];
+		})->values();
+		// echo $data;
+
+		return view('registration.home', compact('data'));
 	}
 	public function store(Request $request)
 	{

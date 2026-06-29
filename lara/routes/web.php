@@ -1,15 +1,17 @@
 <?php
 
+use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\WebController;
 
-// require __DIR__ . '/ai.php';
-if (true) {
+if (env('SPECIAL_ENVIRONMENT')) {
 
     require __DIR__ . '/registration/registration.php';
 
 } else {
+    // require __DIR__ . '/ai.php';
+// require __DIR__ . '/ai.php';
 
     require __DIR__ . '/admin.php';
     require __DIR__ . '/assets.php';

@@ -9,8 +9,8 @@ use App\Http\Controllers\Assistant\AssistantController;
 //         "answer" => '{"name":"John","email":"john@test.com","phone":"123456"}'
 //     ]);
 // });
-// require __DIR__ . '/mailapi.php';
-// require __DIR__ . '/ragapi.php';
+require __DIR__ . '/mailapi.php';
+require __DIR__ . '/ragapi.php';
 require __DIR__ . '/registration/registrationapi.php';
 
 Route::post('/assistant/ask/web', [AssistantController::class, 'ask']);

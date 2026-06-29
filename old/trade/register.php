@@ -4,19 +4,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && realpath(__FILE__) == realpath($_SERV
   die("<h2>Access Denied!</h2> This file is protected and not available to public.");
 }
 ?>
+
+
 <?php
+include "../category.php";
 
-
-$timezone = "Asia/Calcutta";
-if (function_exists('date_default_timezone_set'))
-  date_default_timezone_set($timezone);
-
-
-$mysqli = new mysqli("localhost", "iitminda_harish", "Harish@2024", "iitminda_iitmindia_2024");
-if ($mysqli->connect_errno) {
-  echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-  exit();
-}
 
 require('code39.php');
 require('class.phpmailer-lite.php');
@@ -33,10 +25,29 @@ $state = htmlspecialchars($_POST['state'], ENT_QUOTES);
 $pincode = $_POST['pincode'];
 $country = $_POST['country'];
 $website = $_POST['website'];
+$category = $_POST['category'];
 $city_name = 'Chennai';
 
 
+echo $category;
+exit();
+$obj = new CategoryCheck();
 
+if (!$obj->categorycheck($name, $category)) {
+    header("Location: ../registerc.php");
+    exit(); // STOP everything immediately
+}
+
+$timezone = "Asia/Calcutta";
+if (function_exists('date_default_timezone_set'))
+  date_default_timezone_set($timezone);
+
+
+$mysqli = new mysqli("localhost", "iitminda_harish", "Harish@2024", "iitminda_iitmindia_2024");
+if ($mysqli->connect_errno) {
+  echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+  exit();
+}
 
 $mysqli->query("INSERT INTO tradev (title,select2,name,designation,organisation,email,phone,address,city,state,pincode,country,website,city_name) VALUES ( '$title','$select2', '$name','$designation', '$organisation', '$email', '$phone','$address','$city','$state','$pincode','$country','$website','$city_name')");
 

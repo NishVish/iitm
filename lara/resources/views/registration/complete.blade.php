@@ -12,7 +12,7 @@
 
     @php
         $lastsegment = basename($_SERVER['REQUEST_URI']);
-        $check = !in_array($lastsegment, ['sanjay', 'usha', 'dilip', 'rohit', 'indira']);
+        $check = !in_array($lastsegment, ['sanjay', 'usha', 'dilip', 'rohit', 'indira', 'Abhinav', 'Tejaswini', 'Hari']);
     @endphp
 
     @if(!empty($delegates))

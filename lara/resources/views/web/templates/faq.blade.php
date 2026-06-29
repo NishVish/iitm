@@ -9,7 +9,7 @@
 
 @php
 
-    $faqPath = public_path('ai/iitm-faq-rag.json');
+    $faqPath = public_path('ai/rag/iitm-faq-rag.json');
 
     $faqData = [];
 

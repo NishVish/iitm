@@ -20,207 +20,207 @@ class RagServicesTrainer extends Controller
 
     public function __construct()
     {
-        $this->ragPath =  storage_path('app/rag');
+        $this->ragPath = storage_path('app/rag');
         $this->dbPath = $this->ragPath . '/data.sqlite3';
         $this->ragTestDbPath = $this->ragPath . '/ragtest.sqlite3';
         $this->model = config('ai.model');
 
     }
 
-public function train()
-{
-	
-	$this->removeOldEmbeddingData();
-	
-    $pdfPath = storage_path('app/rag/brochure.pdf');
+    public function train()
+    {
 
-   $text = $this->processPdf($pdfPath);
+        $this->removeOldEmbeddingData();
 
-    $this->runRagProcess(
-        'brochure.pdf',
-        $text
-    );
+        $pdfPath = storage_path('app/rag/brochure.pdf');
+
+        $text = $this->processPdf($pdfPath);
+
+        $this->runRagProcess(
+            'brochure.pdf',
+            $text
+        );
 
 
-$this->websiteRag("https://iitmindia.com/");
-// $this->websiteRag("https://ttfotm.com/");
+        $this->websiteRag("https://iitmindia.com/");
+        // $this->websiteRag("https://ttfotm.com/");
 // $this->websiteRag("https://spheretravelmedia.com/");
 
 
 
-    return redirect('chat');
-}
-	
-public function websiteRag(string $websiteLink)
-{
-    $visited = [];
-
-    // Process homepage
-    $html = $this->scrapePage($websiteLink);
-
-    if (!$html) {
-        return;
+        return redirect('chat');
     }
 
-    $text = $this->htmlToText($html);
-    $this->runRagProcess($websiteLink, $text);
+    public function websiteRag(string $websiteLink)
+    {
+        $visited = [];
 
-    $visited[$websiteLink] = true;
-
-    // Find all internal links
-    $links = $this->extractLinks($html, $websiteLink);
-
-    foreach ($links as $link) {
-
-        if (isset($visited[$link])) {
-            continue;
-        }
-
-        $visited[$link] = true;
-
-        $pageHtml = $this->scrapePage($link);
-
-        if (!$pageHtml) {
-            continue;
-        }
-
-        $pageText = $this->htmlToText($pageHtml);
-
-        $this->runRagProcess($link, $pageText);
-    }
-}
-	
-private function scrapePage(string $url): ?string
-{
-    // Block non-web URLs
-    if (
-        str_starts_with($url, 'mailto:') ||
-        str_starts_with($url, 'tel:') ||
-        str_starts_with($url, 'javascript:')
-    ) {
-        return null;
-    }
-
-    try {
-        $context = stream_context_create([
-            'http' => [
-                'timeout' => 10,
-                'ignore_errors' => true,
-                'user_agent' => 'Mozilla/5.0 RAG-Bot'
-            ]
-        ]);
-
-        $html = @file_get_contents($url, false, $context);
+        // Process homepage
+        $html = $this->scrapePage($websiteLink);
 
         if (!$html) {
+            return;
+        }
+
+        $text = $this->htmlToText($html);
+        $this->runRagProcess($websiteLink, $text);
+
+        $visited[$websiteLink] = true;
+
+        // Find all internal links
+        $links = $this->extractLinks($html, $websiteLink);
+
+        foreach ($links as $link) {
+
+            if (isset($visited[$link])) {
+                continue;
+            }
+
+            $visited[$link] = true;
+
+            $pageHtml = $this->scrapePage($link);
+
+            if (!$pageHtml) {
+                continue;
+            }
+
+            $pageText = $this->htmlToText($pageHtml);
+
+            $this->runRagProcess($link, $pageText);
+        }
+    }
+
+    private function scrapePage(string $url): ?string
+    {
+        // Block non-web URLs
+        if (
+            str_starts_with($url, 'mailto:') ||
+            str_starts_with($url, 'tel:') ||
+            str_starts_with($url, 'javascript:')
+        ) {
             return null;
         }
 
-        return $html;
+        try {
+            $context = stream_context_create([
+                'http' => [
+                    'timeout' => 10,
+                    'ignore_errors' => true,
+                    'user_agent' => 'Mozilla/5.0 RAG-Bot'
+                ]
+            ]);
 
-    } catch (\Throwable $e) {
-        return null;
-    }
-}
+            $html = @file_get_contents($url, false, $context);
 
-private function htmlToText(string $html): string
-{
-    return trim(
-        html_entity_decode(
-            strip_tags($html),
-            ENT_QUOTES | ENT_HTML5,
-            'UTF-8'
-        )
-    );
-}
-private function extractLinks(string $html, string $baseUrl): array
-{
-    preg_match_all('/<a\s[^>]*href=["\']([^"\']+)["\']/i', $html, $matches);
+            if (!$html) {
+                return null;
+            }
 
-    $links = [];
+            return $html;
 
-    foreach ($matches[1] as $href) {
-
-        // Ignore anchors, mailto, javascript
-        if (
-            str_starts_with($href, '#') ||
-            str_starts_with($href, 'mailto:') ||
-            str_starts_with($href, 'javascript:')
-        ) {
-            continue;
-        }
-
-        // Convert relative URLs to absolute
-        $url = $this->absoluteUrl($baseUrl, $href);
-
-        // Keep only internal links
-        if (parse_url($url, PHP_URL_HOST) === parse_url($baseUrl, PHP_URL_HOST)) {
-            $links[] = $url;
+        } catch (\Throwable $e) {
+            return null;
         }
     }
 
-    return array_values(array_unique($links));
-}
+    private function htmlToText(string $html): string
+    {
+        return trim(
+            html_entity_decode(
+                strip_tags($html),
+                ENT_QUOTES | ENT_HTML5,
+                'UTF-8'
+            )
+        );
+    }
+    private function extractLinks(string $html, string $baseUrl): array
+    {
+        preg_match_all('/<a\s[^>]*href=["\']([^"\']+)["\']/i', $html, $matches);
 
-	private function absoluteUrl(string $baseUrl, string $href): string
-{
-    // Already an absolute URL
-    if (filter_var($href, FILTER_VALIDATE_URL)) {
-        return $href;
+        $links = [];
+
+        foreach ($matches[1] as $href) {
+
+            // Ignore anchors, mailto, javascript
+            if (
+                str_starts_with($href, '#') ||
+                str_starts_with($href, 'mailto:') ||
+                str_starts_with($href, 'javascript:')
+            ) {
+                continue;
+            }
+
+            // Convert relative URLs to absolute
+            $url = $this->absoluteUrl($baseUrl, $href);
+
+            // Keep only internal links
+            if (parse_url($url, PHP_URL_HOST) === parse_url($baseUrl, PHP_URL_HOST)) {
+                $links[] = $url;
+            }
+        }
+
+        return array_values(array_unique($links));
     }
 
-    $base = parse_url($baseUrl);
+    private function absoluteUrl(string $baseUrl, string $href): string
+    {
+        // Already an absolute URL
+        if (filter_var($href, FILTER_VALIDATE_URL)) {
+            return $href;
+        }
 
-    $scheme = $base['scheme'] ?? 'https';
-    $host   = $base['host'];
+        $base = parse_url($baseUrl);
 
-    // Root-relative URL
-    if (str_starts_with($href, '/')) {
-        return $scheme . '://' . $host . $href;
+        $scheme = $base['scheme'] ?? 'https';
+        $host = $base['host'];
+
+        // Root-relative URL
+        if (str_starts_with($href, '/')) {
+            return $scheme . '://' . $host . $href;
+        }
+
+        // Relative URL
+        $path = isset($base['path']) ? dirname($base['path']) : '';
+
+        return rtrim($scheme . '://' . $host . '/' . trim($path, '/'), '/') . '/' . ltrim($href, '/');
     }
-
-    // Relative URL
-    $path = isset($base['path']) ? dirname($base['path']) : '';
-
-    return rtrim($scheme . '://' . $host . '/' . trim($path, '/'), '/') . '/' . ltrim($href, '/');
-}
     /*
     |--------------------------------------------------------------------------
     | PROCESS PDF
     |--------------------------------------------------------------------------
     */
-	private function processPdf(string $source): string
-	{
-		try {
+    private function processPdf(string $source): string
+    {
+        try {
 
-			if (!file_exists($source)) {
-				throw new \Exception("PDF not found: {$source}");
-			}
+            if (!file_exists($source)) {
+                throw new \Exception("PDF not found: {$source}");
+            }
 
-			$parser = new Parser();
-			$pdf = $parser->parseFile($source);
+            $parser = new Parser();
+            $pdf = $parser->parseFile($source);
 
-			return $pdf->getText();
+            return $pdf->getText();
 
-		} catch (\Exception $e) {
+        } catch (\Exception $e) {
 
-			Log::error("PDF processing failed", [
-				'pdf' => $source,
-				'error' => $e->getMessage()
-			]);
+            Log::error("PDF processing failed", [
+                'pdf' => $source,
+                'error' => $e->getMessage()
+            ]);
 
-			return '';
-		}
-	}
-		
-	
-    
+            return '';
+        }
+    }
 
-public function removeOldEmbeddingData()
-{
-    $sqlite = new \SQLite3($this->dbPath);
 
-    $sqlite->exec("
+
+
+    public function removeOldEmbeddingData()
+    {
+        $sqlite = new \SQLite3($this->dbPath);
+
+        $sqlite->exec("
         CREATE TABLE IF NOT EXISTS embeddings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             file_name TEXT,
@@ -231,23 +231,23 @@ public function removeOldEmbeddingData()
         )
     ");
 
-    // Delete all rows
-    $sqlite->exec("DELETE FROM embeddings");
+        // Delete all rows
+        $sqlite->exec("DELETE FROM embeddings");
 
-    // Optional: Reset auto-increment IDs
-    $sqlite->exec("DELETE FROM sqlite_sequence WHERE name='embeddings'");
-}
+        // Optional: Reset auto-increment IDs
+        $sqlite->exec("DELETE FROM sqlite_sequence WHERE name='embeddings'");
+    }
     /*
     |--------------------------------------------------------------------------
     | RUN RAG ON DATA (embed + store)
     |--------------------------------------------------------------------------
     */
-	
-	public function runRagProcess(string $fileName, string $text)
-{
-    $sqlite = new \SQLite3($this->dbPath);
 
-    $sqlite->exec("
+    public function runRagProcess(string $fileName, string $text)
+    {
+        $sqlite = new \SQLite3($this->dbPath);
+
+        $sqlite->exec("
         CREATE TABLE IF NOT EXISTS embeddings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             file_name TEXT,
@@ -258,51 +258,51 @@ public function removeOldEmbeddingData()
         )
     ");
 
-    $stmt = $sqlite->prepare(
-        "DELETE FROM embeddings WHERE file_name = :file_name"
-    );
+        $stmt = $sqlite->prepare(
+            "DELETE FROM embeddings WHERE file_name = :file_name"
+        );
 
-    $stmt->bindValue(':file_name', $fileName, SQLITE3_TEXT);
-    $stmt->execute();
+        $stmt->bindValue(':file_name', $fileName, SQLITE3_TEXT);
+        $stmt->execute();
 
-    $chunks = str_split($text, 1000);
+        $chunks = str_split($text, 1000);
 
-    $saved = 0;
+        $saved = 0;
 
-    foreach ($chunks as $index => $chunk) {
+        foreach ($chunks as $index => $chunk) {
 
-        $chunk = trim($chunk);
+            $chunk = trim($chunk);
 
-        if ($chunk === '') {
-            continue;
-        }
+            if ($chunk === '') {
+                continue;
+            }
 
-        $embedding = $this->getEmbedding($chunk);
+            $embedding = $this->getEmbedding($chunk);
 
-        $stmt = $sqlite->prepare("
+            $stmt = $sqlite->prepare("
             INSERT INTO embeddings
             (file_name, chunk_index, content, embedding)
             VALUES
             (:file_name, :chunk_index, :content, :embedding)
         ");
 
-        $stmt->bindValue(':file_name', $fileName);
-        $stmt->bindValue(':chunk_index', $index);
-        $stmt->bindValue(':content', $chunk);
-        $stmt->bindValue(':embedding', json_encode($embedding));
+            $stmt->bindValue(':file_name', $fileName);
+            $stmt->bindValue(':chunk_index', $index);
+            $stmt->bindValue(':content', $chunk);
+            $stmt->bindValue(':embedding', json_encode($embedding));
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $saved++;
+            $saved++;
+        }
+
+        $sqlite->close();
+
+        return [
+            'file' => $fileName,
+            'chunks' => $saved
+        ];
     }
-
-    $sqlite->close();
-
-    return [
-        'file' => $fileName,
-        'chunks' => $saved
-    ];
-}
 
 
     /*

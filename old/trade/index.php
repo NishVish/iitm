@@ -194,6 +194,8 @@
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Website" name="website">
+                    </div><div class="form-group">
+                        <input type="text" class="form-control" placeholder="category" name="Category">
                     </div>
                     <div class="form-group">
                         <textarea class="form-control" placeholder="Your Message" name="Message"></textarea>

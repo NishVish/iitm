@@ -18,195 +18,128 @@
             font-family: 'Inter', sans-serif;
         }
 
-        body {
-            background: #f5f7fb;
-            padding: 50px 20px;
-        }
 
-        .container {
-            max-width: 900px;
-            margin: auto;
+        <style>body {
+            background: #f5f6f8;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            color: #1f2937;
         }
 
         .title {
             text-align: center;
-            font-size: 34px;
-            margin-bottom: 35px;
-            color: #1f2937;
+            margin: 20px 0;
+            font-size: 26px;
+            font-weight: 600;
         }
 
-        .city {
-            background: #fff;
-            border-radius: 18px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 25px;
+            font-size: 14px;
         }
 
-        .city h2 {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: #fff;
-            padding: 18px 24px;
-            font-size: 22px;
+        .city-card {
+            margin: 25px auto;
+            width: 95%;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
         }
 
-        .link-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 24px;
-            border-bottom: 1px solid #edf2f7;
-            transition: .25s;
-        }
-
-        .link-card:last-child {
-            border-bottom: none;
-        }
-
-        .link-card:hover {
-            background: #f8faff;
-        }
-
-        .name {
+        .city-title {
+            margin-bottom: 10px;
+            color: #374151;
             font-size: 18px;
             font-weight: 600;
+        }
+
+        .cool-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .cool-table thead {
+            background: #f3f4f6;
             color: #374151;
         }
 
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .open-btn,
-        .copy-btn {
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px 18px;
-            border-radius: 8px;
+        .cool-table th,
+        .cool-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
             font-size: 14px;
+        }
+
+        .cool-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .badge {
+            background: #e5e7eb;
+            color: #111827;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 12px;
             font-weight: 600;
-            transition: .25s;
         }
 
-        .open-btn {
-            background: #eef2ff;
-            color: #4f46e5;
+        .btn {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-decoration: none;
+            border: 1px solid #d1d5db;
+            background: #fff;
+            color: #374151;
+            cursor: pointer;
         }
 
-        .open-btn:hover {
-            background: #4f46e5;
-            color: #fff;
+        .btn:hover {
+            background: #f3f4f6;
         }
 
-        .copy-btn {
-            background: #10b981;
-            color: #fff;
-        }
-
-        .copy-btn:hover {
-            background: #059669;
+        .name-cell {
+            font-weight: 500;
+            text-transform: capitalize;
         }
 
         .toast {
             position: fixed;
-            top: 25px;
-            right: 25px;
-            background: #10b981;
+            bottom: 20px;
+            right: 20px;
+            background: #111827;
             color: #fff;
-            padding: 12px 18px;
+            padding: 10px 14px;
             border-radius: 8px;
-            font-weight: 600;
             opacity: 0;
-            transform: translateY(-20px);
-            transition: .3s;
-            z-index: 999;
+            transform: translateY(15px);
+            transition: 0.3s;
+            font-size: 13px;
         }
 
         .toast.show {
             opacity: 1;
             transform: translateY(0);
         }
-
-        @media(max-width:650px) {
-            .link-card {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .actions {
-                width: 100%;
-            }
-
-            .actions a,
-            .actions button {
-                flex: 1;
-                text-align: center;
-            }
-        }
     </style>
+
 </head>
 
 <body>
 
     <div class="container">
+        <h1 class="title">🔗 Share Links Dashboard</h1>
 
-        <h1 class="title">🔗 Share Links</h1>
-
-        @php
-            $cities = [
-                'chennai' => ['sanjay', 'usha', 'dilip', 'rohit', 'indira'],
-                'bangalore' => ['sanjay', 'usha', 'dilip', 'rohit', 'indira'],
-            ];
-        @endphp
-
-        @foreach($cities as $city => $persons)
-            <div class="city">
-                <h2>📍 {{ ucfirst($city) }}</h2>
-
-                @foreach($persons as $person)
-                    <div class="link-card">
-                        <div class="name">{{ ucfirst($person) }}</div>
-
-                        <div class="actions">
-                            <a class="open-btn" href="{{ url($city . '/' . $person) }}" target="_blank">
-                                Open
-                            </a>
-
-                            <a class="open-btn" href="{{ url('entriesbyspecifics/' . $city . '/' . $person) }}" target="_blank">
-                                Entries
-                            </a>
-
-                            <button class="copy-btn" onclick="copyLink('{{ url($city . '/' . $person) }}')">
-                                Copy
-                            </button>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        @endforeach
-        ```
-
-
-    </div>
-
-    <div id="toast" class="toast">✅ Link copied!</div>
-
-    <script>
-        function copyLink(url) {
-            navigator.clipboard.writeText(url);
-
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 1500);
-        }
-    </script>
+        <h2 class="subtitle">
+            Copy & share links with clients for quick badge pre-printing
+        </h2>
+        @include('registration.linksandcounts')
 
 </body>
+
 
 </html>

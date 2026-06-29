@@ -247,8 +247,7 @@ $routes->get('events/create', 'Events::create');
 $routes->post('events/store', 'Events::store');
 $routes->get('events/edit/(:num)', 'Events::edit/$1');
 $routes->post('events/update/(:num)', 'Events::update/$1');
-$routes->get('events/delete', 'Events::delete');
-
+$routes->get('events/delete/(:num)', 'Events::deletebyid/$1');
 $routes->get('events/fetch/iitm', 'Events::fetchiitmdate');
 $routes->post('events/update-cell', 'Events::updateCell');
 // $routes->get('events', 'Events::index');
