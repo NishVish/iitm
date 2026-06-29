@@ -1,6 +1,6 @@
 @include('registration.header')
 
-<h2 style="text-align:center;">Registration Complete</h2>
+<h2 style="text-align:center;">Exhibitor Registration Complete</h2>
 
 <div class="container">
 
@@ -71,17 +71,23 @@
     <hr>
 
     <h2 style="text-align:center;">🎉 You're All Set!</h2>
+    @if($check)
+        <p style="font-size:1.05em;font-weight:500;text-align:center;margin:10px 0;">
+            📲 <strong>Final Step:</strong> Please mention your <strong>mobile number</strong> at the
+            <strong>registration counter</strong> to print your entry pass.
+        </p>
 
-    <p style="font-size:1.05em;font-weight:500;text-align:center;margin:10px 0;">
-        📲 <strong>Final Step:</strong> Please mention your <strong>mobile number</strong> at the
-        <strong>registration counter</strong> to print your entry pass.
-    </p>
+        <p style="text-align:center;">
+            🙌 <strong>
+                We sincerely appreciate your participation as an exhibitor at the IITM Exhibition.
+                We look forward to a successful and engaging event together.
+            </strong>
+        </p>
 
-    <p style="text-align:center;">
-        🙌 <strong>
-            We sincerely appreciate your participation as an exhibitor at the IITM Exhibition.
-            We look forward to a successful and engaging event together.
-        </strong>
-    </p>
+    @else
+        📲 <strong>Final Step:</strong> Please mention your <strong>Company Name</strong> at the
+        <strong>registration counter</strong> to Collect you Badge
+
+    @endif
 
 </div>
