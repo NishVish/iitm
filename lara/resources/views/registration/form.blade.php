@@ -4,6 +4,10 @@
 @php
     $lastsegment = basename($_SERVER['REQUEST_URI']);
     $secondlastSegment = basename(dirname($_SERVER['REQUEST_URI']));
+    if ($lastsegment == "form") {
+        $lastsegment = "exhibitor";
+        $secondlastSegment = "spot";
+    }
 @endphp
 <form method="post" action="{{ url('store/' . $secondlastSegment . '/' . $lastsegment) }}">
     @csrf
