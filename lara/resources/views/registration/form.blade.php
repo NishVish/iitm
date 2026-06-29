@@ -8,6 +8,10 @@
         $lastsegment = "exhibitor";
         $secondlastSegment = "spot";
     }
+    echo $lastsegment;
+    echo $secondlastSegment;
+
+
 @endphp
 <form method="post" action="{{ url('store/' . $secondlastSegment . '/' . $lastsegment) }}">
     @csrf
