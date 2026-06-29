@@ -26,8 +26,8 @@
 
     <label>Mobile</label>
     <input type="text" name="mobile" placeholder="Enter mobile number">
-    <label>Stall No.</label>
-    <input type="text" name="stallno" placeholder="Enter stall no.">
+    <!-- <label>Stall No.</label> -->
+    <input type="hidden" name="stallno" placeholder="Enter stall no.">
 
     <button type="submit" class="btn btn-submit">Submit Registration</button>
 

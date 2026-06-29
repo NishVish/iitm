@@ -6,7 +6,7 @@
 
     <p><strong>Company:</strong> {{ $company }}</p>
     <p><strong>Mobile:</strong> {{ $mobile }}</p>
-    <p><strong>Stall No:</strong> {{ $stallno }}</p>
+    <!-- <p><strong>Stall No:</strong> {{ $stallno }}</p> -->
 
     <h3>Delegates</h3>
 
