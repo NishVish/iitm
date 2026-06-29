@@ -13,6 +13,8 @@
 
 
 @endphp
+
+<h1>Stupid</h1>
 <form method="post" action="{{ url('store/' . $secondlastSegment . '/' . $lastsegment) }}">
     @csrf
 
