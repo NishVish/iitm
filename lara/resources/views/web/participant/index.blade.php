@@ -31,23 +31,23 @@
 
                 <!-- <script>
 
-                                document.addEventListener("DOMContentLoaded", function () {
-                                    const wrapper = document.getElementById('iitmHeader');
-                                    wrapper.style.display = 'none';
-                                    if (wrapper) {
-                                        setTimeout(() => {
-                                            // Force display block with zero spacing
-                                            wrapper.style.display = 'block';
-
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const wrapper = document.getElementById('iitmHeader');
+                                        wrapper.style.display = 'none';
+                                        if (wrapper) {
                                             setTimeout(() => {
-                                                wrapper.style.opacity = '1';
+                                                // Force display block with zero spacing
+                                                wrapper.style.display = 'block';
 
-                                            }, 50);
+                                                setTimeout(() => {
+                                                    wrapper.style.opacity = '1';
 
-                                        }, 5000);
-                                    }
-                                });
-                            </script> -->
+                                                }, 50);
+
+                                            }, 5000);
+                                        }
+                                    });
+                                </script> -->
             @elseif($lastSegment === 'attending')
                 {{-- Your Attending Content Here --}}
 
@@ -60,7 +60,8 @@
                 <!-- @#include('web.templates.otpless') -->
                 <!-- @include('web.templates.registercitis') -->
             @elseif($lastSegment === 'enquiry')
-                @include('web.loading2') {{-- includes register.blade.php --}}
+
+                {{-- includes register.blade.php --}}
 
                 @include('web.header2')
 

@@ -86,8 +86,12 @@
         </p>
 
         <div class="hero-buttons">
-            <button class="btn-primary">Book a Stall</button>
-            <button class="btn-secondary">Download Brochure</button>
+            <a href="{{ url('/enquiry') }}">
+                <button class="btn-primary">Book a Stall</button>
+            </a>
+            <a href="{{ url('public/assets/resource/brochure.pdf') }}" download>
+                <button class="btn-secondary">Download Brochure</button>
+            </a>
         </div>
     </div>
 

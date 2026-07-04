@@ -141,7 +141,7 @@
 
     <span class="process-label">Participation Options</span>
 
-    <h2 class="process-title">Choose How to <em>Participate</em></h2>
+    <h2 class="process-title">Book your <em>Stall Now</em></h2>
 
     <p class="process-subtitle">
         Get started with IITM in the way that suits you best. Our sales team will assist you at every step.
@@ -162,7 +162,7 @@
             </p>
 
             <div class="step-actions">
-                <a href="#enquiry-form" class="btn btn-primary">Send Enquiry</a>
+                <a href="{{ url("enquiry") }}" class="btn btn-primary">Send Enquiry</a>
             </div>
 
         </div>
@@ -180,8 +180,8 @@
             </p>
 
             <div class="step-actions">
-                <a href="tel:+919999999999" class="btn btn-primary">Call Sales Team</a>
-                <a href="#" class="btn btn-outline">WhatsApp Us</a>
+                <a href="tel:+919742942009" class="btn btn-primary">Call Sales Team</a>
+                <a href="https://wa.me/+919742942009" class="btn btn-outline">WhatsApp Us</a>
             </div>
 
         </div>

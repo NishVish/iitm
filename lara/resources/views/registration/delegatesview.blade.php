@@ -1,7 +1,15 @@
 @include('registration.header')
-<h2>Exhibitor Registration</h2>
+
+<h2 style="text-align:center;">Exhibitor Registration Complete</h2>
 
 
+@include('registration.delegatestable')
+
+@php
+    $shareLink = url('delegates/' . $data[0]->identifierkey);
+@endphp
+
+@include('registration.sharelink')
 @php
     $lastsegment = basename($_SERVER['REQUEST_URI']);
     $secondlastSegment = basename(dirname($_SERVER['REQUEST_URI']));
@@ -13,9 +21,3 @@
 
 @endphp
 @include('registration.formparameter')
-</div>
-
-
-</body>
-
-</html>

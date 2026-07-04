@@ -60,7 +60,9 @@
     <div class="wrap">
 
         <div class="title">
-            <h2>Who Can Visit</h2>
+            <h2>
+                Designed For
+            </h2>
             <p>Key stakeholders in travel & hospitality ecosystem</p>
         </div>
 

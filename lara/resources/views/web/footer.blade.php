@@ -13,7 +13,7 @@
                 <p>Connect with India's premier travel trade community.</p>
             </div>
             <div class="f-enquiry-action">
-                <a href="mailto:info@iitmindia.com" class="f-btn">Start an Enquiry</a>
+                <a href="{{ url('enquiry') }}" class="f-btn">Start an Enquiry</a>
             </div>
         </div>
 

@@ -23,12 +23,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 520px;
+            max-width: 750px;
             background: #ffffff;
             border-radius: 16px;
             padding: 30px;

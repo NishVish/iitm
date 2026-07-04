@@ -971,35 +971,35 @@ class RegisterController extends Controller
 
         // dd($data);
 
-// echo "<pre>";
+        // echo "<pre>";
 // print_r($data);
 // echo "</pre>";
 
 
-   // $result = \Illuminate\Support\Facades\Http::post(url('/mail/registration'), $data);
+        // $result = \Illuminate\Support\Facades\Http::post(url('/mail/registration'), $data);
 
-// dd($result);
+        // dd($result);
 
         if ($status === 'approved') {
             // echo "<pre>";
             // echo "thsi is approved";
             // echo "</pre>";
-            $mailer = new MailServices();
+            // $mailer = new MailServices();
 
-            $mailer->sendRegistrationMail($data);
+            // $mailer->sendRegistrationMail($data);
 
 
 
 
             $data['print'] = true;
-            $data['preview'] = true;
+            $data['preview'] = false;
             $data['emailpage'] = true;
 
 
 
             return view('web.registration.successpage.index', compact('data'));
 
-                 // 5. Final Return
+            // 5. Final Return
 
         }
 

@@ -275,9 +275,10 @@
                     <li>Attend networking sessions</li>
                 </ul>
 
-                <a href="https://iitmindia.com/trade-visitor2/#:~:text=Trade Visitor Registration"
-                    class="btn btn-white">
-                    Get Entry Badge </a>
+
+                <button onclick="openEntryBadge()" class="btn btn-white">
+                    Get Entry Badge
+                </button>
             </div>
         </div>
 

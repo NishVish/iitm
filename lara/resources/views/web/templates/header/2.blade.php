@@ -149,6 +149,7 @@
 
     .header2.scrolled .hamburger {
         color: #ffffff;
+
     }
 
     /* INTERACTIVE SIDE SLIDE MENU */
@@ -232,7 +233,7 @@
 </style>
 
 <header class="header2" id="iitmHeader">
-    <div class="header-inner">
+    <div class="header-inner" id="iitminnerheader">
         <div class="logo">
             <img id="iitmLogoImg" src="{{ asset('public/assets/iitm3.png') }}" alt="Logo">
         </div>
@@ -278,6 +279,7 @@
     // Initialized safely on DOM contents ready to avoid element targeting failures
     document.addEventListener("DOMContentLoaded", function () {
         const iitmHeader = document.getElementById("iitmHeader");
+        const iitmHeaderinner = document.getElementById("iitminnerheader");
         const iitmLogo = document.getElementById("iitmLogoImg");
         const iitmSideMenu = document.getElementById("iitmSideMenu");
         const iitmOverlay = document.getElementById("iitmOverlay");
@@ -285,6 +287,7 @@
         window.addEventListener("scroll", () => {
             if (window.scrollY > 50) {
                 if (iitmHeader) iitmHeader.classList.add("scrolled");
+
                 if (iitmLogo) iitmLogo.src = "{{ asset('public/assets/iitm2.png') }}";
             } else {
                 if (iitmHeader) iitmHeader.classList.remove("scrolled");

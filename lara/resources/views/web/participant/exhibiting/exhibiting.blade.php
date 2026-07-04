@@ -153,8 +153,7 @@
         <div>
             <div class="shecdule">
 
-                <div id="scheduel_heading">Event Overview</div>
-
+                <div id="scheduel_heading">Select Exhibition Location</div>
                 <style>
                     .shecdule {
                         width: 100%;
@@ -165,7 +164,7 @@
                     #scheduel_heading {
                         text-align: center;
                         margin: none !important;
-                        color: #000;
+                        color: #a8a8a8ff;
                         font-size: 2rem;
                         font-weight: 700;
                     }

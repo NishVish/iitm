@@ -133,7 +133,7 @@
 
     <span class="who-label">Exhibitor Profile</span>
 
-    <h2 class="who-title">Who Should <em>Exhibit</em>?</h2>
+    <h2 class="who-title"><em>Beneficial</em> for</h2>
 
     @php
         $whoItems = [

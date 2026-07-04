@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Ai;
-
+use DOMDocument;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utility\ListFiles;
 
@@ -27,72 +27,241 @@ class RagServicesTrainer extends Controller
 
     }
 
+    public function trainbylink($link)
+    {
+
+        $this->websiteRag($link);
+        return redirect('chat');
+
+    }
+
     public function train()
     {
 
         $this->removeOldEmbeddingData();
 
-        $pdfPath = storage_path('app/rag/brochure.pdf');
+        // $pdfPath = storage_path('app/rag/brochure.pdf');
+
+        // // dd('pdfPath', $pdfPath);
+
+        // $text = $this->processPdf($pdfPath);
+
+        // // $this->runRagProcess(
+        // //     'brochure.pdf',
+        // //     $text
+        // // );
+
+        $pdfPath = storage_path('app/rag/output.pdf');
+
+        // dd('pdfPath', $pdfPath);
 
         $text = $this->processPdf($pdfPath);
 
         $this->runRagProcess(
-            'brochure.pdf',
+            'output.pdf',
             $text
         );
 
-
-        $this->websiteRag("https://iitmindia.com/");
+        // $this->websiteRag("https://iitmindia.com/ci/lara");
         // $this->websiteRag("https://ttfotm.com/");
 // $this->websiteRag("https://spheretravelmedia.com/");
 
 
-
+        // dd("none");
         return redirect('chat');
     }
+    private function processPdf(string $source): string
+    {
+        try {
+
+            if (!file_exists($source)) {
+                throw new \Exception("PDF not found: {$source}");
+            }
+
+            $parser = new Parser();
+            $pdf = $parser->parseFile($source);
+            // echo "<pre>";
+            // print_r($pdf->getText());
+            // echo "</pre>";
+            return $pdf->getText();
+
+        } catch (\Exception $e) {
+
+            Log::error("PDF processing failed", [
+                'pdf' => $source,
+                'error' => $e->getMessage()
+            ]);
+
+            return '';
+        }
+    }
+
+
+    private function htmlToText(string $html): string
+    {
+        libxml_use_internal_errors(true);
+
+        $dom = new \DOMDocument();
+
+        @$dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_NONET);
+
+        // Remove unwanted elements
+        $removeTags = [
+            'script',
+            'style',
+            'noscript',
+            'svg',
+            'canvas',
+            'iframe',
+            'header',
+            'footer',
+            'nav',
+            'aside',
+            'form',
+            'button',
+            'input',
+            'textarea',
+            'select',
+            'option',
+            'link',
+            'meta',
+            'picture',
+            'source'
+        ];
+
+        foreach ($removeTags as $tag) {
+            while (true) {
+                $nodes = $dom->getElementsByTagName($tag);
+
+                if ($nodes->length === 0) {
+                    break;
+                }
+
+                $node = $nodes->item(0);
+
+                $node->parentNode?->removeChild($node);
+            }
+        }
+
+        $text = $dom->textContent ?? '';
+
+        // Decode HTML entities
+        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+        // Remove URLs
+        $text = preg_replace('/https?:\/\/\S+/i', ' ', $text);
+
+        // Remove emails
+        $text = preg_replace('/\S+@\S+\.\S+/i', ' ', $text);
+
+        // Remove CSS variables like --color-name
+        $text = preg_replace('/--[\w-]+\s*:/', ' ', $text);
+
+        // Remove CSS selectors and braces
+        $text = preg_replace('/[.#]?[a-zA-Z0-9_-]+\s*\{[^}]*\}/s', ' ', $text);
+
+        // Remove @media, @import, @font-face, @keyframes blocks
+        $text = preg_replace('/@(media|import|font-face|keyframes)[^{]*\{(?:[^{}]*|\{[^{}]*\})*\}/is', ' ', $text);
+
+        // Remove leftover CSS punctuation
+        $text = preg_replace('/[{};<>]/', ' ', $text);
+
+        // Remove long hexadecimal/color codes
+        $text = preg_replace('/#[0-9a-f]{3,8}\b/i', ' ', $text);
+
+        // Remove repeated punctuation
+        $text = preg_replace('/[_=\-*]{2,}/', ' ', $text);
+
+        // Normalize whitespace
+        $text = preg_replace('/\R+/', "\n", $text);
+        $text = preg_replace('/[ \t]+/', ' ', $text);
+        $text = preg_replace('/\n{2,}/', "\n\n", $text);
+
+        return trim($text);
+    }
+
 
     public function websiteRag(string $websiteLink)
     {
+        $pages = $this->crawlWebsite($websiteLink, 30);
+
+        foreach ($pages as $url) {
+            $html = $this->scrapePage($url);
+
+            if (!$html) {
+                continue;
+            }
+
+            $text = $this->htmlToText($html);
+            // echo "<pre>";
+            // print_r($text);
+            // echo "</pre>";
+            // dd("none");
+
+            $this->runRagProcess($url, $text);
+        }
+    }
+
+    /**
+     * Crawl website recursively (BFS)
+     * Collects max $limit internal pages.
+     */
+    private function crawlWebsite(string $startUrl, int $limit = 30): array
+    {
         $visited = [];
+        $queue = [$startUrl];
+        $results = [];
 
-        // Process homepage
-        $html = $this->scrapePage($websiteLink);
+        $host = parse_url($startUrl, PHP_URL_HOST);
 
-        if (!$html) {
-            return;
-        }
+        while (!empty($queue) && count($results) < $limit) {
 
-        $text = $this->htmlToText($html);
-        $this->runRagProcess($websiteLink, $text);
+            $url = array_shift($queue);
 
-        $visited[$websiteLink] = true;
-
-        // Find all internal links
-        $links = $this->extractLinks($html, $websiteLink);
-
-        foreach ($links as $link) {
-
-            if (isset($visited[$link])) {
+            if (isset($visited[$url])) {
                 continue;
             }
 
-            $visited[$link] = true;
+            $visited[$url] = true;
 
-            $pageHtml = $this->scrapePage($link);
+            $html = $this->scrapePage($url);
 
-            if (!$pageHtml) {
+            if (!$html) {
                 continue;
             }
 
-            $pageText = $this->htmlToText($pageHtml);
+            $results[] = $url;
 
-            $this->runRagProcess($link, $pageText);
+            if (count($results) >= $limit) {
+                break;
+            }
+
+            $links = $this->extractLinks($html, $url);
+
+            foreach ($links as $link) {
+
+                if (count($results) + count($queue) >= $limit) {
+                    break;
+                }
+
+                if (isset($visited[$link])) {
+                    continue;
+                }
+
+                if (parse_url($link, PHP_URL_HOST) !== $host) {
+                    continue;
+                }
+
+                $queue[] = $link;
+            }
         }
+
+        return $results;
     }
 
     private function scrapePage(string $url): ?string
     {
-        // Block non-web URLs
+        // Ignore non-http links
         if (
             str_starts_with($url, 'mailto:') ||
             str_starts_with($url, 'tel:') ||
@@ -123,44 +292,104 @@ class RagServicesTrainer extends Controller
         }
     }
 
-    private function htmlToText(string $html): string
-    {
-        return trim(
-            html_entity_decode(
-                strip_tags($html),
-                ENT_QUOTES | ENT_HTML5,
-                'UTF-8'
-            )
-        );
-    }
+    /**
+     * Extract all internal links from HTML.
+     */
     private function extractLinks(string $html, string $baseUrl): array
     {
-        preg_match_all('/<a\s[^>]*href=["\']([^"\']+)["\']/i', $html, $matches);
+        libxml_use_internal_errors(true);
+
+        $dom = new DOMDocument();
+
+        @$dom->loadHTML($html);
 
         $links = [];
 
-        foreach ($matches[1] as $href) {
+        $baseParts = parse_url($baseUrl);
 
-            // Ignore anchors, mailto, javascript
+        $scheme = $baseParts['scheme'] ?? 'https';
+        $host = $baseParts['host'] ?? '';
+
+        foreach ($dom->getElementsByTagName('a') as $a) {
+
+            $href = trim($a->getAttribute('href'));
+
+            if ($href === '') {
+                continue;
+            }
+
             if (
                 str_starts_with($href, '#') ||
                 str_starts_with($href, 'mailto:') ||
+                str_starts_with($href, 'tel:') ||
                 str_starts_with($href, 'javascript:')
             ) {
                 continue;
             }
 
-            // Convert relative URLs to absolute
-            $url = $this->absoluteUrl($baseUrl, $href);
-
-            // Keep only internal links
-            if (parse_url($url, PHP_URL_HOST) === parse_url($baseUrl, PHP_URL_HOST)) {
-                $links[] = $url;
+            // Absolute URL
+            if (preg_match('/^https?:\/\//i', $href)) {
+                $absolute = $href;
             }
+            // Root-relative
+            elseif (str_starts_with($href, '/')) {
+                $absolute = $scheme . '://' . $host . $href;
+            }
+            // Relative
+            else {
+                $path = $baseParts['path'] ?? '/';
+                $path = preg_replace('#/[^/]*$#', '/', $path);
+                $absolute = $scheme . '://' . $host . $path . $href;
+            }
+
+            $absolute = strtok($absolute, '#');
+
+            // Normalize ../ and ./
+            $parts = parse_url($absolute);
+
+            if (!isset($parts['host'])) {
+                continue;
+            }
+
+            $path = $parts['path'] ?? '/';
+
+            $segments = [];
+
+            foreach (explode('/', $path) as $segment) {
+
+                if ($segment === '' || $segment === '.') {
+                    continue;
+                }
+
+                if ($segment === '..') {
+                    array_pop($segments);
+                    continue;
+                }
+
+                $segments[] = $segment;
+            }
+
+            $normalized =
+                ($parts['scheme'] ?? 'https') .
+                '://' .
+                $parts['host'] .
+                '/' .
+                implode('/', $segments);
+
+            if (!empty($parts['query'])) {
+                $normalized .= '?' . $parts['query'];
+            }
+
+            if (($parts['host'] ?? '') !== $host) {
+                continue;
+            }
+
+            $links[$normalized] = true;
         }
 
-        return array_values(array_unique($links));
+        return array_keys($links);
     }
+
 
     private function absoluteUrl(string $baseUrl, string $href): string
     {
@@ -189,30 +418,6 @@ class RagServicesTrainer extends Controller
     | PROCESS PDF
     |--------------------------------------------------------------------------
     */
-    private function processPdf(string $source): string
-    {
-        try {
-
-            if (!file_exists($source)) {
-                throw new \Exception("PDF not found: {$source}");
-            }
-
-            $parser = new Parser();
-            $pdf = $parser->parseFile($source);
-
-            return $pdf->getText();
-
-        } catch (\Exception $e) {
-
-            Log::error("PDF processing failed", [
-                'pdf' => $source,
-                'error' => $e->getMessage()
-            ]);
-
-            return '';
-        }
-    }
-
 
 
 

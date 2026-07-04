@@ -70,6 +70,7 @@
 
     <hr>
 
+
     <h2 style="text-align:center;">🎉 You're All Set!</h2>
     @if($check)
         <p style="font-size:1.05em;font-weight:500;text-align:center;margin:10px 0;">

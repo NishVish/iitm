@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class RegistrationServices extends Controller
 {
 
-    public function storeOne($key, $name, $company, $location = null, $mobile, $sourcename = null, $stallNumber = null)
+    public function storeOne($key, $name, $designation, $company, $location = null, $mobile, $email, $sourcename = null, $stallNumber = null, $specialKey = null)
     {
         $db = DB::connection('special_db');
 
@@ -19,15 +19,16 @@ class RegistrationServices extends Controller
 
         $db->table('exhibitor')->insert([
             'person_key' => $key,
+            'identifierkey' => $specialKey,
             'name' => $name,
-            'designation' => 'NA',
+            'designation' => $designation,
             'company_name' => $company,
             'address' => $stallNumber,
             'city' => $location,
             'pin' => "NA",
             'state' => $sourcename,
             'mobile' => $mobile,
-            'email' => 'NA',
+            'email' => $email,
         ]);
 
         return [

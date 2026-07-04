@@ -9,9 +9,8 @@
     <div id="chat-header">
         Support <span onclick="toggleChat()" style="float:right; cursor:pointer;">✖</span>
     </div>
-
     <div id="chat-body" style="color:black;">
-        <p>Hi this is Orbit from iitm 👋</p>
+        <p>Hi this is Mimo from iitm 👋</p>
         <p>Email : info@iitmindia.com</p>
         <p>Executive : +91 9742942009</p>
         <p>
@@ -19,11 +18,9 @@
                 Open in WhatsApp :
                 <img src="https://cdn-icons-png.flaticon.com/128/3536/3536445.png" alt="WhatsApp"
                     style="width:20px; vertical-align:middle; margin-right:6px;">
-
             </a>
         </p>
     </div>
-
     <div id="chat-footer">
         <input type="text" id="chat-input" placeholder="Type a message..." />
         <button onclick="sendMessage()">Send</button>
@@ -240,7 +237,7 @@
         let botMsg = document.createElement("p");
 
         botMsg.innerHTML =
-            "<b>Orbit:</b> <i>Thinking...</i>";
+            "<b>Mimo:</b> <i>Thinking...</i>";
 
         body.appendChild(botMsg);
 

@@ -41,12 +41,15 @@
             background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
             padding: 14px 16px;
             border-color: #e5e5e5;
+            color: #A92324;
+
         }
 
         .stat-num {
             font-size: 3.5vh;
             font-weight: 800;
-            color: #1a202c;
+            color: #A92324;
+
             margin-bottom: 4px;
             line-height: 1;
             letter-spacing: -0.5px;
@@ -55,7 +58,7 @@
         /* Make the feature number pop a bit more */
         .span-2 .stat-num {
             font-size: 8vh !important;
-            color: #000000;
+            color: #A92324;
         }
 
         .stat-label {

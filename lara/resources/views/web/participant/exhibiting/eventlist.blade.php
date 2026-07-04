@@ -1,7 +1,7 @@
 <style>
     /* Scope wrapper box layout styles */
     .iitm-vp-slider-box {
-        max-width: 900px;
+        max-width: 1000px;
         margin: 30px auto;
         padding: 24px;
         background: #ffffff;
@@ -109,7 +109,49 @@
             <p><strong>Venue:</strong> <span id="iitm-vp-eventVenue"></span></p>
             <p><strong>Access:</strong> <span id="iitm-vp-eventAccess"></span></p>
             <p><strong>Date:</strong> <span id="iitm-vp-eventDate"></span></p>
-            <button> Enquiry Now</button>
+            <style>
+                .iitm-enquiry-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, #A62322, #c92c2a);
+                    color: #fff;
+                    border: 2px solid #A62322;
+                    padding: 12px 22px;
+                    font-size: 16px;
+                    font-weight: 700;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: all 0.25s ease;
+                    box-shadow: 0 4px 10px rgba(166, 35, 34, 0.25);
+                    gap: 8px;
+                }
+
+                .iitm-enquiry-btn:hover {
+                    background: #fff;
+                    color: #A62322;
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 22px rgba(166, 35, 34, 0.35);
+                }
+
+                .iitm-enquiry-btn:active {
+                    transform: translateY(0);
+                    box-shadow: 0 3px 8px rgba(166, 35, 34, 0.2);
+                }
+
+                .iitm-enquiry-btn a {
+                    text-decoration: none;
+                    color: inherit;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+            </style>
+
+            <a class="iitm-enquiry-btn" href="{{ url('enquiry') }}">
+                Enquiry Now
+            </a>
         </div>
 
     </div>

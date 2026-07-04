@@ -1,6 +1,6 @@
 <div>
 
-    <footer style="padding:15px; text-align:center; background:#0f172a; color:white;">
+    <!-- <footer style="padding:15px; text-align:center; background:#0f172a; color:white;">
         &copy; <?php echo date("Y"); ?> Sphere Travelmedia. All Rights Reserved;
 
         <button onclick="openEntryBadge()" style="
@@ -15,7 +15,7 @@
         ">
             Get Entry Badge
         </button>
-    </footer>
+    </footer> -->
 
     <!-- MODAL -->
     <div id="entryBadgeModal" style="
@@ -76,7 +76,7 @@
                     padding:12px;
                     border:none;
                     border-radius:8px;
-                    background:#111827;
+                    background:#AA2D2C;
                     color:white;
                     font-weight:bold;
                     cursor:pointer;
