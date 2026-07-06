@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Registration\RegistrationController;
 Route::get('/exhibitor/search/{keyword}', [RegistrationController::class, 'search']);
 Route::get('/links', [RegistrationController::class, 'index'])->name('index');
-Route::get('/', [RegistrationController::class, 'enteryourmobile'])->name('enteryourmobile');
+Route::get('/search', [RegistrationController::class, 'enteryourmobile'])->name('enteryourmobile');
+Route::get('/', [RegistrationController::class, 'Form'])->name('formexhibitor');
 
 Route::get('/form', [RegistrationController::class, 'Form'])->name('formexhibitor');
 Route::get('delegates/{key}', [RegistrationController::class, 'delegatesInfo']);
