@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scanner App</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#eef2f7;
+    display:flex;
+    justify-content:center;
+    padding:20px;
+}
+
+.phone{
+    width:100%;
+    max-width:420px;
+    background:#f8fafc;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:#fff;
+    text-align:center;
+    padding:18px;
+    font-size:22px;
+    font-weight:600;
+}
+
+.container{
+    padding:18px;
+}
+
+.card{
+    background:#fff;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:18px;
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+}
+
+.label{
+    font-size:14px;
+    color:#555;
+    margin-bottom:8px;
+    font-weight:500;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:600;
+    color:#16a34a;
+}
+
+.dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#16a34a;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #d6d6d6;
+    border-radius:12px;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus{
+    border-color:#2563eb;
+}
+
+.camera{
+    background:#111827;
+    border-radius:18px;
+    height:320px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.camera video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.scan-box{
+    position:absolute;
+    width:220px;
+    height:220px;
+    border:3px solid #00e5ff;
+    border-radius:12px;
+}
+
+.scan-line{
+    position:absolute;
+    width:220px;
+    height:3px;
+    background:#00e5ff;
+    animation:scan 2s infinite;
+}
+
+@keyframes scan{
+    0%{transform:translateY(-105px);}
+    50%{transform:translateY(105px);}
+    100%{transform:translateY(-105px);}
+}
+
+.buttons{
+    display:flex;
+    gap:12px;
+}
+
+button{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.scan-btn{
+    background:#2563eb;
+    color:#fff;
+}
+
+.save-btn{
+    background:#fff;
+    color:#2563eb;
+    border:2px solid #2563eb;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    transition:.2s;
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+    <div class="header">
+        📷 Scanner App
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+            <div class="label">Status</div>
+            <div class="status">
+                <span class="dot"></span>
+                Ready to Scan
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Name</div>
+            <input type="text" placeholder="Enter your name">
+        </div>
+
+        <div class="card">
+            <div class="label">New Input</div>
+            <input type="text" placeholder="Enter new value">
+        </div>
+
+        <div class="card">
+            <div class="label">Scanner Camera Feed</div>
+
+            <div class="camera">
+
+                <!-- Replace with your camera stream -->
+                <video autoplay muted playsinline></video>
+
+                <div class="scan-box"></div>
+                <div class="scan-line"></div>
+
+            </div>
+
+        </div>
+
+        <div class="buttons">
+            <button class="scan-btn">Scan</button>
+            <button class="save-btn">Save</button>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
