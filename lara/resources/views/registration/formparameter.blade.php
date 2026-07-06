@@ -45,8 +45,8 @@
     @if($data)
         <input type="hidden" name="company_name" id="company_name" value="{{$data->first()->company_name}}">
     @else
-        <label>Company Name</label>
-        <input type="text" name="company_name" id="company_name" placeholder="Enter company name">
+        <label>Certificate Name / Company Name</label>
+        <input type="text" name="company_name" id="company_name" placeholder="Enter company name" required>
     @endif
 
     <br><br>
@@ -184,16 +184,16 @@
         <hr>
 
         <label>Name</label>
-        <input type="text" class="delegate_name">
+        <input type="text" class="delegate_name" required>
 
         <label>Mobile</label>
-        <input type="text" class="mobile">
+        <input type="text" class="mobile" required>
 
         <label>Email</label>
-        <input type="email" class="email">
+        <input type="email" class="email" required>
 
         <label>Designation</label>
-        <input type="text" class="designation">
+        <input type="text" class="designation" required>
 
         <style>
         .btn-remove {

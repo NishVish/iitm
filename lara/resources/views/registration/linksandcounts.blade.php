@@ -231,3 +231,5 @@
         }
     }
 </style>
+
+@include('registration.search')

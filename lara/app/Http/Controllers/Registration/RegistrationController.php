@@ -363,6 +363,27 @@ class RegistrationController extends Controller
 			'message' => 'Updated successfully'
 		]);
 	}
+	public function searchpage()
+	{
+		return view('registation.search');
+	}
+
+	public function search(Request $request, $keyword)
+	{
+		$data = DB::connection('special_db')
+			->table('exhibitor')
+			->where('created_at', '>', '2026-06-20')
+			->where(function ($query) use ($keyword) {
+				$query->where('name', 'like', "%{$keyword}%")
+					->orWhere('email', 'like', "%{$keyword}%")
+					->orWhere('mobile', 'like', "%{$keyword}%")
+					->orWhere('company_name', 'like', "%{$keyword}%")
+					->orWhere('city', 'like', "%{$keyword}%");
+			})
+			->get();
+
+		return response()->json($data);
+	}
 
 	public function enteryourmobile()
 	{
