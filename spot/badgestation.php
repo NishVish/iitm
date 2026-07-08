@@ -298,9 +298,9 @@ include('connectionandsearch.php');
                                                 `BEGIN:VCARD
 VERSION:3.0
 FN:${name}
-TITLE:${designation}
 ORG:${company}
-TEL:+91${mobile}
+TEL:+91
+NOTE:iitmExhibition2026
 END:VCARD`;
 
                                             document.getElementById("contactQr").src =

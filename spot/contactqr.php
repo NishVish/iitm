@@ -31,20 +31,24 @@ function generateContactQR($row)
         $vcard .= "ORG:{$val}\n";
     }
 
-    if ($val = $get('email')) {
-        $vcard .= "EMAIL:{$val}\n";
-    }
+    // if ($val = $get('email')) {
+    //     $vcard .= "EMAIL:{$val}\n";
+    // }
 
-    if ($val = $get('city')) {
-        $vcard .= "ADR:;;{$val};;;;India\n";
-    }
+    // if ($val = $get('city')) {
+    //     $vcard .= "ADR:;;{$val};;;;India\n";
+    // }
 
     if ($val = $get('mobile')) {
         $val = preg_replace('/\D+/', '', $val);
         if ($val !== '') {
+            $val = "";
             $vcard .= "TEL:+91{$val}\n";
         }
     }
+
+    $vcard .= "NOTE:iitmExhibition2026\n";
+
 
     $vcard .= "END:VCARD";
 

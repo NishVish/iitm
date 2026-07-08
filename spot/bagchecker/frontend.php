@@ -74,6 +74,14 @@
                         <div class="label">Found Record</div>
 
                         <div class="info-row">
+                            <span>bagcollected</span>
+
+                            <strong id="nameEditable" contenteditable="true">
+
+                                <?= htmlspecialchars($bagcollected) ?>
+
+                            </strong>
+
                             <span>Name</span>
 
                             <strong id="nameEditable" contenteditable="true">

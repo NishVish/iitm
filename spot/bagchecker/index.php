@@ -144,12 +144,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mobile'])) {
     }
     // Query for second DB (iitminda_iitmindia_2024) - union exhibitor2025 and tradev ordered by date_reg
     $query2 = "
-    (SELECT id, title, select2, name, designation, organisation AS company_name, email, phone, mobile, date_reg AS created_at, 
+    (SELECT id, title, select2, name, designation, organisation AS company_name, email, phone, mobile,bag_collected, date_reg AS created_at, 
      'iitminda_iitmindia_2024' AS db_name, 'exhibitor2025' AS table_name 
      FROM iitminda_iitmindia_2024.exhibitor2025 
      WHERE phone LIKE '%$mobile%' OR mobile LIKE '%$mobile%')
     UNION ALL
-    (SELECT id, title, select2, name, designation, organisation AS company_name, email, phone, mobile, date_reg AS created_at, 
+    (SELECT id, title, select2, name, designation, organisation AS company_name, email, phone, mobile,bag_collected,date_reg AS created_at, 
      'iitminda_iitmindia_2024' AS db_name, 'tradev' AS table_name 
      FROM iitminda_iitmindia_2024.tradev 
      WHERE phone LIKE '%$mobile%' OR mobile LIKE '%$mobile%')
@@ -157,7 +157,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mobile'])) {
     LIMIT 1
 ";
 
+    // print_r($query2);
     $result2 = mysqli_query($conn, $query2);
+    // print_r($result2);
     $row2 = ($result2 && mysqli_num_rows($result2) > 0) ? mysqli_fetch_assoc($result2) : null;
 
     // Compare the results from both DBs and pick the latest
@@ -177,11 +179,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mobile'])) {
         echo "<p>No results found for mobile number: " . htmlspecialchars($mobile) . "</p>";
         $auto_print = false;
     }
+    // print_r($search_result);
 
     if (!empty($search_result)) {
         $final = $search_result[0];
+        // print_r($final);
         $finalmobile = $final['mobile'];
         $bagcollected = $final['bag_collected'];
+
+        // print_r($bagcollected);
+
         // echo '<pre>';
         // print_r($finalmobile);
         // echo '</pre>';
@@ -191,23 +198,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mobile'])) {
 
         if ($bagcollected == 0) {
 
-            $mobile = $finalmobile;
+            // echo "hello";
 
-            $tables = [
-                "iitminda_form_data.exhibitor",
-                "iitminda_form_data.tradevisitor",
-                "iitminda_iitmindia_2024.exhibitor2025",
-                "iitminda_iitmindia_2024.tradev"
-            ];
+            $query = "
+        UPDATE {$final_db}.{$final_table}
+        SET bag_collected = 1
+        WHERE id = {$final_id}
+    ";
 
-            foreach ($tables as $table) {
-                mysqli_query($conn, "UPDATE $table
-                         SET bag_collected = 1
-                         WHERE mobile = '$mobile'");
-            }
-
+            mysqli_query($conn, $query);
         }
-
         //     $insert_query = "
         //     INSERT INTO iitminda_visitor.visitor (database_name, table_name, id)
         //     VALUES ('$final_db', '$final_table', $final_id)

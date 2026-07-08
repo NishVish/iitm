@@ -38,6 +38,8 @@ $result = mysqli_query($conn, $sql);
         <th>Designation</th>
         <th>Company</th>
         <th>City</th>
+        <th>State</th>
+
         <th>Mobile</th>
         <th>Email</th>
         <th>Created At</th>
@@ -52,6 +54,7 @@ $result = mysqli_query($conn, $sql);
             <td><?= $row['designation'] ?></td>
             <td><?= $row['company_name'] ?></td>
             <td><?= $row['city'] ?></td>
+            <td><?= $row['state'] ?></td>
             <td><?= $row['mobile'] ?></td>
             <td><?= $row['email'] ?></td>
             <td><?= $row['created_at'] ?></td>
