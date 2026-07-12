@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
+import re
 
 # ==========================
 # CONFIGURATION
@@ -7,6 +8,8 @@ import os
 
 TEMPLATE = "template.jpg"
 FONT_PATH = "NovaQuinta_PERSONAL_USE_ONLY.otf"
+# Fallback font for numbers (Arial is standard on Windows/Mac, use 'DejaVuSans.ttf' on Linux if needed)
+NUMBER_FONT_PATH = "arial.ttf" 
 OUTPUT_DIR = "certificates"
 
 names = [
@@ -70,6 +73,34 @@ MAX_TEXT_WIDTH_PERCENT = 0.75
 
 # ==========================
 
+def get_text_segments(text):
+    """Splits text into chunks of digits and non-digits."""
+    return [chunk for chunk in re.split(r'(\d+)', text) if chunk]
+
+def measure_mixed_text(segments, font_path, num_font_path, font_size, draw):
+    """Calculates the total width and max height of mixed text segments."""
+    main_font = ImageFont.truetype(font_path, font_size)
+    num_font = ImageFont.truetype(num_font_path, font_size)
+    
+    total_width = 0
+    max_height = 0
+    segment_data = []
+    
+    for segment in segments:
+        # Choose font based on whether the segment is numeric
+        current_font = num_font if segment.isdigit() else main_font
+        bbox = draw.textbbox((0, 0), segment, font=current_font)
+        
+        w = bbox[2] - bbox[0]
+        h = bbox[3] - bbox[1]
+        
+        segment_data.append((segment, current_font, w))
+        total_width += w
+        if h > max_height:
+            max_height = h
+            
+    return total_width, max_height, segment_data
+
 
 def draw_centered_text(
     draw,
@@ -77,39 +108,38 @@ def draw_centered_text(
     center_x,
     center_y,
     font_path,
+    num_font_path,
     max_width,
     max_font_size,
     min_font_size,
     fill,
 ):
-
+    segments = get_text_segments(text)
     font_size = max_font_size
 
+    # Loop to find the right font size that fits the width constraint
     while font_size >= min_font_size:
-
-        font = ImageFont.truetype(font_path, font_size)
-
-        bbox = draw.textbbox((0, 0), text, font=font)
-
-        text_width = bbox[2] - bbox[0]
-        text_height = bbox[3] - bbox[1]
-
-        if text_width <= max_width:
+        total_width, text_height, segment_data = measure_mixed_text(
+            segments, font_path, num_font_path, font_size, draw
+        )
+        if total_width <= max_width:
             break
-
         font_size -= 2
 
     print(f"{text} => {font_size}px")
 
-    draw.text(
-        (
-            center_x - text_width / 2,
-            center_y - text_height / 2,
-        ),
-        text,
-        font=font,
-        fill=fill,
-    )
+    # Start drawing from the left-bound of the calculated centered block
+    current_x = center_x - (total_width / 2)
+    start_y = center_y - (text_height / 2)
+
+    for segment, font, w in segment_data:
+        draw.text(
+            (current_x, start_y),
+            segment,
+            font=font,
+            fill=fill,
+        )
+        current_x += w # Move cursor forward for the next segment
 
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -134,6 +164,7 @@ for name in names:
         center_x=center_x,
         center_y=center_y,
         font_path=FONT_PATH,
+        num_font_path=NUMBER_FONT_PATH,
         max_width=max_width,
         max_font_size=MAX_FONT_SIZE,
         min_font_size=MIN_FONT_SIZE,

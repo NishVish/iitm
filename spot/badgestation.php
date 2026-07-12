@@ -238,6 +238,11 @@ include('connectionandsearch.php');
                             $company_font_size = $base_font_size;          // Company
                             $designation_font_size = $base_font_size - 1;  // Designation, usually smallest
                             $qrUrl = generateContactQR($row);
+                            // $qrimage = url('spot/showdata/' . $person_key);
+                            $qrimage = "http://iitmindia.com/info/showdata/" . $row['person_key'];
+                            // echo $qrimage;
+                            // Generate QR image URL
+                            $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urlencode($qrimage);
 
                             ?>
                             <div id="BadeContent"
@@ -294,18 +299,19 @@ include('connectionandsearch.php');
                                             const name = document.getElementById("nameEditable").innerText.trim();
                                             const company = document.getElementById("companyEditable").innerText.trim();
 
-                                            const vcard =
-                                                `BEGIN:VCARD
-VERSION:3.0
-FN:${name}
-ORG:${company}
-TEL:+91
-NOTE:iitmExhibition2026
-END:VCARD`;
+                                            //                                             const vcard =
+                                            //                                                 `BEGIN:VCARD
+                                    // VERSION:3.0
+                                    // FN:${name}
+                                    // ORG:${company}
+                                    // TEL:+91
+                                    // NOTE:iitmExhibition2026
+                                    // END:VCARD`;
+                                            const url = "http://localhost/iitm/spot/showdata.php?person_key=" + person_key;
 
                                             document.getElementById("contactQr").src =
                                                 "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
-                                                encodeURIComponent(vcard);
+                                                encodeURIComponent(url);
                                         }
 
                                         document.getElementById("nameEditable").addEventListener("input", updateQRCode);

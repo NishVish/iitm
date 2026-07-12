@@ -32,6 +32,21 @@ return [
         'strict' => true,
         'engine' => null,
     ],
+
+
+    'special_db2' => [
+        'driver' => 'mysql',
+        'host' => env('DB_SPECIAL_HOST2'),
+        'port' => env('DB_SPECIAL_PORT2', '3306'),
+        'database' => env('DB_SPECIAL_DATABASE2'),
+        'username' => env('DB_SPECIAL_USERNAME2'),
+        'password' => env('DB_SPECIAL_PASSWORD2'),
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_unicode_ci',
+        'prefix' => '',
+        'strict' => true,
+        'engine' => null,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -51,6 +66,19 @@ return [
             'database' => env('DB_SPECIAL_DATABASE'),
             'username' => env('DB_SPECIAL_USERNAME'),
             'password' => env('DB_SPECIAL_PASSWORD'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+        'special_db2' => [
+            'driver' => 'mysql',
+            'host' => env('DB_SPECIAL_HOST2'),
+            'port' => env('DB_SPECIAL_PORT2', '3306'),
+            'database' => env('DB_SPECIAL_DATABASE2'),
+            'username' => env('DB_SPECIAL_USERNAME2'),
+            'password' => env('DB_SPECIAL_PASSWORD2'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',

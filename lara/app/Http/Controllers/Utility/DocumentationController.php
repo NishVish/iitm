@@ -59,5 +59,10 @@ class DocumentationController extends Controller
         return view("utility.texttopdf");
     }
 
+    public function documentation()
+    {
 
+
+        return view('web.documentation.index');
+    }
 }

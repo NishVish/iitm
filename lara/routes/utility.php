@@ -48,4 +48,6 @@ use App\Http\Controllers\Utility\DocumentationController;
 Route::get('docs', [DocumentationController::class, 'index']);
 Route::get('documentlist', [DocumentationController::class, 'documentlist']);
 
+Route::get('documentation/', [DocumentationController::class, 'documentation']);
 
+Route::get('documentation/{any}', [DocumentationController::class, 'documentation']);
