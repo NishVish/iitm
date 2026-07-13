@@ -48,13 +48,14 @@ if (env('SPECIAL_ENVIRONMENT')) {
     // require __DIR__ . '/ragcontroller.php';
     // require __DIR__ . '/ray.php';
     // require __DIR__ . '/register.php';
-   // require __DIR__ . '/registration/registration.php';
+    // require __DIR__ . '/registration/registration.php';
     require __DIR__ . '/badge/badge.php';
     // require __DIR__ . '/sales.php';
     require __DIR__ . '/tools.php';
     require __DIR__ . '/tools/tools.php';
-	
-	
+    require __DIR__ . '/utility.php';
+
+
 
 
 
@@ -62,7 +63,7 @@ if (env('SPECIAL_ENVIRONMENT')) {
     // Route::get('/', [WebController::class, 'index'])->name('web'); // show login form
 
 
-}	
+}
 
 Route::get('/csrf-test', function () {
 

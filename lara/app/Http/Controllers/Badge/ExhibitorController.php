@@ -64,7 +64,7 @@ class ExhibitorController extends Controller
             if ($data) {
 
                 $data->dbname = "iitminda_iitmindia_2024";
-                $data->tablename = "tradevisitor";
+                $data->tablename = "tradev";
 
             }
 

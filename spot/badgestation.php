@@ -239,7 +239,9 @@ include('connectionandsearch.php');
                             $designation_font_size = $base_font_size - 1;  // Designation, usually smallest
                             $qrUrl = generateContactQR($row);
                             // $qrimage = url('spot/showdata/' . $person_key);
-                            $qrimage = "http://iitmindia.com/info/showdata/" . $row['person_key'];
+                    
+                            $personKey = !empty($row['person_key']) ? $row['person_key'] : $row['id'];
+                            $qrimage = "http://iitmindia.com/info/showdata/" . $personKey;
                             // echo $qrimage;
                             // Generate QR image URL
                             $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urlencode($qrimage);
@@ -284,8 +286,8 @@ include('connectionandsearch.php');
                                 <div class="contactqr" style="border:1px solid black; display: none;">
                                     <style>
                                         .contactQr {
-                                            width: 95px;
-                                            height: 95px;
+                                            width: 75px;
+                                            height: 75px;
                                         }
                                     </style>
 
