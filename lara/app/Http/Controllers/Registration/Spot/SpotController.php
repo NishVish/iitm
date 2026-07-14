@@ -24,62 +24,68 @@ class SpotController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
+
+        $db = DB::connection('special_db');
+
+        // Decide table and category
         if ($request->registertype == 'Trade') {
+            $table = 'tradevisitor';
+            $category = 'Trade';
+        } else {
+            $table = 'exhibitor';
+            $category = 'Exhibitor';
+        }
 
-            $db = DB::connection('special_db');
+        $delegatesData = [];
 
-            // Generate unique company ID (10 characters)
+        foreach ($request->delegates as $delegate) {
+
+            // Generate unique person_key
             do {
-                $companyId = 'COMP' . rand(100000, 999999);
+                $personKey = strtoupper($category) . '_' . strtoupper(uniqid());
             } while (
-                $db->table('tradevisitor')
-                    ->where('company_id', $companyId)
+                $db->table($table)
+                    ->where('person_key', $personKey)
                     ->exists()
             );
 
-            foreach ($request->delegates as $delegate) {
+            $db->table($table)->insert([
+                'person_key' => $personKey,
+                'name' => $delegate['name'] ?? null,
+                'designation' => $delegate['designation'] ?? null,
 
-                $db->table('tradevisitor')->insert([
-                    'person_key' => uniqid('TRADE_'),
-                    'name' => $delegate['name'] ?? null,
-                    'designation' => $delegate['designation'] ?? null,
-
-                    // Same company details for every delegate
-                    'company_name' => $request->company_name,
-                    'company_id' => $companyId,
-                    'category' => 'Trade',
-
-                    'address' => $request->address,
-                    'city' => $request->city,
-                    'pin' => $request->pincode,
-                    'state' => $request->state,
-
-                    // Delegate details
-                    'mobile' => $delegate['mobile'] ?? null,
-                    'email' => $delegate['email'] ?? null,
-
-                    'created_at' => now(),
-                ]);
-            }
-            $data = [
-                'status' => true,
-                'company_id' => $companyId,
                 'company_name' => $request->company_name,
-                'delegates' => collect($request->delegates)->map(function ($delegate) {
-                    return [
-                        'name' => $delegate['name'] ?? null,
-                        'designation' => $delegate['designation'] ?? null,
-                        'mobile' => $delegate['mobile'] ?? null,
-                        'email' => $delegate['email'] ?? null,
-                    ];
-                }),
-                'message' => 'Trade visitors registered successfully'
+
+                'address' => $request->address,
+                'city' => $request->city,
+                'pin' => $request->pincode,
+                'state' => $request->state,
+
+                'mobile' => $delegate['mobile'] ?? null,
+                'email' => $delegate['email'] ?? null,
+
+                'created_at' => now(),
+            ]);
+
+            // Store data for response
+            $delegatesData[] = [
+                'person_key' => $personKey,
+                'name' => $delegate['name'] ?? null,
+                'designation' => $delegate['designation'] ?? null,
+                'mobile' => $delegate['mobile'] ?? null,
+                'email' => $delegate['email'] ?? null,
             ];
-
-            return view('registration.spot.response', compact('data'));
         }
+
+        $data = [
+            'status' => true,
+            'company_name' => $request->company_name,
+            'register_type' => $category,
+            'delegates' => $delegatesData,
+            'message' => $category . ' registered successfully',
+        ];
+
+        return view('registration.spot.response', compact('data'));
     }
-
-
-
 }

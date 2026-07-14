@@ -3,21 +3,21 @@
 use Illuminate\Support\Facades\Route;
 
 
-    require __DIR__ . '/spot/spot.php';
+require __DIR__ . '/spot/spot.php';
 
 use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\Registration\RegistrationoldController;
 
 
-Route::get('/', [RegistrationoldController::class, 'choose'])->name('choose');
+// Route::get('/', [RegistrationoldController::class, 'choose'])->name('choose');
 
-Route::get('/eventlist', [RegistrationoldController::class, 'eventlist'])->name('eventlist');
-Route::get('/exhibitor', [RegistrationoldController::class, 'exhibitorform'])->name('exhibitorform');
+// Route::get('/eventlist', [RegistrationoldController::class, 'eventlist'])->name('eventlist');
+// Route::get('/exhibitor', [RegistrationoldController::class, 'exhibitorform'])->name('exhibitorform');
 
-Route::get('/trade/{location}', [RegistrationoldController::class, 'tradeform'])->name('tradeform');
-Route::post('/store', [RegistrationoldController::class, 'store'])->name('store');
-Route::get('badge/{id}', [RegistrationoldController::class, 'badge'])->name('store');
-Route::get('retry/', [RegistrationoldController::class, 'eventlist'])->name('store');
+// Route::get('/trade/{location}', [RegistrationoldController::class, 'tradeform'])->name('tradeform');
+// Route::post('/store', [RegistrationoldController::class, 'store'])->name('store');
+// Route::get('badge/{id}', [RegistrationoldController::class, 'badge'])->name('store');
+// Route::get('retry/', [RegistrationoldController::class, 'eventlist'])->name('store');
 
 
 // Route::get('/exhibitor/search/{keyword}', [RegistrationController::class, 'search']);

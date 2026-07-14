@@ -14,20 +14,15 @@ PDF_FILE = "certificates.pdf"
 
 names = [
 
-    'Mountain Xplorer Expedition',
-'Royal  Sunshine  Hospitality',
-'Shanvi  Hospitality',
-'Aangan Resort Ranthambore',
-'Albatross Journey',
-'Australia & Pacific Dmc',
-'Grace Vista Private Limited',
-'Global Tourism Travel Agents Association Of India',
-'Indo Smile South Services Co. Ltd',
-'Kokora Japan Dmc',
-'Land Of Thunder Dragon Tours & Travels',
-'Musa Jungle Retreat',
-'Smiling Tusker Resort',
-'Glamping Africa',
+'Dravidian Travels',
+'Andaman Cosortia',
+'DMD Holidays',
+'Fourways Travel & Tours Pvt Ltd',
+'Jiips Travel Partner Ltd',
+'Josh Travel',
+'Journey Goods Pvt Ltd',
+'Paradise Village Beach Resort Goa',
+'Take A Trip India',
 ]
 
 

@@ -97,13 +97,7 @@
             {{ $data['company_name'] }}
         </div>
 
-        <div class="info">
-            <strong>Company ID:</strong>
-            {{ $data['company_id'] }}
-        </div>
 
-
-        <h3>Delegate Details</h3>
 
 
         @foreach($data['delegates'] as $index => $delegate)

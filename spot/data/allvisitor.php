@@ -1,55 +1,170 @@
-db in iitminda_form_data: Table: tradevisitor					
-Field	Type	Null	Key	Default	Extra
-id	int	NO	PRI		auto_increment
-person_key	varchar(100)	YES	UNI		
-name	text	YES			
-designation	text	YES			
-company_name	text	YES			
-category	varchar(50)	YES			
-address	text	YES			
-city	text	YES			
-pin	text	YES			
-state	text	YES			
-mobile	text	YES			
-email	text	YES			
-created_at	timestamp	YES		CURRENT_TIMESTAMP	DEFAULT_GENERATED
-bag_collected	tinyint(1)	NO		0	
+<?php
+$host = '21.157.66.148.host.secureserver.net';
+$user = 'iitminda_master';
+$password = 'gB)%gU}ocn?MCP=}';
+$database = 'iitminda_visitor';
+
+$conn = mysqli_connect($host, $user, $password, $database);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "
+SELECT
+    v.visitorid,
+    v.created_at AS visitor_time,
+    'tradev' AS source_table,
+        t.id,
+
+    CONCAT_WS(' ', t.title, t.select2, t.name) AS name,
+    t.designation,
+    t.organisation AS company,
+    t.email,
+    t.phone AS mobile,
+    t.address,
+    t.city,
+    t.pincode,
+    t.state,
+    t.country
+FROM visitor v
+JOIN iitminda_iitmindia_2024.tradev t
+    ON t.id = v.id
+WHERE v.database_name = 'iitminda_iitmindia_2024'
+  AND v.table_name = 'tradev'
+  AND v.created_at > '2025-12-04 09:42:36'
+
+UNION ALL
+
+SELECT
+    v.visitorid,
+    v.created_at AS visitor_time,
+    'tradevisitor' AS source_table,
+    tv.person_key As id,
+
+    tv.name,
+    tv.designation,
+    tv.company_name AS company,
+    tv.email,
+    tv.mobile,
+    tv.address,
+    tv.city,
+    tv.pin AS pincode,
+    tv.state,
+    NULL AS country
+FROM visitor v
+JOIN iitminda_form_data.tradevisitor tv
+    ON tv.id = v.id
+WHERE v.database_name = 'iitminda_form_data'
+  AND v.table_name = 'tradevisitor'
+  AND v.created_at > '2025-12-04 09:42:36'
+
+ORDER BY visitor_time DESC
+LIMIT 2000
+";
+
+$result = mysqli_query($conn, $sql);
 
 
-db in iitminda_visitor:					
-Table: visitor					
-Field	Type	Null	Key	Default	Extra
-visitorid	int	NO	PRI		auto_increment
-database_name	varchar(100)	NO			
-table_name	varchar(100)	NO			
-id	int	NO			
-created_at	timestamp	YES		CURRENT_TIMESTAMP	DEFAULT_GENERATED
-					
-join title + select 2 + name as full name
-organization as company_name
-phone as mobile					
-					
-db - iitminda_iitmindia_2024 Table: tradev					
-Field	Type	Null	Key	Default	Extra
-id	int unsigned	NO	PRI		auto_increment
-title	varchar(200)	NO			
-select2	text	YES			
-name	text	YES			
-designation	varchar(200)	YES			
-organisation	varchar(200)	YES			
-email	text	YES			
-phone	varchar(200)	YES			
-mobile	varchar(200)	YES			
-address	text	YES			
-city	text	YES			
-state	text	YES			
-pincode	varchar(200)	YES			
-country	varchar(200)	YES			
-website	text	YES			
-city_name	text	YES			
-date_reg	datetime	NO		CURRENT_TIMESTAMP	DEFAULT_GENERATED
-bag_collected	tinyint(1)	NO		0	
+if (!$result) {
+    die("Query Error: " . mysqli_error($conn));
+}
+?>
 
+<!DOCTYPE html>
+<html>
 
+<head>
+    <title>Visitors List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
 
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #007BFF;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        tr:hover {
+            background: #e9f5ff;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="./">Back</a>
+
+    <h2>Visitors Entries</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Visitor ID</th>
+                <th>Visitor Time</th>
+                <th>Source</th>
+                <th>id</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Company</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Pincode</th>
+                <th>State</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>{$row['visitorid']}</td>";
+                    echo "<td>{$row['visitor_time']}</td>";
+                    echo "<td>{$row['source_table']}</td>";
+                    echo "<td>{$row['id']}</td>";
+                    echo "<td>{$row['name']}</td>";
+                    echo "<td>{$row['designation']}</td>";
+                    echo "<td>{$row['company']}</td>";
+                    echo "<td>{$row['email']}</td>";
+                    echo "<td>{$row['mobile']}</td>";
+                    echo "<td>{$row['address']}</td>";
+                    echo "<td>{$row['city']}</td>";
+                    echo "<td>{$row['pincode']}</td>";
+                    echo "<td>{$row['state']}</td>";
+                    echo "<td>" . ($row['country'] ?? '-') . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='13' style='text-align:center;'>No records found.</td></tr>";
+            }
+
+            mysqli_close($conn);
+            ?>
+
+        </tbody>
+    </table>
+
+</body>
+
+</html>

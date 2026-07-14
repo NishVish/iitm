@@ -24,14 +24,64 @@
         padding: 10px 15px;
     }
 </style>
+@php
+    $segments = request()->segments();
+
+    $lastSegment = end($segments);
+    $secondLastSegment = $segments[count($segments) - 2] ?? null;
+    $thirdLastSegment = $segments[count($segments) - 3] ?? null;
+
+    $for = (
+        $lastSegment === 'exhibitor' ||
+        $secondLastSegment === 'exhibitor' ||
+        $thirdLastSegment === 'exhibitor'
+    ) ? 'exhibitor' : 'trade';
+@endphp
 
 <form action="{{ url('register/spot/' . $for) }}" method="post">
     @csrf
 
     <input type="text" name="registertype" value="{{ $for }}" readonly>
 
-    <input type="text" name="company_name" placeholder="Company Name">
+    <input type="text" id="company_name" name="company_name" placeholder="Company Name">
 
+    @if ($for == 'exhibitor')
+        <div>
+            <label>
+                <input type="checkbox" id="same_as_company">
+                Same as Company Name
+            </label>
+        </div>
+
+        <input type="text" id="certificate_name" name="certificate_name" placeholder="Certificate to be printed">
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const companyName = document.getElementById('company_name');
+                const certificateName = document.getElementById('certificate_name');
+                const checkbox = document.getElementById('same_as_company');
+
+                if (checkbox && companyName && certificateName) {
+                    checkbox.addEventListener('change', function () {
+                        if (this.checked) {
+                            certificateName.value = companyName.value;
+                            certificateName.readOnly = true;
+                        } else {
+                            certificateName.readOnly = false;
+                        }
+                    });
+
+                    companyName.addEventListener('input', function () {
+                        if (checkbox.checked) {
+                            certificateName.value = companyName.value;
+                        }
+                    });
+                }
+            });
+        </script>
+        <input type="text" name="clientof" placeholder="Client Of" value="{{ $lastSegment }}" readonly>
+        <input type="text" name="location" placeholder="Location" value="{{ $secondLastSegment }}" readonly>
+    @endif
     @include('registration.spot.address')
 
     <h3>Delegates</h3>

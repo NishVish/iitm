@@ -8,7 +8,7 @@
 </p>
 
 <p>
-    <strong>Reporting Time:</strong> <span style="color:#d9534f;">10:45 AM</span>
+    <strong>Active Time:</strong> <span style="color:#d9534f;">10:45 AM</span>
 </p>
 
 <h3>Your Responsibilities</h3>

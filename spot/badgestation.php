@@ -283,7 +283,7 @@ include('connectionandsearch.php');
                                 </div>
 
 
-                                <div class="contactqr" style="border:1px solid black; display: none;">
+                                <div class="contactqr" style="border:0px solid black; display: none;">
                                     <style>
                                         .contactQr {
                                             width: 75px;

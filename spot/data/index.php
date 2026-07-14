@@ -156,6 +156,8 @@ if (!$result) {
 
     </div>
 
+    <a href="allvisitor.php">All Visitor</a>
+
 
 
     <h3>

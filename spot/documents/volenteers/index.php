@@ -73,38 +73,173 @@
 
         ?>
 
+        <div style="height: 100px;"></div>
+
+        <table border="1" cellspacing="0" cellpadding="6" style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr>
+                    <th>Sl No.</th>
+                    <th>Volunteer Name</th>
+                    <th>Responsibility</th>
+                    <th>Contact Number</th>
+                    <th>Remarks / Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows go here -->
+            </tbody>
+        </table>
         <div>
 
-            <h2>Volunteer Attendance & Duty Register</h2>
+            <h2>Operations Checklist</h2>
 
-            <table>
+            <table border="1" cellspacing="0" cellpadding="6" width="100%">
                 <tr>
-                    <th width="12%">Day</th>
-                    <th width="25%">Volunteer Name</th>
-                    <th width="28%">Responsibility</th>
-                    <th width="20%">Contact Number</th>
-                    <th>Comments</th>
+                    <th width="55%">Operation</th>
+                    <th width="15%">Day 1</th>
+                    <th width="15%">Day 2</th>
+                    <th width="15%">Day 3</th>
                 </tr>
 
-                <tr>
-                    <td>Day 1</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+
 
                 <tr>
-                    <td>Day 2</td>
-                    <td></td>
+                    <td colspan="4"><strong>Task 1 - Report On Time</strong></td>
+                </tr>
+                <tr>
+                    <td>Follow up with volunteers to report at 9:00 AM</td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
+                <tr>
+                    <td>Volunteers reported at 9:00 AM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Prepare volunteer attendance sheet</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
 
                 <tr>
-                    <td>Day 3</td>
+                    <td colspan="4"><strong>Task 2 - Setup Desk</strong></td>
+                </tr>
+                <tr>
+                    <td>Take out all materials from store room</td>
                     <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Verify tally count of systems and materials</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Complete laptop and printer setup</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Ensure materials are ready on desks</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Ready to distribute exhibitor badges</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Ready for badge printing</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Exhibitor entry starts at 10:00 AM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Visitor entry starts at 11:00 AM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td colspan="4"><strong>Task 3 - Lunch Break</strong></td>
+                </tr>
+                <tr>
+                    <td>Lunch in rotation - Registration desk never unattended</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td colspan="4"><strong>Task 4/5 - Packup</strong></td>
+                </tr>
+                <tr>
+                    <td>Packup starts at 6:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Keep two systems ON</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Pack other materials</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Laptop, printer, cable & adapter packed</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Badges, lanyards & pouches packed</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Desk cleaned</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>6:00 PM - Complete backup</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Take feedback</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Leave after all work is completed</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -113,14 +248,6 @@
             </table>
 
         </div>
-
-
-
-
-
-
-
-    </div>
 
 </body>
 

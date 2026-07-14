@@ -168,6 +168,8 @@ LIMIT 1
         $time2 = strtotime($row2['created_at']);
         $search_result = ($time1 >= $time2) ? [$row1] : [$row2];
         $auto_print = true;
+        // var_dump($row1);
+        // var_dump($row2);
 
     } elseif ($row1) {
         $search_result = [$row1];
