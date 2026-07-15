@@ -1,407 +1,609 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IITM 2026 Exhibitor Feedback Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IITM 2026 Exhibitor Feedback Form</title>
 
-<style>
-    :root {
-        --primary-color: #003366;
-        --secondary-color: #4a90e2;
-        --text-color: #333333;
-        --bg-color: #f0f4f8;
-        --card-bg: #ffffff;
-        --border-color: #d1d5db;
-    }
+    <style>
+        :root {
+            --navy: #0a2a4d;
+            --navy-deep: #061a33;
+            --gold: #c8952c;
+            --ink: #263449;
+            --muted: #6b7686;
+            --line: #d7dee7;
+            --paper: #ffffff;
+            --wash: #f4f7fb;
+        }
 
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: var(--bg-color);
-        margin: 0;
-        padding: 15px 10px;
-        color: var(--text-color);
-        line-height: 1.4;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    .form-container {
-        max-width: 900px;
-        margin: auto;
-        background: var(--card-bg);
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 51, 102, 0.05);
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #7c8ba1;
+            margin: 0;
+            padding: 24px;
+            color: var(--ink);
+        }
 
-    /* Centered Header Layout */
-    .header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        gap: 20px;
-        border-bottom: 2px solid #e2e8f0;
-        padding-bottom: 12px;
-        margin-bottom: 15px;
-    }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: var(--paper);
+            padding: 9mm 11mm;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
 
-    .logo {
-        flex-shrink: 0;
-    }
-
-    .logo img {
-        max-width: 130px;
-        height: auto;
-        display: block;
-    }
-
-    .header-text h1 {
-        margin: 0;
-        color: var(--primary-color);
-        font-size: 22px;
-        letter-spacing: 0.3px;
-        line-height: 1.2;
-        text-align: center;
-    }
-
-    h2 {
-        text-align: center;
-        color: var(--primary-color);
-        margin: 5px 0;
-        font-size: 18px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .intro-text {
-        text-align: center;
-        color: #666;
-        margin: 0 auto 15px auto;
-        font-size: 14px;
-    }
-
-    .section {
-        background: #fafbfc;
-        padding: 15px;
-        border-radius: 6px;
-        border: 1px solid #edf2f7;
-        margin-top: 15px;
-    }
-
-    h3 {
-        color: var(--primary-color);
-        margin-top: 0;
-        margin-bottom: 10px;
-        font-size: 15px;
-        border-left: 3px solid var(--secondary-color);
-        padding-left: 8px;
-    }
-
-    p {
-        font-weight: 500;
-        margin-top: 0;
-        margin-bottom: 6px;
-        color: #4a5568;
-        font-size: 14px;
-    }
-
-    /* Tight, Clean Table */
-    .table-responsive {
-        overflow-x: auto;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 5px 0;
-        background: var(--card-bg);
-    }
-
-    th {
-        background: var(--primary-color);
-        color: white;
-        padding: 8px 5px;
-        font-weight: 600;
-        font-size: 13px;
-        text-align: center;
-    }
-
-    th:first-child {
-        text-align: left;
-    }
-
-    td {
-        padding: 8px 5px;
-        text-align: center;
-        border-bottom: 1px solid #e2e8f0;
-        font-size: 13px;
-    }
-
-    td:first-child {
-        text-align: left;
-        font-weight: 500;
-        color: #2d3748;
-    }
-
-    tr:hover td {
-        background-color: #f7fafc;
-    }
-
-    input[type="radio"],
-    input[type="checkbox"] {
-        transform: scale(1.1);
-        cursor: pointer;
-        accent-color: var(--primary-color);
-    }
-
-    /* Compact Groups */
-    .radio-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-bottom: 12px;
-        background: var(--card-bg);
-        padding: 8px 12px;
-        border-radius: 4px;
-        border: 1px solid #e2e8f0;
-    }
-
-    .radio-group label,
-    .checkbox-group label {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        cursor: pointer;
-        font-size: 13px;
-        color: #4a5568;
-    }
-
-    .checkbox-group {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 8px;
-        background: var(--card-bg);
-        padding: 12px;
-        border-radius: 4px;
-        border: 1px solid #e2e8f0;
-        margin-bottom: 12px;
-    }
-
-    textarea,
-    input[type="text"] {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-family: inherit;
-        font-size: 13px;
-        margin-bottom: 12px;
-    }
-
-    textarea {
-        margin-bottom: 8px;
-    }
-
-    input[type="file"] {
-        padding: 5px 0;
-        font-size: 13px;
-    }
-
-    .other-input {
-        border-bottom: 1px solid #aaa;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        width: 130px;
-        padding: 1px;
-        margin-bottom: 0;
-        border-radius: 0;
-    }
-
-    .submit-btn {
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    button {
-        background: linear-gradient(135deg, var(--primary-color) 0%, #002244 100%);
-        color: white;
-        border: none;
-        padding: 10px 30px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 15px;
-        font-weight: 600;
-        box-shadow: 0 2px 4px rgba(0, 51, 102, 0.15);
-    }
-
-    @media(max-width:768px){
+        /* Header */
         .header {
-            flex-direction: column;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 2.5px solid var(--navy);
+            padding-bottom: 9px;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            max-width: 78px;
+            height: auto;
+            display: block;
+        }
+
+        .header-text {
+            flex: 1;
             text-align: center;
-            gap: 10px;
+        }
+
+        .header-text .kicker {
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: #AA2324;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .header-text h1 {
-            font-size: 18px;
+            margin: 1px 0;
+            color: var(--navy);
+            font-size: 19px;
+            letter-spacing: 0.3px;
+            font-weight: 800;
         }
-        
-        .checkbox-group {
-            grid-template-columns: 1fr;
+
+        .header-text h2 {
+            margin: 0;
+            font-size: 12.5px;
+            color: var(--muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
-    }
-</style>
+
+        /* Section */
+        .section {
+            margin-bottom: 7px;
+        }
+
+        h3 {
+            color: var(--navy);
+            margin: 0 0 5px 0;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        h3::before {
+            content: "";
+            width: 3px;
+            height: 11px;
+            background: var(--gold);
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+        .hint {
+            font-size: 9px;
+            color: var(--muted);
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: 0;
+            margin-left: 2px;
+        }
+
+        /* Business Outcome + Contact Details two-column block */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 16px;
+        }
+
+        .field {
+            margin-bottom: 5px;
+        }
+
+        .field label {
+            font-size: 9.5px;
+            font-weight: 600;
+            color: var(--muted);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px 8px;
+        }
+
+        .field-grid .full {
+            grid-column: 1 / -1;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"] {
+            width: 100%;
+            padding: 4px 7px;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            font-size: 10px;
+            font-family: inherit;
+        }
+
+        .radio-inline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: var(--wash);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 5px 8px;
+        }
+
+        .radio-inline label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            transform: scale(1.05);
+            accent-color: var(--navy);
+            cursor: pointer;
+        }
+
+        /* Ratings table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        th {
+            background: var(--navy);
+            color: white;
+            padding: 5px 3px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        th:first-child {
+            text-align: left;
+            padding-left: 8px;
+        }
+
+        td {
+            padding: 4px 3px;
+            text-align: center;
+            border-bottom: 1px solid var(--line);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--wash);
+        }
+
+        td:first-child {
+            text-align: left;
+            font-weight: 500;
+            padding-left: 8px;
+        }
+
+        /* Two column checkbox layout */
+        .cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px 10px;
+            background: var(--wash);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 6px 10px;
+        }
+
+        .checkbox-grid.markets {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .checkbox-grid label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 9.5px;
+            color: var(--ink);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .other-input {
+            border: none;
+            border-bottom: 1px solid var(--muted);
+            border-radius: 0;
+            width: 70px;
+            padding: 0 2px;
+            font-size: 9px;
+        }
+
+        textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 6px 8px;
+            font-family: inherit;
+            font-size: 10px;
+            resize: none;
+        }
+
+        .card-note {
+            font-size: 9.5px;
+            color: var(--muted);
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        .footer-note {
+            margin-top: 8px;
+            padding-top: 7px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9px;
+            color: var(--muted);
+        }
+
+        .footer-note .thanks {
+            font-size: 10px;
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        /* Screen-only print button */
+        .print-bar {
+            max-width: 210mm;
+            margin: 0 auto 14px auto;
+            text-align: right;
+        }
+
+        .print-bar button {
+            background: var(--navy);
+            color: #fff;
+            border: none;
+            padding: 9px 22px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .page {
+                width: auto;
+                min-height: 0;
+                box-shadow: none;
+                padding: 6mm 10mm;
+                margin: 0;
+            }
+
+            .print-bar {
+                display: none;
+            }
+
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="form-container">
-
-    <!-- Header Section -->
-    <div class="header">
-        <div class="logo">
-            <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="IITM Logo">
-        </div>
-        <div class="header-text">
-            <h1>INDIA INTERNATIONAL TRAVEL MART (IITM) 2026</h1>
-            <h2>Exhibitor Feedback Form</h2>
-            <p class="intro-text">
-                Thank you for exhibiting at IITM. Your feedback helps us improve future editions.
-            </p>
-        </div>
+    <div class="print-bar">
+        <button onclick="window.print()">Print / Save as PDF</button>
     </div>
 
-    <form action="#" method="POST">
+    <div class="page">
 
-        <!-- Ratings -->
-        <div class="section">
-            <h3>Please rate the following</h3>
-            <div class="table-responsive">
+        <div class="header">
+            <div class="logo">
+                <img src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png" alt="IITM Logo">
+            </div>
+            <div class="header-text">
+                <div class="kicker">India International Travel Mart</div>
+                <h2>IITM 2026 Chennai 16 - 17 | JULY | 2026
+                    Exhibitor Feedback Form</h2>
+                <h2>Your feedback helps us improve future editions</h2>
+            </div>
+        </div>
+
+        <form action="#" method="POST">
+
+            <div class="section two-col">
+                <div class="left">
+
+                    <div class="field-grid">
+                        <div class="field full">
+                            <label>Company Name</label>
+                            <input type="text" name="company_name">
+                        </div>
+                        <div class="field">
+                            <label>Name</label>
+                            <input type="text" name="contact_name">
+                        </div>
+                        <div class="field">
+                            <label>Designation</label>
+                            <input type="text" name="designation">
+                        </div>
+                        <div class="field">
+                            <label>Mobile</label>
+                            <input type="tel" name="mobile">
+                        </div>
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="email" name="email">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right">
+
+
+
+                    <div class="field">
+                        <label>Approx. quality enquiries received</label>
+                        <input type="text" name="enquiries_count" placeholder="e.g. 50">
+                    </div>
+
+                    <div class="field">
+                        <label>Did IITM help you achieve objectives?</label>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="objectives" value="completely">Yes</label>
+                            <label><input type="radio" name="objectives" value="mostly">Mostly</label>
+                            <label><input type="radio" name="objectives" value="partially">Partly</label>
+                            <label><input type="radio" name="objectives" value="no">No</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Likelihood to join next edition</label>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="future_participation" value="definitely">Definitely</label>
+                            <label><input type="radio" name="future_participation" value="probably">Probably</label>
+                            <label><input type="radio" name="future_participation" value="maybe">Maybe</label>
+                            <label><input type="radio" name="future_participation" value="no">No</label>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Please rate the following</h3>
                 <table>
                     <thead>
                         <tr>
                             <th>Criteria</th>
-                            <th>5⭐<br>Excel.</th>
-                            <th>4⭐<br>Good</th>
-                            <th>3⭐<br>Avg.</th>
-                            <th>2⭐<br>Fair</th>
-                            <th>1⭐<br>Poor</th>
+                            <th>5★ Excellent</th>
+                            <th>4★ Good</th>
+                            <th>3★ Average</th>
+                            <th>2★ Fair</th>
+                            <th>1★ Poor</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Pre-event Communication</td><td><input type="radio" name="communication" value="5"></td><td><input type="radio" name="communication" value="4"></td><td><input type="radio" name="communication" value="3"></td><td><input type="radio" name="communication" value="2"></td><td><input type="radio" name="communication" value="1"></td></tr>
-                        <tr><td>Support from IITM Representative</td><td><input type="radio" name="support" value="5"></td><td><input type="radio" name="support" value="4"></td><td><input type="radio" name="support" value="3"></td><td><input type="radio" name="support" value="2"></td><td><input type="radio" name="support" value="1"></td></tr>
-                        <tr><td>Registration Process</td><td><input type="radio" name="registration" value="5"></td><td><input type="radio" name="registration" value="4"></td><td><input type="radio" name="registration" value="3"></td><td><input type="radio" name="registration" value="2"></td><td><input type="radio" name="registration" value="1"></td></tr>
-                        <tr><td>Venue & Facilities</td><td><input type="radio" name="venue" value="5"></td><td><input type="radio" name="venue" value="4"></td><td><input type="radio" name="venue" value="3"></td><td><input type="radio" name="venue" value="2"></td><td><input type="radio" name="venue" value="1"></td></tr>
-                        <tr><td>Quality of Visitors</td><td><input type="radio" name="visitors" value="5"></td><td><input type="radio" name="visitors" value="4"></td><td><input type="radio" name="visitors" value="3"></td><td><input type="radio" name="visitors" value="2"></td><td><input type="radio" name="visitors" value="1"></td></tr>
-                        <tr><td>Business Opportunities</td><td><input type="radio" name="business" value="5"></td><td><input type="radio" name="business" value="4"></td><td><input type="radio" name="business" value="3"></td><td><input type="radio" name="business" value="2"></td><td><input type="radio" name="business" value="1"></td></tr>
-                        <tr><td>Event Organisation</td><td><input type="radio" name="organisation" value="5"></td><td><input type="radio" name="organisation" value="4"></td><td><input type="radio" name="organisation" value="3"></td><td><input type="radio" name="organisation" value="2"></td><td><input type="radio" name="organisation" value="1"></td></tr>
-                        <tr><td>Overall Experience</td><td><input type="radio" name="experience" value="5"></td><td><input type="radio" name="experience" value="4"></td><td><input type="radio" name="experience" value="3"></td><td><input type="radio" name="experience" value="2"></td><td><input type="radio" name="experience" value="1"></td></tr>
+                        <tr>
+                            <td>Pre-event Communication</td>
+                            <td><input type="radio" name="communication" value="5"></td>
+                            <td><input type="radio" name="communication" value="4"></td>
+                            <td><input type="radio" name="communication" value="3"></td>
+                            <td><input type="radio" name="communication" value="2"></td>
+                            <td><input type="radio" name="communication" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>Support from IITM Representative</td>
+                            <td><input type="radio" name="support" value="5"></td>
+                            <td><input type="radio" name="support" value="4"></td>
+                            <td><input type="radio" name="support" value="3"></td>
+                            <td><input type="radio" name="support" value="2"></td>
+                            <td><input type="radio" name="support" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>Registration Process</td>
+                            <td><input type="radio" name="registration" value="5"></td>
+                            <td><input type="radio" name="registration" value="4"></td>
+                            <td><input type="radio" name="registration" value="3"></td>
+                            <td><input type="radio" name="registration" value="2"></td>
+                            <td><input type="radio" name="registration" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>Venue &amp; Facilities</td>
+                            <td><input type="radio" name="venue" value="5"></td>
+                            <td><input type="radio" name="venue" value="4"></td>
+                            <td><input type="radio" name="venue" value="3"></td>
+                            <td><input type="radio" name="venue" value="2"></td>
+                            <td><input type="radio" name="venue" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>Quality of Visitors</td>
+                            <td><input type="radio" name="visitors" value="5"></td>
+                            <td><input type="radio" name="visitors" value="4"></td>
+                            <td><input type="radio" name="visitors" value="3"></td>
+                            <td><input type="radio" name="visitors" value="2"></td>
+                            <td><input type="radio" name="visitors" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>Business Opportunities</td>
+                            <td><input type="radio" name="business" value="5"></td>
+                            <td><input type="radio" name="business" value="4"></td>
+                            <td><input type="radio" name="business" value="3"></td>
+                            <td><input type="radio" name="business" value="2"></td>
+                            <td><input type="radio" name="business" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>Event Organisation</td>
+                            <td><input type="radio" name="organisation" value="5"></td>
+                            <td><input type="radio" name="organisation" value="4"></td>
+                            <td><input type="radio" name="organisation" value="3"></td>
+                            <td><input type="radio" name="organisation" value="2"></td>
+                            <td><input type="radio" name="organisation" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>Overall Experience</td>
+                            <td><input type="radio" name="experience" value="5"></td>
+                            <td><input type="radio" name="experience" value="4"></td>
+                            <td><input type="radio" name="experience" value="3"></td>
+                            <td><input type="radio" name="experience" value="2"></td>
+                            <td><input type="radio" name="experience" value="1"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
 
-        <!-- Business Outcome -->
-        <div class="section">
-            <h3>Business Outcome</h3>
+            <div class="cols">
+                <div class="section">
+                    <h3>What impressed you most<span class="hint">(tick all)</span></h3>
+                    <div class="checkbox-grid">
+                        <label><input type="checkbox" name="impressed[]" value="Visitor Quality">Visitor Quality</label>
+                        <label><input type="checkbox" name="impressed[]" value="Networking">Networking</label>
+                        <label><input type="checkbox" name="impressed[]" value="Organisation">Organisation</label>
+                        <label><input type="checkbox" name="impressed[]" value="Venue">Venue</label>
+                        <label><input type="checkbox" name="impressed[]" value="Booth Management">Booth Mgmt</label>
+                        <label><input type="checkbox" name="impressed[]" value="Staff Support">Staff Support</label>
+                        <label><input type="checkbox" name="impressed[]" value="Brand Visibility">Brand
+                            Visibility</label>
+                        <label><input type="checkbox" name="impressed[]" value="Business Meetings">Biz Meetings</label>
+                        <label><input type="checkbox" name="impressed[]" value="Media Exposure">Media Exposure</label>
+                    </div>
+                </div>
 
-            <p>Approximately how many quality business enquiries did you receive?</p>
-            <input type="text" name="enquiries_count" placeholder="e.g. 50">
-
-            <p>Did IITM help you achieve your exhibition objectives?</p>
-            <div class="radio-group">
-                <label><input type="radio" name="objectives" value="completely"> Yes, completely</label>
-                <label><input type="radio" name="objectives" value="mostly"> Mostly</label>
-                <label><input type="radio" name="objectives" value="partially"> Partially</label>
-                <label><input type="radio" name="objectives" value="no"> No</label>
+                <div class="section">
+                    <h3>Areas needing improvement<span class="hint">(tick all)</span></h3>
+                    <div class="checkbox-grid">
+                        <label><input type="checkbox" name="improvement[]" value="Visitor Footfall">Footfall</label>
+                        <label><input type="checkbox" name="improvement[]" value="Buyer Quality">Buyer Quality</label>
+                        <label><input type="checkbox" name="improvement[]" value="Registration">Registration</label>
+                        <label><input type="checkbox" name="improvement[]" value="Venue Facilities">Venue
+                            Facilities</label>
+                        <label><input type="checkbox" name="improvement[]" value="Wi-Fi">Wi-Fi</label>
+                        <label><input type="checkbox" name="improvement[]" value="Signage">Signage</label>
+                        <label><input type="checkbox" name="improvement[]" value="Food & Refreshments">Food</label>
+                        <label><input type="checkbox" name="improvement[]" value="Marketing">Marketing</label>
+                        <label>
+                            <input type="checkbox" name="improvement[]" value="Other">Other
+                            <input type="text" class="other-input" name="improvement_other">
+                        </label>
+                    </div>
+                </div>
             </div>
 
-            <p>How likely are you to participate in the next IITM edition?</p>
-            <div class="radio-group">
-                <label><input type="radio" name="future_participation" value="definitely"> Definitely</label>
-                <label><input type="radio" name="future_participation" value="probably"> Probably</label>
-                <label><input type="radio" name="future_participation" value="maybe"> Maybe</label>
-                <label><input type="radio" name="future_participation" value="no"> No</label>
-            </div>
-        </div>
+            <div class="">
+                <div class="section">
+                    <h3>One thing you loved about IITM</h3>
+                    <textarea rows="2" name="loved_aspect"></textarea>
 
-        <!-- Impressed / Improvements -->
-        <div class="section">
-            <h3>Which aspect of IITM impressed you the most? <span style="font-size: 11px; color: #718096; font-weight: normal;">(Tick all)</span></h3>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="impressed[]" value="Visitor Quality"> Visitor Quality</label>
-                <label><input type="checkbox" name="impressed[]" value="Networking"> Networking</label>
-                <label><input type="checkbox" name="impressed[]" value="Organisation"> Organisation</label>
-                <label><input type="checkbox" name="impressed[]" value="Venue"> Venue</label>
-                <label><input type="checkbox" name="impressed[]" value="Booth Management"> Booth Management</label>
-                <label><input type="checkbox" name="impressed[]" value="Staff Support"> Staff Support</label>
-                <label><input type="checkbox" name="impressed[]" value="Brand Visibility"> Brand Visibility</label>
-                <label><input type="checkbox" name="impressed[]" value="Business Meetings"> Business Meetings</label>
-                <label><input type="checkbox" name="impressed[]" value="Media Exposure"> Media Exposure</label>
-                <label><input type="checkbox" name="impressed[]" value="Overall Experience"> Overall Experience</label>
+                    <h3>One suggestion to help us improve</h3>
+                    <textarea rows="2" name="improvement_suggestion"></textarea>
+                </div>
             </div>
 
-            <h3>Which areas need improvement? <span style="font-size: 11px; color: #718096; font-weight: normal;">(Tick all)</span></h3>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="improvement[]" value="Visitor Footfall"> Visitor Footfall</label>
-                <label><input type="checkbox" name="improvement[]" value="Buyer Quality"> Buyer Quality</label>
-                <label><input type="checkbox" name="improvement[]" value="Registration"> Registration</label>
-                <label><input type="checkbox" name="improvement[]" value="Venue Facilities"> Venue Facilities</label>
-                <label><input type="checkbox" name="improvement[]" value="Wi-Fi"> Wi-Fi</label>
-                <label><input type="checkbox" name="improvement[]" value="Signage"> Signage</label>
-                <label><input type="checkbox" name="improvement[]" value="Food & Refreshments"> Food & Refreshments</label>
-                <label><input type="checkbox" name="improvement[]" value="Marketing"> Marketing</label>
-                <label><input type="checkbox" name="improvement[]" value="Networking Activities"> Networking Activities</label>
-                <label style="display: inline-flex; flex-wrap: wrap; gap: 4px;">
-                    <input type="checkbox" name="improvement[]" value="Other"> Other 
-                    <input type="text" class="other-input" name="improvement_other">
-                </label>
+            <div class="section">
+                <h3>Markets to focus on in the next 12 months<span class="hint">(tick all)</span></h3>
+                <div class="checkbox-grid markets">
+                    <label><input type="checkbox" name="target_markets[]" value="Bangalore">Bangalore</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Delhi">Delhi</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Kochi">Kochi</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Kolkata">Kolkata</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Ahmedabad">Ahmedabad</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Pune">Pune</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Hyderabad">Hyderabad</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Chennai">Chennai</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Vadodara">Vadodara</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Lucknow">Lucknow</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Visakhapatnam">Visakhapatnam</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Coimbatore">Coimbatore</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Varanasi">Varanasi</label>
+                    <label><input type="checkbox" name="target_markets[]" value="Middle East">Middle East</label>
+                    <label><input type="checkbox" name="target_markets[]" value="South East Asia">SE Asia</label>
+                </div>
             </div>
-        </div>
 
-        <!-- Open Text Feedback -->
-        <div class="section">
-            <h3>Your Feedback</h3>
-            <p>One thing you loved about IITM</p>
-            <textarea rows="2" name="loved_aspect"></textarea>
-
-            <p>One suggestion to help us improve</p>
-            <textarea rows="2" name="improvement_suggestion"></textarea>
-        </div>
-
-        <!-- Target Markets -->
-        <div class="section">
-            <h3>Markets you plan to focus on in the next 12 months? <span style="font-size: 11px; color: #718096; font-weight: normal;">(Tick all)</span></h3>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="target_markets[]" value="Bangalore"> Bangalore</label>
-                <label><input type="checkbox" name="target_markets[]" value="Delhi"> Delhi</label>
-                <label><input type="checkbox" name="target_markets[]" value="Kochi"> Kochi</label>
-                <label><input type="checkbox" name="target_markets[]" value="Kolkata"> Kolkata</label>
-                <label><input type="checkbox" name="target_markets[]" value="Ahmedabad"> Ahmedabad</label>
-                <label><input type="checkbox" name="target_markets[]" value="Pune"> Pune</label>
-                <label><input type="checkbox" name="target_markets[]" value="Hyderabad"> Hyderabad</label>
-                <label><input type="checkbox" name="target_markets[]" value="Chennai"> Chennai</label>
+            <div class="section">
+                <h3>Future Opportunities</h3>
+                <div class="field">
+                    <label>Contact regarding future participation or sponsorship?</label>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="contact_back" value="yes">Yes</label>
+                        <label><input type="radio" name="contact_back" value="no">No</label>
+                    </div>
+                    <div class="field full">
+                        <label>Signature</label>
+                        <input type="text" name="signature">
+                    </div>
+                </div>
+                <p class="card-note">Please attach your business card.</p>
             </div>
-        </div>
 
-        <!-- Future Opportunities -->
-        <div class="section">
-            <h3>Future Opportunities</h3>
-            <p>Contact regarding future participation or sponsorship opportunities?</p>
-            <div class="radio-group">
-                <label><input type="radio" name="contact_back" value="yes"> Yes</label>
-                <label><input type="radio" name="contact_back" value="no"> No</label>
+            <div class="footer-note">
+                <span class="thanks">Thank you for being part of IITM 2026.</span>
+                <span>iitmindia.com</span>
             </div>
-        </div>
 
-        <div class="submit-btn">
-            <button type="submit">Submit Feedback</button>
-        </div>
-
-    </form>
-</div>
+        </form>
+    </div>
 
 </body>
+
 </html>

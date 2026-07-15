@@ -86,6 +86,7 @@ class SpotController extends Controller
             'message' => $category . ' registered successfully',
         ];
 
+        dd($data);
         return view('registration.spot.response', compact('data'));
     }
 }
