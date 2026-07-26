@@ -65,16 +65,17 @@
 
         <?php
         include('intro.php');
-        include('screeningdesk.php');
+        // include('screeningdesk.php');
         include('registration.php');
+        include('quiz.php');
         include('hostess.php');
-        include('settelments.php');
-        include('workflow.php');
-
+        // include('settelments.php');
+        // include('workflow.php');
+        
         ?>
 
         <div style="height: 100px;"></div>
-
+        <!-- 
         <table border="1" cellspacing="0" cellpadding="6" style="border-collapse: collapse; width: 100%;">
             <thead>
                 <tr>
@@ -86,9 +87,8 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Rows go here -->
             </tbody>
-        </table>
+        </table> -->
         <div>
 
             <h2>Operations Checklist</h2>

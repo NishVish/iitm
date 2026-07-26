@@ -4,9 +4,8 @@ import os
 # ==========================
 # CONFIGURATION
 # ==========================
-
+FONT_PATH = "Poppins-Regular.ttf"
 TEMPLATE = "template.jpg"
-FONT_PATH = "NovaQuinta_PERSONAL_USE_ONLY.otf"
 
 OUTPUT_DIR = "certificates"
 PDF_FILE = "certificates.pdf"
@@ -14,71 +13,18 @@ PDF_FILE = "certificates.pdf"
 
 # names =
 names = [
-    "Bergamont Hotels",
-    "Bhubaneswar Travel Mart",
-    "Breeze Residency (A unit of Jenny's Hotel Pvt. Ltd.)",
-    "Delhi Tourism",
-    "Destiny - The Farmstay",
-    "Eden Villa",
-    # "Go4Explore",
-        # "Rajasthan B2B Hub",
-        # "Tour 2 Odisha",
 
-    "Gobindgarh Fort",
-    "Govindam Retreat Pvt. Ltd.",
-    "Heritage River Journeys",
-    "Hidden India Tours",
-    "Himpushp Tours & Travels",
-    "Hotel C-Park Inn & Hotel Grand Park Inn",
-    "Hotel Durene",
-    "Hotel Ruby",
-    "Hotel Surguru",
-    "HRT Vacations Pvt. Ltd.",
-    "JC Residency",
-    "JCR Cab & Car Rental",
-    "Kanawas",
-    "Lama Expeditions Holidays",
-    "Leikyrpad Resort",
-    "Maharaja India Tours and Events",
-    "Marriott Shillong",
-    "Odisha Holidays",
-    "Odisha Vacations Services Pvt. Ltd.",
-    "Om Leisure Holidays Pvt. Ltd.",
-    "Pannu Car Rentals Pvt. Ltd.",
-    "Patra Travels Pvt. Ltd.",
-    "Pinkcity Holidays Tour and Travels",
-    # "Rajasthan B2B Hub",
-        # "Tour 2 Odisha",
-"Minerva group Hotels & Restarant’s",
-    "Rajasthan Visits",
-    "Ravi Travels and Tourism",
-    # "RAVI TRAVELS AND TOURISM",
-    "Regalia Grand Amritsar",
-    "Regency Tours Pvt. Ltd.",
-    "Rio Grande",
-    "RSD Travels",
-    "Rupal Residency",
-    "Saatvik Holidays",
-    "Sankalp Tours & Travels",
-    "Seven Hills Leisure & Resorts Ltd.",
-    "Shri Madan Nikhileshwar Travels",
-    "Siddhi Kalyani",
-    "Swosti Premium",
-    "Swosti Travels",
-    "Tea Country",
-    "The Ambience Hotel",
-    "Toshali Resorts International",
-    "Toshali Tours & Travels",
-    # "Tour 2 Odisha",
-    "Travel with AJ Voyages Pvt. Ltd.",
-    "Tropical Vacations",
-    "Vinayak Tours & Travels",
-    "Walk With Nine Lives",
-    "Whispering Palms Jaipur",
-    "World Leisure and Travel Services",
-    "World of Wilders",
-    "Year Round Holidays",
-]
+"Anisa Travels",
+
+"J HOLIDAYS",
+"ANDAMAN ASSOCIATION OF TOUR OPERATERS"
+
+  ]
+
+
+TEXT_STROKE_WIDTH = 2
+TEXT_STROKE_COLOR = (0, 0, 0)
+
 
 TEXT_COLOR = (0, 0, 0)
 
@@ -94,6 +40,43 @@ MAX_TEXT_WIDTH_PERCENT = 0.75
 # ==========================
 
 
+# def draw_centered_text(
+#     draw,
+#     text,
+#     center_x,
+#     center_y,
+#     font_path,
+#     max_width,
+#     max_font_size,
+#     min_font_size,
+#     fill
+# ):
+
+#     font_size = max_font_size
+
+#     while font_size >= min_font_size:
+
+#         font = ImageFont.truetype(font_path, font_size)
+
+#         bbox = draw.textbbox((0, 0), text, font=font)
+
+#         left, top, right, bottom = bbox
+
+#         text_width = right - left
+#         text_height = bottom - top
+
+#         x = center_x - text_width / 2 - left
+#         y = center_y - text_height / 2 - top
+
+#         draw.text(
+#             (x, y),
+#             text,
+#             font=font,
+#             fill=fill,
+#             stroke_width=TEXT_STROKE_WIDTH,
+#             stroke_fill=TEXT_STROKE_COLOR,
+#         )
+
 def draw_centered_text(
     draw,
     text,
@@ -105,36 +88,35 @@ def draw_centered_text(
     min_font_size,
     fill
 ):
-
     font_size = max_font_size
 
     while font_size >= min_font_size:
-
         font = ImageFont.truetype(font_path, font_size)
 
-        bbox = draw.textbbox((0, 0), text, font=font)
+        bbox = draw.textbbox(
+            (0, 0),
+            text,
+            font=font,
+            stroke_width=TEXT_STROKE_WIDTH
+        )
 
-        text_width = bbox[2] - bbox[0]
-        text_height = bbox[3] - bbox[1]
+        left, top, right, bottom = bbox
+        text_width = right - left
 
         if text_width <= max_width:
             break
 
         font_size -= 2
 
-
     draw.text(
-        (
-            center_x - text_width / 2,
-            center_y - text_height / 2
-        ),
+        (center_x, center_y+15),
         text,
         font=font,
-        fill=fill
+        fill=fill,
+        anchor="mm",
+        stroke_width=TEXT_STROKE_WIDTH,
+        stroke_fill=TEXT_STROKE_COLOR
     )
-
-
-
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
