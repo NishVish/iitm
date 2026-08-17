@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>IITM MCP Dashboard</title>
+
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+padding:30px;
+}
+
+.box{
+background:white;
+padding:20px;
+border-radius:10px;
+max-width:1000px;
+margin:auto;
+}
+
+
+button{
+padding:10px;
+background:#0066cc;
+color:white;
+border:0;
+cursor:pointer;
+}
+
+
+input{
+padding:10px;
+width:250px;
+}
+
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+
+td,th{
+border:1px solid #ddd;
+padding:8px;
+}
+
+
+th{
+background:#0066cc;
+color:white;
+}
+
+
+.card{
+display:inline-block;
+padding:20px;
+background:#eee;
+margin:10px;
+border-radius:8px;
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="box">
+
+
+<h1>IITM Visitor AI Dashboard</h1>
+
+
+<button onclick="dashboard()">
+Dashboard
+</button>
+
+
+<div id="dash"></div>
+
+
+<hr>
+
+
+<h3>Search Visitor</h3>
+
+<input id="visitor" placeholder="Name">
+
+<button onclick="visitor()">
+Search
+</button>
+
+
+
+<h3>Search Company</h3>
+
+<input id="company" placeholder="Company">
+
+<button onclick="company()">
+Search
+</button>
+
+
+
+<div id="result"></div>
+
+
+</div>
+
+
+
+<script>
+
+
+const API="index.php";
+
+
+
+async function api(data)
+{
+
+let r=await fetch(API,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+});
+
+
+return await r.json();
+
+}
+
+
+
+
+async function dashboard()
+{
+
+let r=await api({
+tool:"dashboard"
+});
+
+
+let h="";
+
+
+for(let x in r.data)
+{
+
+h+=`
+<div class="card">
+<b>${x}</b><br>
+${r.data[x]}
+</div>
+`;
+
+}
+
+
+document.getElementById("dash").innerHTML=h;
+
+
+}
+
+
+
+
+async function visitor()
+{
+
+let r=await api({
+
+tool:"search_trade_visitor",
+
+name:
+document.getElementById("visitor").value
+
+});
+
+
+table(r.data);
+
+}
+
+
+
+
+async function company()
+{
+
+let r=await api({
+
+tool:"search_exhibitor",
+
+company:
+document.getElementById("company").value
+
+});
+
+
+table(r.data);
+
+}
+
+
+
+
+function table(data)
+{
+
+
+if(!data || data.length==0)
+{
+
+document.getElementById("result").innerHTML="No Data";
+
+return;
+
+}
+
+
+let h="<table><tr>";
+
+
+Object.keys(data[0]).forEach(x=>{
+h+="<th>"+x+"</th>";
+});
+
+
+h+="</tr>";
+
+
+
+data.forEach(row=>{
+
+h+="<tr>";
+
+Object.values(row).forEach(v=>{
+
+h+="<td>"+(v??"")+"</td>";
+
+});
+
+
+h+="</tr>";
+
+});
+
+
+h+="</table>";
+
+
+document.getElementById("result").innerHTML=h;
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>

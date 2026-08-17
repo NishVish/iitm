@@ -5,6 +5,7 @@ import os
 # CONFIGURATION
 # ==========================
 FONT_PATH = "Poppins-Regular.ttf"
+# TEMPLATE = "chennaicertificate.jpg"
 TEMPLATE = "template.jpg"
 
 OUTPUT_DIR = "certificates"
@@ -14,12 +15,7 @@ PDF_FILE = "certificates.pdf"
 # names =
 names = [
 
-"Anisa Travels",
-
-"J HOLIDAYS",
-"ANDAMAN ASSOCIATION OF TOUR OPERATERS"
-
-  ]
+"Holiday Bindas Tour & Travels", ]
 
 
 TEXT_STROKE_WIDTH = 2

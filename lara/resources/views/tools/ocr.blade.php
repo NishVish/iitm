@@ -630,11 +630,9 @@
         //             status.style.color = "#fbbf24"; // Amber/Yellow for processing
 
         //             try {
-        //                 const response = await fetch("{{ route('ocr.lookup') }}", {
         //                     method: "POST",
         //                     headers: {
         //                         "Content-Type": "application/json",
-        //                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
         //                         "Accept": "application/json"
         //                     },
         //                     body: JSON.stringify({ lines: lines })

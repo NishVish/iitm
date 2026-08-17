@@ -3,7 +3,7 @@
 $host = '21.157.66.148.host.secureserver.net';
 $user = 'iitminda_master';
 $password = 'gB)%gU}ocn?MCP=}';
-$database = 'iitminda_form_data';
+$database = 'iitminda_visitor';
 
 $conn = mysqli_connect($host, $user, $password, $database);
 
@@ -21,7 +21,7 @@ JOIN iitminda_iitmindia_2024.tradev t
     ON t.id = v.id
 WHERE v.database_name = 'iitminda_iitmindia_2024'
     AND v.table_name = 'tradev'
-    AND v.created_at > '2026-07-21 09:42:36'
+    AND v.created_at > '2026-07-14 09:42:36'
 ";
 
 $result = mysqli_query($conn, $sql);
