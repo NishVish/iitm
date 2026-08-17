@@ -1,0 +1,214 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class MailerController extends Controller
+{
+    public function __construct()
+    {
+    }
+    public function index()
+    {
+        return view('mail.test2');
+    }
+    public function quickmailtest2()
+    {
+        $headers = "From: events@iitmindia.com\r\n";
+        $headers .= "Cc: nishwakarma3@gmail.com\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+
+        $sent = mail('marketing1@iitmindia.com', "test", "test", $headers);
+        if ($sent) {
+            return back()->with('status', 'Mail Sent');
+        } else {
+            return back()->with('status', 'Mail Failed');
+        }
+
+    }
+    public function quickmailtest($preview = false)
+    {
+        $data = [
+            'company_id' => $newCompanyId ?? '1',
+            'contact_id' => $newContactId ?? '1',
+            'databasename' => $databasenew ?? '1',
+            'eventname' => $eventname ?? 'IITM Kolkata 2026',
+            'print' => false,
+            'status' => 'success',
+            'message' => 'Your registration has been successfully completed',
+            'contactName' => $contactName ?? 'Nishant',
+            'email' => $email ?? 'marketing1@iitmindia.com',
+            'mobile' => $mobile ?? '7909075199',
+            'companyName' => $companyName ?? 'ABC Technologies',
+            'preview' => false,
+            'emailpage' => true,
+            'all_dates' => $all_dates ?? [],
+            'venue' => $venue ?? 'Abcd Parkway',
+
+
+            'sentData' => [
+                'contactName' => $contactName ?? 'Nishant',
+                'email' => $email ?? 'marketing1@iitmindia.com',
+                'mobile' => $mobile ?? '7909075199',
+                'company_name' => $companyName ?? 'ABC Technologies',
+
+
+            ],
+            'dbData' => $dbData ?? [],
+        ];
+
+
+        $uid = md5(uniqid(time()));
+
+        $to = "marketing1@iitmindia.com";
+        $subject = "Test HTML Mail";
+
+        $html = view('emails.registration_success', compact('data'))->render();
+
+        $header = "From: events@iitmindia.com\r\n";
+        $header .= "Cc: harish@iitmindia.com\r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-Type: multipart/alternative; boundary=\"$uid\"\r\n";
+
+        $body = "--$uid\r\n";
+        $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+        $body .= $html . "\r\n\r\n";
+        $body .= "--$uid--";
+
+        $staus = mail($to, $subject, $body, $header);
+        echo $staus;
+        // // dd($email, $data);
+
+
+    }
+    public function sendRegistrationMaitest($email, $data)
+    {
+        $subject = "Registration Successful";
+
+        $html2 = $data;
+
+        $to = $email;
+        $message = $html2;
+
+        $headers = "From: events@iitmindia.com\r\n";
+        $headers .= "Cc: harish@iitmindia.com\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+
+        $sent = mail($to, $subject, $message, $headers);
+
+        return back()->with([
+            'status' => $sent ? 'Mail Sent' : 'Mail Failed',
+            'email' => $to,
+            'subject' => $subject,
+            'message' => $message,
+            'headers' => $headers,
+            'sent' => $sent
+        ]);
+    }
+    public function sendRegistrationMail($email, $data)
+    {
+        // dd($email, $data);
+
+
+        if (!$data || $data == 'xyz') {
+
+            $data = [
+                'company_id' => $newCompanyId ?? '1',
+                'contact_id' => $newContactId ?? '1',
+                'databasename' => $databasenew ?? '1',
+                'eventname' => $eventname ?? 'IITM Kolkata 2026',
+                'print' => false,
+                'status' => 'success',
+                'message' => 'Your registration has been successfully completed',
+                'contactName' => $contactName ?? 'Nishant',
+                'email' => $email ?? 'marketing1@iitmindia.com',
+                'mobile' => $mobile ?? '7909075199',
+                'companyName' => $companyName ?? 'ABC Technologies',
+                'preview' => false,
+                'emailpage' => true,
+                'all_dates' => $all_dates ?? [],
+                'venue' => $venue ?? 'Abcd Parkway',
+
+
+                'sentData' => [
+                    'contactName' => $contactName ?? 'Nishant',
+                    'email' => $email ?? 'marketing1@iitmindia.com',
+                    'mobile' => $mobile ?? '7909075199',
+                    'company_name' => $companyName ?? 'ABC Technologies',
+
+
+                ],
+                'dbData' => $dbData ?? [],
+            ];
+
+
+        }
+        // echo "<pre>";
+        // echo "thsi is Mailer Function";
+        // echo "thsi is data";
+        // print_r($data);
+        // echo "</pre>";
+
+
+        $uid = md5(uniqid(time()));
+
+        $to = $email;
+        $subject = "Registration Successful";
+
+        $html = view('emails.registration_success', compact('data'))->render();
+
+        $header = "From: events@iitmindia.com\r\n";
+        // $header .= "Cc: harish@iitmindia.com\r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-Type: multipart/alternative; boundary=\"$uid\"\r\n";
+
+        $body = "--$uid\r\n";
+        $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+        $body .= $html . "\r\n\r\n";
+        $body .= "--$uid--";
+
+        $staus = mail($to, $subject, $body, $header);
+        // echo $staus;
+        $sendtstatus = $staus ? 'Mail Sent' : 'Mail Failed';
+        // echo $sendtstatus;
+        // exit;
+        return back()->with('status', $sendtstatus);
+    }
+
+
+    public function sendmail(Request $request)
+    {
+        // dd($request->all());
+
+
+        $uid = md5(uniqid(time()));
+
+        $to = "marketing1@iitmindia.com";
+        $subject = "Test HTML Mail";
+
+        $html = view('emails.registration_success', compact('data'))->render();
+
+        $header = "From: events@iitmindia.com\r\n";
+        // $header .= "Cc: harish@iitmindia.com\r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-Type: multipart/alternative; boundary=\"$uid\"\r\n";
+
+        $body = "--$uid\r\n";
+        $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+        $body .= $html . "\r\n\r\n";
+        $body .= "--$uid--";
+
+        $staus = mail($to, $subject, $body, $header);
+        echo $staus;
+
+
+    }
+
+
+}

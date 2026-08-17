@@ -1,0 +1,1 @@
+@include('web.registration.success')

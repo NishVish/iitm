@@ -1,0 +1,1 @@
+{"version":2,"defects":{"Tests\\Browser\\GoogleSearchTest::test_google_search":8,"Tests\\Browser\\GoogleSearchTest::test_google_search_company":8},"times":{"Tests\\Browser\\ExampleTest::test_basic_example":0.649,"Tests\\Browser\\GoogleSearchTest::test_google_search":8.37,"Tests\\Browser\\GoogleSearchTest::test_google_search_company":21.932}}

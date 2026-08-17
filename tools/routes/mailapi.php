@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+
+
+
+
+
+use App\Http\Controllers\Mail\MailApi;
+
+Route::get('/mail/api', [MailApi::class, 'list']);
+Route::get('/mail/test', [MailApi::class, 'test']);
+Route::post('/mail/registration', [MailApi::class, 'sendRegistrationMail']);	
+Route::get('/mail/test/{type}', [MailApi::class, 'sendMail']);
+Route::get('/massmail/test', [MailApi::class, 'massmailtest']);
+Route::post('/massmail', [MailApi::class, 'massmail']);
+Route::get('/mail-debug', function () {
+    return [
+        'default' => config('mail.default'),
+        'mailer' => env('MAIL_MAILER'),
+        'host' => config('mail.mailers.smtp.host'),
+        'port' => config('mail.mailers.smtp.port'),
+        'username' => config('mail.mailers.smtp.username'),
+    ];
+});
