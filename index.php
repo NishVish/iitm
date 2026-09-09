@@ -31,6 +31,7 @@ if (!empty($_SESSION['auth']) && $_SESSION['auth'] === true) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -73,10 +74,15 @@ if (!empty($_SESSION['auth']) && $_SESSION['auth'] === true) {
             transition: color 0.3s ease;
             color: var(--card-bg);
         }
-        
-        .error-code:hover { color: var(--accent); }
 
-        .error-msg { color: var(--text-dim); margin-bottom: 2rem; }
+        .error-code:hover {
+            color: var(--accent);
+        }
+
+        .error-msg {
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
 
         /* Login Box */
         #loginBox {
@@ -109,7 +115,9 @@ if (!empty($_SESSION['auth']) && $_SESSION['auth'] === true) {
             transition: opacity 0.2s;
         }
 
-        button:hover { opacity: 0.9; }
+        button:hover {
+            opacity: 0.9;
+        }
 
         /* Directory UI */
         .directory-card {
@@ -141,7 +149,9 @@ if (!empty($_SESSION['auth']) && $_SESSION['auth'] === true) {
             align-items: center;
         }
 
-        .dir-item:last-child { border-bottom: none; }
+        .dir-item:last-child {
+            border-bottom: none;
+        }
 
         .dir-item a {
             color: var(--accent);
@@ -149,9 +159,14 @@ if (!empty($_SESSION['auth']) && $_SESSION['auth'] === true) {
             flex-grow: 1;
         }
 
-        .dir-item a:hover { text-decoration: underline; }
+        .dir-item a:hover {
+            text-decoration: underline;
+        }
 
-        .dir-item strong { color: var(--text-dim); font-weight: 500; }
+        .dir-item strong {
+            color: var(--text-dim);
+            font-weight: 500;
+        }
 
         .logout-btn {
             color: var(--danger);
@@ -160,8 +175,15 @@ if (!empty($_SESSION['auth']) && $_SESSION['auth'] === true) {
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
     <script>
@@ -173,48 +195,51 @@ if (!empty($_SESSION['auth']) && $_SESSION['auth'] === true) {
         }
     </script>
 </head>
+
 <body>
 
-<div class="container">
-    <?php if(!$showContent): ?>
-        <h1 class="error-code" onclick="toggleLogin()">404</h1>
-        <div id="statusMsg">
-            <p class="error-msg">The requested URL was not found on this server.</p>
-        </div>
-
-        <div id="loginBox">
-            <form method="post">
-                <input type="password" name="password" placeholder="System Key" required autofocus>
-                <button type="submit">Verify</button>
-            </form>
-        </div>
-
-    <?php else: ?>
-        <div class="directory-card">
-            <div class="dir-header">
-                <h2 style="margin:0; font-size: 1.25rem;">IITM Directory</h2>
-                <a href="?logout=1" class="logout-btn">Disconnect</a>
+    <div class="container">
+            <?php if (!$showContent): ?>
+            <h1 class="error-code" onclick="toggleLogin()">404</h1>
+            <div id="statusMsg">
+                <p class="error-msg">The requested URL was not found on this server.</p>
             </div>
-            
-            <ul class="dir-list">
-                <?php
-                $files = scandir(__DIR__);
-                foreach($files as $file){
-                    if ($file === "." || $file === ".." || $file === basename(__FILE__)) continue;
 
-                    echo '<li class="dir-item">';
-                    if (is_dir($file)) {
-                        echo "<strong>📁 " . htmlspecialchars($file) . "/</strong>";
-                    } else {
-                        echo "📄 <a href='" . htmlspecialchars($file) . "'>" . htmlspecialchars($file) . "</a>";
-                    }
-                    echo '</li>';
-                }
-                ?>
-            </ul>
-        </div>
-    <?php endif; ?>
-</div>
+            <div id="loginBox">
+                <form method="post">
+                    <input type="password" name="password" placeholder="System Key" required autofocus>
+                    <button type="submit">Verify</button>
+                </form>
+            </div>
+
+            <?php else: ?>
+            <div class="directory-card">
+                <div class="dir-header">
+                    <h2 style="margin:0; font-size: 1.25rem;">IITM Directory</h2>
+                    <a href="?logout=1" class="logout-btn">Disconnect</a>
+                </div>
+
+                <ul class="dir-list">
+                        <?php
+                        $files = scandir(__DIR__);
+                        foreach ($files as $file) {
+                            if ($file === "." || $file === ".." || $file === basename(__FILE__))
+                                continue;
+
+                            echo '<li class="dir-item">';
+                            if (is_dir($file)) {
+                                echo "<strong>📁 " . htmlspecialchars($file) . "/</strong>";
+                            } else {
+                                echo "📄 <a href='" . htmlspecialchars($file) . "'>" . htmlspecialchars($file) . "</a>";
+                            }
+                            echo '</li>';
+                        }
+                        ?>
+                </ul>
+            </div>
+            <?php endif; ?>
+    </div>
 
 </body>
+
 </html>
