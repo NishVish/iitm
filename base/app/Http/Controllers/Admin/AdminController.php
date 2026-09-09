@@ -10,6 +10,7 @@ use App\Models\BookingDetail;
 use App\Models\EventDetail;
 use App\Models\CompanyDetail;
 use App\Models\Branding;
+use App\Http\Controllers\CRUD\GetData\GetDataController;
 
 class AdminController extends Controller
 {
@@ -27,8 +28,9 @@ class AdminController extends Controller
 
     public function login()
     {
-        return view('admin.index');
+        return view('admin.login');
     }
+
 
     public function verify(Request $request)
     {
@@ -37,10 +39,11 @@ class AdminController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        if ($username === 'admin' && $password === 'admin') {
-            session(['type' => "admin"]);
+        session(['type' => "admin"]);
+        return redirect()->route('admin.dashboard');
 
-            return redirect()->route('admin.index');
+        if ($username === 'admin' && $password === 'admin') {
+
         }
 
         return redirect()
@@ -48,48 +51,33 @@ class AdminController extends Controller
             ->with('error', 'Invalid username or password.');
     }
 
-    public function index()
+    public function dashboard()
     {
-        if (session('type') !== "admin") {
-            return redirect('admin/login');
-        }
-        $cities = DB::select("
-        SELECT
-            ed.city,
 
-            COUNT(bd.booking_id) AS total_bookings,
 
-            SUM(
-                CASE
-                    WHEN bd.certificate IS NULL OR bd.certificate = ''
-                    THEN 1
-                    ELSE 0
-                END
-            ) AS pending,
 
-            SUM(
-                CASE
-                    WHEN bd.certificate IS NOT NULL
-                         AND bd.certificate <> ''
-                    THEN 1
-                    ELSE 0
-                END
-            ) AS completed
-
-        FROM event_details ed
-
-        LEFT JOIN booking_details bd
-            ON bd.event_id = ed.event_id
-
-        GROUP BY ed.city
-
-        ORDER BY ed.city
-    ");
-
-        return view('admin.dashboard.index', compact('cities'));
+        return view('admin.dashboard.index');
     }
 
 
+    public function paymentRequest()
+    {
+        $data = new GetDataController();
+
+        $payment = $data->paymentRequest();
+
+        return view('admin.payment.index', compact('payment'));
+    }
+
+
+
+    public function paymentLogs()
+    {
+
+
+
+        return view('admin.dashboard.index');
+    }
     public function listbycity($city)
     {
         $bookings = DB::select("

@@ -1,6 +1,7 @@
 <div class="top-header">
 
-    <img class="logo" src="https://iitmindia.com/wp-content/uploads/2024/03/image-1.png">
+    <img class="logo"
+        src="https://iitmindia.com/wp-content/uploads/elementor/thumbs/IITM-new-logo-2026-scaled-rreo6ngtix52iulqek96x9dehvo5df6r0r4ufg74n4.png">
 
 </div>
 
@@ -14,7 +15,7 @@
 
     .top-header {
 
-        height: 60px;
+        height: auto;
 
         width: 100%;
 
@@ -35,7 +36,7 @@
 
     .logo {
 
-        height: 45px;
+        height: 120px;
 
         width: auto;
 

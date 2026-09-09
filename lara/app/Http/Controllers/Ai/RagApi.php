@@ -35,7 +35,20 @@ class RagApi extends Controller
 
     public function ask(Request $request)
     {
-        return $this->query->ask($request);
+        $result = $this->query->ask($request);
+
+        if (is_array($result)) {
+            $json = json_encode($result);
+
+            if ($json === false) {
+                dd([
+                    'error' => json_last_error_msg(),
+                    'result' => $result,
+                ]);
+            }
+        }
+
+        return $result;
     }
     public function askdirect($question)
     {

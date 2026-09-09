@@ -57,6 +57,128 @@ class Tools extends Controller
 
 
 
+    public function parseWithOllama(Request $request)
+    {
+        $text = trim($request->input('text', ''));
+
+        if (!$text) {
+            return response()->json([
+                'success' => false,
+                'message' => 'OCR text is empty'
+            ], 422);
+        }
+
+        $prompt = <<<PROMPT
+You are an expert business card information extraction system.
+
+Extract information from the OCR text below.
+
+Return ONLY valid JSON using exactly this structure:
+
+{
+    "company_name": "",
+    "person_name": "",
+    "designation": "",
+    "mobile": "",
+    "email": "",
+    "website": "",
+    "address": ""
+}
+
+RULES:
+
+- Never invent information.
+- If a field cannot be identified, return an empty string.
+- Correct obvious OCR mistakes when the intended value is clear.
+- Extract all phone numbers. Separate multiple numbers with ", ".
+- Extract all email addresses. Separate multiple emails with ", ".
+- Extract the website if present.
+- Do not put company names in person_name.
+- Do not put designations in person_name.
+- Do not put phone numbers, emails or websites in person_name.
+- Do not put a person's name in company_name.
+- Keep the complete postal/business address together in address.
+- Preserve company names accurately.
+- Preserve person's name accurately.
+- Preserve designation accurately.
+- Return JSON only.
+- Do not use markdown.
+- Do not add explanations.
+
+OCR TEXT:
+$text
+PROMPT;
+
+        try {
+            $response = Http::timeout(120)
+                ->post('http://127.0.0.1:11434/api/generate', [
+                    'model' => 'qwen2.5:7b',
+                    'prompt' => $prompt,
+                    'stream' => false,
+                    'format' => 'json',
+                    'options' => [
+                        'temperature' => 0,
+                        'num_ctx' => 8192,
+                    ],
+                ]);
+
+            if (!$response->successful()) {
+                Log::error('Ollama HTTP Error', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                ]);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ollama returned HTTP error'
+                ], 500);
+            }
+
+            $ollama = $response->json();
+
+            $rawResponse = trim($ollama['response'] ?? '');
+
+            $data = json_decode($rawResponse, true);
+
+            if (!is_array($data)) {
+                Log::error('Invalid Ollama JSON', [
+                    'response' => $rawResponse,
+                ]);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ollama returned invalid JSON'
+                ], 500);
+            }
+
+            $data = [
+                'company_name' => trim((string) ($data['company_name'] ?? '')),
+                'person_name' => trim((string) ($data['person_name'] ?? '')),
+                'designation' => trim((string) ($data['designation'] ?? '')),
+                'mobile' => trim((string) ($data['mobile'] ?? '')),
+                'email' => trim((string) ($data['email'] ?? '')),
+                'website' => trim((string) ($data['website'] ?? '')),
+                'address' => trim((string) ($data['address'] ?? '')),
+            ];
+
+            return response()->json([
+                'success' => true,
+                'data' => $data,
+            ]);
+
+        } catch (\Throwable $e) {
+
+            Log::error('Ollama Connection Error', [
+                'message' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot connect to Ollama: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function lookup(Request $request)
     {
         try {

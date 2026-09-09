@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\WebController;
 
-// require __DIR__ . '/ai.php';
+require __DIR__ . '/ai.php';
 // require __DIR__ . '/ai.php';
 
 require __DIR__ . '/admin.php';

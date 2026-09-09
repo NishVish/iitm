@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Http\Request;
 
 // if (session('type') == null) {
 //     Route::get('/admin', function () {
@@ -112,9 +113,26 @@ Route::get('/backend', function () {
 
     echo '</div>';
 });
-require __DIR__ . '/authentication.php';
-require __DIR__ . '/dashboard/dashboard.php';
-require __DIR__ . '/company/company.php';
-
 
 require __DIR__ . '/booking/booking.php';
+
+require __DIR__ . '/authentication.php';
+require __DIR__ . '/admin/admin.php';
+require __DIR__ . '/dashboard/dashboard.php';
+require __DIR__ . '/exhibitor/exhibitor.php';
+require __DIR__ . '/company/company.php';
+require __DIR__ . '/ai/ai.php';
+
+require __DIR__ . '/sales/sales.php';
+
+require __DIR__ . '/update/update.php';
+
+require __DIR__ . '/getdata/getdata.php';
+
+require __DIR__ . '/backend/backend.php';
+require __DIR__ . '/razorpay.php';
+Route::post('postcheck', function (Request $request) {
+
+    dd($request->all());
+
+})->name('postcheck');

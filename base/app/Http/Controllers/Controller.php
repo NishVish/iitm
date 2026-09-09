@@ -8,7 +8,7 @@ abstract class Controller
 {
     public function __construct()
     {
-        echo "HeloHeloo";
+        // echo "HeloHeloo";
     }
 
     public function databasequery($query, $bindings = [])

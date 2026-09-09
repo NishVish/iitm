@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\CRUD\UpdateData\UpdateDataController;
 use Illuminate\Support\Facades\Route;
 
 
+
+Route::get('admin', [AdminController::class, 'login'])
+    ->name('admin.login');
 
 
 Route::get('/admin/login', [AdminController::class, 'login'])
@@ -12,11 +16,30 @@ Route::get('/admin/login', [AdminController::class, 'login'])
 Route::post('/admin/verify', [AdminController::class, 'verify'])
     ->name('admin.verify');
 
-Route::get('/admin', [AdminController::class, 'index'])
-    ->name('admin.index');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
+    ->name('admin.dashboard');
 
 Route::get('/admin/logout', [AdminController::class, 'logout'])
     ->name('admin.logout');
+
+
+Route::get('/admin/payment/request', [AdminController::class, 'paymentRequest'])
+    ->name('admin.payment.request');
+
+
+Route::get('/admin/payment-request', [AdminController::class, 'paymentRequest'])
+    ->name('admin.paymentRequest');
+
+
+
+Route::post('/admin/paymentstatusupdate', [UpdateDataController::class, 'paymentStatusUpdate'])
+    ->name('admin.paymentRequest');
+
+
+
+Route::get('/admin/payment/logs', [AdminController::class, 'paymentLogs'])
+    ->name('admin.payment.logs');
+
 
 Route::get('/admin/tables', [AdminController::class, 'index'])
     ->name('admin.tables');

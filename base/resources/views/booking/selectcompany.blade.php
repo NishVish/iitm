@@ -20,7 +20,6 @@
             <div class="alert alert-warning">
                 No companies found.
             </div>
-
         @else
 
             <div class="list-group">
@@ -104,10 +103,10 @@
 
                             </div>
 
-                            <button type="button" class="btn btn-sm btn-primary select-company"
-                                data-company-id="{{ $company->company_id }}" data-company-name="{{ $company->company_name }}">
+                            <a href="{{ route('companydetails', ['companyid' => $company->company_id]) }}"
+                                class="btn btn-sm btn-primary">
                                 Select
-                            </button>
+                            </a>
 
                         </div>
 

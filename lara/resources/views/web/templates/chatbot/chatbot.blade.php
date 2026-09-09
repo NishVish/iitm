@@ -268,6 +268,8 @@
                         "Content-Type": "application/json",
 
                         "Accept": "application/json",
+Bot: json_encode error: Malformed UTF-8 characters, possibly incorrectly encoded
+
 
                         "X-CSRF-TOKEN":
                             "{{ csrf_token() }}"

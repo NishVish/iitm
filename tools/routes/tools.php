@@ -13,6 +13,11 @@ use App\Http\Controllers\Tools\Tools;
 Route::get('/', [Tools::class, 'index']);
 Route::get('tools', [Tools::class, 'index']);
 
+Route::post('/ocr/parse-ollama', [Tools::class, 'parseWithOllama'])
+    ->name('ocr.parse-ollama');
+
+
+
 Route::get('scanner/{name}', [Tools::class, 'ocr']);
 
 Route::get('lookup', [Tools::class, 'ocr']);

@@ -29,9 +29,9 @@ class Dashboard extends Controller
             ->where('entry_type', 'lead')
             ->get();
 
-        $bookings = DB::table('stall_booking')->get();
+        // $bookings = DB::table('stall_booking')->get();
 
-        echo $bookings;
+        // echo $bookings;
 
         // if ($leads->isNotEmpty()) {
 

@@ -15,11 +15,22 @@ use Illuminate\Support\Facades\DB;
 class Authentication extends Controller
 {
 
-    public function login()
+    public function exhibitorlogin()
     {
         return view('auth.login');
     }
+    public function saleslogin()
+    {
+        return view('auth.login');
+    }
+    public function verifyExhibitor(Request $request)
+    {
+        // session()->put('usertype', 'exhibitor');
+        // session()->put('booking_id', $request->booking_id);
 
+        // CF45604BC
+        return redirect(url('/exhibitor/dashboard/BKEFLHFVVLVQ'));
+    }
     public function verifyUser(Request $request)
     {
         session()->put('usertype', 'admin');
